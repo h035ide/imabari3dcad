@@ -30,6 +30,9 @@ dependencies = [
     "httpx>=0.28.1",
     "pydantic>=2.11.7",
     "langchain-community>=0.3.27",
+    "neo4j>=5.28.1",
+    "langchain-openai>=0.3.28",
+    "llama-index-graph-stores-neo4j>=0.4.6",
 ]
 
 [project.optional-dependencies]

@@ -22,6 +22,9 @@ Requires-Dist: aiohttp>=3.12.14
 Requires-Dist: httpx>=0.28.1
 Requires-Dist: pydantic>=2.11.7
 Requires-Dist: langchain-community>=0.3.27
+Requires-Dist: neo4j>=5.28.1
+Requires-Dist: langchain-openai>=0.3.28
+Requires-Dist: llama-index-graph-stores-neo4j>=0.4.6
 Provides-Extra: dev
 Requires-Dist: pytest; extra == "dev"
 Requires-Dist: black; extra == "dev"
