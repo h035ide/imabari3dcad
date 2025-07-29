@@ -1,0 +1,6 @@
+pyproject.toml
+imabari3dcad.egg-info/PKG-INFO
+imabari3dcad.egg-info/SOURCES.txt
+imabari3dcad.egg-info/dependency_links.txt
+imabari3dcad.egg-info/requires.txt
+imabari3dcad.egg-info/top_level.txt
