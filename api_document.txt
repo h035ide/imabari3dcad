@@ -1,0 +1,39 @@
+/**
+ * 変数要素を作成します。
+ * @function CreateVariable
+ * @param {文字列} VariableName - 作成する変数名称です。[空文字不可]
+ * @param {浮動小数点} VariableValue - 変数の値。
+ * @param {変数単位} VariableUnit - 作成する変数の単位を指定します。
+ * @param {要素グループ} VariableElementGroup - 変数要素を入れるグループです。[空文字可]
+ * @returns {要素ID} 作成された変数要素のID。
+ */
+
+/**
+ * スケッチ平面を作成します。
+ * @function CreateSketchPlane
+ * @param {文字列} ElementName - 作成するスケッチ平面の名称です。[空文字可]
+ * @param {要素グループ} ElementGroup - 所属する要素グループです。[空文字可]
+ * @param {平面} PlaneDef - スケッチ平面を作成する平面を指定します。
+ * @param {長さ} PlaneOffset - 平面からのオフセット距離を指定します。
+ * @param {bool} bRevPlane - スケッチ平面を反転するかのフラグです。
+ * @param {bool} bRevUV - スケッチ平面のX,Y軸を交換するかのフラグです。
+ * @param {注記スタイル} StyleName - 適用する注記スタイル名称です。[空文字可]
+ * @param {点} OriginPoint - スケッチ平面の原点を指定します。[空文字可]
+ * @param {方向} AxisDirection - スケッチ平面の軸方向を指定します。[空文字可]
+ * @param {bool} bDefAxisIsX - スケッチ平面のX軸を指定する場合はTrueです。
+ * @param {bool} bUpdate - 更新フラグ（未実装）です。
+ * @returns {要素ID} 作成されたスケッチ平面要素のID。
+ */
+
+/**
+ * 押し出しパラメータを定義するオブジェクトです。
+ * このオブジェクトは CreateLinearSweepSheet 関数などで使用します。
+ * @class CreateLinearSweepParam
+ * @property {文字列} NAME - 要素名です。[空文字可]
+ * @property {要素グループ} ElementGroup - 所属する要素グループです。[空文字可]
+ * @property {要素(配列)} Target1 - スイープするターゲット要素１です。
+ * @property {長さ} DirectionParameter1 - スイープする距離１です。
+ * @property {スイープ方向} DirectionType - スイープの方向タイプです。
+ * @property {厚み付けタイプ} ThickenType - 厚み付けのタイプです。
+ * @property {長さ} Thickeness1 - 板厚です。
+ */

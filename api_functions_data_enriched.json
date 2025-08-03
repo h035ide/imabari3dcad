@@ -1,0 +1,143 @@
+[
+  {
+    "name": "CreateVariable",
+    "type": "function",
+    "params": [
+      {
+        "name": "VariableName",
+        "type_name": "文字列",
+        "description_raw": "作成する変数名称です。[空文字不可]",
+        "summary_llm": "変数名称を作成するための引数。",
+        "constraints_llm": [
+          "non-empty"
+        ]
+      },
+      {
+        "name": "VariableValue",
+        "type_name": "浮動小数点",
+        "description_raw": "変数の値。",
+        "summary_llm": "変数の値に関する説明。",
+        "constraints_llm": []
+      },
+      {
+        "name": "VariableUnit",
+        "type_name": "変数単位",
+        "description_raw": "作成する変数の単位を指定します。",
+        "summary_llm": "変数の単位を指定する。",
+        "constraints_llm": []
+      },
+      {
+        "name": "VariableElementGroup",
+        "type_name": "要素グループ",
+        "description_raw": "変数要素を入れるグループです。[空文字可]",
+        "summary_llm": "変数要素を入れるグループ。",
+        "constraints_llm": [
+          "optional"
+        ]
+      }
+    ],
+    "returns": {
+      "type_name": "要素ID",
+      "description": "作成された変数要素のID。"
+    },
+    "description": "変数要素を作成します。"
+  },
+  {
+    "name": "CreateSketchPlane",
+    "type": "function",
+    "params": [
+      {
+        "name": "ElementName",
+        "type_name": "文字列",
+        "description_raw": "作成するスケッチ平面の名称です。[空文字可]",
+        "summary_llm": "スケッチ平面の名称",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "ElementGroup",
+        "type_name": "要素グループ",
+        "description_raw": "所属する要素グループです。[空文字可]",
+        "summary_llm": "所属要素グループを示す。",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "PlaneDef",
+        "type_name": "平面",
+        "description_raw": "スケッチ平面を作成する平面を指定します。",
+        "summary_llm": "スケッチ平面を指定する。",
+        "constraints_llm": []
+      },
+      {
+        "name": "PlaneOffset",
+        "type_name": "長さ",
+        "description_raw": "平面からのオフセット距離を指定します。",
+        "summary_llm": "平面からのオフセット距離を指定",
+        "constraints_llm": []
+      },
+      {
+        "name": "bRevPlane",
+        "type_name": "bool",
+        "description_raw": "スケッチ平面を反転するかのフラグです。",
+        "summary_llm": "スケッチ平面の反転フラグ",
+        "constraints_llm": []
+      },
+      {
+        "name": "bRevUV",
+        "type_name": "bool",
+        "description_raw": "スケッチ平面のX,Y軸を交換するかのフラグです。",
+        "summary_llm": "スケッチ平面の軸交換フラグ",
+        "constraints_llm": []
+      },
+      {
+        "name": "StyleName",
+        "type_name": "注記スタイル",
+        "description_raw": "適用する注記スタイル名称です。[空文字可]",
+        "summary_llm": "注記スタイル名称を指定します。",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "OriginPoint",
+        "type_name": "点",
+        "description_raw": "スケッチ平面の原点を指定します。[空文字可]",
+        "summary_llm": "スケッチ平面の原点を指定",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "AxisDirection",
+        "type_name": "方向",
+        "description_raw": "スケッチ平面の軸方向を指定します。[空文字可]",
+        "summary_llm": "スケッチ平面の軸方向を指定",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "bDefAxisIsX",
+        "type_name": "bool",
+        "description_raw": "スケッチ平面のX軸を指定する場合はTrueです。",
+        "summary_llm": "X軸指定はTrueで行う。",
+        "constraints_llm": []
+      },
+      {
+        "name": "bUpdate",
+        "type_name": "bool",
+        "description_raw": "更新フラグ（未実装）です。",
+        "summary_llm": "未実装の更新フラグです。",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "要素ID",
+      "description": "作成されたスケッチ平面要素のID。"
+    },
+    "description": "スケッチ平面を作成します。"
+  }
+]
