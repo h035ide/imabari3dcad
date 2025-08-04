@@ -6,8 +6,8 @@
       {
         "name": "VariableName",
         "type_name": "文字列",
-        "description_raw": "作成する変数名称です。[空文字不可]",
-        "summary_llm": "変数名称を作成するための引数。",
+        "description_raw": "作成する変数名称（空文字不可）",
+        "summary_llm": "変数名称の指定に関する説明",
         "constraints_llm": [
           "non-empty"
         ]
@@ -15,22 +15,22 @@
       {
         "name": "VariableValue",
         "type_name": "浮動小数点",
-        "description_raw": "変数の値。",
+        "description_raw": "変数の値",
         "summary_llm": "変数の値に関する説明。",
         "constraints_llm": []
       },
       {
         "name": "VariableUnit",
         "type_name": "変数単位",
-        "description_raw": "作成する変数の単位を指定します。",
+        "description_raw": "作成する変数の単位を指定",
         "summary_llm": "変数の単位を指定する。",
         "constraints_llm": []
       },
       {
         "name": "VariableElementGroup",
         "type_name": "要素グループ",
-        "description_raw": "変数要素を入れるグループです。[空文字可]",
-        "summary_llm": "変数要素を入れるグループ。",
+        "description_raw": "作成する変数要素を要素グループに入れる場合は要素グループを指定（空文字可）",
+        "summary_llm": "要素グループを指定する場合の説明。",
         "constraints_llm": [
           "optional"
         ]
@@ -38,7 +38,7 @@
     ],
     "returns": {
       "type_name": "要素ID",
-      "description": "作成された変数要素のID。"
+      "description": "作成された変数要素の要素ID"
     },
     "description": "変数要素を作成します。"
   },
@@ -49,8 +49,8 @@
       {
         "name": "ElementName",
         "type_name": "文字列",
-        "description_raw": "作成するスケッチ平面の名称です。[空文字可]",
-        "summary_llm": "スケッチ平面の名称",
+        "description_raw": "作成するスケッチ平面名称（空文字可）",
+        "summary_llm": "スケッチ平面名称の指定",
         "constraints_llm": [
           "optional"
         ]
@@ -58,8 +58,8 @@
       {
         "name": "ElementGroup",
         "type_name": "要素グループ",
-        "description_raw": "所属する要素グループです。[空文字可]",
-        "summary_llm": "所属要素グループを示す。",
+        "description_raw": "作成するスケッチ平面を要素グループに入れる場合は要素グループを指定（空文字可）",
+        "summary_llm": "スケッチ平面を要素グループに入れる指定。",
         "constraints_llm": [
           "optional"
         ]
@@ -67,36 +67,36 @@
       {
         "name": "PlaneDef",
         "type_name": "平面",
-        "description_raw": "スケッチ平面を作成する平面を指定します。",
-        "summary_llm": "スケッチ平面を指定する。",
+        "description_raw": "スケッチ平面を作成する平面を指定する",
+        "summary_llm": "スケッチ平面を指定する",
         "constraints_llm": []
       },
       {
         "name": "PlaneOffset",
         "type_name": "長さ",
-        "description_raw": "平面からのオフセット距離を指定します。",
-        "summary_llm": "平面からのオフセット距離を指定",
+        "description_raw": "平面からのオフセット距離を指定",
+        "summary_llm": "平面からのオフセット距離指定",
         "constraints_llm": []
       },
       {
         "name": "bRevPlane",
         "type_name": "bool",
-        "description_raw": "スケッチ平面を反転するかのフラグです。",
+        "description_raw": "スケッチ平面を反転するかどうかのフラグ",
         "summary_llm": "スケッチ平面の反転フラグ",
         "constraints_llm": []
       },
       {
         "name": "bRevUV",
         "type_name": "bool",
-        "description_raw": "スケッチ平面のX,Y軸を交換するかのフラグです。",
+        "description_raw": "スケッチ平面のX,Y軸を交換するかどうかのフラグ",
         "summary_llm": "スケッチ平面の軸交換フラグ",
         "constraints_llm": []
       },
       {
         "name": "StyleName",
         "type_name": "注記スタイル",
-        "description_raw": "適用する注記スタイル名称です。[空文字可]",
-        "summary_llm": "注記スタイル名称を指定します。",
+        "description_raw": "スケッチ平面に適用する注記スタイル名称（空文字可）",
+        "summary_llm": "スケッチ平面の注記スタイル名称",
         "constraints_llm": [
           "optional"
         ]
@@ -104,7 +104,7 @@
       {
         "name": "OriginPoint",
         "type_name": "点",
-        "description_raw": "スケッチ平面の原点を指定します。[空文字可]",
+        "description_raw": "スケッチ平面の原点を指定（空文字可）",
         "summary_llm": "スケッチ平面の原点を指定",
         "constraints_llm": [
           "optional"
@@ -113,8 +113,8 @@
       {
         "name": "AxisDirection",
         "type_name": "方向",
-        "description_raw": "スケッチ平面の軸方向を指定します。[空文字可]",
-        "summary_llm": "スケッチ平面の軸方向を指定",
+        "description_raw": "スケッチ平面の軸方向を指定（空文字可）",
+        "summary_llm": "スケッチ平面の軸方向指定",
         "constraints_llm": [
           "optional"
         ]
@@ -122,22 +122,1331 @@
       {
         "name": "bDefAxisIsX",
         "type_name": "bool",
-        "description_raw": "スケッチ平面のX軸を指定する場合はTrueです。",
-        "summary_llm": "X軸指定はTrueで行う。",
+        "description_raw": "スケッチ平面のX軸を指定する場合はTrue",
+        "summary_llm": "X軸指定はTrue",
         "constraints_llm": []
       },
       {
         "name": "bUpdate",
         "type_name": "bool",
-        "description_raw": "更新フラグ（未実装）です。",
-        "summary_llm": "未実装の更新フラグです。",
+        "description_raw": "更新フラグ（未実装、使用しない）",
+        "summary_llm": "更新フラグの説明",
         "constraints_llm": []
       }
     ],
     "returns": {
       "type_name": "要素ID",
-      "description": "作成されたスケッチ平面要素のID。"
+      "description": "作成されたスケッチ平面要素の要素ID"
     },
     "description": "スケッチ平面を作成します。"
+  },
+  {
+    "name": "CreateSketchLayer",
+    "type": "function",
+    "params": [
+      {
+        "name": "SketchLayerName",
+        "type_name": "文字列",
+        "description_raw": "作成するスケッチレイヤー名称（空文字可）",
+        "summary_llm": "スケッチレイヤー名称の指定",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "SketchPlane",
+        "type_name": "要素",
+        "description_raw": "レイヤーを作成するスケッチ要素",
+        "summary_llm": "レイヤー作成のスケッチ要素",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "要素ID",
+      "description": "作成されたスケッチレイヤー要素の要素ID"
+    },
+    "description": "スケッチレイヤーを作成します。"
+  },
+  {
+    "name": "CreateSketchLine",
+    "type": "function",
+    "params": [
+      {
+        "name": "SketchPlane",
+        "type_name": "要素",
+        "description_raw": "直線を作成するスケッチ要素",
+        "summary_llm": "直線を作成する要素",
+        "constraints_llm": []
+      },
+      {
+        "name": "SketchLineName",
+        "type_name": "文字列",
+        "description_raw": "作成するスケッチ直線名称（空文字可）",
+        "summary_llm": "スケッチ直線名称の指定",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "SketchLayer",
+        "type_name": "要素",
+        "description_raw": "直線を作成するスケッチレイヤー（空文字可）",
+        "summary_llm": "直線を作成するスケッチレイヤー",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "StartPoint",
+        "type_name": "点(2D)",
+        "description_raw": "始点",
+        "summary_llm": "始点を示す引数。",
+        "constraints_llm": []
+      },
+      {
+        "name": "EndPoint",
+        "type_name": "点(2D)",
+        "description_raw": "終点",
+        "summary_llm": "APIの終点に関する情報。",
+        "constraints_llm": []
+      },
+      {
+        "name": "bUpdate",
+        "type_name": "bool",
+        "description_raw": "更新フラグ（未実装、使用しない）",
+        "summary_llm": "更新フラグの説明",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "要素ID",
+      "description": "作成されたスケッチ直線要素の要素ID"
+    },
+    "description": "スケッチ直線を作成します。"
+  },
+  {
+    "name": "CreateSketchArc",
+    "type": "function",
+    "params": [
+      {
+        "name": "SketchPlane",
+        "type_name": "要素",
+        "description_raw": "円弧を作成するスケッチ要素",
+        "summary_llm": "円弧を作成する要素",
+        "constraints_llm": []
+      },
+      {
+        "name": "SketchArcName",
+        "type_name": "文字列",
+        "description_raw": "作成するスケッチ円弧名称（空文字可）",
+        "summary_llm": "スケッチ円弧名称の指定",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "SketchLayer",
+        "type_name": "要素",
+        "description_raw": "円弧を作成するスケッチレイヤー（空文字可）",
+        "summary_llm": "円弧を作成するスケッチレイヤー",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "CenterPoint",
+        "type_name": "点(2D)",
+        "description_raw": "中心点",
+        "summary_llm": "中心点に関する情報。",
+        "constraints_llm": []
+      },
+      {
+        "name": "StartPoint",
+        "type_name": "点(2D)",
+        "description_raw": "始点",
+        "summary_llm": "始点を示す引数。",
+        "constraints_llm": []
+      },
+      {
+        "name": "EndPoint",
+        "type_name": "点(2D)",
+        "description_raw": "終点",
+        "summary_llm": "APIの終点に関する情報。",
+        "constraints_llm": []
+      },
+      {
+        "name": "bCCW",
+        "type_name": "bool",
+        "description_raw": "円弧の回転方向Trueの場合は反時計周り",
+        "summary_llm": "円弧の回転方向を示す。",
+        "constraints_llm": []
+      },
+      {
+        "name": "bUpdate",
+        "type_name": "bool",
+        "description_raw": "更新フラグ（未実装、使用しない）",
+        "summary_llm": "更新フラグの説明",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "要素ID",
+      "description": "作成されたスケッチ円弧要素の要素ID"
+    },
+    "description": "スケッチ円弧を中心点と始終点を指定して作成します。"
+  },
+  {
+    "name": "CreateSketchArc3Pts",
+    "type": "function",
+    "params": [
+      {
+        "name": "SketchPlane",
+        "type_name": "要素",
+        "description_raw": "円弧を作成するスケッチ要素",
+        "summary_llm": "円弧を作成する要素",
+        "constraints_llm": []
+      },
+      {
+        "name": "SketchArcName",
+        "type_name": "文字列",
+        "description_raw": "作成するスケッチ円弧名称（空文字可）",
+        "summary_llm": "スケッチ円弧の名称",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "SketchLayer",
+        "type_name": "要素",
+        "description_raw": "円弧を作成するスケッチレイヤー（空文字可）",
+        "summary_llm": "円弧を作成するスケッチレイヤー",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "StartPoint",
+        "type_name": "点(2D)",
+        "description_raw": "始点",
+        "summary_llm": "始点を示す引数。",
+        "constraints_llm": []
+      },
+      {
+        "name": "MidPoint",
+        "type_name": "点(2D)",
+        "description_raw": "通過点",
+        "summary_llm": "通過点に関する情報。",
+        "constraints_llm": []
+      },
+      {
+        "name": "EndPoint",
+        "type_name": "点(2D)",
+        "description_raw": "終点",
+        "summary_llm": "APIの終点に関する情報。",
+        "constraints_llm": []
+      },
+      {
+        "name": "bUpdate",
+        "type_name": "bool",
+        "description_raw": "更新フラグ（未実装、使用しない）",
+        "summary_llm": "更新フラグの説明",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "要素ID",
+      "description": "作成されたスケッチ円弧要素の要素ID"
+    },
+    "description": "スケッチ円弧を周上の３点を指定して作成します。"
+  },
+  {
+    "name": "CreateSketchCircle",
+    "type": "function",
+    "params": [
+      {
+        "name": "SketchPlane",
+        "type_name": "要素",
+        "description_raw": "円を作成するスケッチ要素",
+        "summary_llm": "円を作成するスケッチ要素",
+        "constraints_llm": []
+      },
+      {
+        "name": "SketchArcName",
+        "type_name": "文字列",
+        "description_raw": "作成するスケッチ円名称（空文字可）",
+        "summary_llm": "スケッチ円の名称を指定",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "SketchLayer",
+        "type_name": "要素",
+        "description_raw": "円を作成するスケッチレイヤー（空文字可）",
+        "summary_llm": "円を作成するスケッチレイヤー",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "CenterPoint",
+        "type_name": "点(2D)",
+        "description_raw": "中心点",
+        "summary_llm": "中心点に関する情報。",
+        "constraints_llm": []
+      },
+      {
+        "name": "RadiusOrDiameter",
+        "type_name": "長さ",
+        "description_raw": "半径または直径",
+        "summary_llm": "半径または直径の指定",
+        "constraints_llm": []
+      },
+      {
+        "name": "bDiameter",
+        "type_name": "bool",
+        "description_raw": "直径を指定する場合はTrue",
+        "summary_llm": "直径指定時はTrueが必要",
+        "constraints_llm": []
+      },
+      {
+        "name": "bCCW",
+        "type_name": "bool",
+        "description_raw": "円の回転方向Trueの場合は反時計周り",
+        "summary_llm": "円の回転方向は反時計周り",
+        "constraints_llm": []
+      },
+      {
+        "name": "bUpdate",
+        "type_name": "bool",
+        "description_raw": "更新フラグ（未実装、使用しない）",
+        "summary_llm": "更新フラグの説明",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "要素ID",
+      "description": "作成されたスケッチ円要素の要素ID"
+    },
+    "description": "スケッチ円を中心点を指定して作成します。"
+  },
+  {
+    "name": "CreateSketchEllipse",
+    "type": "function",
+    "params": [
+      {
+        "name": "SketchPlane",
+        "type_name": "要素",
+        "description_raw": "楕円を作成するスケッチ要素",
+        "summary_llm": "楕円を作成する要素",
+        "constraints_llm": []
+      },
+      {
+        "name": "SketchArcName",
+        "type_name": "文字列",
+        "description_raw": "作成するスケッチ楕円名称（空文字可）",
+        "summary_llm": "スケッチ楕円の名称",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "SketchLayer",
+        "type_name": "要素",
+        "description_raw": "楕円を作成するスケッチレイヤー（空文字可）",
+        "summary_llm": "楕円を作成するスケッチレイヤー",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "CenterPoint",
+        "type_name": "点(2D)",
+        "description_raw": "中心点",
+        "summary_llm": "中心点に関する情報。",
+        "constraints_llm": []
+      },
+      {
+        "name": "bCCW",
+        "type_name": "bool",
+        "description_raw": "楕円の回転方向Trueの場合は反時計周り",
+        "summary_llm": "楕円の回転方向は反時計回り。",
+        "constraints_llm": []
+      },
+      {
+        "name": "MajorDir",
+        "type_name": "方向(2D)",
+        "description_raw": "主軸方向を指定",
+        "summary_llm": "主軸方向を指定する。",
+        "constraints_llm": []
+      },
+      {
+        "name": "MajorRadius",
+        "type_name": "長さ",
+        "description_raw": "主軸半径",
+        "summary_llm": "主軸の半径を示す。",
+        "constraints_llm": []
+      },
+      {
+        "name": "MinorRadius",
+        "type_name": "長さ",
+        "description_raw": "副軸半径",
+        "summary_llm": "副軸の半径を示す。",
+        "constraints_llm": []
+      },
+      {
+        "name": "Range",
+        "type_name": "範囲",
+        "description_raw": "(0-2pi)",
+        "summary_llm": "0から2πの範囲を示す。",
+        "constraints_llm": []
+      },
+      {
+        "name": "bUpdate",
+        "type_name": "bool",
+        "description_raw": "更新フラグ（未実装、使用しない）",
+        "summary_llm": "更新フラグの説明",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "要素ID",
+      "description": "作成されたスケッチ楕円要素の要素ID"
+    },
+    "description": "スケッチ楕円を中心点を指定して作成します。"
+  },
+  {
+    "name": "CreateSketchNURBSCurve",
+    "type": "function",
+    "params": [
+      {
+        "name": "SketchPlane",
+        "type_name": "要素",
+        "description_raw": "NURBS線を作成するスケッチ要素",
+        "summary_llm": "NURBS線を作成する要素",
+        "constraints_llm": []
+      },
+      {
+        "name": "SketchArcName",
+        "type_name": "文字列",
+        "description_raw": "作成するスケッチNURBS線名称（空文字可）",
+        "summary_llm": "スケッチNURBS線名称を作成",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "SketchLayer",
+        "type_name": "要素",
+        "description_raw": "NURBS線を作成するスケッチレイヤー（空文字可）",
+        "summary_llm": "NURBS線を作成するスケッチレイヤー",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "nDegree",
+        "type_name": "整数",
+        "description_raw": "NURBS線の次数",
+        "summary_llm": "NURBS線の次数を示す。",
+        "constraints_llm": []
+      },
+      {
+        "name": "bClose",
+        "type_name": "bool",
+        "description_raw": "閉じたNURBS線の場合True",
+        "summary_llm": "閉じたNURBS線の真偽値",
+        "constraints_llm": []
+      },
+      {
+        "name": "bPeriodic",
+        "type_name": "bool",
+        "description_raw": "周期NURBS線の場合True",
+        "summary_llm": "周期NURBS線の条件",
+        "constraints_llm": []
+      },
+      {
+        "name": "CtrlPoints",
+        "type_name": "点(配列)",
+        "description_raw": "制御点",
+        "summary_llm": "制御点に関する情報。",
+        "constraints_llm": []
+      },
+      {
+        "name": "Weights",
+        "type_name": "浮動小数点(配列)",
+        "description_raw": "重み",
+        "summary_llm": "重みについての説明。",
+        "constraints_llm": []
+      },
+      {
+        "name": "Knots",
+        "type_name": "浮動小数点(配列)",
+        "description_raw": "ノットベクトル",
+        "summary_llm": "ノットベクトルに関する説明。",
+        "constraints_llm": []
+      },
+      {
+        "name": "Range",
+        "type_name": "範囲",
+        "description_raw": "トリム範囲",
+        "summary_llm": "トリム範囲に関する情報。",
+        "constraints_llm": []
+      },
+      {
+        "name": "bUpdate",
+        "type_name": "bool",
+        "description_raw": "更新フラグ（未実装、使用しない）",
+        "summary_llm": "更新フラグの説明",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "要素ID",
+      "description": "作成されたスケッチNURBS線要素の要素ID"
+    },
+    "description": "スケッチNURBS線を作成します。"
+  },
+  {
+    "name": "CreateElementsFromFile",
+    "type": "function",
+    "params": [
+      {
+        "name": "FileName",
+        "type_name": "文字列",
+        "description_raw": "ファイルパス（現状、Parasolid形式のみ）",
+        "summary_llm": "Parasolid形式のファイルパス",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "要素IDの配列",
+      "description": "作成された要素の要素IDの配列"
+    },
+    "description": "ファイルをインポートして要素を作成します。"
+  },
+  {
+    "name": "CreateOffsetSheet",
+    "type": "function",
+    "params": [
+      {
+        "name": "SheetName",
+        "type_name": "文字列",
+        "description_raw": "作成するシート要素名称（空文字可）",
+        "summary_llm": "シート要素名称の説明",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "ElementGroup",
+        "type_name": "要素グループ",
+        "description_raw": "作成するシート要素を要素グループに入れる場合は要素グループを指定（空文字可）",
+        "summary_llm": "シート要素を要素グループに指定する。",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "MaterialName",
+        "type_name": "材料",
+        "description_raw": "作成するシート要素の材質名称（空文字可）",
+        "summary_llm": "シート要素の材質名称",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "SrcSurfaces",
+        "type_name": "要素(配列)",
+        "description_raw": "オフセットする元シート要素、フェイス要素の指定文字列配列",
+        "summary_llm": "オフセット元シート要素の指定配列",
+        "constraints_llm": []
+      },
+      {
+        "name": "OffsetLength",
+        "type_name": "長さ",
+        "description_raw": "オフセット距離",
+        "summary_llm": "オフセット距離に関する情報。",
+        "constraints_llm": []
+      },
+      {
+        "name": "bOffsetBackwards",
+        "type_name": "bool",
+        "description_raw": "オフセット方向を反転",
+        "summary_llm": "オフセット方向を反転する機能",
+        "constraints_llm": []
+      },
+      {
+        "name": "bUpdate",
+        "type_name": "bool",
+        "description_raw": "更新フラグ（未実装、使用しない）",
+        "summary_llm": "更新フラグの説明",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "要素ID",
+      "description": "作成されたオフセットシート要素の要素ID"
+    },
+    "description": "オフセットシートを作成します。"
+  },
+  {
+    "name": "CreateLinearSweepParam",
+    "type": "function",
+    "params": [],
+    "returns": {
+      "type_name": "押し出しパラメータオブジェクト",
+      "description": "押し出しパラメータオブジェクト"
+    },
+    "description": "押し出しパラメータオブジェクトを作成します。"
+  },
+  {
+    "name": "CreateLinearSweepSheet",
+    "type": "function",
+    "params": [
+      {
+        "name": "ParamObj",
+        "type_name": "押し出しパラメータオブジェクト",
+        "description_raw": "押し出しパラメータオブジェクト",
+        "summary_llm": "押し出しパラメータのオブジェクト",
+        "constraints_llm": []
+      },
+      {
+        "name": "bUpdate",
+        "type_name": "bool",
+        "description_raw": "更新フラグ（未実装、使用しない）",
+        "summary_llm": "更新フラグの説明",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "要素ID",
+      "description": "作成されたシート要素の要素ID"
+    },
+    "description": "プロファイル要素を押し出してシート要素を作成します。"
+  },
+  {
+    "name": "SheetAlignNormal",
+    "type": "function",
+    "params": [
+      {
+        "name": "SheetElement",
+        "type_name": "要素",
+        "description_raw": "方向を揃えるシート要素",
+        "summary_llm": "方向を揃えるシート要素",
+        "constraints_llm": []
+      },
+      {
+        "name": "dirX",
+        "type_name": "浮動小数点",
+        "description_raw": "方向ベクトルのX成分",
+        "summary_llm": "方向ベクトルのX成分",
+        "constraints_llm": []
+      },
+      {
+        "name": "dirY",
+        "type_name": "浮動小数点",
+        "description_raw": "方向ベクトルのY成分",
+        "summary_llm": "方向ベクトルのY成分",
+        "constraints_llm": []
+      },
+      {
+        "name": "dirZ",
+        "type_name": "浮動小数点",
+        "description_raw": "方向ベクトルのZ成分",
+        "summary_llm": "方向ベクトルのZ成分",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "なし",
+      "description": "なし"
+    },
+    "description": "シート要素の向き（表側、法線方向）を指定した方向に揃えます。"
+  },
+  {
+    "name": "ReverseSheet",
+    "type": "function",
+    "params": [
+      {
+        "name": "SheetElement",
+        "type_name": "要素",
+        "description_raw": "反転するシート要素",
+        "summary_llm": "シート要素を反転する",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "要素ID",
+      "description": "シート反転フィーチャーの要素ID"
+    },
+    "description": "シート要素の向きを反転します。"
+  },
+  {
+    "name": "BlankElement",
+    "type": "function",
+    "params": [
+      {
+        "name": "Element",
+        "type_name": "要素",
+        "description_raw": "表示状態を指定する要素",
+        "summary_llm": "表示状態を指定する要素",
+        "constraints_llm": []
+      },
+      {
+        "name": "bBlank",
+        "type_name": "bool",
+        "description_raw": "Trueの時は非表示にする。Falseの時は表示する。",
+        "summary_llm": "Trueで非表示、Falseで表示。",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "なし",
+      "description": "なし"
+    },
+    "description": "指定要素の表示状態を設定します。"
+  },
+  {
+    "name": "TranslationCopy",
+    "type": "function",
+    "params": [
+      {
+        "name": "SrcElements",
+        "type_name": "要素(配列)",
+        "description_raw": "コピーする要素",
+        "summary_llm": "コピーする要素",
+        "constraints_llm": []
+      },
+      {
+        "name": "nCopy",
+        "type_name": "整数",
+        "description_raw": "コピーする数",
+        "summary_llm": "コピーする数を指定する。",
+        "constraints_llm": []
+      },
+      {
+        "name": "direction",
+        "type_name": "方向",
+        "description_raw": "コピーする方向",
+        "summary_llm": "コピーの方向を指定する。",
+        "constraints_llm": []
+      },
+      {
+        "name": "distance",
+        "type_name": "長さ",
+        "description_raw": "移動距離",
+        "summary_llm": "移動距離に関する情報",
+        "constraints_llm": []
+      },
+      {
+        "name": "ReferMethod",
+        "type_name": "関連設定",
+        "description_raw": "要素の関連づけ方法の指定",
+        "summary_llm": "要素の関連づけ方法を指定",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "要素ID配列",
+      "description": "コピーされた要素ID配列"
+    },
+    "description": "指定要素を移動コピーします。"
+  },
+  {
+    "name": "MirrorCopy",
+    "type": "function",
+    "params": [
+      {
+        "name": "SrcElements",
+        "type_name": "要素(配列)",
+        "description_raw": "コピーする要素",
+        "summary_llm": "コピーする要素",
+        "constraints_llm": []
+      },
+      {
+        "name": "plane",
+        "type_name": "BSTR",
+        "description_raw": "ミラー平面",
+        "summary_llm": "ミラー平面に関する情報",
+        "constraints_llm": []
+      },
+      {
+        "name": "ReferMethod",
+        "type_name": "関連設定",
+        "description_raw": "要素の関連づけ方法の指定",
+        "summary_llm": "要素の関連づけ方法の指定",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "要素ID配列",
+      "description": "コピーされた要素ID配列"
+    },
+    "description": "指定要素をミラーコピーします。"
+  },
+  {
+    "name": "CreateSolid",
+    "type": "function",
+    "params": [
+      {
+        "name": "SolidName",
+        "type_name": "文字列",
+        "description_raw": "作成するソリッド要素名称（空文字可）",
+        "summary_llm": "ソリッド要素名称の指定",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "ElementGroup",
+        "type_name": "要素グループ",
+        "description_raw": "作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）",
+        "summary_llm": "ソリッド要素の要素グループ指定",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "MaterialName",
+        "type_name": "材料",
+        "description_raw": "作成するソリッド要素の材質名称（空文字可）",
+        "summary_llm": "ソリッド要素の材質名称",
+        "constraints_llm": [
+          "optional"
+        ]
+      }
+    ],
+    "returns": {
+      "type_name": "要素ID",
+      "description": "作成されたソリッドの要素ID"
+    },
+    "description": "空のソリッド要素を作成します。"
+  },
+  {
+    "name": "CreateThicken",
+    "type": "function",
+    "params": [
+      {
+        "name": "ThickenFeatureName",
+        "type_name": "文字列",
+        "description_raw": "作成する厚みづけフィーチャー要素名称（空文字可）",
+        "summary_llm": "厚みづけフィーチャー要素名称",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "TargetSolidName",
+        "type_name": "要素",
+        "description_raw": "厚みづけフィーチャーを作成する対象のソリッドを指定",
+        "summary_llm": "厚みづけフィーチャーの対象ソリッド指定",
+        "constraints_llm": []
+      },
+      {
+        "name": "OperationType",
+        "type_name": "オペレーションタイプ",
+        "description_raw": "ソリッドオペレーションのタイプを指定する",
+        "summary_llm": "ソリッドオペレーションのタイプ指定",
+        "constraints_llm": []
+      },
+      {
+        "name": "Sheet",
+        "type_name": "要素(配列)",
+        "description_raw": "厚み付けをするシートやフェイス",
+        "summary_llm": "厚み付け用のシートやフェイス",
+        "constraints_llm": []
+      },
+      {
+        "name": "ThickenType",
+        "type_name": "厚み付けタイプ",
+        "description_raw": "厚み付けタイプ",
+        "summary_llm": "厚み付けの種類を示す。",
+        "constraints_llm": []
+      },
+      {
+        "name": "Thickeness1",
+        "type_name": "長さ",
+        "description_raw": "板厚",
+        "summary_llm": "板の厚さを示す情報。",
+        "constraints_llm": []
+      },
+      {
+        "name": "Thickeness2",
+        "type_name": "長さ",
+        "description_raw": "板厚２（厚み付けタイプが２方向のときに使用）",
+        "summary_llm": "厚み付けタイプが2方向の板厚。",
+        "constraints_llm": []
+      },
+      {
+        "name": "ThickenessOffset",
+        "type_name": "長さ",
+        "description_raw": "厚みづけをするシート、フェイス要素のオフセット距離",
+        "summary_llm": "フェイス要素のオフセット距離",
+        "constraints_llm": []
+      },
+      {
+        "name": "ReferMethod",
+        "type_name": "関連設定",
+        "description_raw": "要素の関連づけ方法の指定",
+        "summary_llm": "要素の関連づけ方法の指定",
+        "constraints_llm": []
+      },
+      {
+        "name": "bUpdate",
+        "type_name": "bool",
+        "description_raw": "更新フラグ（未実装、使用しない）",
+        "summary_llm": "更新フラグの説明",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "ID",
+      "description": "作成された厚みづけフィーチャーのID"
+    },
+    "description": "指定したソリッド要素に指定要素を厚みづけした形状を作成します。"
+  },
+  {
+    "name": "CreateOtherSolid",
+    "type": "function",
+    "params": [
+      {
+        "name": "OtherSolidFeatureName",
+        "type_name": "文字列",
+        "description_raw": "作成する別ソリッドフィーチャー要素名称（空文字可）",
+        "summary_llm": "別ソリッドフィーチャー要素名称",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "TargetSolidName",
+        "type_name": "要素",
+        "description_raw": "別ソリッドフィーチャーを作成する対象のソリッドを指定",
+        "summary_llm": "別ソリッドフィーチャー作成対象の指定",
+        "constraints_llm": []
+      },
+      {
+        "name": "OperationType",
+        "type_name": "オペレーションタイプ",
+        "description_raw": "ソリッドオペレーションのタイプを指定する",
+        "summary_llm": "ソリッドオペレーションのタイプ指定",
+        "constraints_llm": []
+      },
+      {
+        "name": "SourceSolid",
+        "type_name": "要素",
+        "description_raw": "別ソリッドフィーチャーとするソリッド要素を指定する",
+        "summary_llm": "別ソリッドフィーチャーの要素指定",
+        "constraints_llm": []
+      },
+      {
+        "name": "ReferMethod",
+        "type_name": "関連設定",
+        "description_raw": "要素の関連づけ方法の指定",
+        "summary_llm": "要素の関連づけ方法を指定",
+        "constraints_llm": []
+      },
+      {
+        "name": "bUpdate",
+        "type_name": "bool",
+        "description_raw": "更新フラグ（未実装、使用しない）",
+        "summary_llm": "更新フラグの説明",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "ID",
+      "description": "作成された別ソリッドフィーチャーのID"
+    },
+    "description": "指定したソリッド要素に別のソリッド要素形状を付加します。"
+  },
+  {
+    "name": "CreateLinearSweep",
+    "type": "function",
+    "params": [
+      {
+        "name": "TargetSolidName",
+        "type_name": "要素",
+        "description_raw": "押し出しフィーチャーを作成する対象のソリッドを指定",
+        "summary_llm": "押し出しフィーチャーの対象ソリッド指定",
+        "constraints_llm": []
+      },
+      {
+        "name": "OperationType",
+        "type_name": "オペレーションタイプ",
+        "description_raw": "ソリッドオペレーションのタイプを指定する",
+        "summary_llm": "ソリッドオペレーションのタイプ指定",
+        "constraints_llm": []
+      },
+      {
+        "name": "pParam",
+        "type_name": "押し出しパラメータオブジェクト",
+        "description_raw": "押し出しパラメータオブジェクト",
+        "summary_llm": "押し出しパラメータのオブジェクト",
+        "constraints_llm": []
+      },
+      {
+        "name": "bUpdate",
+        "type_name": "bool",
+        "description_raw": "更新フラグ（未実装、使用しない）",
+        "summary_llm": "更新フラグの説明",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "ID",
+      "description": "作成された押し出しフィーチャーのID"
+    },
+    "description": "指定したソリッド要素に押し出し形状を付加します。"
+  },
+  {
+    "name": "CreateBracketParam",
+    "type": "function",
+    "params": [],
+    "returns": {
+      "type_name": "ブラケット要素のパラメータオブジェクト",
+      "description": "ブラケット要素のパラメータオブジェクト"
+    },
+    "description": "船殻のブラケット要素のパラメータオブジェクトを作成します。"
+  },
+  {
+    "name": "CreateBracket",
+    "type": "function",
+    "params": [
+      {
+        "name": "ParamObj",
+        "type_name": "ブラケットパラメータオブジェクト",
+        "description_raw": "ブラケットパラメータオブジェクト",
+        "summary_llm": "ブラケットパラメータのオブジェクト",
+        "constraints_llm": []
+      },
+      {
+        "name": "bUpdate",
+        "type_name": "bool",
+        "description_raw": "更新フラグ（未実装、使用しない）",
+        "summary_llm": "更新フラグの説明",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "ID",
+      "description": "作成したソリッド要素のID"
+    },
+    "description": "船殻のブラケットソリッド要素を作成します。"
+  },
+  {
+    "name": "CreatePlate",
+    "type": "function",
+    "params": [
+      {
+        "name": "PlateName",
+        "type_name": "文字列",
+        "description_raw": "作成するプレートソリッド要素名称（空文字可）",
+        "summary_llm": "プレートソリッド要素名称",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "ElementGroup",
+        "type_name": "要素グループ",
+        "description_raw": "作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）",
+        "summary_llm": "ソリッド要素の要素グループ指定",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "MaterialName",
+        "type_name": "材料",
+        "description_raw": "作成するソリッド要素の材質名称（空文字可）",
+        "summary_llm": "ソリッド要素の材質名称",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "Plane",
+        "type_name": "平面",
+        "description_raw": "プレートのる平面位置",
+        "summary_llm": "プレートの平面位置を示す。",
+        "constraints_llm": []
+      },
+      {
+        "name": "PlaneOffset",
+        "type_name": "長さ",
+        "description_raw": "平面のオフセット距離を指定",
+        "summary_llm": "平面のオフセット距離指定",
+        "constraints_llm": []
+      },
+      {
+        "name": "Thickness",
+        "type_name": "長さ",
+        "description_raw": "板厚",
+        "summary_llm": "板の厚さを示す。",
+        "constraints_llm": []
+      },
+      {
+        "name": "nMold",
+        "type_name": "モールド位置",
+        "description_raw": "モールド位置",
+        "summary_llm": "モールドの位置に関する情報。",
+        "constraints_llm": []
+      },
+      {
+        "name": "MoldOffset",
+        "type_name": "長さ",
+        "description_raw": "モールド位置のオフセット距離",
+        "summary_llm": "モールド位置のオフセット距離",
+        "constraints_llm": []
+      },
+      {
+        "name": "BoundSolid",
+        "type_name": "要素",
+        "description_raw": "プレートソリッドの境界となるソリッド要素",
+        "summary_llm": "プレートソリッドの境界要素",
+        "constraints_llm": []
+      },
+      {
+        "name": "Section1End1",
+        "type_name": "長さ",
+        "description_raw": "プレートソリッドの平面上の方向１の境界位置の座標値１",
+        "summary_llm": "方向1の境界位置の座標値",
+        "constraints_llm": []
+      },
+      {
+        "name": "Section1End2",
+        "type_name": "長さ",
+        "description_raw": "プレートソリッドの平面上の方向１の境界位置の座標値２",
+        "summary_llm": "境界位置の座標値",
+        "constraints_llm": []
+      },
+      {
+        "name": "Section2End1",
+        "type_name": "長さ",
+        "description_raw": "プレートソリッドの平面上の方向２の境界位置の座標値１",
+        "summary_llm": "境界位置の座標値",
+        "constraints_llm": []
+      },
+      {
+        "name": "Section2End2",
+        "type_name": "長さ",
+        "description_raw": "プレートソリッドの平面上の方向２の境界位置の座標値２",
+        "summary_llm": "境界位置の座標値２",
+        "constraints_llm": []
+      },
+      {
+        "name": "bUpdate",
+        "type_name": "bool",
+        "description_raw": "更新フラグ（未実装、使用しない）",
+        "summary_llm": "更新フラグの説明",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "ID",
+      "description": "作成したソリッド要素のID"
+    },
+    "description": "船殻のプレートソリッド要素を作成します。"
+  },
+  {
+    "name": "CreateProfileParam",
+    "type": "function",
+    "params": [],
+    "returns": {
+      "type_name": "条材要素のパラメータオブジェクト",
+      "description": "条材要素のパラメータオブジェクト"
+    },
+    "description": "船殻の条材ソリッド要素のパラメータオブジェクトを作成します。"
+  },
+  {
+    "name": "CreateProfile",
+    "type": "function",
+    "params": [
+      {
+        "name": "ParamObj",
+        "type_name": "条材要素のパラメータオブジェクト",
+        "description_raw": "条材要素のパラメータオブジェクト",
+        "summary_llm": "条材要素のパラメータオブジェクト",
+        "constraints_llm": []
+      },
+      {
+        "name": "bUpdate",
+        "type_name": "bool",
+        "description_raw": "更新フラグ（未実装、使用しない）",
+        "summary_llm": "更新フラグの説明",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "ID(配列)",
+      "description": "作成した条材ソリッド要素のID(配列 配列[0]Web要素 配列[1]フランジ要素"
+    },
+    "description": "船殻の条材ソリッド要素を取付線指定で作成します。"
+  },
+  {
+    "name": "BodyDivideByElements",
+    "type": "function",
+    "params": [
+      {
+        "name": "pDriveFeatureName",
+        "type_name": "文字列",
+        "description_raw": "作成する分割フィーチャー要素名称（空文字可）",
+        "summary_llm": "分割フィーチャー要素名称の説明",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "pTargetBody",
+        "type_name": "要素",
+        "description_raw": "分割対象のボディ",
+        "summary_llm": "分割対象のボディ",
+        "constraints_llm": []
+      },
+      {
+        "name": "pDivideElements",
+        "type_name": "要素(配列)",
+        "description_raw": "分割をする要素（シートボディ、フェイス、平面要素）",
+        "summary_llm": "分割要素の種類を示す。",
+        "constraints_llm": []
+      },
+      {
+        "name": "pAlignmentDirection",
+        "type_name": "方向",
+        "description_raw": "分割されたボディ要素の順番を整列させるのに使用する方向",
+        "summary_llm": "ボディ要素の整列方向を指定",
+        "constraints_llm": []
+      },
+      {
+        "name": "pWCS",
+        "type_name": "要素",
+        "description_raw": "方向を定義する座標系（通常は指定しない）",
+        "summary_llm": "方向を定義する座標系",
+        "constraints_llm": []
+      },
+      {
+        "name": "ReferMethod",
+        "type_name": "関連設定",
+        "description_raw": "要素の関連づけ方法の指定",
+        "summary_llm": "要素の関連づけ方法を指定",
+        "constraints_llm": []
+      },
+      {
+        "name": "bUpdate",
+        "type_name": "bool",
+        "description_raw": "更新フラグ（未実装、使用しない）",
+        "summary_llm": "更新フラグの説明",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "ID配列",
+      "description": "分割で作成されたボディ要素のID配列"
+    },
+    "description": "ボディを指定した要素で分割します。"
+  },
+  {
+    "name": "BodySeparateBySubSolids",
+    "type": "function",
+    "params": [
+      {
+        "name": "pSeparateFeatureName",
+        "type_name": "文字列",
+        "description_raw": "作成する分割フィーチャー要素名称（空文字可）",
+        "summary_llm": "分割フィーチャー要素名称の説明",
+        "constraints_llm": [
+          "optional"
+        ]
+      },
+      {
+        "name": "pTargetBody",
+        "type_name": "要素",
+        "description_raw": "分割対象のボディ",
+        "summary_llm": "分割対象のボディ",
+        "constraints_llm": []
+      },
+      {
+        "name": "pSubSolids",
+        "type_name": "要素(配列)",
+        "description_raw": "分割をするソリッド要素",
+        "summary_llm": "分割するソリッド要素",
+        "constraints_llm": []
+      },
+      {
+        "name": "pAlignmentDirection",
+        "type_name": "方向",
+        "description_raw": "分割されたボディ要素の順番を整列させるのに使用する方向",
+        "summary_llm": "ボディ要素の整列方向を指定",
+        "constraints_llm": []
+      },
+      {
+        "name": "ReferMethod",
+        "type_name": "関連設定",
+        "description_raw": "要素の関連づけ方法の指定",
+        "summary_llm": "要素の関連づけ方法の指定",
+        "constraints_llm": []
+      },
+      {
+        "name": "bUpdate",
+        "type_name": "bool",
+        "description_raw": "更新フラグ（未実装、使用しない）",
+        "summary_llm": "更新フラグの説明",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "ID配列",
+      "description": "分割で作成されたボディ要素のID配列"
+    },
+    "description": "ボディを指定したソリッドで削除することで分割します（ボディの区分けコマンド）。"
+  },
+  {
+    "name": "SetElementColor",
+    "type": "function",
+    "params": [
+      {
+        "name": "Element",
+        "type_name": "要素",
+        "description_raw": "色を設定する要素",
+        "summary_llm": "色を設定する要素",
+        "constraints_llm": []
+      },
+      {
+        "name": "RValue",
+        "type_name": "整数",
+        "description_raw": "赤色の値(0-255)",
+        "summary_llm": "赤色の値の範囲は0から255。",
+        "constraints_llm": []
+      },
+      {
+        "name": "GValue",
+        "type_name": "整数",
+        "description_raw": "緑色の値(0-255)",
+        "summary_llm": "緑色の値の範囲は0-255。",
+        "constraints_llm": []
+      },
+      {
+        "name": "BValue",
+        "type_name": "整数",
+        "description_raw": "青色の値(0-255)",
+        "summary_llm": "青色の値の範囲は0-255。",
+        "constraints_llm": []
+      },
+      {
+        "name": "Transparency",
+        "type_name": "浮動小数点",
+        "description_raw": "透明度の指定(0.0不透明-1.0透明)",
+        "summary_llm": "透明度を0.0から1.0で指定",
+        "constraints_llm": []
+      }
+    ],
+    "returns": {
+      "type_name": "なし",
+      "description": "なし"
+    },
+    "description": "指定要素の色を設定します。"
   }
 ]
