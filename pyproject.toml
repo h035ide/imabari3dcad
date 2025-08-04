@@ -33,6 +33,9 @@ dependencies = [
     "neo4j>=5.28.1",
     "langchain-openai>=0.3.28",
     "llama-index-graph-stores-neo4j>=0.4.6",
+    "tree-sitter-python>=0.23.6",
+    "ipykernel>=6.30.0",
+    "tree-sitter>=0.25.0",
 ]
 
 [project.optional-dependencies]

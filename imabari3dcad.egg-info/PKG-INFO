@@ -25,6 +25,9 @@ Requires-Dist: langchain-community>=0.3.27
 Requires-Dist: neo4j>=5.28.1
 Requires-Dist: langchain-openai>=0.3.28
 Requires-Dist: llama-index-graph-stores-neo4j>=0.4.6
+Requires-Dist: tree-sitter-python>=0.23.6
+Requires-Dist: ipykernel>=6.30.0
+Requires-Dist: tree-sitter>=0.25.0
 Provides-Extra: dev
 Requires-Dist: pytest; extra == "dev"
 Requires-Dist: black; extra == "dev"
