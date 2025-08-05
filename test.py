@@ -15,6 +15,137 @@ NEO4J_USERNAME = os.getenv("NEO4J_USERNAME")
 NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
 
 
+def test_neo4j_connection(uri: str, username: str, password: str, database_name: str = "neo4j") -> bool:
+    """Neo4j接続をテストする関数"""
+    print(f"\n=== Neo4j接続テスト ===")
+    print(f"URI: {uri}")
+    print(f"ユーザー名: {username}")
+    print(f"データベース名: {database_name}")
+    
+    try:
+        # ステップ1: ドライバー作成
+        print("1. ドライバーを作成中...")
+        driver = GraphDatabase.driver(uri, auth=(username, password))
+        
+        # ステップ2: 接続確認
+        print("2. 接続を確認中...")
+        driver.verify_connectivity()
+        print("✓ 接続成功")
+        
+        # ステップ3: データベース確認
+        print("3. データベースを確認中...")
+        with driver.session(database="system") as session:
+            result = session.run("SHOW DATABASES")
+            databases = [record["name"] for record in result]
+            print(f"利用可能なデータベース: {databases}")
+            
+            if database_name not in databases:
+                print(f"⚠️  データベース '{database_name}' が存在しません")
+                print("デフォルトの 'neo4j' データベースを使用します")
+                database_name = "neo4j"
+            else:
+                print(f"✓ データベース '{database_name}' が存在します")
+        
+        # ステップ4: 指定データベースでの接続テスト
+        print(f"4. データベース '{database_name}' での接続をテスト中...")
+        with driver.session(database=database_name) as session:
+            result = session.run("RETURN 1 as test")
+            test_value = result.single()["test"]
+            print(f"✓ データベース '{database_name}' での接続成功 (テスト値: {test_value})")
+        
+        driver.close()
+        print("=== 接続テスト完了 ===\n")
+        return True
+        
+    except Exception as e:
+        print(f"❌ 接続エラー: {e}")
+        print("\n=== 対処法 ===")
+        print("1. Neo4jサーバーが起動しているか確認してください")
+        print("2. 接続URIが正しいか確認してください (例: bolt://localhost:7687)")
+        print("3. ユーザー名とパスワードが正しいか確認してください")
+        print("4. ファイアウォール設定を確認してください")
+        print("5. Neo4jのバージョンとドライバーの互換性を確認してください")
+        print("\n=== 一般的な接続設定 ===")
+        print("ローカルNeo4j: bolt://localhost:7687")
+        print("Neo4j Aura: bolt://your-instance.neo4j.io:7687")
+        print("ユーザー名: neo4j (デフォルト)")
+        print("パスワード: インストール時に設定したパスワード")
+        print("=== 接続テスト失敗 ===\n")
+        return False
+
+
+def test_connection_only():
+    """Neo4j接続のみをテストする関数"""
+    print("=== Neo4j接続テスト専用モード ===")
+    
+    if not all([NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD]):
+        print("❌ Neo4jの接続情報が.envファイルに設定されていません。")
+        print("以下の環境変数を.envファイルに設定してください:")
+        print("NEO4J_URI=bolt://localhost:7687")
+        print("NEO4J_USERNAME=neo4j")
+        print("NEO4J_PASSWORD=your_password")
+        return False
+    
+    # 接続テストを実行
+    success = test_neo4j_connection(NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD, "TreeSitterDB")
+    
+    if success:
+        print("✅ 接続テスト成功！TreeSitterDBへの保存が可能です。")
+    else:
+        print("❌ 接続テスト失敗。上記の対処法を参考に設定を確認してください。")
+    
+    return success
+
+
+def manage_treesitter_db():
+    """TreeSitterDB管理機能"""
+    if not all([NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD]):
+        print("❌ Neo4jの接続情報が.envファイルに設定されていません。")
+        return False
+    
+    graph_builder = Neo4jGraphBuilder(NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD, database_name="TreeSitterDB")
+    
+    print("=== TreeSitterDB管理 ===")
+    print("1. 統計情報を表示")
+    print("2. データをクリア")
+    print("3. 接続テスト")
+    
+    choice = input("選択してください (1-3): ").strip()
+    
+    if choice == "1":
+        print("\n=== TreeSitterDB統計情報 ===")
+        stats = graph_builder.get_treesitter_db_stats()
+        if "error" not in stats:
+            print("ノード数:")
+            for label, count in stats["nodes"].items():
+                print(f"  {label}: {count}個")
+            
+            print("\n関係数:")
+            for rel_type, count in stats["relationships"].items():
+                print(f"  {rel_type}: {count}個")
+            
+            print(f"\n関数数: {len(stats['functions'])}個")
+            for func in stats["functions"][:5]:  # 最初の5個を表示
+                print(f"  - {func['name']}: {func['description'][:50]}...")
+        else:
+            print(f"エラー: {stats['error']}")
+    
+    elif choice == "2":
+        confirm = input("TreeSitterDBのデータをクリアしますか？ (y/N): ").strip().lower()
+        if confirm == 'y':
+            graph_builder.clear_treesitter_db()
+        else:
+            print("キャンセルしました。")
+    
+    elif choice == "3":
+        test_neo4j_connection(NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD, "TreeSitterDB")
+    
+    else:
+        print("無効な選択です。")
+    
+    return True
+
+
 class PythonCodeAnalyzer:
     """Pythonコードの構文解析とグラフ構築を行うクラス"""
     
@@ -515,23 +646,28 @@ class PythonCodeAnalyzer:
 class Neo4jGraphBuilder:
     """Neo4jにグラフを構築するクラス"""
     
-    def __init__(self, uri: str, username: str, password: str):
+    def __init__(self, uri: str, username: str, password: str, database_name: str = "neo4j"):
         """初期化
         
         Args:
             uri: Neo4jのURI
             username: ユーザー名
             password: パスワード
+            database_name: 使用するデータベース名（デフォルト: "neo4j"）
         """
         self.uri = uri
         self.username = username
         self.password = password
+        self.database_name = database_name
     
     def create_code_graph(self, graph_elements: Dict[str, Any]) -> None:
         """抽出した情報からNeo4jにグラフを構築する"""
         driver = GraphDatabase.driver(self.uri, auth=(self.username, self.password))
         
-        with driver.session() as session:
+        # データベースの存在確認と作成
+        self._ensure_database_exists(driver)
+        
+        with driver.session(database=self.database_name) as session:
             # 既存のグラフをクリア
             session.run("MATCH (n) DETACH DELETE n")
             print("既存のグラフをクリアしました。")
@@ -554,6 +690,31 @@ class Neo4jGraphBuilder:
             self._display_graph_structure(session)
         
         driver.close()
+    
+    def _ensure_database_exists(self, driver) -> None:
+        """データベースの存在確認と作成"""
+        try:
+            # データベース名を小文字に統一（Neo4jの仕様）
+            self.database_name = self.database_name.lower()
+            
+            # システムデータベースでデータベース一覧を確認
+            with driver.session(database="system") as session:
+                result = session.run("SHOW DATABASES")
+                databases = [record["name"] for record in result]
+                
+                if self.database_name not in databases:
+                    print(f"データベース '{self.database_name}' を作成しています...")
+                    session.run(f"CREATE DATABASE {self.database_name}")
+                    print(f"データベース '{self.database_name}' が作成されました。")
+                else:
+                    print(f"データベース '{self.database_name}' は既に存在します。")
+        except Exception as e:
+            print(f"データベース確認中にエラーが発生しました: {e}")
+            print("エラーの詳細:")
+            import traceback
+            traceback.print_exc()
+            print("デフォルトの 'neo4j' データベースを使用します。")
+            self.database_name = "neo4j"
     
     def _create_class_nodes(self, session, classes: Dict[str, Any]) -> None:
         """クラスノードを作成"""
@@ -639,34 +800,121 @@ class Neo4jGraphBuilder:
     
     def _display_graph_structure(self, session) -> None:
         """作成されたグラフの構造を表示"""
-        print("\n--- グラフ構造の確認 ---")
-        result = session.run("""
-            MATCH (f:Function)-[:HAS_PARAMETER]->(p:Parameter)
-            OPTIONAL MATCH (d:ParameterDescription)-[:DESCRIBES]->(p)
-            RETURN f.name as function_name, f.description as description, f.return_type as return_type, f.return_description as return_description, 
-                   p.name as parameter_name, p.order as parameter_order, p.type_hint as type_hint, p.is_optional as is_optional,
-                   d.description as param_description
-            ORDER BY f.name, p.order
-        """)
+        print(f"\n=== TreeSitterDB '{self.database_name}' のグラフ構造 ===")
         
-        print("関数とパラメータの関係:")
-        current_function = None
+        # ノード数の確認
+        result = session.run("MATCH (n) RETURN labels(n) as labels, count(n) as count")
+        print("ノード数:")
         for record in result:
-            if current_function != record['function_name']:
-                current_function = record['function_name']
-                print(f"\n関数: {record['function_name']}")
-                if record['description']:
-                    print(f"  説明: {record['description']}")
-                if record['return_type']:
-                    return_info = f"{record['return_type']}"
-                    if record['return_description']:
-                        return_info += f": {record['return_description']}"
-                    print(f"  戻り値: {return_info}")
-            
-            type_info = f" ({record['type_hint']})" if record['type_hint'] else ""
-            optional_info = " [オプション]" if record['is_optional'] else ""
-            param_desc = f" - {record['param_description']}" if record['param_description'] else ""
-            print(f"  パラメータ: {record['parameter_name']}{type_info}{optional_info}{param_desc} (順序: {record['parameter_order']})")
+            labels = record["labels"]
+            count = record["count"]
+            print(f"  {labels}: {count}個")
+        
+        # 関係数の確認
+        result = session.run("MATCH ()-[r]->() RETURN type(r) as type, count(r) as count")
+        print("\n関係数:")
+        for record in result:
+            rel_type = record["type"]
+            count = record["count"]
+            print(f"  {rel_type}: {count}個")
+        
+        # サンプルデータの表示
+        print("\n=== サンプルデータ ===")
+        
+        # クラスの例
+        result = session.run("MATCH (c:Class) RETURN c.name as name LIMIT 3")
+        print("クラス:")
+        for record in result:
+            print(f"  - {record['name']}")
+        
+        # 関数の例
+        result = session.run("""
+            MATCH (f:Function) 
+            RETURN f.name as name, f.description as description 
+            LIMIT 3
+        """)
+        print("\n関数:")
+        for record in result:
+            name = record['name']
+            description = record['description'][:50] + "..." if len(record['description']) > 50 else record['description']
+            print(f"  - {name}: {description}")
+        
+        # パラメータの例
+        result = session.run("""
+            MATCH (p:Parameter) 
+            RETURN p.name as name, p.type_hint as type_hint, p.is_optional as is_optional 
+            LIMIT 3
+        """)
+        print("\nパラメータ:")
+        for record in result:
+            name = record['name']
+            type_hint = record['type_hint']
+            is_optional = record['is_optional']
+            print(f"  - {name}: {type_hint} (オプション: {is_optional})")
+        
+        print(f"\n=== TreeSitterDB '{self.database_name}' のグラフ構造確認完了 ===")
+    
+    def save_to_treesitter_db(self, graph_elements: Dict[str, Any]) -> None:
+        """TreeSitterDBにデータを保存する専用メソッド"""
+        print(f"TreeSitterDB '{self.database_name}' にデータを保存しています...")
+        self.create_code_graph(graph_elements)
+        print(f"TreeSitterDB '{self.database_name}' への保存が完了しました。")
+    
+    def clear_treesitter_db(self) -> None:
+        """TreeSitterDBのデータをクリアする"""
+        driver = GraphDatabase.driver(self.uri, auth=(self.username, self.password))
+        
+        try:
+            with driver.session(database=self.database_name) as session:
+                session.run("MATCH (n) DETACH DELETE n")
+                print(f"TreeSitterDB '{self.database_name}' のデータをクリアしました。")
+        except Exception as e:
+            print(f"データクリア中にエラーが発生しました: {e}")
+        finally:
+            driver.close()
+    
+    def get_treesitter_db_stats(self) -> Dict[str, Any]:
+        """TreeSitterDBの統計情報を取得する"""
+        driver = GraphDatabase.driver(self.uri, auth=(self.username, self.password))
+        stats = {}
+        
+        try:
+            with driver.session(database=self.database_name) as session:
+                # ノード数の統計
+                result = session.run("MATCH (n) RETURN labels(n) as labels, count(n) as count")
+                node_stats = {}
+                for record in result:
+                    labels = record["labels"]
+                    count = record["count"]
+                    node_stats[str(labels)] = count
+                stats["nodes"] = node_stats
+                
+                # 関係数の統計
+                result = session.run("MATCH ()-[r]->() RETURN type(r) as type, count(r) as count")
+                relationship_stats = {}
+                for record in result:
+                    rel_type = record["type"]
+                    count = record["count"]
+                    relationship_stats[rel_type] = count
+                stats["relationships"] = relationship_stats
+                
+                # 関数一覧
+                result = session.run("MATCH (f:Function) RETURN f.name as name, f.description as description")
+                functions = []
+                for record in result:
+                    functions.append({
+                        "name": record["name"],
+                        "description": record["description"]
+                    })
+                stats["functions"] = functions
+                
+        except Exception as e:
+            print(f"統計情報取得中にエラーが発生しました: {e}")
+            stats = {"error": str(e)}
+        finally:
+            driver.close()
+        
+        return stats
 
 
 def main():
@@ -806,21 +1054,48 @@ def CreateSketchPlane(
     print("\n--- ステップ2: Neo4jへのグラフ構築 ---")
     if not all([NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD]):
         print("Neo4jの接続情報が.envファイルに設定されていません。グラフ構築をスキップします。")
+        print("以下の環境変数を.envファイルに設定してください:")
+        print("NEO4J_URI=bolt://localhost:7687")
+        print("NEO4J_USERNAME=neo4j")
+        print("NEO4J_PASSWORD=your_password")
     else:
-        try:
-            # 接続確認用のドライバーを作成
-            driver_check = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USERNAME, NEO4J_PASSWORD))
-            driver_check.verify_connectivity()
-            print("Neo4jデータベースへの接続を確認しました。")
-            driver_check.close()
-            
-            # グラフ構築を実行
-            graph_builder = Neo4jGraphBuilder(NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD)
-            graph_builder.create_code_graph(graph_elements)
-        except Exception as e:
-            print(f"Neo4jへの接続またはグラフ構築中にエラーが発生しました: {e}")
-            print("`.env`ファイルの接続情報が正しいか確認してください。")
+        # 接続テストを実行
+        if test_neo4j_connection(NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD, "TreeSitterDB"):
+            try:
+                # グラフ構築を実行（TreeSitterDBデータベースに保存）
+                graph_builder = Neo4jGraphBuilder(NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD, database_name="TreeSitterDB")
+                # TreeSitterDB専用メソッドを使用
+                graph_builder.save_to_treesitter_db(graph_elements)
+                
+                # 保存後の統計情報を表示
+                print("\n=== TreeSitterDB保存後の統計 ===")
+                stats = graph_builder.get_treesitter_db_stats()
+                if "error" not in stats:
+                    total_nodes = sum(stats["nodes"].values())
+                    total_relationships = sum(stats["relationships"].values())
+                    print(f"総ノード数: {total_nodes}")
+                    print(f"総関係数: {total_relationships}")
+                    print(f"保存された関数数: {len(stats['functions'])}")
+                else:
+                    print(f"統計情報取得エラー: {stats['error']}")
+                    
+            except Exception as e:
+                print(f"グラフ構築中にエラーが発生しました: {e}")
+                print("詳細なエラー情報:")
+                import traceback
+                traceback.print_exc()
+        else:
+            print("接続テストに失敗したため、グラフ構築をスキップします。")
+            print("上記の対処法を参考に、Neo4jの接続設定を確認してください。")
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    
+    # コマンドライン引数で接続テスト専用モードを選択
+    if len(sys.argv) > 1 and sys.argv[1] == "--test-connection":
+        test_connection_only()
+    elif len(sys.argv) > 1 and sys.argv[1] == "--manage-db":
+        manage_treesitter_db()
+    else:
+        main()
