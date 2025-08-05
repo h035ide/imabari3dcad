@@ -1,39 +1,465 @@
 /**
  * 変数要素を作成します。
  * @function CreateVariable
- * @param {文字列} VariableName - 作成する変数名称です。[空文字不可]
- * @param {浮動小数点} VariableValue - 変数の値。
- * @param {変数単位} VariableUnit - 作成する変数の単位を指定します。
- * @param {要素グループ} VariableElementGroup - 変数要素を入れるグループです。[空文字可]
- * @returns {要素ID} 作成された変数要素のID。
+ * @param {文字列} VariableName - 作成する変数名称（空文字不可）
+ * @param {浮動小数点} VariableValue - 変数の値
+ * @param {変数単位} VariableUnit - 作成する変数の単位を指定
+ * @param {要素グループ} VariableElementGroup - 作成する変数要素を要素グループに入れる場合は要素グループを指定（空文字可）
+ * @returns {要素ID} 作成された変数要素の要素ID
  */
 
 /**
  * スケッチ平面を作成します。
  * @function CreateSketchPlane
- * @param {文字列} ElementName - 作成するスケッチ平面の名称です。[空文字可]
- * @param {要素グループ} ElementGroup - 所属する要素グループです。[空文字可]
- * @param {平面} PlaneDef - スケッチ平面を作成する平面を指定します。
- * @param {長さ} PlaneOffset - 平面からのオフセット距離を指定します。
- * @param {bool} bRevPlane - スケッチ平面を反転するかのフラグです。
- * @param {bool} bRevUV - スケッチ平面のX,Y軸を交換するかのフラグです。
- * @param {注記スタイル} StyleName - 適用する注記スタイル名称です。[空文字可]
- * @param {点} OriginPoint - スケッチ平面の原点を指定します。[空文字可]
- * @param {方向} AxisDirection - スケッチ平面の軸方向を指定します。[空文字可]
- * @param {bool} bDefAxisIsX - スケッチ平面のX軸を指定する場合はTrueです。
- * @param {bool} bUpdate - 更新フラグ（未実装）です。
- * @returns {要素ID} 作成されたスケッチ平面要素のID。
+ * @param {文字列} ElementName - 作成するスケッチ平面名称（空文字可）
+ * @param {要素グループ} ElementGroup - 作成するスケッチ平面を要素グループに入れる場合は要素グループを指定（空文字可）
+ * @param {平面} PlaneDef - スケッチ平面を作成する平面を指定する
+ * @param {長さ} PlaneOffset - 平面からのオフセット距離を指定
+ * @param {bool} bRevPlane - スケッチ平面を反転するかどうかのフラグ
+ * @param {bool} bRevUV - スケッチ平面のX,Y軸を交換するかどうかのフラグ
+ * @param {注記スタイル} StyleName - スケッチ平面に適用する注記スタイル名称（空文字可）
+ * @param {点} OriginPoint - スケッチ平面の原点を指定（空文字可）
+ * @param {方向} AxisDirection - スケッチ平面の軸方向を指定（空文字可）
+ * @param {bool} bDefAxisIsX - スケッチ平面のX軸を指定する場合はTrue
+ * @param {bool} bUpdate - 更新フラグ（未実装、使用しない）
+ * @returns {要素ID} 作成されたスケッチ平面要素の要素ID
  */
 
 /**
- * 押し出しパラメータを定義するオブジェクトです。
- * このオブジェクトは CreateLinearSweepSheet 関数などで使用します。
+ * スケッチレイヤーを作成します。
+ * @function CreateSketchLayer
+ * @param {文字列} SketchLayerName - 作成するスケッチレイヤー名称（空文字可）
+ * @param {要素} SketchPlane - レイヤーを作成するスケッチ要素
+ * @returns {要素ID} 作成されたスケッチレイヤー要素の要素ID
+ */
+
+/**
+ * スケッチ直線を作成します。
+ * @function CreateSketchLine
+ * @param {要素} SketchPlane - 直線を作成するスケッチ要素
+ * @param {文字列} SketchLineName - 作成するスケッチ直線名称（空文字可）
+ * @param {要素} SketchLayer - 直線を作成するスケッチレイヤー（空文字可）
+ * @param {点(2D)} StartPoint - 始点
+ * @param {点(2D)} EndPoint - 終点
+ * @param {bool} bUpdate - 更新フラグ（未実装、使用しない）
+ * @returns {要素ID} 作成されたスケッチ直線要素の要素ID
+ */
+
+/**
+ * スケッチ円弧を中心点と始終点を指定して作成します。
+ * @function CreateSketchArc
+ * @param {要素} SketchPlane - 円弧を作成するスケッチ要素
+ * @param {文字列} SketchArcName - 作成するスケッチ円弧名称（空文字可）
+ * @param {要素} SketchLayer - 円弧を作成するスケッチレイヤー（空文字可）
+ * @param {点(2D)} CenterPoint - 中心点
+ * @param {点(2D)} StartPoint - 始点
+ * @param {点(2D)} EndPoint - 終点
+ * @param {bool} bCCW - 円弧の回転方向Trueの場合は反時計周り
+ * @param {bool} bUpdate - 更新フラグ（未実装、使用しない）
+ * @returns {要素ID} 作成されたスケッチ円弧要素の要素ID
+ */
+
+/**
+ * スケッチ円弧を周上の３点を指定して作成します。
+ * @function CreateSketchArc3Pts
+ * @param {要素} SketchPlane - 円弧を作成するスケッチ要素
+ * @param {文字列} SketchArcName - 作成するスケッチ円弧名称（空文字可）
+ * @param {要素} SketchLayer - 円弧を作成するスケッチレイヤー（空文字可）
+ * @param {点(2D)} StartPoint - 始点
+ * @param {点(2D)} MidPoint - 通過点
+ * @param {点(2D)} EndPoint - 終点
+ * @param {bool} bUpdate - 更新フラグ（未実装、使用しない）
+ * @returns {要素ID} 作成されたスケッチ円弧要素の要素ID
+ */
+
+/**
+ * スケッチ円を中心点を指定して作成します。
+ * @function CreateSketchCircle
+ * @param {要素} SketchPlane - 円を作成するスケッチ要素
+ * @param {文字列} SketchArcName - 作成するスケッチ円名称（空文字可）
+ * @param {要素} SketchLayer - 円を作成するスケッチレイヤー（空文字可）
+ * @param {点(2D)} CenterPoint - 中心点
+ * @param {長さ} RadiusOrDiameter - 半径または直径
+ * @param {bool} bDiameter - 直径を指定する場合はTrue
+ * @param {bool} bCCW - 円の回転方向Trueの場合は反時計周り
+ * @param {bool} bUpdate - 更新フラグ（未実装、使用しない）
+ * @returns {要素ID} 作成されたスケッチ円要素の要素ID
+ */
+
+/**
+ * スケッチ楕円を中心点を指定して作成します。
+ * @function CreateSketchEllipse
+ * @param {要素} SketchPlane - 楕円を作成するスケッチ要素
+ * @param {文字列} SketchArcName - 作成するスケッチ楕円名称（空文字可）
+ * @param {要素} SketchLayer - 楕円を作成するスケッチレイヤー（空文字可）
+ * @param {点(2D)} CenterPoint - 中心点
+ * @param {bool} bCCW - 楕円の回転方向Trueの場合は反時計周り
+ * @param {方向(2D)} MajorDir - 主軸方向を指定
+ * @param {長さ} MajorRadius - 主軸半径
+ * @param {長さ} MinorRadius - 副軸半径
+ * @param {範囲} Range - (0-2pi)
+ * @param {bool} bUpdate - 更新フラグ（未実装、使用しない）
+ * @returns {要素ID} 作成されたスケッチ楕円要素の要素ID
+ */
+
+/**
+ * スケッチNURBS線を作成します。
+ * @function CreateSketchNURBSCurve
+ * @param {要素} SketchPlane - NURBS線を作成するスケッチ要素
+ * @param {文字列} SketchArcName - 作成するスケッチNURBS線名称（空文字可）
+ * @param {要素} SketchLayer - NURBS線を作成するスケッチレイヤー（空文字可）
+ * @param {整数} nDegree - NURBS線の次数
+ * @param {bool} bClose - 閉じたNURBS線の場合True
+ * @param {bool} bPeriodic - 周期NURBS線の場合True
+ * @param {点(配列)} CtrlPoints - 制御点
+ * @param {浮動小数点(配列)} Weights - 重み
+ * @param {浮動小数点(配列)} Knots - ノットベクトル
+ * @param {範囲} Range - トリム範囲
+ * @param {bool} bUpdate - 更新フラグ（未実装、使用しない）
+ * @returns {要素ID} 作成されたスケッチNURBS線要素の要素ID
+ */
+
+/**
+ * ファイルをインポートして要素を作成します。
+ * @function CreateElementsFromFile
+ * @param {文字列} FileName - ファイルパス（現状、Parasolid形式のみ）
+ * @returns {要素IDの配列} 作成された要素の要素IDの配列
+ */
+
+/**
+ * オフセットシートを作成します。
+ * @function CreateOffsetSheet
+ * @param {文字列} SheetName - 作成するシート要素名称（空文字可）
+ * @param {要素グループ} ElementGroup - 作成するシート要素を要素グループに入れる場合は要素グループを指定（空文字可）
+ * @param {材料} MaterialName - 作成するシート要素の材質名称（空文字可）
+ * @param {要素(配列)} SrcSurfaces - オフセットする元シート要素、フェイス要素の指定文字列配列
+ * @param {長さ} OffsetLength - オフセット距離
+ * @param {bool} bOffsetBackwards - オフセット方向を反転
+ * @param {bool} bUpdate - 更新フラグ（未実装、使用しない）
+ * @returns {要素ID} 作成されたオフセットシート要素の要素ID
+ */
+
+/**
+ * 押し出しパラメータオブジェクトを作成します。
+ * @function CreateLinearSweepParam
+ * @returns {押し出しパラメータオブジェクト} 押し出しパラメータオブジェクト
+ */
+
+/**
+ * 押し出しパラメータオブジェクトの属性を定義します。
  * @class CreateLinearSweepParam
- * @property {文字列} NAME - 要素名です。[空文字可]
- * @property {要素グループ} ElementGroup - 所属する要素グループです。[空文字可]
- * @property {要素(配列)} Target1 - スイープするターゲット要素１です。
- * @property {長さ} DirectionParameter1 - スイープする距離１です。
- * @property {スイープ方向} DirectionType - スイープの方向タイプです。
- * @property {厚み付けタイプ} ThickenType - 厚み付けのタイプです。
- * @property {長さ} Thickeness1 - 板厚です。
+ * @property {文字列} NAME - 要素名（空文字可）
+ * @property {要素グループ} ElementGroup - 作成するシート要素を要素グループに入れる場合は要素グループを指定（空文字可）
+ * @property {要素(配列)} Target1 - スイープするターゲット要素１（点、線、シート、ソリッド、あるいはソリッドフェイス）
+ * @property {要素(配列)} Target2 - スイープ方向が２方向の場合に使用。スイープするターゲット要素２
+ * @property {方向} ProfileNormal - プロファイルの平面法線方向。（プロファイルが３Dの直線の場合にその平面法線として指定。）
+ * @property {長さ} ProfileOffset - プロファイル位置のオフセット距離
+ * @property {スイープ方向} DirectionType - スイープ方向
+ * @property {長さ} DirectionParameter1 - スイープする距離１（SweepTarget1を指定している場合は使用しない）
+ * @property {長さ} DirectionParameter2 - スイープ方向が２方向の場合に使用。スイープする距離２（SweepTarget２を指定している場合は使用しない）
+ * @property {方向} SweepDirection - スイープする方向を設定する場合に使用。指定しない場合はプロファイルの法線方向
+ * @property {角度} DraftAngle - 押し出し方向の勾配角度
+ * @property {勾配２のタイプ} DraftAngle2Type - ２方向に押し出す際の勾配の取り方指定
+ * @property {角度} DraftAngle2 - ２方向目の押し出し方向の勾配角度
+ * @property {厚み付けタイプ} ThickenType - 厚み付けタイプ
+ * @property {長さ} Thickeness1 - 板厚
+ * @property {長さ} Thickeness2 - 板厚２（厚み付けタイプが２方向のときに使用）
+ * @property {長さ} ThickenessOffset - 厚みづけのオフセット距離
+ * @property {bool} bRefByGeometricMethod - Trueの時は幾何位置にもとづいて関連を設定する
+ * @property {bool} bIntervalSwep - 不明
+ * @property {関連設定} ReferMethod - 要素の関連づけ方法の指定
+ */
+
+/**
+ * プロファイル要素を押し出してシート要素を作成します。
+ * @function CreateLinearSweepSheet
+ * @param {押し出しパラメータオブジェクト} ParamObj - 押し出しパラメータオブジェクト
+ * @param {bool} bUpdate - 更新フラグ（未実装、使用しない）
+ * @returns {要素ID} 作成されたシート要素の要素ID
+ */
+
+/**
+ * シート要素の向き（表側、法線方向）を指定した方向に揃えます。
+ * @function SheetAlignNormal
+ * @param {要素} SheetElement - 方向を揃えるシート要素
+ * @param {浮動小数点} dirX - 方向ベクトルのX成分
+ * @param {浮動小数点} dirY - 方向ベクトルのY成分
+ * @param {浮動小数点} dirZ - 方向ベクトルのZ成分
+ * @returns {なし} なし
+ */
+
+/**
+ * シート要素の向きを反転します。
+ * @function ReverseSheet
+ * @param {要素} SheetElement - 反転するシート要素
+ * @returns {要素ID} シート反転フィーチャーの要素ID
+ */
+
+/**
+ * 指定要素の表示状態を設定します。
+ * @function BlankElement
+ * @param {要素} Element - 表示状態を指定する要素
+ * @param {bool} bBlank - Trueの時は非表示にする。Falseの時は表示する。
+ * @returns {なし} なし
+ */
+
+/**
+ * 指定要素を移動コピーします。
+ * @function TranslationCopy
+ * @param {要素(配列)} SrcElements - コピーする要素
+ * @param {整数} nCopy - コピーする数
+ * @param {方向} direction - コピーする方向
+ * @param {長さ} distance - 移動距離
+ * @param {関連設定} ReferMethod - 要素の関連づけ方法の指定
+ * @returns {要素ID配列} コピーされた要素ID配列
+ */
+
+/**
+ * 指定要素をミラーコピーします。
+ * @function MirrorCopy
+ * @param {要素(配列)} SrcElements - コピーする要素
+ * @param {BSTR} plane - ミラー平面
+ * @param {関連設定} ReferMethod - 要素の関連づけ方法の指定
+ * @returns {要素ID配列} コピーされた要素ID配列
+ */
+
+/**
+ * 空のソリッド要素を作成します。
+ * @function CreateSolid
+ * @param {文字列} SolidName - 作成するソリッド要素名称（空文字可）
+ * @param {要素グループ} ElementGroup - 作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）
+ * @param {材料} MaterialName - 作成するソリッド要素の材質名称（空文字可）
+ * @returns {要素ID} 作成されたソリッドの要素ID
+ */
+
+/**
+ * 指定したソリッド要素に指定要素を厚みづけした形状を作成します。
+ * @function CreateThicken
+ * @param {文字列} ThickenFeatureName - 作成する厚みづけフィーチャー要素名称（空文字可）
+ * @param {要素} TargetSolidName - 厚みづけフィーチャーを作成する対象のソリッドを指定
+ * @param {オペレーションタイプ} OperationType - ソリッドオペレーションのタイプを指定する
+ * @param {要素(配列)} Sheet - 厚み付けをするシートやフェイス
+ * @param {厚み付けタイプ} ThickenType - 厚み付けタイプ
+ * @param {長さ} Thickeness1 - 板厚
+ * @param {長さ} Thickeness2 - 板厚２（厚み付けタイプが２方向のときに使用）
+ * @param {長さ} ThickenessOffset - 厚みづけをするシート、フェイス要素のオフセット距離
+ * @param {関連設定} ReferMethod - 要素の関連づけ方法の指定
+ * @param {bool} bUpdate - 更新フラグ（未実装、使用しない）
+ * @returns {ID} 作成された厚みづけフィーチャーのID
+ */
+
+/**
+ * 指定したソリッド要素に別のソリッド要素形状を付加します。
+ * @function CreateOtherSolid
+ * @param {文字列} OtherSolidFeatureName - 作成する別ソリッドフィーチャー要素名称（空文字可）
+ * @param {要素} TargetSolidName - 別ソリッドフィーチャーを作成する対象のソリッドを指定
+ * @param {オペレーションタイプ} OperationType - ソリッドオペレーションのタイプを指定する
+ * @param {要素} SourceSolid - 別ソリッドフィーチャーとするソリッド要素を指定する
+ * @param {関連設定} ReferMethod - 要素の関連づけ方法の指定
+ * @param {bool} bUpdate - 更新フラグ（未実装、使用しない）
+ * @returns {ID} 作成された別ソリッドフィーチャーのID
+ */
+
+/**
+ * 指定したソリッド要素に押し出し形状を付加します。
+ * @function CreateLinearSweep
+ * @param {要素} TargetSolidName - 押し出しフィーチャーを作成する対象のソリッドを指定
+ * @param {オペレーションタイプ} OperationType - ソリッドオペレーションのタイプを指定する
+ * @param {押し出しパラメータオブジェクト} pParam - 押し出しパラメータオブジェクト
+ * @param {bool} bUpdate - 更新フラグ（未実装、使用しない）
+ * @returns {ID} 作成された押し出しフィーチャーのID
+ */
+
+/**
+ * 船殻のブラケット要素のパラメータオブジェクトを作成します。
+ * @function CreateBracketParam
+ * @returns {ブラケット要素のパラメータオブジェクト} ブラケット要素のパラメータオブジェクト
+ */
+
+/**
+ * ブラケット要素のパラメータオブジェクトの属性を定義します。
+ * @class CreateBracketParam
+ * @property {整数} DefinitionType - ブラケットの作成方法指定 0: 面指定 1:基準要素指定
+ * @property {文字列} BracketName - 作成するブラケットソリッド要素名称（空文字可）
+ * @property {要素グループ} ElementGroup - 作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）
+ * @property {材料} MaterialName - 作成するソリッド要素の材質名称（空文字可）
+ * @property {平面} BasePlane - 面指定の場合の基準平面
+ * @property {長さ} BasePlaneOffset - 基準平面のオフセット距離
+ * @property {要素} BaseElement - 基準要素指定の場合の基準要素
+ * @property {bool} UseSideSheetForPlane - 三面指定の場合はTrue
+ * @property {長さ} Thickness - 板厚
+ * @property {モールド位置} Mold - モールド位置
+ * @property {長さ} MoldOffset - モールド位置のオフセット距離
+ * @property {形状タイプ} BracketType - ブラケットの形状タイプ
+ * @property {形状パラメータ} BracketParams - ブラケットの形状タイプのパラメータ
+ * @property {形状タイプ} Scallop1Type - ブラケットのスカラップの形状タイプ
+ * @property {形状パラメータ} Scallop1Params - ブラケットのスカラップの形状タイプのパラメータ
+ * @property {形状タイプ} nScallop2Type - ３面ブラケットの場合のスカラップ２の形状タイプ
+ * @property {形状パラメータ} Scallop2Params - ブラケットのスカラップ２の形状タイプのパラメータ
+ * @property {要素(配列)} Surfaces1 - ブラケット作成する面１の要素（ソリッド、シート、フェイス）
+ * @property {bool} RevSf1 - 面１の反対側にブラケットを作成する場合はTrue
+ * @property {要素(配列)} Surfaces2 - ブラケット作成する面2の要素（ソリッド、シート、フェイス）
+ * @property {bool} RevSf2 - 面2の反対側にブラケットを作成する場合はTrue
+ * @property {要素(配列)} Surfaces3 - ３面ブラケット作成する場合の面３の要素（ソリッド、シート、フェイス）
+ * @property {bool} RevSf3 - 面3の反対側にブラケットを作成する場合はTrue
+ * @property {形状タイプ} FlangeType - ブラケットのフランジの形状タイプ（0の場合はフランジをつけない）
+ * @property {形状パラメータ} FlangeParams - ブラケットのフランジの形状タイプのパラメータ
+ * @property {bool} RevFlange - フランジの向きを反転する場合はTrue
+ * @property {角度} FlangeAngle - フランジの角度指定 ０°は直角を意味し、そこからの増分を＋－で指定
+ * @property {形状タイプ} Sf1DimensionType - 面１方向の寸法タイプ
+ * @property {形状パラメータ} Sf1DimensonParams - 面１方向の寸法タイプのパラメータ
+ * @property {要素(配列)} Sf1EndElements - 面１方向の端部要素（必要な形状タイプの場合）
+ * @property {要素(配列)} Sf1BaseElements - 面１方向の基準要素（必要な形状タイプの場合）
+ * @property {形状タイプ} Sf2DimensionType - 面２方向の寸法タイプ
+ * @property {形状パラメータ} Sf2DimensonParams - 面２方向の寸法タイプのパラメータ
+ * @property {要素(配列)} Sf2EndElements - 面２方向の端部要素（必要な形状タイプの場合）
+ * @property {要素(配列)} Sf2BaseElements - 面２方向の基準要素（必要な形状タイプの場合）
+ * @property {形状タイプ} ScallopEnd1LowerType - 面１方向の下側端部のスカラップのタイプ
+ * @property {形状パラメータ} ScallopEnd1LowerParams - 面１方向の下側端部のスカラップのタイプのパラメータ
+ * @property {形状タイプ} ScallopEnd1UpperType - 面１方向の上側端部のスカラップのタイプ
+ * @property {形状パラメータ} ScallopEnd1UpperParams - 面１方向の上側端部のスカラップのタイプのパラメータ
+ * @property {形状タイプ} ScallopEnd2LowerType - 面２方向の下側端部のスカラップのタイプ
+ * @property {形状パラメータ} ScallopEnd2LowerParams - 面２方向の下側端部のスカラップのタイプのパラメータ
+ * @property {形状タイプ} ScallopEnd2UpperType - 面２方向の上側端部のスカラップのタイプ
+ * @property {形状パラメータ} ScallopEnd2UpperParams - 面２方向の上側端部のスカラップのタイプのパラメータ
+ * @property {要素} WCS - ブラケットが使用する座標系を指定。通常は指定しない
+ * @property {関連設定} ReferMethod - 要素の関連づけ方法の指定
+ */
+
+/**
+ * 船殻のブラケットソリッド要素を作成します。
+ * @function CreateBracket
+ * @param {ブラケットパラメータオブジェクト} ParamObj - ブラケットパラメータオブジェクト
+ * @param {bool} bUpdate - 更新フラグ（未実装、使用しない）
+ * @returns {ID} 作成したソリッド要素のID
+ */
+
+/**
+ * 船殻のプレートソリッド要素を作成します。
+ * @function CreatePlate
+ * @param {文字列} PlateName - 作成するプレートソリッド要素名称（空文字可）
+ * @param {要素グループ} ElementGroup - 作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）
+ * @param {材料} MaterialName - 作成するソリッド要素の材質名称（空文字可）
+ * @param {平面} Plane - プレートのる平面位置
+ * @param {長さ} PlaneOffset - 平面のオフセット距離を指定
+ * @param {長さ} Thickness - 板厚
+ * @param {モールド位置} nMold - モールド位置
+ * @param {長さ} MoldOffset - モールド位置のオフセット距離
+ * @param {要素} BoundSolid - プレートソリッドの境界となるソリッド要素
+ * @param {長さ} Section1End1 - プレートソリッドの平面上の方向１の境界位置の座標値１
+ * @param {長さ} Section1End2 - プレートソリッドの平面上の方向１の境界位置の座標値２
+ * @param {長さ} Section2End1 - プレートソリッドの平面上の方向２の境界位置の座標値１
+ * @param {長さ} Section2End2 - プレートソリッドの平面上の方向２の境界位置の座標値２
+ * @param {bool} bUpdate - 更新フラグ（未実装、使用しない）
+ * @returns {ID} 作成したソリッド要素のID
+ */
+
+/**
+ * 船殻の条材ソリッド要素のパラメータオブジェクトを作成します。
+ * @function CreateProfileParam
+ * @returns {条材要素のパラメータオブジェクト} 条材要素のパラメータオブジェクト
+ */
+
+/**
+ * 条材要素のパラメータオブジェクトの属性を定義します。
+ * @class CreateProfileParam
+ * @property {整数} DefinitionType - の作成方法指定 0:取付線指定 1:基準面指定 2:取付線＋指定方向線 3: 元要素指定 4:ホール指定 5:２点 6:ロンジ間 7:基準線指定 8:基準点と方向 9:基準要素
+ * @property {文字列} ProfileName - 作成する条材ソリッド要素名称（空文字可）
+ * @property {要素グループ} ElementGroup - 作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）
+ * @property {材料} MaterialName - 作成するソリッド要素の材質名称（空文字可）
+ * @property {文字列} FlangeName - ビルトアップを作成する場合のフランジソリッド要素名称（空文字可）
+ * @property {要素グループ} FlangeElementGroup - フランジソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）
+ * @property {材料} FlangeMaterialName - 作成するフランジソリッド要素の材質名称（空文字可）
+ * @property {形状タイプ} ProfileType - 条材の形状タイプを指定
+ * @property {形状パラメータ} ProfileParam - 条材の形状タイプのパラメータ
+ * @property {角度} FaceAngle - ビルトアップを作成する場合のフランジの角度指定 ０°は直角を意味し、そこからの増分を＋－で指定
+ * @property {長さ} ConnectionTol - 取付線が複数の場合の連続性の判定トレランスを指定（通常は指定しない、空文字）
+ * @property {モールド位置} Mold - モールド位置
+ * @property {長さ} MoldOffset - モールド位置のオフセット距離
+ * @property {bool} ReverseDir - 取付方向を反転する時True
+ * @property {bool} ReverseAngle - アングル方向を反転する時True
+ * @property {bool} BaseOnAttachLines - 取付線の境界を基準にする時True
+ * @property {bool} CalcSnipOnlyAttachLines - 端部スニップ量を取付線のみで計算する時True
+ * @property {bool} NotProfjectAttachLines - 取付線を取付面に投影しない時True
+ * @property {方向} ProjectionDir - 取付線を投影する場合に設定。通常は設定しない（空白文字）
+ * @property {整数} AttachDirMethod - 条材取付方向設定 0: デフォルト 1:基準平面内 2:取付角度指定
+ * @property {角度} AttachAngle - 取付角度指定
+ * @property {方向} AttachDirection - 条材取付方向 を指定する場合に設定する
+ * @property {方向} DefAnglePositionAxisDir - ねじれた条材を作成する場合のそのネジレ角度を定義する軸方向を指定
+ * @property {方向} DefAngleBaseDir - ねじれた条材を作成する場合のそのネジレ角度の基準となる軸方向を指定
+ * @property {bool} CCWDefAngle - ねじれた条材を作成する場合のネジレ角度を反統計まわりに指定する場合はTrue
+ * @property {位置と角度配列} DefPossitionAngles - ねじれた条材を作成する場合のネジレ角度を位置と角度で指定
+ * @property {位置と角度配列} DefPositionNormalAngles - ねじれた条材を作成する場合のネジレ角度を位置と角度を取付面の法線位置からの差分で指定
+ * @property {要素(配列)} End1Elements - 端部１、端部となる要素を指定する
+ * @property {形状タイプ} End1Type - 端部１、条材の端部タイプを指定
+ * @property {形状パラメータ} End1TypeParams - 端部１、条材の端部タイプのパラメータ
+ * @property {要素(配列)} End2Elements - 端部２、端部となる要素を指定する
+ * @property {形状タイプ} End2Type - 端部２、条材の端部タイプを指定
+ * @property {形状パラメータ} End2TypeParams - 端部２、条材の端部タイプのパラメータ
+ * @property {形状タイプ} End1ScallopType - 端部１、条材の端部スカラップタイプを指定
+ * @property {形状パラメータ} End1ScallopTypeParams - 端部１、条材の端部スカラップタイプのパラメータ
+ * @property {形状タイプ} End2ScallopType - 端部２、条材の端部スカラップタイプを指定
+ * @property {形状パラメータ} End2ScallopTypeParams - 端部２、条材の端部スカラップタイプのパラメータ
+ * @property {要素(配列)} AttachLines - 条材の取付線
+ * @property {要素(配列)} AttachSurface - 条材を取り付ける面要素（フェイス、シートボディ）
+ * @property {要素} BasePlane - 基準面要素（平面、シート、フェイス）を指定
+ * @property {長さ} BasePlaneOffset - 基準面のオフセット距離を指定
+ * @property {要素} BaseSolid - 基準要素（ソリッド）を指定
+ * @property {要素(配列)} PathCurves - 取付線（取付線＋指定方向線で作成する際に使用する)
+ * @property {要素(配列)} DirLines - 基準直線（取付線＋指定方向線で作成する際に使用する)
+ * @property {要素} OrignalProfile - 作成元の条材(元要素指定で作成する際に使用する)
+ * @property {要素} HoleFeature - ホールフィーチャー(ホール指定で作成する際に使用する)
+ * @property {整数} LocationAtHole - 条材の位置 0:上 1:下 2:左 3:右 (ホール指定で作成する際に使用する)
+ * @property {点} BasePoint1 - 基準点1 (２点もしくは基準点と方向で作成する際に使用する)
+ * @property {点} BasePoint2 - 基準点2 (２点で作成する際に使用する)
+ * @property {要素} BaseProfile1 - ロンジ１(ロンジ間で作成する際に使用する)
+ * @property {要素} BaseProfile2 - ロンジ２(ロンジ間で作成する際に使用する)
+ * @property {方向} BaseDirection1 - (基準点と方向で作成する際に使用する)
+ * @property {方向} BaseDirection2 - 取付方向指定 (基準点と方向で作成する際に使用する)
+ * @property {整数} BaseLocation - 基準位置 0:左下 1:中下 2:右下 3:左中 4:中中 5:右中 6:左上 7:中上 8:右上 (基準点と方向で作成する際に使用する)
+ * @property {関連設定} ReferMethod - 要素の関連づけ方法の指定
+ */
+
+/**
+ * 船殻の条材ソリッド要素を取付線指定で作成します。
+ * @function CreateProfile
+ * @param {条材要素のパラメータオブジェクト} ParamObj - 条材要素のパラメータオブジェクト
+ * @param {bool} bUpdate - 更新フラグ（未実装、使用しない）
+ * @returns {ID(配列)} 作成した条材ソリッド要素のID(配列 配列[0]Web要素 配列[1]フランジ要素
+ */
+
+/**
+ * ボディを指定した要素で分割します。
+ * @function BodyDivideByElements
+ * @param {文字列} pDriveFeatureName - 作成する分割フィーチャー要素名称（空文字可）
+ * @param {要素} pTargetBody - 分割対象のボディ
+ * @param {要素(配列)} pDivideElements - 分割をする要素（シートボディ、フェイス、平面要素）
+ * @param {方向} pAlignmentDirection - 分割されたボディ要素の順番を整列させるのに使用する方向
+ * @param {要素} pWCS - 方向を定義する座標系（通常は指定しない）
+ * @param {関連設定} ReferMethod - 要素の関連づけ方法の指定
+ * @param {bool} bUpdate - 更新フラグ（未実装、使用しない）
+ * @returns {ID配列} 分割で作成されたボディ要素のID配列
+ */
+
+/**
+ * ボディを指定したソリッドで削除することで分割します（ボディの区分けコマンド）。
+ * @function BodySeparateBySubSolids
+ * @param {文字列} pSeparateFeatureName - 作成する分割フィーチャー要素名称（空文字可）
+ * @param {要素} pTargetBody - 分割対象のボディ
+ * @param {要素(配列)} pSubSolids - 分割をするソリッド要素
+ * @param {方向} pAlignmentDirection - 分割されたボディ要素の順番を整列させるのに使用する方向
+ * @param {関連設定} ReferMethod - 要素の関連づけ方法の指定
+ * @param {bool} bUpdate - 更新フラグ（未実装、使用しない）
+ * @returns {ID配列} 分割で作成されたボディ要素のID配列
+ */
+
+/**
+ * 指定要素の色を設定します。
+ * @function SetElementColor
+ * @param {要素} Element - 色を設定する要素
+ * @param {整数} RValue - 赤色の値(0-255)
+ * @param {整数} GValue - 緑色の値(0-255)
+ * @param {整数} BValue - 青色の値(0-255)
+ * @param {浮動小数点} Transparency - 透明度の指定(0.0不透明-1.0透明)
+ * @returns {なし} なし
  */
