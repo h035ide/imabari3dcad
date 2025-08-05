@@ -87,10 +87,10 @@ def test_connection_only():
         return False
     
     # 接続テストを実行
-    success = test_neo4j_connection(NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD, "TreeSitterDB")
+    success = test_neo4j_connection(NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD, "treesitterdb")
     
     if success:
-        print("✅ 接続テスト成功！TreeSitterDBへの保存が可能です。")
+        print("✅ 接続テスト成功！treesitterdbへの保存が可能です。")
     else:
         print("❌ 接続テスト失敗。上記の対処法を参考に設定を確認してください。")
     
@@ -98,14 +98,14 @@ def test_connection_only():
 
 
 def manage_treesitter_db():
-    """TreeSitterDB管理機能"""
+    """treesitterdb管理機能"""
     if not all([NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD]):
         print("❌ Neo4jの接続情報が.envファイルに設定されていません。")
         return False
     
-    graph_builder = Neo4jGraphBuilder(NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD, database_name="TreeSitterDB")
+    graph_builder = Neo4jGraphBuilder(NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD, database_name="treesitterdb")
     
-    print("=== TreeSitterDB管理 ===")
+    print("=== treesitterdb管理 ===")
     print("1. 統計情報を表示")
     print("2. データをクリア")
     print("3. 接続テスト")
@@ -113,7 +113,7 @@ def manage_treesitter_db():
     choice = input("選択してください (1-3): ").strip()
     
     if choice == "1":
-        print("\n=== TreeSitterDB統計情報 ===")
+        print("\n=== treesitterdb統計情報 ===")
         stats = graph_builder.get_treesitter_db_stats()
         if "error" not in stats:
             print("ノード数:")
@@ -131,14 +131,14 @@ def manage_treesitter_db():
             print(f"エラー: {stats['error']}")
     
     elif choice == "2":
-        confirm = input("TreeSitterDBのデータをクリアしますか？ (y/N): ").strip().lower()
+        confirm = input("treesitterdbのデータをクリアしますか？ (y/N): ").strip().lower()
         if confirm == 'y':
             graph_builder.clear_treesitter_db()
         else:
             print("キャンセルしました。")
     
     elif choice == "3":
-        test_neo4j_connection(NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD, "TreeSitterDB")
+        test_neo4j_connection(NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD, "treesitterdb")
     
     else:
         print("無効な選択です。")
@@ -800,7 +800,7 @@ class Neo4jGraphBuilder:
     
     def _display_graph_structure(self, session) -> None:
         """作成されたグラフの構造を表示"""
-        print(f"\n=== TreeSitterDB '{self.database_name}' のグラフ構造 ===")
+        print(f"\n=== treesitterdb '{self.database_name}' のグラフ構造 ===")
         
         # ノード数の確認
         result = session.run("MATCH (n) RETURN labels(n) as labels, count(n) as count")
@@ -852,29 +852,29 @@ class Neo4jGraphBuilder:
             is_optional = record['is_optional']
             print(f"  - {name}: {type_hint} (オプション: {is_optional})")
         
-        print(f"\n=== TreeSitterDB '{self.database_name}' のグラフ構造確認完了 ===")
+        print(f"\n=== treesitterdb '{self.database_name}' のグラフ構造確認完了 ===")
     
     def save_to_treesitter_db(self, graph_elements: Dict[str, Any]) -> None:
-        """TreeSitterDBにデータを保存する専用メソッド"""
-        print(f"TreeSitterDB '{self.database_name}' にデータを保存しています...")
+        """treesitterdbにデータを保存する専用メソッド"""
+        print(f"treesitterdb '{self.database_name}' にデータを保存しています...")
         self.create_code_graph(graph_elements)
-        print(f"TreeSitterDB '{self.database_name}' への保存が完了しました。")
+        print(f"treesitterdb '{self.database_name}' への保存が完了しました。")
     
     def clear_treesitter_db(self) -> None:
-        """TreeSitterDBのデータをクリアする"""
+        """treesitterdbのデータをクリアする"""
         driver = GraphDatabase.driver(self.uri, auth=(self.username, self.password))
         
         try:
             with driver.session(database=self.database_name) as session:
                 session.run("MATCH (n) DETACH DELETE n")
-                print(f"TreeSitterDB '{self.database_name}' のデータをクリアしました。")
+                print(f"treesitterdb '{self.database_name}' のデータをクリアしました。")
         except Exception as e:
             print(f"データクリア中にエラーが発生しました: {e}")
         finally:
             driver.close()
     
     def get_treesitter_db_stats(self) -> Dict[str, Any]:
-        """TreeSitterDBの統計情報を取得する"""
+        """treesitterdbの統計情報を取得する"""
         driver = GraphDatabase.driver(self.uri, auth=(self.username, self.password))
         stats = {}
         
@@ -1060,15 +1060,15 @@ def CreateSketchPlane(
         print("NEO4J_PASSWORD=your_password")
     else:
         # 接続テストを実行
-        if test_neo4j_connection(NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD, "TreeSitterDB"):
+        if test_neo4j_connection(NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD, "treesitterdb"):
             try:
-                # グラフ構築を実行（TreeSitterDBデータベースに保存）
-                graph_builder = Neo4jGraphBuilder(NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD, database_name="TreeSitterDB")
-                # TreeSitterDB専用メソッドを使用
+                # グラフ構築を実行（treesitterdbデータベースに保存）
+                graph_builder = Neo4jGraphBuilder(NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD, database_name="treesitterdb")
+                # treesitterdb専用メソッドを使用
                 graph_builder.save_to_treesitter_db(graph_elements)
                 
                 # 保存後の統計情報を表示
-                print("\n=== TreeSitterDB保存後の統計 ===")
+                print("\n=== treesitterdb保存後の統計 ===")
                 stats = graph_builder.get_treesitter_db_stats()
                 if "error" not in stats:
                     total_nodes = sum(stats["nodes"].values())
