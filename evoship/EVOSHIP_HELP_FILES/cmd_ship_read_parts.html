@@ -1,0 +1,3164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>部材形状ファイルの読み込み</title>
+    <style type="text/css">
+      .tbl {
+      border-collapse: collapse;
+      }
+      .tbl th, .tbl td {
+      padding: 5px;
+      border: 1px solid #000000;
+      }
+      .r1{
+      font-weight: bold;
+      background: #99ccff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <h2>部材形状ファイルの読み込み</h2>
+      <div class="contents">
+	<p>
+	  部材形状のパラメータを記述してあるファイルを読み込んでバッチ処理で部品を作成することができます。
+	</p>
+	<h3>操作方法</h3>
+	<p>
+	  部材形状ファイルを選択するダイアログが表示されます。ファイルを選択して実行します。
+	</p>
+	<p>
+	  コマンド実行後に処理結果をダイアログで表示します。エラーがあった場合はエラー行が続けて表示されます。<br/>
+	    <img src="media/dlg_ship_read_parts_result.png"/><br/>
+	    <br/>
+	    <img src="media/dlg_ship_read_parts_error.png"/>
+	</p>
+    <h3>パラメータ</h3>
+    <ul>
+      <li>部材ファイル
+        <p>
+          <img src="media/dlg_ship_read_parts_file.png"/>
+        </p>
+        <p>
+          読み込む部材ファイルを指定します。
+        </p>
+      </li>
+      <li>読み込みオプション
+        <p>
+          <img src="media/dlg_ship_read_parts_option.png"/>
+        </p>
+        <p>読み込む時に同じ要素名の部材を更新するかどうか指定します。</p>
+          <ul>
+            <li>全て新規作成
+              <p>全ての要素を新規作成します。</p>
+            </li>
+            <li>全て更新
+              <p>既存要素が見つかった場合は更新、見つからない場合は新規作成します。</p>
+            </li>
+            <li>各行のフラグで指示
+              <p>CSVファイルの各行の更新フラグに従います。</p>
+            </li>
+          </ul>
+      </li>
+      <li>処理時間
+        <p><img src="media/dlg_ship_read_parts_timer_option.png"/></p>
+        <p>読み込み完了時にCSVファイルの各行の処理時間を表示します。</p>
+      </li>
+      <li>エラー時の動作
+        <p><img src="media/dlg_ship_read_parts_retry_option.png"/></p>
+        <p>読み込みに失敗した行を自動的に再度読み込みます。作成・更新する要素間に依存関係があると、一度の読み込みではうまくいかないことがあります。そうした場合にはあらかじめこのオプションをONにして読み込みを実行してください。</p>
+      </li>
+    </ul>
+	<h3>CSVファイルのフォーマット</h3>
+	<p>
+	  部品形状ファイルは以下のいずれかの行で構成されるCSVファイル（コンマ区切りのテキストファイル）で作成します。
+      サンプルは<a href="#samples">こちら</a>です。
+	</p>
+    <ul>
+      <li><a href="#ship_plate">プレート</a></li>
+      <li><a href="#ship_ss">条材</a></li>
+      <li><a href="#ship_bracket">ブラケット</a></li>
+      <li><a href="#ship_fp">フェイスプレート</a></li>
+      <li><a href="#ship_flange">フランジ</a></li>
+      <li><a href="#datum_plane">平面（データム）</a></li>
+      <li><a href="#datum_point_by_curve">カーブ上の点</a></li>
+      <li><a href="#sketch_def">スケッチの定義</a></li>
+      <li><a href="#sketch_layer">スケッチレイヤー</a></li>
+      <li><a href="#sketch_line">直線（スケッチ）</a></li>
+      <li><a href="#sketch_arc">円弧（スケッチ）</a></li>
+      <li><a href="#sketch_3pt_arc">3点円弧（スケッチ）</a></li>
+      <li><a href="#sketch_circle">円（スケッチ）</a></li>
+      <li><a href="#sketch_intersect">交線（スケッチ）</a></li>
+      <li><a href="#sketch_cross_pnt">交点（スケッチ）</a></li>
+      <li><a href="#sketch_fillet">フィレット（スケッチ）</a></li>
+      <li><a href="#sketch_constraint">拘束（スケッチ）</a></li>
+      <li><a href="#curve_line">直線（カーブ）</a></li>
+      <li><a href="#curve_intersect">交線（カーブ）</a></li>
+      <li><a href="#curve_project">投影線（カーブ）</a></li>
+      <li><a href="#curve_offset">面上オフセット線</a></li>
+      <li><a href="#solid_extrude">押し出しフィーチャー</a></li>
+      <li><a href="#solid_sweep">スイープフィーチャー</a></li>
+      <li><a href="#solid_loft">ロフトフィーチャー</a></li>
+      <li><a href="#solid_thicken">厚み付けフィーチャー</a></li>
+      <li><a href="#solid_cut">カットフィーチャー</a></li>
+      <li><a href="#sheet_extrude">押し出しサーフェイス</a></li>
+      <li><a href="#sheet_sweep">スイープサーフェイス</a></li>
+      <li><a href="#sheet_loft">ロフトサーフェイス</a></li>
+      <li><a href="#sheet_planar">平面（サーフェイス）</a></li>
+      <li><a href="#solid_new">新規ソリッドボディ</a></li>
+      <li><a href="#solid_solid">ソリッドボディフィーチャー</a></li>
+      <li><a href="#edit_thickness">板厚変更</a></li>
+      <li><a href="#body_sep">ボディ分割</a></li>
+      <li><a href="#body_stitch">スティッチボディ</a></li>
+      <li><a href="#watch_variable">要素ウォッチ変数</a></li>
+    </ul>
+	<p>
+	  <table class="tbl">
+	    <tr>
+	      <th>カラム</th>
+	      <th>内容</th>
+          <th><a href="#skip_empty">空欄スキップ</a></th>
+	      <th>説明</th>
+	    </tr>
+	    <tr class="r1">
+	      <td  colspan="4"><a id="ship_plate" href="cmd_ship_plate.html">プレート</a></td>
+	    </tr>
+	    <tr>
+	      <td>1</td>
+	      <td>部品タイプ</td>
+          <td align="center">-</td>
+	      <td>プレートは1</td>
+	    </tr>
+	    <tr>
+	      <td>2</td>
+	      <td>部品名</td>
+          <td align="center">-</td>
+	      <td>
+            作成するプレート要素の要素名称を指定します。設定しない場合は空欄です。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>3</td>
+	      <td>部材グループ名</td>
+          <td align="center">-</td>
+	      <td>
+            作成するプレート要素を要素グループに追加する場合はグループ名を指定します。追加しない場合は空欄です。<br/>
+            /で区切るとグループの階層を意味します。　ex) aa/bb/cc
+          </td>
+	    </tr>
+	    <tr>
+	      <td>4</td>
+	      <td>部品材料名</td>
+          <td align="center">-</td>
+	      <td>
+            作成するプレート要素の材料の材料名称を指定します。設定しない場合は空欄です。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>5</td>
+	      <td>プレート平面法線方向</td>
+          <td align="center">-</td>
+	      <td>X,Y,Zのいずれか</td>
+	    </tr>
+	    <tr>
+	      <td>6</td>
+	      <td>プレート平面位置</td>
+          <td align="center">-</td>
+	      <td>数値（mm）または変数名、計算式</td>
+	    </tr>	    
+	    <tr>
+	      <td>7</td>
+	      <td>板厚</td>
+          <td align="center">-</td>
+	      <td>数値（mm）または変数名、計算式</td>
+	    </tr>
+	    <tr>
+	      <td>8</td>
+	      <td>モールド位置</td>
+          <td align="center">-</td>
+	      <td>数値（mm）または変数名、計算式</td>
+	    </tr>
+	    <tr>
+	      <td>9</td>
+	      <td>板逃方向</td>
+          <td align="center">-</td>
+	      <td>空欄は中心、+ は＋方向、-は-方向</td>
+	    </tr>
+	    <tr>
+	      <td>10</td>
+	      <td>境界ソリッド</td>
+          <td align="center">-</td>
+	      <td>境界ソリッド名称（指定しない場合は空欄）</td>
+	    </tr>	    
+	    <tr>
+	      <td>11</td>
+	      <td>区間1始点</td>
+          <td align="center">-</td>
+	      <td>
+            数値（mm）または変数名、計算式（空欄は指定しない）<br/>
+            区間１は、プレート平面法線がX方向の時はY区間、Y方向の時はZ区間、Z方向の時はX区間となります。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>12</td>
+	      <td>区間1終点</td>
+          <td align="center">-</td>
+	      <td>数値（mm）または変数名、計算式（空欄は指定しない）</td>
+	    </tr>
+	    <tr>
+	      <td>13</td>
+	      <td>区間2始点</td>
+          <td align="center">-</td>
+	      <td>数値（mm）または変数名、計算式（空欄は指定しない）<br/>
+            区間２は、プレート平面法線がX方向の時はZ区間、Y方向の時はX区間、Z方向の時はY区間となります。
+          </td>
+	    </tr>	    
+	    <tr>
+	      <td>14</td>
+	      <td>区間2始点</td>
+          <td align="center">-</td>
+	      <td>数値（mm）または変数名、計算式（空欄は指定しない）</td>
+	    </tr>	    
+        <tr>
+          <td>15</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名（要素グループパスを含む）が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+	    <tr class="r1">
+	      <td  colspan="4"><a id="ship_ss" href="cmd_ship_profile_part.html">条材</a></td>
+	    </tr>
+	    <tr>
+	      <td>1</td>
+	      <td>部品タイプ</td>
+          <td align="center">-</td>
+	      <td>
+            基準平面指定の条材は11<br/>
+            取付線指定の条材は12<br/>
+            取付線+取付方向線指定の条材は13<br/>
+            元要素指定の条材は14<br/>
+            ロンジ間の条材は15<br/>
+          </td>
+	    </tr>
+	    <tr>
+	      <td>2</td>
+	      <td>部品名</td>
+          <td align="center">-</td>
+	      <td>
+            作成する条材要素の要素名称を指定します。設定しない場合は空欄です。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>3</td>
+	      <td>部材グループ名</td>
+          <td align="center">-</td>
+	      <td>
+            作成する条材要素を要素グループに追加する場合はグループ名を指定します。追加しない場合は空欄です。<br/>
+            /で区切るとグループの階層を意味します。　ex) aa/bb/cc
+          </td>
+	    </tr>
+	    <tr>
+	      <td>4</td>
+	      <td>部品材料名</td>
+          <td align="center">-</td>
+	      <td>
+            作成する条材要素の材料の材料名称を指定します。設定しない場合は空欄です。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>5</td>
+	      <td>部品名<br/>（ビルトアップ）</td>
+          <td align="center">-</td>
+	      <td>
+            作成する条材要素（ビルトアップ）の要素名称を指定します。設定しない場合は空欄です。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>6</td>
+	      <td>部材グループ名<br/>（ビルトアップ）</td>
+          <td align="center">-</td>
+	      <td>
+            作成する条材要素（ビルトアップ）を要素グループに追加する場合はグループ名を指定します。追加しない場合は空欄です。<br/>
+            /で区切るとグループの階層を意味します。　ex) aa/bb/cc
+          </td>
+	    </tr>
+	    <tr>
+	      <td>7</td>
+	      <td>部品材料名<br/>（ビルトアップ）</td>
+          <td align="center">-</td>
+	      <td>
+            作成する条材要素（ビルトアップ）の材料の材料名称を指定します。設定しない場合は空欄です。
+          </td>
+	    </tr>
+        <tr>
+	      <td>8～</td>
+	      <td>形状データ</td>
+          <td align="center">◯</td>
+	      <td><a href="about_ship_settings.html">部材既定寸法設定ファイル</a>の条材の既定寸法の指定と同様にタイプを表す数値と寸法値を指定します。（既定寸法名のフィールドは含みません）
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>フェイス角度設定</td>
+          <td align="center">◯</td>
+	      <td>
+            ※形状タイプがBU1（1201）～BU5（1205）の場合のみ<br/>
+            数値（mm）または変数名、計算式
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>基準面法線方向</td>
+          <td align="center">-</td>
+	      <td>
+            ※基準平面指定（11）の場合のみ<br/>
+            X,Y,Zのいずれか
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>基準面オフセット</td>
+          <td align="center">◯</td>
+	      <td>
+            ※基準平面指定（11）の場合のみ<br/>
+            数値（mm）または変数名、計算式
+          </td>
+	    </tr>	    
+	    <tr>
+	      <td>～</td>
+	      <td>取付線</td>
+          <td align="center">◯</td>
+	      <td>
+            ※取付線指定（12）または取付線+取付方向線指定（13）の場合のみ<br/>
+            スケッチ名あるいはカーブ名を指定します。<br/>
+            スケッチ名を指定した場合は続いてレイヤー名やスケッチ要素名、カーブを指定した場合は複数本のカーブを指定できます。
+            <ul>
+              <li>
+                スケッチ全体を指定する場合は、次の列に空欄を入れます。
+              </li>
+              <li>
+                レイヤーを指定する場合は、次の列にレイヤー名を入力します。
+              </li>
+              <li>
+                スケッチ要素を指定する場合は、スケッチ要素名を入力し（複数列可）、最後の列に空欄を入れます。
+              </li>
+              <li>
+                複数本のカーブを指定する場合は、複数列にカーブ名を入力し、最後の列に空欄を入れます。（1本の場合も次の列に空欄が必要）
+              </li>
+            </ul>
+          </td>
+	    </tr>	    
+	    <tr>
+	      <td>～</td>
+	      <td>取付面</td>
+          <td align="center">◯</td>
+	      <td>
+            ※基準平面指定（11）、取付線指定（12）、ロンジ間（15）の場合のみ<br/>
+            シートボディまたはソリッドボディの要素名を指定します。（複数可）<br/>
+            ソリッドボディを対象要素とした場合はさらに対象面を指定します。<a href="#solid_face">（1～7の数値）</a><br/>
+            要素数分繰り返し、最後に空欄を入れます。
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+	      <td>取付線の結合トレランス</td>
+          <td align="center">◯</td>
+          <td>
+            ※基準平面指定（11）または取付線指定（12）の場合のみ<br/>
+            指定しない場合は0を入力します。<br/>
+            指定する場合は数値（mm）または変数名、計算式を入力します。
+          </td>
+        </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>基準直線</td>
+          <td align="center">◯</td>
+	      <td>
+            ※取付線+取付方向線指定（13）の場合のみ<br/>
+            スケッチ名あるいはカーブ名を指定します。<br/>
+            スケッチ名を指定した場合は続いてスケッチ要素名、カーブを指定した場合は複数本のカーブを指定できます。
+            <ul>
+              <li>
+                スケッチ要素を指定する場合は、スケッチ要素名を入力し（複数列可）、最後の列に空欄を入れます。
+              </li>
+              <li>
+                複数本のカーブを指定する場合は、複数列にカーブ名を入力し、最後の列に空欄を入れます。（1本の場合も次の列に空欄が必要）
+              </li>
+            </ul>
+          </td>
+	    </tr>	    
+	    <tr>
+	      <td>～</td>	      
+	      <td>元の条材</td>
+          <td align="center">◯</td>
+	      <td>
+            ※元要素指定（14）の場合のみ<br/>
+            元の条材名を指定します。<br/>
+            グループ階層とソリッド名で指定できます。 ex) aa/bb/cc/solid01
+          </td>
+	    </tr>
+        <tr>
+	      <td>～</td>	      
+	      <td>ロンジ１</td>
+          <td align="center">◯</td>
+	      <td>
+            ※ロンジ間（15）の場合のみ<br/>
+            ロンジ１となる条材名を指定します。<br/>
+            グループ階層とソリッド名で指定できます。 ex) aa/bb/cc/solid01
+          </td>
+	    </tr>
+        <tr>
+	      <td>～</td>	      
+	      <td>ロンジ１のモールド位置</td>
+          <td align="center">◯</td>
+	      <td>
+            ※ロンジ間（15）の場合のみ<br/>
+            ロンジ１のモールド位置を指定します。<br/>
+            空欄はロンジ１のセンター、+はモールド面、-は反対側の面です。
+          </td>
+	    </tr>
+        <tr>
+	      <td>～</td>	      
+	      <td>ロンジ２</td>
+          <td align="center">◯</td>
+	      <td>
+            ※ロンジ間（15）の場合のみ<br/>
+            ロンジ２となる条材名を指定します。<br/>
+            グループ階層とソリッド名で指定できます。 ex) aa/bb/cc/solid01
+            指定しない場合は空欄にしてください。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>	      
+	      <td>板逃方向</td>
+          <td align="center">-</td>
+	      <td>
+            ※元要素指定（14）の場合はこの列をスキップします。<br/>
+            空欄はセンター、+は+方向、-は-方向
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>モールド位置</td>
+          <td align="center">-</td>
+	      <td>
+            ※元要素指定（14）の場合はこの列をスキップします。<br/>
+            数値（mm）または変数名、計算式
+          </td>
+	    </tr>
+        <tr>
+	      <td>～</td>
+	      <td>取付方向反転</td>
+          <td align="center">-</td>
+	      <td>
+            ※元要素指定（14）の場合はこの列をスキップします。<br/>
+            フラグ（0または1）で指定します。
+          </td>
+	    </tr>	    
+        <tr>
+	      <td>～</td>
+	      <td>アングル方向反転</td>
+          <td align="center">◯</td>
+	      <td>
+            ※元要素指定（14）の場合はこの列をスキップします。<br/>
+            フラグ（0または1）で指定します。
+          </td>
+	    </tr>	    
+        <tr>
+	      <td>～</td>
+	      <td>取付線の境界を基準に</td>
+          <td align="center">-</td>
+	      <td>
+            ※取付線指定（12）の場合のみ<br/>
+            フラグ（0または1）で指定します。
+          </td>
+	    </tr>	    
+        <tr>
+	      <td>～</td>
+	      <td>投影方向指定</td>
+          <td align="center">◯</td>
+	      <td>
+            ※取付線指定（12）の場合のみ<br/>
+            <ul>
+              <li>
+                空欄は投影方向を指定しない。（取付面法線方向への投影になります。）
+              </li>
+              <li>
+                -1は投影をしない。
+              </li>
+              <li>
+                +X、-X、+Y、-Y、+Z、-Zいずれかの文字列かXYZのベクトル（XYXの数値（mm））で方向を指定します。
+              </li>
+            </ul>
+          </td>
+	    </tr>	    
+        <tr>
+	      <td>～</td>
+	      <td>取付角度</td>
+          <td align="center">-</td>
+	      <td>
+            ※基準平面指定（11）または取付線指定（12）の場合のみ<br/>
+            数値（mm）または変数名、計算式
+          </td>
+	    </tr>	    
+        <tr>
+	      <td>～</td>
+	      <td>取付方向</td>
+          <td align="center">◯</td>
+	      <td>
+            ※基準平面指定（11）、取付線指定（12）、ロンジ間（15）の場合のみ<br/>
+            0はデフォルト、1は取付方向指定、2は基準平面内<br/>
+            取付方向指定の場合のみ、取付方向を+X,-X,+Y,-Y,+Z,-Zいずれかの文字列かベクトル（XYZの数値（mm））で指定します。
+            （ロンジ間では取付方向指定を設定できません。）
+          </td>
+	    </tr>	    
+	    <tr>
+	      <td>～</td>
+	      <td>端部１</td>
+          <td align="center">◯</td>
+          <td>
+            端部は骨材方向軸上の座標値（数値（mm）または変数名、計算式）、もしくは要素（点、平面、シートボディ、ソリッドボディ）のいずれか一つで指定します。<br/>
+            要素は要素名で指定します。ソリッドボディを端部要素とした場合はさらに端部面を指定します。<a href="#solid_face">（1～7の数値）</a>（複数要素可）<br/>
+            要素数分繰り返し、最後に空欄を入れます。また、端部要素を指定しない場合は空欄のみ入れます。<p/>
+            続けて端部のタイプ、寸法値を指定します。<br/>
+            <a href="about_ship_settings.html">部材既定寸法設定ファイル</a>の条材端部の既定寸法の指定と同様にタイプを表す数値と寸法値を指定します。（既定寸法名のフィールドは含みません）<br/>
+            元要素指定（14）で端部を指定しない場合は、要素名を空欄、端部のタイプを0に指定します。
+          </td>
+	    </tr>
+        <tr>
+	      <td>～</td>
+	      <td>端部２</td>
+          <td align="center">◯</td>
+          <td>端部１と同様に指定します。</td> 
+	    </tr>
+        <tr>
+          <td>～</td>
+	      <td>端部１スカラップ</td>
+          <td align="center">◯</td>
+          <td><a href="about_ship_settings.html">部材既定寸法設定ファイル</a>の条材端部スカラップの既定寸法の指定と同様にタイプを表す数値と寸法値を指定します。（既定寸法名のフィールドは含みません）<br/>
+            スカラップを指定しない場合は0とします。
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+	      <td>端部２スカラップ</td>
+          <td align="center">◯</td>
+          <td>端部１スカラップと同様に指定します。</td> 
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名（要素グループパスを含む）が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+<!--
+	    <tr class="r1">
+	      <td  colspan="4"><a href="cmd_ship_slot.html">スロット</a></td>
+	    <tr>
+	      <td>1</td>
+	      <td>部品タイプ</td>
+	      <td>スロットは4</td>
+	    </tr>
+	    <tr>
+	      <td>2</td>
+	      <td>部品名(補強版がある場合)</td>
+	      <td></td>
+	    </tr>
+	    <tr>
+	      <td>3</td>
+	      <td>部材グループ名(補強版がある場合)</td>
+	      <td>/で区切るとグループの階層を意味します。　ex) aa/bb/cc</td>
+	    </tr>
+	    <tr>
+	      <td>4</td>
+	      <td>部品材料名(補強版がある場合)</td>
+	      <td></td>
+	    </tr>
+	    <tr>
+	      <td>5</td>
+	      <td>ロンジソリッド</td>
+	      <td>スロットをとおるロンジソリッドの名称</td>
+	    </tr>
+	    <tr>
+	      <td>6</td>
+	      <td>プレート</td>
+	      <td>スロットをあけるソリッドの名称</td>
+	    </tr>	    
+	    <tr>
+	      <td>7</td>
+	      <td>表裏フラグ</td>
+	      <td>
+		補強版をつける面の法線方向が、ロンジの骨材方向と同じ向きの場合は＋、反対は－を指定
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>8</td>
+	      <td>延長フラグ</td>
+	      <td>スロットを境界まで延長する場合は１</td>
+	    </tr>
+	    <tr>
+	      <td>9～</td>
+	      <td>形状データ</td>
+	      <td><a href="about_ship_settings.html">部材既定寸法設定ファイル</a>のスロットの既定寸法の指定と同様</td>
+	    </tr>
+        -->
+        <tr class="r1">
+          <td colspan="4"><a id="ship_bracket" href="cmd_ship_bracket.html">ブラケット</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>ブラケットは5</td>
+	    </tr>
+	    <tr>
+	      <td>2</td>
+	      <td>部品名</td>
+          <td align="center">-</td>
+	      <td>
+            作成するブラケット要素の要素名称を指定します。設定しない場合は空欄です。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>3</td>
+	      <td>部材グループ名</td>
+          <td align="center">-</td>
+	      <td>
+            作成するブラケット要素を要素グループに追加する場合はグループ名を指定します。追加しない場合は空欄です。<br/>
+            /で区切るとグループの階層を意味します。　ex) aa/bb/cc
+          </td>
+	    </tr>
+	    <tr>
+	      <td>4</td>
+	      <td>部品材料名</td>
+          <td align="center">-</td>
+	      <td>
+            作成するブラケット要素の材料の材料名称を指定します。設定しない場合は空欄です。
+          </td>
+	    </tr>
+        <tr>
+          <td>5</td>
+          <td>平面法線方向</td>
+          <td align="center">-</td>
+          <td>X,Y,Zのいずれか</td>
+	    </tr>
+	    <tr>
+	      <td>6</td>
+	      <td>平面位置</td>
+          <td align="center">-</td>
+	      <td>数値（mm）または変数名、計算式</td>
+	    </tr>	    
+	    <tr>
+	      <td>7</td>
+	      <td>板厚</td>
+          <td align="center">-</td>
+	      <td>数値（mm）または変数名、計算式</td>
+	    </tr>
+	    <tr>
+	      <td>8</td>
+	      <td>モールド位置</td>
+          <td align="center">-</td>
+	      <td>数値（mm）または変数名、計算式</td>
+	    </tr>
+	    <tr>
+	      <td>9</td>
+	      <td>板逃方向</td>
+          <td align="center">-</td>
+	      <td>空欄は中心、+ は＋方向、-は-方向</td>
+	    </tr>
+        <tr>
+          <td>10～</td>
+          <td>形状データ</td>
+          <td align="center">◯</td>
+	      <td><a href="about_ship_settings.html">部材既定寸法設定ファイル</a>のブラケットの既定寸法の指定と同様にタイプを表す数値と寸法値を指定します。（既定寸法名のフィールドは含みません）</td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>スカラップ</td>
+          <td align="center">◯</td>
+          <td>つけない場合は0とします。<br/>
+            数値（mm）で指定します。つける場合、カットかどうかのフラグ（0か1）を続けて指定します。<br/>
+            3面のブラケット場合は、もう1組（数値とフラグ）を続けて指定します。
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>面1～3</td>
+          <td align="center">◯</td>
+          <td>シートボディまたはソリッドボディの要素名を指定します。（複数可）<br/>
+            ソリッドボディを対象要素とした場合はさらに対象面を指定します。<a href="#solid_face">（1～7の数値）</a><br/>
+            要素数分繰り返し、最後に空欄を入れます。<br/>
+            反転するかどうかのフラグ（0か1）を続けて指定します。
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>フランジ</td>
+          <td align="center">◯</td>
+          <td>つけない場合は0とします。<br/>
+            つける場合、<a href="about_ship_settings.html">部材既定寸法設定ファイル</a>のフランジの既定寸法の指定と同様にタイプを表す数値と寸法値を指定します。（既定寸法名のフィールドは含みません）<br/>
+            反転するかどうかのフラグ（0か1）を続けて指定します。<br/>
+            取り付け角度（数値（mm）または変数名、計算式）で指定します。
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>寸法基準1</td>
+          <td align="center">◯</td>
+          <td><a href="about_ship_settings.html">部材既定寸法設定ファイル</a>のブラケット寸法基準の既定寸法の指定と同様にタイプを表す数値と寸法値を指定します。（既定寸法名のフィールドは含みません）<br/>
+            面は、シートボディまたはソリッドボディの要素名を指定します。（複数可）<br/>
+            ソリッドボディを対象要素とした場合はさらに対象面を指定します。<a href="#solid_face">（1～7の数値）</a><br/>
+            要素数分繰り返し、最後に空欄を入れます。<br/>
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>寸法基準2</td>
+          <td align="center">◯</td>
+          <td>寸法基準1と同様に指定します。</td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>端部1下スカラップ<br/>端部1上スカラップ<br/>端部2下スカラップ<br/>端部2上スカラップ</td>
+          <td align="center">◯</td>
+          <td>つけない場合は0とします。<br/>
+            つける場合、<a href="about_ship_settings.html">部材既定寸法設定ファイル</a>のスカラップの既定寸法の指定と同様にタイプを表す数値と寸法値を指定します。（既定寸法名のフィールドは含みません）
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名（要素グループパスを含む）が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="ship_fp" href="cmd_ship_faceplate.html">フェイスプレート</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>
+            元要素指定のフェイスプレートは22<br/>
+            ブラケット指定のフェイスプレートは23<br/>
+            開口部指定のフェイスプレートは24 ※作成されるフェイスプレートは面指定となります。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>2</td>
+	      <td>部品名</td>
+          <td align="center">-</td>
+	      <td>
+            作成するフェイスプレート要素の要素名称を指定します。設定しない場合は空欄です。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>3</td>
+	      <td>部材グループ名</td>
+          <td align="center">-</td>
+	      <td>
+            作成するフェイスプレート要素を要素グループに追加する場合はグループ名を指定します。追加しない場合は空欄です。<br/>
+            /で区切るとグループの階層を意味します。　ex) aa/bb/cc
+          </td>
+	    </tr>
+	    <tr>
+	      <td>4</td>
+	      <td>部品材料名</td>
+          <td align="center">-</td>
+	      <td>
+            作成するフェイスプレート要素の材料の材料名称を指定します。設定しない場合は空欄です。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>5</td>
+	      <td>取付位置</td>
+          <td align="center">-</td>
+	      <td>
+            元要素指定（22）の場合は、元のフェイスプレート名を指定します。<br/>
+            ブラケット指定（23）の場合は、ブラケット名を指定します。<br/>
+            開口部指定（24）の場合は、開口部が1つある板材ソリッドボディ名を指定します。<br/>
+            いずれもグループ階層とソリッド名で指定できます。 ex) aa/bb/cc/solid01
+          </td>
+	    </tr>
+	    <tr>
+	      <td>6～</td>
+	      <td>形状データ</td>
+          <td align="center">◯</td>
+	      <td>
+            <a href="about_ship_settings.html">部材既定寸法設定ファイル</a>のフェイスプレートの既定寸法の指定と同様にタイプを表す数値と寸法値を指定します。（既定寸法名のフィールドは含みません）
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>方向反転</td>
+          <td align="center">-</td>
+	      <td>
+            反転するかどうかのフラグ（0か1）を指定します。<br/>
+            ※開口部指定（24）の場合、モールド面と反対の面を基準面するときに反転します。<br/>
+            ※元要素指定（22）の場合はこの列をスキップします。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>取付角度指定</td>
+          <td align="center">-</td>
+	      <td>
+            数値（mm）または変数名、計算式<br/>
+            ※元要素指定（22）の場合はこの列をスキップします。
+        </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>端部１</td>
+          <td align="center">◯</td>
+	      <td>
+            <p>
+              つけない場合は0とします。（端部要素名の空欄も不要です）
+            </p>
+            <p>
+              つける場合、<a href="about_ship_settings.html">部材既定寸法設定ファイル</a>のフェイスプレート端部の既定寸法の指定と同様にタイプを表す数値と寸法値を指定します。（既定寸法名のフィールドは含みません）<br/>
+            </p>
+            <p>
+              端部要素を指定する場合、骨材方向軸上の座標値（数値（mm）または変数名、計算式）、もしくは要素（点、平面、シートボディ、ソリッドボディ）のいずれか一つで指定します。
+              要素は要素名で指定します。ソリッドボディを端部要素とした場合はさらに端部面を指定します。<a href="#solid_face">（1～7の数値）</a>（複数可）<br/>
+              要素数分繰り返し、最後に空欄を入れます。<br/>
+              端部を指定しない場合は空欄とします。
+            </p>
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>端部２</td>
+          <td align="center">◯</td>
+	      <td>
+            端部１と同様に指定します。
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名（要素グループパスを含む）が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="ship_flange" href="cmd_ship_flange.html">フランジ</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>
+            条材のフラットバーにフランジをつける場合は31
+          </td>
+	    </tr>
+	    <tr>
+	      <td>2</td>
+	      <td>部品名</td>
+          <td align="center">-</td>
+	      <td>
+            作成するフランジフィーチャーの要素名を指定します。設定しない場合は空欄です。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>3</td>
+	      <td>対象ソリッド名</td>
+          <td align="center">-</td>
+	      <td>
+            フランジを作成する対象のソリッド名を指定します。グループ階層とソリッド名で指定できます。 ex) aa/bb/cc/body01<br/>
+            フラットバータイプの条材を指定する必要があります。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>4～</td>
+	      <td>形状データ</td>
+          <td align="center">◯</td>
+	      <td>
+            <a href="about_ship_settings.html">部材既定寸法設定ファイル</a>のフランジの既定寸法の指定と同様にタイプを表す数値と寸法値を指定します。（既定寸法名のフィールドは含みません）
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>アングル方向反転</td>
+          <td align="center">-</td>
+	      <td>
+            反転するかどうかのフラグ（0か1）を指定します。<br/>
+            デフォルトでフラットバーのモールド面が基準面となります。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>取付角度</td>
+          <td align="center">-</td>
+	      <td>
+            数値（mm）または変数名、計算式<br/>
+          </td>
+	    </tr>
+        <tr>
+          <td colspan="4">
+            ※フランジが対象ソリッドに存在する場合、読み込みオプションに関係なく全て更新として処理されます。
+          </td>
+        </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="datum_plane" href="cmd_datum_plane.html">平面（データム）</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>
+            平面要素による平面は401<br/>
+            3点による平面は402<br/>
+            基準線と法線方向にょる平面は403<br/>
+            投影による平面は404<br/>
+            直線と平面上の方向による平面は405
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成する平面要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>要素グループ名</td>
+          <td align="center">-</td>
+          <td>
+            作成する平面要素を要素グループに追加する場合はグループ名を指定します。追加しない場合は空欄です。<br/>
+            /で区切るとグループの階層を意味します。　ex) aa/bb/cc
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>関連づけ</td>
+          <td align="center">-</td>
+          <td>ボディへ関連づけを行う場合は1、フィーチャーへ関連づけを行う場合は0または空欄です。</td>
+        </tr>
+        <tr>
+          <td>5,6</td>
+          <td>平面タイプ<br/>移動距離</td>
+          <td align="center">◯</td>
+          <td>
+            ※平面要素タイプ（401）の場合<br/>
+            +X,-X,+Y,-Y,+Z,-Zいずれかの文字列と移動距離（数値（mm）または変数名）を指定します。
+          </td>
+        </tr>
+        <tr>
+          <td>5～</td>
+          <td>点1、点2、点3</td>
+          <td align="center">◯</td>
+          <td>
+            ※3点タイプ（402）の場合<br/>
+            点要素名あるいは座標値（XYZの数値（mm））を3つ指定します。<br/>
+          </td>
+        </tr>
+        <tr>
+          <td>5～</td>
+          <td>基準点<br/>法線方向</td>
+          <td align="center">◯</td>
+          <td>
+            ※基準点と法線方向タイプ（403）の場合<br/>
+            基準点となる点要素名あるいは座標値（XYZの数値（mm））を指定します。<br/>
+            続けて法線方向ベクトルとして、+X,-X,+Y,-Y,+Z,-Zいずれかの文字列かベクトル（XYZの数値（mm））を指定します。 
+          </td>
+        </tr>
+        <tr>
+          <td>5～</td>
+          <td>基準点<br/>投影対象要素</td>
+          <td align="center">◯</td>
+          <td>
+            ※投影タイプ（404）の場合<br/>
+            基準点となる点要素名あるいは座標値（XYZの数値（mm））を指定します。<br/>
+            続けて投影対象要素として、カーブの要素名を指定します。
+          </td>
+        </tr>
+        <tr>
+          <td>5～</td>
+          <td>直線<br/>方向</td>
+          <td align="center">◯</td>
+          <td>
+            ※直線と平面上の方向タイプ（405）の場合<br/>
+            基準線となる方向1として、+X,-X,+Y,-Y,+Z,-Zいずれかの文字列を指定します。<br/>
+            続けて方向2として、+X,-X,+Y,-Y,+Z,-Zいずれかの文字列かベクトル（XYZの数値（mm））を指定します。 
+          </td>
+        </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名（要素グループパスを含む）が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="datum_point_by_curve" href="about_input_position.html">カーブ上の点</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>カーブ上の点の定義は452</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成する点要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>要素グループ名</td>
+          <td align="center">-</td>
+          <td>
+            作成する点要素を要素グループに追加する場合はグループ名を指定します。追加しない場合は空欄です。<br/>
+            /で区切るとグループの階層を意味します。　ex) aa/bb/cc
+          </td>
+        </tr>
+        <tr>
+          <td>4～</td>
+          <td>対象カーブ名</td>
+          <td align="center">◯</td>
+          <td>
+            カーブ名あるいはスケッチ名を指定します。<br/>
+            スケッチ名を指定した場合は続いてスケッチ要素名を入力します。
+          </td>
+        </tr>
+        <tr>
+          <td>～</td>
+          <td>点のタイプ</td>
+          <td align="center">-</td>
+          <td>
+            端点の場合は1、線上点の場合は2を指定します。
+          </td>
+        </tr>
+        <tr>
+          <td>～</td>
+          <td>基準点</td>
+          <td align="center">◯</td>
+          <td>
+            点要素名あるいは座標値（XYZの数値（mm））を3つ指定します。<br/>
+            端点の場合は、始終点のどちらか基準点に近い方が採用されます。<br/>
+            線上点の場合は、基準点からカーブ上の最近点（垂線の足）が計算されます。
+          </td>
+        </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>
+            インポート時に、要素名が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。
+          </td>
+        </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="sketch_def" href="cmd_def_sketch.html">スケッチの定義</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>スケッチの定義は501</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成するスケッチ要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>要素グループ名</td>
+          <td align="center">-</td>
+          <td>
+            作成するスケッチ要素を要素グループに追加する場合はグループ名を指定します。追加しない場合は空欄です。<br/>
+            /で区切るとグループの階層を意味します。　ex) aa/bb/cc
+          </td>
+        </tr>
+        <tr>
+          <td>4～</td>
+          <td>スケッチ平面法線方向</td>
+          <td align="center">◯</td>
+          <td>+X,-X,+Y,-Y,+Z,-Zいずれかの文字列か、法線ベクトル（XYZの数値（mm））を指定します。<br/>
+            法線ベクトルを指定した場合は、続けて原点（XYZの数値（mm））とX軸方向ベクトルを指定します。<br/>
+            X軸方向ベクトルは、+X,-X,+Y,-Y,+Z,-Zいずれかの文字列かベクトル（XYZの数値（mm））を指定します。
+          </td>
+        </tr>
+        <tr>
+          <td>～</td>
+          <td>平面オフセット</td>
+          <td align="center">-</td>
+          <td>数値（mm）または変数名、計算式</td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名（要素グループパスを含む）が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="sketch_layer" href="cmd_sketch_layer.html">スケッチレイヤー</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>スケッチレイヤーの定義は503</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>レイヤー名</td>
+          <td align="center">-</td>
+          <td>作成するレイヤーの名称を指定します。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>対象スケッチ名</td>
+          <td align="center">-</td>
+          <td>
+            レイヤーを作成する対象のスケッチ名を指定します。グループ階層とスケッチ名で指定できます。 ex) aa/bb/cc/skt01
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>
+            インポート時に、要素名が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。<br/>
+            更新しない場合は、末尾に数字がついた新しいレイヤーが作成されます。
+          </td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="sketch_line" href="cmd_sketch_line.html">直線（スケッチ）</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>直線（スケッチ）の定義は502</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成する要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>対象スケッチ名</td>
+          <td align="center">-</td>
+          <td>
+            要素を作成する対象のスケッチ名を指定します。グループ階層とスケッチ名で指定できます。 ex) aa/bb/cc/skt01
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>対象レイヤー名</td>
+          <td align="center">-</td>
+          <td>
+            要素を作成する対象のレイヤー名を指定します。空欄の場合は、カレントレイヤーに作成されます。<br/>
+            更新時、違うレイヤー名を指定すると、指定されたレイヤーへ要素を移動できます。
+          </td>
+        </tr>
+        <tr>
+          <td>5,6</td>
+          <td>始点</td>
+          <td align="center">-</td>
+          <td>
+            直線の始点をXYの数値（mm）または変数名、計算式で指定します。<br/>
+            変数名および計算式で指定した場合、X座標値拘束またはY座標値拘束が作成されます。
+          </td>
+        </tr>
+        <tr>
+          <td>7,8</td>
+          <td>終点</td>
+          <td align="center">-</td>
+          <td>
+            直線の終点をXYの数値（mm）または変数名、計算式で指定します。<br/>
+            変数名および計算式で指定した場合、X座標値拘束またはY座標値拘束が作成されます。
+          </td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="sketch_arc" href="cmd_sketch_arc.html">円弧（スケッチ）</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>円弧（スケッチ）の定義は511</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成する要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>対象スケッチ名</td>
+          <td align="center">-</td>
+          <td>
+            要素を作成する対象のスケッチ名を指定します。グループ階層とスケッチ名で指定できます。 ex) aa/bb/cc/skt01
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>対象レイヤー名</td>
+          <td align="center">-</td>
+          <td>
+            要素を作成する対象のレイヤー名を指定します。空欄の場合は、カレントレイヤーに作成されます。<br/>
+            更新時、違うレイヤー名を指定すると、指定されたレイヤーへ要素を移動できます。
+          </td>
+        </tr>
+        <tr>
+          <td>5,6</td>
+          <td>中心点</td>
+          <td align="center">-</td>
+          <td>
+            円弧の中心点をXYの数値（mm）または変数名、計算式で指定します。<br/>
+            変数名および計算式で指定した場合、X座標値拘束またはY座標値拘束が作成されます。
+          </td>
+        </tr>
+        <tr>
+          <td>7,8</td>
+          <td>始点</td>
+          <td align="center">-</td>
+          <td>
+            円弧の始点をXYの数値（mm）または変数名、計算式で指定します。<br/>
+            変数名および計算式で指定した場合、X座標値拘束またはY座標値拘束が作成されます。
+          </td>
+        </tr>
+        <tr>
+          <td>9,10</td>
+          <td>終点</td>
+          <td align="center">-</td>
+          <td>
+            円弧の終点をXYの数値（mm）または変数名、計算式で指定します。<br/>
+            変数名および計算式で指定した場合、X座標値拘束またはY座標値拘束が作成されます。
+          </td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td>反時計回り</td>
+          <td align="center">-</td>
+          <td>円弧を反時計回りにするかどうかのフラグ（0または1）を指定します。</td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="sketch_3pt_arc" href="cmd_sketch_3pt_arc.html">3点円弧（スケッチ）</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>3点円弧（スケッチ）の定義は512</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成する要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>対象スケッチ名</td>
+          <td align="center">-</td>
+          <td>
+            要素を作成する対象のスケッチ名を指定します。グループ階層とスケッチ名で指定できます。 ex) aa/bb/cc/skt01
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>対象レイヤー名</td>
+          <td align="center">-</td>
+          <td>
+            要素を作成する対象のレイヤー名を指定します。空欄の場合は、カレントレイヤーに作成されます。<br/>
+            更新時、違うレイヤー名を指定すると、指定されたレイヤーへ要素を移動できます。
+          </td>
+        </tr>
+        <tr>
+          <td>5,6</td>
+          <td>始点</td>
+          <td align="center">-</td>
+          <td>
+            円弧の始点をXYの数値（mm）または変数名、計算式で指定します。<br/>
+            変数名および計算式で指定した場合、X座標値拘束またはY座標値拘束が作成されます。
+          </td>
+        </tr>
+        <tr>
+          <td>7,8</td>
+          <td>周上の点</td>
+          <td align="center">-</td>
+          <td>
+            円弧上の点をXYの数値（mm）で指定します。<br/>
+            尚、変数名および計算式で指定することも可能ですが、拘束は作成されません。
+          </td>
+        </tr>
+        <tr>
+          <td>9,10</td>
+          <td>終点</td>
+          <td align="center">-</td>
+          <td>
+            円弧の終点をXYの数値（mm）または変数名、計算式で指定します。<br/>
+            変数名および計算式で指定した場合、X座標値拘束またはY座標値拘束が作成されます。
+          </td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="sketch_circle" href="cmd_sketch_circle.html">円（スケッチ）</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>円（スケッチ）の定義は521</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成する要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>対象スケッチ名</td>
+          <td align="center">-</td>
+          <td>
+            要素を作成する対象のスケッチ名を指定します。グループ階層とスケッチ名で指定できます。 ex) aa/bb/cc/skt01
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>対象レイヤー名</td>
+          <td align="center">-</td>
+          <td>
+            要素を作成する対象のレイヤー名を指定します。空欄の場合は、カレントレイヤーに作成されます。<br/>
+            更新時、違うレイヤー名を指定すると、指定されたレイヤーへ要素を移動できます。
+          </td>
+        </tr>
+        <tr>
+          <td>5,6</td>
+          <td>中心点</td>
+          <td align="center">-</td>
+          <td>
+            円弧の中心点をXYの数値（mm）または変数名、計算式で指定します。<br/>
+            変数名および計算式で指定した場合、X座標値拘束またはY座標値拘束が作成されます。
+          </td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>半径</td>
+          <td align="center">-</td>
+          <td>数値（mm）または変数名、計算式で指定します。</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="sketch_intersect" href="cmd_sketch_cross_curve.html">交線（スケッチ）</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>交線（スケッチ）の定義は551</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成する交線要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>対象スケッチ名</td>
+          <td align="center">-</td>
+          <td>
+            要素を作成する対象のスケッチ名を指定します。グループ階層とスケッチ名で指定できます。 ex) aa/bb/cc/skt01
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>対象レイヤー名</td>
+          <td align="center">-</td>
+          <td>
+            要素を作成する対象のレイヤー名を指定します。空欄の場合は、カレントレイヤーに作成されます。<br/>
+            更新時、このフィールドは無視されます。
+          </td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>関連づけ</td>
+          <td align="center">-</td>
+          <td>
+            ボディへ関連づけを行う場合は1、フィーチャーへ関連づけを行う場合は0または空欄です。
+          </td>
+        </tr>
+        <tr>
+          <td>6～</td>
+          <td>サーフェス</td>
+          <td align="center">◯</td>
+          <td>
+            複数のシートまたはソリッド要素のどちらかで指定します。<br/>
+            ソリッドボディを対象要素とした場合はソリッドの構成面を全てを含めます。<br/>
+            ソリッドの対象面を指定することもできます。<a href="#solid_face">（1～7の数値）</a><br/>
+            要素数分繰り返し、最後に空欄を入れます。
+          </td>
+        </tr>
+        <tr>
+          <td>～</td>
+          <td>複合線化</td>
+          <td align="center">◯</td>
+          <td>
+            複合線化のタイプをしない（1）、直線/円弧/複合線（2）、全て複合線（3）で指定します。<br/>
+            複合線化する場合、続いて端点結合のトレランスを数値（mm）または変数名で指定します。<p/>
+            ※スケッチ要素として他のCSV読み込みコマンドで利用する場合、全て複合線化を選ぶようにしてください。<br/>
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="sketch_cross_pnt" href="cmd_sketch_cross_point.html">交点（スケッチ）</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>交点（スケッチ）の定義は552</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成する交点要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>対象スケッチ名</td>
+          <td align="center">-</td>
+          <td>
+            要素を作成する対象のスケッチ名を指定します。グループ階層とスケッチ名で指定できます。 ex) aa/bb/cc/skt01
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>対象レイヤー名</td>
+          <td align="center">-</td>
+          <td>
+            要素を作成する対象のレイヤー名を指定します。空欄の場合は、カレントレイヤーに作成されます。<br/>
+            更新時、このフィールドは無視されます。
+          </td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>関連づけ</td>
+          <td align="center">-</td>
+          <td>
+            ボディへ関連づけを行う場合は1、フィーチャーへ関連づけを行う場合は0または空欄です。
+          </td>
+        </tr>
+        <tr>
+          <td>6～</td>
+          <td>カーブ</td>
+          <td align="center">◯</td>
+          <td>
+            1本のスケッチ要素またはカーブ要素を指定できます。<br/>
+            <ul>
+              <li>
+                スケッチ要素を指定する場合は、スケッチ名に続いてスケッチ要素名を入力します。
+              </li>
+              <li>
+                カーブ要素を指定する場合は、カーブ名を入力します。
+              </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="sketch_fillet" href="cmd_sketch_fillet.html">フィレット（スケッチ）</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>フィレット（スケッチ）の定義は561</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成される円弧要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>対象スケッチ名</td>
+          <td align="center">-</td>
+          <td>
+            フィレットを作成する対象のスケッチ名を指定します。グループ階層とスケッチ名で指定できます。 ex) aa/bb/cc/skt01
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>対象レイヤー名</td>
+          <td align="center">-</td>
+          <td>
+            作成される円弧のレイヤー名を指定します。空欄の場合は、カレントレイヤーに作成されます。<br/>
+          </td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>カーブ1,名称</td>
+          <td align="center">-</td>
+          <td>
+            フィレットを作成するスケッチ線名を指定します。<br/>
+          </td>
+        </tr>
+        <tr>
+          <td>6,7</td>
+          <td>カーブ1,点座標値</td>
+          <td align="center">-</td>
+          <td>
+            カーブ1のフィレットを作成する側の点（線上でなくてもよい）位置の座標値X,Yを数値（mm）で指定します。
+          </td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>カーブ2,名称</td>
+          <td align="center">-</td>
+          <td>
+            フィレットを作成するスケッチ線名を指定します。<br/>
+          </td>
+        </tr>
+        <tr>
+          <td>9,10</td>
+          <td>カーブ2,点座標値</td>
+          <td align="center">-</td>
+          <td>
+            カーブ2のフィレットを作成する側の点（線上でなくてもよい）位置の座標値X,Yを数値（mm）で指定します。
+          </td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td>半径</td>
+          <td align="center">-</td>
+          <td>フィレット円弧の半径を数値（mm）または変数名、計算式で指定します。</td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td>トリムフラグ</td>
+          <td align="center">-</td>
+          <td>対象線をフィレット円弧でトリム,延長する場合1を指定します。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="sketch_constraint" href="cmd_sketch_constraint.html">拘束（スケッチ）</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>拘束（スケッチ）の定義は571</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成される拘束の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>対象スケッチ名</td>
+          <td align="center">-</td>
+          <td>
+            拘束を作成する対象のスケッチ名を指定します。グループ階層とスケッチ名で指定できます。 ex) aa/bb/cc/skt01
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>対象レイヤー名</td>
+          <td align="center">-</td>
+          <td>
+            作成される拘束のレイヤー名を指定します。空欄の場合は、カレントレイヤーに作成されます。<br/>
+          </td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>拘束タイプ</td>
+          <td align="center">-</td>
+          <td>平行拘束は1<br/>垂直拘束は2<br/>水平拘束は3<br/>鉛直拘束は4</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>カーブ1</td>
+          <td align="center">-</td>
+          <td>
+            拘束を作成するスケッチ線名を指定します。<br/>
+          </td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>カーブ2</td>
+          <td align="center">-</td>
+          <td>
+            拘束を作成するスケッチ線名を指定します。平行拘束と垂直拘束で必要です。<br/>
+          </td>
+        </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="curve_line" href="cmd_sketch_line.html">直線（カーブ）</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>直線（カーブ）の定義は601</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成する直線要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>要素グループ名</td>
+          <td align="center">-</td>
+          <td>
+            作成する直線要素を要素グループに追加する場合はグループ名を指定します。追加しない場合は空欄です。<br/>
+            /で区切るとグループの階層を意味します。　ex) aa/bb/cc
+          </td>
+        </tr>
+        <tr>
+          <td>4,5,6</td>
+          <td>始点</td>
+          <td align="center">-</td>
+          <td>直線の始点をXYZの数値（mm）で指定します。</td>
+        </tr>
+        <tr>
+          <td>7,8,9</td>
+          <td>終点</td>
+          <td align="center">-</td>
+          <td>直線の終点をXYZの数値（mm）で指定します。</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="curve_intersect" href="cmd_curve_cross.html">交線（カーブ）</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>交線（カーブ）の定義は651</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成するカーブ要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>要素グループ名</td>
+          <td align="center">-</td>
+          <td>
+            作成するカーブ要素を要素グループに追加する場合はグループ名を指定します。追加しない場合は空欄です。<br/>
+            /で区切るとグループの階層を意味します。　ex) aa/bb/cc
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>関連づけ</td>
+          <td align="center">-</td>
+          <td>
+            ボディへ関連づけを行う場合は1、フィーチャーへ関連づけを行う場合は0または空欄です。
+          </td>
+        </tr>
+        <tr>
+          <td>5～</td>
+          <td>サーフェス1、2</td>
+          <td align="center">◯</td>
+          <td>
+            複数のシートまたはソリッド要素のどちらかで指定します。<br/>
+            ソリッドボディを対象要素とした場合はソリッドの構成面を全てを含めます。<br/>
+            ソリッドの対象面を指定することもできます。<a href="#solid_face">（1～7の数値）</a><br/>
+            要素数分繰り返し、最後に空欄を入れます。
+          </td>
+        </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="curve_project" href="cmd_curve_projection.html">投影線（カーブ）</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>投影線（カーブ）の定義は652</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成するカーブ要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>要素グループ名</td>
+          <td align="center">-</td>
+          <td>
+            作成するカーブ要素を要素グループに追加する場合はグループ名を指定します。追加しない場合は空欄です。<br/>
+            /で区切るとグループの階層を意味します。　ex) aa/bb/cc
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>関連づけ</td>
+          <td align="center">-</td>
+          <td>
+            ボディへ関連づけを行う場合は1、フィーチャーへ関連づけを行う場合は0または空欄です。
+          </td>
+        </tr>
+        <tr>
+          <td>5～</td>
+          <td>カーブ</td>
+          <td align="center">◯</td>
+          <td>
+            複数のスケッチまたはスケッチレイヤー、スケッチ要素、カーブ要素を指定できます。<br/>
+            <ul>
+              <li>
+                スケッチ全体を指定する場合は、スケッチ名のみ入力します。
+              </li>
+              <li>
+                レイヤーを指定する場合は、次の列にレイヤー名を入力します。
+              </li>
+              <li>
+                スケッチ要素を指定する場合は、スケッチ名とスケッチ要素名を1組として入力します。
+              </li>
+              <li>
+                カーブ要素を指定する場合は、カーブ名を入力します。
+              </li>
+            </ul>
+            要素数分繰り返し、最後に空欄を入れます。<br/>
+            ex) スケッチ1,スケッチ2,レイヤーA,スケッチ2,レイヤーB,,
+          </td>
+        </tr>
+        <tr>
+          <td>～</td>
+          <td>サーフェス</td>
+          <td align="center">◯</td>
+          <td>
+            複数のシートまたはソリッド要素のどちらかで指定します。<br/>
+            ソリッドボディを対象要素とした場合はソリッドの構成面を全てを含めます。<br/>
+            ソリッドの対象面を指定することもできます。<a href="#solid_face">（1～7の数値）</a><br/>
+            要素数分繰り返し、最後に空欄を入れます。
+          </td>
+        </tr>
+        <tr>
+          <td>～</td>
+          <td>投影方向指定</td>
+          <td align="center">◯</td>
+          <td>
+            投影方向を指定するかどうかのフラグ（0または1）を指定します。<br/>
+            指定する場合のみ、+X,-X,+Y,-Y,+Z,-Zいずれかの文字列かベクトル（XYZの数値（mm））を指定します。
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="curve_offset">面上オフセット線</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>面上オフセット線の定義は653</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成するカーブ要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>要素グループ名</td>
+          <td align="center">-</td>
+          <td>
+            作成するカーブ要素を要素グループに追加する場合はグループ名を指定します。追加しない場合は空欄です。<br/>
+            /で区切るとグループの階層を意味します。　ex) aa/bb/cc
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>関連づけ</td>
+          <td align="center">-</td>
+          <td>
+            ボディへ関連づけを行う場合は1、フィーチャーへ関連づけを行う場合は0または空欄です。
+          </td>
+        </tr>
+        <tr>
+          <td>5～</td>
+          <td>カーブ</td>
+          <td align="center">◯</td>
+          <td>
+            複数のスケッチまたはスケッチレイヤー、スケッチ要素、カーブ要素を指定できます。<br/>
+            <ul>
+              <li>
+                スケッチ全体を指定する場合は、スケッチ名のみ入力します。
+              </li>
+              <li>
+                レイヤーを指定する場合は、次の列にレイヤー名を入力します。
+              </li>
+              <li>
+                スケッチ要素を指定する場合は、スケッチ名とスケッチ要素名を1組として入力します。
+              </li>
+              <li>
+                カーブ要素を指定する場合は、カーブ名を入力します。
+              </li>
+            </ul>
+            要素数分繰り返し、最後に空欄を入れます。<br/>
+            ex) スケッチ1,スケッチ2,レイヤーA,スケッチ2,レイヤーB,,
+          </td>
+        </tr>
+        <tr>
+          <td>～</td>
+          <td>サーフェス</td>
+          <td align="center">◯</td>
+          <td>
+            1つのシートまたはソリッド要素のどちらかで指定します。<br/>
+            ソリッドボディを対象要素とした場合はさらに対象面を指定します。<a href="#solid_face">（1～7の数値）</a>
+          </td>
+        </tr>
+        <tr>
+          <td>～</td>
+          <td>オフセット方法</td>
+          <td align="center">◯</td>
+          <td>
+            オフセット方法を距離指定（1）または点指定（2）で指定します。<br/>
+            距離指定の場合、オフセット距離の数値（mm）または変数名に続いて、反転するかどうかのフラグ（0または1を入力します）<br/>
+            点指定の場合、オフセット位置点となる点要素名あるいは座標値（XYZの数値（mm））を指定します。
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>分割長</td>
+          <td align="center">◯</td>
+          <td>
+            カーブを分割する基準長さを指定します。指定しない場合は0を入力します。
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="solid_extrude" href="cmd_solid_extrude.html">押し出しフィーチャー</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>押し出しフィーチャーの定義は701</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成する要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>対象ソリッド名</td>
+          <td align="center">-</td>
+          <td>
+            フィーチャーを作成する対象のソリッド名を指定します。グループ階層とソリッド名で指定できます。 ex) aa/bb/cc/body01
+          </td>
+        </tr>
+	    <tr>
+	      <td>4</td>
+	      <td>ボディ操作タイプ</td>
+          <td align="center">-</td>
+	      <td>追加は+、削除は-、積は*を指定します。</td>
+	    </tr>
+	    <tr>
+	      <td>5,6</td>
+	      <td>プロファイル</td>
+          <td align="center">◯</td>
+	      <td>スケッチ名とレイヤ名、またはシート名を指定します。レイヤを指定しない場合は空欄とします。</td>
+	    </tr>
+	    <tr>
+	      <td>7～</td>
+	      <td>高さ</td>
+          <td align="center">◯</td>
+	      <td>
+            高さタイプを順方向（N）、逆方向（R）、両方向（B）、2方向（2）、貫通（T）で指定します。<br/>
+            高さ距離を数値（mm）または変数名、計算式で指定します。<br/>
+            2方向の場合のみ、高さ距離2を数値（mm）または変数名、計算式で指定します。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>方向</td>
+          <td align="center">◯</td>
+	      <td>
+            方向を指定するかどうかのフラグ（0または1）を指定します。<br/>
+            方向指示の場合のみ、+X,-X,+Y,-Y,+Z,-Zいずれかの文字列かベクトル（XYZの数値（mm））を指定します。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>勾配</td>
+          <td align="center">◯</td>
+	      <td>
+            勾配を指示するかどうかのフラグ（0または1）を指定します。<br/>
+            勾配指示の場合のみ以下の指定をします。<br/>
+            勾配角度を数値（mm）または変数名、計算式で指定します。<br/>
+            高さタイプが両方向または2方向の場合のみ、第2方向の勾配を数値（mm）または変数名、計算式で指定します。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>厚みづけ</td>
+          <td align="center">◯</td>
+	      <td>
+            厚みづけをするかどうかのフラグ（0または1）を指定します。<br/>
+            厚みづけをする場合のみ以下の指定をします。<br/>
+            厚さタイプを内側（+）、外側（-）、2方向（2）、両側（B）で指定します。<br/>
+            厚さ1を数値（mm）または変数名、計算式で指定します。<br/>
+            オフセットを数値（mm）または変数名、計算式で指定します。<br/>
+            厚さタイプが2方向の場合のみ、厚さ2を数値（mm）または変数名、計算式で指定します。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>プロファイルオフセット</td>
+          <td align="center">-</td>
+	      <td>数値（mm）または変数名、計算式</td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="solid_sweep" href="cmd_solid_sweep.html">スイープフィーチャー</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>スイープフィーチャーの定義は703</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成する要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>対象ソリッド名</td>
+          <td align="center">-</td>
+          <td>
+            フィーチャーを作成する対象のソリッド名を指定します。グループ階層とソリッド名で指定できます。 ex) aa/bb/cc/body01
+          </td>
+        </tr>
+	    <tr>
+	      <td>4</td>
+	      <td>ボディ操作タイプ</td>
+          <td align="center">-</td>
+	      <td>追加は+、削除は-、積は*を指定します。</td>
+	    </tr>
+	    <tr>
+	      <td>5,6</td>
+	      <td>プロファイル</td>
+          <td align="center">◯</td>
+	      <td>スケッチ名とレイヤー名、またはシート名を指定します。レイヤを指定しない場合は空欄とします。</td>
+	    </tr>
+	    <tr>
+	      <td>7～</td>
+	      <td>パス</td>
+          <td align="center">◯</td>
+	      <td>スケッチ名とレイヤー名、またはカーブ要素名を指定します。</td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>ねじれ</td>
+          <td align="center">◯</td>
+	      <td>
+            ねじれタイプをなし（0）、方向指定（1）、角度指定（2）で指定します。
+            <p>
+              方向指定の場合、複数のスケッチ要素またはカーブ要素を指定できます。</p>
+              <ul>
+                <li>
+                  スケッチ要素を指定する場合は、スケッチ名に続いてスケッチ要素名を入力します。
+                </li>
+                <li>
+                  カーブ要素を指定する場合は、カーブ名を入力します。
+                </li>
+              </ul>
+              <p>複数回繰り返した後、最後の列に空欄を入れます。<br/>
+            </p>
+            <p>
+              角度指定の場合、点要素と角度値のペアを複数回指定できます。<br/>
+              点要素名と角度値（数値（mm）または変数名、計算式）を入力し、最後の列に空欄を入れます。
+            </p>
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>方向</td>
+          <td align="center">◯</td>
+	      <td>
+            方向を指定するかどうかのフラグ（0または1）を指定します。<br/>
+            方向指示の場合のみ、+X,-X,+Y,-Y,+Z,-Zいずれかの文字列かベクトル（XYZの数値（mm））を指定します。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>スイープオプション</td>
+          <td align="center">-</td>
+	      <td>
+            平行にスイープするかのフラグ（0または1）を指定します。<br/>
+            次に、フェイスの最小化のフラグ（0または1）を指定します。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>厚みづけ</td>
+          <td align="center">◯</td>
+	      <td>
+            厚みづけをするかどうかのフラグ（0または1）を指定します。<br/>
+            厚みづけをする場合のみ以下の指定をします。<br/>
+            厚さタイプを内側（+）、外側（-）、2方向（2）、両側（B）で指定します。<br/>
+            厚さ1を数値（mm）または変数名、計算式で指定します。<br/>
+            オフセットを数値（mm）または変数名、計算式で指定します。<br/>
+            厚さタイプが2方向の場合のみ、厚さ2を数値（mm）または変数名、計算式で指定します。
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="solid_loft" href="cmd_solid_loft.html">ロフトフィーチャー</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>ロフトフィーチャーの定義は704</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成する要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>対象ソリッド名</td>
+          <td align="center">-</td>
+          <td>
+            フィーチャーを作成する対象のソリッド名を指定します。グループ階層とソリッド名で指定できます。 ex) aa/bb/cc/body01
+          </td>
+        </tr>
+	    <tr>
+	      <td>4</td>
+	      <td>ボディ操作タイプ</td>
+          <td align="center">-</td>
+	      <td>追加は+、削除は-、積は*を指定します。</td>
+	    </tr>
+	    <tr>
+	      <td>5～</td>
+	      <td>プロファイル</td>
+          <td align="center">◯</td>
+	      <td>
+            スケッチ名またはカーブ名をプロファイルの数だけ繰り返し、最後に空欄を入れます。<br/>
+            スケッチ名を指定した場合は続いてレイヤー名やスケッチ要素名を入力できます。<br/>
+            ex) スケッチ1,スケッチ2,レイヤーA,スケッチ2,レイヤーB,,
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>ガイド</td>
+          <td align="center">◯</td>
+	      <td>
+            ガイドを指示するかどうかのフラグ（0または1）を指定します。<br/>
+            指示する場合、複数のスケッチまたはスケッチレイヤー、スケッチ要素、カーブ要素を指定できます。<br/>
+            <ul>
+              <li>
+                スケッチ全体を指定する場合は、スケッチ名のみ入力します。
+              </li>
+              <li>
+                レイヤーを指定する場合は、次の列にレイヤー名を入力します。
+              </li>
+              <li>
+                スケッチ要素を指定する場合は、スケッチ名とスケッチ要素名を1組として入力します。
+              </li>
+              <li>
+                カーブ要素を指定する場合は、カーブ名を入力します。
+              </li>
+            </ul>
+            要素数分繰り返し、最後に空欄を入れます。
+            ex) スケッチ1,スケッチ2,レイヤーA,スケッチ2,レイヤーB,,
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>整列</td>
+          <td align="center">◯</td>
+	      <td>
+            整列を指示するかどうかのフラグ（0または1）を指定します。<br/>
+            指示する場合、複数のスケッチまたはスケッチレイヤー、スケッチ要素、カーブ要素を指定できます。<br/>
+            <ul>
+              <li>
+                スケッチ全体を指定する場合は、スケッチ名のみ入力します。
+              </li>
+              <li>
+                レイヤーを指定する場合は、次の列にレイヤー名を入力します。
+              </li>
+              <li>
+                スケッチ要素を指定する場合は、スケッチ名とスケッチ要素名を1組として入力します。
+              </li>
+              <li>
+                カーブ要素を指定する場合は、カーブ名を入力します。
+              </li>
+            </ul>
+            要素数分繰り返し、最後に空欄を入れます。
+            ex) スケッチ1,スケッチ2,レイヤーA,スケッチ2,レイヤーB,,
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>接線（開始点）</td>
+          <td align="center">◯</td>
+	      <td>
+            接線タイプをなし（0）、プリファイルに垂直（1）、接続面指定G1連続（2）、接続面指定G2連続（3）で指定します。<br/>
+            接続面指定の場合、接続面をシートボディまたはソリッドボディの要素名で指定します。<br/>
+            ソリッドボディを対象要素とした場合はさらに対象面を指定します。<a href="#solid_face">（1～7の数値）</a><br/>
+            接続タイプがなし以外の場合、スケール値を数値（実数）または変数名、計算式で指定します。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>接線（終了点）</td>
+          <td align="center">◯</td>
+	      <td>接線（開始点）と同様に指定します。</td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>閉じる</td>
+          <td align="center">-</td>
+	      <td>
+            閉じるかどうかのフラグ（0か1）を指定します。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>プロファイル範囲内でガイド線を使用</td>
+          <td align="center">-</td>
+	      <td>
+            プロファイル範囲内でガイド線を使用するかどうかのフラグ（0か1）を指定します。
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名（要素グループパスを含む）が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="solid_thicken" href="cmd_solid_thicken.html">厚み付けフィーチャー</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>厚み付けフィーチャーの定義は705</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成する要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>対象ソリッド名</td>
+          <td align="center">-</td>
+          <td>
+            フィーチャーを作成する対象のソリッド名を指定します。グループ階層とソリッド名で指定できます。 ex) aa/bb/cc/body01
+          </td>
+        </tr>
+	    <tr>
+	      <td>4</td>
+	      <td>ボディ操作タイプ</td>
+          <td align="center">-</td>
+	      <td>追加は+、削除は-、積は*を指定します。</td>
+	    </tr>
+	    <tr>
+	      <td>5～</td>
+	      <td>プロファイル</td>
+          <td align="center">◯</td>
+	      <td>
+            シートボディまたはソリッドボディの要素名を指定します。<br/>
+            ソリッドボディを対象要素とした場合はさらに対象面を指定します。<a href="#solid_face">（1～7の数値）</a><br/>
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>厚みづけ</td>
+          <td align="center">◯</td>
+	      <td>
+            厚さタイプを内側（+）、外側（-）、2方向（2）、両側（B）で指定します。<br/>
+            厚さ1を数値（mm）または変数名、計算式で指定します。<br/>
+            オフセットを数値（mm）または変数名、計算式で指定します。<br/>
+            厚さタイプが2方向の場合のみ、厚さ2を数値（mm）または変数名、計算式で指定します。
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="solid_cut" href="cmd_cut.html">カットフィーチャー</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>カットフィーチャーの定義は706</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成するカット要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>対象ボディ名</td>
+          <td align="center">-</td>
+          <td>
+            フィーチャーを作成する対象のソリッド名またはシート名を指定します。グループ階層とボディ名で指定できます。 ex) aa/bb/cc/body01
+          </td>
+        </tr>
+	    <tr>
+	      <td>4～</td>
+	      <td>分割対象</td>
+          <td align="center">◯</td>
+	      <td>
+            シートまたは面、平面の要素名を指定します。<br/>
+            ソリッドボディを対象要素とした場合はさらに対象面を指定します。<a href="#solid_face">（1～7の数値）</a><br/>
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>クリアランス</td>
+          <td align="center">-</td>
+	      <td>数値（mm）または変数名、計算式で指定します。</td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>切断方向</td>
+          <td align="center">◯</td>
+	      <td>+X,-X,+Y,-Y,+Z,-Zいずれかの文字列かベクトル（XYZの数値（mm））を指定します。</td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="sheet_extrude" href="cmd_sheet_extrude.html">押し出しサーフェイス</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>押し出しサーフェイスの定義は801</td>
+        </tr>
+        <tr>
+          <td>2</td>
+	      <td>部品名</td>
+          <td align="center">-</td>
+          <td>作成する押し出しサーフェイスの要素名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+	    <tr>
+	      <td>3</td>
+	      <td>部材グループ名</td>
+          <td align="center">-</td>
+	      <td>
+            作成する押し出しサーフェイスを要素グループに追加する場合はグループ名を指定します。追加しない場合は空欄です。<br/>
+            /で区切るとグループの階層を意味します。　ex) aa/bb/cc
+          </td>
+	    </tr>
+	    <tr>
+	      <td>4</td>
+	      <td>部品材料名</td>
+          <td align="center">-</td>
+	      <td>
+            作成する押し出しサーフェイスの材料の材料名称を指定します。設定しない場合は空欄です。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>5,6</td>
+	      <td>プロファイル</td>
+          <td align="center">◯</td>
+	      <td>スケッチ名とレイヤ名、またはカーブ要素名を指定します。レイヤを指定しない場合は空欄とします。</td>
+	    </tr>
+	    <tr>
+	      <td>7～</td>
+	      <td>高さ</td>
+          <td align="center">◯</td>
+	      <td>
+            高さタイプを順方向（N）、逆方向（R）、両方向（B）、2方向（2）、貫通（T）で指定します。<br/>
+            高さ距離を数値（mm）または変数名、計算式で指定します。<br/>
+            2方向の場合のみ、高さ距離2を数値（mm）または変数名、計算式で指定します。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>方向</td>
+          <td align="center">◯</td>
+	      <td>
+            方向を指定するかどうかのフラグ（0または1）を指定します。<br/>
+            方向指示の場合のみ、+X,-X,+Y,-Y,+Z,-Zいずれかの文字列かベクトル（XYZの数値（mm））を指定します。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>プロファイルオフセット</td>
+          <td align="center">-</td>
+	      <td>数値（mm）または変数名、計算式</td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名（要素グループパスを含む）が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="sheet_sweep" href="cmd_sheet_sweep.html">スイープサーフェイス</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>スイープサーフェイスの定義は803</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>部品名</td>
+          <td align="center">-</td>
+          <td>作成するスイープサーフェイスの要素名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+	    <tr>
+	      <td>3</td>
+	      <td>部材グループ名</td>
+          <td align="center">-</td>
+	      <td>
+            作成するスイープサーフェイスを要素グループに追加する場合はグループ名を指定します。追加しない場合は空欄です。<br/>
+            /で区切るとグループの階層を意味します。　ex) aa/bb/cc
+          </td>
+	    </tr>
+	    <tr>
+	      <td>4</td>
+	      <td>部品材料名</td>
+          <td align="center">-</td>
+	      <td>
+            作成するスイープサーフェイスの材料の材料名称を指定します。設定しない場合は空欄です。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>5,6</td>
+	      <td>プロファイル</td>
+          <td align="center">◯</td>
+	      <td>スケッチ名とレイヤー名を指定します。レイヤを指定しない場合は空欄とします。</td>
+	    </tr>
+	    <tr>
+	      <td>7～</td>
+	      <td>パス</td>
+          <td align="center">◯</td>
+	      <td>スケッチ名とレイヤー名、またはカーブ要素名を指定します。</td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>ねじれ</td>
+          <td align="center">◯</td>
+	      <td>
+            ねじれタイプをなし（0）、方向指定（1）、角度指定（2）で指定します。
+            <p>
+              方向指定の場合、複数のスケッチ要素またはカーブ要素を指定できます。</p>
+              <ul>
+                <li>
+                  スケッチ要素を指定する場合は、スケッチ名に続いてスケッチ要素名を入力します。
+                </li>
+                <li>
+                  カーブ要素を指定する場合は、カーブ名を入力します。
+                </li>
+              </ul>
+              <p>複数回繰り返した後、最後の列に空欄を入れます。<br/>
+            </p>
+            <p>
+              角度指定の場合、点要素と角度値のペアを複数回指定できます。<br/>
+              点要素名と角度値（数値（mm）または変数名、計算式）を入力し、最後の列に空欄を入れます。
+            </p>
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>方向</td>
+          <td align="center">◯</td>
+	      <td>
+            方向を指定するかどうかのフラグ（0または1）を指定します。<br/>
+            方向指示の場合のみ、+X,-X,+Y,-Y,+Z,-Zいずれかの文字列かベクトル（XYZの数値（mm））を指定します。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>スイープオプション</td>
+          <td align="center">-</td>
+	      <td>
+            平行にスイープするかのフラグ（0または1）を指定します。<br/>
+            次に、フェイスの最小化のフラグ（0または1）を指定します。
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="sheet_loft" href="cmd_sheet_loft.html">ロフトサーフェイス</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>ロフトサーフェイスの定義は804</td>
+        </tr>
+	    <tr>
+	      <td>2</td>
+	      <td>部品名</td>
+          <td align="center">-</td>
+	      <td>
+            作成するロフトサーフェイスの要素名称を指定します。設定しない場合は空欄です。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>3</td>
+	      <td>部材グループ名</td>
+          <td align="center">-</td>
+	      <td>
+            作成するロフトサーフェイスを要素グループに追加する場合はグループ名を指定します。追加しない場合は空欄です。<br/>
+            /で区切るとグループの階層を意味します。　ex) aa/bb/cc
+          </td>
+	    </tr>
+	    <tr>
+	      <td>4</td>
+	      <td>部品材料名</td>
+          <td align="center">-</td>
+	      <td>
+            作成するロフトサーフェイスの材料の材料名称を指定します。設定しない場合は空欄です。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>5～</td>
+	      <td>プロファイル</td>
+          <td align="center">◯</td>
+	      <td>
+            スケッチ名またはカーブ名、ソリッドボディ名、シートボディ名をプロファイルの数だけ繰り返し、最後に空欄を入れます。<br/>
+            スケッチ名を指定した場合は続いてレイヤー名やスケッチ要素名を入力できます。<br/>
+            ソリッドボディを対象要素とした場合はさらに対象面を指定します。<a href="#solid_face">（1～7の数値）</a><br/>
+            ex) スケッチ1,スケッチ2,レイヤーA,シート1,ソリッド1,1,,
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>ガイド</td>
+          <td align="center">◯</td>
+	      <td>
+            ガイドを指示するかどうかのフラグ（0または1）を指定します。<br/>
+            指示する場合、1つのスケッチまたはスケッチレイヤー、複数のスケッチ要素またはカーブ要素を指定できます。<br/>
+            <ul>
+              <li>
+                スケッチ全体を指定する場合は、次の列に空欄を入れます。
+              </li>
+              <li>
+                レイヤーを指定する場合は、次の列にレイヤー名を入力し、最後の列に空欄を入れます。
+              </li>
+              <li>
+                スケッチ要素を指定する場合は、スケッチ名とスケッチ要素名を1組として、最後の列に空欄を入れます。
+              </li>
+              <li>
+                カーブ要素を指定する場合は、複数列にカーブ名を入力し、最後の列に空欄を入れます。
+              </li>
+            </ul>
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>整列</td>
+          <td align="center">◯</td>
+	      <td>
+            整列を指示するかどうかのフラグ（0または1）を指定します。<br/>
+            指示する場合、1つのスケッチまたはスケッチレイヤー、複数のスケッチ要素またはカーブ要素を指定できます。<br/>
+            <ul>
+              <li>
+                スケッチ全体を指定する場合は、次の列に空欄を入れます。
+              </li>
+              <li>
+                レイヤーを指定する場合は、次の列にレイヤー名を入力し、最後の列に空欄を入れます。
+              </li>
+              <li>
+                スケッチ要素を指定する場合は、スケッチ名とスケッチ要素名を1組として、最後の列に空欄を入れます。
+              </li>
+              <li>
+                カーブ要素を指定する場合は、複数列にカーブ名を入力し、最後の列に空欄を入れます。
+              </li>
+            </ul>
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>接線（開始点）</td>
+          <td align="center">◯</td>
+	      <td>
+            接線タイプをなし（0）、プリファイルに垂直（1）、接続面指定G1連続（2）、接続面指定G2連続（3）で指定します。<br/>
+            接続面指定の場合、接続面をシートボディまたはソリッドボディの要素名で指定します。<br/>
+            ソリッドボディを対象要素とした場合はさらに対象面を指定します。<a href="#solid_face">（1～7の数値）</a><br/>
+            接続タイプがなし以外の場合、スケール値を数値（実数）または変数名、計算式で指定します。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>接線（終了点）</td>
+          <td align="center">◯</td>
+	      <td>接線（開始点）と同様に指定します。</td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>閉じる</td>
+          <td align="center">-</td>
+	      <td>
+            閉じるかどうかのフラグ（0か1）を指定します。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>～</td>
+	      <td>プロファイル範囲内でガイド線を使用</td>
+          <td align="center">-</td>
+	      <td>
+            プロファイル範囲内でガイド線を使用するかどうかのフラグ（0か1）を指定します。
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名（要素グループパスを含む）が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="sheet_planar" href="cmd_sheet_plane.html">平面（サーフェイス）</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>平面（サーフェイス）の定義は805</td>
+        </tr>
+        	    <tr>
+	      <td>2</td>
+	      <td>部品名</td>
+          <td align="center">-</td>
+	      <td>
+            作成する平面サーフェイスの要素名称を指定します。設定しない場合は空欄です。
+          </td>
+	    </tr>
+	    <tr>
+	      <td>3</td>
+	      <td>部材グループ名</td>
+          <td align="center">-</td>
+	      <td>
+            作成する平面サーフェイスを要素グループに追加する場合はグループ名を指定します。追加しない場合は空欄です。<br/>
+            /で区切るとグループの階層を意味します。　ex) aa/bb/cc
+          </td>
+	    </tr>
+	    <tr>
+	      <td>4</td>
+	      <td>部品材料名</td>
+          <td align="center">-</td>
+	      <td>
+            作成する平面サーフェイスの材料の材料名称を指定します。設定しない場合は空欄です。
+          </td>
+	    </tr>
+        <tr>
+          <td>5</td>
+	      <td>トレランス</td>
+          <td align="center">-</td>
+          <td>
+            平面作成時のトレランスを指定する場合は、数値（mm）または変数名、計算式を入力します。
+            指定しない場合は空欄です。
+          </td>
+        </tr>
+	    <tr>
+	      <td>6～</td>
+	      <td>プロファイル</td>
+          <td align="center">◯</td>
+	      <td>
+            スケッチ名、スケッチ名とスケッチレイヤー名、またはカーブ名をプロファイルの数だけ繰り返し、最後に空欄を入れます。<br/>
+            スケッチ名を最初に指定した場合は続いてレイヤー名やスケッチカーブ名を入力できます。<br/>
+            ex) 
+            <ul>
+              <li>スケッチ1,,</li>
+              <li>スケッチ1,レイヤーA,,</li>
+              <li>スケッチ1,スケッチカーブ1,スケッチカーブ2,スケッチカーブ3,スケッチカーブ4,,</li>
+              <li>カーブ1,カーブ2,カーブ3,カーブ4,,</li>
+            </ul>
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名（要素グループパスを含む）が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="solid_new" href="cmd_new_solid.html">新規ソリッドボディ</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>新規ソリッドボディの定義は1002</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>部品名</td>
+          <td align="center">-</td>
+          <td>作成するソリッド要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+	    <tr>
+	      <td>3</td>
+	      <td>部材グループ名</td>
+          <td align="center">-</td>
+	      <td>
+            作成するソリッド要素を要素グループに追加する場合はグループ名を指定します。追加しない場合は空欄です。<br/>
+            /で区切るとグループの階層を意味します。　ex) aa/bb/cc
+          </td>
+	    </tr>
+	    <tr>
+	      <td>4</td>
+	      <td>部品材料名</td>
+          <td align="center">-</td>
+	      <td>
+            作成するソリッド要素の材料の材料名称を指定します。設定しない場合は空欄です。
+          </td>
+	    </tr>
+        <tr>
+          <td>5</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名（要素グループパスを含む）が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="solid_solid" href="cmd_solid_solid.html">ソリッドボディフィーチャー</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>ソリッドボディフィーチャーの定義は1005</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>要素名</td>
+          <td align="center">-</td>
+          <td>作成する要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>対象ボディ名</td>
+          <td align="center">-</td>
+          <td>
+            フィーチャーを作成する対象のソリッド名またはシート名を指定します。グループ階層とボディ名で指定できます。 ex) aa/bb/cc/body01
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>ソースボディ名</td>
+          <td align="center">-</td>
+          <td>
+            集合演算（追加、削除、積）する元のソリッド名を指定します。グループ階層とソリッド名で指定できます。 ex) aa/bb/cc/body01
+          </td>
+        </tr>
+	    <tr>
+	      <td>5</td>
+	      <td>ボディ操作タイプ</td>
+          <td align="center">-</td>
+	      <td>
+            追加は+、削除は-、積は*を指定します。<br/>
+            ※対象ボディでシートボディーを指定した場合は、削除または積のみ有効です。
+          </td>
+	    </tr>
+        <tr>
+          <td>6</td>
+          <td>関連づけ</td>
+          <td align="center">-</td>
+          <td>
+            ボディへ関連づけを行う場合は1、フィーチャーへ関連づけを行う場合は0または空欄です。
+          </td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="edit_thickness" href="cmd_ship_edit_plate_thickness.html">板厚変更</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>板厚変更の定義は1006</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>対象ソリッド名</td>
+          <td align="center">-</td>
+          <td>
+            板厚を変更する対象のソリッド名を指定します。グループ階層とボディ名で指定できます。 ex) aa/bb/cc/body01
+          </td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>変更後の板厚値</td>
+          <td align="center">-</td>
+          <td>
+            新しい板厚値を数値（mm）または変数名、計算式で指定します。
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>元ボディの板厚適用</td>
+          <td align="center">-</td>
+          <td>
+            分割やコピーされたボディにおいて、分割やコピーされる前のボディの板厚値を適用します。
+          </td>
+        </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="body_sep" href="cmd_div_body.html">ボディ分割</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>
+            シートや平面によるボディ分割は1011<br/>
+            カーブやスケッチ平面によるボディ分割は1012<br/>
+            ソリッドによるボディ分割（区分け）は1013
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>分割名</td>
+          <td align="center">-</td>
+          <td>作成する分割要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>要素グループ名</td>
+          <td align="center">-</td>
+          <td>
+            作成する分割要素を要素グループに追加する場合はグループ名を指定します。追加しない場合は空欄です。<br/>
+            /で区切るとグループの階層を意味します。　ex) aa/bb/cc
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>関連づけ</td>
+          <td align="center">-</td>
+          <td>
+            ボディへ関連づけを行う場合は1、フィーチャーへ関連づけを行う場合は0または空欄です。
+          </td>
+        </tr>
+	    <tr>
+	      <td>5</td>
+	      <td>対象ボディ名</td>
+          <td align="center">-</td>
+	      <td>
+            分割対象のソリッド名またはシート名を指定します。グループ階層とボディ名で指定できます。 ex) aa/bb/cc/body01
+          </td>
+	    </tr>
+        <tr>
+          <td>6～</td>
+          <td>分割要素</td>
+          <td align="center">◯</td>
+          <td>
+            シートや平面による分割（1011）の場合、シート名または平面要素名、あるいはX,Y,Zのいずれかとオフセット量（数値（mm）または変数名）を指定します。<p/>
+            カーブやスケッチ平面による分割（1012）の場合、スケッチ名またはカーブ名を指定します。スケッチ名を指定した場合は続いてレイヤー名やスケッチ要素名を入力できます。ex) スケッチ1,スケッチ2,レイヤーA,スケッチ2,レイヤーB,, <p/>
+            ソリッドによるボディ分割（1013）の場合、ソリッド名を指定します。<p/>
+            いずれのタイプでも、最後に空欄を入れる必要があり、空欄が見つかるまで複数個の要素を指定することができます。
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>整列</td>
+          <td align="center">◯</td>
+          <td>
+            整列を指定するかどうかのフラグ（0または1）を指定します。<br/>
+            整列する場合のみ、+X,-X,+Y,-Y,+Z,-Zいずれかの文字列かベクトル（XYZの数値（mm））を指定します。
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>分割後のボディ名</td>
+          <td align="center">◯</td>
+          <td>
+            分割後のボディ名を指定するかどうかのフラグ（0または1）を指定します。<br/>
+            指定する場合のみ、ボディ名を複数列入力し、最後に空欄を入れます。<br/>
+            ボディ名には要素グループパスを含めることができます。<p/>
+            ※CSV読み込みの更新では、ボディ名を変更することができません。
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>面上線での分割</td>
+          <td align="center">-</td>
+          <td>
+            ※カーブやスケッチ平面によるボディ分割（1012）の場合のみ<br/>
+            面上線を使ってボディを分割する場合は1を指定します。そうでない場合は0とします。
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>端点結合の修正</td>
+          <td align="center">◯</td>
+          <td>
+            ※カーブやスケッチ平面によるボディ分割（1012）の場合のみ<br/>
+            端点結合の修正をする場合は1を指定します。そうでない場合は0とします。
+            1を指定した場合、続けてトレランスを数値（mm）または変数名、計算式で指定します。
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>インポート時に、要素名が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="body_stitch" href="cmd_stitch_body.html">スティッチボディ</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>スティッチボディの定義は1014</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>部品名</td>
+          <td align="center">-</td>
+          <td>作成するボディ要素の名称を指定します。設定しない場合は空欄です。</td>
+        </tr>
+	    <tr>
+	      <td>3</td>
+	      <td>部材グループ名</td>
+          <td align="center">-</td>
+	      <td>
+            作成するボディ要素を要素グループに追加する場合はグループ名を指定します。追加しない場合は空欄です。<br/>
+            /で区切るとグループの階層を意味します。　ex) aa/bb/cc
+          </td>
+	    </tr>
+	    <tr>
+	      <td>4</td>
+	      <td>部品材料名</td>
+          <td align="center">-</td>
+	      <td>
+            作成するボディ要素の材料の材料名称を指定します。設定しない場合は空欄です。
+          </td>
+	    </tr>
+        <tr>
+          <td>5</td>
+	      <td>トレランス</td>
+          <td align="center">-</td>
+          <td>
+            スティッチのトレランスを数値（mm）または変数名、計算式を入力します。
+          </td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>ソリッド作成フラグ</td>
+          <td align="center">-</td>
+          <td>スティッチでソリッドを作成する場合1を指定します。指定しない場合は空欄です</td>
+	    </tr>
+        <tr>
+          <td>7</td>
+          <td>関連づけフラグ</td>
+          <td align="center">-</td>
+          <td>元要素との関連づけを設定する場合1を指定します。設定しない場合は空欄です</td>
+	    </tr>
+        <tr>
+          <td>8</td>
+          <td>表示ロックフラグ</td>
+          <td align="center">-</td>
+          <td>元要素を表示ロックする場合1を指定します。しない場合は空欄です</td>
+	    </tr>
+        <tr>
+          <td>9～</td>
+	      <td>シート</td>
+          <td align="center">◯</td>
+	      <td>
+            スティッチするシートボディ名を繰り返し、最後に空欄を入れます。<br/>
+            ex) シート1,シート2,1,,
+          </td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>要素名（要素グループパスを含む）が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="watch_variable">要素ウォッチ変数</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>要素ウォッチ変数の定義は1106</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>変数名</td>
+          <td align="center">-</td>
+          <td>作成する変数の名称を指定します。</td>
+        </tr>
+	    <tr>
+	      <td>3</td>
+	      <td>要素グループ名</td>
+          <td align="center">-</td>
+	      <td>
+            作成する変数を要素グループに追加する場合はグループ名を指定します。追加しない場合は空欄です。<br/>
+            /で区切るとグループの階層を意味します。　ex) aa/bb/cc
+          </td>
+	    </tr>
+	    <tr>
+	      <td>4</td>
+	      <td>測定方法</td>
+          <td align="center">-</td>
+	      <td>
+            作成する要素ウォッチ変数の測定方法を指定します。<br/>
+            長さ（L）、距離（D）、面積（2）、体積（3）、角度（A）、重量（W）で指定します。
+          </td>
+	    </tr>
+        <tr>
+          <td>5</td>
+	      <td>測定対象が要素グループか否か</td>
+          <td align="center">-</td>
+          <td>
+            測定対象として要素グループ名を入力する場合は1を指定します。要素名の場合は0を指定します。
+          </td>
+        </tr>
+        <tr>
+          <td>6～</td>
+          <td>要素グループ名または要素名</td>
+          <td align="center">◯</td>
+          <td>要素グループ名を指定あるいは要素名を繰り返し、最後に空欄を入れます。</td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>測定エラーで値をゼロへ</td>
+          <td align="center">-</td>
+          <td>このオプションを使う場合は1を指定します。しない場合は0を指定します。</td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>精密に計算</td>
+          <td align="center">-</td>
+          <td>このオプションを使う場合は1を指定します。しない場合は0を指定します。</td>
+	    </tr>
+        <tr>
+          <td>～</td>
+          <td>更新フラグ</td>
+          <td align="center">-</td>
+          <td>要素名（要素グループパスを含む）が一致する要素を更新する場合1を指定します。更新しない場合は空欄とします。</td>
+	    </tr>
+        <tr class="r1">
+          <td colspan="4"><a id="file_import">ファイルのインポート</a></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>部品タイプ</td>
+          <td align="center">-</td>
+          <td>ファイルのインポートは1501</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>ファイル名</td>
+          <td align="center">-</td>
+          <td>インポートするファイルのフルパス名を指定します。ファイルの拡張子でファイルの種類を識別します。
+            <ul>
+              <li>EVO.SHIPモデルファイル:*.evomdl</li>
+              <li>Parasolid:*.x_t,*.xmt_txt,*.x_b,*.xmt_bin</li>
+              <li>IGES:*.igs,*.iges</li>
+              <li>STL:*.stl</li>
+              <li>DXF:dxf</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>～</td>
+          <td></td>
+          <td align="center">-</td>
+          <td>このオプションを使う場合は1を指定します。しない場合は0を指定します。</td>
+	    </tr>
+	  </table>
+	</p>
+    <p>
+      <a id="skip_empty"><b>空欄スキップ: </b></a>空欄スキップを許可しているカラムでは、対象パラメータの末尾に任意の数だけ空欄を入れることができます。
+      これは、同一タイプの要素でパラメータ違いによる列のズレを防ぐためです。
+    </p>
+    <p>
+      <a id="solid_face"><b>ソリッドの対象面: </b></a>ソリッドボディを対象要素とし、さらに対象面を指定剃る必要がある場合、次の1～7のフラグで指定します。
+      <ul>
+	    <li>板部材を端部要素とする場合
+          <ul>
+            <li>
+              モールド面側を端部に指定する場合は、1
+            </li>
+            <li>
+              モールド面のみを端部に指定する場合は、6
+            </li>
+            <li>
+              モールドの反対面側を端部に指定する場合は、2
+            </li>
+            <li>
+              モールドの反対面のみを端部に指定する場合は、7
+            </li>
+          </ul>
+	    </li>
+	    <li>形鋼部材を端部要素とする場合
+          <ul>
+            <li>
+              背側のウェブ面を端部に指定する場合は、3 
+            </li>
+            <li>
+              腹側のウェブ面を端部に指定する場合は、4
+            </li>
+            <li>
+              フランジ面を端部に指定する場合は、5
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+    <h3><a id="samples">サンプル</a></h3>
+    <p>
+      <pre>
+//条材 - 基準平面指定
+//部品タイプ,部品名,部材グループ名,部品材料名,部品名（BU）,部材グループ名（BU）,部品材料名（BU）,形状タイプ,形状パラメータ1,形状パラメータ2,***,***,***,基準面法線方向,基準面オフセット,***,***,***,取付面,対象面タイプ（ソリッドの場合）,結合トレランス,***,板逃方向,モールド位置,取付方向反転,アングル方向反転,***,***,***,***,***,取付角度,取付方向,***,***,***,***,端部1形状,対象面タイプ（ソリッドのみ）,***,端部1形状タイプ,端部1パラメータ1,端部1パラメータ2,端部1パラメータ3,端部1パラメータ4,端部1パラメータ5,***,***,端部2-形状,対象面タイプ（ソリッドのみ）,***,端部2形状タイプ,端部2パラメータ1,***,***,***,***,***,端部1スカラップタイプ,***,***,端部2スカラップタイプ,端部2スカラップパラメータ1,***,***,更新フラグ
+11,SS_Face,船殻設計/ブロック/1,,,,,1007,75,9,,,,X,50,,,,ソリッド1,1,0,,+,0,0,0,,,,,,0,2,,,,,ソリッド2,1,,1104,15,30,50,25,30,,,ソリッド3,1,,1103,50,,,,,,0,,,1120,50,,,1
+
+//条材 - 取付線指定
+//部品タイプ,部品名,部材グループ名,部品材料名,部品名（BU）,部材グループ名（BU）,部品材料名（BU）,形状タイプ,形状パラメータ1,形状パラメータ2,***,***,***,取付線要素名1,要素名2,要素指定終了,***,***,取付面,対象面タイプ（ソリッドの場合）,結合トレランス,***,板逃方向,モールド位置,取付方向反転,アングル方向反転,***,***,取付線の境界を基準に,投影方向指定,***,取付角度,取付方向,取付方向X,取付方向Y,取付方向Z,***,端部1形状,対象面タイプ（ソリッドのみ）,***,端部1形状タイプ,端部1パラメータ1,端部1パラメータ2,端部1パラメータ3,端部1パラメータ4,端部1パラメータ5,***,***,端部2-形状,対象面タイプ（ソリッドのみ）,***,端部2形状タイプ,端部2パラメータ1,***,***,***,***,***,端部1スカラップタイプ,***,***,端部2スカラップタイプ,端部2スカラップパラメータ1,***,***,更新フラグ
+12,SS_Line,船殻設計/ブロック/1,,,,,1007,75,9,,,,スケッチ1,LN1,,,,ソリッド1,1,0,,+,0,0,0,,,0,,,0,1,,,,,ソリッド2,1,,1104,15,30,50,25,30,,,ソリッド3,1,,1103,50,,,,,,0,,,1120,50,,,1
+
+//条材 - 取付線+取付方向線指定
+//部品タイプ,部品名,部材グループ名,部品材料名,部品名（BU）,部材グループ名（BU）,部品材料名（BU）,形状タイプ,形状パラメータ1,形状パラメータ2,***,***,***,取付線要素名1,要素名2,要素指定終了,***,***,基準直線名,要素指定終了,***,***,板逃方向,モールド位置,取付方向反転,アングル方向反転,***,***,***,***,***,***,***,***,***,***,***,端部1形状,対象面タイプ（ソリッドのみ）,***,端部1形状タイプ,端部1パラメータ1,端部1パラメータ2,端部1パラメータ3,端部1パラメータ4,端部1パラメータ5,***,***,端部2-形状,対象面タイプ（ソリッドのみ）,***,端部2形状タイプ,端部2パラメータ1,***,***,***,***,***,端部1スカラップタイプ,***,***,端部2スカラップタイプ,端部2スカラップパラメータ1,***,***,更新フラグ
+13,SS_Path,船殻設計/ブロック/1,,,,,1007,75,9,,,,カーブ1,カーブ2,,,,カーブ3,,,,+,0,0,0,,,,,,,,,,,,ソリッド2,1,,1104,15,30,50,25,30,,,ソリッド3,1,,1103,50,,,,,,0,,,1120,50,,,1
+
+//条材 - 元要素指定
+//部品タイプ,部品名,部材グループ名,部品材料名,部品名（BU）,部材グループ名（BU）,部品材料名（BU）,形状タイプ,***,***,***,***,***,元の条材名,***,***,***,***,***,***,***,***,***,***,***,***,***,***,***,***,***,***,***,***,***,***,***,端部1形状,対象面タイプ（ソリッドのみ）,***,端部1形状タイプ,端部1パラメータ1,端部1パラメータ2,端部1パラメータ3,端部1パラメータ4,端部1パラメータ5,***,***,端部2-形状,***,***,端部2形状タイプ,***,***,***,***,***,***,端部1スカラップタイプ,***,***,端部2スカラップタイプ,***,***,***,更新フラグ
+14,SS_ORG,船殻設計/ブロック/1,,,,,0,,,,,,SS_Face,,,,,,,,,,,,,,,,,,,,,,,,ソリッド4,1,,1104,15,30,50,25,30,,,,,,0,,,,,,,0,,,0,,,,1
+
+//ブラケットコマンド
+//部品タイプ,部品名,部材グループ名,部品材料名,平面法線方向,平面位置,板厚,モールド位置,板逃方向,形状タイプ,形状パラメータ1,形状パラメータ1,形状パラメータ3,***,***,スカラップ半径1,カット1,***,スカラップ半径2,カット2,***,面1要素,対象面タイプ,***,面1反転,面2要素,対象面タイプ,***,面2反転,面3要素,対象面タイプ,***,面3反転,***,フランジタイプ,フランジパラメータ1,フランジパラメータ2,フランジパラメータ3,***,フランジ反転,フランジ取付角度,***,寸法基準1タイプ,寸法基準1パラメータ1,寸法基準1パラメータ2,***,基準要素1,対象面タイプ,***,寸法基準2タイプ,寸法基準2パラメータ1,寸法基準2パラメータ2,***,基準要素1,対象面タイプ,***,端部1下スカラップ,***,端部1上スカラップ,***,端部2下スカラップ,***,端部2上スカラップ,***,***,更新フラグ
+5,BKT1,船殻設計/ブロック/1,,X,100,10,0,+,1501,,,,,,0,,,,,,ソリッド1,1,,0,ソリッド2,1,,0,,,,,,261,75,5,0,,0,0,,1531,200,15,,,,,1531,300,30,,,,,0,,0,,0,,0,,,1
+
+//フェイスプレート - ブラケット指定
+//部品タイプ,部品名,部材グループ名,部品材料名,ブラケット,形状タイプ,形状パラメータ1,形状パラメータ2,***,方向反転,取付角度指定,端部1形状タイプ,端部1パラメータ1,端部1パラメータ2,端部1パラメータ3,***,端部1要素,対象面タイプ,***,端部2形状タイプ,端部2パラメータ1,***,***,***,***,端部2要素,対象面タイプ,***,更新フラグ
+23,FP01,船殻設計/ブロック/1,,BKT1,1602,100,5,,0,20,1702,30,25,15,,,,,1703,20,,,,,,,,1
+
+//フェイスプレート - 元要素指定
+//部品タイプ,部品名,部材グループ名,部品材料名,元のフェイスプレート,形状タイプ,形状パラメータ1,形状パラメータ2,***,***,***,端部1形状タイプ,端部1パラメータ1,***,***,***,端部1要素,対象面タイプ,***,端部2形状タイプ,端部2パラメータ1,端部2パラメータ2,端部2パラメータ3,端部2パラメータ4,***,端部2要素,対象面タイプ,***,更新フラグ
+22,FP02,船殻設計/ブロック/1,,FP01,1601,120,9,,,,0,,,,,,,,1706,5,50,100,250,,,,,1
+
+//スケッチの定義
+//部品タイプ,部品名,部材グループ名,法線方向X,法線方向Y,法線方向Z,原点X,原点Y,原点Z,X軸ベクトル,***,オフセット,更新フラグ
+501,SKT01,船殻設計/ブロック/1,0,0,1,100,50,0,X,,50,1
+
+//押し出しフィーチャー
+//部品タイプ,要素名,対象ソリッド名,ボディ操作タイプ,プロファイル要素名,レイヤ名,高さタイプ,高さ距離,高さ距離2,***,方向フラグ,方向ベクトル,***,勾配フラグ,勾配角度,勾配角度2,***,厚みづけフラグ,厚さタイプ,厚さ1,オフセット,厚さ2,***,プロファイルオフセット,更新フラグ
+701,EXT1,船殻設計/ブロック/1/BODY1,+,船殻設計/ブロック/1/SKT01,,N,300,,,0,,,0,,,,0,,,,,,20,1
+
+//ロフトフィーチャー
+//部品タイプ,要素名,対象ソリッド名,ボディ操作タイプ,プロファイル要素名1,プロファイル要素名2,***,***,ガイドフラグ,ガイド要素,***,整列フラグ,整列要素,***,接線（開始点）フラグ,接続要素,面タイプ,***,***,スケール（開始点）,***,接線（終了点）フラグ,接続要素,面タイプ,スケール,***,閉じるフラグ,プロファイル範囲内フラグ,更新フラグ
+704,LOFTS1,BODY2,+,スケッチ3,PLANE1,,,0,,,0,,,2,TAN_FR7,,,,1.5,,0,,,,,0,0,1
+
+//厚み付けフィーチャー
+//部品タイプ,要素名,対象ソリッド名,ボディ操作タイプ,プロファイル要素名,対象面タイプ,***,厚さタイプ,厚さ1,オフセット,厚さ2,***,更新フラグ
+705,THICK1,BODY1,+,LOFT1,,,2,20,0,5,,1
+
+//ロフトサーフェイス
+//部品タイプ,部品名,部材グループ名,部品材料名,プロファイル要素名1,プロファイル要素名2,プロファイル要素名3,***,ガイドフラグ,ガイド要素,***,整列フラグ,整列要素,***,接線（開始点）フラグ,接続要素,面タイプ,***,***,スケール（開始点）,***,接線（終了点）フラグ,接続要素,面タイプ,スケール,***,閉じるフラグ,プロファイル範囲内フラグ,更新フラグ
+804,LOFT1,船殻設計/ブロック/1,,SKT_FR1,デフォルト,SKT_FR5,,0,,,0,,,1,,,,,1.5,,3,TAN_FR5,,1.2,,0,0,1
+      </pre>
+    </p>
+      </div>
+    </div>
+  </body>
+</html>
+	  

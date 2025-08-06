@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <script language="javascript" src="script/util.js"></script>
+    <title>新規&nbsp;ユーザー定義フィーチャー</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_new_udf.png"/>&nbsp;新規&nbsp;ユーザー定義フィーチャー</h2>
+      <div class="contents">
+        <p>
+          ユーザー定義フィーチャーを作成して定義ファイル(.evoudf)に保存します。
+        </p>
+	    <h3>操作方法</h3>
+        <p> 
+          ユーザー定義フィーチャーを構成する要素を選択します。          
+        </p>
+        <p> 
+          選択した構成要素の関連要素をどのように抽出するかのオプションを選択します。<br/>
+          OKボタンで関連要素の抽出条件と可変要素の定義を行うダイアログが表示されます。
+        </p>
+        <p> 
+          関連要素の抽出条件では、個別に抽出条件を変更し次へ進みます。<br/>
+          パラメータ定義では、可変要素を選択して完了ボタンでユーザー定義フィーチャーが作成されます。
+        </p>
+        <h3>パラメータ</h3>
+        <ul>
+          <li><strong>構成要素</strong>
+            <p>
+              <img src="media/dlg_new_udf_components.png"/><br/>
+            </p>
+            <p>
+              ユーザー定義フィーチャーを構成する要素を選択します。
+            </p>
+          </li>
+          <li><strong>関連要素の自動抽出</strong>
+            <p>
+              <img src="media/dlg_new_udf_extract_option.png"/><br/>
+            </p>
+            <p>
+              選択した構成要素の関連要素で、構成要素として選択されていない要素をどのように抽出するか選択します。<br/>
+              ここで選択したオプションが自動抽出の際のデフォルト値として使用されます。
+            </p>
+            <ul>
+              <li>パラメータ化
+                <p>
+                  挿入時に選択する要素とします。<br/>
+                  独自フィーチャコマンドとして作成する場合に使用します。
+                </p>
+              </li>
+              <li>全て共有
+                <p>
+                  共有要素として扱います。<br/>
+                  同一ドキュメント内で相似形状を作成する場合に使用します。
+                </p>
+              </li>
+              <li>全て構成要素
+                <p>
+                  構成要素として扱います。<br/>
+                  別のドキュメントへ挿入する場合や完全なコピーを作成する場合に使用します。
+                </p>
+              </li>
+            </ul>
+	        <p class="information">
+              関連要素がスケッチの場合は、デフォルトで「構成要素」となります。
+            </p>
+          </li>
+        </ul>
+        <h3>関連要素の抽出</h3>
+        <p>
+          <img src="media/dlg_def_udf_extract.png"/>
+        </p>
+        <p>
+          構成要素の関連要素がツリー形式で表示されます。<br/>
+          ここでは、抽出条件を個別に変更できます。
+        </p>
+        <ul>
+          <li><strong>構成要素</strong>
+            <p>
+              構成要素とその関連要素がアイコンと要素名で表示されます。<br/>
+              <img src="media/play_movie.gif" alt="Play Movie" align="middle" onclick="popupAVI('media/def_udf_highlight_extract.wmv',this.offsetLeft,this.offsetTop,558,456)"/>
+              選択されている行の要素はドキュメントウィンドウ内でハイライトされます。
+            </p>
+          </li>
+          <li><strong>エラー</strong>
+            <p>
+              抽出エラーがある場合に、アイコンが表示されます。<br/>
+              <img src="media/dlg_def_udf_extract_error.png"/>&nbsp;抽出エラーの要素<br/>
+              <img src="media/dlg_def_udf_extract_warn.png"/>&nbsp;関連する要素内にエラーがある
+            </p>
+          </li>
+          <li><strong>抽出条件</strong>
+            <p>
+              個別の要素の抽出条件を変更することができます。
+            </p>
+	        <p class="information">
+                絶対座標系やXY平面などのグローバル要素と変数は常に「共有要素」となります。<br/>
+                コマンドダイアログで選択された要素は、常に「構成要素」となります。<br/>
+                フィーチャー等の内部的な要素は抽出条件を設定できません。
+            </p>
+          </li>
+        </ul>
+        <p class="warning">
+          抽出エラーがある場合、ユーザー定義フィーチャーを作成することができません。<br/>
+          エラー要素の関連要素が「選択要素」となっている場合、パラメータ化の対象外要素である可能性があります。<br/>
+          この場合、「選択要素」を「構成要素」か「共有要素」に変更すると、抽出エラーを解決することができます。
+        </p>
+        <p class="warning">
+          個別に抽出条件を変更した場合、「次へ」ボタンで抽出条件の整合性チェックが行われます。<br/>
+          エラーが無ければ可変要素の定義ページへと進みます。
+        </p>
+	    <h3>可変要素の定義</h3>
+        <p>
+          <img src="media/dlg_def_udf_parameter.png"/>
+        </p>
+        <ul>
+          <li>
+            <strong>定義ファイル</strong>
+            <p>
+              右のアイコンをクリックして定義ファイル名を指定します。
+            </p>
+          <li>
+            <strong>構成要素</strong>
+            <p>              
+              <img src="media/play_movie.gif" alt="Play Movie" align="middle" onclick="popupAVI('media/def_udf_highlight_parameter.wmv',this.offsetLeft,this.offsetTop,558,456)"/>構成要素の要素名です。リストで選択されている行の要素はドキュメントウィンドウ内でハイライトされます。<br/>
+            </p>
+            <p class="warning">
+              非表示要素は表示されませんのでハイライトされません。(表示しておいてください。)
+            </p>
+          <li>
+            <strong>入力</strong>
+            <p>
+              可変要素とする場合はチェックしてください。関連要素などの必須なもののチェックははずすことはできません。
+            </p>
+          <li>
+            <strong>パラメータ名</strong>
+            <p>
+              文字部分をクリックして編集することができます。ユーザー定義フィーチャーの挿入時にわかりやすいように一意になるような名称を設定しておきます。
+            </p>
+          </li>
+          <li>
+            <strong>タイプ,値</strong>
+            <p>
+              パラメータの種類と既定値(定義時の値）を表示しています。入力としない場合の既定値になります。
+            </p>
+          </li>
+        </ul>
+          <p class="information">
+            変数パラメータの場合、その変数を使用している要素のパラメータが列挙されます。<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;<img src="media/dlg_def_udf_variable.png"/><br/>
+            変数の入力をチェックして定義ファイルを作成すると、要素の関連を保ったまま挿入時に変数パラメータを置き換えることができます。
+          </p>
+      </div>
+    </div>
+  </body>
+</html>
+	  

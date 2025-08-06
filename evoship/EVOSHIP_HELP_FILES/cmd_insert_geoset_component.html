@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<HEAD>
+<meta name="GENERATOR" content="HelpMachine 2.4.9">
+  <meta http-equiv="content-type" content="text/html; charset=Shift_JIS" />
+  <link href="basic.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="script/util.js"></script>
+<TITLE>部品コンポーネントの作成（ファイルから）</TITLE>
+</HEAD>
+<BODY>
+<div class="page">
+  <h2><img src="media/cmd_geoset_component_from_file.png" /> 部品コンポーネントの作成（ファイルから）</h2>
+  <div class="contents">
+  <p>コンポーネントの配置コマンドと同様に、指定した3Dモデルドキュメントファイルを<a href="cmd_import.html">インポート</a>して、ドキュメントに含まれる要素をまとめてひとつの<a href="about_parts_component.html">部品コンポーネント</a>という要素にします。部品コンポーネントは、ひとつのかたまりとして、マニピュレーターを使って移動したり、拘束を付加したりして位置決めができます。</p>
+  <h3>操作方法</h3>
+  <p>部品コンポーネントとしてひとまとめにしたい要素を含む3Dモデルドキュメントファイルを指定します。ドキュメントにコンポーネント定義が含まれていれば、いずれかのコンポーネント定義を選択して、その構成要素だけを利用することができます。またはドキュメント内の表示要素すべてを利用します。OKをクリックすると部品コンポーネントが作成されます。</p>
+  <h3>パラメーター</h3>
+  <dl>
+  <dt><strong>コンポーネント定義ファイル</strong><p><img src="media/dlg_component_def_file.png"/></p></dt>
+  <dd><p>部品コンポーネントにしたい要素が含まれる3Dモデルドキュメントファイルを指定します。コンポーネントの配置コマンドと同じように、<a href="about_manage_components_window.html#select_from_manager_window">コンポーネント管理ウィンドウからもファイルを指定できます</a>。</p></dd>
+  <dt><strong>コンポーネント</strong><p><img src="media/dlg_select_component_def.png" /></p></dt>
+  <dd><p>部品コンポーネントに含める対象を選択します。</p>
+    <ul>
+      <li>リストの先頭には「モデル名（ファイル名）」という項目が表示されます。これを選択すると、指定したファイル内のソリッド、シート、カーブ、点を<a href="cmd_import.html">インポート</a>して、それらを構成部品とする部品コンポーネントを作成します。</li>
+      <li>続けてファイル内に含まれるコンポーネント定義を列挙します（あれば）。定義を選択すると、その定義に含まれる要素をインポートして、それらを構成部品とする部品コンポーネントを作成します。</li>
+    </ul>
+  </dd>
+  <dt><strong>コンフィグレーション</strong><p><img src="media/dlg_select_component_configuration.png"/></p></dt>
+  <dd><p>「コンポーネント」欄で選択した定義にコンフィグレーションが含まれていれば、それが表示されます。</p></dd>
+  <dt><strong>同名変数のマージ</strong><p><img src="media/dlg_import_var_opt.png"/></p></dt>
+  <dd><p>インポートする要素がパラメーターに変数を利用していた場合の取り扱い方法を選択します。詳細は<a href="cmd_import.html">インポート</a>コマンドの解説を参照してください。</p></dd>
+  </dl>
+  </div>
+</div>
+</BODY></HTML>

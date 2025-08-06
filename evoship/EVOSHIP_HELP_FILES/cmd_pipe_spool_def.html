@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta name="GENERATOR" content="HelpMachine 2.4.9" />
+  <meta http-equiv="content-type" content="text/html; charset=Shift_JIS" />
+  <link href="basic.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="script/util.js"></script>
+  <title>配管一品分け</title>
+</head>
+<body>
+<div class="page">
+  <h2>配管一品分け</h2>
+  <div class="contents">
+  <p>配管要素を選択して、<a href="about_piping.html#spool">配管一品</a>を定義します。</p>
+  <h3>操作方法</h3>
+  <p>配管区画および配管系統に属する配管要素を選択します。必要であれば、配管一品につける通し番号の開始値を区画・系統ごとに指定します。配管一品に付加する配管属性を指定することもできます。OKをクリックすると配管一品要素が作成されます。</p>
+  <h3>パラメータ</h3>
+  <h4>要素選択方法</h4>
+  <img src="media/pipe_spool_def_sel_method.png" />
+  <p>一品分けする要素の選択方法を指定します。</p>
+  <ul>
+    <li>配管区画と系統で指定<br /><img src="media/pipe_spool_def_sel_groups.png" />
+    <p>配管区画グループか配管系統グループを指定し、そこに属する配管を一品分けします。区画と系統を両方とも指定した場合は、どちらのグループにも属する配管が対象となります。</p></li>
+    <li>要素選択<br /><img src="media/pipe_spool_def_sel_elements.png" />
+    <p>対象配管要素を直接選択します。</p></li>
+  </ul>
+  <p class="warning"><a href="about_component.html#pipe">配管機器コンポーネント</a>は、既定の設定では配管一品に含まれません。メニューの「ツール」→「オプション」をクリックして表示されるオプションダイアログに、「システム」→「配管設計」→「一品として扱う機器コンポーネント名プレフィックス」という項目がありますので、文字列を入力して、一品に含めたい配管機器コンポーネントの名前がその文字列から始まるようにしてください。</p>
+  <img src="media/pipe_spool_def_eq_prefix.png" />
+  <h4>通し番号</h4>
+  <img src="media/pipe_spool_def_seq_num_init.png" />
+  <p>配管一品名称の末尾につく通し番号の開始番号を指定できます。配管要素を選択すると、その要素が属する区画と系統がリストに追加されます。開始番号の初期値は「現時点でその区画・系統に属する既存配管一品要素の通し番号の最大値＋1」です。「リセット」ボタンをクリックするとすべての開始番号が初期値に戻ります。</p>
+  <h4>配管属性</h4>
+  <img src="media/pipe_spool_def_attribs.png" />
+  <p>一品図作成時や集計時に利用される属性を指定します。チェックボックスがOFFの状態では、配管一品ではなく<a href="cmd_pipe_read_tube_list.html">配管系統に割り当てた属性</a>が表示されていますが、ONにすることでその属性を上書きすることができます。</p>
+  <h4>配管属性（多言語非対応）</h4>
+  <img src="media/pipe_spool_def_attribs_loc.png" />
+  <p>同じく各種属性を指定しますが、この欄で入力する属性は各国語版のシステムに特有のものであり、言語が異なるシステム間では認識されません。</p>
+  <h4>詳細ログ</h4>
+  <img src="media/pipe_spool_def_log.png" />
+  <p>「情報ウィンドウに出力する」をチェックすると、作成された配管一品の一覧や、エラーの原因などを情報ウィンドウに出力します。</p>
+  </div>
+</div>
+</body>
+</html>

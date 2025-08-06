@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta name="GENERATOR" content="HelpMachine 2.4.9" />
+  <meta http-equiv="content-type" content="text/html; charset=Shift_JIS" />
+  <link href="basic.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="script/util.js"></script>
+  <title>コンポーネント管理ウィンドウ</title>
+</head>
+<body>
+<div class="page">
+  <h2>コンポーネント管理</h2>
+  <div class="contents">
+     <p>「コンポーネント管理」ウィンドウは、よく使う<a href="about_component.html">コンポーネント</a>をあらかじめ登録しておいたり、最近配置したコンポーネントの一覧を記録しておいたりすることができます。ウィンドウに表示されているコンポーネントは、「コンポーネントの配置」コマンドや「<a href="cmd_comp_piping.html">配管作成</a>」コマンドでモデルに挿入する際に、毎回ファイル名を指定しなくても簡単に配置できます。また、ウィンドウに表示されているコンポーネント一覧をファイルに保存して、複数の作業者に配布して作業環境を統一することもできます。</p>
+     <h3>使い方</h3>
+     <p>メニューバーの「ツール」→「コンポーネント管理」をクリックすると表示されます。</p>
+     <img src="media/manage_components_init.png" />
+     <h4>コンポーネントの登録</h4>
+     <p>フォルダーアイコンで表示される項目「コンポーネント管理」を選択して、<a href="about_context_menu.html">コンテキストメニュー</a>を表示してください。</p>
+     <img src="media/manage_components_context_menu.png" />
+     <p>「カテゴリの追加」を選択するとサブフォルダを作成できます。また「コンポーネントを追加」を選択するとファイル選択ダイアログが表示されますので、登録したいコンポーネントの定義を含むモデルファイルを開いてください。フォルダ内にコンポーネントが登録されます。</p>
+     <img src="media/manage_components_added.png" />
+     <p class="information">コンポーネントに<a href="about_component.html#configuration">コンフィグレーション</a>が設定されていると、ツリーのコンポーネント項目の子項目として表示されます。</p>
+     <p>登録したコンポーネントは、ドラッグ＆ドロップで別のカテゴリに移動したり、<a href="about_context_menu.html">コンテキストメニュー</a>の「コピー」「貼り付け」でコピーしたりすることができます。</p>
+     <img src="media/manage_components_dragndrop.png" /><img src="media/manage_components_copy.png" />
+     <h4 id="select_from_manager_window">登録ずみコンポーネントの配置</h4>
+     <p>「コンポーネントの配置」または「<a href="cmd_comp_piping.html">配管作成</a>」コマンドの起動中は、<a href="about_command_dialog.html">コマンドダイアログ</a>で定義ファイル名、コンポーネント名およびコンフィグレーション名を選択するかわりに、コンポーネント管理ウィンドウ内のコンポーネントまたはコンフィグレーション項目を選択して<a href="about_context_menu.html">コンテキストメニュー</a>を表示し、「選択」をクリックすることでもコンポーネントを配置できます。</p>
+     <img src="media/manage_components_select.png" />
+     <h4>フィルタ機能</h4>
+     <p>フィルタ機能を使って表示するコンポーネントを絞り込むことができます。フィルタ文字列を入力してフィルタアイコンをクリックしてください。フィルタ文字列が名前に含まれるコンポーネントのみが列挙されます。</p>
+     <img src="media/manage_components_filter1.png" /><img src="media/manage_components_filter2.png" />
+     <h4>保存と読み込み</h4>
+     <p>コンポーネントの一覧は、ファイルに保存しておいてあとから読み込むことができます。一覧を保存するにはまず「ファイルシステムから選択...」ボタンをクリックして保存先ファイル名を指定します。</p>
+     <img src="media/manage_components_csv.png" />
+     <p>ファイル名が表示されたら、「保存」ボタンをクリックしてください。</p>
+     <img src="media/manage_components_save.png" />
+     <p>「ファイルシステムから選択...」ボタンで表示したファイル選択ダイアログで、新規ファイル名を入力するかわりに既存ファイルを選択すると、現在表示されている登録済みコンポーネントはすべて削除され、コンポーネント一覧が既存ファイルの内容で更新されます。</p>
+     <p class="information">コンポーネント一覧をいったんファイルに保存したりファイルから読み込んだりすると、その一覧ファイル名はユーザー設定としてアプリケーション終了時に保存され、次回起動時にコンポーネント一覧が自動的に読み込まれます。</p>
+     <h4>履歴</h4>
+     <p>コンポーネントを配置すると、ツリー項目の「履歴」フォルダ内にコンポーネントが自動的に追加されます。履歴フォルダ内のコンポーネント数には上限値が設定されています。この値を増減するには、「ツール」→「オプション」をクリックしてオプションダイアログを表示し、「システム」→「ツール」の「コンポーネント管理の履歴数」を変更してください。</p>
+  </div>
+</div>
+</body></html>

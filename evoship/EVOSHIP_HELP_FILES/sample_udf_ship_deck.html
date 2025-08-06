@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>例&nbsp;デッキ(ユーザー定義フィーチャー)</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2>例&nbsp;デッキ(ユーザー定義フィーチャー)</h2>
+      <div class="contents">
+	    <h3>作成手順</h3>
+        <ol>
+          <li>
+            <strong>モデルの準備</strong>
+            <p>
+              雛形となる船体形状を含むドキュメントを用意してデッキを作成します。
+            </p>
+          </li>
+          <li>
+            <strong>デッキの作成</strong>
+            <p>
+              デッキをスイープで作成します。
+            </p>
+            <ol type="A">
+              <li>
+                <strong>パス形状のスケッチ</strong>
+                <p>
+                  ZX平面に図のようなスケッチを作成します。<br/>
+                  断面形状をスケッチするための基準点も作成しておきます。<br/>
+                  <br/>
+                  <img src="media/sample_udf_ship_deck_path_sketch.png"/>
+                </p>
+              </li>
+              <li>
+                <strong>断面スケッチをする平面の作成</strong>
+                <p>
+                  データム平面を基準点(上記のスケッチ点）,法線方向(X軸方向)で作成します。(関連づけあり）<br/>
+                  <br/>
+                  <img src="media/sample_udf_ship_deck_profile_plane.png"/>
+                </p>
+              </li>
+              <li>
+                <strong>断面形状のスケッチ</strong>
+                <p>
+                  スケッチ平面を定義する際に先の基準点をスケッチ平面の原点として選択します。<br/>
+                  断面形状を上記のデータム平面上に図のようにスケッチします。<br/>
+                  <br/>
+                  <img src="media/sample_udf_ship_deck_profile_sketch.png"/>
+                </p>
+              </li>
+              <li>
+                <strong>新規ソリッドを作成してスイープでデッキを作成します。</strong>
+                <p>
+                  断面を厚みづけして(基準(内、外）,厚さを指定します。)<br/>
+                  <br/>
+                  <img src="media/sample_udf_ship_deck_sweep.png"/>
+                </p>
+              </li>
+              <li>
+                <strong>船体ソリッドでデッキと積(積、ソリッドボディ)をとってデッキをトリムします。</strong>
+                <p>
+                  <img src="media/sample_udf_ship_deck.png"/>
+                </p>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <strong>ユーザー定義フィーチャーの作成</strong>
+            <p>
+              <a href="cmd_new_udf.html">ユーザー定義フィーチャー</a>を定義します。<br/>
+              デッキのソリッド、ＺＸ平面、断面基準として作成したデータム平面を構成要素として選択します。<br/>
+              <br/>
+              <img src="media/sample_udf_ship_deck_def_select.png"/>
+            </p>
+          </li>
+          <li>
+            <strong>パラメータの設定</strong>
+            <p>
+              コマンドダイアログのOKボタンを押してパラメータ設定ダイアログを表示します。<br/>
+              定義ファイルを設定します。<br/>
+              可変パラメータをチェックして名称を設定します。<br/>            
+              (断面スケッチ、パススケッチは寸法の確認のために表示しておきます。)<br/>
+              パラメータダイアログのOKボタンで定義ファイルを作成します。<br/>
+              <br/>
+              <img src="media/sample_udf_ship_deck_def_params.png"/>
+            </p>
+          </li>
+          <li>
+            <strong>デッキを挿入</strong>
+            <p>
+              モデルにデッキを<a href="cmd_insert_udf.html">挿入-ユーザー定義フィーチャー</a>で作成します。(別のモデルや同一モデルに別の高さなどに)<br/>              
+              先に作成した定義ファイルを選択します。<br/>
+              パラメータを入力してOKボタンで実行します。
+            </p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </body>
+</html>
+	  

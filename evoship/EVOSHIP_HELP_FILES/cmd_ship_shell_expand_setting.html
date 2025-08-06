@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>外板展開設定</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_ship_attr_shell_expand.png"/>&nbsp;外板展開設定</h2>
+      <div class="contents">
+        <p>
+          外板部材を一品展開する際のパラメータを設定します。
+	    </p>
+        <p>
+          外板の展開は基準となる線の法平面で断面線ととりながら展開をします。その際の基準線や基準となる点、および断面線の展開での利用法を設定します。
+	    </p>
+	    <h3>操作方法</h3>
+        <p>
+          展開パラメータを設定する部材を選択、ＯＫボタンで確定します。付加された属性のシンボルが表示されます。
+	    </p>
+	    <p class="information">
+          属性を削除する場合は通常の要素と同様、属性要素を削除します。
+	    </p>
+        <p class="information">
+          シートボディに設定した場合はシートボディに<a href="cmd_ship_shell_thickness.html">板厚属性</a>も設定されます。
+	    </p>
+        <h3>パラメータ</h3>
+	    <ul>
+          <li><strong>対象要素</strong>
+            <p>
+              <img src="media/dlg_ship_attr_shell_thickness.png" align="top"/>
+            </p>
+            <p>
+              見透し面を設定する外板部材(シートボディ、板部材(ソリッド))を選択します。<br/>
+              シートボディを選択した場合は板厚方向,板厚を設定します。
+            </p>
+          </li>
+          <li><strong>展開基準</strong>
+            <p>
+              曲面を展開する際の断面をとる基準線を決定します。以下方法で指定することができます。
+            </p>
+            <p>
+              <ul>
+                <li><strong>基準線</strong>
+                  <p>
+                    選択した線群をそのまま基準線とします。
+                  </p>
+                  <p>
+                    <img src="media/shell_expand_setting_description2.png" align="top"/>
+                  <p/>
+                </li>
+                <li><strong>展開基準方向指定</strong>
+                  <p>
+                    ここで指定した方向を法線とする平面で断面線をとります。
+                  </p>
+                  <p>
+                    <img src="media/shell_expand_setting_description1.png" align="top"/>
+                  <p/>
+                </li>
+                <li><strong>平面</strong>
+                  <p>
+                    選択した平面と対象要素との交線基準線とします。
+                  </p>
+                  <p>
+                    <img src="media/shell_expand_setting_description3.png" align="top"/>
+                  <p/>
+                </li>
+              </ul>
+            </p>
+          </li>
+          <li><strong>基準点</strong>
+            <p>
+              展開の起点となる断面の位置を指定します。指定しない場合は中点の位置が起点となります。
+            </p>
+          </li>
+          <li><strong>設定</strong>
+            <p> 
+              計算した曲面の断面線の実長関係を基に展開をする際の断面間の実長関係のうち、どれを利用して展開するかを指定します。
+            </p>
+            <p>
+              <img src="media/dlg_ship_shell_expand_settings.png" align="top"/>
+            </p>
+            <p>              
+              鐙型（凸型）のように両端のシーム側の実長は縮むと仮定する場合にはシームのガースは利用しない、逆に鞍型（凹型）のように中心を縮めると仮定する場合にはシーム実長のみを利用します。一般の基線展開ではシーム実長、中心の実長をそれぞれ利用して展開をします。
+            </p>
+            <p>
+              中心の実長関係を追う際の中心位置は基準線長を利用にチェックをいれると、基準線上の実長を利用します。そうでない場合は断面線間の真ん中の位置で適宜システムが計算をして利用します。
+            </p>
+            <p>
+              <img src="media/shell_expand_setting_description4.png" align="top"/>
+            <p/>
+            <p>
+              <img src="media/shell_expand_setting_description5.png" align="top"/>
+            <p/>
+            <p>
+              <img src="media/shell_expand_setting_description6.png" align="top"/>
+            <p/>
+            <strong>のばし</strong>
+            <p>             
+              実長関係を利用するさいにそれぞれの実長に対してスケールのばし量を設定します。1mあたりののばし量をそれぞれ指定することができます。
+            </p>
+          </li>
+          <li><strong>取付部材</strong>
+            <p>
+              展開図にマークされる部材やカーブを設定します。
+            </p>
+          </li>
+          <li><strong>マーキン線</strong>
+            <p>
+              チェックをいれることで、フレームスペース、バトックライン、ウォータラインをマーキン線として設定をします。
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
+	  

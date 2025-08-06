@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+  <link href="basic.css" rel="stylesheet" type="text/css" />
+  <title>干渉チェック</title>
+</head>
+<body>
+<div class="page">
+  <h2>干渉チェック</h2>
+  <div class="contents">
+    <p>
+     指示された要素間に干渉があるかどうか計算します。
+    </p>
+    <p>	      
+     <img src="media/check_interference_ex1.png" />
+    </p>
+    <h3>操作方法</h3>
+    <p>
+     チェック対象の要素とパラメータを入力し干渉計算の実行を行うと、干渉している要素が選択状態となり、ビュー上で干渉位置を確認できます。<br />
+     その後、干渉している要素に対して操作したり、干渉位置の注記や干渉ソリッドを実体化できます。
+    </p>
+    <h3>パラメータ</h3>
+    <ul>
+      <li><strong>チェック対象</strong>
+        <p>
+         <img src="media/dlg_check_int_target_method.png" />
+        </p>
+        <p>
+         干渉チェックをする対象要素を選択します。
+        </p>
+        <ul>
+         <li>モデル全体
+           <p>
+             モデルに含まれる全てのソリッド要素とコンポーネント要素を対象とします。
+           </p>
+         </li>
+         <li>表示要素内
+           <p>
+             モデル全体のソリッドとコンポーネントのうち、表示されている要素のみを対象とします。
+           </p>
+         </li>
+         <li>選択要素内
+           <p>
+             対象となるソリッド要素やコンポーネント要素を選択します。
+           </p>
+           <p>
+             <img src="media/dlg_check_int_target_elm.png" />
+           </p>
+         </li>
+         <li>要素グループ内
+         <p>指定した要素グループに含まれる全てのソリッド要素とコンポーネント要素を対象とします。</p>
+         <p><img src="media/dlg_weld_length_group_select.png" /></p>
+         </li>
+        </ul>
+      </li>
+      <li><strong>チェック方法</strong>
+        <p><img src ="media/dlg_check_int_methods.png" /></p>
+        <p>干渉チェックの方法を以下の3種類から選択します。</p>
+        <ul>
+          <li>干渉の深さ<p>干渉部分を矩形近似して、その最小辺長さが指定したトレランスよりも大きかったら干渉と判定します。
+        モールドが逆になっていて条材が板に食い込んでいるようなケースで有効です。</p></li>
+          <li>干渉割合<p>干渉部分の体積が、チェック対象要素の体積に対して、指定した割合よりも大きかったら干渉と判定します。
+        適切な「干渉の深さトレランス」が指定できない場合、たとえば薄い板同士の干渉をチェックしたいが板厚よりも大きいトレランスを指定してしまうと干渉が見つけられなくなるようなケースで使います。</p></li>
+          <li>隙間検出<p>要素間の最短距離を測定し、その値が指定した上限下限の範囲内だったら隙間として検出します。</p></li>
+        </ul>
+      </li>
+      <li><strong>干渉の深さトレランス</strong>（チェック方法「干渉の深さ」）
+        <p>
+          <img src="media/dlg_check_int_tolerance.png" />
+        </p>
+        <p>
+         微小な干渉要素を除くための許容長さを入力します。<br />
+         干渉部分の非軸整列のボックスを計算し、そのボックスの最小辺の長さがトレランス以下の場合に干渉と判定しません。
+        </p>
+      </li>
+      <li><strong>干渉割合トレランス</strong>（チェック方法「干渉割合」）
+        <p><img src="media/dlg_check_int_overlap_tol.png" /></p>
+        <p>体積のパーセンテージを指定します。
+        干渉部分の体積を計算し、その値がチェック対象要素のうち小さいほうの体積の指定パーセンテージ以下の場合には、干渉と判定しません。
+        </p>
+      </li>
+      <li><strong>最小値、最大値</strong>（チェック方法「隙間検出」）
+        <p><img src="media/dlg_check_int_min_gap.png" /><img src="media/dlg_check_int_max_gap.png" /></p>
+        <p>チェック対象要素間の最短距離を測定し、その値が指定した最小値以上かつ最大値以下であった場合に、隙間として検出します。</p>
+      </li>
+      <li><strong>単一要素とみなすグループ</strong>
+        <p><img src="media/dlg_check_int_group_by_groups.png" /></p>
+        <p>「選択」ボタンをクリックして要素グループを選択すると、そのグループをひとつの要素とみなして、グループ内の要素同士の間ではチェックを実行しません。
+        また、複数グループを選択した際の動作をオプションで変更できます。</p>
+        <ul>
+          <li>グループごとに別々の要素<br />異なるグループに含まれる要素同士を別々の要素とみなして要素間でチェックを実行します。</li>
+          <li>全グループでひとつの要素<br />異なるグループに含まれる要素同士でもひとつの要素とみなすため、要素間でチェックを実行しません。</li>
+        </ul>
+      </li>
+      <li><strong>検出対象の組み合わせ</strong>
+        <p><img src="media/dlg_check_int_detect_ent.png" /></p>
+        <p>干渉を検出する要素の組み合わせを指定します。</p>
+      </li>
+      <li><strong>オプション</strong>
+        <p>	      
+          <img src="media/dlg_check_int_option.png" />
+        </p>
+        <ul>
+         <li>干渉部分のプレビュー表示
+           <p>
+             干渉ソリッドをビュー上でプレビュー表示するかどうかの設定をします。
+           </p>
+         </li>
+        </ul>
+      </li>
+      <li><strong>干渉/隙間計算</strong>
+        <p>	      
+          <img src="media/dlg_check_int_execution.png" />
+        </p>
+        <p>
+         干渉計算を実行し、ビュー上と情報ウィンドウ、干渉した要素の選択で結果を表示します。<br />
+         <a href="about_window.html#modelconfig">情報ウィンドウ</a>には、干渉している要素名のペアとビュー上の注記番号に対応した連番が表示されます。
+        </p>
+      </li>
+      <li><strong>検出した要素</strong>
+        <p>	      
+          <img src="media/dlg_check_int_interferences.png" />
+        </p>
+        <p>
+         干渉/隙間計算を実行すると、検出した要素（ソリッドまたはコンポーネント）がリストに追加されます。
+        </p>
+      </li>
+      <li><strong>検出部分のズーム</strong>
+        <p><img src="media/dlg_check_int_zoom_to_int.png" /></p>
+        <p>検出した干渉部や隙間がリストに表示され、いずれかを選択すると画面いっぱいに表示されます。</p>
+      </li>
+      <li><strong>操作</strong>
+        <p>	      
+          <img src="media/dlg_check_int_operation.png" />
+        </p>
+        <p>
+         干渉結果に対して以下の操作を実行できます。
+        </p>
+        <ul>
+          <li>要素グループに追加
+            <p>
+              干渉した要素を要素グループへ追加します。
+            </p>
+            <p>
+             <img src="media/dlg_sel_element_group.png" />
+            </p>
+          </li>
+          <li>色設定
+            <p>
+              干渉した要素の色を変更します。
+            </p>
+            <p>
+              <img src="media/dlg_select_color.png" />
+            </p>
+          </li>
+          <li>注記を実体化
+            <p>
+             ビュー上に表示されている干渉位置の注記を要素として作成します。
+            </p>
+            <p class="information">
+             作成される注記は、要素グループ「船殻設計／干渉要素」に全て追加されます。
+            </p>
+          </li>
+          <li>干渉ソリッドを実体化
+            <p>
+              干渉部分をソリッド要素として作成します。
+            </p>
+            <p class="information">
+             作成されるソリッドは、要素グループ「船殻設計／干渉要素」に全て追加されます。
+            </p>
+          </li>
+          <li>結果をCSV出力
+            <p>チェックの結果をCSVファイルに保存します。ファイルには、コマンドの各種オプション入力値のほか</p>
+            <ul>
+              <li>チェックした要素名</li>
+              <li>干渉部または隙間の中心位置</li>
+              <li>同FRM位置</li>
+              <li>隙間長さ（隙間検出の場合）</li>
+            </ul>
+            <p>といったものが出力されます。
+            </p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

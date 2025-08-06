@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>スプライン（ファイル）(カーブ）</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_read_spline_file.png"/>&nbsp;スプライン（ファイル）(カーブ）</h2>
+      <div class="contents">
+	<p>
+	  点列を結んだスプラインカーブを作成します。点列はファイルから読込みます。
+	</p>
+	<p>
+	  点データを選択するダイアログが表示されます。<br/>
+	  ShiftキーやCtrlキーを使用して複数のファイルを一度に選択できます。<br/>
+	  <img src="media/dlg_read_spline_file.png"/><br/>
+	</p>
+	<ul>
+	  <li><strong>複数カーブ</strong>（複数カーブのフォーマットの場合はチェックします。)	    
+	  </li>
+	  <li><strong>単位</strong>
+	    <p>
+	      ファイルの座標値データの単位を指定します。
+	    </p>
+	  </li>
+	</ul>
+	<a name="format"><h3>ファイルフォーマット</h3></a>
+	<p>
+	  データがコンマ、空白あるいは改行で区切られたテキストファイルが利用できます。<br/>
+	  データは以下のように通過点の座標値が順に並びます。
+	</p>
+	<ul>
+	  <li><strong>複数カーブ</strong>
+	    <p>
+	      点の数　
+	      Ｘ座標値 Ｙ座標値 Z座標値　…　…　点の数　…	      
+	    </p>
+	  </li>
+	  <li><strong>1本のカーブ</strong>
+	    <p>
+	      Ｘ座標値 Ｙ座標値 Z座標値　…
+	    </p>
+	  </li>
+	</ul>
+      </div>
+    </div>
+  </body>
+</html>
+	  

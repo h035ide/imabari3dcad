@@ -21,6 +21,7 @@ llama-index-graph-stores-neo4j>=0.4.6
 tree-sitter-python>=0.23.6
 ipykernel>=6.30.0
 tree-sitter>=0.25.0
+ezdxf>=1.4.2
 
 [dev]
 pytest

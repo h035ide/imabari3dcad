@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <script language="javascript" src="script/util.js"></script>
+    <title>フィーチャーの操作</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2>フィーチャーの操作</h2>
+      <div class="contents">
+	<p class="warning">
+	  フィーチャーの操作をした場合は<a href="cmd_eval.html">状態／更新</a>コマンドで状態を更新する必要があります。<br/>
+	  (自動では更新されません。)
+	</p>
+	<h3>構成の確認</h3>
+	<p>
+	  <a href="about_body.html">ボディ</a>を構成するフィーチャは順に評価されてボディの形状を決定しています。このフィーチャーの列は<a href="about_model_config_window.html">モデル構成ウィンドウ</a>上で確認できます。<br/>
+	</p>
+	<ul>
+	  <li>ソリッドボディ
+	    <p>
+	      <img src="media/features_solid.png"/><br/>
+	      ソリッドボディでは自身配下の"フィーチャー"フォルダ内にフィーチャーが順に入っています。<br/>
+	      この例では"ソリッド１"は"押し出し1"、"押し出し3"、"削除-押し出し1"から構成されています。
+	    </p>
+	  </li>
+	  <li>シートボディ
+	    <p>
+	      <img src="media/features_sheet.png"/><br/>
+	      シートボディでは自身配下の"局所変形操作"フォルダ内にフィーチャーが順に入っています。<br/>
+	      この例では"押し出しサーフェイス"は"面延長2"、"削除-押し出し3"
+	    </p>
+	  </li>
+	</ul>
+	<h3>抑止</h3>
+	<p>
+	  フィーチャーは一時的に適用を抑制して非表示にすることができます。<br/>
+	  On/Offは要素の表示制御と同様に<a href="about_model_config_window.html">モデル構成ウィンドウ</a>上のチェックボックスもしくは、<a href="cmd_default.html">選択</a>コマンドでフィーチャー選択時のコンテキストメニューから実行できます。<br/>
+	</p>
+	<p>
+	  先の例の"ソリッド1"で押し出し3を抑制した例です。<br/>
+	  <img src="media/ex_features_op_solid_org.png"/>&nbsp;->&nbsp;<img src="media/ex_features_op_solid_suppress.png"/>
+	</p>
+	<h3>順序変更</h3>
+	<p>
+	  フィーチャーは作成された順番に適用されますが、順序を変更することもできます。<br/>
+	  <img src="media/play_movie.gif" alt="Play Movie" align="middle" onclick="popupAVI('media/op_chg_feature_order.avi',this.offsetLeft,this.offsetTop,231,232)"/><a href="about_model_config_window.html">モデル構成ウィンドウ</a>上でフィーチャーをドラッグすることで順番を変更します。<br/>
+	  先の例の"ソリッド1"で削除を押し出し3の前に適用した例です。(削除後に押し出しを追加したことになるので穴が開いていません。)<br/>
+	  <img src="media/ex_features_op_solid_chg_order.png"/>
+	</p>
+	<h3>ロールバック</h3>
+	<p>
+	  フィーチャーを最後ではなく途中に挿入したい場合などのために、ボディを特定のフィーチャーが作成された状態にロールバックすることができます。<br/>
+	  ロールバック状態のボディにはロールバックされたフィーチャの後にフィーチャーが追加されていきます。<br/>
+	  <a href="about_model_config_window.html">モデル構成ウィンドウ</a>上でフィーチャーを選択してコンテキストメニューの"ロールバック"あるいは"ロールバック(直前)"で実行します。<br/>
+	  ロールバック状態の解除は<a href="about_model_config_window.html">モデル構成ウィンドウ</a>上でボディもしくはフィーチャーを選択してコンテキストメニューの"ロールバックの解除"で実行します。<br/>
+	</p>
+      </div>
+    </div>
+  </body>
+</html>
+	  
