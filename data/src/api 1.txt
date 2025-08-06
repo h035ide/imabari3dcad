@@ -20,6 +20,7 @@
         PlaneOffset,  // 長さ：平面からのオフセット距離を指定
         bRevPlane,    // bool:スケッチ平面を反転するかどうかのフラグ(bool)
         bRevUV,       // bool:スケッチ平面のX,Y軸を交換するかどうかのフラグ(bool)
+        謎            // bool：
         StyleName,    // 注記スタイル:　スケッチ平面に適用する注記スタイル名称（空文字可）
         OriginPoint,  // 点：スケッチ平面の原点を指定（空文字可）
         AxisDirection,// 方向：スケッチ平面の軸方向を指定（空文字可）
