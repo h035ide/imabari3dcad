@@ -2,7 +2,7 @@ import tree_sitter_python as tspython
 from tree_sitter import Language, Parser
 
 # 解析対象ファイルのパス
-TARGET_FILE = "imabari3dcad/evoship/create_test.py"
+TARGET_FILE = "./evoship/create_test.py"
 
 def main():
     # ファイル読み込み
