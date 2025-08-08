@@ -9,15 +9,21 @@ from enum import Enum
 import logging
 from pathlib import Path
 import time
+import argparse
+from dotenv import load_dotenv
+
+# .envファイルを読み込む
+load_dotenv()
 
 # LLM関連のインポート
 try:
-    import openai
-    from openai import OpenAI
+    from langchain_openai import ChatOpenAI
+    from langchain_core.prompts import ChatPromptTemplate
+    from langchain_core.output_parsers import StrOutputParser
     LLM_AVAILABLE = True
 except ImportError:
     LLM_AVAILABLE = False
-    print("警告: OpenAIライブラリが利用できません。LLM機能は無効化されます。")
+    print("警告: LangChainまたは関連ライブラリが利用できません。LLM機能は無効化されます。")
 
 # ログ設定
 logging.basicConfig(level=logging.INFO)
@@ -162,18 +168,18 @@ class TreeSitterNeo4jAdvancedBuilder:
         
         # LLM設定
         if self.enable_llm and LLM_AVAILABLE:
-            api_key = os.getenv("OPENAI_API_KEY")
-            if api_key:
-                self.setup_llm(api_key)
-                logger.info("LLM機能が有効化されました")
+            if os.getenv("OPENAI_API_KEY"):
+                self.setup_llm()
             else:
                 logger.warning("OPENAI_API_KEYが設定されていません。LLM機能は無効化されます。")
                 self.enable_llm = False
     
-    def setup_llm(self, api_key: str):
+    def setup_llm(self):
         """LLMの設定"""
         try:
-            self.llm_analyzer = OpenAI(api_key=api_key)
+            # ChatOpenAIは環境変数から自動的にAPIキーを読み込みます
+            self.llm_analyzer = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.3, max_tokens=200)
+            logger.info("LLM機能が有効化されました")
         except Exception as e:
             logger.error(f"LLM設定エラー: {e}")
             self.enable_llm = False
@@ -520,27 +526,19 @@ class TreeSitterNeo4jAdvancedBuilder:
     def generate_llm_description(self, node: SyntaxNode) -> Optional[Dict[str, Any]]:
         """LLMによる説明を生成"""
         try:
-            prompt = f"""
-以下のPythonコードの{node.node_type.value}について分析してください：
-
-```python
-{node.text}
-```
-
-簡潔で分かりやすい説明を日本語で提供してください。
-"""
+            prompt_template = ChatPromptTemplate.from_messages([
+                ("system", "あなたはPythonコードの専門家です。"),
+                ("human", "以下のPythonコードの{node_type}について分析してください：\n\n```python\n{code_text}\n```\n\n簡潔で分かりやすい説明を日本語で提供してください。")
+            ])
             
-            response = self.llm_analyzer.chat.completions.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "system", "content": "あなたはPythonコードの専門家です。"},
-                    {"role": "user", "content": prompt}
-                ],
-                max_tokens=200,
-                temperature=0.3
-            )
+            chain = prompt_template | self.llm_analyzer | StrOutputParser()
+
+            response_content = chain.invoke({
+                "node_type": node.node_type.value,
+                "code_text": node.text
+            })
             
-            return {"description": response.choices[0].message.content.strip()}
+            return {"description": response_content.strip()}
         
         except Exception as e:
             logger.error(f"LLM説明生成エラー: {e}")
@@ -554,8 +552,6 @@ class TreeSitterNeo4jAdvancedBuilder:
                                     auth=(self.neo4j_user, self.neo4j_password))
         
         try:
-            self._ensure_database_exists(driver)
-            
             with driver.session(database=self.database_name) as session:
                 # 既存データのクリア
                 session.run("MATCH (n) DETACH DELETE n")
@@ -570,27 +566,14 @@ class TreeSitterNeo4jAdvancedBuilder:
                 # 統計情報の表示
                 self._display_advanced_statistics(session)
         
+        except Exception as e:
+             logger.error(f"Neo4jへの格納中にエラーが発生しました: {e}")
+             logger.error(f"データベース '{self.database_name}' が存在し、Neo4jが実行されていることを確認してください。")
+
         finally:
             driver.close()
         
         logger.info("Neo4jへのデータ格納が完了しました。")
-    
-    def _ensure_database_exists(self, driver):
-        """データベースの存在確認と作成"""
-        try:
-            with driver.session(database="system") as session:
-                result = session.run("SHOW DATABASES")
-                databases = [record["name"] for record in result]
-                
-                if self.database_name not in databases:
-                    logger.info(f"データベース '{self.database_name}' を作成しています...")
-                    session.run(f"CREATE DATABASE {self.database_name}")
-                    logger.info(f"データベース '{self.database_name}' が作成されました。")
-                else:
-                    logger.info(f"データベース '{self.database_name}' は既に存在します。")
-        except Exception as e:
-            logger.error(f"データベース確認エラー: {e}")
-            self.database_name = "neo4j"
     
     def _create_advanced_nodes(self, session):
         """高度なノードを作成"""
@@ -690,21 +673,34 @@ class TreeSitterNeo4jAdvancedBuilder:
 
 def main():
     """メイン関数"""
+    parser = argparse.ArgumentParser(description="Pythonコードを解析してNeo4jに格納します。")
+    parser.add_argument("file_path", help="解析対象のPythonファイルへのパス")
+    parser.add_argument("--db-name", default="treesitter_advanced", help="使用するNeo4jデータベース名")
+    parser.add_argument("--no-llm", action="store_true", help="LLMによる分析を無効にする")
+    args = parser.parse_args()
+
     # Neo4j接続情報
     neo4j_uri = os.getenv("NEO4J_URI", "neo4j://localhost:7687")
     neo4j_user = os.getenv("NEO4J_USER", "neo4j")
-    neo4j_password = os.getenv("NEO4J_PASSWORD", "password")
-    
+    neo4j_password = os.getenv("NEO4J_PASSWORD")
+
+    if not neo4j_password:
+        logger.error("NEO4J_PASSWORD環境変数が設定されていません。")
+        return
+
     # 高度なTree-sitter Neo4jビルダーの作成
     builder = TreeSitterNeo4jAdvancedBuilder(
         neo4j_uri, neo4j_user, neo4j_password,
-        database_name="treesitter_advanced",
-        enable_llm=True
+        database_name=args.db_name,
+        enable_llm=not args.no_llm
     )
     
     # ファイル解析
-    target_file = "./evoship/create_test.py"
-    builder.analyze_file(target_file)
+    if not os.path.exists(args.file_path):
+        logger.error(f"指定されたファイルが見つかりません: {args.file_path}")
+        return
+
+    builder.analyze_file(args.file_path)
     
     # Neo4jへの格納
     builder.store_to_neo4j()
