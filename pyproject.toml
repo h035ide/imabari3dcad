@@ -37,6 +37,7 @@ dependencies = [
     "ipykernel>=6.30.0",
     "tree-sitter>=0.25.0",
     "ezdxf>=1.4.2",
+    "ruff>=0.12.8",
 ]
 
 [project.optional-dependencies]
