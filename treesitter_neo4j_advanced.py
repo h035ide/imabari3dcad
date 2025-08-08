@@ -142,7 +142,7 @@ class TreeSitterNeo4jAdvancedBuilder:
     """高度なTree-sitter Neo4j統合システム"""
     
     def __init__(self, neo4j_uri: str, neo4j_user: str, neo4j_password: str, 
-                 database_name: str = "treesitter_advanced", 
+                 database_name: str = "treesitter", 
                  enable_llm: bool = True):
         """初期化"""
         self.neo4j_uri = neo4j_uri
@@ -154,7 +154,7 @@ class TreeSitterNeo4jAdvancedBuilder:
         # Tree-sitterセットアップ
         self.py_language = Language(tspython.language())
         self.parser = Parser()
-        self.parser.set_language(self.py_language)
+        self.parser.language = self.py_language
         
         # データ格納
         self.syntax_nodes: List[SyntaxNode] = []
@@ -675,7 +675,7 @@ def main():
     """メイン関数"""
     parser = argparse.ArgumentParser(description="Pythonコードを解析してNeo4jに格納します。")
     parser.add_argument("file_path", help="解析対象のPythonファイルへのパス")
-    parser.add_argument("--db-name", default="treesitter_advanced", help="使用するNeo4jデータベース名")
+    parser.add_argument("--db-name", default="treesitter", help="使用するNeo4jデータベース名")
     parser.add_argument("--no-llm", action="store_true", help="LLMによる分析を無効にする")
     args = parser.parse_args()
 
