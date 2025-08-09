@@ -3,3 +3,12 @@
 __pycache__/
 .old/
 .vscode/
+
+# LangChain Interface temp files
+./chroma_db/
+./demo_chroma_db/
+./my_chroma_db/
+*.egg-info/
+.pytest_cache/
+.coverage
+*.log
