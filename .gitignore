@@ -3,3 +3,4 @@
 __pycache__/
 .old/
 .vscode/
+langflow_env/
