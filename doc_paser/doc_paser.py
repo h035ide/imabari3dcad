@@ -362,7 +362,6 @@ def main():
       ]
     }
 
-
     try:
         # The post-processing logic is not compatible with the new schema.
         # We will bypass it and save the mock result directly.
