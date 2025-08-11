@@ -309,7 +309,7 @@ def main():
 
     try:
         # LLMモデルを初期化 (環境変数からAPIキーを自動読み込み)
-        llm = ChatOpenAI(model="gpt-4-turbo")
+        llm = ChatOpenAI(model="gpt-5-nano")
 
         # プロンプト、LLM、出力パーサーを `|` で連結してチェーンを作成 (LCEL構文)
         chain = prompt | llm | parser
