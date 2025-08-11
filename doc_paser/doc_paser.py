@@ -304,79 +304,42 @@ def postprocess_parsed_result(parsed_result):
     return parsed_result
 
 def main():
-    # This is a mock implementation to demonstrate the script's functionality
-    # without requiring a live OpenAI API call.
-    print("🤖 APIキーが不要なモックモードで実行します。")
-
-    # Manually created mock analysis result that matches the new schema
-    # This would normally be obtained from the LLM via `chain.invoke`
-    mock_parsed_result = {
-      "type_definitions": [
-        {
-          "name": "長さ",
-          "description": "mm単位の数値、変数要素名、式文字列"
-        },
-        {
-          "name": "点(2D)",
-          "description": "`,` コンマで区切って各コンポーネントをX,Yを長さ（変数も可）で指定"
-        }
-      ],
-      "api_entries": [
-        {
-          "entry_type": "function",
-          "name": "CreateSketchLine",
-          "description": "スケッチ直線作成",
-          "category": "Partオブジェクトのメソッド",
-          "params": [
-            {
-              "name": "SketchPlane",
-              "position": 0,
-              "type": "要素",
-              "description": "直線を作成するスケッチ要素",
-              "is_required": True
-            },
-            {
-              "name": "SketchLineName",
-              "position": 1,
-              "type": "文字列",
-              "description": "作成するスケッチ直線名称（空文字可）",
-              "is_required": False
-            },
-            {
-              "name": "StartPoint",
-              "position": 3,
-              "type": "点(2D)",
-              "description": "始点",
-              "is_required": True
-            }
-          ],
-          "properties": [],
-          "returns": {
-            "type": "要素ID",
-            "description": "作成されたスケッチ直線要素の要素ID",
-            "is_array": False
-          },
-          "notes": "Parameter positions might be non-contiguous in the source.",
-          "implementation_status": "implemented"
-        }
-      ]
-    }
-
     try:
-        # The post-processing logic is not compatible with the new schema.
-        # We will bypass it and save the mock result directly.
-        parsed_result = mock_parsed_result
+        # --- MOCK MODE ---
+        # The script is currently in mock mode.
+        # To run in live mode, comment out the following 2 lines and uncomment the 'LIVE MODE' block below.
+        print("🤖 APIキーが不要なモックモードで実行します。")
+        parsed_result = {
+          "type_definitions": [{"name": "長さ", "description": "mm単位の数値、変数要素名、式文字列"}],
+          "api_entries": [{"entry_type": "function", "name": "CreateSketchLine", "params": [{"position": 0, "name": "SketchPlane"}]}]
+        }
 
-        # --- Display results ---
+        # --- LIVE MODE (Commented out) ---
+        # To run in live mode, uncomment the block below and comment out the 2 lines in the 'MOCK MODE' block above.
+        # You will also need a valid OPENAI_API_KEY in your .env file.
+        #
+        # print("🤖 LLMを使ってAPIドキュメントを解析しています...")
+        # api_document_text = load_api_document()
+        # prompt = ChatPromptTemplate.from_template(load_prompt())
+        # json_format_instructions = load_json_format_instructions()
+        # parser = JsonOutputParser()
+        # llm = ChatOpenAI(model="gpt-5-nano")
+        # chain = prompt | llm | parser
+        # parsed_result = chain.invoke({
+        #     "document": api_document_text,
+        #     "json_format": json_format_instructions
+        # })
+
+        # --- Common Processing ---
         print("\n✅ 解析が完了し、JSONオブジェクトが生成されました。")
         print(json.dumps(parsed_result, indent=2, ensure_ascii=False))
-
-        # --- Save results ---
         save_parsed_result(parsed_result)
 
     except Exception as e:
         print(f"\n❌ エラーが発生しました: {e}")
         print(f"エラーの種類: {type(e).__name__}")
+        if "api_key" in str(e).lower():
+            print("\n💡 ヒント: .envファイルに正しいOPENAI_API_KEYが設定されているか確認してください。")
         pass
 if __name__ == "__main__":
     project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
