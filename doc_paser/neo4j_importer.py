@@ -1,5 +1,6 @@
 # This script will be used to import the parsed API data into a Neo4j database.
 import os
+import sys
 import json
 from neo4j import GraphDatabase
 from dotenv import load_dotenv
@@ -26,9 +27,13 @@ class Neo4jImporter:
         MERGE (func_a)-[r:FEEDS_INTO]->(func_b)
         SET r.via_object = obj.name
         """
-        result = session.run(query)
-        summary = result.summary()
-        print(f"  - Created {summary.counters.relationships_created} 'FEEDS_INTO' relationships.")
+        try:
+            result = session.run(query)
+            # Use consume() method for Neo4j Python Driver 4.0+
+            summary = result.consume()
+            print(f"  - Created {summary.counters.relationships_created} 'FEEDS_INTO' relationships.")
+        except Exception as e:
+            print(f"  - Warning: Could not create dependency links: {e}")
 
     def _import_type_definitions(self, session, type_definitions):
         print("Importing type definitions...")
@@ -48,62 +53,81 @@ class Neo4jImporter:
                 self._create_object_definition_graph(session, entry)
 
     def _create_function_graph(self, session, func_data):
-        query = """
-        // Create the function node
+        # Create the function node first
+        func_query = """
         MERGE (f:Function {name: $func.name})
         SET f.description = $func.description, f.category = $func.category,
             f.implementation_status = $func.implementation_status, f.notes = $func.notes
-
-        // Handle parameters
-        WITH f
-        UNWIND $func.params as param_data
-        MERGE (p:Parameter {name: param_data.name, parent_function: $func.name})
-        SET p.description = param_data.description, p.is_required = param_data.is_required
-        MERGE (f)-[r:HAS_PARAMETER]->(p)
-        SET r.position = param_data.position
-
-        // Link parameter to its type (either a Type or an ObjectDefinition)
-        WITH p, param_data
-        // Try to match with an ObjectDefinition first
-        OPTIONAL MATCH (od:ObjectDefinition {name: param_data.type})
-        // If not found, merge as a simple Type
-        MERGE (t:Type {name: param_data.type})
-        // If the object definition was found, create a link to it, otherwise to the type
-        WITH p, COALESCE(od, t) as type_node
-        MERGE (p)-[:HAS_TYPE]->(type_node)
-
-        // Handle return value
-        WITH f
-        // If there is a return type, merge it and link
-        FOREACH (ret IN CASE WHEN $func.returns IS NOT NULL THEN [1] ELSE [] END |
-            MERGE (rt:Type {name: $func.returns.type})
-            MERGE (f)-[:RETURNS]->(rt)
-        )
         """
-        session.run(query, func=func_data)
+        session.run(func_query, func=func_data)
+        
+        # Handle parameters individually to avoid duplication
+        if func_data.get('params'):
+            for param_data in func_data['params']:
+                param_query = """
+                MATCH (f:Function {name: $func_name})
+                MERGE (p:Parameter {name: $param_name, parent_function: $func_name})
+                SET p.description = $param_description, p.is_required = $param_required
+                MERGE (f)-[r:HAS_PARAMETER]->(p)
+                SET r.position = $param_position
+                
+                // Link parameter to its type
+                WITH p
+                OPTIONAL MATCH (od:ObjectDefinition {name: $param_type})
+                MERGE (t:Type {name: $param_type})
+                WITH p, COALESCE(od, t) as type_node
+                MERGE (p)-[:HAS_TYPE]->(type_node)
+                """
+                
+                session.run(param_query, 
+                          func_name=func_data['name'],
+                          param_name=param_data['name'],
+                          param_description=param_data.get('description', ''),
+                          param_required=param_data.get('is_required', False),
+                          param_position=param_data.get('position', 0),
+                          param_type=param_data['type'])
+        
+        # Handle return value
+        if func_data.get('returns'):
+            return_query = """
+            MATCH (f:Function {name: $func_name})
+            MERGE (rt:Type {name: $return_type})
+            MERGE (f)-[:RETURNS]->(rt)
+            """
+            session.run(return_query, func_name=func_data['name'], return_type=func_data['returns'].get('type'))
+        
         print(f"  - Imported function: {func_data['name']}")
 
     def _create_object_definition_graph(self, session, obj_data):
-        query = """
-        // Create the object definition node
+        # Create the object definition node
+        obj_query = """
         MERGE (od:ObjectDefinition {name: $obj.name})
         SET od.description = $obj.description, od.category = $obj.category, od.notes = $obj.notes
-
-        // Handle properties
-        WITH od
-        UNWIND $obj.properties as prop_data
-        MERGE (p:Parameter {name: prop_data.name, parent_object: $obj.name})
-        SET p.description = prop_data.description
-        MERGE (od)-[:HAS_PROPERTY]->(p)
-
-        // Link property to its type
-        WITH p, prop_data
-        OPTIONAL MATCH (prop_od:ObjectDefinition {name: prop_data.type})
-        MERGE (t:Type {name: prop_data.type})
-        WITH p, COALESCE(prop_od, t) as type_node
-        MERGE (p)-[:HAS_TYPE]->(type_node)
         """
-        session.run(query, obj=obj_data)
+        session.run(obj_query, obj=obj_data)
+        
+        # Handle properties in a separate query to avoid variable scope issues
+        if obj_data.get('properties'):
+            for prop_data in obj_data['properties']:
+                prop_query = """
+                MATCH (od:ObjectDefinition {name: $obj_name})
+                MERGE (p:Parameter {name: $prop_name, parent_object: $obj_name})
+                SET p.description = $prop_description
+                MERGE (od)-[:HAS_PROPERTY]->(p)
+                
+                // Link property to its type
+                WITH p
+                OPTIONAL MATCH (prop_od:ObjectDefinition {name: $prop_type})
+                MERGE (t:Type {name: $prop_type})
+                WITH p, COALESCE(prop_od, t) as type_node
+                MERGE (p)-[:HAS_TYPE]->(type_node)
+                """
+                session.run(prop_query, 
+                          obj_name=obj_data['name'],
+                          prop_name=prop_data['name'],
+                          prop_description=prop_data.get('description', ''),
+                          prop_type=prop_data['type'])
+        
         print(f"  - Imported object definition: {obj_data['name']}")
 
 def main():
@@ -111,7 +135,7 @@ def main():
     load_dotenv()
 
     NEO4J_URI = os.getenv("NEO4J_URI")
-    NEO4J_USER = os.getenv("NEO4J_USER")
+    NEO4J_USER = os.getenv("NEO4J_USERNAME")
     NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
 
     if not all([NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD]):
@@ -135,4 +159,8 @@ def main():
 
 
 if __name__ == "__main__":
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if project_root not in sys.path:
+        sys.path.insert(0, project_root)
+    print(f"プロジェクトルートパス: {project_root}")
     main()

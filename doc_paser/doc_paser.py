@@ -324,8 +324,8 @@ def main():
         json_format_instructions = load_json_format_instructions()
         # reasoning_effortを使用してより良い解析結果を得る
         llm = ChatOpenAI(
-            model="gpt-5-nano",
-            reasoning_effort="minimal",  # 'low', 'medium', 'high' から選択
+            model="gpt-5-mini",
+            reasoning_effort="medium",  # 'low', 'medium', 'high' から選択
             model_kwargs={"response_format": {"type": "json_object"}}
         )
         
