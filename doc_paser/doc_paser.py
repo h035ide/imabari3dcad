@@ -308,27 +308,38 @@ def main():
         # --- MOCK MODE ---
         # The script is currently in mock mode.
         # To run in live mode, comment out the following 2 lines and uncomment the 'LIVE MODE' block below.
-        print("🤖 APIキーが不要なモックモードで実行します。")
-        parsed_result = {
-          "type_definitions": [{"name": "長さ", "description": "mm単位の数値、変数要素名、式文字列"}],
-          "api_entries": [{"entry_type": "function", "name": "CreateSketchLine", "params": [{"position": 0, "name": "SketchPlane"}]}]
-        }
+        # print("🤖 APIキーが不要なモックモードで実行します。")
+        # parsed_result = {
+        #   "type_definitions": [{"name": "長さ", "description": "mm単位の数値、変数要素名、式文字列"}],
+        #   "api_entries": [{"entry_type": "function", "name": "CreateSketchLine", "params": [{"position": 0, "name": "SketchPlane"}]}]
+        # }
 
         # --- LIVE MODE (Commented out) ---
         # To run in live mode, uncomment the block below and comment out the 2 lines in the 'MOCK MODE' block above.
         # You will also need a valid OPENAI_API_KEY in your .env file.
         #
-        # print("🤖 LLMを使ってAPIドキュメントを解析しています...")
-        # api_document_text = load_api_document()
-        # prompt = ChatPromptTemplate.from_template(load_prompt())
-        # json_format_instructions = load_json_format_instructions()
-        # parser = JsonOutputParser()
-        # llm = ChatOpenAI(model="gpt-5-nano")
-        # chain = prompt | llm | parser
-        # parsed_result = chain.invoke({
-        #     "document": api_document_text,
-        #     "json_format": json_format_instructions
-        # })
+        print("🤖 LLMを使ってAPIドキュメントを解析しています...")
+        api_document_text = load_api_document()
+        prompt = ChatPromptTemplate.from_template(load_prompt())
+        json_format_instructions = load_json_format_instructions()
+        # reasoning_effortを使用してより良い解析結果を得る
+        llm = ChatOpenAI(
+            model="gpt-5-nano",
+            reasoning_effort="minimal",  # 'low', 'medium', 'high' から選択
+            model_kwargs={"response_format": {"type": "json_object"}}
+        )
+        
+        # 直接JSONとしてパース
+        try:
+            response = llm.invoke(prompt.format(
+                document=api_document_text,
+                json_format=json_format_instructions
+            ))
+            parsed_result = json.loads(response.content)
+        except json.JSONDecodeError as e:
+            print(f"JSONパースエラー: {e}")
+            print("LLM出力:", response.content)
+            raise
 
         # --- Common Processing ---
         print("\n✅ 解析が完了し、JSONオブジェクトが生成されました。")
