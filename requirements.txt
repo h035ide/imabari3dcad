@@ -313,3 +313,4 @@ wrapt==1.17.2
     #   llama-index-core
 yarl==1.20.1
     # via aiohttp
+neo4j
