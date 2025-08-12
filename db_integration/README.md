@@ -42,6 +42,10 @@ pip install -r requirements.txt
 ### コマンド
 
 ```bash
+# uvを使用する場合（推奨）
+uv run .\db_integration\integrate.py --code-file <path_to_code> --api-doc <path_to_api_doc> --api-args <path_to_api_args> [options]
+
+# または、Pythonモジュールとして実行
 python -m db_integration.integrate --code-file <path_to_code> --api-doc <path_to_api_doc> --api-args <path_to_api_args> [options]
 ```
 
@@ -50,7 +54,7 @@ python -m db_integration.integrate --code-file <path_to_code> --api-doc <path_to
 - `--code-file` (必須): 解析対象のPythonソースファイルへのパス。
 - `--api-doc` (必須): API関数の仕様が書かれたテキストファイルへのパス。
 - `--api-args` (必須): API引数の仕様が書かれたテキストファイルへのパス。
-- `--db-name` (任意): 使用するNeo4jデータベース名。デフォルトは `unified_db` です。
+- `--db-name` (任意): 使用するNeo4jデータベース名。デフォルトは `unifieddb` です。
 - `--clear-db` (任意): このフラグを立てると、インポート実行前にデータベース内のすべてのデータが削除されます。
 - `--no-llm` (任意): このフラグを立てると、コード解析時のLLMによる説明生成を無効にします。
 
@@ -59,10 +63,9 @@ python -m db_integration.integrate --code-file <path_to_code> --api-doc <path_to
 `data/src`にあるサンプルファイルを使ってデータベースを構築する例です。
 
 ```bash
-python -m db_integration.integrate \
-    --code-file evoship/samplecasing/samplecasing.py \
-    --api-doc data/src/api\ 1.txt \
-    --api-args data/src/api_arg\ 1.txt \
-    --db-name evoship_knowledge_base \
-    --clear-db
+# Windows PowerShellの場合
+uv run .\db_integration\integrate.py --code-file "evoship\create_test.py" --api-doc "data\src\api 1.txt" --api-args "data\src\api_arg 1.txt" --clear-db
+
+# または、データベース名を指定する場合
+uv run .\db_integration\integrate.py --code-file "evoship\create_test.py" --api-doc "data\src\api 1.txt" --api-args "data\src\api_arg 1.txt" --db-name evoship_knowledge_base --clear-db
 ```

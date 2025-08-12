@@ -23,9 +23,8 @@ class ApiParser:
             reasoning_effort (str): LangChainのreasoning_effortパラメータ。
         """
         self.llm = ChatOpenAI(
-            model=model_name,
-            # reasoning_effort=reasoning_effort, # This parameter may not be available in all versions
-            model_kwargs={"response_format": {"type": "json_object"}}
+            model="gpt-5-nano",
+            reasoning_effort="low",  # 'low', 'medium', 'high' から選択
         )
         logger.info(f"ApiParserがモデル '{model_name}' で初期化されました。")
 
