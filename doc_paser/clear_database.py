@@ -8,11 +8,12 @@ def clear_database():
     load_dotenv()
     
     NEO4J_URI = os.getenv("NEO4J_URI")
-    NEO4J_USER = os.getenv("NEO4J_USERNAME")
+    # NEO4J_USER と NEO4J_USERNAME の両方に対応
+    NEO4J_USER = os.getenv("NEO4J_USER") or os.getenv("NEO4J_USERNAME")
     NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
     
     if not all([NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD]):
-        print("Error: NEO4J_URI, NEO4J_USER, and NEO4J_PASSWORD must be set in the .env file.")
+        print("Error: NEO4J_URI, NEO4J_USER (or NEO4J_USERNAME), and NEO4J_PASSWORD must be set in the .env file.")
         return
     
     driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
