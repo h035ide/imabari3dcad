@@ -66,6 +66,8 @@ class GraphExporter:
                 })
 
         graph_data = {"nodes": nodes, "edges": edges}
+        
+        output_path = os.path.join(os.path.dirname(__file__), output_path)
 
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(graph_data, f, ensure_ascii=False, indent=2)
