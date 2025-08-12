@@ -37,11 +37,11 @@ def main():
 
     # Neo4j接続情報
     neo4j_uri = os.getenv("NEO4J_URI")
-    neo4j_user = os.getenv("NEO4J_USER")
+    neo4j_user = os.getenv("NEO4J_USERNAME")
     neo4j_password = os.getenv("NEO4J_PASSWORD")
 
     if not all([neo4j_uri, neo4j_user, neo4j_password]):
-        print("エラー: Neo4jの接続情報 (NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD) が.envファイルに設定されていないか、.envファイルが見つかりません。")
+        print("エラー: Neo4jの接続情報 (NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD) が.envファイルに設定されていないか、.envファイルが見つかりません。")
         return
 
     # Tree-sitter Neo4jビルダーの作成
