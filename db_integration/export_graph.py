@@ -81,7 +81,7 @@ def main():
     load_dotenv()
 
     parser = argparse.ArgumentParser(description="Neo4jグラフをvis.js用のJSONとしてエクスポートします。")
-    parser.add_argument("--db-name", default="unified_db", help="対象のNeo4jデータベース名。")
+    parser.add_argument("--db-name", default="unifieddb", help="対象のNeo4jデータベース名。")
     parser.add_argument("--output-file", default="graph_data.json", help="出力するJSONファイル名。")
     args = parser.parse_args()
 
