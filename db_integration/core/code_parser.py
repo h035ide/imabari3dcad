@@ -87,7 +87,10 @@ class CodeParser:
 
         if self.enable_llm:
             if os.getenv("OPENAI_API_KEY"):
-                self.llm_analyzer = ChatOpenAI(model="gpt-4-turbo", temperature=0)
+                self.llm_analyzer = ChatOpenAI(
+                    model="gpt-5-nano",
+                    reasoning_effort="low",  # 'low', 'medium', 'high' から選択
+                )
                 logger.info("CodeParserのLLM機能が有効化されました。")
             else:
                 logger.warning("OPENAI_API_KEYが見つかりません。LLM機能は無効です。")
