@@ -246,10 +246,10 @@ class TreeSitterNeo4jAdvancedBuilder:
         self.file_metrics[file_path] = metrics
     
     def extract_syntax_elements(self, node: Node, source_code_bytes: bytes, 
-                               file_path: str, parent_id: Optional[str] = None) -> str:
+                               file_path: str, parent_node: Optional[Node] = None, parent_id: Optional[str] = None) -> str:
         """構文要素を再帰的に抽出"""
         node_text = source_code_bytes[node.start_byte:node.end_byte].decode('utf8')
-        node_type = self.determine_node_type(node)
+        node_type = self.determine_node_type(node, parent_node)
         node_name = self.generate_node_name(node, node_type, node_text)
         
         node_id = f"{node_type.value}_{self.node_counter}"
@@ -308,14 +308,18 @@ class TreeSitterNeo4jAdvancedBuilder:
         
         # 子ノードの処理と特殊関係の抽出
         for child in node.children:
-            child_id = self.extract_syntax_elements(child, source_code_bytes, file_path, node_id)
+            child_id = self.extract_syntax_elements(child, source_code_bytes, file_path, parent_node=node, parent_id=node_id)
             self.extract_advanced_relationships(node, child, node_id, child_id, node_text)
         
         return node_id
     
-    def determine_node_type(self, node: Node) -> NodeType:
+    def determine_node_type(self, node: Node, parent_node: Optional[Node] = None) -> NodeType:
         """ノードタイプを判定"""
         node_type = node.type
+
+        # コンテキストに応じた判定
+        if node_type == "identifier" and parent_node and parent_node.type == "parameters":
+            return NodeType.PARAMETER
         
         type_mapping = {
             "module": NodeType.MODULE,
@@ -329,7 +333,7 @@ class TreeSitterNeo4jAdvancedBuilder:
             "number": NodeType.NUMBER,
             "comment": NodeType.COMMENT,
             "identifier": NodeType.VARIABLE,
-            "parameter": NodeType.PARAMETER,
+            "parameter": NodeType.PARAMETER, # Note: This handles cases where the node itself is 'parameter'
             "decorator": NodeType.DECORATOR,
             "annotation": NodeType.ANNOTATION,
             "try_statement": NodeType.EXCEPTION,
@@ -569,6 +573,7 @@ class TreeSitterNeo4jAdvancedBuilder:
         except Exception as e:
              logger.error(f"Neo4jへの格納中にエラーが発生しました: {e}")
              logger.error(f"データベース '{self.database_name}' が存在し、Neo4jが実行されていることを確認してください。")
+             raise
 
         finally:
             driver.close()
