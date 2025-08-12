@@ -11,7 +11,7 @@ if project_root not in sys.path:
 # project_rootが正しく設定された後にインポートする
 # Note: This will only work if the script is run from the project root directory.
 # We might need to adjust this later if we run it from code_parser/
-from treesitter_neo4j_advanced import TreeSitterNeo4jAdvancedBuilder
+from code_parser.treesitter_neo4j_advanced import TreeSitterNeo4jAdvancedBuilder
 
 # .envファイルを読み込む
 load_dotenv()
