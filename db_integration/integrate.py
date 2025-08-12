@@ -4,6 +4,10 @@ import argparse
 import logging
 from dotenv import load_dotenv
 
+from .core.api_parser import ApiParser
+from .core.code_parser import CodeParser
+from .core.neo4j_uploader import Neo4jUploader
+
 # ロギング設定
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -15,26 +19,19 @@ def setup_project_root():
         logging.info(f"プロジェクトルートをPythonパスに追加しました: {project_root}")
     return project_root
 
-# プロジェクトルートを設定してからインポート
-setup_project_root()
-
-# 相対インポートを絶対インポートに変更
-from core.api_parser import ApiParser
-from core.code_parser import CodeParser
-from core.neo4j_uploader import Neo4jUploader
-
 def main():
     """
     データベース統合プロセスのメインエントリーポイント。
     API仕様とPythonコードを解析し、Neo4jデータベースに格納して両者をリンクします。
     """
+    setup_project_root()
     load_dotenv()
 
     parser = argparse.ArgumentParser(description="API仕様書とPythonコードを解析し、Neo4jに統合します。")
     parser.add_argument("--code-file", required=True, help="解析対象のPythonソースファイルへのパス。")
     parser.add_argument("--api-doc", required=True, help="API関数仕様が書かれたテキストファイルへのパス。")
     parser.add_argument("--api-args", required=True, help="API引数仕様が書かれたテキストファイルへのパス。")
-    parser.add_argument("--db-name", default="unifieddb", help="使用するNeo4jデータベース名。")
+    parser.add_argument("--db-name", default="unified_db", help="使用するNeo4jデータベース名。")
     parser.add_argument("--clear-db", action="store_true", help="実行前にデータベースをクリアします。")
     parser.add_argument("--no-llm", action="store_true", help="LLMによる分析を無効にします。")
 
