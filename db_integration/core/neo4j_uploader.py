@@ -14,8 +14,50 @@ class Neo4jUploader:
 
     def __init__(self, uri, user, password, database):
         self.driver = GraphDatabase.driver(uri, auth=(user, password))
-        self.database = database
-        logger.info(f"Neo4jUploaderがデータベース '{database}' に接続されました。")
+        # データベース名の検証と修正
+        self.database = self._sanitize_database_name(database)
+        logger.info(f"Neo4jUploaderがデータベース '{self.database}' に接続されました。")
+        # データベースが存在しない場合は作成
+        self._ensure_database_exists()
+
+    def _sanitize_database_name(self, database_name):
+        """データベース名をNeo4jの命名規則に適合させます。"""
+        # アンダースコアとハイフンを削除し、英数字のみにする
+        import re
+        sanitized_name = re.sub(r'[^a-zA-Z0-9]', '', database_name)
+        if sanitized_name != database_name:
+            logger.info(f"データベース名を '{database_name}' から '{sanitized_name}' に修正しました。")
+        return sanitized_name
+
+    def _ensure_database_exists(self):
+        """データベースが存在しない場合は作成します。"""
+        try:
+            # まず、指定されたデータベースに直接接続を試行
+            with self.driver.session(database=self.database) as session:
+                # 簡単なクエリを実行してデータベースが利用可能かテスト
+                session.run("RETURN 1")
+                logger.info(f"データベース '{self.database}' は既に存在し、利用可能です。")
+                return
+        except Exception as e:
+            logger.info(f"データベース '{self.database}' への接続に失敗しました: {e}")
+            
+        # データベースが存在しない場合、作成を試行
+        try:
+            # デフォルトデータベース（通常は'neo4j'）に接続してデータベース作成
+            with self.driver.session(database="neo4j") as session:
+                logger.info(f"データベース '{self.database}' を作成します...")
+                # データベース作成（Neo4j 4.0以降）
+                session.run(f"CREATE DATABASE {self.database}")
+                logger.info(f"データベース '{self.database}' が作成されました。")
+                
+                # 作成後、少し待ってから利用可能になるまで待機
+                import time
+                time.sleep(2)
+                
+        except Exception as e:
+            logger.error(f"データベース '{self.database}' の作成に失敗しました: {e}")
+            logger.info("既存のデータベースを使用するか、手動でデータベースを作成してください。")
+            raise
 
     def close(self):
         self.driver.close()
@@ -26,7 +68,6 @@ class Neo4jUploader:
             try:
                 logger.warning(f"データベース '{self.database}' の全データを削除します...")
                 session.run("MATCH (n) DETACH DELETE n")
-                summary = session.last_transaction_metadata
                 logger.info("データベースのクリアが完了しました。")
             except Exception as e:
                 logger.error(f"データベースのクリア中にエラーが発生しました: {e}")
