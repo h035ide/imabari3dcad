@@ -12,6 +12,8 @@ if project_root not in sys.path:
 from dotenv import load_dotenv
 from neo4j import GraphDatabase
 from langchain.tools import BaseTool
+import subprocess
+import tempfile
 from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_community.vectorstores import Chroma
 from langchain_openai import OpenAIEmbeddings
@@ -149,3 +151,116 @@ class GraphSearchTool(BaseTool):
 
 # `if __name__ == '__main__':` ブロックは、テストファイルに移行したため削除。
 # このファイルはツール定義に専念する。
+
+# --- Unit Test Tool ---
+
+class UnitTestInput(BaseModel):
+    """単体テストツールの入力スキーマ。"""
+    code_to_test: str = Field(description="テスト対象のPythonコード文字列。")
+    test_code: str = Field(description="テスト対象コードを検証するためのunittestコード文字列。")
+
+class UnitTestTool(BaseTool):
+    """
+    生成されたPythonコードとそれに対応する単体テストを実行し、
+    コードが期待通りに動作するかを検証するツール。
+    """
+    name: str = "python_unit_test_runner"
+    description: str = (
+        "Pythonコードとそのコードを検証するための単体テスト（unittest）を実行するために使用します。"
+        "引数'code_to_test'にテストしたいコード、'test_code'にテストコードをそれぞれ文字列として渡してください。"
+        "テストコードは、'code_to_test'のコードをモジュールとしてインポートしてテストする必要があります。"
+    )
+    args_schema: Type[BaseModel] = UnitTestInput
+
+    def _run(self, code_to_test: str, test_code: str) -> str:
+        logger.info("UnitTestToolの実行を開始...")
+
+        # 一時ディレクトリを作成して、ソースコードとテストコードを配置
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            source_filepath = os.path.join(tmp_dir, "source_code.py")
+            test_filepath = os.path.join(tmp_dir, "test_code.py")
+
+            with open(source_filepath, "w", encoding="utf-8") as f:
+                f.write(code_to_test)
+
+            with open(test_filepath, "w", encoding="utf-8") as f:
+                f.write(test_code)
+
+            # unittestをサブプロセスとして実行
+            # cwdを一時ディレクトリに設定し、PYTHONPATHにも追加することで、
+            # テストコードがソースコードを正しくインポートできるようにする
+            logger.info(f"unittestを実行: python -m unittest {os.path.basename(test_filepath)}")
+            process = subprocess.run(
+                [sys.executable, '-m', 'unittest', os.path.basename(test_filepath)],
+                capture_output=True,
+                text=True,
+                encoding='utf-8',
+                cwd=tmp_dir,
+                env={**os.environ, "PYTHONPATH": tmp_dir}
+            )
+
+            # unittestは通常、結果をstderrに出力する
+            output = process.stderr
+
+            if "OK" in output and "FAILED" not in output:
+                logger.info("単体テストに成功しました。")
+                return "単体テストに成功しました。コードは期待通りに動作します。"
+            else:
+                logger.warning(f"単体テストで失敗またはエラーが検出されました:\n{output}")
+                return f"単体テストで失敗またはエラーが検出されました:\n{output}"
+
+# --- Code Validation Tool ---
+
+class CodeValidationInput(BaseModel):
+    """コード検証ツールの入力スキーマ。"""
+    code: str = Field(description="検証対象のPythonコード文字列。")
+
+class CodeValidationTool(BaseTool):
+    """
+    Pythonコードを静的解析ツール(flake8)で検証し、エラーやスタイル問題を検出するツール。
+    """
+    name: str = "python_code_validator"
+    description: str = (
+        "Pythonコードの品質をチェックするために使用します。"
+        "構文エラー、未使用のインポート、スタイル違反などの問題を検出できます。"
+        "引数'code'に、検証したいPythonコードの全文を文字列として渡してください。"
+    )
+    args_schema: Type[BaseModel] = CodeValidationInput
+
+    def _run(self, code: str) -> str:
+        """flake8を使ってコードを検証する同期実行ロジック。"""
+        logger.info("CodeValidationToolの実行を開始...")
+
+        # 一時ファイルを作成してコードを書き込む
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as tmp_file:
+            tmp_file.write(code)
+            tmp_filepath = tmp_file.name
+
+        try:
+            # flake8をサブプロセスとして実行
+            process = subprocess.run(
+                ['flake8', tmp_filepath],
+                capture_output=True,
+                text=True,
+                encoding='utf-8'
+            )
+
+            if process.returncode == 0 and not process.stdout:
+                logger.info("コードの検証に成功しました。問題は見つかりませんでした。")
+                return "コードの検証に成功しました。問題は見つかりませんでした。"
+            else:
+                logger.warning(f"コードの検証で問題が検出されました:\n{process.stdout}")
+                # flake8の出力からファイルパス部分を除去して、よりクリーンな結果を返す
+                clean_output = '\n'.join(line.split(':', 1)[1] for line in process.stdout.strip().split('\n'))
+                return f"コードの検証で以下の問題が検出されました:\n{clean_output}"
+
+        except FileNotFoundError:
+            logger.error("flake8コマンドが見つかりません。環境にインストールされているか確認してください。")
+            return "エラー: flake8コマンドが見つかりません。"
+        except Exception as e:
+            logger.error(f"コード検証中に予期せぬエラーが発生しました: {e}", exc_info=True)
+            return f"コード検証中に予期せぬエラーが発生しました: {e}"
+        finally:
+            # 一時ファイルを確実に削除
+            if os.path.exists(tmp_filepath):
+                os.remove(tmp_filepath)

@@ -14,7 +14,7 @@ from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.memory import ConversationBufferWindowMemory
 
-from code_generator.tools import GraphSearchTool
+from code_generator.tools import GraphSearchTool, CodeValidationTool, UnitTestTool
 
 # .envファイルを読み込む
 dotenv_path = os.path.join(project_root, '.env')
@@ -27,50 +27,85 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 def create_code_generation_agent() -> AgentExecutor:
     """
-    コード生成のためのLangChainエージェントと実行環境を構築します。
+    自己テスト・自己修正ループを備えたコード生成エージェントと実行環境を構築します。
     """
     if not os.getenv("OPENAI_API_KEY"):
         logger.warning("OPENAI_API_KEYが見つかりません。エージェントは構築されませんでした。")
         return None
 
-    logger.info("コード生成エージェントを構築しています...")
-    tools = [GraphSearchTool()]
+    logger.info("自己テスト・自己修正機能付きコード生成エージェントを構築しています...")
+
+    # 1. 利用可能なツールを定義
+    tools = [GraphSearchTool(), CodeValidationTool(), UnitTestTool()]
+
+    # 2. LLMを初期化
     agent_llm = ChatOpenAI(model="gpt-4o", temperature=0)
+
+    # 3. 新しい自己テスト・自己修正プロセスを指示するシステムプロンプト
     system_prompt = """
-あなたは、ユーザーの指示に基づいて高品質なPythonコードを生成する専門家AIアシスタントです。
+あなたは、ユーザーの指示に基づいて高品質なPythonコードを生成する、自己テスト・自己修正能力を持つ高度なAIアシスタントです。
+
 ### あなたの役割と目標
-あなたの最終目標は、ユーザーの自然言語による要求を、実行可能なPythonコードに変換することです。
-そのために、あなたは `graph_knowledge_search` という強力なツールを持っています。このツールは、システムのAPI仕様やコード例が格納されたナレッジグラフにアクセスできます。
-### 実行プロセス
-1. **要求の理解:** まず、ユーザーがどのような機能を持つコードを求めているのかを正確に理解します。
-2. **ツールによる情報検索:** 次に、必ず `graph_knowledge_search` ツールを使って、要求に最も関連するAPI関数、クラス、パラメータ、コード例をナレッジグラフから検索します。
-3. **情報の統合と分析:** ツールから得られた検索結果（APIの仕様、関数のシグネチャ、実装コード片など）を注意深く分析し、コード生成に必要な情報をすべて整理します。
-4. **コードの生成:** 整理した情報に基づいて、最終的なPythonコードを生成します。
-5. **回答の提示:** 生成したコードを、適切な説明と共にユーザーに提示します。
+最終目標は、ユーザーの要求を、**単体テストで動作が確認された、高品質な**実行可能Pythonコードに変換することです。
+そのために、あなたは3つの強力なツールを持っています。
+1. `hybrid_graph_knowledge_search`: API仕様やコード例をナレッジグラフから検索するツール。
+2. `python_code_validator`: Pythonコードの静的解析（lintチェック）を行うツール。
+3. `python_unit_test_runner`: Pythonコードとそれに対応する単体テストを実行するツール。
+
+### 実行プロセス（自己テスト・自己修正ループ）
+あなたは以下の思考プロセスを厳密に守り、段階的に実行しなければなりません。
+
+1.  **要求の理解と情報検索:**
+    *   ユーザーの要求を理解し、`hybrid_graph_knowledge_search` ツールを使って関連情報を検索します。
+
+2.  **コード草案の生成:**
+    *   検索結果を基に、要求を満たすためのPythonコードの**初稿**を生成します。
+
+3.  **静的検証:**
+    *   生成したコード草案に対し、`python_code_validator` ツールを使って自己検証します。
+    *   もし問題が見つかった場合は、それを修正したコードを生成し直してください。静的検証をパスするまで、このステップを繰り返します。
+
+4.  **単体テストの生成と実行:**
+    *   静的検証をパスしたコードに対し、その動作を検証するための**単体テストコードを自ら生成**してください。テストは`unittest`フレームワークを使い、`source_code`という名前のモジュールからテスト対象をインポートする形式で記述します。
+    *   `python_unit_test_runner` ツールを使い、生成したコードとテストコードを実行します。
+
+5.  **動的検証と最終修正:**
+    *   単体テストの結果を分析します。
+    *   **(a) テスト成功の場合:** コードは高品質で、期待通りに動作すると判断できます。そのコードを最終的な回答として、適切な説明と共にユーザーに提示してください。
+    *   **(b) テスト失敗の場合:**
+        *   テストの失敗情報（Traceback）を注意深く読み、コードの論理的な問題を特定します。
+        *   元の要求、失敗したコード、そしてテストの失敗情報をすべて考慮して、問題を修正した**最終版のコード**を生成します。
+        *   この最終版コードをユーザーに提示します。（修正後の再テストは不要です。）
+
 ### 注意事項
-- **ツールの使用は必須です。** 自身の知識だけで回答を創作せず、必ずツールで得た情報に基づいてください。
-- ツールから有益な情報が得られなかった場合は、その旨を正直に伝え、「関連情報が見つかりませんでした。」と回答してください。
+- この**[検索→草案→静的検証→テスト生成→動的検証→最終化]**というプロセスは、あなたの品質を担保するための最も重要なルールです。
 - **応答は必ず日本語で行ってください。**
 """
+
     prompt = ChatPromptTemplate.from_messages([
         ("system", system_prompt),
         MessagesPlaceholder(variable_name="chat_history"),
         ("human", "{input}"),
         MessagesPlaceholder(variable_name="agent_scratchpad"),
     ])
+
     memory = ConversationBufferWindowMemory(
         memory_key='chat_history',
         k=5,
         return_messages=True
     )
+
     agent = create_openai_functions_agent(agent_llm, tools, prompt)
+
     agent_executor = AgentExecutor(
         agent=agent,
         tools=tools,
         memory=memory,
         verbose=True,
-        handle_parsing_errors=True
+        handle_parsing_errors=True,
+        max_iterations=10 # ループの上限を設定
     )
+
     logger.info("エージェントの構築が完了しました。")
     return agent_executor
 
@@ -79,23 +114,7 @@ if __name__ == '__main__':
     agent_executor = create_code_generation_agent()
 
     if agent_executor:
-        logger.info("対話を開始します。（'exit'または'終了'で終了）")
-        if not agent_executor.tools[0]._is_configured:
-            logger.warning("GraphSearchToolが設定されていません。API検索は機能しませんが、エージェントの対話テストは可能です。")
-        while True:
-            try:
-                user_input = input("\n👤 あなた: ")
-                if user_input.lower() in ["exit", "quit", "終了"]:
-                    print("🤖 アシスタント: ご利用ありがとうございました。")
-                    break
-                response = agent_executor.invoke({"input": user_input})
-                print(f"🤖 アシスタント: {response['output']}")
-            except KeyboardInterrupt:
-                print("\n🤖 アシスタント: セッションが中断されました。")
-                break
-            except Exception as e:
-                logger.error(f"予期せぬエラーが発生しました: {e}", exc_info=True)
-                print("🤖 アシスタント: 申し訳ありません、エラーが発生しました。")
+        logger.info("エージェントの初期化に成功しました。")
     else:
         logger.error("エージェントを構築できませんでした。環境変数を確認してください。")
 
