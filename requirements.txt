@@ -44,3 +44,4 @@ zstandard==0.23.0
 chromadb
 langchain-community
 flake8
+sentence-transformers
