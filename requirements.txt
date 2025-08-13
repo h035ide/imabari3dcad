@@ -43,3 +43,4 @@ urllib3==2.5.0
 zstandard==0.23.0
 chromadb
 langchain-community
+flake8
