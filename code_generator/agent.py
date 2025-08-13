@@ -15,7 +15,7 @@ from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.output_parsers import PydanticOutputParser
 
-from code_generator.tools import GraphSearchTool, CodeValidationTool, UnitTestTool
+from code_generator.tools import GraphSearchTool, CodeValidationTool, UnitTestTool, ParameterExtractionTool
 from code_generator.schemas import FinalAnswer
 
 # .envファイルを読み込む
@@ -29,40 +29,55 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 def create_code_generation_agent() -> AgentExecutor:
     """
-    自己テスト・自己修正ループと構造化出力を備えたコード生成エージェントを構築します。
+    Pre-flight Validationと自己修正ループを備えたコード生成エージェントを構築します。
     """
     if not os.getenv("OPENAI_API_KEY"):
         logger.warning("OPENAI_API_KEYが見つかりません。エージェントは構築されませんでした。")
         return None
 
-    logger.info("自己テスト・自己修正機能付きコード生成エージェントを構築しています...")
+    logger.info("Pre-flight Validation機能付きエージェントを構築しています...")
 
-    tools = [GraphSearchTool(), CodeValidationTool(), UnitTestTool()]
+    # 1. 利用可能なツールを定義
+    tools = [ParameterExtractionTool(), GraphSearchTool(), CodeValidationTool(), UnitTestTool()]
+
+    # 2. LLMを初期化
     agent_llm = ChatOpenAI(model="gpt-4o", temperature=0)
 
-    # 1. PydanticOutputParserをセットアップ
+    # 3. PydanticOutputParserをセットアップ
     parser = PydanticOutputParser(pydantic_object=FinalAnswer)
     format_instructions = parser.get_format_instructions()
 
-    # 2. 新しい自己修正プロセスと構造化出力を指示するシステムプロンプト
+    # 4. 新しい思考プロセスを指示するシステムプロンプト
     system_prompt = f"""
 あなたは、ユーザーの指示に基づいて高品質なPythonコードを生成する、自己テスト・自己修正能力を持つ高度なAIアシスタントです。
 
 ### あなたの役割と目標
 最終目標は、ユーザーの要求を、**単体テストで動作が確認された、高品質な**実行可能Pythonコードに変換し、指定されたJSON形式で出力することです。
-そのために、あなたは3つの強力なツールを持っています。
-1. `hybrid_graph_knowledge_search`: API仕様やコード例をナレッジグラフから検索するツール。
-2. `python_code_validator`: Pythonコードの静的解析（lintチェック）を行うツール。
-3. `python_unit_test_runner`: Pythonコードとそれに対応する単体テストを実行するツール。
+あなたは4つの強力なツールを持っています: `user_query_parameter_extractor`, `hybrid_graph_knowledge_search`, `python_code_validator`, `python_unit_test_runner`。
 
-### 実行プロセス（自己テスト・自己修正ループ）
+### 実行プロセス
 あなたは以下の思考プロセスを厳密に守り、段階的に実行しなければなりません。
-1.  **要求の理解と情報検索:** ユーザーの要求を理解し、`hybrid_graph_knowledge_search` ツールを使って関連情報を検索します。
-2.  **コード草案の生成:** 検索結果を基に、要求を満たすためのPythonコードの**初稿**を生成します。
-3.  **静的検証:** 生成したコード草案に対し、`python_code_validator` ツールを使って自己検証します。もし問題が見つかった場合は、それを修正し、静的検証をパスするまで繰り返します。
-4.  **単体テストの生成と実行:** 静的検証をパスしたコードに対し、その動作を検証するための**単体テストコードを自ら生成**してください。
-5.  **動的検証と最終修正:** `python_unit_test_runner` ツールを使い、生成したコードとテストコードを実行します。テストが失敗した場合は、そのエラー内容を基にコード草案をデバッグ・修正します。
-6.  **最終回答のフォーマット:** 全ての検証をパスした最終的なコードと、それに関する説明を、以下のJSON形式で厳密に出力してください。
+
+**フェーズ1：要求の検証と情報収集（Pre-flight Validation）**
+
+1.  **入力分析:** まず、`user_query_parameter_extractor`ツールを使い、ユーザーの最初の要求から「意図」と「パラメータ」を抽出します。
+2.  **API発見:** 次に、抽出した「意図」を基に`hybrid_graph_knowledge_search`ツールを使い、最も関連性の高いAPIとそのシグネチャ（必要なパラメータリスト）を発見します。
+3.  **情報検証と比較:** 発見したAPIが必要とするパラメータと、ユーザーが提供したパラメータを比較します。
+4.  **対話による情報補完:**
+    *   もしAPIが必要とするパラメータがユーザーの要求に不足している場合、**コード生成に進まず、まずユーザーに質問してください。**（例：「キューブを作成するには辺の長さが必要です。数値を指定してください。」）
+    *   ユーザーからの回答を待ち、すべての必須パラメータが揃うまで対話を続けてください。
+
+**フェーズ2：コード生成と自己修正**
+
+5.  **最小コンテキストの構築:** 全ての必須パラメータが揃ったら、コード生成のためだけの最小限のコンテキスト（APIのシグネチャ、確定したパラメータ値など）を内部で整理します。
+6.  **コード草案の生成:** 整理したコンテキストを基に、Pythonコードの**初稿**を生成します。
+7.  **静的検証:** 生成したコードを`python_code_validator`ツールで検証します。問題があれば修正します。
+8.  **単体テストの生成と実行:** 静的検証をパスしたコードに対し、その動作を検証するための**単体テストコードを自ら生成**してください。
+9.  **動的検証と最終修正:** `python_unit_test_runner` ツールを使い、生成したコードとテストコードを実行します。テストが失敗した場合、そのエラーを基にコードをデバッグし、最終版のコードを生成します。
+
+**フェーズ3：最終出力**
+
+10. **最終回答のフォーマット:** 全ての検証をパスした最終的なコードと、それに関する説明を、以下のJSON形式で厳密に出力してください。
 
 {{format_instructions}}
 """
@@ -82,19 +97,13 @@ def create_code_generation_agent() -> AgentExecutor:
 
     agent = create_openai_functions_agent(agent_llm, tools, prompt)
 
-    # create_openai_functions_agentはOutputParserを直接サポートしないため、
-    # AgentExecutorの戻り値をパースする後処理を考える必要がある。
-    # しかし、Function Callingモードでは、LLMがJSON形式で返すように指示すれば、
-    # AgentExecutorの'output'キーにJSON文字列が含まれる可能性が高い。
-    # main.py側でその文字列をパースする。
-
     agent_executor = AgentExecutor(
         agent=agent,
         tools=tools,
         memory=memory,
         verbose=True,
         handle_parsing_errors=True,
-        max_iterations=10
+        max_iterations=15 # ステップが増えたため上限を少し増やす
     )
 
     logger.info("エージェントの構築が完了しました。")

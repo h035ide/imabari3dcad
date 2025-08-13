@@ -23,3 +23,10 @@ class FinalAnswer(BaseModel):
             f"{full_code}\n"
             f"```"
         )
+
+class ExtractedParameters(BaseModel):
+    """
+    ユーザーの入力から抽出された意図とパラメータを格納するPydanticモデル。
+    """
+    intent: str = Field(description="ユーザーの主な目的や意図。")
+    parameters: dict = Field(description="ユーザーが指定した具体的なパラメータのキーと値の辞書。")
