@@ -92,17 +92,29 @@ class GraphSearchTool(BaseTool):
         try:
             # 1. ベクトル検索で関連性の高いノード候補を取得
             logger.info(f"ステップ1/2: ChromaDBでベクトル検索を実行中...")
-            # `include=['metadatas']` を指定してメタデータのみ取得
-            results = self._vector_store.similarity_search(query, k=5, include=['metadatas'])
+            # `include=['metadatas', 'documents']` を指定して、Re-Rankingで利用するドキュメント内容も取得
+            results = self._vector_store.similarity_search(query, k=20) # Re-Rankingのため、より多くの候補(k=20)を取得
 
             if not results:
                 return "ベクトル検索で関連するAPIが見つかりませんでした。"
 
             logger.info(f"{len(results)}件の候補をベクトル検索で発見しました。")
 
+            # --- [Re-Ranking Integration Point] ---
+            # Re-Ranking機能を有効化するには、以下のコメントを解除し、ReRankerをインポートしてください。
+            # from code_generator.rerank_feature.reranker import ReRanker
+            # reranker = ReRanker()
+            # reranked_results = reranker.rerank(query, results)
+            # top_results = reranked_results[:5] # 上位5件に絞り込み
+            # logger.info(f"Re-Ranking後の候補件数: {len(top_results)}")
+            # node_ids = [doc.metadata.get("neo4j_node_id") for doc in top_results if doc.metadata.get("neo4j_node_id")]
+            # --- [End Re-Ranking Integration Point] ---
+
+            # 注：上記のRe-Rankingを有効化した場合、以下の行は不要になります。
+            node_ids = [doc.metadata.get("neo4j_node_id") for doc in results if doc.metadata.get("neo4j_node_id")]
+
             # 2. グラフ探索で詳細情報を取得
             logger.info(f"ステップ2/2: Neo4jで詳細情報を取得中...")
-            node_ids = [doc.metadata.get("neo4j_node_id") for doc in results if doc.metadata.get("neo4j_node_id")]
 
             if not node_ids:
                  return "ベクトル検索の結果から有効なノードIDを取得できませんでした。"
