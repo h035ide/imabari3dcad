@@ -1,6 +1,7 @@
 import os
 import sys
 import logging
+import json
 from typing import Type, Dict, Any, List
 
 # --- [Path Setup] ---
@@ -92,11 +93,33 @@ class GraphSearchTool(BaseTool):
         try:
             # 1. ベクトル検索で関連性の高いノード候補を取得
             logger.info(f"ステップ1/2: ChromaDBでベクトル検索を実行中...")
-            # `include=['metadatas', 'documents']` を指定して、Re-Rankingで利用するドキュメント内容も取得
-            results = self._vector_store.similarity_search(query, k=20) # Re-Rankingのため、より多くの候補(k=20)を取得
+            # スコアも取得するために `similarity_search_with_score` を使用
+            results_with_scores = self._vector_store.similarity_search_with_score(query, k=5)
 
-            if not results:
+            if not results_with_scores:
                 return "ベクトル検索で関連するAPIが見つかりませんでした。"
+
+            # --- [曖昧さの検出ロジック] ---
+            # スコアが非常に近い候補があるかチェック (例: 2位のスコアが1位の90%以上)
+            # 注: ChromaDBのL2距離スコアは低いほど良いため、比率の計算が逆になる
+            if len(results_with_scores) > 1:
+                best_score = results_with_scores[0][1]
+                second_best_score = results_with_scores[1][1]
+                # スコアが0の場合のゼロ除算を避ける
+                if best_score > 0 and (second_best_score / best_score) < 1.1: # 差が10%以内
+                    logger.info("検索結果が曖昧です。ユーザーに明確化を促します。")
+                    candidates = [
+                        {
+                            "name": doc.metadata.get("api_name", "N/A"),
+                            "description": doc.page_content.split('\n', 1)[1].replace("説明: ", "")
+                        }
+                        for doc, score in results_with_scores[:3] # 上位3件を候補として提示
+                    ]
+                    # 特別なフォーマットで曖昧な結果を返す
+                    return f"AMBIGUOUS_RESULTS::{json.dumps(candidates, ensure_ascii=False)}"
+
+            # 曖昧でない場合は、スコアを除いたドキュメントリストを使用
+            results = [doc for doc, score in results_with_scores]
 
             logger.info(f"{len(results)}件の候補をベクトル検索で発見しました。")
 

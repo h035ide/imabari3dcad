@@ -1,6 +1,7 @@
 import unittest
 import os
 import sys
+import json
 from unittest.mock import patch, MagicMock
 
 # --- [Path Setup] ---
@@ -76,37 +77,23 @@ class TestGraphSearchToolHybrid(unittest.TestCase):
     @patch('os.path.exists', return_value=True)
     @patch('code_generator.tools.Chroma')
     @patch('code_generator.tools.GraphDatabase.driver')
-    def test_hybrid_search_workflow(self, mock_neo4j_driver, mock_chroma, mock_exists):
-        """ハイブリッド検索のワークフロー全体をモックしてテストします。"""
+    def test_hybrid_search_workflow_unambiguous(self, mock_neo4j_driver, mock_chroma, mock_exists):
+        """[非曖昧ケース] ハイブリッド検索のワークフロー全体をテストします。"""
         # --- Setup Mocks ---
-        # 1. 環境変数を設定
         with patch.dict(os.environ, {
-            "OPENAI_API_KEY": "fake_key",
-            "NEO4J_URI": "bolt://fake_uri",
-            "NEO4J_USER": "fake_user",
-            "NEO4J_PASSWORD": "fake_password"
+            "OPENAI_API_KEY": "fake_key", "NEO4J_URI": "bolt://fake_uri",
+            "NEO4J_USER": "fake_user", "NEO4J_PASSWORD": "fake_password"
         }):
-            # 2. ChromaDBのモックを設定
+            # 2. ChromaDBのモックを設定 (スコアに十分な差がある)
             mock_vector_store_instance = mock_chroma.return_value
-            mock_vector_store_instance.similarity_search.return_value = [
-                Document(page_content="", metadata={"neo4j_node_id": "node123"}),
-                Document(page_content="", metadata={"neo4j_node_id": "node456"})
+            mock_vector_store_instance.similarity_search_with_score.return_value = [
+                (Document(page_content="doc1", metadata={"neo4j_node_id": "node123"}), 0.1),
+                (Document(page_content="doc2", metadata={"neo4j_node_id": "node456"}), 0.5)
             ]
 
             # 3. Neo4jドライバとセッションのモックを設定
             mock_session = MagicMock()
-            mock_neo4j_record = {
-                'apiName': 'MockAPI',
-                'functionSignature': 'MockAPI(param1: str)',
-                'className': 'MockClass',
-                'parameters': ['param1'],
-                'calledBy': ['Caller1', 'Caller2'],
-                'returnType': 'Class',
-                'returnName': 'MockResultObject'
-            }
-            mock_session.run.return_value = [
-                MagicMock(data=lambda: mock_neo4j_record)
-            ]
+            mock_session.run.return_value = [MagicMock(data=lambda: {'apiName': 'MockAPI'})]
             mock_neo4j_driver.return_value.session.return_value.__enter__.return_value = mock_session
 
             # --- Execute ---
@@ -114,23 +101,49 @@ class TestGraphSearchToolHybrid(unittest.TestCase):
             result = tool._run(query="find mock api")
 
             # --- Assertions ---
-            # 1. ベクトル検索が呼ばれたか
-            mock_vector_store_instance.similarity_search.assert_called_with("find mock api", k=20)
-
-            # 2. グラフ探索（Cypher）が正しいIDで呼ばれたか
+            mock_vector_store_instance.similarity_search_with_score.assert_called_with("find mock api", k=5)
             mock_session.run.assert_called_once()
-            call_args = mock_session.run.call_args
-            self.assertIn("WHERE elementId(api) IN $node_ids", call_args.args[0])
-            self.assertEqual(call_args.kwargs['node_ids'], ["node123", "node456"])
-
-            # 3. 最終的な出力が正しいか
+            self.assertNotIn("AMBIGUOUS_RESULTS::", result)
             self.assertIn("ナレッジグラフから以下の情報が見つかりました", result)
-            self.assertIn("- API名: MockAPI", result)
-            self.assertIn("- 所属クラス: MockClass", result)
-            self.assertIn("- シグネチャ: MockAPI(param1: str)", result)
-            self.assertIn("- パラメータ: param1", result)
-            self.assertIn("- 戻り値: MockResultObject (型: Class)", result)
-            self.assertIn("- 主な呼び出し元: Caller1, Caller2", result)
+
+    @patch('os.path.exists', return_value=True)
+    @patch('code_generator.tools.Chroma')
+    @patch('code_generator.tools.GraphDatabase.driver')
+    def test_hybrid_search_workflow_ambiguous(self, mock_neo4j_driver, mock_chroma, mock_exists):
+        """[曖昧ケース] 検索結果が曖昧な場合に、特別な応答が返されることをテストします。"""
+        # --- Setup Mocks ---
+        with patch.dict(os.environ, {
+            "OPENAI_API_KEY": "fake_key", "NEO4J_URI": "bolt://fake_uri",
+            "NEO4J_USER": "fake_user", "NEO4J_PASSWORD": "fake_password"
+        }):
+            # 2. ChromaDBのモックを設定 (スコアが非常に近い)
+            mock_vector_store_instance = mock_chroma.return_value
+            doc1_content = "API名: Sphere\n説明: Creates a sphere."
+            doc2_content = "API名: Ball\n説明: Creates a ball."
+            mock_vector_store_instance.similarity_search_with_score.return_value = [
+                (Document(page_content=doc1_content, metadata={"api_name": "Sphere"}), 0.10),
+                (Document(page_content=doc2_content, metadata={"api_name": "Ball"}), 0.105) # 差が10%以内
+            ]
+
+            # Neo4jセッションは呼ばれないはず
+            mock_session = MagicMock()
+            mock_neo4j_driver.return_value.session.return_value.__enter__.return_value = mock_session
+
+            # --- Execute ---
+            tool = GraphSearchTool()
+            result = tool._run(query="create a round object")
+
+            # --- Assertions ---
+            mock_vector_store_instance.similarity_search_with_score.assert_called_with("create a round object", k=5)
+            mock_session.run.assert_not_called() # グラフ探索は実行されない
+            self.assertTrue(result.startswith("AMBIGUOUS_RESULTS::"))
+
+            # JSONペイロードを検証
+            json_part = result.split("::", 1)[1]
+            data = json.loads(json_part)
+            self.assertEqual(len(data), 2)
+            self.assertEqual(data[0]['name'], "Sphere")
+            self.assertEqual(data[1]['name'], "Ball")
 
 if __name__ == '__main__':
     unittest.main()
