@@ -95,8 +95,17 @@ class TestGraphSearchToolHybrid(unittest.TestCase):
 
             # 3. Neo4jドライバとセッションのモックを設定
             mock_session = MagicMock()
+            mock_neo4j_record = {
+                'apiName': 'MockAPI',
+                'functionSignature': 'MockAPI(param1: str)',
+                'className': 'MockClass',
+                'parameters': ['param1'],
+                'calledBy': ['Caller1', 'Caller2'],
+                'returnType': 'Class',
+                'returnName': 'MockResultObject'
+            }
             mock_session.run.return_value = [
-                MagicMock(data=lambda: {'apiName': 'MockAPI', 'functionCode': 'print("mock")'})
+                MagicMock(data=lambda: mock_neo4j_record)
             ]
             mock_neo4j_driver.return_value.session.return_value.__enter__.return_value = mock_session
 
@@ -106,7 +115,7 @@ class TestGraphSearchToolHybrid(unittest.TestCase):
 
             # --- Assertions ---
             # 1. ベクトル検索が呼ばれたか
-            mock_vector_store_instance.similarity_search.assert_called_with("find mock api", k=5, include=['metadatas'])
+            mock_vector_store_instance.similarity_search.assert_called_with("find mock api", k=20)
 
             # 2. グラフ探索（Cypher）が正しいIDで呼ばれたか
             mock_session.run.assert_called_once()
@@ -116,8 +125,12 @@ class TestGraphSearchToolHybrid(unittest.TestCase):
 
             # 3. 最終的な出力が正しいか
             self.assertIn("ナレッジグラフから以下の情報が見つかりました", result)
-            self.assertIn("apiName: MockAPI", result)
-            self.assertIn('functionCode: print("mock")', result)
+            self.assertIn("- API名: MockAPI", result)
+            self.assertIn("- 所属クラス: MockClass", result)
+            self.assertIn("- シグネチャ: MockAPI(param1: str)", result)
+            self.assertIn("- パラメータ: param1", result)
+            self.assertIn("- 戻り値: MockResultObject (型: Class)", result)
+            self.assertIn("- 主な呼び出し元: Caller1, Caller2", result)
 
 if __name__ == '__main__':
     unittest.main()

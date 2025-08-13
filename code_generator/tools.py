@@ -124,9 +124,17 @@ class GraphSearchTool(BaseTool):
             WHERE elementId(api) IN $node_ids
             OPTIONAL MATCH (f:Function)-[:IMPLEMENTS_API]->(api)
             OPTIONAL MATCH (api)-[:HAS_PARAMETER]->(p:Parameter)
-            RETURN api.name AS apiName, api.description AS apiDescription,
-                   f.name AS functionName, f.code AS functionCode, f.signature AS functionSignature,
-                   collect(p.name) AS parameters
+            OPTIONAL MATCH (c:Class)-[:CONTAINS]->(f)
+            OPTIONAL MATCH (caller:Function)-[:CALLS]->(f)
+            OPTIONAL MATCH (api)-[:RETURNS]->(ret)
+            RETURN api.name AS apiName,
+                   api.description AS apiDescription,
+                   f.signature AS functionSignature,
+                   c.name AS className,
+                   collect(DISTINCT p.name) AS parameters,
+                   collect(DISTINCT caller.name) AS calledBy,
+                   labels(ret)[0] AS returnType,
+                   ret.name AS returnName
             """
 
             with self._neo4j_driver.session(database=self._db_name) as session:
@@ -145,17 +153,45 @@ class GraphSearchTool(BaseTool):
     def _format_results(self, records: List[Dict[str, Any]]) -> str:
         """データベースの検索結果をエージェントが理解しやすい文字列に整形します。"""
         if not records: return "結果なし"
+
         formatted_string = "ナレッジグラフから以下の情報が見つかりました:\n\n"
         for i, record in enumerate(records):
             formatted_string += f"--- 関連API候補 {i+1} ---\n"
-            for key, value in record.items():
-                if value is not None:
-                    if isinstance(value, list):
-                        formatted_value = ", ".join(map(str, value)) if value else "なし"
-                    else:
-                        formatted_value = str(value)
-                    formatted_string += f"- {key}: {formatted_value}\n"
+
+            # RETURNで指定した順序に近い形で、見やすく整形
+            if record.get('apiName'):
+                formatted_string += f"- API名: {record['apiName']}\n"
+            if record.get('className'):
+                formatted_string += f"- 所属クラス: {record['className']}\n"
+            if record.get('description'):
+                formatted_string += f"- 説明: {record['description']}\n"
+            if record.get('functionSignature'):
+                formatted_string += f"- シグネチャ: {record['functionSignature']}\n"
+
+            # パラメータリストの整形
+            params = record.get('parameters')
+            if params:
+                # 空の要素('')やNoneを除外
+                clean_params = [p for p in params if p]
+                formatted_string += f"- パラメータ: {', '.join(clean_params) if clean_params else 'なし'}\n"
+
+            # 戻り値の整形
+            ret_type = record.get('returnType')
+            ret_name = record.get('returnName')
+            if ret_type and ret_name:
+                 formatted_string += f"- 戻り値: {ret_name} (型: {ret_type})\n"
+            elif ret_type:
+                 formatted_string += f"- 戻り値の型: {ret_type}\n"
+
+            # 呼び出し元リストの整形
+            called_by = record.get('calledBy')
+            if called_by:
+                clean_called_by = [c for c in called_by if c]
+                if clean_called_by:
+                    formatted_string += f"- 主な呼び出し元: {', '.join(clean_called_by)}\n"
+
             formatted_string += "\n"
+
         return formatted_string
 
     def close(self):
