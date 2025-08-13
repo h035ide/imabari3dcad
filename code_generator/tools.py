@@ -16,7 +16,9 @@ import subprocess
 import tempfile
 from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_community.vectorstores import Chroma
-from langchain_openai import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain.output_parsers import PydanticOutputParser
+from code_generator.schemas import ExtractedParameters
 
 # .envファイルを読み込む
 dotenv_path = os.path.join(project_root, '.env')
@@ -214,6 +216,78 @@ class UnitTestTool(BaseTool):
 class CodeValidationInput(BaseModel):
     """コード検証ツールの入力スキーマ。"""
     code: str = Field(description="検証対象のPythonコード文字列。")
+
+# --- Parameter Extraction Tool ---
+
+class ParameterExtractionInput(BaseModel):
+    """パラメータ抽出ツールの入力スキーマ。"""
+    query: str = Field(description="分析対象のユーザーの自然言語クエリ。")
+
+class ParameterExtractionTool(BaseTool):
+    """
+    ユーザーの自然言語クエリを分析し、構造化された「意図」と「パラメータ」を抽出するツール。
+    """
+    name: str = "user_query_parameter_extractor"
+    description: str = (
+        "ユーザーからの最初の要求を分析するために使用します。"
+        "ユーザーの主な目的（意図）と、サイズや名前などの具体的なパラメータを抽出します。"
+    )
+    args_schema: Type[BaseModel] = ParameterExtractionInput
+    _llm: ChatOpenAI = None
+    _parser: PydanticOutputParser = None
+    _is_configured: bool = False
+
+    def __init__(self, **data):
+        super().__init__(**data)
+        if not os.getenv("OPENAI_API_KEY"):
+            logger.warning("OPENAI_API_KEYが見つからないため、ParameterExtractionToolは非アクティブです。")
+            self._is_configured = False
+        else:
+            self._llm = ChatOpenAI(model="gpt-4o", temperature=0)
+            self._parser = PydanticOutputParser(pydantic_object=ExtractedParameters)
+            self._is_configured = True
+
+    def _run(self, query: str) -> dict:
+        if not self._is_configured:
+            return {"intent": query, "parameters": {}}
+
+        logger.info(f"ParameterExtractionToolの実行を開始。クエリ: '{query}'")
+
+        prompt_template = """
+        ユーザーの以下の要求から、その主な「意図」と、指定されている「パラメータ」を抽出し、指定されたJSON形式で出力してください。
+
+        ### 要求
+        {query}
+
+        ### 指示
+        - 「意図」は、ユーザーが何をしたいのかを簡潔に表現する文字列です。（例：「立方体を作成」「球を検索」）
+        - 「パラメータ」は、キーと値のペアを持つ辞書です。数値は必ず数値型に変換してください。
+        - 該当するパラメータがない場合は、空の辞書 `{{}}` を返してください。
+
+        ### 例
+        - 要求: "一辺が50mmの正方形のキューブを作成してください"
+        - 出力JSON: {{"intent": "create a square cube", "parameters": {{"side_length": 50}}}}
+
+        - 要求: "青色のボールを作って"
+        - 出力JSON: {{"intent": "create a ball", "parameters": {{"color": "blue"}}}}
+
+        {format_instructions}
+        """
+
+        prompt = prompt_template.format(
+            query=query,
+            format_instructions=self._parser.get_format_instructions()
+        )
+
+        try:
+            response = self._llm.invoke(prompt)
+            parsed_response = self._parser.parse(response.content)
+            logger.info(f"パラメータ抽出成功: {parsed_response}")
+            return parsed_response.dict()
+        except Exception as e:
+            logger.error(f"パラメータの抽出中にエラーが発生しました: {e}", exc_info=True)
+            # フォールバックとして、意図をクエリ全体とし、パラメータを空にする
+            return {"intent": query, "parameters": {}}
 
 class CodeValidationTool(BaseTool):
     """
