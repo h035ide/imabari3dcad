@@ -125,3 +125,56 @@ graph TD
     1.  Implement a new `BaseTool` subclass in `code_generator/tools.py`.
     2.  Add an instance of your new tool to the `tools` list in `code_generator/agent.py`.
     3.  Update the agent's system prompt to instruct it on how and when to use the new tool.
+
+### Bonus Feature: Integrating the Re-Ranker
+
+The `rerank_feature/` directory contains an optional module to improve search result relevance using a more powerful cross-encoder model. Due to its large dependencies (`torch`, `sentence-transformers`), it is not enabled by default.
+
+To enable this feature, follow these steps:
+
+**1. Install Dependencies:**
+
+First, ensure you have enough disk space and install the required library:
+
+```bash
+pip install -r requirements.txt
+# This will install sentence-transformers and its dependencies.
+```
+
+**2. Modify `code_generator/tools.py`:**
+
+In the `_run` method of the `GraphSearchTool` class, you need to activate the re-ranking logic.
+
+Find this section in the file:
+
+```python
+            # --- [Re-Ranking Integration Point] ---
+            # Re-Ranking機能を有効化するには、以下のコメントを解除し、ReRankerをインポートしてください。
+            # from code_generator.rerank_feature.reranker import ReRanker
+            # reranker = ReRanker()
+            # reranked_results = reranker.rerank(query, results)
+            # top_results = reranked_results[:5] # 上位5件に絞り込み
+            # logger.info(f"Re-Ranking後の候補件数: {len(top_results)}")
+            # node_ids = [doc.metadata.get("neo4j_node_id") for doc in top_results if doc.metadata.get("neo4j_node_id")]
+            # --- [End Re-Ranking Integration Point] ---
+
+            # 注：上記のRe-Rankingを有効化した場合、以下の行は不要になります。
+            node_ids = [doc.metadata.get("neo4j_node_id") for doc in results if doc.metadata.get("neo4j_node_id")]
+```
+
+And change it to the following (uncomment the code and remove the fallback line):
+
+```python
+            # --- [Re-Ranking Integration Point] ---
+            from code_generator.rerank_feature.reranker import ReRanker
+            reranker = ReRanker()
+            reranked_results = reranker.rerank(query, results)
+            top_results = reranked_results[:5] # 上位5件に絞り込み
+            logger.info(f"Re-Ranking後の候補件数: {len(top_results)}")
+            node_ids = [doc.metadata.get("neo4j_node_id") for doc in top_results if doc.metadata.get("neo4j_node_id")]
+            # --- [End Re-Ranking Integration Point] ---
+```
+
+You will also need to add the import statement `from code_generator.rerank_feature.reranker import ReRanker` at the top of `code_generator/tools.py`.
+
+Once these changes are made, the `GraphSearchTool` will use the advanced re-ranking model to provide more accurate context to the agent.
