@@ -15,8 +15,8 @@ from neo4j import GraphDatabase
 from langchain.tools import BaseTool
 import subprocess
 import tempfile
-from langchain_core.pydantic_v1 import BaseModel, Field
-from langchain_community.vectorstores import Chroma
+from pydantic import BaseModel, Field
+from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain.output_parsers import PydanticOutputParser
 from code_generator.schemas import ExtractedParameters

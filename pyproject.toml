@@ -40,6 +40,8 @@ dependencies = [
     "ruff>=0.12.8",
     "flake8>=7.3.0",
     "sentence-transformers>=5.1.0",
+    "langchain>=0.3.27",
+    "langchain-chroma>=0.2.5",
 ]
 
 [project.optional-dependencies]

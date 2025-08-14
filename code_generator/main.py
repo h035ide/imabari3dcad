@@ -43,13 +43,13 @@ def main():
     if not agent_executor.tools[1]._is_configured:
         logger.warning("GraphSearchToolが設定されていません。ナレッジグラフ検索は機能しません。")
 
-    print("コード生成の要求を日本語で入力してください。（'exit'または'終了'で終了します）")
+    print("コード生成の要求を日本語で入力してください。（'exit'または'終了'または'q'で終了します）")
 
     # 対話ループ
     while True:
         try:
             user_input = input("\n👤 あなた: ")
-            if user_input.lower() in ["exit", "quit", "終了"]:
+            if user_input.lower() in ["exit", "q", "終了"]:
                 print("🤖 アシスタント: ご利用ありがとうございました。")
                 break
 
