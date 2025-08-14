@@ -9,6 +9,7 @@ if project_root not in sys.path:
 # --- [End Path Setup] ---
 
 from dotenv import load_dotenv
+from typing import Optional
 from langchain.agents import AgentExecutor, create_openai_functions_agent
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
@@ -24,10 +25,9 @@ load_dotenv(dotenv_path=dotenv_path)
 
 # ロギング設定
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
-def create_code_generation_agent() -> AgentExecutor:
+def create_code_generation_agent() -> Optional[AgentExecutor]:
     """
     Pre-flight Validationと自己修正ループを備えたコード生成エージェントを構築します。
     """
@@ -41,7 +41,11 @@ def create_code_generation_agent() -> AgentExecutor:
     tools = [ParameterExtractionTool(), GraphSearchTool(), CodeValidationTool(), UnitTestTool()]
 
     # 2. LLMを初期化
-    agent_llm = ChatOpenAI(model="gpt-4o", temperature=0)
+    agent_llm = ChatOpenAI(
+                    model=os.getenv("OPENAI_MODEL", "gpt-4o"),
+                    temperature=float(os.getenv("OPENAI_TEMPERATURE", "0.0")),
+                    # reasoning_effort="high",  # 'low', 'medium', 'high' から選択
+                )
 
     # 3. PydanticOutputParserをセットアップ
     parser = PydanticOutputParser(pydantic_object=FinalAnswer)
