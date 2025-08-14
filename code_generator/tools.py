@@ -20,13 +20,13 @@ from langchain_community.vectorstores import Chroma
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain.output_parsers import PydanticOutputParser
 from code_generator.schemas import ExtractedParameters
+from code_generator.rerank_feature.reranker import ReRanker
 
 # .envファイルを読み込む
 dotenv_path = os.path.join(project_root, '.env')
 load_dotenv(dotenv_path=dotenv_path)
 
 # ロギング設定
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 # --- 定数定義 ---
@@ -100,13 +100,22 @@ class GraphSearchTool(BaseTool):
                 return "ベクトル検索で関連するAPIが見つかりませんでした。"
 
             # --- [曖昧さの検出ロジック] ---
-            # スコアが非常に近い候補があるかチェック (例: 2位のスコアが1位の90%以上)
+            # スコアが非常に近い候補があるかチェック
             # 注: ChromaDBのL2距離スコアは低いほど良いため、比率の計算が逆になる
             if len(results_with_scores) > 1:
                 best_score = results_with_scores[0][1]
                 second_best_score = results_with_scores[1][1]
-                # スコアが0の場合のゼロ除算を避ける
-                if best_score > 0 and (second_best_score / best_score) < 1.1: # 差が10%以内
+                
+                # 絶対差と相対差の両方をチェック
+                absolute_diff = abs(second_best_score - best_score)
+                relative_ratio = (second_best_score / best_score) if best_score > 0 else float('inf')
+                
+                # 絶対差と相対差の閾値を環境変数から取得（デフォルト値付き）
+                absolute_threshold = float(os.getenv("AMBIGUITY_ABSOLUTE_THRESHOLD", "0.1"))
+                relative_threshold = float(os.getenv("AMBIGUITY_RELATIVE_THRESHOLD", "1.1"))
+                
+                # 絶対差が閾値以下 または 相対差が閾値以内の場合を曖昧と判定
+                if absolute_diff <= absolute_threshold or (relative_ratio < relative_threshold and relative_ratio != float('inf')):
                     logger.info("検索結果が曖昧です。ユーザーに明確化を促します。")
                     candidates = [
                         {
@@ -125,16 +134,15 @@ class GraphSearchTool(BaseTool):
 
             # --- [Re-Ranking Integration Point] ---
             # Re-Ranking機能を有効化するには、以下のコメントを解除し、ReRankerをインポートしてください。
-            # from code_generator.rerank_feature.reranker import ReRanker
-            # reranker = ReRanker()
-            # reranked_results = reranker.rerank(query, results)
-            # top_results = reranked_results[:5] # 上位5件に絞り込み
-            # logger.info(f"Re-Ranking後の候補件数: {len(top_results)}")
-            # node_ids = [doc.metadata.get("neo4j_node_id") for doc in top_results if doc.metadata.get("neo4j_node_id")]
+            reranker = ReRanker()
+            reranked_results = reranker.rerank(query, results)
+            top_results = reranked_results[:5] # 上位5件に絞り込み
+            logger.info(f"Re-Ranking後の候補件数: {len(top_results)}")
+            node_ids = [doc.metadata.get("neo4j_node_id") for doc in top_results if doc.metadata.get("neo4j_node_id")]
             # --- [End Re-Ranking Integration Point] ---
 
             # 注：上記のRe-Rankingを有効化した場合、以下の行は不要になります。
-            node_ids = [doc.metadata.get("neo4j_node_id") for doc in results if doc.metadata.get("neo4j_node_id")]
+            # node_ids = [doc.metadata.get("neo4j_node_id") for doc in results if doc.metadata.get("neo4j_node_id")]
 
             # 2. グラフ探索で詳細情報を取得
             logger.info(f"ステップ2/2: Neo4jで詳細情報を取得中...")
@@ -143,7 +151,7 @@ class GraphSearchTool(BaseTool):
                  return "ベクトル検索の結果から有効なノードIDを取得できませんでした。"
 
             cypher_query = """
-            MATCH (api:APIFunction)
+            MATCH (api:ApiFunction)
             WHERE elementId(api) IN $node_ids
             OPTIONAL MATCH (f:Function)-[:IMPLEMENTS_API]->(api)
             OPTIONAL MATCH (api)-[:HAS_PARAMETER]->(p:Parameter)
@@ -186,8 +194,8 @@ class GraphSearchTool(BaseTool):
                 formatted_string += f"- API名: {record['apiName']}\n"
             if record.get('className'):
                 formatted_string += f"- 所属クラス: {record['className']}\n"
-            if record.get('description'):
-                formatted_string += f"- 説明: {record['description']}\n"
+            if record.get('apiDescription'):
+                formatted_string += f"- 説明: {record['apiDescription']}\n"
             if record.get('functionSignature'):
                 formatted_string += f"- シグネチャ: {record['functionSignature']}\n"
 
@@ -272,15 +280,15 @@ class UnitTestTool(BaseTool):
                 env={**os.environ, "PYTHONPATH": tmp_dir}
             )
 
-            # unittestは通常、結果をstderrに出力する
-            output = process.stderr
-
-            if "OK" in output and "FAILED" not in output:
+            # unittestの実行結果を判定
+            if process.returncode == 0:
                 logger.info("単体テストに成功しました。")
                 return "単体テストに成功しました。コードは期待通りに動作します。"
             else:
-                logger.warning(f"単体テストで失敗またはエラーが検出されました:\n{output}")
-                return f"単体テストで失敗またはエラーが検出されました:\n{output}"
+                # エラー出力を確認
+                error_output = process.stderr if process.stderr else process.stdout
+                logger.warning(f"単体テストで失敗またはエラーが検出されました:\n{error_output}")
+                return f"単体テストで失敗またはエラーが検出されました:\n{error_output}"
 
 # --- Code Validation Tool ---
 

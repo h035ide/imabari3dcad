@@ -48,9 +48,9 @@ def fetch_data_from_neo4j():
     try:
         with GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD)) as driver:
             with driver.session(database=NEO4J_DATABASE) as session:
-                # APIFunctionノードから、名前と説明を取得します。これらを連結したものをベクトル化の対象とします。
+                # ApiFunctionノードから、名前と説明を取得します。これらを連結したものをベクトル化の対象とします。
                 query = """
-                MATCH (n:APIFunction)
+                MATCH (n:ApiFunction)
                 WHERE n.name IS NOT NULL AND n.description IS NOT NULL
                 RETURN elementId(n) AS node_id, n.name AS name, n.description AS description
                 """
@@ -112,7 +112,14 @@ def ingest_data_to_chroma(records):
         vector_store.persist()
 
         logger.info("ChromaDBへのデータ格納が正常に完了しました。")
-        logger.info(f"コレクション '{CHROMA_COLLECTION_NAME}' には現在 {vector_store._collection.count()} 件のドキュメントがあります。")
+        # コレクション内のドキュメント数を取得（公開APIを使用）
+        try:
+            collection = vector_store.get()
+            doc_count = len(collection['documents']) if collection['documents'] else 0
+            logger.info(f"コレクション '{CHROMA_COLLECTION_NAME}' には現在 {doc_count} 件のドキュメントがあります。")
+        except Exception as e:
+            logger.warning(f"ドキュメント数の取得に失敗しました: {e}")
+            logger.info("ChromaDBへのデータ格納が完了しました。")
 
     except Exception as e:
         logger.error(f"ChromaDBへのデータ格納中にエラーが発生しました: {e}", exc_info=True)

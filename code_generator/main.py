@@ -40,7 +40,7 @@ def main():
     print("AIアシスタントが起動しました。")
 
     # ツールが設定されていない場合は警告を表示
-    if not agent_executor.tools[0]._is_configured:
+    if not agent_executor.tools[1]._is_configured:
         logger.warning("GraphSearchToolが設定されていません。ナレッジグラフ検索は機能しません。")
 
     print("コード生成の要求を日本語で入力してください。（'exit'または'終了'で終了します）")
