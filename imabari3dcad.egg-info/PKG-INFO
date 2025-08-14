@@ -32,6 +32,8 @@ Requires-Dist: ezdxf>=1.4.2
 Requires-Dist: ruff>=0.12.8
 Requires-Dist: flake8>=7.3.0
 Requires-Dist: sentence-transformers>=5.1.0
+Requires-Dist: langchain>=0.3.27
+Requires-Dist: langchain-chroma>=0.2.5
 Provides-Extra: dev
 Requires-Dist: pytest; extra == "dev"
 Requires-Dist: black; extra == "dev"

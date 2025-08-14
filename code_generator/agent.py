@@ -13,7 +13,8 @@ from typing import Optional
 from langchain.agents import AgentExecutor, create_openai_functions_agent
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain.memory import ConversationBufferWindowMemory
+from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_core.chat_history import BaseChatMessageHistory
 from langchain.output_parsers import PydanticOutputParser
 
 from code_generator.tools import GraphSearchTool, CodeValidationTool, UnitTestTool, ParameterExtractionTool
@@ -42,9 +43,9 @@ def create_code_generation_agent() -> Optional[AgentExecutor]:
 
     # 2. LLMを初期化
     agent_llm = ChatOpenAI(
-                    model=os.getenv("OPENAI_MODEL", "gpt-4o"),
-                    temperature=float(os.getenv("OPENAI_TEMPERATURE", "0.0")),
-                    # reasoning_effort="high",  # 'low', 'medium', 'high' から選択
+                    model=os.getenv("OPENAI_MODEL", "gpt-5-nano"),
+                    # temperature=float(os.getenv("OPENAI_TEMPERATURE", "0.0")),
+                    reasoning_effort="high",  # 'minimal', 'low', 'medium', 'high' から選択
                 )
 
     # 3. PydanticOutputParserをセットアップ
@@ -96,18 +97,13 @@ def create_code_generation_agent() -> Optional[AgentExecutor]:
         MessagesPlaceholder(variable_name="agent_scratchpad"),
     ]).partial(format_instructions=format_instructions)
 
-    memory = ConversationBufferWindowMemory(
-        memory_key='chat_history',
-        k=5,
-        return_messages=True
-    )
+    memory = ChatMessageHistory()
 
     agent = create_openai_functions_agent(agent_llm, tools, prompt)
 
     agent_executor = AgentExecutor(
         agent=agent,
         tools=tools,
-        memory=memory,
         verbose=True,
         handle_parsing_errors=True,
         max_iterations=15 # ステップが増えたため上限を少し増やす
