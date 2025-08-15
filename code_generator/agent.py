@@ -44,7 +44,16 @@ def create_code_generation_agent() -> Optional[AgentExecutor]:
         logger.info("LlamaIndexHybridSearchTool を使用します。")
         search_tool = LlamaIndexHybridSearchTool()
     else:
-        logger.info("従来の GraphSearchTool を使用します。")
+    tools = [ParameterExtractionTool(), CodeValidationTool(), UnitTestTool()]
+    use_llamaindex = os.getenv("USE_LLAMAINDEX", "0") == "1"
+
+    if use_llamindex:
+        logger.info("Using LlamaIndexHybridSearchTool.")
+        search_tool = LlamaIndexHybridSearchTool()
+    else:
+        logger.info("Using legacy GraphSearchTool.")
+        search_tool = GraphSearchTool()
+    tools.append(search_tool)
         search_tool = GraphSearchTool()
     tools.append(search_tool)
 
