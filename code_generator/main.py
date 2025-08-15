@@ -39,9 +39,17 @@ def main():
     print("\n--- AIコード生成アシスタント ---")
     print("AIアシスタントが起動しました。")
 
-    # ツールが設定されていない場合は警告を表示
-    if not agent_executor.tools[1]._is_configured:
-        logger.warning("GraphSearchToolが設定されていません。ナレッジグラフ検索は機能しません。")
+    # ツールが設定されているかチェック（LlamaIndexHybridSearchToolの場合のみ）
+    search_tool = None
+    for tool in agent_executor.tools:
+        if hasattr(tool, '_is_configured'):
+            search_tool = tool
+            break
+    
+    if search_tool and not search_tool._is_configured:
+        logger.warning("検索ツールが設定されていません。ナレッジグラフ検索は機能しません。")
+    elif search_tool:
+        logger.info("検索ツールが正常に設定されています。")
 
     print("コード生成の要求を日本語で入力してください。（'exit'または'終了'または'q'で終了します）")
 

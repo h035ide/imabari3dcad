@@ -10,14 +10,12 @@ if project_root not in sys.path:
 
 from dotenv import load_dotenv
 from typing import Optional
-from langchain.agents import AgentExecutor, create_openai_functions_agent
+from langchain.agents import AgentExecutor, create_openai_tools_agent
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_community.chat_message_histories import ChatMessageHistory
-from langchain_core.chat_history import BaseChatMessageHistory
 from langchain.output_parsers import PydanticOutputParser
 
-from code_generator.tools import GraphSearchTool, CodeValidationTool, UnitTestTool, ParameterExtractionTool
+from code_generator.tools import GraphSearchTool, CodeValidationTool, UnitTestTool, ParameterExtractionTool, LlamaIndexHybridSearchTool
 from code_generator.schemas import FinalAnswer
 
 # .envファイルを読み込む
@@ -38,14 +36,32 @@ def create_code_generation_agent() -> Optional[AgentExecutor]:
 
     logger.info("Pre-flight Validation機能付きエージェントを構築しています...")
 
-    # 1. 利用可能なツールを定義
-    tools = [ParameterExtractionTool(), GraphSearchTool(), CodeValidationTool(), UnitTestTool()]
+    # 1. 利用可能なツールを定義（LlamaIndex利用フラグに応じて切り替え）
+    use_llamaindex = os.getenv("USE_LLAMAINDEX", "0") == "1"
+
+    tools = [ParameterExtractionTool(), CodeValidationTool(), UnitTestTool()]
+    if use_llamaindex:
+        logger.info("LlamaIndexHybridSearchTool を使用します。")
+        search_tool = LlamaIndexHybridSearchTool()
+    else:
+    tools = [ParameterExtractionTool(), CodeValidationTool(), UnitTestTool()]
+    use_llamaindex = os.getenv("USE_LLAMAINDEX", "0") == "1"
+
+    if use_llamindex:
+        logger.info("Using LlamaIndexHybridSearchTool.")
+        search_tool = LlamaIndexHybridSearchTool()
+    else:
+        logger.info("Using legacy GraphSearchTool.")
+        search_tool = GraphSearchTool()
+    tools.append(search_tool)
+        search_tool = GraphSearchTool()
+    tools.append(search_tool)
 
     # 2. LLMを初期化
     agent_llm = ChatOpenAI(
                     model=os.getenv("OPENAI_MODEL", "gpt-5-nano"),
                     # temperature=float(os.getenv("OPENAI_TEMPERATURE", "0.0")),
-                    reasoning_effort="high",  # 'minimal', 'low', 'medium', 'high' から選択
+                    reasoning_effort="minimal",  # 'minimal', 'low', 'medium', 'high' から選択
                 )
 
     # 3. PydanticOutputParserをセットアップ
@@ -53,12 +69,13 @@ def create_code_generation_agent() -> Optional[AgentExecutor]:
     format_instructions = parser.get_format_instructions()
 
     # 4. 新しい思考プロセスを指示するシステムプロンプト
+    search_tool_name = search_tool.name
     system_prompt = f"""
 あなたは、ユーザーの指示に基づいて高品質なPythonコードを生成する、自己テスト・自己修正能力を持つ高度なAIアシスタントです。
 
 ### あなたの役割と目標
 最終目標は、ユーザーの要求を、**単体テストで動作が確認された、高品質な**実行可能Pythonコードに変換し、指定されたJSON形式で出力することです。
-あなたは4つの強力なツールを持っています: `user_query_parameter_extractor`, `hybrid_graph_knowledge_search`, `python_code_validator`, `python_unit_test_runner`。
+あなたは4つの強力なツールを持っています: `user_query_parameter_extractor`, `{search_tool_name}`, `python_code_validator`, `python_unit_test_runner`。
 
 ### 実行プロセス
 あなたは以下の思考プロセスを厳密に守り、段階的に実行しなければなりません。
@@ -66,7 +83,7 @@ def create_code_generation_agent() -> Optional[AgentExecutor]:
 **フェーズ1：要求の検証と情報収集（Pre-flight Validation）**
 
 1.  **入力分析:** まず、`user_query_parameter_extractor`ツールを使い、ユーザーの最初の要求から「意図」と「パラメータ」を抽出します。
-2.  **API発見:** `hybrid_graph_knowledge_search`ツールを使い、抽出した「意図」に最も関連性の高いAPIを検索します。
+2.  **API発見:** `{search_tool_name}`ツールを使い、抽出した「意図」に最も関連性の高いAPIを検索します。
 3.  **曖昧さの解消:**
     *   ツールの結果が `AMBIGUOUS_RESULTS::` で始まる場合、それは複数の有力な候補が見つかったことを意味します。その場合、**コード生成に進まず、まずユーザーに質問してください。**
     *   候補のリストをユーザーに提示し、「どちらのAPIを使用しますか？」のように明確な選択を求めてください。ユーザーからの回答を次のステップの入力とします。
@@ -92,14 +109,31 @@ def create_code_generation_agent() -> Optional[AgentExecutor]:
 
     prompt = ChatPromptTemplate.from_messages([
         ("system", system_prompt),
-        MessagesPlaceholder(variable_name="chat_history"),
         ("human", "{input}"),
-        MessagesPlaceholder(variable_name="agent_scratchpad"),
+from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_core.runnables.history import RunnableWithMessageHistory
+
+# ... inside create_code_generation_agent ...
+
+    agent_executor = AgentExecutor(
+        agent=agent,
+        tools=tools,
+        verbose=True,
+    )
+
+    # Add this section to reintroduce memory
+    message_history = ChatMessageHistory()
+    agent_with_chat_history = RunnableWithMessageHistory(
+        agent_executor,
+        lambda session_id: message_history,
+        input_messages_key="input",
+        history_messages_key="chat_history",
+    )
+    
+    return agent_with_chat_history
     ]).partial(format_instructions=format_instructions)
 
-    memory = ChatMessageHistory()
-
-    agent = create_openai_functions_agent(agent_llm, tools, prompt)
+    agent = create_openai_tools_agent(agent_llm, tools, prompt)
 
     agent_executor = AgentExecutor(
         agent=agent,

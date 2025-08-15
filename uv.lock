@@ -1202,6 +1202,7 @@ dependencies = [
     { name = "llama-index-llms-openai" },
     { name = "llama-index-readers-file" },
     { name = "llama-index-readers-llama-parse" },
+    { name = "llama-index-vector-stores-chroma" },
     { name = "llama-index-workflows" },
     { name = "neo4j" },
     { name = "networkx", version = "3.4.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
@@ -1246,6 +1247,7 @@ requires-dist = [
     { name = "llama-index-llms-openai", specifier = ">=0.4.7" },
     { name = "llama-index-readers-file", specifier = ">=0.4.11" },
     { name = "llama-index-readers-llama-parse", specifier = ">=0.4.0" },
+    { name = "llama-index-vector-stores-chroma", specifier = ">=0.4.2" },
     { name = "llama-index-workflows", specifier = ">=1.2.0" },
     { name = "neo4j", specifier = ">=5.28.1" },
     { name = "networkx", specifier = ">=3.4.2" },
@@ -1973,6 +1975,19 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/35/30/4611821286f82ba7b5842295607baa876262db86f88b87d83595eed172bf/llama_index_readers_llama_parse-0.4.0.tar.gz", hash = "sha256:e99ec56f4f8546d7fda1a7c1ae26162fb9acb7ebcac343b5abdb4234b4644e0f", size = 2472, upload_time = "2024-11-18T00:00:08.893Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/68/4f/e30d4257fe9e4224f5612b77fe99aaceddae411b2e74ca30534491de3e6f/llama_index_readers_llama_parse-0.4.0-py3-none-any.whl", hash = "sha256:574e48386f28d2c86c3f961ca4a4906910312f3400dd0c53014465bfbc6b32bf", size = 2472, upload_time = "2024-11-18T00:00:07.293Z" },
+]
+
+[[package]]
+name = "llama-index-vector-stores-chroma"
+version = "0.4.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "chromadb" },
+    { name = "llama-index-core" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/f3/75/56aecf1be68e19384c3cddfee84935f7faeff405cafad5584cbf51638e61/llama_index_vector_stores_chroma-0.4.2.tar.gz", hash = "sha256:174633815e0a8838aeb628816e2cf5d1d8c6f8f6847f427e0032d35071ead0c1", size = 6256, upload_time = "2025-06-05T17:06:20.457Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ca/8d/e92d66f6bb648d73fefb898c0075b2dfc55f6886dabbfa5f75a5c76f9980/llama_index_vector_stores_chroma-0.4.2-py3-none-any.whl", hash = "sha256:579272ac24a03bcf66d42a565d1c3803e3a0eeb0f1ec024e09522605472564b7", size = 6046, upload_time = "2025-06-05T17:06:19.673Z" },
 ]
 
 [[package]]
