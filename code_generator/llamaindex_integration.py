@@ -38,6 +38,7 @@ def build_vector_engine(persist_dir: str, collection: str):
 def build_graph_engine():
     """
     既存のNeo4jグラフからLlamaIndexのPropertyGraphQueryEngineを構築します。
+    APOCプラグインがインストールされていることを前提としています。
     """
     uri = os.getenv("NEO4J_URI")
     user = os.getenv("NEO4J_USER")
@@ -54,17 +55,24 @@ def build_graph_engine():
     Settings.llm = OpenAI(model="gpt-4o")
     Settings.embed_model = OpenAIEmbedding()
 
-    graph_store = Neo4jPropertyGraphStore(
-        username=user,
-        password=password,
-        url=uri,
-        database=db_name,
-    )
+    try:
+        # 標準的なNeo4jPropertyGraphStoreを使用（APOCプラグインが必要）
+        graph_store = Neo4jPropertyGraphStore(
+            username=user,
+            password=password,
+            url=uri,
+            database=db_name,
+        )
+        
+        # 既存のグラフ構造からインデックスをロード
+        g_index = PropertyGraphIndex.from_existing(
+            property_graph_store=graph_store,
+        )
 
-    # 既存のグラフ構造からインデックスをロード
-    g_index = PropertyGraphIndex.from_existing(
-        property_graph_store=graph_store,
-    )
-
-    logger.info("PropertyGraphQueryEngineの構築が完了しました。")
-    return g_index.as_query_engine()
+        logger.info("PropertyGraphQueryEngineの構築が完了しました。")
+        return g_index.as_query_engine()
+        
+    except Exception as e:
+        logger.error(f"Neo4jグラフエンジンの構築に失敗しました: {e}")
+        logger.error("APOCプラグインが正しくインストールされているか確認してください。")
+        raise e

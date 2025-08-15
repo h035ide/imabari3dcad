@@ -459,17 +459,25 @@ class LlamaIndexHybridSearchTool(BaseTool):
                     description="APIの機能や説明に基づいて、関連するAPIをセマンティック検索するのに役立ちます。",
                 ),
             )
-            graph_tool = QueryEngineTool(
-                query_engine=graph_query_engine,
-                metadata=ToolMetadata(
-                    name="graph_search_tool",
-                    description="API間の関係性（呼び出し、パラメータ、戻り値など）を正確にたどるのに役立ちます。",
-                ),
-            )
+            
+            # グラフエンジンが利用可能な場合のみツールに追加
+            tools = [vector_tool]
+            if graph_query_engine is not None:
+                graph_tool = QueryEngineTool(
+                    query_engine=graph_query_engine,
+                    metadata=ToolMetadata(
+                        name="graph_search_tool",
+                        description="API間の関係性（呼び出し、パラメータ、戻り値など）を正確にたどるのに役立ちます。",
+                    ),
+                )
+                tools.append(graph_tool)
+                logger.info("グラフ検索エンジンが利用可能です。")
+            else:
+                logger.info("グラフ検索エンジンは利用できません。ベクトル検索のみで動作します。")
 
             # ルーターを初期化
             self._router_query_engine = RouterQueryEngine.from_defaults(
-                query_engine_tools=[vector_tool, graph_tool],
+                query_engine_tools=tools,
             )
             self._is_configured = True
             logger.info("LlamaIndexHybridSearchToolは正常に設定され、アクティブです。")
