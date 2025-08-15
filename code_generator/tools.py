@@ -138,7 +138,18 @@ class GraphSearchTool(BaseTool):
 
             # --- [Re-Ranking Integration Point] ---
             # Re-Ranking機能は依存関係の問題で無効化されています。
+            # --- [Re-Ranking Integration Point] ---
+            # TODO: Re-enable Re-Ranking feature once dependency issues are resolved.
+            # Re-Ranking機能を有効化するには、以下のコメントを解除し、ReRankerをインポートしてください。
             # reranker = ReRanker()
+            # reranked_results = reranker.rerank(query, results)
+            # top_results = reranked_results[:5] # 上位5件に絞り込み
+            # logger.info(f"Re-Ranking後の候補件数: {len(top_results)}")
+            # node_ids = [doc.metadata.get("neo4j_node_id") for doc in top_results if doc.metadata.get("neo4j_node_id")]
+            # --- [End Re-Ranking Integration Point] ---
+
+            # 注：上記のRe-Rankingを有効化した場合、以下の行は不要になります。
+            node_ids = [doc.metadata.get("neo4j_node_id") for doc in results if doc.metadata.get("neo4j_node_id")]
             # reranked_results = reranker.rerank(query, results)
             # top_results = reranked_results[:5] # 上位5件に絞り込み
             # logger.info(f"Re-Ranking後の候補件数: {len(top_results)}")
