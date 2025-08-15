@@ -41,15 +41,26 @@ def main():
 
     # ツールが設定されているかチェック（LlamaIndexHybridSearchToolの場合のみ）
     search_tool = None
-    for tool in agent_executor.tools:
-        if hasattr(tool, '_is_configured'):
-            search_tool = tool
-            break
+    try:
+        # RunnableWithMessageHistoryからAgentExecutorを取得
+        if hasattr(agent_executor, 'runnable'):
+            tools = agent_executor.runnable.tools
+        else:
+            tools = agent_executor.tools
+            
+        for tool in tools:
+            if hasattr(tool, '_is_configured'):
+                search_tool = tool
+                break
+    except AttributeError:
+        logger.warning("ツール情報にアクセスできません。")
     
     if search_tool and not search_tool._is_configured:
         logger.warning("検索ツールが設定されていません。ナレッジグラフ検索は機能しません。")
     elif search_tool:
         logger.info("検索ツールが正常に設定されています。")
+    else:
+        logger.info("ツールが正常に設定されています。")
 
     print("コード生成の要求を日本語で入力してください。（'exit'または'終了'または'q'で終了します）")
 
@@ -61,7 +72,10 @@ def main():
                 print("🤖 アシスタント: ご利用ありがとうございました。")
                 break
 
-            response = agent_executor.invoke({"input": user_input})
+            response = agent_executor.invoke(
+                {"input": user_input}, 
+                {"configurable": {"session_id": "default_session"}}
+            )
             output = response.get("output", "")
 
             # --- [構造化出力のパース処理] ---
