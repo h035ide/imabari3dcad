@@ -101,7 +101,27 @@ def create_code_generation_agent() -> Optional[AgentExecutor]:
     prompt = ChatPromptTemplate.from_messages([
         ("system", system_prompt),
         ("human", "{input}"),
-        MessagesPlaceholder(variable_name="agent_scratchpad"),
+from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_core.runnables.history import RunnableWithMessageHistory
+
+# ... inside create_code_generation_agent ...
+
+    agent_executor = AgentExecutor(
+        agent=agent,
+        tools=tools,
+        verbose=True,
+    )
+
+    # Add this section to reintroduce memory
+    message_history = ChatMessageHistory()
+    agent_with_chat_history = RunnableWithMessageHistory(
+        agent_executor,
+        lambda session_id: message_history,
+        input_messages_key="input",
+        history_messages_key="chat_history",
+    )
+    
+    return agent_with_chat_history
     ]).partial(format_instructions=format_instructions)
 
     agent = create_openai_tools_agent(agent_llm, tools, prompt)
