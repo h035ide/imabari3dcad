@@ -16,11 +16,15 @@ from langchain.tools import BaseTool
 import subprocess
 import tempfile
 from pydantic import BaseModel, Field
-from langchain_chroma import Chroma
+from langchain_community.vectorstores import Chroma
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain.output_parsers import PydanticOutputParser
 from code_generator.schemas import ExtractedParameters
-from code_generator.rerank_feature.reranker import ReRanker
+# from code_generator.rerank_feature.reranker import ReRanker # Reranker is disabled
+from code_generator.llamaindex_integration import build_vector_engine, build_graph_engine
+from llama_index.core.tools import QueryEngineTool, ToolMetadata
+from llama_index.core.query_engine import RouterQueryEngine
+
 
 # .envファイルを読み込む
 dotenv_path = os.path.join(project_root, '.env')
@@ -133,16 +137,16 @@ class GraphSearchTool(BaseTool):
             logger.info(f"{len(results)}件の候補をベクトル検索で発見しました。")
 
             # --- [Re-Ranking Integration Point] ---
-            # Re-Ranking機能を有効化するには、以下のコメントを解除し、ReRankerをインポートしてください。
-            reranker = ReRanker()
-            reranked_results = reranker.rerank(query, results)
-            top_results = reranked_results[:5] # 上位5件に絞り込み
-            logger.info(f"Re-Ranking後の候補件数: {len(top_results)}")
-            node_ids = [doc.metadata.get("neo4j_node_id") for doc in top_results if doc.metadata.get("neo4j_node_id")]
+            # Re-Ranking機能は依存関係の問題で無効化されています。
+            # reranker = ReRanker()
+            # reranked_results = reranker.rerank(query, results)
+            # top_results = reranked_results[:5] # 上位5件に絞り込み
+            # logger.info(f"Re-Ranking後の候補件数: {len(top_results)}")
+            # node_ids = [doc.metadata.get("neo4j_node_id") for doc in top_results if doc.metadata.get("neo4j_node_id")]
             # --- [End Re-Ranking Integration Point] ---
 
             # 注：上記のRe-Rankingを有効化した場合、以下の行は不要になります。
-            # node_ids = [doc.metadata.get("neo4j_node_id") for doc in results if doc.metadata.get("neo4j_node_id")]
+            node_ids = [doc.metadata.get("neo4j_node_id") for doc in results if doc.metadata.get("neo4j_node_id")]
 
             # 2. グラフ探索で詳細情報を取得
             logger.info(f"ステップ2/2: Neo4jで詳細情報を取得中...")
@@ -417,3 +421,99 @@ class CodeValidationTool(BaseTool):
             # 一時ファイルを確実に削除
             if os.path.exists(tmp_filepath):
                 os.remove(tmp_filepath)
+
+# --- LlamaIndex Hybrid Search Tool ---
+
+class LlamaIndexSearchInput(BaseModel):
+    """LlamaIndexハイブリッド検索ツールの入力スキーマ。"""
+    query: str = Field(description="ナレッジグラフとベクトルDBから情報を検索するための自然言語クエリ。")
+
+class LlamaIndexHybridSearchTool(BaseTool):
+    """
+    LlamaIndexを使用して、ベクトル検索とグラフ検索を統合したハイブリッド検索を行うツール。
+    ユーザーのクエリに応じて、最適な情報源（ベクトル or グラフ）を自動的に選択します。
+    """
+    name: str = "llamaindex_hybrid_search"
+    description: str = (
+        "APIの機能、関数、クラス、パラメータ、またはコード例に関する情報を検索する場合に必ず使用します。"
+        "「球を作成する関数」や「特定のパラメータを持つAPI」など、"
+        "探している機能やコードを自然言語で具体的に記述したクエリを入力してください。"
+    )
+    args_schema: Type[BaseModel] = LlamaIndexSearchInput
+
+    _router_query_engine: RouterQueryEngine = None
+    _is_configured: bool = False
+
+    def __init__(self, **data):
+        super().__init__(**data)
+        try:
+            # LlamaIndexのクエリエンジンを構築
+            vector_query_engine = build_vector_engine(CHROMA_PERSIST_DIRECTORY, CHROMA_COLLECTION_NAME)
+            graph_query_engine = build_graph_engine()
+
+            # 各クエリエンジンをLlamaIndexのツールとしてラップ
+            vector_tool = QueryEngineTool(
+                query_engine=vector_query_engine,
+                metadata=ToolMetadata(
+                    name="vector_search_tool",
+                    description="APIの機能や説明に基づいて、関連するAPIをセマンティック検索するのに役立ちます。",
+                ),
+            )
+            graph_tool = QueryEngineTool(
+                query_engine=graph_query_engine,
+                metadata=ToolMetadata(
+                    name="graph_search_tool",
+                    description="API間の関係性（呼び出し、パラメータ、戻り値など）を正確にたどるのに役立ちます。",
+                ),
+            )
+
+            # ルーターを初期化
+            self._router_query_engine = RouterQueryEngine.from_defaults(
+                query_engine_tools=[vector_tool, graph_tool],
+            )
+            self._is_configured = True
+            logger.info("LlamaIndexHybridSearchToolは正常に設定され、アクティブです。")
+
+        except Exception as e:
+            logger.error(f"LlamaIndexHybridSearchToolの初期化中にエラーが発生しました: {e}", exc_info=True)
+            self._is_configured = False
+
+    def _run(self, query: str) -> str:
+        """ツールの同期実行ロジック（LlamaIndexルーター）。"""
+        if not self._is_configured:
+            return "ツールが設定されていません。APIキー、DB接続情報、またはLlamaIndexの設定を確認してください。"
+
+        logger.info(f"LlamaIndexハイブリッド検索を開始。クエリ: '{query}'")
+        try:
+            response = self._router_query_engine.query(query)
+
+            # responseオブジェクトから応答テキストとソースノードを取得
+            response_text = str(response)
+            source_nodes = response.source_nodes
+
+            # 結果を整形
+            formatted_result = self._format_results(response_text, source_nodes)
+            return formatted_result
+
+        except Exception as e:
+            logger.error(f"LlamaIndexハイブリッド検索の実行中にエラーが発生しました: {e}", exc_info=True)
+            return f"ツールの実行中にエラーが発生しました: {e}"
+
+    def _format_results(self, response_text: str, source_nodes: list) -> str:
+        """LlamaIndexの検索結果をエージェントが理解しやすい文字列に整形します。"""
+        if not response_text and not source_nodes:
+            return "検索結果が見つかりませんでした。"
+
+        formatted_string = "ハイブリッド検索の結果:\n\n"
+        formatted_string += f"【要約】\n{response_text}\n\n"
+
+        if source_nodes:
+            formatted_string += "【情報源ノード】\n"
+            for i, node in enumerate(source_nodes):
+                formatted_string += f"--- ソース {i+1} (スコア: {node.score:.4f}) ---\n"
+                # node.metadata にはChromaやNeo4jの元データが含まれる
+                for key, value in node.metadata.items():
+                    formatted_string += f"- {key}: {value}\n"
+                formatted_string += "\n"
+
+        return formatted_string
