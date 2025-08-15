@@ -75,4 +75,9 @@ def build_graph_engine():
     except Exception as e:
         logger.error(f"Neo4jグラフエンジンの構築に失敗しました: {e}")
         logger.error("APOCプラグインが正しくインストールされているか確認してください。")
-        raise e
+        logger.error(
+            f"Neo4jグラフエンジンの構築中に例外が発生しました [{type(e).__name__}]: {e}\n"
+            "失敗したステップ: Neo4jPropertyGraphStoreの初期化またはPropertyGraphIndexのロード。\n"
+            "APOCプラグインが正しくインストールされているか確認してください。"
+        )
+        raise
