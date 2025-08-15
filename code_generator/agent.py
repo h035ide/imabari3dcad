@@ -10,11 +10,9 @@ if project_root not in sys.path:
 
 from dotenv import load_dotenv
 from typing import Optional
-from langchain.agents import AgentExecutor, create_openai_functions_agent
+from langchain.agents import AgentExecutor, create_openai_tools_agent
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_community.chat_message_histories import ChatMessageHistory
-from langchain_core.chat_history import BaseChatMessageHistory
 from langchain.output_parsers import PydanticOutputParser
 
 from code_generator.tools import GraphSearchTool, CodeValidationTool, UnitTestTool, ParameterExtractionTool, LlamaIndexHybridSearchTool
@@ -54,7 +52,7 @@ def create_code_generation_agent() -> Optional[AgentExecutor]:
     agent_llm = ChatOpenAI(
                     model=os.getenv("OPENAI_MODEL", "gpt-5-nano"),
                     # temperature=float(os.getenv("OPENAI_TEMPERATURE", "0.0")),
-                    reasoning_effort="high",  # 'minimal', 'low', 'medium', 'high' から選択
+                    reasoning_effort="minimal",  # 'minimal', 'low', 'medium', 'high' から選択
                 )
 
     # 3. PydanticOutputParserをセットアップ
@@ -102,14 +100,11 @@ def create_code_generation_agent() -> Optional[AgentExecutor]:
 
     prompt = ChatPromptTemplate.from_messages([
         ("system", system_prompt),
-        MessagesPlaceholder(variable_name="chat_history"),
         ("human", "{input}"),
         MessagesPlaceholder(variable_name="agent_scratchpad"),
     ]).partial(format_instructions=format_instructions)
 
-    memory = ChatMessageHistory()
-
-    agent = create_openai_functions_agent(agent_llm, tools, prompt)
+    agent = create_openai_tools_agent(agent_llm, tools, prompt)
 
     agent_executor = AgentExecutor(
         agent=agent,
