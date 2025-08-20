@@ -10,7 +10,7 @@
 // --- 1. 実行設定 ---
 const SETTINGS = {
   SHOULD_CLEAR_ALL_SLIDES: true,
-  TARGET_PRESENTATION_ID: null
+  TARGET_PRESENTATION_ID: "1i8du0ZaPmC_wLgRvIi8rWJtsS11mEZh1GPBKKBy9TYE"
 };
 
 // --- 2. マスターデザイン設定 (Google Design Ver.) ---
