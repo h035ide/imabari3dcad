@@ -254,7 +254,6 @@ def normalize_type_name(type_name: str) -> str:
     key = name.lower().replace(" ", "")
     return mapping.get(key, name)
 
-
 def enrich_array_object_info(param: dict) -> None:
     t = param.get("type_name")
     if not isinstance(t, str):
@@ -273,7 +272,6 @@ def enrich_array_object_info(param: dict) -> None:
         if param.get("array_info") is None:
             param["array_info"] = None
 
-
 def infer_is_required(param: dict) -> None:
     cons = param.get("constraints") or []
     desc = param.get("description_raw") or ""
@@ -282,7 +280,6 @@ def infer_is_required(param: dict) -> None:
     if "空文字可" in text:
         required = False
     param["is_required"] = bool(required)
-
 
 def postprocess_parsed_result(parsed_result):
     if not isinstance(parsed_result, list):
@@ -305,23 +302,12 @@ def postprocess_parsed_result(parsed_result):
 
 def main():
     try:
-        # --- MOCK MODE ---
-        # The script is currently in mock mode.
-        # To run in live mode, comment out the following 2 lines and uncomment the 'LIVE MODE' block below.
-        # print("🤖 APIキーが不要なモックモードで実行します。")
-        # parsed_result = {
-        #   "type_definitions": [{"name": "長さ", "description": "mm単位の数値、変数要素名、式文字列"}],
-        #   "api_entries": [{"entry_type": "function", "name": "CreateSketchLine", "params": [{"position": 0, "name": "SketchPlane"}]}]
-        # }
-
-        # --- LIVE MODE (Commented out) ---
-        # To run in live mode, uncomment the block below and comment out the 2 lines in the 'MOCK MODE' block above.
-        # You will also need a valid OPENAI_API_KEY in your .env file.
-        #
+        # --- LIVE MODE ---
         print("🤖 LLMを使ってAPIドキュメントを解析しています...")
         api_document_text = load_api_document()
-        prompt = ChatPromptTemplate.from_template(load_prompt())
+        prompt_template = load_prompt()
         json_format_instructions = load_json_format_instructions()
+        
         # reasoning_effortを使用してより良い解析結果を得る
         llm = ChatOpenAI(
             model="gpt-5-mini",
@@ -329,22 +315,27 @@ def main():
             model_kwargs={"response_format": {"type": "json_object"}}
         )
         
-        # 直接JSONとしてパース
+        # プロンプトを実行
         try:
-            response = llm.invoke(prompt.format(
+            formatted_prompt = prompt_template.format(
                 document=api_document_text,
                 json_format=json_format_instructions
-            ))
+            )
+            response = llm.invoke(formatted_prompt)
             parsed_result = json.loads(response.content)
         except json.JSONDecodeError as e:
             print(f"JSONパースエラー: {e}")
             print("LLM出力:", response.content)
             raise
 
+        # 後処理を実行
+        print("\n🔄 解析結果の後処理を実行中...")
+        processed_result = postprocess_parsed_result(parsed_result)
+
         # --- Common Processing ---
         print("\n✅ 解析が完了し、JSONオブジェクトが生成されました。")
-        print(json.dumps(parsed_result, indent=2, ensure_ascii=False))
-        save_parsed_result(parsed_result)
+        print(json.dumps(processed_result, indent=2, ensure_ascii=False))
+        save_parsed_result(processed_result)
 
     except Exception as e:
         print(f"\n❌ エラーが発生しました: {e}")
