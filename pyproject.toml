@@ -38,6 +38,11 @@ dependencies = [
     "tree-sitter>=0.25.0",
     "ezdxf>=1.4.2",
     "ruff>=0.12.8",
+    "flake8>=7.3.0",
+    "sentence-transformers>=5.1.0",
+    "langchain>=0.3.27",
+    "langchain-chroma>=0.2.5",
+    "llama-index-vector-stores-chroma>=0.4.2",
 ]
 
 [project.optional-dependencies]
