@@ -91,11 +91,12 @@ def main():
         neo4j_uri = os.getenv("NEO4J_URI")
         neo4j_user = os.getenv("NEO4J_USER") or os.getenv("NEO4J_USERNAME")
         neo4j_password = os.getenv("NEO4J_PASSWORD")
+        neo4j_database = os.getenv("NEO4J_DATABASE")
 
         if not all([neo4j_uri, neo4j_user, neo4j_password]):
             raise ValueError("Neo4jの接続情報 (.envファイル) が不足しています。")
 
-        exporter = GraphExporter(neo4j_uri, neo4j_user, neo4j_password, args.db_name)
+        exporter = GraphExporter(neo4j_uri, neo4j_user, neo4j_password, neo4j_database)
         exporter.export_to_vis_json(args.output_file)
         exporter.close()
 
