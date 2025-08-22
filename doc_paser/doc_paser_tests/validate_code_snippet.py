@@ -28,7 +28,7 @@ class CodeValidator:
             test_type = first_line.split(':')[-1].strip()
 
         if test_type not in ['positive', 'negative']:
-             return False, f"Invalid test_type '{test_type}' in snippet.", 'positive'
+             return False, f"Invalid test_type '{test_type}' in snippet.", test_type
 
         try:
             tree = ast.parse(content)
