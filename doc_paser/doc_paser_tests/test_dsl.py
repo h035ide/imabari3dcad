@@ -66,4 +66,3 @@ def _prop_to_dict(pr):
     return prop_dict
 
 Param.to_dict = _param_to_dict
-Property.to_dict = _prop_to_dict
