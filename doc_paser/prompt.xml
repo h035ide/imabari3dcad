@@ -19,8 +19,11 @@
             </general>
             <analysis_points>
                 <type_definitions>
-                    <item>「引数の型と書式」から全データ型（例: 長さ, 角度, 平面 等）を抽出する。</item>
-                    <item>各型は name と description を格納する。</item>
+                    <item>「引数の型と書式」セクションから<strong>すべての</strong>データ型を漏れなく抽出する。</item>
+                    <item>基本データ型（文字列、浮動小数点、整数、bool）も含める。</item>
+                    <item>特殊文字列型（長さ、角度、数値、範囲、点、方向、平面、変数単位、要素グループ、注記スタイル、材料、スイープ方向、厚み付けタイプ、モールド位置、オペレーションタイプ、関連設定、形状タイプ、形状パラメータ、要素）も含める。</item>
+                    <item>各型は name と description を格納し、descriptionには型の詳細な仕様と書式を含める。</item>
+                    <item>例や書式の説明も description に含める。</item>
                 </type_definitions>
                 <api_entries>
                     <item>「APIドキュメント」を解析し、関数や独立オブジェクト定義を抽出する。</item>
