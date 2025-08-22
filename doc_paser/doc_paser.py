@@ -70,56 +70,73 @@ def load_api_document(
         print(f"ドキュメントの読み込みに失敗しました: {e}")
         raise
 
-def load_prompt(file_path=None):
+def load_system_prompt(file_path=None):
     """
-    プロンプトファイルを読み込む関数
-    
-    Args:
-        file_path (str): プロンプトファイルのパス
-        
-    Returns:
-        str: プロンプトファイルの内容
-        
-    Raises:
-        FileNotFoundError: 指定されたファイルが見つからない場合
-        UnicodeDecodeError: ファイルのエンコーディングが不正な場合
-        IOError: その他のファイル読み込みエラー
+    システムプロンプト（役割・方針・フォーマット指示）を読み込む関数
     """
     if file_path is None:
-        DEFAULT_PROMPT = """あなたは「EVO.SHIP API」ドキュメントの解析に特化した、非常に優秀なソフトウェアエンジニアです。
-提供されたAPIドキュメントを厳密に解析し、指定されたJSON形式の**単一のオブジェクト**として出力してください。
+        DEFAULT_SYSTEM_PROMPT = """
+<prompt>
+    <developer>
+        <specialty>EVO.SHIP APIドキュメントの正確な解析</specialty>
+        <role>
+            あなたは「EVO.SHIP API」ドキュメントの解析に特化した、非常に優秀なソフトウェアエンジニアです。提供されたAPIドキュメントを厳密に解析し、指定されたJSON形式の単一オブジェクトとして出力します。
+        </role>
+        <workflow>
+            <step>これから行うべきサブタスクの簡潔なチェックリスト（3〜7項目）を提示する。</step>
+            <step>提供されたAPIドキュメントを厳密に解析する。</step>
+            <step>解析結果を指定されたJSON形式の単一オブジェクトで出力する。</step>
+            <note>チェックリストは最終出力JSONのトップレベルフィールド <code>checklist</code> として含めること。</note>
+        </workflow>
+        <guidelines>
+            <general>
+                <item>出力は有効なJSONオブジェクトのみとし、Markdownやその他のテキストは一切含めないこと。</item>
+                <item>ドキュメントに明記されていない情報の推測や補完は行わないこと。</item>
+                <item>解析対象は「APIドキュメント」セクションと「引数の型と書式」セクションから構成される。</item>
+            </general>
+            <analysis_points>
+                <type_definitions>
+                    <item>「引数の型と書式」から全データ型（例: 長さ, 角度, 平面 等）を抽出する。</item>
+                    <item>各型は name と description を格納する。</item>
+                </type_definitions>
+                <api_entries>
+                    <item>「APIドキュメント」を解析し、関数や独立オブジェクト定義を抽出する。</item>
+                    <kinds>
+                        <function>entry_type = "function"</function>
+                        <object_definition>entry_type = "object_definition"</object_definition>
+                    </kinds>
+                    <fields>
+                        <item>name / description / category</item>
+                        <item>params: name, position(0始まり), type, description, is_required, default_value</item>
+                        <item>properties: name, type, description</item>
+                        <item>returns: type, description, is_array（戻り値が無い場合 type は "void"）</item>
+                        <item>is_required は説明に「空文字不可」「必須」があれば true、明記が無ければ false</item>
+                        <item>implementation_status は「未実装、使用しない」なら 'unimplemented'、それ以外は 'implemented'</item>
+                    </fields>
+                </api_entries>
+            </analysis_points>
+        </guidelines>
+        <format>{json_format}</format>
+    </developer>
+</prompt>
+"""
+        return DEFAULT_SYSTEM_PROMPT
+    return read_file_safely(file_path)
 
-# 全体的な指示
-- **出力は有効なJSONオブジェクトのみ**とし、Markdownやその他のテキストは一切含めないでください。
-- ドキュメントに明記されていない情報の推測や補完は行わないでください。
-- 解析対象ドキュメントは、「APIドキュメント」セクションと「引数の型と書式」セクションで構成されています。
-
-# 解析のポイント
-1.  **型の定義の抽出 (`type_definitions`)**:
-    - まず、「引数の型と書式」セクションを解析し、そこにリストアップされているすべてのデータ型（例：「長さ」「角度」「平面」など）を抽出してください。
-    - 各型について、`name`（型名）と`description`（その型の書式や仕様に関する説明文）を格納してください。
-
-2.  **APIエントリーの抽出 (`api_entries`)**:
-    - 「APIドキュメント」セクションを解析し、各関数やオブジェクト定義を抽出してください。
-    - **エントリーの種類の識別**:
-        - 各API（メソッド）は `entry_type: "function"` として解析してください。
-        - 「〜のパラメータオブジェクト」のような、独立したオブジェクト定義は `entry_type: "object_definition"` として別のエントリーで解析してください。
-    - **フィールドの抽出**:
-        - `name`: 関数名やオブジェクト名を抽出します。
-        - `params`: 関数の引数リスト。`name`, `position` (0から始まる引数の位置), `type`, `description`, `is_required` を設定します。
-        - `properties`: オブジェクト定義の属性リスト。`name`, `type`, `description` を設定します。
-        - `returns`: 関数の戻り値。`type`, `description`, `is_array` を設定します。戻り値がない場合は `type: "void"` としてください。
-        - `is_required`: 引数の説明に「（空文字不可）」や「必須」とあれば `true`、なければ `false` とします。
-        - `implementation_status`: 「（未実装、使用しない）」という記述があれば `'unimplemented'` と設定します。それ以外は `'implemented'` とします。
-
-# 出力フォーマット
-{json_format}
+def load_user_prompt(file_path=None):
+    """
+    ユーザープロンプト（解析対象ドキュメントの提示）を読み込む関数
+    """
+    if file_path is None:
+        DEFAULT_USER_PROMPT = """
+以下のドキュメントを上記方針に従って解析し、単一のJSONオブジェクトのみを出力してください。
 
 # 解析対象ドキュメント
 ---
 {document}
----"""
-        return DEFAULT_PROMPT
+---
+"""
+        return DEFAULT_USER_PROMPT
     return read_file_safely(file_path)
 
 def load_json_format_instructions(file_path=None):
@@ -305,23 +322,29 @@ def main():
         # --- LIVE MODE ---
         print("🤖 LLMを使ってAPIドキュメントを解析しています...")
         api_document_text = load_api_document()
-        prompt_template = load_prompt()
+        system_prompt_template = load_system_prompt()
+        user_prompt_template = load_user_prompt()
         json_format_instructions = load_json_format_instructions()
         
         # reasoning_effortを使用してより良い解析結果を得る
         llm = ChatOpenAI(
-            model="gpt-5-mini",
-            reasoning_effort="medium",  # 'low', 'medium', 'high' から選択
+            model="gpt-5-nano",
+            reasoning_effort="minimal",  # "minimal", 'low', 'medium', 'high' から選択
             model_kwargs={"response_format": {"type": "json_object"}}
         )
         
         # プロンプトを実行
         try:
-            formatted_prompt = prompt_template.format(
-                document=api_document_text,
-                json_format=json_format_instructions
-            )
-            response = llm.invoke(formatted_prompt)
+            prompt = ChatPromptTemplate.from_messages([
+                ("system", system_prompt_template),
+                ("user", user_prompt_template),
+            ])
+
+            chain = prompt | llm
+            response = chain.invoke({
+                "document": api_document_text,
+                "json_format": json_format_instructions,
+            })
             parsed_result = json.loads(response.content)
         except json.JSONDecodeError as e:
             print(f"JSONパースエラー: {e}")
