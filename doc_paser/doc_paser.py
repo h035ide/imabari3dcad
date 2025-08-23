@@ -560,6 +560,9 @@ class SelfCorrectionAgent:
         workflow.add_node("generate_corrections", lambda state: CodeCorrector.generate_corrections(state, args))
         workflow.add_node("apply_corrections", lambda state: CodeCorrector.apply_corrections(state, args))
         
+        # エントリーポイントの設定（STARTから最初のノードへ）
+        workflow.set_entry_point("analyze_quality")
+        
         # エッジの定義
         workflow.add_edge("analyze_quality", "generate_corrections")
         workflow.add_edge("generate_corrections", "apply_corrections")
