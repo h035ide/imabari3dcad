@@ -1,0 +1,14 @@
+part.CreateSketchPlane(
+    ElementName,
+    ElementGroup,
+    PlaneDef,
+    PlaneOffset,
+    bRevPlane,
+    bRevUV,
+    謎,
+    StyleName,
+    OriginPoint,
+    AxisDirection,
+    bDefAxisIsX,
+    bUpdate
+)

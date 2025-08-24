@@ -1,0 +1,10 @@
+part.CreateSketchArc(
+    SketchPlane,
+    SketchArcName,
+    SketchLayer,
+    CenterPoint,
+    StartPoint,
+    EndPoint,
+    bCCW,
+    bUpdate
+)

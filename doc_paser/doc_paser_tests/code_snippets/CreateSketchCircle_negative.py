@@ -1,14 +1,14 @@
 # test_type: negative
-# This snippet should FAIL validation because it has the wrong number of arguments (7 instead of 8).
+# This snippet should FAIL validation because it has the wrong number of arguments.
 # The test itself should PASS if the validator correctly identifies this failure.
 
 part.CreateSketchCircle(
-    sketch_plane_id,             # スケッチ平面
-    config.circle_name,          # 円の名称
-    config.sketch_layer,         # スケッチレイヤー
-    config.center_point,         # 中心点（原点）
-    str(config.radius_mm),       # 半径
-    config.use_diameter,         # 直径指定フラグ（False=半径指定）
-    config.counter_clockwise     # 反時計回り
-    # Missing the last argument: config.update_flag
+    SketchPlane_element,               # 円を作成するスケッチ要素
+    "SketchArcName",               # 作成するスケッチ円名称（空文字可）
+    SketchLayer_element,               # 円を作成するスケッチレイヤー（空文字可）
+    (0.0, 0.0),               # 中心点（点(2D)）
+    100.0,               # 半径または直径（長さ）
+    True,               # 直径を指定する場合は True
+    True                # 円の回転方向。True の場合は反時計回り
+    # Missing the last argument: bUpdate
 )

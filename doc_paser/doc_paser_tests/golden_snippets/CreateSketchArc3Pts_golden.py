@@ -1,0 +1,9 @@
+part.CreateSketchArc3Pts(
+    SketchPlane,
+    SketchArcName,
+    SketchLayer,
+    StartPoint,
+    MidPoint,
+    EndPoint,
+    bUpdate
+)

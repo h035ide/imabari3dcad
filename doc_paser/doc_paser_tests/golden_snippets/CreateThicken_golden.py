@@ -1,0 +1,11 @@
+part.CreateThicken(
+    ThickenFeatureName,
+    TargetSolidName,
+    OperationType,
+    ThickenType,
+    Thickeness1,
+    Thickeness2,
+    ThickenessOffset,
+    ReferMethod,
+    bUpdate
+)

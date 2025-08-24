@@ -1,0 +1,12 @@
+part.CreateSketchEllipse(
+    SketchPlane,
+    SketchArcName,
+    SketchLayer,
+    Centeroint,
+    bCCW,
+    MajorDir,
+    MajorRadius,
+    MinorRadius,
+    Range,
+    bUpdate
+)
