@@ -1,0 +1,10 @@
+part.CreateSketchNURBSCurve(
+    SketchPlane,
+    SketchArcName,
+    SketchLayer,
+    nDegree,
+    bClose,
+    bPeriodic,
+    Range,
+    bUpdate
+)

@@ -1,0 +1,10 @@
+part.CreateSketchCircle(
+    SketchPlane,
+    SketchArcName,
+    SketchLayer,
+    Centeroint,
+    RadiusOrDiameter,
+    bDiameter,
+    bCCW,
+    bUpdate
+)

@@ -1,0 +1,16 @@
+part.CreatePlate(
+    PlateName,
+    ElementGroup,
+    MaterialName,
+    Plane,
+    PlaneOffset,
+    Thickness,
+    nMold,
+    MoldOffset,
+    BoundSolid,
+    Section1End1,
+    Section1End2,
+    Section2End1,
+    Section2End2,
+    bUpdate
+)

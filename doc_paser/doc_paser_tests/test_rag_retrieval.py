@@ -1,12 +1,16 @@
 # This script runs specification tests for GraphRAG data retrieval from Neo4j database.
+# 生成されたテストケース（code_snippets/とgolden_snippets/）を使用して検証を実行します。
 #
 # 使用方法:
 #   python test_rag_retrieval.py                    # デフォルトでdocparserデータベースを使用
 #   python test_rag_retrieval.py --database neo4j   # 指定されたデータベースを使用
 #   python test_rag_retrieval.py --save-docs        # テスト結果をドキュメントとして保存
 #   python test_rag_retrieval.py --output-dir reports # カスタム出力ディレクトリを指定
-#   python test_rag_retrieval.py test_patterns/     # 特定のテストパターンディレクトリを指定
-#   python test_rag_retrieval.py --help            # ヘルプを表示
+#   python test_rag_retrieval.py --test-snippets    # 生成されたテストケースを検証
+#   python test_rag_retrieval.py --function CreateSolid # 特定の関数をテスト
+#   python test_rag_retrieval.py --list-functions   # 利用可能な関数一覧を表示
+#   python test_rag_retrieval.py --all-functions    # 全関数の基本的なチェックを実行
+#   python test_rag_retrieval.py --validate-snippets # 生成されたテストケースの構文と引数数を検証
 #
 # 環境変数設定 (.envファイル):
 #   NEO4J_URI=bolt://localhost:7687
@@ -18,24 +22,12 @@ import os
 import sys
 import json
 import argparse
-import importlib.util
+import ast
+import glob
 from datetime import datetime
 from pathlib import Path
 from neo4j import GraphDatabase
 from dotenv import load_dotenv
-
-# 相対インポートの問題を解決
-try:
-    from .test_dsl import FunctionSpec, Param
-except ImportError:
-    sys.path.append(os.path.dirname(__file__))
-    try:
-        from test_dsl import FunctionSpec, Param
-    except ImportError:
-        print("Warning: test_dsl module not found. Some functionality may be limited.")
-        FunctionSpec = None
-        Param = None
-
 
 class RagRetriever:
     def __init__(self, uri, user, password, database="docparser"):
@@ -177,135 +169,216 @@ class RagRetriever:
             for prop in param['properties']:
                 self._display_parameter(prop, indent_level + 2)
 
-    def run_test_cases_from_file(self, pattern_path):
-        """テストパターンファイルからテストケースを読み込んで実行"""
-        if FunctionSpec is None or Param is None:
-            print(f"Warning: Skipping {pattern_path} - test_dsl module not available")
-            self._add_test_result(os.path.basename(pattern_path), False, "test_dsl module not available")
-            return
+    def validate_generated_snippets(self):
+        """生成されたテストケース（code_snippets/とgolden_snippets/）を検証"""
+        print("\n🔍 生成されたテストケースの検証を開始します...")
         
-        # 初回実行時の初期化
         if not self.test_timestamp:
             self.test_timestamp = datetime.now()
             self._get_database_info()
         
-        print(f"\nRunning tests from: {os.path.basename(pattern_path)}")
+        # スクリプトファイルの場所を基準とした絶対パスを取得
+        script_dir = os.path.dirname(os.path.abspath(__file__))
         
+        # code_snippetsディレクトリのテストケースを検証
+        code_snippets_dir = os.path.join(script_dir, "code_snippets")
+        if os.path.exists(code_snippets_dir):
+            print(f"\n📁 {code_snippets_dir}ディレクトリのテストケースを検証中...")
+            self._validate_code_snippets(code_snippets_dir)
+        else:
+            print(f"⚠️ {code_snippets_dir}ディレクトリが見つかりません")
+        
+        # golden_snippetsディレクトリのテンプレートを検証
+        golden_snippets_dir = os.path.join(script_dir, "golden_snippets")
+        if os.path.exists(golden_snippets_dir):
+            print(f"\n📁 {golden_snippets_dir}ディレクトリのテンプレートを検証中...")
+            self._validate_golden_snippets(golden_snippets_dir)
+        else:
+            print(f"⚠️ {golden_snippets_dir}ディレクトリが見つかりません")
+
+    def _validate_code_snippets(self, snippets_dir):
+        """code_snippetsディレクトリのテストケースを検証"""
+        test_files = glob.glob(os.path.join(snippets_dir, "*.py"))
+        test_files.sort()
+        
+        print(f"📊 検証対象: {len(test_files)}個のテストファイル")
+        
+        for test_file in test_files:
+            test_name = os.path.basename(test_file)
+            print(f"\n🧪 検証中: {test_name}")
+            
+            # テストタイプを判定
+            test_type = self._determine_test_type(test_file)
+            
+            # 構文チェック
+            syntax_valid, syntax_error = self._check_syntax(test_file)
+            
+            # 関数呼び出しの解析
+            function_call = self._extract_function_call(test_file)
+            
+            if function_call:
+                function_name = function_call['name']
+                arg_count = function_call['arg_count']
+                
+                # データベースの仕様と照合
+                db_spec = self.get_function_spec(function_name)
+                
+                if db_spec:
+                    expected_params = len(db_spec.get('parameters', []))
+                    is_match = (arg_count == expected_params)
+                    
+                    # テストタイプに基づいて結果を判定
+                    if test_type == 'positive':
+                        passed = is_match
+                        details = f"引数数一致: {arg_count}/{expected_params}"
+                    else:  # negative
+                        passed = not is_match
+                        details = f"引数数不一致を正しく検出: {arg_count}/{expected_params}"
+                    
+                    self._add_test_result(
+                        f"{test_name} ({function_name})", 
+                        passed, 
+                        details,
+                        test_type=test_type
+                    )
+                    
+                    status = "✅ PASS" if passed else "❌ FAIL"
+                    print(f"   {status}: {details}")
+                    
+                else:
+                    self._add_test_result(
+                        f"{test_name} ({function_name})", 
+                        False, 
+                        f"関数 '{function_name}' がデータベースに見つかりません",
+                        test_type=test_type
+                    )
+                    print(f"   ❌ FAIL: 関数 '{function_name}' がデータベースに見つかりません")
+            else:
+                self._add_test_result(
+                    test_name, 
+                    False, 
+                    "関数呼び出しが見つかりません",
+                    test_type=test_type
+                )
+                print(f"   ❌ FAIL: 関数呼び出しが見つかりません")
+            
+            # 構文チェックの結果も記録
+            if not syntax_valid:
+                self._add_test_result(
+                    f"{test_name} (構文)", 
+                    False, 
+                    f"構文エラー: {syntax_error}",
+                    test_type="syntax"
+                )
+                print(f"   ❌ 構文エラー: {syntax_error}")
+
+    def _validate_golden_snippets(self, snippets_dir):
+        """golden_snippetsディレクトリのテンプレートを検証"""
+        template_files = glob.glob(os.path.join(snippets_dir, "*.py"))
+        template_files.sort()
+        
+        print(f"📊 検証対象: {len(template_files)}個のテンプレートファイル")
+        
+        for template_file in template_files:
+            template_name = os.path.basename(template_file)
+            print(f"\n🧪 検証中: {template_name}")
+            
+            # 構文チェック
+            syntax_valid, syntax_error = self._check_syntax(template_file)
+            
+            # 関数呼び出しの解析
+            function_call = self._extract_function_call(template_file)
+            
+            if function_call:
+                function_name = function_call['name']
+                arg_count = function_call['arg_count']
+                
+                # データベースの仕様と照合
+                db_spec = self.get_function_spec(function_name)
+                
+                if db_spec:
+                    expected_params = len(db_spec.get('parameters', []))
+                    is_match = (arg_count == expected_params)
+                    
+                    self._add_test_result(
+                        f"{template_name} ({function_name})", 
+                        is_match, 
+                        f"テンプレート引数数: {arg_count}, 期待値: {expected_params}",
+                        test_type="template"
+                    )
+                    
+                    status = "✅ PASS" if is_match else "❌ FAIL"
+                    print(f"   {status}: 引数数 {arg_count}/{expected_params}")
+                    
+                else:
+                    self._add_test_result(
+                        f"{template_name} ({function_name})", 
+                        False, 
+                        f"関数 '{function_name}' がデータベースに見つかりません",
+                        test_type="template"
+                    )
+                    print(f"   ❌ FAIL: 関数 '{function_name}' がデータベースに見つかりません")
+            else:
+                self._add_test_result(
+                    template_name, 
+                    False, 
+                    "関数呼び出しが見つかりません",
+                    test_type="template"
+                )
+                print(f"   ❌ FAIL: 関数呼び出しが見つかりません")
+            
+            # 構文チェックの結果も記録
+            if not syntax_valid:
+                self._add_test_result(
+                    f"{template_name} (構文)", 
+                    False, 
+                    f"構文エラー: {syntax_error}",
+                    test_type="syntax"
+                )
+                print(f"   ❌ 構文エラー: {syntax_error}")
+
+    def _determine_test_type(self, file_path):
+        """ファイルの内容からテストタイプを判定"""
         try:
-            module_name = os.path.splitext(os.path.basename(pattern_path))[0]
-            spec = importlib.util.spec_from_file_location(module_name, pattern_path)
-            test_module = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(test_module)
-            test_cases = test_module.test_cases
-        except (ImportError, AttributeError, FileNotFoundError) as e:
-            details = f"Failed to load test cases from {pattern_path}: {e}"
-            self._add_test_result(os.path.basename(pattern_path), False, details)
-            return
+            with open(file_path, 'r', encoding='utf-8') as f:
+                first_line = f.readline().strip()
+                if '# test_type:' in first_line:
+                    test_type = first_line.split(':')[-1].strip()
+                    return test_type
+        except Exception:
+            pass
+        return 'unknown'
 
-        for case in test_cases:
-            self._execute_single_test_case(case)
+    def _check_syntax(self, file_path):
+        """Pythonファイルの構文チェック"""
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            ast.parse(content)
+            return True, None
+        except SyntaxError as e:
+            return False, str(e)
+        except Exception as e:
+            return False, f"読み込みエラー: {str(e)}"
 
-    def _execute_single_test_case(self, case):
-        """単一のテストケースを実行"""
-        test_name = case.get("test_name", "Unnamed Test")
-        test_type = case.get("test_type", "positive")
-        spec_obj = case.get("spec")
-
-        if not spec_obj:
-            self._add_test_result(test_name, False, "Test case is missing 'spec' definition.")
-            return
-
-        function_name = spec_obj.name
-        expected_spec = spec_obj.to_dict()
-        actual_spec = self.get_function_spec(function_name)
-        
-        if actual_spec is None:
-            details = f"Function '{function_name}' not found in DB for test '{test_name}'."
-            self._add_test_result(function_name, False, details, test_name)
-            return
-
-        # パラメータリストを一貫してソート
-        if actual_spec.get('parameters'):
-            actual_spec['parameters'] = sorted(actual_spec['parameters'], key=lambda p: p.get('position', 0))
-
-        is_match, details = self._compare_specs(expected_spec, actual_spec)
-
-        # テストタイプに基づいて結果を判定
-        if test_type == 'positive':
-            passed = is_match
-            final_details = " | ".join(details) if not passed else "OK"
-        else:  # negative
-            passed = not is_match
-            final_details = "Correctly identified mismatch." if passed else "Failed to identify expected mismatch."
-
-        self._add_test_result(function_name, passed, final_details, test_name)
-
-    def _compare_specs(self, expected, actual, path=""):
-        """2つの辞書/リスト構造を再帰的に比較して差分を返す"""
-        errors = []
-
-        if isinstance(expected, dict) and isinstance(actual, dict):
-            # キーをソートして順序の違いを処理
-            expected_keys = sorted(expected.keys())
-            actual_keys = sorted(actual.keys())
-
-            if expected_keys != actual_keys:
-                missing = set(expected_keys) - set(actual_keys)
-                extra = set(actual_keys) - set(expected_keys)
-                if missing:
-                    errors.append(f"Missing keys at {path}: {missing}")
-                if extra:
-                    errors.append(f"Extra keys at {path}: {extra}")
-
-            # 共通キーを比較
-            common_keys = set(expected_keys) & set(actual_keys)
-            for key in common_keys:
-                new_path = f"{path}.{key}" if path else key
-                if key in ['parameters', 'properties']:
-                    continue  # パラメータリストは別途処理
-                errors.extend(self._compare_specs(expected[key], actual[key], new_path)[1])
-
-            # パラメータ/プロパティリストの特別処理
-            for key in ['parameters', 'properties']:
-                if key in common_keys:
-                    new_path = f"{path}.{key}" if path else key
-                    errors.extend(self._compare_lists(expected[key], actual[key], new_path))
-
-        elif isinstance(expected, list) and isinstance(actual, list):
-            errors.extend(self._compare_lists(expected, actual, path))
-
-        elif expected != actual:
-            errors.append(f"Value mismatch at {path}: Expected '{expected}', Got '{actual}'")
-
-        return not errors, errors
-
-    def _compare_lists(self, expected_list, actual_list, path):
-        """リストを比較（パラメータ/プロパティ用）"""
-        errors = []
-        
-        if len(expected_list) != len(actual_list):
-            errors.append(f"List length mismatch at {path}: Expected {len(expected_list)}, Got {len(actual_list)}")
-            return errors
-
-        # 名前でキー化して比較
-        expected_dict = {item['name']: item for item in expected_list}
-        actual_dict = {item['name']: item for item in actual_list}
-
-        if sorted(expected_dict.keys()) != sorted(actual_dict.keys()):
-            missing = set(expected_dict.keys()) - set(actual_dict.keys())
-            extra = set(actual_dict.keys()) - set(expected_dict.keys())
-            if missing:
-                errors.append(f"Missing items in list {path}: {missing}")
-            if extra:
-                errors.append(f"Extra items in list {path}: {extra}")
-            return errors
-
-        # 各アイテムの詳細比較
-        for name, expected_item in expected_dict.items():
-            actual_item = actual_dict[name]
-            errors.extend(self._compare_specs(expected_item, actual_item, f"{path}[{name}]")[1])
-
-        return errors
+    def _extract_function_call(self, file_path):
+        """ファイルから関数呼び出しを抽出"""
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            tree = ast.parse(content)
+            
+            for node in ast.walk(tree):
+                if isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute):
+                    if node.func.value.id == 'part':  # part.function_name()の形式
+                        return {
+                            'name': node.func.attr,
+                            'arg_count': len(node.args)
+                        }
+        except Exception:
+            pass
+        return None
 
     def get_all_function_names(self):
         """データベースからすべての関数名を取得"""
@@ -314,15 +387,15 @@ class RagRetriever:
             records = session.run(query).data()
             return [r['name'] for r in records]
 
-    def _add_test_result(self, function_name, passed, details, test_name=None):
+    def _add_test_result(self, test_name, passed, details, test_type="unknown"):
         """テスト結果を追加"""
         result = {
-            "function": function_name,
+            "test_name": test_name,
             "passed": passed,
-            "details": details
+            "details": details,
+            "test_type": test_type,
+            "timestamp": datetime.now().isoformat()
         }
-        if test_name:
-            result["test_name"] = test_name
         self.test_results.append(result)
 
     def save_results_as_markdown(self, output_dir="verification_reports"):
@@ -331,7 +404,7 @@ class RagRetriever:
         output_path.mkdir(parents=True, exist_ok=True)
         
         timestamp_str = self.test_timestamp.strftime("%Y%m%d_%H%M%S") if self.test_timestamp else "unknown"
-        filename = f"rag_retrieval_test_{self.database}_{timestamp_str}.md"
+        filename = f"generated_snippets_validation_{self.database}_{timestamp_str}.md"
         filepath = output_path / filename
         
         try:
@@ -343,7 +416,7 @@ class RagRetriever:
                 self._write_recommendations(f)
                 self._write_footer(f)
             
-            print(f"✅ RAGテストレポートを保存しました: {filepath}")
+            print(f"✅ 検証レポートを保存しました: {filepath}")
             return filepath
             
         except Exception as e:
@@ -352,10 +425,10 @@ class RagRetriever:
 
     def _write_markdown_header(self, f):
         """Markdownヘッダーを書き込み"""
-        f.write(f"# RAG Retrieval テストレポート\n\n")
+        f.write(f"# 生成されたテストケース検証レポート\n\n")
         f.write(f"**データベース名**: {self.database}\n")
-        f.write(f"**テスト日時**: {self.test_timestamp.strftime('%Y-%m-%d %H:%M:%S') if self.test_timestamp else 'Unknown'}\n")
-        f.write(f"**生成元**: test_rag_retrieval.py\n\n")
+        f.write(f"**検証日時**: {self.test_timestamp.strftime('%Y-%m-%d %H:%M:%S') if self.test_timestamp else 'Unknown'}\n")
+        f.write(f"**生成元**: test_rag_retrieval.py (修正版)\n\n")
 
     def _write_database_info(self, f):
         """データベース情報を書き込み"""
@@ -368,37 +441,37 @@ class RagRetriever:
 
     def _write_test_summary(self, f):
         """テスト結果サマリーを書き込み"""
-        f.write("\n## テスト結果サマリー\n\n")
+        f.write("\n## 検証結果サマリー\n\n")
         passed_count = sum(1 for r in self.test_results if r.get('passed'))
         total_tests = len(self.test_results)
         
-        f.write(f"- **総テスト数**: {total_tests}\n")
-        f.write(f"- **通過テスト数**: {passed_count}\n")
-        f.write(f"- **失敗テスト数**: {total_tests - passed_count}\n")
+        f.write(f"- **総検証数**: {total_tests}\n")
+        f.write(f"- **通過数**: {passed_count}\n")
+        f.write(f"- **失敗数**: {total_tests - passed_count}\n")
         f.write(f"- **成功率**: {(passed_count/total_tests*100):.1f}%\n\n")
         
-        overall_status = "✅ 全テスト通過" if passed_count == total_tests else "❌ 一部テスト失敗"
+        overall_status = "✅ 全検証通過" if passed_count == total_tests else "❌ 一部検証失敗"
         f.write(f"**全体結果**: {overall_status}\n")
 
     def _write_detailed_results(self, f):
-        """詳細テスト結果を書き込み"""
-        f.write("\n## 詳細テスト結果\n\n")
+        """詳細検証結果を書き込み"""
+        f.write("\n## 詳細検証結果\n\n")
         
-        # テストファイル別にグループ化
-        test_files = {}
+        # テストタイプ別にグループ化
+        test_types = {}
         for result in self.test_results:
-            test_file = result.get('function', 'Unknown')
-            if test_file not in test_files:
-                test_files[test_file] = []
-            test_files[test_file].append(result)
+            test_type = result.get('test_type', 'unknown')
+            if test_type not in test_types:
+                test_types[test_type] = []
+            test_types[test_type].append(result)
         
-        for test_file, results in test_files.items():
-            f.write(f"### {test_file}\n\n")
+        for test_type, results in test_types.items():
+            f.write(f"### {test_type.upper()} テスト\n\n")
             
-            file_passed = sum(1 for r in results if r.get('passed'))
-            file_total = len(results)
+            type_passed = sum(1 for r in results if r.get('passed'))
+            type_total = len(results)
             
-            f.write(f"**ファイル結果**: {file_passed}/{file_total} 通過\n\n")
+            f.write(f"**結果**: {type_passed}/{type_total} 通過\n\n")
             
             for result in results:
                 status_icon = "✅" if result.get('passed') else "❌"
@@ -415,12 +488,12 @@ class RagRetriever:
         total_tests = len(self.test_results)
         
         if passed_count == total_tests:
-            f.write("✅ すべてのテストが通過しました。RAG検索機能は正常に動作しています。\n")
+            f.write("✅ すべての検証が通過しました。生成されたテストケースは高品質です。\n")
         else:
-            f.write("❌ 一部のテストが失敗しました。以下の点を確認してください：\n\n")
+            f.write("❌ 一部の検証が失敗しました。以下の点を確認してください：\n\n")
             for result in self.test_results:
                 if not result.get('passed'):
-                    f.write(f"- **{result.get('function', 'Unknown')}**: {result.get('details', 'No details')}\n")
+                    f.write(f"- **{result.get('test_name', 'Unknown')}**: {result.get('details', 'No details')}\n")
 
     def _write_footer(self, f):
         """フッターを書き込み"""
@@ -433,7 +506,7 @@ class RagRetriever:
         output_path.mkdir(parents=True, exist_ok=True)
         
         timestamp_str = self.test_timestamp.strftime("%Y%m%d_%H%M%S") if self.test_timestamp else "unknown"
-        filename = f"rag_retrieval_test_{self.database}_{timestamp_str}.json"
+        filename = f"generated_snippets_validation_{self.database}_{timestamp_str}.json"
         filepath = output_path / filename
         
         try:
@@ -441,7 +514,7 @@ class RagRetriever:
                 "metadata": {
                     "database_name": self.database,
                     "test_timestamp": self.test_timestamp.isoformat() if self.test_timestamp else None,
-                    "generator": "test_rag_retrieval.py",
+                    "generator": "test_rag_retrieval.py (修正版)",
                     "export_timestamp": datetime.now().isoformat()
                 },
                 "database_info": self.database_info,
@@ -452,7 +525,7 @@ class RagRetriever:
             with open(filepath, 'w', encoding='utf-8') as f:
                 json.dump(export_data, f, ensure_ascii=False, indent=2)
             
-            print(f"✅ RAGテスト結果JSONを保存しました: {filepath}")
+            print(f"✅ 検証結果JSONを保存しました: {filepath}")
             return filepath
             
         except Exception as e:
@@ -464,15 +537,15 @@ class RagRetriever:
         passed_count = sum(1 for r in self.test_results if r.get('passed'))
         total_tests = len(self.test_results)
         
-        # テストファイル別の統計
-        test_files = {}
+        # テストタイプ別の統計
+        test_types = {}
         for result in self.test_results:
-            test_file = result.get('function', 'Unknown')
-            if test_file not in test_files:
-                test_files[test_file] = {"passed": 0, "total": 0}
-            test_files[test_file]["total"] += 1
+            test_type = result.get('test_type', 'unknown')
+            if test_type not in test_types:
+                test_types[test_type] = {"passed": 0, "total": 0}
+            test_types[test_type]["total"] += 1
             if result.get('passed'):
-                test_files[test_file]["passed"] += 1
+                test_types[test_type]["passed"] += 1
         
         return {
             "total_tests": total_tests,
@@ -480,11 +553,11 @@ class RagRetriever:
             "failed_tests": total_tests - passed_count,
             "success_rate": (passed_count/total_tests*100) if total_tests > 0 else 0,
             "overall_status": "passed" if passed_count == total_tests else "failed",
-            "test_file_summary": test_files
+            "test_type_summary": test_types
         }
 
     def run_basic_function_test(self, function_name):
-        """基本的な関数仕様テスト（test_dslがなくても動作）"""
+        """基本的な関数仕様テスト"""
         print(f"\n🔍 Basic function test for: {function_name}")
         
         if not self.test_timestamp:
@@ -565,7 +638,7 @@ class RagRetriever:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Run specification tests for GraphRAG data retrieval.",
+        description="Run specification tests for GraphRAG data retrieval using generated test cases.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 使用例:
@@ -573,15 +646,13 @@ def main():
   python test_rag_retrieval.py --database neo4j   # 指定されたデータベースを使用
   python test_rag_retrieval.py --save-docs        # テスト結果をドキュメントとして保存
   python test_rag_retrieval.py --output-dir reports # カスタム出力ディレクトリを指定
-  python test_rag_retrieval.py test_patterns/     # 特定のテストパターンディレクトリを指定
+  python test_rag_retrieval.py --validate-snippets # 生成されたテストケースを検証
   python test_rag_retrieval.py --function CreateSolid # 特定の関数をテスト
   python test_rag_retrieval.py --list-functions   # 利用可能な関数一覧を表示
   python test_rag_retrieval.py --all-functions    # 全関数の基本的なチェックを実行
         """
     )
     
-    parser.add_argument("test_path", nargs='?', default=None, 
-                      help="Path to a specific test file or directory.")
     parser.add_argument('--database', type=str, default='docparser',
                       help='使用するNeo4jデータベース名 (デフォルト: docparser)')
     parser.add_argument('--save-docs', action='store_true',
@@ -589,11 +660,13 @@ def main():
     parser.add_argument('--output-dir', type=str, default='verification_reports',
                       help='ドキュメント保存先ディレクトリ (デフォルト: verification_reports)')
     parser.add_argument('--function', type=str, metavar='FUNCTION_NAME',
-                      help='特定の関数をテスト（test_dslがなくても動作）')
+                      help='特定の関数をテスト')
     parser.add_argument('--list-functions', action='store_true',
                       help='データベース内の利用可能な関数一覧を表示')
     parser.add_argument('--all-functions', action='store_true',
                       help='全関数の基本的なチェックを実行')
+    parser.add_argument('--validate-snippets', action='store_true',
+                      help='生成されたテストケース（code_snippets/とgolden_snippets/）を検証')
     
     args = parser.parse_args()
 
@@ -624,36 +697,13 @@ def main():
         # 全関数の基本的なチェック
         elif args.all_functions:
             retriever.run_all_functions_basic_check()
-        # テストパターンファイルからのテスト実行
-        elif args.test_path:
-            test_paths = []
-            if os.path.isdir(args.test_path):
-                test_paths = [os.path.join(args.test_path, f) for f in os.listdir(args.test_path) 
-                             if f.startswith('test_') and f.endswith('.py')]
-            elif os.path.isfile(args.test_path):
-                test_paths.append(args.test_path)
-            
-            if test_paths:
-                for path in test_paths:
-                    retriever.run_test_cases_from_file(path)
-            else:
-                print("No test files found.")
-                return
+        # 生成されたテストケースの検証
+        elif args.validate_snippets:
+            retriever.validate_generated_snippets()
         else:
-            # デフォルトでtest_patternsディレクトリのテストを実行
-            patterns_dir = os.path.join(os.path.dirname(__file__), 'test_patterns')
-            if os.path.isdir(patterns_dir):
-                test_paths = [os.path.join(patterns_dir, f) for f in os.listdir(patterns_dir) 
-                             if f.startswith('test_') and f.endswith('.py')]
-                if test_paths:
-                    for path in test_paths:
-                        retriever.run_test_cases_from_file(path)
-                else:
-                    print("No test files found in test_patterns directory.")
-                    return
-            else:
-                print("test_patterns directory not found.")
-                return
+            # デフォルトで生成されたテストケースを検証
+            print("デフォルトで生成されたテストケースの検証を実行します...")
+            retriever.validate_generated_snippets()
 
         # 最終サマリーを表示
         if retriever.test_results:
@@ -663,7 +713,7 @@ def main():
 
             for result in retriever.test_results:
                 if not result.get('passed'):
-                    print(f"  ❌ FAILED - Test '{result.get('test_name', 'Unknown')}' in {result['function']}: {result['details']}")
+                    print(f"  ❌ FAILED - {result.get('test_name', 'Unknown')}: {result['details']}")
 
             print(f"\nSummary: {passed_count}/{total_tests} tests passed.")
 
