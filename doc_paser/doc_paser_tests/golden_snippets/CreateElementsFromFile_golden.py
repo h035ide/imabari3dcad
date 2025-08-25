@@ -1,3 +1,0 @@
-part.CreateElementsFromFile(
-    FileName
-)

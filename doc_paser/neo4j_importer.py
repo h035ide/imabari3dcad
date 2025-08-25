@@ -81,11 +81,18 @@ class Neo4jImporter:
             return
             
         print("Importing API entries...")
-        for entry in api_entries:
-            if entry.get("entry_type") == "function":
-                self._import_function(session, entry)
-            elif entry.get("entry_type") == "object_definition":
-                self._import_object_definition(session, entry)
+        
+        # まずObjectDefinitionを先に作成（関数の戻り値で参照されるため）
+        object_definitions = [entry for entry in api_entries if entry.get("entry_type") == "object_definition"]
+        functions = [entry for entry in api_entries if entry.get("entry_type") == "function"]
+        
+        print(f"  - Importing {len(object_definitions)} object definitions first...")
+        for entry in object_definitions:
+            self._import_object_definition(session, entry)
+        
+        print(f"  - Importing {len(functions)} functions...")
+        for entry in functions:
+            self._import_function(session, entry)
 
     def _import_function(self, session, func_data):
         """関数のインポート"""
@@ -125,14 +132,38 @@ class Neo4jImporter:
 
     def _create_function_return(self, session, func_data):
         """関数の戻り値の作成"""
-        query = """
-        MATCH (f:Function {name: $func_name})
-        MERGE (rt:Type {name: $return_type})
-        MERGE (f)-[:RETURNS]->(rt)
+        return_type = func_data['returns'].get('type')
+        
+        # 戻り値の型がObjectDefinitionとして定義されているかチェック
+        # 注意: この時点ではObjectDefinitionはまだ作成されていない可能性がある
+        # そのため、parsed_api_result_def.jsonの内容を直接チェックする
+        query_check = """
+        MATCH (od:ObjectDefinition {name: $return_type})
+        RETURN od.name as name
         """
+        result = session.run(query_check, return_type=return_type)
+        obj_def_exists = result.single() is not None
+        
+        if obj_def_exists:
+            # ObjectDefinitionが存在する場合は、それを使用
+            query = """
+            MATCH (f:Function {name: $func_name})
+            MATCH (rt:ObjectDefinition {name: $return_type})
+            MERGE (f)-[:RETURNS]->(rt)
+            """
+            print(f"    - Function '{func_data['name']}' returns ObjectDefinition '{return_type}'")
+        else:
+            # ObjectDefinitionが存在しない場合は、Typeとして作成
+            query = """
+            MATCH (f:Function {name: $func_name})
+            MERGE (rt:Type {name: $return_type})
+            MERGE (f)-[:RETURNS]->(rt)
+            """
+            print(f"    - Function '{func_data['name']}' returns Type '{return_type}'")
+        
         session.run(query, 
                    func_name=func_data['name'], 
-                   return_type=func_data['returns'].get('type'))
+                   return_type=return_type)
 
     def _import_object_definition(self, session, obj_data):
         """オブジェクト定義のインポート"""
@@ -175,8 +206,9 @@ class Neo4jImporter:
             SET r.position = $param_position
             
             WITH p
+            // パラメータの型がObjectDefinitionとして定義されているかチェック
             OPTIONAL MATCH (od:ObjectDefinition {name: $param_type})
-            MERGE (t:Type {name: $param_type})
+            OPTIONAL MATCH (t:Type {name: $param_type})
             WITH p, COALESCE(od, t) as type_node
             MERGE (p)-[:HAS_TYPE]->(type_node)
             """
@@ -189,6 +221,7 @@ class Neo4jImporter:
                       param_position=param_data.get('position', 0),
                       param_type=param_data['type'])
         else:  # object
+            # オブジェクトプロパティの型情報処理を改善
             query = """
             MATCH (od:ObjectDefinition {name: $parent_name})
             MERGE (p:Parameter {name: $param_name, parent_object: $parent_name})
@@ -196,17 +229,31 @@ class Neo4jImporter:
             MERGE (od)-[:HAS_PROPERTY]->(p)
             
             WITH p
-            OPTIONAL MATCH (prop_od:ObjectDefinition {name: $param_type})
+            // 型情報の作成と関連付けを確実に行う
             MERGE (t:Type {name: $param_type})
-            WITH p, COALESCE(prop_od, t) as type_node
-            MERGE (p)-[:HAS_TYPE]->(type_node)
+            MERGE (p)-[:HAS_TYPE]->(t)
             """
             
-            session.run(query, 
-                      parent_name=parent_name,
-                      param_name=param_data['name'],
-                      param_description=param_data.get('description', ''),
-                      param_type=param_data['type'])
+            try:
+                session.run(query, 
+                          parent_name=parent_name,
+                          param_name=param_data['name'],
+                          param_description=param_data.get('description', ''),
+                          param_type=param_data['type'])
+                print(f"    - Created parameter '{param_data['name']}' with type '{param_data['type']}' for object '{parent_name}'")
+            except Exception as e:
+                print(f"    - Error creating parameter '{param_data['name']}' for object '{parent_name}': {e}")
+                # エラーが発生した場合でも、基本的なパラメータノードは作成する
+                fallback_query = """
+                MATCH (od:ObjectDefinition {name: $parent_name})
+                MERGE (p:Parameter {name: $param_name, parent_object: $parent_name})
+                SET p.description = $param_description
+                MERGE (od)-[:HAS_PROPERTY]->(p)
+                """
+                session.run(fallback_query, 
+                          parent_name=parent_name,
+                          param_name=param_data['name'],
+                          param_description=param_data.get('description', ''))
 
     def _create_dependency_links(self, session):
         """関数間の依存関係リンクの作成"""

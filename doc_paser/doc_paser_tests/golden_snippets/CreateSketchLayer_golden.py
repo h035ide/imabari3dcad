@@ -1,4 +1,0 @@
-part.CreateSketchLayer(
-    SketchLayerName,
-    SketchPlane
-)
