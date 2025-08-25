@@ -1,4 +1,0 @@
-part.MirrorCopy(
-    plane,
-    ReferMethod
-)

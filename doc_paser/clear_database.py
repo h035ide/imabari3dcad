@@ -11,6 +11,7 @@ def clear_database():
     # NEO4J_USER と NEO4J_USERNAME の両方に対応
     NEO4J_USER = os.getenv("NEO4J_USER") or os.getenv("NEO4J_USERNAME")
     NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
+    NEO4J_DATABASE = "docparser"
     
     if not all([NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD]):
         print("Error: NEO4J_URI, NEO4J_USER (or NEO4J_USERNAME), and NEO4J_PASSWORD must be set in the .env file.")
@@ -19,8 +20,22 @@ def clear_database():
     driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
     
     try:
-        with driver.session() as session:
-            print("=== データベースのクリアを開始 ===")
+        # まずsystemデータベースでdocparserデータベースの存在確認
+        with driver.session(database="system") as session:
+            print("=== docparserデータベースの確認 ===")
+            result = session.run("SHOW DATABASES")
+            databases = [record["name"] for record in result]
+            
+            if NEO4J_DATABASE not in databases:
+                print(f"データベース '{NEO4J_DATABASE}' が存在しません。作成します...")
+                session.run(f"CREATE DATABASE {NEO4J_DATABASE}")
+                print(f"データベース '{NEO4J_DATABASE}' を作成しました。")
+            else:
+                print(f"データベース '{NEO4J_DATABASE}' が存在します。")
+        
+        # docparserデータベースでデータをクリア
+        with driver.session(database=NEO4J_DATABASE) as session:
+            print(f"\n=== データベース '{NEO4J_DATABASE}' のクリアを開始 ===")
             
             # すべての関係を削除
             print("すべての関係を削除中...")
@@ -32,7 +47,7 @@ def clear_database():
             result = session.run("MATCH (n) DELETE n")
             print("  ノードの削除完了")
             
-            print("\n=== データベースのクリア完了 ===")
+            print(f"\n=== データベース '{NEO4J_DATABASE}' のクリア完了 ===")
             
             # 現在の状態を確認
             print("\n=== 現在の状態 ===")

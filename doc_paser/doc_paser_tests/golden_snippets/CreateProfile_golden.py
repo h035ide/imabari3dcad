@@ -1,4 +1,0 @@
-part.CreateProfile(
-    ParamObj,
-    bUpdate
-)

@@ -1,4 +1,0 @@
-part.CreateLinearSweepSheet(
-    ParamObj,
-    bUpdate
-)

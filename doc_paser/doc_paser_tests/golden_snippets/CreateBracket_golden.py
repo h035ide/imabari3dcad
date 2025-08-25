@@ -1,4 +1,0 @@
-part.CreateBracket(
-    ParamObj,
-    bUpdate
-)
