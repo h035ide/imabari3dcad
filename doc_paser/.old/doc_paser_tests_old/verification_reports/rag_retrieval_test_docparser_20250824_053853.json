@@ -1,0 +1,296 @@
+{
+  "metadata": {
+    "database_name": "docparser",
+    "test_timestamp": "2025-08-24T05:38:53.251845",
+    "generator": "test_rag_retrieval.py",
+    "export_timestamp": "2025-08-24T05:38:53.537890"
+  },
+  "database_info": {
+    "database_name": "docparser",
+    "function_count": 30,
+    "parameter_count": 272,
+    "object_definition_count": 3,
+    "test_timestamp": "2025-08-24T05:38:53.251845"
+  },
+  "test_results": [
+    {
+      "function": "BlankElement",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 2 parameters"
+    },
+    {
+      "function": "BodyDivideByElements",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 7 parameters"
+    },
+    {
+      "function": "BodySeparateBySubSolids",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 6 parameters"
+    },
+    {
+      "function": "CreateBracket",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 2 parameters"
+    },
+    {
+      "function": "CreateBracketParam",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 0 parameters"
+    },
+    {
+      "function": "CreateElementsFromFile",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 1 parameters"
+    },
+    {
+      "function": "CreateLinearSweep",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 4 parameters"
+    },
+    {
+      "function": "CreateLinearSweepParam",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 0 parameters"
+    },
+    {
+      "function": "CreateLinearSweepSheet",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 2 parameters"
+    },
+    {
+      "function": "CreateOffsetSheet",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 7 parameters"
+    },
+    {
+      "function": "CreateOtherSolid",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 6 parameters"
+    },
+    {
+      "function": "CreatePlate",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 14 parameters"
+    },
+    {
+      "function": "CreateProfile",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 2 parameters"
+    },
+    {
+      "function": "CreateProfileParam",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 0 parameters"
+    },
+    {
+      "function": "CreateSketchArc",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 8 parameters"
+    },
+    {
+      "function": "CreateSketchArc3Pts",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 7 parameters"
+    },
+    {
+      "function": "CreateSketchCircle",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 8 parameters"
+    },
+    {
+      "function": "CreateSketchEllipse",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 10 parameters"
+    },
+    {
+      "function": "CreateSketchLayer",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 2 parameters"
+    },
+    {
+      "function": "CreateSketchLine",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 6 parameters"
+    },
+    {
+      "function": "CreateSketchNURBSCurve",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 11 parameters"
+    },
+    {
+      "function": "CreateSketchPlane",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 12 parameters"
+    },
+    {
+      "function": "CreateSolid",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 3 parameters"
+    },
+    {
+      "function": "CreateThicken",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 10 parameters"
+    },
+    {
+      "function": "CreateVariable",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 4 parameters"
+    },
+    {
+      "function": "MirrorCopy",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 3 parameters"
+    },
+    {
+      "function": "ReverseSheet",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 1 parameters"
+    },
+    {
+      "function": "SetElementColor",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 5 parameters"
+    },
+    {
+      "function": "SheetAlignNormal",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 4 parameters"
+    },
+    {
+      "function": "TranslationCopy",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 5 parameters"
+    }
+  ],
+  "summary": {
+    "total_tests": 30,
+    "passed_tests": 30,
+    "failed_tests": 0,
+    "success_rate": 100.0,
+    "overall_status": "passed",
+    "test_file_summary": {
+      "BlankElement": {
+        "passed": 1,
+        "total": 1
+      },
+      "BodyDivideByElements": {
+        "passed": 1,
+        "total": 1
+      },
+      "BodySeparateBySubSolids": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateBracket": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateBracketParam": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateElementsFromFile": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateLinearSweep": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateLinearSweepParam": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateLinearSweepSheet": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateOffsetSheet": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateOtherSolid": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreatePlate": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateProfile": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateProfileParam": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateSketchArc": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateSketchArc3Pts": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateSketchCircle": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateSketchEllipse": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateSketchLayer": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateSketchLine": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateSketchNURBSCurve": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateSketchPlane": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateSolid": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateThicken": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateVariable": {
+        "passed": 1,
+        "total": 1
+      },
+      "MirrorCopy": {
+        "passed": 1,
+        "total": 1
+      },
+      "ReverseSheet": {
+        "passed": 1,
+        "total": 1
+      },
+      "SetElementColor": {
+        "passed": 1,
+        "total": 1
+      },
+      "SheetAlignNormal": {
+        "passed": 1,
+        "total": 1
+      },
+      "TranslationCopy": {
+        "passed": 1,
+        "total": 1
+      }
+    }
+  }
+}
