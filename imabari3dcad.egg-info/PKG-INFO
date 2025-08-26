@@ -35,6 +35,7 @@ Requires-Dist: sentence-transformers>=5.1.0
 Requires-Dist: langchain>=0.3.27
 Requires-Dist: langchain-chroma>=0.2.5
 Requires-Dist: llama-index-vector-stores-chroma>=0.4.2
+Requires-Dist: pytest>=8.4.1
 Provides-Extra: dev
 Requires-Dist: pytest; extra == "dev"
 Requires-Dist: black; extra == "dev"

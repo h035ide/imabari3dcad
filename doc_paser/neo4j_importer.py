@@ -1,20 +1,60 @@
 # This script will be used to import the parsed API data into a Neo4j database.
+#
+# 使用方法:
+#   python neo4j_importer.py                    # デフォルトでparsed_api_result_def.jsonを使用
+#   python neo4j_importer.py --def-file         # parsed_api_result_def.jsonを使用
+#   python neo4j_importer.py --original-file    # parsed_api_result.jsonを使用
+#   python neo4j_importer.py --file custom.json # カスタムファイルを使用
+#
+# 環境変数設定 (.envファイル):
+#   NEO4J_URI=bolt://localhost:7687
+#   NEO4J_USER=neo4j
+#   NEO4J_PASSWORD=password
+#   NEO4J_DATABASE=docparser (オプション、デフォルトはdocparser)
+#
+# 注意: Neo4j 4.0以降では、データベース名を明示的に指定する必要があります。
+# "docparser"データベースが存在しない場合は、事前に作成してください。
+
 import os
 import sys
 import json
+import argparse
 from neo4j import GraphDatabase
 from dotenv import load_dotenv
 
 class Neo4jImporter:
-    def __init__(self, uri, user, password, database="neo4j"):
+    def __init__(self, uri, user, password, database="docparser"):
         self.driver = GraphDatabase.driver(uri, auth=(user, password))
         self.database = database
 
     def close(self):
         self.driver.close()
 
+    def check_and_create_database(self):
+        """データベースの存在確認と作成"""
+        try:
+            with self.driver.session(database="system") as session:
+                # データベースの存在確認
+                result = session.run("SHOW DATABASES")
+                databases = [record["name"] for record in result]
+                
+                if self.database not in databases:
+                    print(f"データベース '{self.database}' が存在しません。作成します...")
+                    session.run(f"CREATE DATABASE {self.database}")
+                    print(f"データベース '{self.database}' を作成しました。")
+                else:
+                    print(f"データベース '{self.database}' が存在します。")
+                    
+        except Exception as e:
+            print(f"データベース確認・作成中にエラーが発生しました: {e}")
+            print("手動でデータベースを作成するか、既存のデータベース名を指定してください。")
+            raise
+
     def import_data(self, data):
         """メインデータインポート処理"""
+        # データベースの確認・作成
+        self.check_and_create_database()
+        
         with self.driver.session(database=self.database) as session:
             self._import_type_definitions(session, data.get("type_definitions", []))
             self._import_api_entries(session, data.get("api_entries", []))
@@ -41,11 +81,18 @@ class Neo4jImporter:
             return
             
         print("Importing API entries...")
-        for entry in api_entries:
-            if entry.get("entry_type") == "function":
-                self._import_function(session, entry)
-            elif entry.get("entry_type") == "object_definition":
-                self._import_object_definition(session, entry)
+        
+        # まずObjectDefinitionを先に作成（関数の戻り値で参照されるため）
+        object_definitions = [entry for entry in api_entries if entry.get("entry_type") == "object_definition"]
+        functions = [entry for entry in api_entries if entry.get("entry_type") == "function"]
+        
+        print(f"  - Importing {len(object_definitions)} object definitions first...")
+        for entry in object_definitions:
+            self._import_object_definition(session, entry)
+        
+        print(f"  - Importing {len(functions)} functions...")
+        for entry in functions:
+            self._import_function(session, entry)
 
     def _import_function(self, session, func_data):
         """関数のインポート"""
@@ -85,14 +132,38 @@ class Neo4jImporter:
 
     def _create_function_return(self, session, func_data):
         """関数の戻り値の作成"""
-        query = """
-        MATCH (f:Function {name: $func_name})
-        MERGE (rt:Type {name: $return_type})
-        MERGE (f)-[:RETURNS]->(rt)
+        return_type = func_data['returns'].get('type')
+        
+        # 戻り値の型がObjectDefinitionとして定義されているかチェック
+        # 注意: この時点ではObjectDefinitionはまだ作成されていない可能性がある
+        # そのため、parsed_api_result_def.jsonの内容を直接チェックする
+        query_check = """
+        MATCH (od:ObjectDefinition {name: $return_type})
+        RETURN od.name as name
         """
+        result = session.run(query_check, return_type=return_type)
+        obj_def_exists = result.single() is not None
+        
+        if obj_def_exists:
+            # ObjectDefinitionが存在する場合は、それを使用
+            query = """
+            MATCH (f:Function {name: $func_name})
+            MATCH (rt:ObjectDefinition {name: $return_type})
+            MERGE (f)-[:RETURNS]->(rt)
+            """
+            print(f"    - Function '{func_data['name']}' returns ObjectDefinition '{return_type}'")
+        else:
+            # ObjectDefinitionが存在しない場合は、Typeとして作成
+            query = """
+            MATCH (f:Function {name: $func_name})
+            MERGE (rt:Type {name: $return_type})
+            MERGE (f)-[:RETURNS]->(rt)
+            """
+            print(f"    - Function '{func_data['name']}' returns Type '{return_type}'")
+        
         session.run(query, 
                    func_name=func_data['name'], 
-                   return_type=func_data['returns'].get('type'))
+                   return_type=return_type)
 
     def _import_object_definition(self, session, obj_data):
         """オブジェクト定義のインポート"""
@@ -135,8 +206,9 @@ class Neo4jImporter:
             SET r.position = $param_position
             
             WITH p
+            // パラメータの型がObjectDefinitionとして定義されているかチェック
             OPTIONAL MATCH (od:ObjectDefinition {name: $param_type})
-            MERGE (t:Type {name: $param_type})
+            OPTIONAL MATCH (t:Type {name: $param_type})
             WITH p, COALESCE(od, t) as type_node
             MERGE (p)-[:HAS_TYPE]->(type_node)
             """
@@ -149,6 +221,7 @@ class Neo4jImporter:
                       param_position=param_data.get('position', 0),
                       param_type=param_data['type'])
         else:  # object
+            # オブジェクトプロパティの型情報処理を改善
             query = """
             MATCH (od:ObjectDefinition {name: $parent_name})
             MERGE (p:Parameter {name: $param_name, parent_object: $parent_name})
@@ -156,17 +229,31 @@ class Neo4jImporter:
             MERGE (od)-[:HAS_PROPERTY]->(p)
             
             WITH p
-            OPTIONAL MATCH (prop_od:ObjectDefinition {name: $param_type})
+            // 型情報の作成と関連付けを確実に行う
             MERGE (t:Type {name: $param_type})
-            WITH p, COALESCE(prop_od, t) as type_node
-            MERGE (p)-[:HAS_TYPE]->(type_node)
+            MERGE (p)-[:HAS_TYPE]->(t)
             """
             
-            session.run(query, 
-                      parent_name=parent_name,
-                      param_name=param_data['name'],
-                      param_description=param_data.get('description', ''),
-                      param_type=param_data['type'])
+            try:
+                session.run(query, 
+                          parent_name=parent_name,
+                          param_name=param_data['name'],
+                          param_description=param_data.get('description', ''),
+                          param_type=param_data['type'])
+                print(f"    - Created parameter '{param_data['name']}' with type '{param_data['type']}' for object '{parent_name}'")
+            except Exception as e:
+                print(f"    - Error creating parameter '{param_data['name']}' for object '{parent_name}': {e}")
+                # エラーが発生した場合でも、基本的なパラメータノードは作成する
+                fallback_query = """
+                MATCH (od:ObjectDefinition {name: $parent_name})
+                MERGE (p:Parameter {name: $param_name, parent_object: $parent_name})
+                SET p.description = $param_description
+                MERGE (od)-[:HAS_PROPERTY]->(p)
+                """
+                session.run(fallback_query, 
+                          parent_name=parent_name,
+                          param_name=param_data['name'],
+                          param_description=param_data.get('description', ''))
 
     def _create_dependency_links(self, session):
         """関数間の依存関係リンクの作成"""
@@ -191,32 +278,86 @@ def load_environment():
     uri = os.getenv("NEO4J_URI")
     user = os.getenv("NEO4J_USER") or os.getenv("NEO4J_USERNAME")
     password = os.getenv("NEO4J_PASSWORD")
-    database = os.getenv("NEO4J_DATABASE", "neo4j")
+    database = os.getenv("NEO4J_DATABASE", "docparser")
     
     if not all([uri, user, password]):
         raise ValueError("NEO4J_URI, NEO4J_USER (or NEO4J_USERNAME), and NEO4J_PASSWORD must be set in the .env file.")
     
     return uri, user, password, database
 
-def load_api_data(file_path='doc_paser/parsed_api_result.json'):
-    """APIデータの読み込み"""
+def load_api_data(file_path=None, use_def_file=True):
+    """APIデータの読み込み
+    
+    Args:
+        file_path (str, optional): カスタムファイルパス。指定された場合はそのファイルを使用
+        use_def_file (bool): Trueの場合はparsed_api_result_def.json、Falseの場合はparsed_api_result.jsonを使用
+    
+    Returns:
+        dict: 読み込まれたAPIデータ
+    """
+    if file_path is None:
+        if use_def_file:
+            file_path = 'doc_paser/parsed_api_result_def.json'
+        else:
+            file_path = 'doc_paser/parsed_api_result.json'
+    
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
-            return json.load(f)
+            data = json.load(f)
+            print(f"Successfully loaded API data from: {file_path}")
+            return data
     except FileNotFoundError:
         raise FileNotFoundError(f"API data file not found: {file_path}. Please run doc_paser.py first.")
+    except json.JSONDecodeError as e:
+        raise ValueError(f"Invalid JSON format in {file_path}: {e}")
+    except Exception as e:
+        raise Exception(f"Error reading {file_path}: {e}")
 
 def main():
     """メイン処理"""
+    # コマンドライン引数の解析
+    parser = argparse.ArgumentParser(
+        description='Neo4jにAPIデータをインポートするスクリプト',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+使用例:
+  python neo4j_importer.py                    # デフォルトでparsed_api_result_def.jsonを使用
+  python neo4j_importer.py --def-file         # parsed_api_result_def.jsonを使用
+  python neo4j_importer.py --original-file    # parsed_api_result.jsonを使用
+  python neo4j_importer.py --file custom.json # カスタムファイルを使用
+        """
+    )
+    
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument('--def-file', action='store_true', 
+                      help='parsed_api_result_def.jsonを使用（デフォルト）')
+    group.add_argument('--original-file', action='store_true',
+                      help='parsed_api_result.jsonを使用')
+    group.add_argument('--file', type=str, metavar='FILE',
+                      help='指定されたファイルを使用')
+    
+    args = parser.parse_args()
+    
     print("Neo4j Importer script started.")
     
     try:
         # 環境変数の読み込み
-        uri, user, password, database = load_environment()
+        uri, user, password, _ = load_environment()
+        database = "docparser"
         print(f"Connecting to Neo4j database: {database}")
+        if database == "docparser":
+            print("  → APIドキュメント解析データを格納する専用データベースを使用します")
         
-        # APIデータの読み込み
-        api_data = load_api_data()
+        # ファイル選択の決定
+        if args.file:
+            # カスタムファイルパスが指定された場合
+            api_data = load_api_data(file_path=args.file)
+        elif args.original_file:
+            # オリジナルファイルを使用する場合
+            api_data = load_api_data(use_def_file=False)
+        else:
+            # デフォルトでparsed_api_result_def.jsonを使用
+            api_data = load_api_data(use_def_file=True)
         
         # データのインポート
         importer = Neo4jImporter(uri, user, password, database)
@@ -224,8 +365,10 @@ def main():
         
     except (ValueError, FileNotFoundError) as e:
         print(f"Error: {e}")
+        sys.exit(1)
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
+        sys.exit(1)
     finally:
         if 'importer' in locals():
             importer.close()
