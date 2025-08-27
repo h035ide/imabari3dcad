@@ -29,6 +29,7 @@ langchain>=0.3.27
 langchain-chroma>=0.2.5
 llama-index-vector-stores-chroma>=0.4.2
 pytest>=8.4.1
+langgraph>=0.2.0
 
 [dev]
 pytest

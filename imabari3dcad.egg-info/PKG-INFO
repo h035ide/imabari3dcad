@@ -36,6 +36,7 @@ Requires-Dist: langchain>=0.3.27
 Requires-Dist: langchain-chroma>=0.2.5
 Requires-Dist: llama-index-vector-stores-chroma>=0.4.2
 Requires-Dist: pytest>=8.4.1
+Requires-Dist: langgraph>=0.2.0
 Provides-Extra: dev
 Requires-Dist: pytest; extra == "dev"
 Requires-Dist: black; extra == "dev"

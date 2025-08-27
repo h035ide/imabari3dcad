@@ -37,6 +37,7 @@ class TestUnitTestTool(unittest.TestCase):
         # unittestが成功した状態をモック
         mock_process = MagicMock()
         mock_process.stderr = ".\n----------------------------------------------------------------------\nRan 1 test in 0.001s\n\nOK"
+        mock_process.returncode = 0  # 成功を示すreturncode
         mock_subprocess_run.return_value = mock_process
 
         result = self.tool._run(
@@ -63,6 +64,7 @@ class TestUnitTestTool(unittest.TestCase):
             "----------------------------------------------------------------------\n"
             "Ran 1 test in 0.001s\n\nFAILED (failures=1)"
         )
+        mock_process.returncode = 1  # 失敗を示すreturncode
         mock_subprocess_run.return_value = mock_process
 
         result = self.tool._run(

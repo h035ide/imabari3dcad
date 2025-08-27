@@ -377,7 +377,7 @@ class ParameterExtractionTool(BaseTool):
             response = self._llm.invoke(prompt)
             parsed_response = self._parser.parse(response.content)
             logger.info(f"パラメータ抽出成功: {parsed_response}")
-            return parsed_response.dict()
+            return parsed_response.model_dump()
         except Exception as e:
             logger.error(f"パラメータの抽出中にエラーが発生しました: {e}", exc_info=True)
             # フォールバックとして、意図をクエリ全体とし、パラメータを空にする

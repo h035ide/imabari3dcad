@@ -19,9 +19,9 @@ def setup_project_root():
 setup_project_root()
 
 # 相対インポートを絶対インポートに変更
-from core.api_parser import ApiParser
-from core.code_parser import CodeParser
-from core.neo4j_uploader import Neo4jUploader
+from db_integration.core.api_parser import ApiParser
+from db_integration.core.code_parser import CodeParser
+from db_integration.core.neo4j_uploader import Neo4jUploader
 
 def main():
     """

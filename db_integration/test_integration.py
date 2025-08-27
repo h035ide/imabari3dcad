@@ -15,7 +15,6 @@ from db_integration.core.code_parser import SyntaxNode, SyntaxRelation, NodeType
 class TestIntegrationScript(unittest.TestCase):
 
     @patch('os.getenv')
-    @patch('os.getenv')
     @patch('db_integration.integrate.ApiParser')
     @patch('db_integration.integrate.CodeParser')
     @patch('db_integration.integrate.Neo4jUploader')
@@ -77,7 +76,7 @@ class TestIntegrationScript(unittest.TestCase):
             call.link_graphs(),
             call.close()
         ]
-        mock_uploader_instance.method_calls.assert_has_calls(expected_calls, any_order=False)
+        mock_uploader_instance.assert_has_calls(expected_calls, any_order=False)
 
         # 3. Uploaderが正しい引数でインスタンス化されたか
         mock_uploader.assert_called_once()
@@ -85,6 +84,7 @@ class TestIntegrationScript(unittest.TestCase):
         self.assertEqual(mock_uploader.call_args[0][3], 'test_db')
 
 
+    @patch('os.getenv')
     @patch('db_integration.integrate.ApiParser')
     @patch('db_integration.integrate.CodeParser')
     @patch('db_integration.integrate.Neo4jUploader')
