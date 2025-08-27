@@ -11,15 +11,15 @@ import os
 from datetime import datetime
 from unittest.mock import Mock, patch, MagicMock
 
-from enhanced_data_models import (
+from code_parser.enhanced_data_models import (
     EnhancedNodeType, EnhancedRelationType,
     EnhancedSyntaxNode, EnhancedSyntaxRelation,
     FunctionAnalysis, ClassAnalysis, ErrorAnalysis, PerformanceInfo,
     create_enhanced_node, create_enhanced_relation
 )
 
-from enhanced_parser_adapter import EnhancedParserAdapter
-from enhanced_data_migration import DataModelMigrator
+from code_parser.enhanced_parser_adapter import EnhancedParserAdapter
+from code_parser.enhanced_data_migration import DataModelMigrator
 
 
 class TestEnhancedDataModels(unittest.TestCase):
@@ -234,7 +234,7 @@ class TestEnhancedParserAdapter(unittest.TestCase):
         self.adapter = EnhancedParserAdapter()
         
         # モックの Legacy SyntaxNode
-        from treesitter_neo4j_advanced import NodeType, SyntaxNode
+        from code_parser.treesitter_neo4j_advanced import NodeType, SyntaxNode
         self.mock_legacy_node = SyntaxNode(
             node_id="legacy_1",
             node_type=NodeType.FUNCTION,
@@ -250,7 +250,7 @@ class TestEnhancedParserAdapter(unittest.TestCase):
     
     def test_node_type_mapping(self):
         """ノードタイプマッピングのテスト"""
-        from treesitter_neo4j_advanced import NodeType
+        from code_parser.treesitter_neo4j_advanced import NodeType
         
         mapping = self.adapter.node_type_mapping
         
@@ -261,7 +261,7 @@ class TestEnhancedParserAdapter(unittest.TestCase):
     
     def test_relation_type_mapping(self):
         """リレーションタイプマッピングのテスト"""
-        from treesitter_neo4j_advanced import RelationType
+        from code_parser.treesitter_neo4j_advanced import RelationType
         
         mapping = self.adapter.relation_type_mapping
         
@@ -287,7 +287,7 @@ class TestEnhancedParserAdapter(unittest.TestCase):
     
     def test_convert_syntax_relation(self):
         """構文関係変換のテスト"""
-        from treesitter_neo4j_advanced import RelationType, SyntaxRelation
+        from code_parser.treesitter_neo4j_advanced import RelationType, SyntaxRelation
         
         mock_legacy_relation = SyntaxRelation(
             source_id="node_1",
@@ -365,11 +365,11 @@ class TestDataModelMigrator(unittest.TestCase):
     def setUp(self):
         """テストセットアップ"""
         # Neo4jドライバーのモック
-        self.mock_driver = Mock()
-        self.mock_session = Mock()
+        self.mock_driver = MagicMock()
+        self.mock_session = MagicMock()
         self.mock_driver.session.return_value.__enter__.return_value = self.mock_session
         
-        with patch('enhanced_data_migration.GraphDatabase.driver') as mock_driver_class:
+        with patch('code_parser.enhanced_data_migration.GraphDatabase.driver') as mock_driver_class:
             mock_driver_class.return_value = self.mock_driver
             self.migrator = DataModelMigrator("bolt://localhost:7687", "neo4j", "password")
     
