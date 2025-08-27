@@ -1,0 +1,386 @@
+{
+  "metadata": {
+    "database_name": "docparser",
+    "test_timestamp": "2025-08-24T04:46:05.765973",
+    "generator": "test_rag_retrieval.py",
+    "export_timestamp": "2025-08-24T04:46:06.017049"
+  },
+  "database_info": {
+    "database_name": "docparser",
+    "function_count": 30,
+    "parameter_count": 272,
+    "object_definition_count": 3,
+    "test_timestamp": "2025-08-24T04:46:05.765973"
+  },
+  "test_results": [
+    {
+      "function": "BlankElement",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 2 parameters",
+      "test_name": "Basic check for BlankElement",
+      "parameter_count": 2,
+      "return_type": "void"
+    },
+    {
+      "function": "BodyDivideByElements",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 7 parameters",
+      "test_name": "Basic check for BodyDivideByElements",
+      "parameter_count": 7,
+      "return_type": "要素"
+    },
+    {
+      "function": "BodySeparateBySubSolids",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 6 parameters",
+      "test_name": "Basic check for BodySeparateBySubSolids",
+      "parameter_count": 6,
+      "return_type": "要素"
+    },
+    {
+      "function": "CreateBracket",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 2 parameters",
+      "test_name": "Basic check for CreateBracket",
+      "parameter_count": 2,
+      "return_type": "要素"
+    },
+    {
+      "function": "CreateBracketParam",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 0 parameters",
+      "test_name": "Basic check for CreateBracketParam",
+      "parameter_count": 0,
+      "return_type": "ブラケット要素のパラメータオブジェクト"
+    },
+    {
+      "function": "CreateElementsFromFile",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 1 parameters",
+      "test_name": "Basic check for CreateElementsFromFile",
+      "parameter_count": 1,
+      "return_type": "要素"
+    },
+    {
+      "function": "CreateLinearSweep",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 4 parameters",
+      "test_name": "Basic check for CreateLinearSweep",
+      "parameter_count": 4,
+      "return_type": "要素"
+    },
+    {
+      "function": "CreateLinearSweepParam",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 0 parameters",
+      "test_name": "Basic check for CreateLinearSweepParam",
+      "parameter_count": 0,
+      "return_type": "押し出しパラメータオブジェクト"
+    },
+    {
+      "function": "CreateLinearSweepSheet",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 2 parameters",
+      "test_name": "Basic check for CreateLinearSweepSheet",
+      "parameter_count": 2,
+      "return_type": "要素"
+    },
+    {
+      "function": "CreateOffsetSheet",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 7 parameters",
+      "test_name": "Basic check for CreateOffsetSheet",
+      "parameter_count": 7,
+      "return_type": "要素"
+    },
+    {
+      "function": "CreateOtherSolid",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 6 parameters",
+      "test_name": "Basic check for CreateOtherSolid",
+      "parameter_count": 6,
+      "return_type": "要素"
+    },
+    {
+      "function": "CreatePlate",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 14 parameters",
+      "test_name": "Basic check for CreatePlate",
+      "parameter_count": 14,
+      "return_type": "要素"
+    },
+    {
+      "function": "CreateProfile",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 2 parameters",
+      "test_name": "Basic check for CreateProfile",
+      "parameter_count": 2,
+      "return_type": "要素"
+    },
+    {
+      "function": "CreateProfileParam",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 0 parameters",
+      "test_name": "Basic check for CreateProfileParam",
+      "parameter_count": 0,
+      "return_type": "条材要素のパラメータオブジェクト"
+    },
+    {
+      "function": "CreateSketchArc",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 8 parameters",
+      "test_name": "Basic check for CreateSketchArc",
+      "parameter_count": 8,
+      "return_type": "要素"
+    },
+    {
+      "function": "CreateSketchArc3Pts",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 7 parameters",
+      "test_name": "Basic check for CreateSketchArc3Pts",
+      "parameter_count": 7,
+      "return_type": "要素"
+    },
+    {
+      "function": "CreateSketchCircle",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 8 parameters",
+      "test_name": "Basic check for CreateSketchCircle",
+      "parameter_count": 8,
+      "return_type": "要素"
+    },
+    {
+      "function": "CreateSketchEllipse",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 10 parameters",
+      "test_name": "Basic check for CreateSketchEllipse",
+      "parameter_count": 10,
+      "return_type": "要素"
+    },
+    {
+      "function": "CreateSketchLayer",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 2 parameters",
+      "test_name": "Basic check for CreateSketchLayer",
+      "parameter_count": 2,
+      "return_type": "要素"
+    },
+    {
+      "function": "CreateSketchLine",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 6 parameters",
+      "test_name": "Basic check for CreateSketchLine",
+      "parameter_count": 6,
+      "return_type": "要素"
+    },
+    {
+      "function": "CreateSketchNURBSCurve",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 11 parameters",
+      "test_name": "Basic check for CreateSketchNURBSCurve",
+      "parameter_count": 11,
+      "return_type": "要素"
+    },
+    {
+      "function": "CreateSketchPlane",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 12 parameters",
+      "test_name": "Basic check for CreateSketchPlane",
+      "parameter_count": 12,
+      "return_type": "要素"
+    },
+    {
+      "function": "CreateSolid",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 3 parameters",
+      "test_name": "Basic check for CreateSolid",
+      "parameter_count": 3,
+      "return_type": "要素"
+    },
+    {
+      "function": "CreateThicken",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 10 parameters",
+      "test_name": "Basic check for CreateThicken",
+      "parameter_count": 10,
+      "return_type": "要素"
+    },
+    {
+      "function": "CreateVariable",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 4 parameters",
+      "test_name": "Basic check for CreateVariable",
+      "parameter_count": 4,
+      "return_type": "要素"
+    },
+    {
+      "function": "MirrorCopy",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 3 parameters",
+      "test_name": "Basic check for MirrorCopy",
+      "parameter_count": 3,
+      "return_type": "要素"
+    },
+    {
+      "function": "ReverseSheet",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 1 parameters",
+      "test_name": "Basic check for ReverseSheet",
+      "parameter_count": 1,
+      "return_type": "要素"
+    },
+    {
+      "function": "SetElementColor",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 5 parameters",
+      "test_name": "Basic check for SetElementColor",
+      "parameter_count": 5,
+      "return_type": "void"
+    },
+    {
+      "function": "SheetAlignNormal",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 4 parameters",
+      "test_name": "Basic check for SheetAlignNormal",
+      "parameter_count": 4,
+      "return_type": "void"
+    },
+    {
+      "function": "TranslationCopy",
+      "passed": true,
+      "details": "Function specification retrieved successfully - 5 parameters",
+      "test_name": "Basic check for TranslationCopy",
+      "parameter_count": 5,
+      "return_type": "要素"
+    }
+  ],
+  "summary": {
+    "total_tests": 30,
+    "passed_tests": 30,
+    "failed_tests": 0,
+    "success_rate": 100.0,
+    "overall_status": "passed",
+    "test_file_summary": {
+      "BlankElement": {
+        "passed": 1,
+        "total": 1
+      },
+      "BodyDivideByElements": {
+        "passed": 1,
+        "total": 1
+      },
+      "BodySeparateBySubSolids": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateBracket": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateBracketParam": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateElementsFromFile": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateLinearSweep": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateLinearSweepParam": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateLinearSweepSheet": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateOffsetSheet": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateOtherSolid": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreatePlate": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateProfile": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateProfileParam": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateSketchArc": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateSketchArc3Pts": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateSketchCircle": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateSketchEllipse": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateSketchLayer": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateSketchLine": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateSketchNURBSCurve": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateSketchPlane": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateSolid": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateThicken": {
+        "passed": 1,
+        "total": 1
+      },
+      "CreateVariable": {
+        "passed": 1,
+        "total": 1
+      },
+      "MirrorCopy": {
+        "passed": 1,
+        "total": 1
+      },
+      "ReverseSheet": {
+        "passed": 1,
+        "total": 1
+      },
+      "SetElementColor": {
+        "passed": 1,
+        "total": 1
+      },
+      "SheetAlignNormal": {
+        "passed": 1,
+        "total": 1
+      },
+      "TranslationCopy": {
+        "passed": 1,
+        "total": 1
+      }
+    }
+  }
+}
