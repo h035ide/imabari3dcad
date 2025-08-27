@@ -30,9 +30,10 @@ Tree-sitter解析 → 構造化データ変換 → LLM処理 → Neo4j格納 →
    - 複雑性分析、依存関係追跡
    - コードメトリクス取得
 
-3. **テストシステム** (`test_treesitter_neo4j_integration.py`)
+3. **テストシステム** (`test_code_parser.py`)
    - 統合テスト
    - 各機能の動作確認
+   - pytest形式のモダンなテスト
 
 ## インストール
 
@@ -100,7 +101,11 @@ metrics = query_engine.find_code_metrics()
 ### 3. テストの実行
 
 ```bash
-python test_treesitter_neo4j_integration.py
+# 新しいpytest形式のテスト
+uv run python -m pytest code_parser/test_code_parser.py -v
+
+# または、プロジェクトルートから
+uv run python -m pytest code_parser/ -v
 ```
 
 ## 機能詳細
