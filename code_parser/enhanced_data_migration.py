@@ -12,9 +12,9 @@ from datetime import datetime
 from neo4j import GraphDatabase, Transaction
 from .enhanced_data_models import (
     EnhancedNodeType, EnhancedRelationType,
-    EnhancedSyntaxNode, EnhancedSyntaxRelation,
-    NodeType, RelationType
+    EnhancedSyntaxNode, EnhancedSyntaxRelation
 )
+from treesitter_neo4j_advanced import NodeType, RelationType
 
 logger = logging.getLogger(__name__)
 
