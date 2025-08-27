@@ -3,18 +3,11 @@ import sys
 import argparse
 from dotenv import load_dotenv
 
-# プロジェクトのルートをsys.pathに追加
-project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-if project_root not in sys.path:
-    sys.path.insert(0, project_root)
-
-# project_rootが正しく設定された後にインポートする
-# Note: This will only work if the script is run from the project root directory.
-# We might need to adjust this later if we run it from code_parser/
-from code_parser.treesitter_neo4j_advanced import TreeSitterNeo4jAdvancedBuilder
-
 # .envファイルを読み込む
 load_dotenv()
+
+# Tree-sitter Neo4jビルダーのインポート
+from code_parser.treesitter_neo4j_advanced import TreeSitterNeo4jAdvancedBuilder
 
 def main():
     """
@@ -31,13 +24,20 @@ def main():
     parser.add_argument("--no-llm", action="store_true", help="LLMによる分析を無効にする")
     args = parser.parse_args()
 
+    # プロジェクトルートの取得（uv run での実行を前提）
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    
+    # ファイルパスを絶対パスに変換
+    if not os.path.isabs(args.file_path):
+        args.file_path = os.path.join(project_root, args.file_path)
+
     print(f"プロジェクトルートパス: {project_root}")
-    print(f"Pythonパスに追加されました: {project_root in sys.path}")
-    print(f"解析対象ファイル: {args.file_path}")
+    print(f"解析対象ファイル（絶対パス）: {args.file_path}")
 
     # Neo4j接続情報
     neo4j_uri = os.getenv("NEO4J_URI")
-    neo4j_user = os.getenv("NEO4J_USERNAME")
+    # 環境変数は NEO4J_USER と NEO4J_USERNAME の両方に対応
+    neo4j_user = os.getenv("NEO4J_USERNAME") or os.getenv("NEO4J_USER")
     neo4j_password = os.getenv("NEO4J_PASSWORD")
 
     if not all([neo4j_uri, neo4j_user, neo4j_password]):
