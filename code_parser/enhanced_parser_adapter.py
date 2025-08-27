@@ -21,7 +21,7 @@ from .enhanced_data_models import (
 try:
     from .treesitter_neo4j_advanced import (
         NodeType, RelationType, SyntaxNode, SyntaxRelation,
-        TreeSitterNeo4jAnalyzer
+        TreeSitterNeo4jAdvancedBuilder
     )
 except ImportError:
     # フォールバック：直接インポート
@@ -30,7 +30,7 @@ except ImportError:
     sys.path.append(os.path.dirname(__file__))
     from treesitter_neo4j_advanced import (
         NodeType, RelationType, SyntaxNode, SyntaxRelation,
-        TreeSitterNeo4jAnalyzer
+        TreeSitterNeo4jAdvancedBuilder
     )
 
 logger = logging.getLogger(__name__)
@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
 class EnhancedParserAdapter:
     """既存パーサーを拡張データモデルに適応させるアダプター"""
     
-    def __init__(self, base_analyzer: TreeSitterNeo4jAnalyzer = None):
+    def __init__(self, base_analyzer: Optional[TreeSitterNeo4jAdvancedBuilder] = None):
         """アダプターの初期化"""
         self.base_analyzer = base_analyzer
         self.node_type_mapping = self._create_node_type_mapping()
@@ -383,7 +383,7 @@ class EnhancedParserAdapter:
 
 
 def migrate_existing_analysis_to_enhanced(
-    legacy_analyzer: TreeSitterNeo4jAnalyzer,
+    legacy_analyzer: "TreeSitterNeo4jAdvancedBuilder",
     enhanced_adapter: EnhancedParserAdapter = None
 ) -> Dict[str, Any]:
     """既存の分析結果を拡張データモデルに移行"""

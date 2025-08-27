@@ -10,11 +10,15 @@ import json
 import logging
 from datetime import datetime
 from neo4j import GraphDatabase, Transaction
-from .enhanced_data_models import (
+from code_parser.enhanced_data_models import (
     EnhancedNodeType, EnhancedRelationType,
     EnhancedSyntaxNode, EnhancedSyntaxRelation
 )
-from treesitter_neo4j_advanced import NodeType, RelationType
+from code_parser.treesitter_neo4j_advanced import NodeType, RelationType
+from code_parser.config import (
+    ENHANCED_PROPERTIES, DEFAULT_ENHANCED_VALUES, 
+    MIGRATION_PRIORITIES, NEO4J_CONSTRAINTS, NEO4J_INDEXES
+)
 
 logger = logging.getLogger(__name__)
 
@@ -75,16 +79,10 @@ class DataModelMigrator:
         """マイグレーション必要性を判定"""
         enhanced_node_types = {node_type.value for node_type in EnhancedNodeType}
         enhanced_relation_types = {rel_type.value for rel_type in EnhancedRelationType}
-        enhanced_properties = {
-            'function_analysis', 'class_analysis', 'error_analysis', 'performance_info',
-            'semantic_tags', 'quality_score', 'usage_frequency', 'embeddings',
-            'confidence_score', 'semantic_similarity', 'functional_similarity'
-        }
-        
         return {
             "node_types": not enhanced_node_types.issubset(node_types),
             "relation_types": not enhanced_relation_types.issubset(relation_types),
-            "properties": not enhanced_properties.issubset(properties),
+            "properties": not ENHANCED_PROPERTIES.issubset(properties),
             "constraints": True,  # 制約は常にチェックが必要
             "indexes": True       # インデックスも常にチェック
         }
@@ -378,13 +376,23 @@ class DataModelMigrator:
             # データ整合性チェック
             validation_results = {}
             
+            def _first_record(result):
+                """neo4j.Result.single() もしくは リストモックの先頭要素に対応"""
+                try:
+                    # neo4j.Result
+                    return result.single()
+                except AttributeError:
+                    # モックがリストを返すケース
+                    return result[0] if result else None
+            
             # 1. 必須プロパティの存在確認
             missing_props_result = session.run("""
                 MATCH (n:EnhancedNode) 
                 WHERE n.node_id IS NULL OR n.node_type IS NULL OR n.name IS NULL
                 RETURN count(n) as missing_required_props
             """)
-            validation_results["missing_required_properties"] = missing_props_result.single()["missing_required_props"]
+            rec = _first_record(missing_props_result)
+            validation_results["missing_required_properties"] = rec["missing_required_props"] if rec else 0
             
             # 2. 拡張プロパティの存在確認
             enhanced_props_result = session.run("""
@@ -392,7 +400,8 @@ class DataModelMigrator:
                 WHERE n.quality_score IS NOT NULL AND n.usage_frequency IS NOT NULL
                 RETURN count(n) as nodes_with_enhanced_props
             """)
-            validation_results["nodes_with_enhanced_properties"] = enhanced_props_result.single()["nodes_with_enhanced_props"]
+            rec = _first_record(enhanced_props_result)
+            validation_results["nodes_with_enhanced_properties"] = rec["nodes_with_enhanced_props"] if rec else 0
             
             # 3. リレーションの整合性確認
             orphan_relations_result = session.run("""
@@ -400,7 +409,8 @@ class DataModelMigrator:
                 WHERE r.confidence_score IS NULL
                 RETURN count(r) as relations_missing_enhanced_props
             """)
-            validation_results["relations_missing_enhanced_properties"] = orphan_relations_result.single()["relations_missing_enhanced_props"]
+            rec = _first_record(orphan_relations_result)
+            validation_results["relations_missing_enhanced_properties"] = rec["relations_missing_enhanced_props"] if rec else 0
             
             # 4. データ型の確認
             type_errors_result = session.run("""
@@ -409,7 +419,8 @@ class DataModelMigrator:
                    OR NOT (n.usage_frequency >= 0)
                 RETURN count(n) as type_errors
             """)
-            validation_results["data_type_errors"] = type_errors_result.single()["type_errors"]
+            rec = _first_record(type_errors_result)
+            validation_results["data_type_errors"] = rec["type_errors"] if rec else 0
             
             # 検証結果の評価
             is_valid = all([

@@ -43,6 +43,8 @@ dependencies = [
     "langchain>=0.3.27",
     "langchain-chroma>=0.2.5",
     "llama-index-vector-stores-chroma>=0.4.2",
+    "pytest-cov>=6.2.1",
+    "coverage>=7.10.5",
 ]
 
 [project.optional-dependencies]
