@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e" pages="3">
     <diagram id="doc_paser_functions" name="doc_paser_functions">
-        <mxGraphModel dx="810" dy="376" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+        <mxGraphModel dx="862" dy="465" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -257,6 +257,14 @@
                 <mxCell id="DPF_APPLY_CORR" value="修正を適用" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="520" y="800" width="160" height="40" as="geometry"/>
                 </mxCell>
+                <mxCell id="3" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DPF_DECIDE" target="DPF_ANALYZE">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="780" y="860"/>
+                            <mxPoint x="240" y="860"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
                 <mxCell id="DPF_DECIDE" value="継続/終了 判定" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
                     <mxGeometry x="700" y="800" width="160" height="40" as="geometry"/>
                 </mxCell>
@@ -278,9 +286,6 @@
                 <mxCell id="e_dpf_54" style="endArrow=block;html=1;" parent="1" source="DPF_DECIDE" target="DPF_END3" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="e_dpf_55" style="endArrow=block;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="DPF_DECIDE" target="DPF_ANALYZE" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
                 <mxCell id="2" value="" style="endArrow=block;html=1;" edge="1" parent="1" source="DPF_RESP_CHECK" target="DPF_RESP_API">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="780" y="310" as="sourcePoint"/>
@@ -294,7 +299,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="code_parser_functions" name="code_parser_functions">
-        <mxGraphModel dx="1404" dy="995" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+        <mxGraphModel dx="862" dy="465" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -313,7 +318,7 @@
                 <mxCell id="CPF_METRICS" value="ファイルメトリクスを計算" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="520" y="80" width="160" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="Ps0jhui57fohxy4ZzbIr-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="CPF_EXTRACT" target="CPF_LLM">
+                <mxCell id="Ps0jhui57fohxy4ZzbIr-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="CPF_EXTRACT" target="CPF_LLM" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="CPF_EXTRACT" value="構文要素を再帰抽出" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
@@ -322,7 +327,7 @@
                 <mxCell id="CPF_CONTAINS" value="親子関係(CONTAINS)を接続" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
                     <mxGeometry x="740" y="130" width="120" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="Ps0jhui57fohxy4ZzbIr-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="CPF_LLM" target="CPF_CREATE_NODES">
+                <mxCell id="Ps0jhui57fohxy4ZzbIr-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="CPF_LLM" target="CPF_CREATE_NODES" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="1060" y="100"/>
