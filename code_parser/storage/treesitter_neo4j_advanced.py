@@ -555,7 +555,7 @@ class TreeSitterNeo4jAdvancedBuilder:
             return None
     
     def store_to_neo4j(self) -> None:
-        """Neo4jにデータを格納"""
+        """Neo4jにデータを格納（最適化版）"""
         logger.info("Neo4jへのデータ格納を開始...")
         
         driver = GraphDatabase.driver(self.neo4j_uri, 
@@ -567,11 +567,14 @@ class TreeSitterNeo4jAdvancedBuilder:
                 session.run("MATCH (n) DETACH DELETE n")
                 logger.info("既存のグラフをクリアしました。")
                 
-                # ノードの作成
-                self._create_advanced_nodes(session)
+                # ノードの作成（バッチ処理）
+                self._create_advanced_nodes_optimized(session)
                 
-                # リレーションの作成
+                # リレーションの作成（最適化版）
                 self._create_advanced_relationships(session)
+                
+                # クエリ最適化のための統計情報更新
+                self._optimize_queries(session)
                 
                 # 統計情報の表示
                 self._display_advanced_statistics(session)
@@ -586,10 +589,91 @@ class TreeSitterNeo4jAdvancedBuilder:
         
         logger.info("Neo4jへのデータ格納が完了しました。")
     
-    def _create_advanced_nodes(self, session):
-        """高度なノードを作成"""
+    def _create_advanced_nodes_optimized(self, session):
+        """高度なノードを作成（最適化版）"""
+        # ノードタイプ別にグループ化
+        nodes_by_type = {}
         for node in self.syntax_nodes:
+            node_type = node.node_type.value
+            if node_type not in nodes_by_type:
+                nodes_by_type[node_type] = []
+            nodes_by_type[node_type].append(node)
+        
+        total_nodes = len(self.syntax_nodes)
+        logger.info(f"ノード作成開始: {total_nodes}個")
+        
+        # タイプ別にバッチ処理
+        for node_type, nodes in nodes_by_type.items():
+            logger.info(f"{node_type}ノード作成中: {len(nodes)}個")
+            
+            # バッチサイズを設定（ノードタイプに応じて調整）
+            batch_size = 50 if node_type in ["Variable", "Comment"] else 100
+            
+            for i in range(0, len(nodes), batch_size):
+                batch = nodes[i:i + batch_size]
+                self._create_nodes_batch(session, batch, node_type)
+        
+        logger.info(f"{total_nodes}個のノードを作成しました。")
+    
+    def _create_nodes_batch(self, session, nodes, node_type):
+        """ノードのバッチ作成"""
+        batch_params = []
+        
+        for node in nodes:
             # 基本プロパティ
+            properties = {
+                "id": node.node_id,
+                "name": node.name,
+                "text": node.properties["text"],
+                "start_byte": node.start_byte,
+                "end_byte": node.end_byte,
+                "line_start": node.line_start,
+                "line_end": node.line_end,
+                "file_path": node.properties["file_path"],
+                "complexity_score": node.complexity_score
+            }
+            
+            # LLM分析結果の追加
+            if node.llm_insights:
+                properties["llm_analysis"] = json.dumps(node.llm_insights, ensure_ascii=False)
+            
+            # 追加プロパティの統合
+            for key, value in node.properties.items():
+                if key not in ["text", "file_path"]:
+                    if isinstance(value, (list, dict)):
+                        properties["llm_analysis"] = json.dumps(value, ensure_ascii=False)
+                    else:
+                        properties[key] = value
+            
+            batch_params.append(properties)
+        
+        # バッチ処理用のCypherクエリ
+        cypher = f"""
+        UNWIND $batch AS node
+        CREATE (n:{node_type} {{
+            id: node.id,
+            name: node.name,
+            text: node.text,
+            start_byte: node.start_byte,
+            end_byte: node.end_byte,
+            line_start: node.line_start,
+            line_end: node.line_end,
+            file_path: node.file_path,
+            complexity_score: node.complexity_score
+        }})
+        """
+        
+        try:
+            session.run(cypher, {"batch": batch_params})
+        except Exception as e:
+            logger.error(f"バッチノード作成エラー ({node_type}): {e}")
+            # 個別作成にフォールバック
+            for node in nodes:
+                self._create_single_node(session, node)
+    
+    def _create_single_node(self, session, node):
+        """単一ノードを作成（フォールバック用）"""
+        try:
             properties = {
                 "id": node.node_id,
                 "name": node.name,
@@ -621,8 +705,8 @@ class TreeSitterNeo4jAdvancedBuilder:
             """
             
             session.run(cypher, properties)
-        
-        logger.info(f"{len(self.syntax_nodes)}個のノードを作成しました。")
+        except Exception as e:
+            logger.error(f"単一ノード作成エラー: {node.node_id}: {e}")
     
     def _create_advanced_relationships(self, session):
         """高度なリレーションを作成"""
@@ -642,6 +726,35 @@ class TreeSitterNeo4jAdvancedBuilder:
             })
         
         logger.info(f"{len(self.syntax_relations)}個のリレーションを作成しました。")
+    
+    def _optimize_queries(self, session):
+        """クエリ最適化のための統計情報更新"""
+        # ノードタイプ別の統計を更新
+        session.run("""
+        MATCH (n)
+        WITH labels(n)[0] as type, count(n) as count
+        MERGE (t:NodeType {{name: type}})
+        SET t.count = count
+        """)
+        
+        # リレーションタイプ別の統計を更新
+        session.run("""
+        MATCH ()-[r]->()
+        WITH type(r) as type, count(r) as count
+        MERGE (rt:RelationType {{name: type}})
+        SET rt.count = count
+        """)
+        
+        # 複雑性スコアの統計を更新
+        session.run("""
+        MATCH (n)
+        WHERE n.complexity_score > 0
+        WITH avg(n.complexity_score) as avg_complexity, 
+               max(n.complexity_score) as max_complexity,
+               min(n.complexity_score) as min_complexity
+        MERGE (cs:ComplexityScore {{name: "Average"}})
+        SET cs.avg = avg_complexity, cs.max = max_complexity, cs.min = min_complexity
+        """)
     
     def _display_advanced_statistics(self, session):
         """高度な統計情報を表示"""
