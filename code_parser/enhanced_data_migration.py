@@ -10,15 +10,29 @@ import json
 import logging
 from datetime import datetime
 from neo4j import GraphDatabase, Transaction
-from code_parser.enhanced_data_models import (
-    EnhancedNodeType, EnhancedRelationType,
-    EnhancedSyntaxNode, EnhancedSyntaxRelation
-)
-from code_parser.treesitter_neo4j_advanced import NodeType, RelationType
-from code_parser.config import (
-    ENHANCED_PROPERTIES, DEFAULT_ENHANCED_VALUES, 
-    MIGRATION_PRIORITIES, NEO4J_CONSTRAINTS, NEO4J_INDEXES
-)
+
+# 相対インポートの修正
+try:
+    from .enhanced_data_models import (
+        EnhancedNodeType, EnhancedRelationType,
+        EnhancedSyntaxNode, EnhancedSyntaxRelation
+    )
+    from .treesitter_neo4j_advanced import NodeType, RelationType
+    from .config import (
+        ENHANCED_PROPERTIES, DEFAULT_ENHANCED_VALUES, 
+        MIGRATION_PRIORITIES, NEO4J_CONSTRAINTS, NEO4J_INDEXES
+    )
+except ImportError:
+    # フォールバック：直接インポート
+    from enhanced_data_models import (
+        EnhancedNodeType, EnhancedRelationType,
+        EnhancedSyntaxNode, EnhancedSyntaxRelation
+    )
+    from treesitter_neo4j_advanced import NodeType, RelationType
+    from config import (
+        ENHANCED_PROPERTIES, DEFAULT_ENHANCED_VALUES, 
+        MIGRATION_PRIORITIES, NEO4J_CONSTRAINTS, NEO4J_INDEXES
+    )
 
 logger = logging.getLogger(__name__)
 
