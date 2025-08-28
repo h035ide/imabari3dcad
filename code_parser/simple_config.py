@@ -15,7 +15,7 @@ NEO4J_CONFIG = {
     "uri": os.getenv("NEO4J_URI", "neo4j://localhost:7687"),
     "user": os.getenv("NEO4J_USERNAME") or os.getenv("NEO4J_USER", "neo4j"),
     "password": os.getenv("NEO4J_PASSWORD", "password"),
-    "database": os.getenv("NEO4J_DATABASE", "treesitter")
+    "database": os.getenv("NEO4J_DATABASE", "codeparsar")
 }
 
 # ベクトル検索設定

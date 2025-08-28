@@ -6,7 +6,5 @@ db_integration
 doc
 doc_paser
 evoship
-htmlcov
 imabari3dcad
-langflow_env
-mycode
+vector_store

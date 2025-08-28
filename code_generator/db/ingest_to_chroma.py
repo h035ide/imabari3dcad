@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 NEO4J_URI = os.getenv("NEO4J_URI")
 NEO4J_USER = os.getenv("NEO4J_USER")
 NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
-NEO4J_DATABASE = os.getenv("NEO4J_DATABASE", "neo4j")
+NEO4J_DATABASE = os.getenv("NEO4J_DATABASE", "codeparsar")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 CHROMA_PERSIST_DIRECTORY = os.path.join(project_root, "chroma_db_store")
@@ -47,13 +47,13 @@ def fetch_data_from_neo4j(label: str = "ApiFunction", db_name: str = None, allow
     """
     Neo4jからベクトル化するデータを取得します。
     label: 取得対象のラベル（例: ApiFunction, Function）
-    db_name: データベース名（未指定なら環境変数のNEO4J_DATABASEまたはneo4j）
+    db_name: データベース名（未指定なら環境変数のNEO4J_DATABASEまたはcodeparsar）
     allow_missing_description: description欠如時も取得するか
     """
     logger.info(f"Neo4jデータベース ({NEO4J_URI}) に接続しています...")
     try:
         with GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD)) as driver:
-            database = db_name or os.getenv("NEO4J_DATABASE", "neo4j")
+            database = db_name or os.getenv("NEO4J_DATABASE", "codeparsar")
             with driver.session(database=database) as session:
                 if allow_missing_description:
                     query = f"""
@@ -142,7 +142,7 @@ def ingest_data_to_chroma(records, collection_name: str = CHROMA_COLLECTION_NAME
 def parse_args():
     p = argparse.ArgumentParser(description="Neo4j -> Chroma インジェスト")
     p.add_argument("--label", default=os.getenv("INGEST_LABEL", "ApiFunction"), help="取得対象のラベル")
-    p.add_argument("--database", default=os.getenv("NEO4J_DATABASE", "neo4j"), help="Neo4jデータベース名")
+    p.add_argument("--database", default=os.getenv("NEO4J_DATABASE", "codeparsar"), help="Neo4jデータベース名")
     p.add_argument("--collection", default=os.getenv("CHROMA_COLLECTION_NAME", CHROMA_COLLECTION_NAME), help="Chromaコレクション名")
     p.add_argument("--persist-dir", default=CHROMA_PERSIST_DIRECTORY, help="Chroma永続化ディレクトリ")
     p.add_argument("--require-description", action="store_true", help="descriptionのあるノードのみ対象とする")

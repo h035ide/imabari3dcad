@@ -48,7 +48,7 @@ except Exception:
     Chroma = None
     OpenAIEmbeddings = None
 
-DB_NAME = os.getenv('NEO4J_DATABASE', 'neo4j')
+DB_NAME = os.getenv('NEO4J_DATABASE', 'codeparsar')
 
 
 def get_neo4j_driver():
