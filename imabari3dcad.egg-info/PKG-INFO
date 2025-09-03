@@ -37,6 +37,7 @@ Requires-Dist: langchain-chroma>=0.2.5
 Requires-Dist: llama-index-vector-stores-chroma>=0.4.2
 Requires-Dist: pytest-cov>=6.2.1
 Requires-Dist: coverage>=7.10.5
+Requires-Dist: pywin32>=311
 Provides-Extra: dev
 Requires-Dist: pytest; extra == "dev"
 Requires-Dist: black; extra == "dev"
