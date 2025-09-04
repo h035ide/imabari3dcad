@@ -72,7 +72,7 @@ class GraphSearchTool(BaseTool):
         else:
             # Neo4jドライバを初期化
             self._neo4j_driver = GraphDatabase.driver(uri, auth=(user, password))
-            self._db_name = os.getenv("NEO4J_DATABASE", "neo4j")
+            self._db_name = os.getenv("NEO4J_DATABASE", "codeparsar")
 
             # ChromaDBクライアントと埋め込み関数を初期化
             embedding_function = OpenAIEmbeddings(api_key=api_key)

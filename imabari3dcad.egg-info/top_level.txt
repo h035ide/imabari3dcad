@@ -6,5 +6,9 @@ db_integration
 doc
 doc_paser
 evoship
+htmlcov
+langflow_env
+mycode
+vector_store
 langflow_env
 mycode
