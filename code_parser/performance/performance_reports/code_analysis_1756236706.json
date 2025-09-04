@@ -1,0 +1,17 @@
+{
+  "code_snippet": {
+    "timestamp": 1756236706.4960659,
+    "results": {
+      "provided_code": "PerformanceMetrics(time_complexity='O(n^2)', space_complexity='O(n) (再帰スタック)', bottlenecks=[], optimizations=['enumerate()を使用してより読みやすく効率的に'], memory_usage_estimate='最小限 (O(1))', performance_score=0.6499999999999999)"
+    },
+    "summary": {
+      "total_analyzed": 1,
+      "average_score": 0.6499999999999999,
+      "common_complexities": [
+        "O(n^2)"
+      ],
+      "total_bottlenecks": 0,
+      "needs_optimization": 1
+    }
+  }
+}
