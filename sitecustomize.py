@@ -2,7 +2,7 @@
 Automatically extend sys.path so that `code_parser` is importable as a top-level package
 without relying on environment variables or test runner cwd.
 
-This makes `from simple_utils import ...` and similar imports work from tests.
+This makes `from code_parser import ...` and similar imports work from tests.
 """
 import os
 import sys
