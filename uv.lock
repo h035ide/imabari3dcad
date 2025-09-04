@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.10"
 resolution-markers = [
     "python_full_version >= '3.13'",
@@ -1320,6 +1320,7 @@ dependencies = [
     { name = "pandas" },
     { name = "pydantic" },
     { name = "pytest-cov" },
+    { name = "pytest" },
     { name = "python-dotenv" },
     { name = "pyvis" },
     { name = "pywin32" },
@@ -1365,6 +1366,7 @@ requires-dist = [
     { name = "openai", specifier = ">=1.97.1" },
     { name = "pandas", specifier = ">=2.2.3" },
     { name = "pydantic", specifier = ">=2.11.7" },
+    { name = "pytest", specifier = ">=8.4.1" },
     { name = "pytest", marker = "extra == 'dev'" },
     { name = "pytest-cov", specifier = ">=6.2.1" },
     { name = "python-dotenv", specifier = ">=1.1.1" },

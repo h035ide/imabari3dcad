@@ -31,6 +31,7 @@ llama-index-vector-stores-chroma>=0.4.2
 pytest-cov>=6.2.1
 coverage>=7.10.5
 pywin32>=311
+pytest>=8.4.1
 
 [dev]
 pytest
