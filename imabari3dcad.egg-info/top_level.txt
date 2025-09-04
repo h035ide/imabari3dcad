@@ -10,5 +10,3 @@ htmlcov
 langflow_env
 mycode
 vector_store
-langflow_env
-mycode
