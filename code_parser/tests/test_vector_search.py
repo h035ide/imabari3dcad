@@ -11,10 +11,10 @@ import shutil
 from pathlib import Path
 from typing import List, Dict, Any
 
-from vector_search import VectorSearchEngine, CodeInfo, create_sample_data
-from code_extractor import CodeExtractor
-from rag_search_engine import RAGSearchEngine
-from performance_optimizer import PerformanceOptimizer
+from code_parser.storage.vector_search import VectorSearchEngine, CodeInfo, create_sample_data
+from code_parser.extractor.code_extractor import CodeExtractor
+from code_parser.rag.rag_search_engine import RAGSearchEngine
+from code_parser.optimizer.performance_optimizer import PerformanceOptimizer
 
 
 class VectorSearchTester:
