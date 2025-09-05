@@ -1,0 +1,51 @@
+{
+  "exclude": [
+    "**/__pycache__",
+    "**/chroma_db_store",
+    "**/vector_store",
+    "**/langflow_env",
+    "**/evoship/EVOSHIP_HELP_FILES",
+    "**/htmlcov",
+    "**/node_modules",
+    "**/.git",
+    "**/venv",
+    "**/env",
+    "**/.venv",
+    "**/site-packages",
+    "**/dist",
+    "**/build",
+    "**/*.egg-info",
+    "**/tests/__pycache__",
+    "**/code_parser/__pycache__",
+    "**/code_generator/__pycache__",
+    "**/doc_paser/__pycache__",
+    "**/db_integration/__pycache__",
+    "**/suyama/__pycache__",
+    "**/tests/__pycache__"
+  ],
+  "ignore": [
+    "**/chroma_db_store/**",
+    "**/vector_store/**",
+    "**/langflow_env/**",
+    "**/evoship/EVOSHIP_HELP_FILES/**",
+    "**/htmlcov/**",
+    "**/.uv/**"
+  ],
+  "typeCheckingMode": "standard",
+  "useLibraryCodeForTypes": true,
+  "autoImportCompletions": true,
+  "pythonVersion": "3.10",
+  "pythonPlatform": "Windows",
+  "reportMissingImports": "warning",
+  "reportUnusedImport": "information",
+  "reportUnusedVariable": "warning",
+  "reportGeneralTypeIssues": "warning",
+  "include": [
+    "code_generator/**",
+    "code_parser/**",
+    "doc_paser/**",
+    "db_integration/**",
+    "tests/**",
+    "*.py"
+  ]
+}
