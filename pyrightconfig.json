@@ -4,7 +4,7 @@
     "**/chroma_db_store",
     "**/vector_store",
     "**/langflow_env",
-    "**/evoship/EVOSHIP_HELP_FILES",
+    "**/evoship",
     "**/htmlcov",
     "**/node_modules",
     "**/.git",
@@ -21,15 +21,28 @@
     "**/doc_paser/__pycache__",
     "**/db_integration/__pycache__",
     "**/suyama/__pycache__",
-    "**/tests/__pycache__"
+    "**/tests/__pycache__",
+    "**/.uv",
+    "**/mycode",
+    "**/suyama",
+    "**/*.stl",
+    "**/*.dxf",
+    "**/*.evomdl",
+    "**/*.PNG",
+    "**/*.png",
+    "**/*.html",
+    "**/*.css",
+    "**/*.js"
   ],
   "ignore": [
     "**/chroma_db_store/**",
     "**/vector_store/**",
     "**/langflow_env/**",
-    "**/evoship/EVOSHIP_HELP_FILES/**",
+    "**/evoship/**",
     "**/htmlcov/**",
-    "**/.uv/**"
+    "**/.uv/**",
+    "**/mycode/**",
+    "**/suyama/**"
   ],
   "typeCheckingMode": "standard",
   "useLibraryCodeForTypes": true,
@@ -47,5 +60,20 @@
     "db_integration/**",
     "tests/**",
     "*.py"
-  ]
+  ],
+  "executionEnvironments": [
+    {
+      "root": ".",
+      "pythonVersion": "3.10",
+      "pythonPlatform": "Windows",
+      "extraPaths": [
+        "code_generator",
+        "code_parser",
+        "doc_paser",
+        "db_integration"
+      ]
+    }
+  ],
+  "indexing": false,
+  "logLevel": "information"
 }
