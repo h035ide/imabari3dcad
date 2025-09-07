@@ -6,7 +6,6 @@ import re
 from typing import List, Dict, Any, Optional, Tuple
 import shutil
 
-import config
 from langchain_core.documents import Document
 from langchain_neo4j import Neo4jGraph
 from neo4j.exceptions import ServiceUnavailable
@@ -14,31 +13,9 @@ from langchain_community.graphs.graph_document import GraphDocument, Node, Relat
 from langchain_community.vectorstores import Chroma
 from langchain_openai import OpenAIEmbeddings
 
-DATA_DIR = Path("data/src")
-NEO4J_URI = config.NEO4J_URI
-NEO4J_USER = config.NEO4J_USER
-NEO4J_PASSWORD = config.NEO4J_PASSWORD
-NEO4J_DATABASE = getattr(config, "NEO4J_DATABASE", "neo4j")
-
-API_TXT_CANDIDATES = [
-    Path("/mnt/data/api.txt"),
-    Path("api.txt"),
-    DATA_DIR / "api.txt",
-]
-
-API_ARG_TXT_CANDIDATES = [
-    Path("/mnt/data/api_arg.txt"),
-    Path("api_arg.txt"),
-    DATA_DIR / "api_arg.txt",
-]
-
 # tree-sitterのPython用パーサーをセットアップ
 PY_LANGUAGE = Language(tspython.language())
 parser = Parser(PY_LANGUAGE)
-
-
-CHROMA_PERSIST_DIR = DATA_DIR / "chroma_db"
-OPENAI_API_KEY = config.OPENAI_API_KEY
 
 # Entity抽出用のキーワードを定義
 # グラフをリッチ化するために、APIドキュメントから抽出するCAD関連の専門用語を定義
@@ -61,9 +38,14 @@ ENTITY_KEYWORDS = [
 ]
 
 
-def _read_api_text() -> str:
+def _read_api_text(data_dir: Path) -> str:
     """api.txt を候補パスから読み込む"""
-    for p in API_TXT_CANDIDATES:
+    api_txt_candidates = [
+        Path("/mnt/data/api.txt"),
+        Path("api.txt"),
+        data_dir / "api.txt",
+    ]
+    for p in api_txt_candidates:
         if p.exists():
             return p.read_text(encoding="utf-8")
     raise FileNotFoundError(
@@ -71,26 +53,31 @@ def _read_api_text() -> str:
     )
 
 
-def _read_api_arg_text() -> str:
+def _read_api_arg_text(data_dir: Path) -> str:
     """api_arg.txt を候補パスから読み込む"""
-    for p in API_ARG_TXT_CANDIDATES:
+    api_arg_txt_candidates = [
+        Path("/mnt/data/api_arg.txt"),
+        Path("api_arg.txt"),
+        data_dir / "api_arg.txt",
+    ]
+    for p in api_arg_txt_candidates:
         if p.exists():
             return p.read_text(encoding="utf-8")
     raise FileNotFoundError("api_arg.txt が見つかりませんでした。")
 
 
-def _read_script_files() -> List[Tuple[str, str]]:
+def _read_script_files(data_dir: Path) -> List[Tuple[str, str]]:
     """data ディレクトリ内の .py ファイルをすべて読み込む"""
     script_files = []
-    if not DATA_DIR.exists():
+    if not data_dir.exists():
         print(
-            f"⚠ {DATA_DIR} ディレクトリが存在しません。"
+            f"⚠ {data_dir} ディレクトリが存在しません。"
             "スクリプト例の解析をスキップします。"
         )
         return []
 
     # data ディレクトリ内の .py ファイルを探索
-    for p in DATA_DIR.glob("*.py"):
+    for p in data_dir.glob("*.py"):
         if p.is_file():
             try:
                 # (ファイル名, ファイルの内容) のタプルを追加
@@ -629,22 +616,22 @@ def _triples_to_graph_documents(
     return [gdoc]
 
 
-def _rebuild_graph_in_neo4j(graph_docs: List[GraphDocument]) -> Tuple[int, int]:
+def _rebuild_graph_in_neo4j(graph_docs: List[GraphDocument], config: Any) -> Tuple[int, int]:
     """
     Neo4j をリセットしてから GraphDocument を投入する
     """
-    # 環境変数の確認
-    if not all([NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD]):
+    # 設定の確認
+    if not all([config.neo4j_uri, config.neo4j_user, config.neo4j_password]):
         raise ValueError(
-            "Neo4j接続情報が設定されていません。環境変数を確認してください。"
+            "Neo4j接続情報が設定されていません。設定を確認してください。"
         )
 
     try:
         graph = Neo4jGraph(
-            url=NEO4J_URI,
-            username=NEO4J_USER,
-            password=NEO4J_PASSWORD,
-            database=NEO4J_DATABASE,
+            url=config.neo4j_uri,
+            username=config.neo4j_user,
+            password=config.neo4j_password,
+            database=config.neo4j_database,
         )
 
         print("🧹 Neo4jの既存データを削除中...")
@@ -664,7 +651,9 @@ def _rebuild_graph_in_neo4j(graph_docs: List[GraphDocument]) -> Tuple[int, int]:
 
 
 def _build_and_load_chroma(
-    api_entries: List[Dict[str, Any]], script_files: List[Tuple[str, str]]
+    api_entries: List[Dict[str, Any]], 
+    script_files: List[Tuple[str, str]],
+    config: Any
 ) -> None:
     """
     API仕様とスクリプト例からベクトルDB (Chroma) を構築・永続化する
@@ -672,15 +661,16 @@ def _build_and_load_chroma(
     print("\n🚀 ChromaDBのベクトルデータを生成・保存中...")
 
     # OpenAI APIキーの確認
-    if not OPENAI_API_KEY:
+    if not config.openai_api_key:
         print(
             "⚠ OpenAI APIキーが設定されていません。" "ChromaDBの作成をスキップします。"
         )
         return
 
-    if CHROMA_PERSIST_DIR.exists():
-        shutil.rmtree(CHROMA_PERSIST_DIR)
-    CHROMA_PERSIST_DIR.mkdir(exist_ok=True)
+    chroma_persist_dir = Path(config.chroma_persist_directory)
+    if chroma_persist_dir.exists():
+        shutil.rmtree(chroma_persist_dir)
+    chroma_persist_dir.mkdir(exist_ok=True)
 
     docs_for_vectorstore: List[Document] = []
 
@@ -718,28 +708,30 @@ def _build_and_load_chroma(
         docs_for_vectorstore.append(Document(page_content=content, metadata=metadata))
 
     try:
-        embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
+        embeddings = OpenAIEmbeddings(**config.langchain_embedding_config)
         Chroma.from_documents(
             documents=docs_for_vectorstore,
             embedding=embeddings,
-            persist_directory=str(CHROMA_PERSIST_DIR),
+            persist_directory=str(chroma_persist_dir),
         )
         print(
             f"✔ Chroma DB created and persisted with "
-            f"{len(docs_for_vectorstore)} documents at: {CHROMA_PERSIST_DIR}"
+            f"{len(docs_for_vectorstore)} documents at: {chroma_persist_dir}"
         )
     except Exception as e:
         print(f"⚠ Chroma DBの作成に失敗しました: {e}")
 
 
-def _build_and_load_neo4j() -> None:
+def _build_and_load_neo4j(config: Any) -> None:
     """グラフデータベース(Neo4j)の構築とデータロードを行う"""
     try:
+        data_dir = Path("data/src")
+        
         # --- 1. API仕様書 (api.txt, api_arg.txt) の解析 ---
         print("📄 API仕様書を解析中...")
-        api_text = _read_api_text()
+        api_text = _read_api_text(data_dir)
         api_text = _normalize_text(api_text)
-        api_arg_text = _read_api_arg_text()
+        api_arg_text = _read_api_arg_text(data_dir)
         type_descriptions = _parse_data_type_descriptions(api_arg_text)
 
         # API仕様書からトリプルとノードプロパティを抽出
@@ -750,7 +742,7 @@ def _build_and_load_neo4j() -> None:
 
         # --- 2. スクリプト例 (data/*.py) の解析 ---
         print("\n🐍 スクリプト例 (data/*.py) を解析中...")
-        script_files = _read_script_files()
+        script_files = _read_script_files(data_dir)
 
         if not script_files:
             print(
@@ -782,7 +774,7 @@ def _build_and_load_neo4j() -> None:
 
         gdocs = _triples_to_graph_documents(all_triples, all_node_props)
 
-        node_count, rel_count = _rebuild_graph_in_neo4j(gdocs)
+        node_count, rel_count = _rebuild_graph_in_neo4j(gdocs, config)
         print(
             f"✔ グラフデータベースの再構築が完了しました: "
             f"ノード={node_count}, リレーションシップ={rel_count}"
@@ -796,34 +788,60 @@ def _build_and_load_neo4j() -> None:
         print(f"   エラー詳細: {str(e)}")
 
 
-def main() -> None:
-    """メイン処理"""
+def build_databases(config: Any) -> bool:
+    """データベース構築のメイン処理（Configベース）"""
     print("🚀 データベース構築プロセスを開始します...")
 
     try:
+        data_dir = Path("data/src")
+        
         # グラフデータベース (Neo4j) を構築
-        _build_and_load_neo4j()
+        _build_and_load_neo4j(config)
 
         # ベクトルデータベース (Chroma) を構築
         print("\n--- ChromaDB構築プロセス ---")
-        api_text = _read_api_text()
+        api_text = _read_api_text(data_dir)
         api_text = _normalize_text(api_text)
         api_entries = _parse_api_specs(api_text)
         print(f"✔ {len(api_entries)}件のAPI仕様を解析しました。")
 
-        script_files = _read_script_files()
+        script_files = _read_script_files(data_dir)
         if script_files:
             print(f"✔ {len(script_files)}件のスクリプト例を読み込みました。")
         else:
             print("⚠ スクリプト例ファイルが見つかりませんでした。")
 
-        _build_and_load_chroma(api_entries, script_files)
+        _build_and_load_chroma(api_entries, script_files, config)
 
         print("\n✅ データベース構築プロセスが完了しました！")
+        return True
 
     except Exception as e:
         print(f"\n❌ エラーが発生しました: {e}")
-        print("   環境変数の設定やファイルの存在を確認してください。")
+        print("   設定やファイルの存在を確認してください。")
+        return False
+
+
+def main() -> None:
+    """従来の互換性のためのメイン処理（非推奨）"""
+    # 従来のconfig.pyベースの実行（互換性のため残す）
+    import config
+    
+    class LegacyConfig:
+        def __init__(self):
+            self.neo4j_uri = config.NEO4J_URI
+            self.neo4j_user = config.NEO4J_USER
+            self.neo4j_password = config.NEO4J_PASSWORD
+            self.neo4j_database = getattr(config, "NEO4J_DATABASE", "neo4j")
+            self.openai_api_key = config.OPENAI_API_KEY
+            self.chroma_persist_directory = "data/src/chroma_db"
+            self.langchain_embedding_config = {
+                "model": "text-embedding-3-small",
+                "api_key": self.openai_api_key
+            }
+    
+    legacy_config = LegacyConfig()
+    build_databases(legacy_config)
 
 
 if __name__ == "__main__":

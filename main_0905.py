@@ -18,11 +18,28 @@ load_dotenv()
 
 
 def run_nollm_doc(config: Config):
-    """No LLM ドキュメント処理を実行"""
+    """No LLM ドキュメント処理を実行（ingest0903.pyを使用）"""
     try:
         print("No LLM ドキュメント処理を実行中...")
-        # ここに実際の処理を実装
-        return True
+        
+        # graphrag-gptのingest0903.pyを使用してデータベース構築
+        import sys
+        from pathlib import Path
+        graphrag_path = Path(__file__).parent / "graphrag-gpt"
+        if str(graphrag_path) not in sys.path:
+            sys.path.insert(0, str(graphrag_path))
+        
+        from ingest0903 import build_databases
+        
+        success = build_databases(config)
+        
+        if success:
+            print("✅ No LLM ドキュメント処理が完了しました")
+        else:
+            print("❌ No LLM ドキュメント処理でエラーが発生しました")
+            
+        return success
+        
     except Exception as e:
         print(f"エラー: {e}")
         return False
