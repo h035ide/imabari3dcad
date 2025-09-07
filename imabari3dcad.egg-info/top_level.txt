@@ -6,8 +6,8 @@ db_integration
 doc
 doc_parser
 evoship
+graphrag-gpt
 htmlcov
 langflow_env
 mycode
-suyama
 vector_store

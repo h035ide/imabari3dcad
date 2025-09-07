@@ -40,6 +40,8 @@ Requires-Dist: coverage>=7.10.5
 Requires-Dist: pywin32>=311
 Requires-Dist: pytest>=8.4.1
 Requires-Dist: langgraph>=0.6.6
+Requires-Dist: langchain-neo4j>=0.5.0
+Requires-Dist: black>=25.1.0
 Provides-Extra: dev
 Requires-Dist: pytest; extra == "dev"
 Requires-Dist: black; extra == "dev"
