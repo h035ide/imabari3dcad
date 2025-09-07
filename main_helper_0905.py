@@ -270,7 +270,10 @@ def ingest_data_to_chroma(
         if api_key is None:
             logger.error("OpenAI APIキーが設定されていません。")
             return
-        embedding_function = OpenAIEmbeddings(api_key=api_key)  # type: ignore
+        # LangChain側の埋め込みも config のモデルに統一
+        embedding_function = OpenAIEmbeddings(
+            **config.langchain_embedding_config
+        )  # type: ignore
 
         # ChromaDBのクライアントを初期化（または既存のものを読み込み）
         vector_store = Chroma(
@@ -311,7 +314,12 @@ def ingest_data_to_chroma(
         )
 
 
-def build_vector_engine(persist_dir: str, collection: str, config: Config):
+def build_vector_engine(
+    persist_dir: str,
+    collection: str,
+    config: Config,
+    similarity_top_k: int = 15,
+):
     """
     既存のChromaDB永続化データからLlamaIndexのVectorQueryEngineを構築します。
     """
@@ -348,7 +356,7 @@ def build_vector_engine(persist_dir: str, collection: str, config: Config):
     )
 
     logger.info("VectorQueryEngineの構築が完了しました。")
-    return v_index.as_query_engine()
+    return v_index.as_query_engine(similarity_top_k=similarity_top_k)
 
 
 def build_graph_engine(config: Config):

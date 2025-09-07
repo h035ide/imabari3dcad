@@ -3,6 +3,10 @@ import argparse
 from pathlib import Path
 from dotenv import load_dotenv
 from main_helper_0905 import Config
+from neo4j import GraphDatabase
+import re
+import textwrap
+from typing import Optional
 
 # プロジェクトルートをパスに追加
 project_root = Path(__file__).parent
@@ -149,6 +153,27 @@ def run_llamaindex_vectorization(config: Config):
         return False
 
 
+def run_clear_database(
+    config: Config,
+    database: Optional[str] = None,
+    force: bool = False,
+):
+    """Neo4jデータベースをクリアするユーティリティの実行"""
+    try:
+        from doc_parser.clear_database import clear_database as _clear
+
+        target_db = database or config.neo4j_database or "docparser"
+        print(
+            f"データベースクリアを実行します: db={target_db}, "
+            f"force={force}"
+        )
+        _clear(database=target_db, force=force)
+        return True
+    except Exception as e:
+        print(f"クリアエラー: {e}")
+        return False
+
+
 def run_qa_system(config: Config):
     """LlamaIndexを使用した効率的なQAシステム"""
     try:
@@ -164,12 +189,12 @@ def run_qa_system(config: Config):
         Settings.llm = OpenAI(**config.llamaindex_llm_config)
 
         # ユーザーに質問を入力してもらう
-        print("\n🔍 LlamaIndex統合QAシステム")
+        print("\nLlamaIndex統合QAシステム")
         print("=" * 50)
-        print("📋 ハイブリッド検索システム:")
-        print("  • ベクトル検索: ChromaDB（意味的類似性）")
-        print("  • グラフ検索: Neo4j（構造的関係性）")
-        print("  • 統合回答: 両方の結果を組み合わせた包括的回答")
+        print("ハイブリッド検索システム:")
+        print("  - ベクトル検索: ChromaDB（意味的類似性）")
+        print("  - グラフ検索: Neo4j（構造的関係性）")
+        print("  - 統合回答: 両方の結果を組み合わせた包括的回答")
         print("=" * 50)
         question = input("質問を入力してください: ").strip()
 
@@ -186,7 +211,8 @@ def run_qa_system(config: Config):
             vector_engine = build_vector_engine(
                 persist_dir=config.chroma_persist_directory,
                 collection=config.chroma_collection_name,
-                config=config
+                config=config,
+                similarity_top_k=15
             )
         except Exception as e:
             print(f"❌ ベクトル検索エンジンの構築に失敗: {e}")
@@ -203,48 +229,113 @@ def run_qa_system(config: Config):
 
         # 3. ハイブリッド検索実行
         print("  → ベクトル検索を実行中...")
-        vector_response = vector_engine.query(question)
+        # 質問から関数名らしきキーワードを抽出し、ベクトル検索のクエリを短く最適化
+        vec_kw = question
+        m_vec = re.search(
+            r"`([^`]+)`|\"([^\"]+)\"|"
+            r"([A-Za-z_][A-Za-z0-9_]*)",
+            question,
+        )
+        if m_vec:
+            vec_kw = next((g for g in m_vec.groups() if g), question)
+        vector_response = vector_engine.query(vec_kw)
 
         if graph_engine:
             print("  → グラフ検索を実行中...")
             graph_response = graph_engine.query(question)
 
+            # フォールバック: グラフ応答が空の場合はNeo4jを直接検索
+            if not graph_response or str(graph_response).strip() in (
+                "",
+                "Empty Response",
+            ):
+                try:
+                    print("  → グラフ結果が空のためNeo4jを直接照会...")
+                    with GraphDatabase.driver(
+                        config.neo4j_uri,
+                        auth=(config.neo4j_user, config.neo4j_password),
+                    ) as driver:
+                        with driver.session(
+                            database=config.neo4j_database
+                        ) as session:
+                            cypher = (
+                                "MATCH (f:Function) "
+                                "WHERE toLower(f.name) CONTAINS toLower($kw) "
+                                "RETURN f.name AS name, "
+                                "f.description AS description "
+                                "LIMIT 5"
+                            )
+                            # 質問文から関数名らしきキーワードを抽出
+                            kw = question
+                            m = re.search(
+                                r"`([^`]+)`|\"([^\"]+)\"|"
+                                r"([A-Za-z_][A-Za-z0-9_]*)",
+                                question,
+                            )
+                            if m:
+                                kw = next(
+                                    (g for g in m.groups() if g),
+                                    question,
+                                )
+                            rows = list(session.run(cypher, kw=kw))
+                            if rows:
+                                parts = []
+                                for r in rows:
+                                    nm = r.get("name")
+                                    desc = r.get("description") or ""
+                                    parts.append(f"{nm}:\n{desc}")
+                                graph_response = "\n\n".join(parts)
+                            else:
+                                graph_response = ""
+                except Exception:
+                    # フォールバック失敗時はそのまま続行
+                    pass
+
             # ハイブリッド回答の統合
             print("  → ハイブリッド回答を生成中...")
-            combined_question = f"""
-            以下の2つの検索結果を統合して、ユーザーの質問に包括的に回答してください。
+            combined_question = textwrap.dedent(
+                f"""
+                以下の2つの検索結果を統合して、ユーザーの質問に包括的に回答してください。
 
-            【ベクトル検索結果】
-            {vector_response}
+                【ベクトル検索結果】
+                {vector_response}
 
-            【グラフ検索結果】
-            {graph_response}
+                【グラフ検索結果】
+                {graph_response}
 
-            【ユーザーの質問】
-            {question}
+                【ユーザーの質問】
+                {question}
 
-            回答のガイドライン:
-            - 両方の検索結果の情報を統合
-            - 具体的なAPI関数名とその使用方法を明記
-            - パラメータの詳細と戻り値について説明
-            - 実用的なコード例があれば提供
-            - 不明な点は正直に「不明」と回答
-            """
+                回答のガイドライン:
+                - 両方の検索結果の情報を統合
+                - 具体的なAPI関数名とその使用方法を明記
+                - パラメータの詳細と戻り値について説明
+                - 実用的なコード例があれば提供
+                - 不明な点は正直に「不明」と回答
+                - 日本語で回答
+                """
+            ).strip()
             final_response = vector_engine.query(combined_question)
         else:
+            graph_response = None
             final_response = vector_response
 
         # 4. 結果を表示
         print("\n" + "=" * 50)
-        print("🤖 回答:")
+        print("回答:")
         print("=" * 50)
-        print(final_response)
+        print(f"ベクトル検索結果: {vector_response}")
+        if graph_response is not None:
+            print(f"グラフ検索結果: {graph_response}")
+            print(f"ハイブリッド検索結果: {final_response}")
+        else:
+            print(f"最終結果: {final_response}")
         print("=" * 50)
 
         return True
 
     except Exception as e:
-        print(f"❌ QAシステムエラー: {e}")
+        print(f"QAシステムエラー: {e}")
         return False
 
 
@@ -266,7 +357,23 @@ def main():
         """
     )
     parser.add_argument("--function", "-f", help="実行する機能")
+    parser.add_argument("--question", "-q", help="QA用の質問（非対話）")
     parser.add_argument("--list", "-l", action="store_true", help="機能一覧表示")
+    # クリア機能向け追加引数
+    parser.add_argument(
+        "--db",
+        dest="db",
+        help=(
+            "クリア対象のデータベース名（未指定時は設定のNEO4J_DATABASE）"
+        ),
+    )
+    parser.add_argument(
+        "-y",
+        "--yes",
+        dest="yes",
+        action="store_true",
+        help="確認なしで実行（危険操作のため明示指定が必要）",
+    )
     args = parser.parse_args()
     # if args.list:
     #     print("利用可能な機能:")
@@ -295,9 +402,27 @@ def main():
             and run_llamaindex_vectorization(config)
         )
     elif args.function == "qa":
-        success = run_qa_system(config)
+        if args.question:
+            # 非対話モード
+            def _input(prompt: str = ""):
+                return args.question or ""
+            import builtins
+            _orig_input = builtins.input
+            try:
+                builtins.input = _input  # type: ignore
+                success = run_qa_system(config)
+            finally:
+                builtins.input = _orig_input  # type: ignore
+        else:
+            success = run_qa_system(config)
     elif args.function == "llamaindex_vectorize":
         success = run_llamaindex_vectorization(config)
+    elif args.function == "clear_db":
+        success = run_clear_database(
+            config,
+            database=args.db,
+            force=args.yes,
+        )
     elif args.function == "config":
         config.print_llm_config()
         success = True

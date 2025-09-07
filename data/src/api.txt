@@ -1,823 +1,823 @@
 v1.1.1 2025/07/28
 
-���֐��̎d�l�i�����̌^�A������api_arg���Q�Ɓj
+■関数の仕様（引数の型、書式はapi_argを参照）
 
-��Application�I�u�W�F�N�g�̃��\�b�h
-�ZEvoShip���I������
-�@�Ԃ�l:�Ȃ�
+■Applicationオブジェクトのメソッド
+〇EvoShipを終了する
+　返り値:なし
   Quit()
 
-�ZEvoShip�̃��C���E�B���h�E��\������
-�@�Ԃ�l:�Ȃ�
+〇EvoShipのメインウィンドウを表示する
+　返り値:なし
   ShowMainWindow(
-�@�@�@bShow )�@// bool: �\�����鎞��True
+　　　bShow )　// bool: 表示する時はTrue
 
-�ZPart�I�u�W�F�N�g��ǂݍ���
-�@�Ԃ�l:Part�I�u�W�F�N�g
+〇Partオブジェクトを読み込む
+　返り値:Partオブジェクト
   LoadPart(
-�@�@�@FileName, // ������F�ۑ�����Ă���h�L�������g�̃t�@�C���p�X��
-�@�@�@bForceEvaluation�@)�@// bool: �����I�ɑS�v�f���Čv�Z���ĊJ���Ƃ���True�@(�ʏ��False�j
+　　　FileName, // 文字列：保存されているドキュメントのファイルパス名
+　　　bForceEvaluation　)　// bool: 強制的に全要素を再計算して開くときはTrue　(通常はFalse）
 
-�ZDocument���J��
-�@�Ԃ�l:Document�I�u�W�F�N�g
+〇Documentを開く
+　返り値:Documentオブジェクト
   OpenDocument(
-�@�@�@FileName, // ������F�ۑ�����Ă���h�L�������g�̃t�@�C���p�X��
-�@�@�@bForceEvaluation�@)�@// bool: �����I�ɑS�v�f���Čv�Z���ĊJ���Ƃ���True�@(�ʏ��False�j
+　　　FileName, // 文字列：保存されているドキュメントのファイルパス名
+　　　bForceEvaluation　)　// bool: 強制的に全要素を再計算して開くときはTrue　(通常はFalse）
 
-�Z3D��Document��V�K�ɍ쐬����
-�@�Ԃ�l:Document�I�u�W�F�N�g
-�@Create3DDocument()
+〇3DのDocumentを新規に作成する
+　返り値:Documentオブジェクト
+　Create3DDocument()
 
-�Z�A�N�e�B�u��Document�I�u�W�F�N�g���擾����
-�@�Ԃ�l:Document�I�u�W�F�N�g
-�@GetActiveDocument()
+〇アクティブなDocumentオブジェクトを取得する
+　返り値:Documentオブジェクト
+　GetActiveDocument()
 
-�Z�J����Ă���Document�I�u�W�F�N�g��S�Ď擾����
-�@�Ԃ�l:Document�I�u�W�F�N�g�̔z��
-�@GetDocuments()
+〇開かれているDocumentオブジェクトを全て取得する
+　返り値:Documentオブジェクトの配列
+　GetDocuments()
 
-��Document�I�u�W�F�N�g�̃��\�b�h
-�Z�h�L�������g�����
-�@�Ԃ�l:�Ȃ�
+■Documentオブジェクトのメソッド
+〇ドキュメントを閉じる
+　返り値:なし
   Close() 
 
-�Z�h�L�������g���t�@�C���ɕۑ�����
-�@�Ԃ�l:�Ȃ�
-�@Save(
-    FileName, // ������F�ۑ�����t�@�C���p�X��
-�@�@bAsCompactFormat ) // bool: �ŏ��T�C�Y�ɂȂ�`���ŕۑ����鎞��True�i�J���̂Ɍv�Z��K�v�Ƃ��܂��j
+〇ドキュメントをファイルに保存する
+　返り値:なし
+　Save(
+    FileName, // 文字列：保存するファイルパス名
+　　bAsCompactFormat ) // bool: 最小サイズになる形式で保存する時はTrue（開くのに計算を必要とします）
 
-�ZPart�I�u�W�F�N�g�̎擾
-�@�Ԃ�l:Part�I�u�W�F�N�g
-�@GetPart()
+〇Partオブジェクトの取得
+　返り値:Partオブジェクト
+　GetPart()
 
-�Z�h�L�������g���A�N�e�B�u�i�J�����g�j���ǂ���
-�@�Ԃ�l:bool �h�L�������g��Active�Ȏ���True
-�@IsActive()
+〇ドキュメントがアクティブ（カレント）かどうか
+　返り値:bool ドキュメントがActiveな時はTrue
+　IsActive()
 
-�Z�h�L�������g���A�N�e�B�x�C�g�i�J�����g�Ɂj����
-�@�Ԃ�l:�Ȃ�
-�@Activate()
+〇ドキュメントをアクティベイト（カレントに）する
+　返り値:なし
+　Activate()
 
-�Z�h�L�������g�̃r���[��v�f�Ƀt�B�b�g����
-�@�Ԃ�l:�Ȃ�
-�@FitAllViews()
+〇ドキュメントのビューを要素にフィットする
+　返り値:なし
+　FitAllViews()
 
-�Z�h�L�������g�̃r���[���擾����
-�@�Ԃ�l:View�I�u�W�F�N�g�̔z��
-�@GetViews()
+〇ドキュメントのビューを取得する
+　返り値:Viewオブジェクトの配列
+　GetViews()
 
-�Z�h�L�������g��STL�Ƃ��ĕۑ�����ۂ̃p�����[�^�I�u�W�F�N�g�̍쐬
-�@�Ԃ�l:STL�p�����[�^�I�u�W�F�N�g
-�@CreateSTLOption()
+〇ドキュメントをSTLとして保存する際のパラメータオブジェクトの作成
+　返り値:STLパラメータオブジェクト
+　CreateSTLOption()
 
-�ZSTL�p�����[�^�I�u�W�F�N�g
-  ����
-�@ChordalTolerance�@// ���������_:���b�V���ߎ�����ۂ̌��̕��̋��e�g�������X���w�� (mm)
-�@NormalTolerance�@// ���������_:���b�V���ߎ������ꍇ�̃|���S���̖ʂƋǖʂƂ̖@�������̂���p�x�̋��e�l�iDegree)
-�@SigDigits�@// ����:���_���W�l�̗L������
-�@MinMeshLength�@// ���������_:���b�V���̕ӂ̍ŏ��T�C�Y���w�肷��ꍇ�͎w��(mm)�i�w�肵�Ȃ��ꍇ�͂O�j
-�@MaxMeshLength�@// ���������_:���b�V���̕ӂ̍ő�T�C�Y���w�肷��ꍇ�͎w��(mm)�i�w�肵�Ȃ��ꍇ�͂O�j
-  Elements�@ // �v�f(�z��)�FSTL�o�͂���v�f���w��i�w�肵�Ȃ��ꍇ�͕\������Ă���S�Ă̗v�f���o�͂��܂��j
+〇STLパラメータオブジェクト
+  属性
+　ChordalTolerance　// 浮動小数点:メッシュ近似する際の弦の幅の許容トレランスを指定 (mm)
+　NormalTolerance　// 浮動小数点:メッシュ近似した場合のポリゴンの面と局面との法線方向のずれ角度の許容値（Degree)
+　SigDigits　// 整数:頂点座標値の有効桁数
+　MinMeshLength　// 浮動小数点:メッシュの辺の最小サイズを指定する場合は指定(mm)（指定しない場合は０）
+　MaxMeshLength　// 浮動小数点:メッシュの辺の最大サイズを指定する場合は指定(mm)（指定しない場合は０）
+  Elements　 // 要素(配列)：STL出力する要素を指定（指定しない場合は表示されている全ての要素を出力します）
 
-�Z�h�L�������g��STL�Ƃ��ĕۑ�����
-�@�Ԃ�l:�Ȃ�
+〇ドキュメントをSTLとして保存する
+　返り値:なし
   ExporAsSTL(
-   FileName, // ������F�ۑ�����STL�t�@�C���p�X��
-   pOpt) //STL�p�����[�^�I�u�W�F�N�g
+   FileName, // 文字列：保存するSTLファイルパス名
+   pOpt) //STLパラメータオブジェクト
 
-��View�I�u�W�F�N�g�̃��\�b�h
-�Z�r���[�̕\��������ݒ肷��
-�@�Ԃ�l:�Ȃ�
+■Viewオブジェクトのメソッド
+〇ビューの表示方向を設定する
+　返り値:なし
   SetDirection(
-�@�@outDir,�@// �����F ��ʂ���O���Ɍ�������
-    upDir,�@// �����F�@��ʂ̏����
-�@�@bFitToModel )�@// bool�F�\�������ɂ��킹�ĕ\���͈͂�v�f�Ƀt�B�b�g�����鎞��True
+　　outDir,　// 方向： 画面から外側に向く方向
+    upDir,　// 方向：　画面の上方向
+　　bFitToModel )　// bool：表示方向にあわせて表示範囲を要素にフィットさせる時はTrue
 
-�Z�r���[�̕\�����e���r�b�g�}�b�v�t�@�C���Ƃ��ďo�͂���
-�@�Ԃ�l:�Ȃ�
-�@ExportToBitmap(
-�@�@FileName, // ������F�r�b�g�}�b�v�t�@�C���̃t�@�C����
-�@�@nBitapWidth ) // ����:�r�b�g�}�b�v�t�@�C���̉������̃s�N�Z���T�C�Y�i�c�����̓r���[�̏c���䂩��擾�j
+〇ビューの表示内容をビットマップファイルとして出力する
+　返り値:なし
+　ExportToBitmap(
+　　FileName, // 文字列：ビットマップファイルのファイル名
+　　nBitapWidth ) // 整数:ビットマップファイルの横方向のピクセルサイズ（縦方向はビューの縦横比から取得）
 
-��Part�I�u�W�F�N�g�̃��\�b�h
+■Partオブジェクトのメソッド
 
-�Z�ϐ��v�f�̍쐬
-�@�Ԃ�l:�쐬���ꂽ�ϐ��v�f�̗v�fID
-�@CreateVariable
-        VariableName, // ������F�쐬����ϐ����́i�󕶎��s�j
-        VariableValue,// ���������_: �ϐ��̒l
-        VariableUnit  // �ϐ��P�ʁF�쐬����ϐ��̒P�ʂ��w��
-        VariableElementGroup );// �v�f�O���[�v�F�쐬����ϐ��v�f��v�f�O���[�v�ɓ����ꍇ�͗v�f�O���[�v���w��i�󕶎��j
+〇変数要素の作成
+　返り値:作成された変数要素の要素ID
+　CreateVariable
+        VariableName, // 文字列：作成する変数名称（空文字不可）
+        VariableValue,// 浮動小数点: 変数の値
+        VariableUnit  // 変数単位：作成する変数の単位を指定
+        VariableElementGroup );// 要素グループ：作成する変数要素を要素グループに入れる場合は要素グループを指定（空文字可）
 
-�Z�X�P�b�`���ʂ̍쐬
-  �Ԃ�l:�쐬���ꂽ�X�P�b�`���ʗv�f�̗v�fID
+〇スケッチ平面の作成
+  返り値:作成されたスケッチ平面要素の要素ID
   CreateSketchPlane(
-        ElementName,  // ������F�쐬����X�P�b�`���ʖ��́i�󕶎��j
-        ElementGroup, // �v�f�O���[�v�F�쐬����X�P�b�`���ʂ�v�f�O���[�v�ɓ����ꍇ�͗v�f�O���[�v���w��i�󕶎��j
-        PlaneDef, �@�@// ���ʁF�X�P�b�`���ʂ��쐬���镽�ʂ��w�肷��
-        PlaneOffset,  // �����F���ʂ���̃I�t�Z�b�g�������w��
-        bRevPlane,    // bool:�X�P�b�`���ʂ𔽓]���邩�ǂ����̃t���O(bool)
-        bRevUV,       // bool:�X�P�b�`���ʂ�X,Y�����������邩�ǂ����̃t���O(bool)
-        bRevUDir,     // bool:�X�P�b�`���ʂ�X���ƂȂ�����𔽓]���邩�ǂ����̃t���O(bool)
-        StyleName,    // ���L�X�^�C��:�@�X�P�b�`���ʂɓK�p���钍�L�X�^�C�����́i�󕶎��j
-        OriginPoint,  // �_�F�X�P�b�`���ʂ̌��_���w��i�󕶎��j
-        AxisDirection,// �����F�X�P�b�`���ʂ̎��������w��i�󕶎��j
-        bDefAxisIsX,  // bool�F�X�P�b�`���ʂ�X�����w�肷��ꍇ��True(bool)
-        bUpdate );    // bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        ElementName,  // 文字列：作成するスケッチ平面名称（空文字可）
+        ElementGroup, // 要素グループ：作成するスケッチ平面を要素グループに入れる場合は要素グループを指定（空文字可）
+        PlaneDef, 　　// 平面：スケッチ平面を作成する平面を指定する
+        PlaneOffset,  // 長さ：平面からのオフセット距離を指定
+        bRevPlane,    // bool:スケッチ平面を反転するかどうかのフラグ(bool)
+        bRevUV,       // bool:スケッチ平面のX,Y軸を交換するかどうかのフラグ(bool)
+        bRevUDir,     // bool:スケッチ平面のX軸となる方向を反転するかどうかのフラグ(bool)
+        StyleName,    // 注記スタイル:　スケッチ平面に適用する注記スタイル名称（空文字可）
+        OriginPoint,  // 点：スケッチ平面の原点を指定（空文字可）
+        AxisDirection,// 方向：スケッチ平面の軸方向を指定（空文字可）
+        bDefAxisIsX,  // bool：スケッチ平面のX実を指定する場合はTrue(bool)
+        bUpdate );    // bool：更新フラグ（未実装、使用しない）
 
 
-�Z�X�P�b�`���C���[�̍쐬
-  �Ԃ�l:�쐬���ꂽ�X�P�b�`���C���[�v�f�̗v�fID
+〇スケッチレイヤーの作成
+  返り値:作成されたスケッチレイヤー要素の要素ID
   CreateSketchLayer(
-        SketchLayerName,  // ������F�쐬����X�P�b�`���C���[���́i�󕶎��j
-        SketchPlane );�@�@// �v�f�F���C���[���쐬����X�P�b�`�v�f
+        SketchLayerName,  // 文字列：作成するスケッチレイヤー名称（空文字可）
+        SketchPlane );　　// 要素：レイヤーを作成するスケッチ要素
 
-�Z�X�P�b�`�����쐬
-  �Ԃ�l:�쐬���ꂽ�X�P�b�`�����v�f�̗v�fID
+〇スケッチ直線作成
+  返り値:作成されたスケッチ直線要素の要素ID
   CreateSketchLine(
-        SketchPlane,   // �v�f�F�������쐬����X�P�b�`�v�f
-        SketchLineName,// ������F�쐬����X�P�b�`�������́i�󕶎��j
-        SketchLayer,   // �v�f�F�������쐬����X�P�b�`���C���[(�󕶎��j
-        StartPoint,    // �_(2D)�F�n�_
-        EndPoint,      // �_(2D)�F�I�_
-        bUpdate );     // bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        SketchPlane,   // 要素：直線を作成するスケッチ要素
+        SketchLineName,// 文字列：作成するスケッチ直線名称（空文字可）
+        SketchLayer,   // 要素：直線を作成するスケッチレイヤー(空文字可）
+        StartPoint,    // 点(2D)：始点
+        EndPoint,      // 点(2D)：終点
+        bUpdate );     // bool：更新フラグ（未実装、使用しない）
 
-�Z�X�P�b�`�~�ʂ𒆐S�_�Ǝn�I�_���w�肵�č쐬
-  �Ԃ�l:�쐬���ꂽ�X�P�b�`�~�ʗv�f�̗v�fID
+〇スケッチ円弧を中心点と始終点を指定して作成
+  返り値:作成されたスケッチ円弧要素の要素ID
   CreateSketchArc(
-        SketchPlane,   // �v�f�F�~�ʂ��쐬����X�P�b�`�v�f
-        SketchArcName, // ������F�쐬����X�P�b�`�~�ʖ��́i�󕶎��j
-        SketchLayer,   // �v�f�F�~�ʂ��쐬����X�P�b�`���C���[(�󕶎��j
-        CenterPoint,   // �_(2D)�F���S�_
-        StartPoint,    // �_(2D)�F�n�_
-        EndPoint,      // �_(2D)�F�I�_
-        bCCW,          // bool�F �~�ʂ̉�]����True�̏ꍇ�͔����v����
-        bUpdate );     // bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        SketchPlane,   // 要素：円弧を作成するスケッチ要素
+        SketchArcName, // 文字列：作成するスケッチ円弧名称（空文字可）
+        SketchLayer,   // 要素：円弧を作成するスケッチレイヤー(空文字可）
+        CenterPoint,   // 点(2D)：中心点
+        StartPoint,    // 点(2D)：始点
+        EndPoint,      // 点(2D)：終点
+        bCCW,          // bool： 円弧の回転方向Trueの場合は反時計周り
+        bUpdate );     // bool：更新フラグ（未実装、使用しない）
 
-�Z�X�P�b�`�~�ʂ�����̂R�_���w�肵�č쐬
-  �Ԃ�l:�쐬���ꂽ�X�P�b�`�~�ʗv�f�̗v�fID
+〇スケッチ円弧を周上の３点を指定して作成
+  返り値:作成されたスケッチ円弧要素の要素ID
   CreateSketchArc3Pts(
-        SketchPlane,   // �v�f�F�~�ʂ��쐬����X�P�b�`�v�f
-        SketchArcName, // ������F�쐬����X�P�b�`�~�ʖ��́i�󕶎��j
-        SketchLayer,   // �v�f�F�~�ʂ��쐬����X�P�b�`���C���[(�󕶎��j
-        StartPoint,    // �_(2D)�F�n�_
-        MidPoint,      // �_(2D)�F�ʉߓ_
-        EndPoint,      // �_(2D)�F�I�_
-        bUpdate );     // bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        SketchPlane,   // 要素：円弧を作成するスケッチ要素
+        SketchArcName, // 文字列：作成するスケッチ円弧名称（空文字可）
+        SketchLayer,   // 要素：円弧を作成するスケッチレイヤー(空文字可）
+        StartPoint,    // 点(2D)：始点
+        MidPoint,      // 点(2D)：通過点
+        EndPoint,      // 点(2D)：終点
+        bUpdate );     // bool：更新フラグ（未実装、使用しない）
  
-�Z�X�P�b�`�~�𒆐S�_���w�肵�č쐬
-  �Ԃ�l:�쐬���ꂽ�X�P�b�`�~�v�f�̗v�fID
+〇スケッチ円を中心点を指定して作成
+  返り値:作成されたスケッチ円要素の要素ID
   CreateSketchCircle(
-        SketchPlane,   // �v�f�F�~���쐬����X�P�b�`�v�f
-        SketchArcName, // ������F�쐬����X�P�b�`�~���́i�󕶎��j
-        SketchLayer,   // �v�f�F�~���쐬����X�P�b�`���C���[(�󕶎��j
-        Centeroint,    // �_(2D)�F���S�_
-        RadiusOrDiameter, // �����F���a�܂��͒��a
-        bDiameter,     // bool�F���a���w�肷��ꍇ��True
-        bCCW,          // bool�F�~�̉�]����True�̏ꍇ�͔����v����
-        bUpdate );     // bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        SketchPlane,   // 要素：円を作成するスケッチ要素
+        SketchArcName, // 文字列：作成するスケッチ円名称（空文字可）
+        SketchLayer,   // 要素：円を作成するスケッチレイヤー(空文字可）
+        Centeroint,    // 点(2D)：中心点
+        RadiusOrDiameter, // 長さ：半径または直径
+        bDiameter,     // bool：直径を指定する場合はTrue
+        bCCW,          // bool：円の回転方向Trueの場合は反時計周り
+        bUpdate );     // bool：更新フラグ（未実装、使用しない）
 
-�Z�X�P�b�`�ȉ~�𒆐S�_���w�肵�č쐬
-  �Ԃ�l:�쐬���ꂽ�X�P�b�`�ȉ~�v�f�̗v�fID
+〇スケッチ楕円を中心点を指定して作成
+  返り値:作成されたスケッチ楕円要素の要素ID
   CreateSketchEllipse(
-        SketchPlane,   // �v�f�F�ȉ~���쐬����X�P�b�`�v�f
-        SketchArcName, // ������F�쐬����X�P�b�`�ȉ~���́i�󕶎��j
-        SketchLayer,   // �v�f�F�ȉ~���쐬����X�P�b�`���C���[(�󕶎��j
-        Centeroint,    // �_(2D)�F���S�_
-        bCCW,          // bool�F�ȉ~�̉�]����True�̏ꍇ�͔����v����
-        MajorDir,�@�@�@// ����(2D)�F�厲�������w��
-        MajorRadius,   // �����F�厲���a
-        MinorRadius,   // �����F�������a
-        Range,         // �͈�: (0-2pi)
-        bUpdate );     // bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        SketchPlane,   // 要素：楕円を作成するスケッチ要素
+        SketchArcName, // 文字列：作成するスケッチ楕円名称（空文字可）
+        SketchLayer,   // 要素：楕円を作成するスケッチレイヤー(空文字可）
+        Centeroint,    // 点(2D)：中心点
+        bCCW,          // bool：楕円の回転方向Trueの場合は反時計周り
+        MajorDir,　　　// 方向(2D)：主軸方向を指定
+        MajorRadius,   // 長さ：主軸半径
+        MinorRadius,   // 長さ：副軸半径
+        Range,         // 範囲: (0-2pi)
+        bUpdate );     // bool：更新フラグ（未実装、使用しない）
 
-�Z�X�P�b�`�m�t�q�a�r���𒆐S�_���w�肵�č쐬
-  �Ԃ�l:�쐬���ꂽ�X�P�b�`�m�t�q�a�r���v�f�̗v�fID
+〇スケッチＮＵＲＢＳ線を中心点を指定して作成
+  返り値:作成されたスケッチＮＵＲＢＳ線要素の要素ID
   CreateSketchNURBSCurve(
-        SketchPlane,   // �v�f�F�m�t�q�a�r�����쐬����X�P�b�`�v�f
-        SketchArcName, // ������F�쐬����X�P�b�`�m�t�q�a�r�����́i�󕶎��j
-        SketchLayer,   // �v�f�F�m�t�q�a�r�����쐬����X�P�b�`���C���[(�󕶎��j
-        nDegree,       // �����F�m�t�q�a�r���̎���
-        bClose,        // bool�F�����m�t�q�a�r���̏ꍇTrue
-        bPeriodic,     // bool�F�����m�t�q�a�r���̏ꍇTrue
-        CtrlPoints,    // �_(�z��): ����_
-        Weights,       // ���������_(�z��): �d��
-        Knots,         // ���������_(�z��): �m�b�g�x�N�g��
-        Range,         // �͈�: �g�����͈�
-        bUpdate );     // bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        SketchPlane,   // 要素：ＮＵＲＢＳ線を作成するスケッチ要素
+        SketchArcName, // 文字列：作成するスケッチＮＵＲＢＳ線名称（空文字可）
+        SketchLayer,   // 要素：ＮＵＲＢＳ線を作成するスケッチレイヤー(空文字可）
+        nDegree,       // 整数：ＮＵＲＢＳ線の次数
+        bClose,        // bool：閉じたＮＵＲＢＳ線の場合True
+        bPeriodic,     // bool：周期ＮＵＲＢＳ線の場合True
+        CtrlPoints,    // 点(配列): 制御点
+        Weights,       // 浮動小数点(配列): 重み
+        Knots,         // 浮動小数点(配列): ノットベクトル
+        Range,         // 範囲: トリム範囲
+        bUpdate );     // bool：更新フラグ（未実装、使用しない）
 
 
-�Z�t�@�C�����C���|�[�g���ėv�f���쐬
-  �Ԃ�l:�쐬���ꂽ�v�f�̗v�fID�̔z��
+〇ファイルをインポートして要素を作成
+  返り値:作成された要素の要素IDの配列
   CreateElementsFromFile(
-        FileName,      // ������:�t�@�C���p�X�i����AParasolid�`���̂݁j
+        FileName,      // 文字列:ファイルパス（現状、Parasolid形式のみ）
        );
 
-�Z�I�t�Z�b�g�V�[�g���쐬
-  �Ԃ�l:�쐬���ꂽ�I�t�Z�b�g�V�[�g�v�f�̗v�fID
+〇オフセットシートを作成
+  返り値:作成されたオフセットシート要素の要素ID
   CreateOffsetSheet(
-        SheetName,    // ������F�쐬����V�[�g�v�f���́i�󕶎��j
-        ElementGroup, // �v�f�O���[�v�F�쐬����V�[�g�v�f��v�f�O���[�v�ɓ����ꍇ�͗v�f�O���[�v���w��i�󕶎��j
-        MaterialName, // �ޗ��F�쐬����V�[�g�v�f�̍ގ����́i�󕶎��j
-        SrcSurfaces,  // �v�f(�z��):�I�t�Z�b�g���錳�V�[�g�v�f�A�t�F�C�X�v�f�̎w�蕶����z��
-        OffsetLength, // �����F�I�t�Z�b�g����
-        bOffsetBackwards, // bool�F �I�t�Z�b�g�����𔽓]
-        bUpdate,�@//bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        SheetName,    // 文字列：作成するシート要素名称（空文字可）
+        ElementGroup, // 要素グループ：作成するシート要素を要素グループに入れる場合は要素グループを指定（空文字可）
+        MaterialName, // 材料：作成するシート要素の材質名称（空文字可）
+        SrcSurfaces,  // 要素(配列):オフセットする元シート要素、フェイス要素の指定文字列配列
+        OffsetLength, // 長さ：オフセット距離
+        bOffsetBackwards, // bool： オフセット方向を反転
+        bUpdate,　//bool：更新フラグ（未実装、使用しない）
     ); 
 
-�Z�����o���p�����[�^�I�u�W�F�N�g�̍쐬
-�@�Ԃ�l:�����o���p�����[�^�I�u�W�F�N�g
-�@CreateLinearSweepParam()�@
+〇押し出しパラメータオブジェクトの作成
+　返り値:押し出しパラメータオブジェクト
+　CreateLinearSweepParam()　
 
-�Z�����o���p�����[�^�I�u�W�F�N�g
-   ����
-   NAME   // ������F�v�f���i�󕶎��j
-   ElementGroup // �v�f�O���[�v�F�쐬����V�[�g�v�f��v�f�O���[�v�ɓ����ꍇ�͗v�f�O���[�v���w��i�󕶎��j
-   MaterialName // �ޗ��F�쐬����V�[�h�v�f�̍ގ����́i�󕶎��j
-   Target1  // �v�f(�z��)�F�X�C�[�v����^�[�Q�b�g�v�f�P�@�i�_�A���A�V�[�g�A�\���b�h�A���邢�̓\���b�h�t�F�C�X�j
-   Target2  // �v�f(�z��)�F�X�C�[�v�������Q�����̏ꍇ�Ɏg�p�B�X�C�[�v����^�[�Q�b�g�v�f�Q
-   Profile // �v�f(�z��)�F�����o���̃v���t�@�C���v�f�i�X�P�b�`�A���A�V�[�g�j
-   ProfileNormal // �����F�v���t�@�C���̕��ʖ@�������B�i�v���t�@�C�����RD�̒����̏ꍇ�ɂ��̕��ʖ@���Ƃ��Ďw��B�j 
-   ProfileOffset // �����F�v���t�@�C���ʒu�̃I�t�Z�b�g����
-   DirectionType  // �X�C�[�v�����F 
-   DirectionParameter1 // �����F �X�C�[�v���鋗���P�iSweepTarget1���w�肵�Ă���ꍇ�͎g�p���Ȃ��j
-   DirectionParameter2 // �����F �X�C�[�v�������Q�����̏ꍇ�Ɏg�p�B�X�C�[�v���鋗���Q�iSweepTarget�Q���w�肵�Ă���ꍇ�͎g�p���Ȃ��j
-   SweepDirection // �����F�X�C�[�v���������ݒ肷��ꍇ�Ɏg�p�B�w�肵�Ȃ��ꍇ�̓v���t�@�C���̖@������
-   DraftAngle   // �p�x: �����o�������̌��z�p�x
-   DraftAngle2Type�@// ���z�Q�̃^�C�v: �Q�����ɉ����o���ۂ̌��z�̎����w��
-   DraftAngle2�@// �p�x: �Q�����ڂ̉����o�������̌��z�p�x
-   ThickenType�@// ���ݕt���^�C�v: 
-   Thickeness1  // �����F ��
-   Thickeness2  // �����F ���Q�i���ݕt���^�C�v���Q�����̂Ƃ��Ɏg�p�j
-   ThickenessOffset // �����F ���݂Â��̃I�t�Z�b�g����
-   bRefByGeometricMethod // bool�FTrue�̎��͊􉽈ʒu�ɂ��ƂÂ��Ċ֘A��ݒ肷��
-   bIntervalSwep // bool�F��ԓ��������X�C�[�v����
-   ReferMethod // �֘A�ݒ�: �v�f�̊֘A�Â����@�̎w��
+〇押し出しパラメータオブジェクト
+   属性
+   NAME   // 文字列：要素名（空文字可）
+   ElementGroup // 要素グループ：作成するシート要素を要素グループに入れる場合は要素グループを指定（空文字可）
+   MaterialName // 材料：作成するシード要素の材質名称（空文字可）
+   Target1  // 要素(配列)：スイープするターゲット要素１　（点、線、シート、ソリッド、あるいはソリッドフェイス）
+   Target2  // 要素(配列)：スイープ方向が２方向の場合に使用。スイープするターゲット要素２
+   Profile // 要素(配列)：押し出しのプロファイル要素（スケッチ、線、シート）
+   ProfileNormal // 方向：プロファイルの平面法線方向。（プロファイルが３Dの直線の場合にその平面法線として指定。） 
+   ProfileOffset // 長さ：プロファイル位置のオフセット距離
+   DirectionType  // スイープ方向： 
+   DirectionParameter1 // 長さ： スイープする距離１（SweepTarget1を指定している場合は使用しない）
+   DirectionParameter2 // 長さ： スイープ方向が２方向の場合に使用。スイープする距離２（SweepTarget２を指定している場合は使用しない）
+   SweepDirection // 方向：スイープする方向を設定する場合に使用。指定しない場合はプロファイルの法線方向
+   DraftAngle   // 角度: 押し出し方向の勾配角度
+   DraftAngle2Type　// 勾配２のタイプ: ２方向に押し出す際の勾配の取り方指定
+   DraftAngle2　// 角度: ２方向目の押し出し方向の勾配角度
+   ThickenType　// 厚み付けタイプ: 
+   Thickeness1  // 長さ： 板厚
+   Thickeness2  // 長さ： 板厚２（厚み付けタイプが２方向のときに使用）
+   ThickenessOffset // 長さ： 厚みづけのオフセット距離
+   bRefByGeometricMethod // bool：Trueの時は幾何位置にもとづいて関連を設定する
+   bIntervalSwep // bool：区間内だけをスイープする
+   ReferMethod // 関連設定: 要素の関連づけ方法の指定
 
-�Z�w�肵���\���b�h�v�f�ɉ����o���`���t������
-  �Ԃ�l:�쐬���ꂽ�����o���t�B�[�`���[��ID
+〇指定したソリッド要素に押し出し形状を付加する
+  返り値:作成された押し出しフィーチャーのID
   CreateLinearSweep(
-        TargetSolidName,         // �v�f�F�����o���t�B�[�`���[���쐬����Ώۂ̃\���b�h���w��
-        OperationType,   // �I�y���[�V�����^�C�v: �\���b�h�I�y���[�V�����̃^�C�v���w�肷��
-        pParam, // �����o���p�����[�^�I�u�W�F�N�g
-        bUpdate �@);�@// bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        TargetSolidName,         // 要素：押し出しフィーチャーを作成する対象のソリッドを指定
+        OperationType,   // オペレーションタイプ: ソリッドオペレーションのタイプを指定する
+        pParam, // 押し出しパラメータオブジェクト
+        bUpdate 　);　// bool：更新フラグ（未実装、使用しない）
 
-�Z�v���t�@�C���v�f�������o���ăV�[�g�v�f���쐬
-  �Ԃ�l:�쐬���ꂽ�V�[�g�v�f�̗v�fID
+〇プロファイル要素を押し出してシート要素を作成
+  返り値:作成されたシート要素の要素ID
   CreateLinearSweepSheet(
-        ParamObj, // �����o���p�����[�^�I�u�W�F�N�g
-        bUpdate);�@// bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        ParamObj, // 押し出しパラメータオブジェクト
+        bUpdate);　// bool：更新フラグ（未実装、使用しない）
 
 
-�Z�V�[�g�v�f�̌����i�\���A�@�������j���w�肵�������ɑ�����
-  �Ԃ�l:�Ȃ�
+〇シート要素の向き（表側、法線方向）を指定した方向に揃える
+  返り値:なし
   SheetAlignNormal(
-        SheetElement,// �v�f�F�����𑵂���V�[�g�v�f
-        dirX,   // ���������_: �����x�N�g����X����
-        dirY,   // ���������_: �����x�N�g����Y����
-        dirZ ); // ���������_: �����x�N�g����Z����
+        SheetElement,// 要素：方向を揃えるシート要素
+        dirX,   // 浮動小数点: 方向ベクトルのX成分
+        dirY,   // 浮動小数点: 方向ベクトルのY成分
+        dirZ ); // 浮動小数点: 方向ベクトルのZ成分
 
-�Z�V�[�g�v�f�̌����𔽓]����
-  �Ԃ�l:�V�[�g���]�t�B�[�`���[�̗v�fID
+〇シート要素の向きを反転する
+  返り値:シート反転フィーチャーの要素ID
   ReverseSheet(
-        SheetElement ); // �v�f�F���]����V�[�g�v�f
+        SheetElement ); // 要素：反転するシート要素
 
-�Z�w��v�f��\����Ԃ�ݒ肷��
-  �Ԃ�l:�Ȃ�
+〇指定要素を表示状態を設定する
+  返り値:なし
   BlankElement(
-        Element,  // �v�f�F�\����Ԃ��w�肷��v�f
-        bBlank ); // bool�F True�̎��͔�\���ɂ���BFalse�̎��͕\������B
+        Element,  // 要素：表示状態を指定する要素
+        bBlank ); // bool： Trueの時は非表示にする。Falseの時は表示する。
 
-�Z�w��v�f���ړ��R�s�[����
-  �Ԃ�l:�R�s�[���ꂽ�v�fID�z��
+〇指定要素を移動コピーする
+  返り値:コピーされた要素ID配列
   TranslationCopy(
-        SrcElements,// �v�f(�z��)�F�R�s�[����v�f
-        nCopy,    // ����: �R�s�[���鐔
-        direction,      // �����F�R�s�[�������
-        distance,       // �����F�ړ�����
-        ReferMethod);  // �֘A�ݒ�: �v�f�̊֘A�Â����@�̎w��
+        SrcElements,// 要素(配列)：コピーする要素
+        nCopy,    // 整数: コピーする数
+        direction,      // 方向：コピーする方向
+        distance,       // 長さ：移動距離
+        ReferMethod);  // 関連設定: 要素の関連づけ方法の指定
 
-�Z�w��v�f���~���[�R�s�[����
-  �Ԃ�l:�R�s�[���ꂽ�v�fID�z��
+〇指定要素をミラーコピーする
+  返り値:コピーされた要素ID配列
   MirrorCopy(
-        SrcElements,// �v�f(�z��)�F�R�s�[����v�f
+        SrcElements,// 要素(配列)：コピーする要素
         [in] BSTR plane,
-        ReferMethod);  // �֘A�ݒ�: �v�f�̊֘A�Â����@�̎w��
+        ReferMethod);  // 関連設定: 要素の関連づけ方法の指定
 
-�Z��̃\���b�h�v�f���쐬����
-  �Ԃ�l:�쐬���ꂽ�\���b�h�̗v�fID
+〇空のソリッド要素を作成する
+  返り値:作成されたソリッドの要素ID
   CreateSolid(
-        SolidName, // ������F�쐬����\���b�h�v�f���́i�󕶎��j
-        ElementGroup, // �v�f�O���[�v�F�쐬����\���b�h�v�f��v�f�O���[�v�ɓ����ꍇ�͗v�f�O���[�v���w��i�󕶎��j
-        MaterialName ) // �ޗ��F�쐬����\���b�h�v�f�̍ގ����́i�󕶎��j
+        SolidName, // 文字列：作成するソリッド要素名称（空文字可）
+        ElementGroup, // 要素グループ：作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）
+        MaterialName ) // 材料：作成するソリッド要素の材質名称（空文字可）
 
 
-�Z�w�肵���\���b�h�v�f�Ɏw��v�f���݂Â������`����쐬����
-  �Ԃ�l:�쐬���ꂽ���݂Â��t�B�[�`���[��ID
+〇指定したソリッド要素に指定要素厚みづけした形状を作成する
+  返り値:作成された厚みづけフィーチャーのID
   CreateThicken(
-        ThickenFeatureName, // ������F�쐬������݂Â��t�B�[�`���[�v�f���́i�󕶎��j
-        TargetSolidName,    // �v�f�F���݂Â��t�B�[�`���[���쐬����Ώۂ̃\���b�h���w��
-        OperationType,      // �I�y���[�V�����^�C�v: �\���b�h�I�y���[�V�����̃^�C�v���w�肷��
-�@�@�@�@Sheet,�@�@�@�@�@�@�@// �v�f(�z��)�F���ݕt��������V�[�g��t�F�C�X
-        ThickenType,�@�@�@�@// ���ݕt���^�C�v: 
-        Thickeness1,        // �����F ��
-        Thickeness2,�@�@�@�@// �����F ���Q�i���ݕt���^�C�v���Q�����̂Ƃ��Ɏg�p�j
-        ThickenessOffset,   // �����F ���݂Â�������V�[�g�A�t�F�C�X�v�f�̃I�t�Z�b�g����
-        ReferMethod,�@�@�@�@// �֘A�ݒ�: �v�f�̊֘A�Â����@�̎w��
-        bUpdate);�@// bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        ThickenFeatureName, // 文字列：作成する厚みづけフィーチャー要素名称（空文字可）
+        TargetSolidName,    // 要素：厚みづけフィーチャーを作成する対象のソリッドを指定
+        OperationType,      // オペレーションタイプ: ソリッドオペレーションのタイプを指定する
+　　　　Sheet,　　　　　　　// 要素(配列)：厚み付けをするシートやフェイス
+        ThickenType,　　　　// 厚み付けタイプ: 
+        Thickeness1,        // 長さ： 板厚
+        Thickeness2,　　　　// 長さ： 板厚２（厚み付けタイプが２方向のときに使用）
+        ThickenessOffset,   // 長さ： 厚みづけをするシート、フェイス要素のオフセット距離
+        ReferMethod,　　　　// 関連設定: 要素の関連づけ方法の指定
+        bUpdate);　// bool：更新フラグ（未実装、使用しない）
 
-�Z�w�肵���\���b�h�v�f�ɕʂ̃\���b�h�v�f�`���t������
-  �Ԃ�l:�쐬���ꂽ�ʃ\���b�h�t�B�[�`���[��ID
+〇指定したソリッド要素に別のソリッド要素形状を付加する
+  返り値:作成された別ソリッドフィーチャーのID
   CreateOtherSolid(
-�@�@�@�@OtherSolidFeatureName, // ������F�쐬����ʃ\���b�h�t�B�[�`���[�v�f���́i�󕶎��j
-        TargetSolidName,  // �v�f�F�ʃ\���b�h�t�B�[�`���[���쐬����Ώۂ̃\���b�h���w��
-        OperationType,  // �I�y���[�V�����^�C�v: �\���b�h�I�y���[�V�����̃^�C�v���w�肷��
-        SourceSolid,    // �v�f�F�ʃ\���b�h�t�B�[�`���[�Ƃ���\���b�h�v�f���w�肷��
-        ReferMethod, // �֘A�ݒ�: �v�f�̊֘A�Â����@�̎w��
-        bUpdate�@);�@// bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+　　　　OtherSolidFeatureName, // 文字列：作成する別ソリッドフィーチャー要素名称（空文字可）
+        TargetSolidName,  // 要素：別ソリッドフィーチャーを作成する対象のソリッドを指定
+        OperationType,  // オペレーションタイプ: ソリッドオペレーションのタイプを指定する
+        SourceSolid,    // 要素：別ソリッドフィーチャーとするソリッド要素を指定する
+        ReferMethod, // 関連設定: 要素の関連づけ方法の指定
+        bUpdate　);　// bool：更新フラグ（未実装、使用しない）
 
 
-�Z�D�k�̃u���P�b�g�v�f�̃p�����[�^�I�u�W�F�N�g�̍쐬
-�@�Ԃ�l:�u���P�b�g�v�f�̃p�����[�^�I�u�W�F�N�g
-�@CreateBracketParam()
-�@�@
-�Z�u���P�b�g�v�f�̃p�����[�^�I�u�W�F�N�g
-   ����
-        DefinitionType //�@����: �u���P�b�g�̍쐬���@�w��@0: �ʎw��@1:��v�f�w��
-        BracketName // ������F�쐬����u���P�b�g�\���b�h�v�f���́i�󕶎��j
-        ElementGroup // �v�f�O���[�v�F�쐬����\���b�h�v�f��v�f�O���[�v�ɓ����ꍇ�͗v�f�O���[�v���w��i�󕶎��j
-        MaterialName // �ޗ��F�쐬����\���b�h�v�f�̍ގ����́i�󕶎��j
-        BasePlane    //�ʎw��̏ꍇ�̊����
-        BasePlaneOffset // �����F����ʂ̃I�t�Z�b�g����
-        BaseElement  // ��v�f�w��̏ꍇ�̊�v�f
-        UseSideSheetForPlane // bool�F �O�ʎw��̏ꍇ��True
-        Thickness // �����F ��
-        Mold     // ���[���h�ʒu: 
-        MoldOffset // �����F ���[���h�ʒu�̃I�t�Z�b�g����
-        BracketType // �`��^�C�v: �u���P�b�g�̌`��^�C�v
-        BracketParams,�@// �`��p�����[�^: �u���P�b�g�̌`��^�C�v�̃p�����[�^
-        Scallop1Type,�@// �`��^�C�v: �u���P�b�g�̃X�J���b�v�̌`��^�C�v
-        Scallop1Params,�@// �`��p�����[�^: �u���P�b�g�̃X�J���b�v�̌`��^�C�v�̃p�����[�^
-        nScallop2Type,�@// �`��^�C�v: �R�ʃu���P�b�g�̏ꍇ�̃X�J���b�v�Q�̌`��^�C�v
-        Scallop2Params,�@// �`��p�����[�^: �u���P�b�g�̃X�J���b�v�Q�̌`��^�C�v�̃p�����[�^
-        Surfaces1, // �v�f(�z��)�F�u���P�b�g�쐬����ʂP�̗v�f�i�\���b�h�A�V�[�g�A�t�F�C�X�j
-        RevSf1, // bool�F �ʂP�̔��Α��Ƀu���P�b�g���쐬����ꍇ��True
-        Surfaces2, // �v�f(�z��)�F�u���P�b�g�쐬�����2�̗v�f�i�\���b�h�A�V�[�g�A�t�F�C�X�j
-        RevSf2, // bool�F ��2�̔��Α��Ƀu���P�b�g���쐬����ꍇ��True
-        Surfaces3, // �v�f(�z��)�F�R�ʃu���P�b�g�쐬����ꍇ�̖ʂR�̗v�f�i�\���b�h�A�V�[�g�A�t�F�C�X�j
-        RevSf3, // bool�F ��3�̔��Α��Ƀu���P�b�g���쐬����ꍇ��True
-        FlangeType, // �`��^�C�v: �u���P�b�g�̃t�����W�̌`��^�C�v�@(0�̏ꍇ�̓t�����W�����Ȃ��j
-        FlangeParams,// �`��p�����[�^: �u���P�b�g�̃t�����W�̌`��^�C�v�̃p�����[�^
-        RevFlange,�@// bool�F �t�����W�̌����𔽓]����ꍇ��True
-        FlangeAngle, // �p�x�F �t�����W�̊p�x�w��@�O���͒��p���Ӗ����A��������̑������{�|�Ŏw��
-        Sf1DimensionType,�@// �`��^�C�v: �ʂP�����̐��@�^�C�v
-        Sf1DimensonParams,�@// �`��p�����[�^: �ʂP�����̐��@�^�C�v�̃p�����[�^
-        Sf1EndElements, // �v�f(�z��)�F�ʂP�����̒[���v�f�i�K�v�Ȍ`��^�C�v�̏ꍇ�j
-        Sf1BaseElements,�@// �v�f(�z��)�F�ʂP�����̊�v�f�i�K�v�Ȍ`��^�C�v�̏ꍇ�j
-        Sf2DimensionType,�@// �`��^�C�v: �ʂQ�����̐��@�^�C�v
-        Sf2DimensonParams,�@// �`��p�����[�^: �ʂQ�����̐��@�^�C�v�̃p�����[�^
-        Sf2EndElements,�@// �v�f(�z��)�F�ʂQ�����̒[���v�f�i�K�v�Ȍ`��^�C�v�̏ꍇ�j
-        Sf2BaseElements,�@// �v�f(�z��)�F�ʂQ�����̊�v�f�i�K�v�Ȍ`��^�C�v�̏ꍇ�j
-        ScallopEnd1LowerType,�@// �`��^�C�v: �ʂP�����̉����[���̃X�J���b�v�̃^�C�v
-        ScallopEnd1LowerParams,�@// �`��p�����[�^: �ʂP�����̉����[���̃X�J���b�v�̃^�C�v�̃p�����[�^
-        ScallopEnd1UpperType,�@// �`��^�C�v: �ʂP�����̏㑤�[���̃X�J���b�v�̃^�C�v
-        ScallopEnd1UpperParams,�@// �`��p�����[�^: �ʂP�����̏㑤�[���̃X�J���b�v�̃^�C�v�̃p�����[�^
-        ScallopEnd2LowerType,�@// �`��^�C�v: �ʂQ�����̉����[���̃X�J���b�v�̃^�C�v
-        ScallopEnd2LowerParams,�@// �`��p�����[�^: �ʂQ�����̉����[���̃X�J���b�v�̃^�C�v�̃p�����[�^
-        ScallopEnd2UpperType,�@// �`��^�C�v: �ʂQ�����̏㑤�[���̃X�J���b�v�̃^�C�v
-        ScallopEnd2UpperParams,// �`��p�����[�^: �ʂQ�����̏㑤�[���̃X�J���b�v�̃^�C�v�̃p�����[�^
-        WCS, // �v�f�F �u���P�b�g���g�p������W�n���w��B�ʏ�͎w�肵�Ȃ�
-        ReferMethod, // �֘A�ݒ�: �v�f�̊֘A�Â����@�̎w��
+〇船殻のブラケット要素のパラメータオブジェクトの作成
+　返り値:ブラケット要素のパラメータオブジェクト
+　CreateBracketParam()
+　　
+〇ブラケット要素のパラメータオブジェクト
+   属性
+        DefinitionType //　整数: ブラケットの作成方法指定　0: 面指定　1:基準要素指定
+        BracketName // 文字列：作成するブラケットソリッド要素名称（空文字可）
+        ElementGroup // 要素グループ：作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）
+        MaterialName // 材料：作成するソリッド要素の材質名称（空文字可）
+        BasePlane    //面指定の場合の基準平面
+        BasePlaneOffset // 長さ：基準平面のオフセット距離
+        BaseElement  // 基準要素指定の場合の基準要素
+        UseSideSheetForPlane // bool： 三面指定の場合はTrue
+        Thickness // 長さ： 板厚
+        Mold     // モールド位置: 
+        MoldOffset // 長さ： モールド位置のオフセット距離
+        BracketType // 形状タイプ: ブラケットの形状タイプ
+        BracketParams,　// 形状パラメータ: ブラケットの形状タイプのパラメータ
+        Scallop1Type,　// 形状タイプ: ブラケットのスカラップの形状タイプ
+        Scallop1Params,　// 形状パラメータ: ブラケットのスカラップの形状タイプのパラメータ
+        nScallop2Type,　// 形状タイプ: ３面ブラケットの場合のスカラップ２の形状タイプ
+        Scallop2Params,　// 形状パラメータ: ブラケットのスカラップ２の形状タイプのパラメータ
+        Surfaces1, // 要素(配列)：ブラケット作成する面１の要素（ソリッド、シート、フェイス）
+        RevSf1, // bool： 面１の反対側にブラケットを作成する場合はTrue
+        Surfaces2, // 要素(配列)：ブラケット作成する面2の要素（ソリッド、シート、フェイス）
+        RevSf2, // bool： 面2の反対側にブラケットを作成する場合はTrue
+        Surfaces3, // 要素(配列)：３面ブラケット作成する場合の面３の要素（ソリッド、シート、フェイス）
+        RevSf3, // bool： 面3の反対側にブラケットを作成する場合はTrue
+        FlangeType, // 形状タイプ: ブラケットのフランジの形状タイプ　(0の場合はフランジをつけない）
+        FlangeParams,// 形状パラメータ: ブラケットのフランジの形状タイプのパラメータ
+        RevFlange,　// bool： フランジの向きを反転する場合はTrue
+        FlangeAngle, // 角度： フランジの角度指定　０°は直角を意味し、そこからの増分を＋－で指定
+        Sf1DimensionType,　// 形状タイプ: 面１方向の寸法タイプ
+        Sf1DimensonParams,　// 形状パラメータ: 面１方向の寸法タイプのパラメータ
+        Sf1EndElements, // 要素(配列)：面１方向の端部要素（必要な形状タイプの場合）
+        Sf1BaseElements,　// 要素(配列)：面１方向の基準要素（必要な形状タイプの場合）
+        Sf2DimensionType,　// 形状タイプ: 面２方向の寸法タイプ
+        Sf2DimensonParams,　// 形状パラメータ: 面２方向の寸法タイプのパラメータ
+        Sf2EndElements,　// 要素(配列)：面２方向の端部要素（必要な形状タイプの場合）
+        Sf2BaseElements,　// 要素(配列)：面２方向の基準要素（必要な形状タイプの場合）
+        ScallopEnd1LowerType,　// 形状タイプ: 面１方向の下側端部のスカラップのタイプ
+        ScallopEnd1LowerParams,　// 形状パラメータ: 面１方向の下側端部のスカラップのタイプのパラメータ
+        ScallopEnd1UpperType,　// 形状タイプ: 面１方向の上側端部のスカラップのタイプ
+        ScallopEnd1UpperParams,　// 形状パラメータ: 面１方向の上側端部のスカラップのタイプのパラメータ
+        ScallopEnd2LowerType,　// 形状タイプ: 面２方向の下側端部のスカラップのタイプ
+        ScallopEnd2LowerParams,　// 形状パラメータ: 面２方向の下側端部のスカラップのタイプのパラメータ
+        ScallopEnd2UpperType,　// 形状タイプ: 面２方向の上側端部のスカラップのタイプ
+        ScallopEnd2UpperParams,// 形状パラメータ: 面２方向の上側端部のスカラップのタイプのパラメータ
+        WCS, // 要素： ブラケットが使用する座標系を指定。通常は指定しない
+        ReferMethod, // 関連設定: 要素の関連づけ方法の指定
         
-�Z�D�k�̃u���P�b�g�\���b�h�v�f���쐬����
-  �Ԃ�l:�쐬�����\���b�h�v�f��ID
+〇船殻のブラケットソリッド要素を作成する
+  返り値:作成したソリッド要素のID
   CreateBracket(
-�@�@    ParamObj, // �u���P�b�g�p�����[�^�I�u�W�F�N�g
-        bUpdate ); // bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+　　    ParamObj, // ブラケットパラメータオブジェクト
+        bUpdate ); // bool：更新フラグ（未実装、使用しない）
         
 
-�Z�D�k�̃v���[�g�\���b�h�v�f���쐬����
-  �Ԃ�l:�쐬�����\���b�h�v�f��ID
+〇船殻のプレートソリッド要素を作成する
+  返り値:作成したソリッド要素のID
   CreatePlate(
-        PlateName,     // ������F�쐬����v���[�g�\���b�h�v�f���́i�󕶎��j
-        ElementGroup,  // �v�f�O���[�v�F�쐬����\���b�h�v�f��v�f�O���[�v�ɓ����ꍇ�͗v�f�O���[�v���w��i�󕶎��j
-        MaterialName, // �ޗ��F�쐬����\���b�h�v�f�̍ގ����́i�󕶎��j
-        Plane,        // ���ʁF �v���[�g�̂镽�ʈʒu
-        PlaneOffset,�@// �����F�@���ʂ̃I�t�Z�b�g�������w��
-        Thickness,�@�@// �����F ��
-        nMold,�@�@�@�@// ���[���h�ʒu: 
-        MoldOffset,  // �����F ���[���h�ʒu�̃I�t�Z�b�g����
-        BoundSolid,�@// �v�f�F�@�v���[�g�\���b�h�̋��E�ƂȂ�\���b�h�v�f�B
-        Section1End1,�@// �����F �v���[�g�\���b�h�̕��ʏ�̕����P�̋��E�ʒu�̍��W�l�P
-        Section1End2,�@// �����F �v���[�g�\���b�h�̕��ʏ�̕����P�̋��E�ʒu�̍��W�l�Q
-        Section2End1,�@// �����F �v���[�g�\���b�h�̕��ʏ�̕����Q�̋��E�ʒu�̍��W�l�P
-        Section2End2,�@// �����F �v���[�g�\���b�h�̕��ʏ�̕����Q�̋��E�ʒu�̍��W�l�Q
-        bUpdate ); // bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        PlateName,     // 文字列：作成するプレートソリッド要素名称（空文字可）
+        ElementGroup,  // 要素グループ：作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）
+        MaterialName, // 材料：作成するソリッド要素の材質名称（空文字可）
+        Plane,        // 平面： プレートのる平面位置
+        PlaneOffset,　// 長さ：　平面のオフセット距離を指定
+        Thickness,　　// 長さ： 板厚
+        nMold,　　　　// モールド位置: 
+        MoldOffset,  // 長さ： モールド位置のオフセット距離
+        BoundSolid,　// 要素：　プレートソリッドの境界となるソリッド要素。
+        Section1End1,　// 長さ： プレートソリッドの平面上の方向１の境界位置の座標値１
+        Section1End2,　// 長さ： プレートソリッドの平面上の方向１の境界位置の座標値２
+        Section2End1,　// 長さ： プレートソリッドの平面上の方向２の境界位置の座標値１
+        Section2End2,　// 長さ： プレートソリッドの平面上の方向２の境界位置の座標値２
+        bUpdate ); // bool：更新フラグ（未実装、使用しない）
 
-�Z�D�k�̏��ރ\���b�h�v�f�̃p�����[�^�I�u�W�F�N�g�̍쐬
-  �Ԃ�l:���ޗv�f�̃p�����[�^�I�u�W�F�N�g
+〇船殻の条材ソリッド要素のパラメータオブジェクトの作成
+  返り値:条材要素のパラメータオブジェクト
   CreateProfileParam()
 
-�Z���ޗv�f�̃p�����[�^�I�u�W�F�N�g
-   ����
-        DefinitionType //�@����: �̍쐬���@�w��@0:��t���w�� �@1:��ʎw��  2:��t���{�w�������  3: ���v�f�w��
-�@�@�@�@�@�@�@�@�@�@�@ // 4:�z�[���w��  5:�Q�_  6:�����W��  7:����w��  8:��_�ƕ���  9:��v�f
-        ProfileName // ������F�쐬������ރ\���b�h�v�f���́i�󕶎��j
-        ElementGroup // �v�f�O���[�v�F�쐬����\���b�h�v�f��v�f�O���[�v�ɓ����ꍇ�͗v�f�O���[�v���w��i�󕶎��j
-        MaterialName // �ޗ��F�쐬����\���b�h�v�f�̍ގ����́i�󕶎��j
-        FlangeName // ������F�r���g�A�b�v���쐬����ꍇ�̃t�����W�\���b�h�v�f���́i�󕶎��j
-        FlangeElementGroup// �v�f�O���[�v�F�t�����W�\���b�h�v�f��v�f�O���[�v�ɓ����ꍇ�͗v�f�O���[�v���w��i�󕶎��j
-        FlangeMaterialName// �ޗ��F�쐬����t�����W�\���b�h�v�f�̍ގ����́i�󕶎��j
-        ProfileType    // �`��^�C�v: ���ނ̌`��^�C�v���w��
-        ProfileParam // �`��p�����[�^: ���ނ̌`��^�C�v�̃p�����[�^
-        FaceAngle // �p�x�F �r���g�A�b�v���쐬����ꍇ�̃t�����W�̊p�x�w��@�O���͒��p���Ӗ����A��������̑������{�|�Ŏw��
-        ConnectionTol // �����F ��t���������̏ꍇ�̘A�����̔���g�������X���w��i�ʏ�͎w�肵�Ȃ��A�󕶎��j
-        Mold      // ���[���h�ʒu: 
-        MoldOffset // �����F ���[���h�ʒu�̃I�t�Z�b�g����
-        ReverseDir // bool�F��t�����𔽓]���鎞True
-        ReverseAngle // bool�F�A���O�������𔽓]���鎞True
-        BaseOnAttachLines // bool�F ��t���̋��E����ɂ��鎞True
-        CalcSnipOnlyAttachLines // bool�F�[���X�j�b�v�ʂ���t���݂̂Ōv�Z���鎞True
-        NotProfjectAttachLines // bool�F��t������t�ʂɓ��e���Ȃ���True
-        ProjectionDir // �����F��t���𓊉e����ꍇ�ɐݒ�B�ʏ�͐ݒ肵�Ȃ��i�󔒕����j
-        AttachDirMethod // ����:�@���ގ�t�����ݒ�@0: �f�t�H���g�@1:����ʓ��@2:��t�p�x�w��
-        AttachAngle // �p�x�F ��t�p�x�w��
-        AttachDirection // �����F���ގ�t���� ���w�肷��ꍇ�ɐݒ肷��
-        DefAnglePositionAxisDir�@// �����F�˂��ꂽ���ނ��쐬����ꍇ�̂��̃l�W���p�x���`���鎲�������w��B
-        DefAngleBaseDir�@// �����F�˂��ꂽ���ނ��쐬����ꍇ�̂��̃l�W���p�x�̊�ƂȂ鎲�������w��B
-        CCWDefAngle,�@// bool�F�@�˂��ꂽ���ނ��쐬����ꍇ�̃l�W���p�x�𔽓��v�܂��Ɏw�肷��ꍇ��True
-        DefPossitionAngles // �ʒu�Ɗp�x�z��: �˂��ꂽ���ނ��쐬����ꍇ�̃l�W���p�x���ʒu�Ɗp�x�Ŏw��
-        DefPositionNormalAngles // �ʒu�Ɗp�x�z��:�˂��ꂽ���ނ��쐬����ꍇ�̃l�W���p�x���ʒu�Ɗp�x����t�ʂ̖@���ʒu����̍����Ŏw��
-        End1Elements  // �v�f(�z��)�F �[���P�A�[���ƂȂ�v�f���w�肷��
-        End1Type       // �`��^�C�v: �[���P�A���ނ̒[���^�C�v���w��
-        End1TypeParams // �`��p�����[�^: �[���P�A���ނ̒[���^�C�v�̃p�����[�^
-        End2Elements   // �v�f(�z��)�F �[���Q�A�[���ƂȂ�v�f���w�肷��
-        End2Type       // �`��^�C�v: �[���Q�A���ނ̒[���^�C�v���w��
-        End2TypeParams // �`��p�����[�^: �[���Q�A���ނ̒[���^�C�v�̃p�����[�^
-        End1ScallopType      // �`��^�C�v: �[���P�A���ނ̒[���X�J���b�v�^�C�v���w��
-        End1ScallopTypeParams// �`��p�����[�^: �[���P�A���ނ̒[���X�J���b�v�^�C�v�̃p�����[�^
-        End2ScallopType      // �`��^�C�v: �[���Q�A���ނ̒[���X�J���b�v�^�C�v���w��
-        End2ScallopTypeParams// �`��p�����[�^: �[���Q�A���ނ̒[���X�J���b�v�^�C�v�̃p�����[�^
-        AttachLines // �v�f(�z��)�F���ނ̎�t�� 
-        AttachSurface�@// �v�f(�z��)�F���ނ����t����ʗv�f�i�t�F�C�X�A�V�[�g�{�f�B�j
-        BasePlane�@// �v�f�F��ʗv�f�i���ʁA�V�[�g�A�t�F�C�X�j���w��
-        BasePlaneOffset // �����F ��ʂ̃I�t�Z�b�g�������w��
-        BaseSolid�@// �v�f�F��v�f�i�\���b�h�j���w��
-        PathCurves // �v�f(�z��)�F��t���i��t���{�w��������ō쐬����ۂɎg�p����)
-        DirLines�@�@// �v�f(�z��)�F������i��t���{�w��������ō쐬����ۂɎg�p����)
-        OrignalProfile // �v�f�F �쐬���̏���(���v�f�w��ō쐬����ۂɎg�p����)
-        HoleFeature  // �v�f�F �z�[���t�B�[�`���[(�z�[���w��ō쐬����ۂɎg�p����)
-        LocationAtHole //����: ���ނ̈ʒu�@0:�� 1:�� 2:�� 3:�E�@(�z�[���w��ō쐬����ۂɎg�p����)
-        BasePoint1 // �_: ��_1 (�Q�_�������͊�_�ƕ����ō쐬����ۂɎg�p����)
-        BasePoint2 // �_: ��_2 (�Q�_�ō쐬����ۂɎg�p����)
-        BaseProfile1 // �v�f�F �����W�P(�����W�Ԃō쐬����ۂɎg�p����)
-        BaseProfile2 // �v�f�F �����W�Q(�����W�Ԃō쐬����ۂɎg�p����)
-        BaseDirection1 // �����F (��_�ƕ����ō쐬����ۂɎg�p����)
-        BaseDirection2 // �����F ��t�����w��@(��_�ƕ����ō쐬����ۂɎg�p����)
-        BaseLocation //����:  ��ʒu 0:���� 1:���� 2:�E�� 3:���� 4:���� 5:�E�� 6:���� 7:���� 8:�E�� (��_�ƕ����ō쐬����ۂɎg�p����)
-        ReferMethod // �֘A�ݒ�: �v�f�̊֘A�Â����@�̎w��
+〇条材要素のパラメータオブジェクト
+   属性
+        DefinitionType //　整数: の作成方法指定　0:取付線指定 　1:基準面指定  2:取付線＋指定方向線  3: 元要素指定
+　　　　　　　　　　　 // 4:ホール指定  5:２点  6:ロンジ間  7:基準線指定  8:基準点と方向  9:基準要素
+        ProfileName // 文字列：作成する条材ソリッド要素名称（空文字可）
+        ElementGroup // 要素グループ：作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）
+        MaterialName // 材料：作成するソリッド要素の材質名称（空文字可）
+        FlangeName // 文字列：ビルトアップを作成する場合のフランジソリッド要素名称（空文字可）
+        FlangeElementGroup// 要素グループ：フランジソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）
+        FlangeMaterialName// 材料：作成するフランジソリッド要素の材質名称（空文字可）
+        ProfileType    // 形状タイプ: 条材の形状タイプを指定
+        ProfileParam // 形状パラメータ: 条材の形状タイプのパラメータ
+        FaceAngle // 角度： ビルトアップを作成する場合のフランジの角度指定　０°は直角を意味し、そこからの増分を＋－で指定
+        ConnectionTol // 長さ： 取付線が複数の場合の連続性の判定トレランスを指定（通常は指定しない、空文字）
+        Mold      // モールド位置: 
+        MoldOffset // 長さ： モールド位置のオフセット距離
+        ReverseDir // bool：取付方向を反転する時True
+        ReverseAngle // bool：アングル方向を反転する時True
+        BaseOnAttachLines // bool： 取付線の境界を基準にする時True
+        CalcSnipOnlyAttachLines // bool：端部スニップ量を取付線のみで計算する時True
+        NotProfjectAttachLines // bool：取付線を取付面に投影しない時True
+        ProjectionDir // 方向：取付線を投影する場合に設定。通常は設定しない（空白文字）
+        AttachDirMethod // 整数:　条材取付方向設定　0: デフォルト　1:基準平面内　2:取付角度指定
+        AttachAngle // 角度： 取付角度指定
+        AttachDirection // 方向：条材取付方向 を指定する場合に設定する
+        DefAnglePositionAxisDir　// 方向：ねじれた条材を作成する場合のそのネジレ角度を定義する軸方向を指定。
+        DefAngleBaseDir　// 方向：ねじれた条材を作成する場合のそのネジレ角度の基準となる軸方向を指定。
+        CCWDefAngle,　// bool：　ねじれた条材を作成する場合のネジレ角度を反統計まわりに指定する場合はTrue
+        DefPossitionAngles // 位置と角度配列: ねじれた条材を作成する場合のネジレ角度を位置と角度で指定
+        DefPositionNormalAngles // 位置と角度配列:ねじれた条材を作成する場合のネジレ角度を位置と角度を取付面の法線位置からの差分で指定
+        End1Elements  // 要素(配列)： 端部１、端部となる要素を指定する
+        End1Type       // 形状タイプ: 端部１、条材の端部タイプを指定
+        End1TypeParams // 形状パラメータ: 端部１、条材の端部タイプのパラメータ
+        End2Elements   // 要素(配列)： 端部２、端部となる要素を指定する
+        End2Type       // 形状タイプ: 端部２、条材の端部タイプを指定
+        End2TypeParams // 形状パラメータ: 端部２、条材の端部タイプのパラメータ
+        End1ScallopType      // 形状タイプ: 端部１、条材の端部スカラップタイプを指定
+        End1ScallopTypeParams// 形状パラメータ: 端部１、条材の端部スカラップタイプのパラメータ
+        End2ScallopType      // 形状タイプ: 端部２、条材の端部スカラップタイプを指定
+        End2ScallopTypeParams// 形状パラメータ: 端部２、条材の端部スカラップタイプのパラメータ
+        AttachLines // 要素(配列)：条材の取付線 
+        AttachSurface　// 要素(配列)：条材を取り付ける面要素（フェイス、シートボディ）
+        BasePlane　// 要素：基準面要素（平面、シート、フェイス）を指定
+        BasePlaneOffset // 長さ： 基準面のオフセット距離を指定
+        BaseSolid　// 要素：基準要素（ソリッド）を指定
+        PathCurves // 要素(配列)：取付線（取付線＋指定方向線で作成する際に使用する)
+        DirLines　　// 要素(配列)：基準直線（取付線＋指定方向線で作成する際に使用する)
+        OrignalProfile // 要素： 作成元の条材(元要素指定で作成する際に使用する)
+        HoleFeature  // 要素： ホールフィーチャー(ホール指定で作成する際に使用する)
+        LocationAtHole //整数: 条材の位置　0:上 1:下 2:左 3:右　(ホール指定で作成する際に使用する)
+        BasePoint1 // 点: 基準点1 (２点もしくは基準点と方向で作成する際に使用する)
+        BasePoint2 // 点: 基準点2 (２点で作成する際に使用する)
+        BaseProfile1 // 要素： ロンジ１(ロンジ間で作成する際に使用する)
+        BaseProfile2 // 要素： ロンジ２(ロンジ間で作成する際に使用する)
+        BaseDirection1 // 方向： (基準点と方向で作成する際に使用する)
+        BaseDirection2 // 方向： 取付方向指定　(基準点と方向で作成する際に使用する)
+        BaseLocation //整数:  基準位置 0:左下 1:中下 2:右下 3:左中 4:中中 5:右中 6:左上 7:中上 8:右上 (基準点と方向で作成する際に使用する)
+        ReferMethod // 関連設定: 要素の関連づけ方法の指定
 
-�Z�D�k�̏��ރ\���b�h�v�f����t���w��ō쐬����
-  �Ԃ�l:�쐬�������ރ\���b�h�v�f��ID(�z��@�z��[0]Web�v�f �z��[1]�t�����W�v�f
+〇船殻の条材ソリッド要素を取付線指定で作成する
+  返り値:作成した条材ソリッド要素のID(配列　配列[0]Web要素 配列[1]フランジ要素
   CreateProfile(
-�@�@    ParamObj, // ���ޗv�f�̃p�����[�^�I�u�W�F�N�g
-        bUpdate );  // bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+　　    ParamObj, // 条材要素のパラメータオブジェクト
+        bUpdate );  // bool：更新フラグ（未実装、使用しない）
 
-�Z�{�f�B���w�肵���v�f�ŕ�������
-  �Ԃ�l:�����ō쐬���ꂽ�{�f�B�v�f��ID�z��
+〇ボディを指定した要素で分割する
+  返り値:分割で作成されたボディ要素のID配列
 BodyDivideByElements(
-    pDriveFeatureName, // ������F�쐬���镪���t�B�[�`���[�v�f���́i�󕶎��j
-    pTargetBody,// �v�f: �����Ώۂ̃{�f�B
-    pDivideElements,  // �v�f(�z��): ����������v�f�i�V�[�g�{�f�B�A�t�F�C�X�A���ʗv�f�j
-    pAlignmentDirection,�@// �����F �������ꂽ�{�f�B�v�f�̏��Ԃ𐮗񂳂���̂Ɏg�p�������
-    pWCS, // �v�f�F �������`������W�n�i�ʏ�͎w�肵�Ȃ��j
-    ReferMethod, // �֘A�ݒ�: �v�f�̊֘A�Â����@�̎w��
-     bUpdate);�@// bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+    pDriveFeatureName, // 文字列：作成する分割フィーチャー要素名称（空文字可）
+    pTargetBody,// 要素: 分割対象のボディ
+    pDivideElements,  // 要素(配列): 分割をする要素（シートボディ、フェイス、平面要素）
+    pAlignmentDirection,　// 方向： 分割されたボディ要素の順番を整列させるのに使用する方向
+    pWCS, // 要素： 方向を定義する座標系（通常は指定しない）
+    ReferMethod, // 関連設定: 要素の関連づけ方法の指定
+     bUpdate);　// bool：更新フラグ（未実装、使用しない）
 
-�Z�{�f�B���w�肵���\���b�h�ō폜���邱�Ƃŕ�������i�{�f�B�̋敪���R�}���h�j
-  �Ԃ�l:�����ō쐬���ꂽ�{�f�B�v�f��ID�z��
-�@BodySeparateBySubSolids(
-    pSeparateFeatureName, // ������F�쐬���镪���t�B�[�`���[�v�f���́i�󕶎��j
-    pTargetBody, // �v�f: �����Ώۂ̃{�f�B
-    pSubSolids, // �v�f(�z��): ����������\���b�h�v�f
-    pAlignmentDirection,�@// �����F �������ꂽ�{�f�B�v�f�̏��Ԃ𐮗񂳂���̂Ɏg�p�������
-    ReferMethod, // �֘A�ݒ�: �v�f�̊֘A�Â����@�̎w��
-    bUpdate);�@// bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+〇ボディを指定したソリッドで削除することで分割する（ボディの区分けコマンド）
+  返り値:分割で作成されたボディ要素のID配列
+　BodySeparateBySubSolids(
+    pSeparateFeatureName, // 文字列：作成する分割フィーチャー要素名称（空文字可）
+    pTargetBody, // 要素: 分割対象のボディ
+    pSubSolids, // 要素(配列): 分割をするソリッド要素
+    pAlignmentDirection,　// 方向： 分割されたボディ要素の順番を整列させるのに使用する方向
+    ReferMethod, // 関連設定: 要素の関連づけ方法の指定
+    bUpdate);　// bool：更新フラグ（未実装、使用しない）
 
 
-�Z�{�f�B���w�肵�����ŕ�������
-  �Ԃ�l:�����ō쐬���ꂽ�{�f�B�v�f��ID�z��
+〇ボディを指定した線で分割する
+  返り値:分割で作成されたボディ要素のID配列
 BodyDivideByCurves(
-        pDriveFeatureName,// ������F�쐬���镪���t�B�[�`���[�v�f���́i�󕶎��j
-        pTargetBody,�@// �v�f: �����Ώۂ̃{�f�B
-        pDivideCurves, // �v�f(�z��): ����������X�P�b�`���̐��v�f
-        bNorProjection, // bool�F ���v�f��v�f�ɓ��e���邩�ǂ����̃t���O
-        CorrectEndPointsTolerance, // �����F �������������̏ꍇ�̕��������m�̂̔���g�������X���w��i�ʏ�͎w�肵�Ȃ��A�󕶎��j
-        AlignmentDirection, // �����F �������ꂽ�{�f�B�v�f�̏��Ԃ𐮗񂳂���̂Ɏg�p�������
-        ReferMethod, // �֘A�ݒ�: �v�f�̊֘A�Â����@�̎w��
-        bUpdate ) // bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        pDriveFeatureName,// 文字列：作成する分割フィーチャー要素名称（空文字可）
+        pTargetBody,　// 要素: 分割対象のボディ
+        pDivideCurves, // 要素(配列): 分割をするスケッチ等の線要素
+        bNorProjection, // bool： 線要素を要素に投影するかどうかのフラグ
+        CorrectEndPointsTolerance, // 長さ： 分割線が複数の場合の分割線同士のの判定トレランスを指定（通常は指定しない、空文字）
+        AlignmentDirection, // 方向： 分割されたボディ要素の順番を整列させるのに使用する方向
+        ReferMethod, // 関連設定: 要素の関連づけ方法の指定
+        bUpdate ) // bool：更新フラグ（未実装、使用しない）
 
-�Z�{�f�B���w�肵�����ʂŕ�������
-  �Ԃ�l:�����ō쐬���ꂽ�{�f�B�v�f��ID�z��
+〇ボディを指定した平面で分割する
+  返り値:分割で作成されたボディ要素のID配列
 BodyDivideByPlanes(
-    pDriveFeatureName, // ������F�쐬���镪���t�B�[�`���[�v�f���́i�󕶎��j
-    TargetBody, // �v�f: �����Ώۂ̃{�f�B
-    plane, // �v�f: ���������镽��
-    PlaneDeltaCopy,  ���������镽�ʂ��R�s�[����ۂ̃I�t�Z�b�g����
-    nPlaneCopy, // ����: ���������镽�ʂ𕡐��R�s�[���ĕ���������i�ʏ��1)
-    pAlignmentDirection, // �����F �������ꂽ�{�f�B�v�f�̏��Ԃ𐮗񂳂���̂Ɏg�p�������
-    WCS, // �v�f�F �v�f�����Ɏg�p������W�n���w��B�ʏ�͎w�肵�Ȃ�
-    ReferMethod, // �֘A�ݒ�: �v�f�̊֘A�Â����@�̎w��
-    bUpdate )�@// bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+    pDriveFeatureName, // 文字列：作成する分割フィーチャー要素名称（空文字可）
+    TargetBody, // 要素: 分割対象のボディ
+    plane, // 要素: 分割をする平面
+    PlaneDeltaCopy,  分割をする平面をコピーする際のオフセット距離
+    nPlaneCopy, // 整数: 分割をする平面を複数コピーして分割をする（通常は1)
+    pAlignmentDirection, // 方向： 分割されたボディ要素の順番を整列させるのに使用する方向
+    WCS, // 要素： 要素分割に使用する座標系を指定。通常は指定しない
+    ReferMethod, // 関連設定: 要素の関連づけ方法の指定
+    bUpdate )　// bool：更新フラグ（未実装、使用しない）
 
-�Z�{�f�B���w�肵���v�f�ŃJ�b�g����
-  �Ԃ�l:�쐬���ꂽ�J�b�g�t�B�[�`���[��ID
+〇ボディを指定した要素でカットする
+  返り値:作成されたカットフィーチャーのID
   CutBody(
-  �@FeatureName, // ������F�쐬����J�b�g�t�B�[�`���[�v�f���́i�󕶎��j
-  �@TargetBody, // �v�f�F�J�b�g�Ώۂ̃\���b�h�A�V�[�g
-  �@CutElement, // �v�f�F�J�b�g����v�f(���ʁA�V�[�g�j
-  �@ElementOffset, // �����F �J�b�g����v�f�̃I�t�Z�b�g�������w��
-  �@bCutForward, // �֘A�ݒ�: �v�f�̊֘A�Â����@�̎w��
-  �@ReferMethod�@)
+  　FeatureName, // 文字列：作成するカットフィーチャー要素名称（空文字可）
+  　TargetBody, // 要素：カット対象のソリッド、シート
+  　CutElement, // 要素：カットする要素(平面、シート）
+  　ElementOffset, // 長さ： カットする要素のオフセット距離を指定
+  　bCutForward, // 関連設定: 要素の関連づけ方法の指定
+  　ReferMethod　)
 
 
-�Z�w�肵���\���b�h�v�f�ɋ��E�v�f���w�肵���`����쐬����
-  �Ԃ�l:�쐬���ꂽ���E�v�f�w��t�B�[�`���[��ID
-�@CreateBoundedPlate(
-    FeatureName, // ������F�쐬���鋫�E�v�f�w��t�B�[�`���[�v�f���́i�󕶎��j
-    TargetSolid, // �v�f�F���E�v�f�w��t�B�[�`���[���쐬����Ώۂ̃\���b�h���w��
-    OperationType,�@// �I�y���[�V�����^�C�v: �\���b�h�I�y���[�V�����̃^�C�v���w�肷��
-    Plane,        // ���ʁF �̒�`���ʈʒu
-    PlaneOffset,  // �����F�@���ʂ̃I�t�Z�b�g�������w��
-    BoundObjects,// �v�f(�z��)�F���E�v�f�i�V�[�g�A�t�F�C�X�A�X�P�b�`�A���ʁA�\���b�h�j
-    ThickenType,// ���ݕt���^�C�v: 
-    Thickness1,// �����F ��
-    Thickness2,// �����F ���Q�i���ݕt���^�C�v���Q�����̂Ƃ��Ɏg�p�j
-    ThicknessOffset,// �����F ���݂Â�������̃I�t�Z�b�g����
-    RefByGeometricMethod, // bool�FTrue�̎��͊􉽈ʒu�ɂ��ƂÂ��Ċ֘A��ݒ肷��
-    ReferMethod,// �֘A�ݒ�: �v�f�̊֘A�Â����@�̎w��
-    bUpdate )// bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+〇指定したソリッド要素に境界要素を指定した板形状を作成する
+  返り値:作成された境界要素指定フィーチャーのID
+　CreateBoundedPlate(
+    FeatureName, // 文字列：作成する境界要素指定フィーチャー要素名称（空文字可）
+    TargetSolid, // 要素：境界要素指定フィーチャーを作成する対象のソリッドを指定
+    OperationType,　// オペレーションタイプ: ソリッドオペレーションのタイプを指定する
+    Plane,        // 平面： 板の定義平面位置
+    PlaneOffset,  // 長さ：　平面のオフセット距離を指定
+    BoundObjects,// 要素(配列)：境界要素（シート、フェイス、スケッチ、平面、ソリッド）
+    ThickenType,// 厚み付けタイプ: 
+    Thickness1,// 長さ： 板厚
+    Thickness2,// 長さ： 板厚２（厚み付けタイプが２方向のときに使用）
+    ThicknessOffset,// 長さ： 厚みづけをする板のオフセット距離
+    RefByGeometricMethod, // bool：Trueの時は幾何位置にもとづいて関連を設定する
+    ReferMethod,// 関連設定: 要素の関連づけ方法の指定
+    bUpdate )// bool：更新フラグ（未実装、使用しない）
 
 
-�Z�w�肵���\���b�h�v�f�ɋ��E�{�b�N�X�`����쐬����
-  �Ԃ�l:�쐬���ꂽ���E�{�b�N�X�`��t�B�[�`���[��ID
+〇指定したソリッド要素に境界ボックス形状を作成する
+  返り値:作成された境界ボックス形状フィーチャーのID
 CreateBoundingBox(
-    FeatureName,�@// ������F�쐬���鋫�E�{�b�N�X�t�B�[�`���[�v�f���́i�󕶎��j
-    TargetSolid,�@// �v�f�F���E�{�b�N�X�t�B�[�`���[���쐬����Ώۂ̃\���b�h���w��
-    OperationType,�@// �I�y���[�V�����^�C�v: �\���b�h�I�y���[�V�����̃^�C�v���w�肷��
-    Bodies,�@// �v�f(�z��)�F���E�{�b�N�X���v�Z����\���b�h�A�V�[�g�v�f
-    bOptimalBox,// bool�FTrue���w�肷��ƃ{�b�N�X���v�Z������W�n���œK�Ȃ��̂ɂ���B�i�����łȂ��ꍇ�͐�΍��W�n�Ōv�Z����j
-    ReferMethod, // �֘A�ݒ�: �v�f�̊֘A�Â����@�̎w��
-    bUpdate ) // bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+    FeatureName,　// 文字列：作成する境界ボックスフィーチャー要素名称（空文字可）
+    TargetSolid,　// 要素：境界ボックスフィーチャーを作成する対象のソリッドを指定
+    OperationType,　// オペレーションタイプ: ソリッドオペレーションのタイプを指定する
+    Bodies,　// 要素(配列)：境界ボックスを計算するソリッド、シート要素
+    bOptimalBox,// bool：Trueを指定するとボックスを計算する座標系を最適なものにする。（そうでない場合は絶対座標系で計算する）
+    ReferMethod, // 関連設定: 要素の関連づけ方法の指定
+    bUpdate ) // bool：更新フラグ（未実装、使用しない）
 
 
-�Z�w��v�f�̐F��ݒ肷��
+〇指定要素の色を設定する
   SetElementColor(
-     Element  // �v�f�F�F��ݒ肷��v�f
-     RValue,  // ����: �ԐF�̒l(0-255)
-     GValue,  // ����: �ΐF�̒l(0-255)
-     BValue,  // ����: �F�̒l(0-255)
-     Transparency ) // ���������_: �����x�̎w��(0.0�s����-1.0����)
+     Element  // 要素：色を設定する要素
+     RValue,  // 整数: 赤色の値(0-255)
+     GValue,  // 整数: 緑色の値(0-255)
+     BValue,  // 整数: 青色の値(0-255)
+     Transparency ) // 浮動小数点: 透明度の指定(0.0不透明-1.0透明)
 
 
-�Z�X�C�[�v�p�����[�^�I�u�W�F�N�g�̍쐬
-�@�Ԃ�l:�X�C�[�v�p�����[�^�I�u�W�F�N�g
+〇スイープパラメータオブジェクトの作成
+　返り値:スイープパラメータオブジェクト
 CreateSweepParam()
     
-�Z�X�C�[�v�p�����[�^�I�u�W�F�N�g
-   ����
-   NAME   // ������F�v�f���i�󕶎��j
-   ElementGroup, // �v�f�O���[�v�F�쐬����V�[�g�v�f��v�f�O���[�v�ɓ����ꍇ�͗v�f�O���[�v���w��i�󕶎��j
-   MaterialName // �ޗ��F�쐬����V�[�h�v�f�̍ގ����́i�󕶎��j
-   ReferMethod // �֘A�ݒ�: �v�f�̊֘A�Â����@�̎w��
-   bRefByGeometricMethod // bool�FTrue�̎��͊􉽈ʒu�ɂ��ƂÂ��Ċ֘A��ݒ肷��
-   ThickenType�@// ���ݕt���^�C�v: 
-   Thickeness1  // �����F ��
-   Thickeness2  // �����F ���Q�i���ݕt���^�C�v���Q�����̂Ƃ��Ɏg�p�j
-   ThickenessOffset // �����F ���݂Â��̃I�t�Z�b�g����
-   Profile // �v�f(�z��)�F�X�C�[�v�̃v���t�@�C���v�f�i�X�P�b�`�A���j
-   Path // �v�f(�z��)�F�X�C�[�v�̃p�X�v�f�i�X�P�b�`�A���j
-   ProfileNormal // �����F�v���t�@�C���̕��ʖ@�������B�i�v���t�@�C�����RD�̒����̏ꍇ�ɂ��̕��ʖ@���Ƃ��Ďw��B�j 
-   LockDirection�@// �����F�@�v���t�@�C�����p�X�ɉ����ĉ�]�������ɌŒ肵�ăX�C�[�v������ۂɎg�p����Œ����
-   TwistLine�@// �v�f(�z��)�F�˂�����`���钼��
-   TwistPosition�@// �v�f(�z��)�F�˂�����`����ʒu�i�_�j
-   TwistAngle�@// �p�x(�z��)�F�˂���̒�`�_�ł̂˂���p�x
-   ParallelSweep�@�@// bool�F�v���t�@�C�����p�X�ɂ������ĕ��s�ɂȂ�悤�ɃX�C�[�v������Ƃ�True
-   MinimizeFace�@�@// bool�F�X�C�[�v���ꂽ�v�f���\������t�F�C�X�̐����ŏ���������Ƃ�True
+〇スイープパラメータオブジェクト
+   属性
+   NAME   // 文字列：要素名（空文字可）
+   ElementGroup, // 要素グループ：作成するシート要素を要素グループに入れる場合は要素グループを指定（空文字可）
+   MaterialName // 材料：作成するシード要素の材質名称（空文字可）
+   ReferMethod // 関連設定: 要素の関連づけ方法の指定
+   bRefByGeometricMethod // bool：Trueの時は幾何位置にもとづいて関連を設定する
+   ThickenType　// 厚み付けタイプ: 
+   Thickeness1  // 長さ： 板厚
+   Thickeness2  // 長さ： 板厚２（厚み付けタイプが２方向のときに使用）
+   ThickenessOffset // 長さ： 厚みづけのオフセット距離
+   Profile // 要素(配列)：スイープのプロファイル要素（スケッチ、線）
+   Path // 要素(配列)：スイープのパス要素（スケッチ、線）
+   ProfileNormal // 方向：プロファイルの平面法線方向。（プロファイルが３Dの直線の場合にその平面法線として指定。） 
+   LockDirection　// 方向：　プロファイルをパスに沿って回転させずに固定してスイープさせる際に使用する固定方向
+   TwistLine　// 要素(配列)：ねじれを定義する直線
+   TwistPosition　// 要素(配列)：ねじれを定義する位置（点）
+   TwistAngle　// 角度(配列)：ねじれの定義点でのねじれ角度
+   ParallelSweep　　// bool：プロファイルをパスにたいして平行になるようにスイープさせるときTrue
+   MinimizeFace　　// bool：スイープされた要素を構成するフェイスの数を最小化させるときTrue
 
-�Z�w�肵���\���b�h�v�f�ɃX�C�[�v�`���t������
-  �Ԃ�l:�쐬���ꂽ�X�C�[�v�t�B�[�`���[��ID
+〇指定したソリッド要素にスイープ形状を付加する
+  返り値:作成されたスイープフィーチャーのID
 CreateSweep(
-        TargetSolidName, // �v�f�F�X�C�[�v�t�B�[�`���[���쐬����Ώۂ̃\���b�h���w��
-        OperationType,   // �I�y���[�V�����^�C�v: �\���b�h�I�y���[�V�����̃^�C�v���w�肷��
-        pParam, // �X�C�[�v�p�����[�^�I�u�W�F�N�g
-        bUpdate �@);�@// bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        TargetSolidName, // 要素：スイープフィーチャーを作成する対象のソリッドを指定
+        OperationType,   // オペレーションタイプ: ソリッドオペレーションのタイプを指定する
+        pParam, // スイープパラメータオブジェクト
+        bUpdate 　);　// bool：更新フラグ（未実装、使用しない）
 
-�Z�v���t�@�C���v�f���X�C�[�v���ăV�[�g�v�f���쐬
-  �Ԃ�l:�쐬���ꂽ�V�[�g�v�f�̗v�fID
+〇プロファイル要素をスイープしてシート要素を作成
+  返り値:作成されたシート要素の要素ID
   CreateSweepSheet(
-        ParamObj, // �X�C�[�v�p�����[�^�I�u�W�F�N�g
-        bUpdate);�@// bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        ParamObj, // スイープパラメータオブジェクト
+        bUpdate);　// bool：更新フラグ（未実装、使用しない）
 
-�Z��]�p�����[�^�I�u�W�F�N�g�̍쐬
-�@�Ԃ�l:��]�p�����[�^�I�u�W�F�N�g
+〇回転パラメータオブジェクトの作成
+　返り値:回転パラメータオブジェクト
 CreateRotationalSweepParam()
 
-�Z��]�p�����[�^�I�u�W�F�N�g
-   ����
-   NAME   // ������F�v�f���i�󕶎��j
-   ElementGroup, // �v�f�O���[�v�F�쐬����V�[�g�v�f��v�f�O���[�v�ɓ����ꍇ�͗v�f�O���[�v���w��i�󕶎��j
-   MaterialName // �ޗ��F�쐬����V�[�h�v�f�̍ގ����́i�󕶎��j
-   ReferMethod // �֘A�ݒ�: �v�f�̊֘A�Â����@�̎w��
-   bRefByGeometricMethod // bool�FTrue�̎��͊􉽈ʒu�ɂ��ƂÂ��Ċ֘A��ݒ肷��
-   ThickenType�@// ���ݕt���^�C�v: 
-   Thickeness1  // �����F ��
-   Thickeness2  // �����F ���Q�i���ݕt���^�C�v���Q�����̂Ƃ��Ɏg�p�j
-   ThickenessOffset // �����F ���݂Â��̃I�t�Z�b�g����
-   Profile // �v�f(�z��)�F��]�̃v���t�@�C���v�f�i�X�P�b�`�A���j
-   Axis // �v�f�F��]�̉�]���v�f�i���j
-   DirectionType  //�X�C�[�v���� �F
-   Angle // �p�x�F��]�p�x
-   Angle2 // �p�x�F�X�C�[�v�������Q�����������ꍇ�̂Q�������̉�]�p�x
+〇回転パラメータオブジェクト
+   属性
+   NAME   // 文字列：要素名（空文字可）
+   ElementGroup, // 要素グループ：作成するシート要素を要素グループに入れる場合は要素グループを指定（空文字可）
+   MaterialName // 材料：作成するシード要素の材質名称（空文字可）
+   ReferMethod // 関連設定: 要素の関連づけ方法の指定
+   bRefByGeometricMethod // bool：Trueの時は幾何位置にもとづいて関連を設定する
+   ThickenType　// 厚み付けタイプ: 
+   Thickeness1  // 長さ： 板厚
+   Thickeness2  // 長さ： 板厚２（厚み付けタイプが２方向のときに使用）
+   ThickenessOffset // 長さ： 厚みづけのオフセット距離
+   Profile // 要素(配列)：回転のプロファイル要素（スケッチ、線）
+   Axis // 要素：回転の回転軸要素（線）
+   DirectionType  //スイープ方向 ：
+   Angle // 角度：回転角度
+   Angle2 // 角度：スイープ方向が２方向だった場合の２方向側の回転角度
 
     
-�Z�w�肵���\���b�h�v�f�ɉ�]�`���t������
-  �Ԃ�l:�쐬���ꂽ��]�t�B�[�`���[��ID
+〇指定したソリッド要素に回転形状を付加する
+  返り値:作成された回転フィーチャーのID
 CreateRotationalSweep(
-        TargetSolidName, // �v�f�F��]�t�B�[�`���[���쐬����Ώۂ̃\���b�h���w��
-        OperationType,   // �I�y���[�V�����^�C�v: �\���b�h�I�y���[�V�����̃^�C�v���w�肷��
-        pParam, // ��]�p�����[�^�I�u�W�F�N�g
-        bUpdate �@);�@// bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        TargetSolidName, // 要素：回転フィーチャーを作成する対象のソリッドを指定
+        OperationType,   // オペレーションタイプ: ソリッドオペレーションのタイプを指定する
+        pParam, // 回転パラメータオブジェクト
+        bUpdate 　);　// bool：更新フラグ（未実装、使用しない）
 
-�Z�v���t�@�C���v�f����]���ăV�[�g�v�f���쐬
-  �Ԃ�l:�쐬���ꂽ�V�[�g�v�f�̗v�fID    
+〇プロファイル要素を回転してシート要素を作成
+  返り値:作成されたシート要素の要素ID    
 CreateRotationalSweepSheet(
-        ParamObj, // ��]�p�����[�^�I�u�W�F�N�g
-        bUpdate);�@// bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        ParamObj, // 回転パラメータオブジェクト
+        bUpdate);　// bool：更新フラグ（未実装、使用しない）
 
-�Z3D�̒������v�f���쐬
-  �Ԃ�l:���v�f�̗v�fID
+〇3Dの直線線要素を作成
+  返り値:線要素の要素ID
 CreateLine(
-        StartPoint,    // �_(3D)�F�n�_
-        EndPoint )      // �_(3D)�F�I�_
+        StartPoint,    // 点(3D)：始点
+        EndPoint )      // 点(3D)：終点
 
-�Z3D�̉~�ʐ��v�f���쐬
-  �Ԃ�l:���v�f�̗v�fID
+〇3Dの円弧線要素を作成
+  返り値:線要素の要素ID
 CreateArc(
-        CenterPoint,// �_(3D)�F���S�_
-        Normal,     // �����F������
-        MajorDir,   // �����F�厲�����i�p�����[�^�O�̈ʒu����
-        Radius,     // �����F���a
-        bClose,     // bool�F True�̎��͉~���쐬����
-        Range )     // �͈�: (0-2pi)
+        CenterPoint,// 点(3D)：中心点
+        Normal,     // 方向：軸方向
+        MajorDir,   // 方向：主軸方向（パラメータ０の位置方向
+        Radius,     // 長さ：半径
+        bClose,     // bool： Trueの時は円を作成する
+        Range )     // 範囲: (0-2pi)
     
-�Z3D�̑ȉ~���v�f���쐬
-  �Ԃ�l:���v�f�̗v�fID
+〇3Dの楕円線要素を作成
+  返り値:線要素の要素ID
 CreateEllipse(
-        CenterPoint,// �_(3D)�F���S�_
-        Normal,     // �����F������
-        MajorDir,   // �����F�厲�����i�p�����[�^�O�̈ʒu����
-        MajorRadius,   // �����F�厲���a
-        MinorRadius,   // �����F�������a
-        bClose,     // bool�F True�̎��͕������쐬����
-        Range )     // �͈�: (0-2pi)
+        CenterPoint,// 点(3D)：中心点
+        Normal,     // 方向：軸方向
+        MajorDir,   // 方向：主軸方向（パラメータ０の位置方向
+        MajorRadius,   // 長さ：主軸半径
+        MinorRadius,   // 長さ：副軸半径
+        bClose,     // bool： Trueの時は閉じたを作成する
+        Range )     // 範囲: (0-2pi)
 
 
-�Z3D�̂m�t�q�a�r���v�f���쐬
-  �Ԃ�l:���v�f�̗v�fID
+〇3DのＮＵＲＢＳ線要素を作成
+  返り値:線要素の要素ID
 CreateNURBSCurve(
-        nDegree,       // �����F�m�t�q�a�r���̎���
-        bClose,        // bool�F�����m�t�q�a�r���̏ꍇTrue
-        bPeriodic,     // bool�F�����m�t�q�a�r���̏ꍇTrue
-        CtrlPoints,    // �_(�z��): ����_
-        Weights,       // ���������_(�z��): �d��
-        Knots,         // ���������_(�z��): �m�b�g�x�N�g��
-        Range,         // �͈�: �g�����͈�
+        nDegree,       // 整数：ＮＵＲＢＳ線の次数
+        bClose,        // bool：閉じたＮＵＲＢＳ線の場合True
+        bPeriodic,     // bool：周期ＮＵＲＢＳ線の場合True
+        CtrlPoints,    // 点(配列): 制御点
+        Weights,       // 浮動小数点(配列): 重み
+        Knots,         // 浮動小数点(配列): ノットベクトル
+        Range,         // 範囲: トリム範囲
 
-�Z���t�g�p�����[�^�I�u�W�F�N�g�̍쐬
-�@�Ԃ�l:���t�g�p�����[�^�I�u�W�F�N�g        
+〇ロフトパラメータオブジェクトの作成
+　返り値:ロフトパラメータオブジェクト        
   CreateLoftParam()
 
-�Z���t�g�p�����[�^�I�u�W�F�N�g
-   ����
-   NAME   // ������F�v�f���i�󕶎��j
-   ElementGroup, // �v�f�O���[�v�F�쐬����V�[�g�v�f��v�f�O���[�v�ɓ����ꍇ�͗v�f�O���[�v���w��i�󕶎��j
-   MaterialName // �ޗ��F�쐬����V�[�h�v�f�̍ގ����́i�󕶎��j
-   ReferMethod // �֘A�ݒ�: �v�f�̊֘A�Â����@�̎w��
-   Profile // �v�f(�z��)�F���t�g�̃v���t�@�C���v�f�i�X�P�b�`�A���j
-   Guide // �v�f(�z��)�F���t�g�̃K�C�h�v�f�i�X�P�b�`�A���j
-   Alignment�@ // �v�f(�z��)�F���t�g�̃v���t�@�C���v�f�̐���v�f�i�X�P�b�`�A���j
-   StartTangentType�@// �����F�n�_���̐ڑ��v�f�w��(0:�w��Ȃ� 1:���ʂɐڑ� 2:�ʌQ��G1�A���Őڑ� 3:�ʌQ��G2�A���Őڑ�
-   StartTangentElement�@// �v�f(�z��)�F�n�_���̐ڑ��v�f
-   StartTangentScale�@// ���������_:�@�n�_���̐ڑ��X�P�[��
-   EndTangentType�@// �����F�I�_���̐ڑ��v�f�w��(0:�w��Ȃ� 1:���ʂɐڑ� 2:�ʌQ��G1�A���Őڑ� 3:�ʌQ��G2�A���Őڑ�
-   EndTangentElement�@// �v�f(�z��)�F�I�_���̐ڑ��v�f
-   EndTangentScale�@// ���������_:�@�I�_���̐ڑ��X�P�[��
-   Close�@�@�@�@�@�@// bool�F�������t�g�`����쐬����Ƃ���True
-   UseGuidesInProfiles�@// bool�F �v���t�@�C���͈͓��ŃK�C�h����𗘗p����ꍇ��True
+〇ロフトパラメータオブジェクト
+   属性
+   NAME   // 文字列：要素名（空文字可）
+   ElementGroup, // 要素グループ：作成するシート要素を要素グループに入れる場合は要素グループを指定（空文字可）
+   MaterialName // 材料：作成するシード要素の材質名称（空文字可）
+   ReferMethod // 関連設定: 要素の関連づけ方法の指定
+   Profile // 要素(配列)：ロフトのプロファイル要素（スケッチ、線）
+   Guide // 要素(配列)：ロフトのガイド要素（スケッチ、線）
+   Alignment　 // 要素(配列)：ロフトのプロファイル要素の整列要素（スケッチ、線）
+   StartTangentType　// 整数：始点側の接続要素指定(0:指定なし 1:平面に接続 2:面群にG1連続で接続 3:面群にG2連続で接続
+   StartTangentElement　// 要素(配列)：始点側の接続要素
+   StartTangentScale　// 浮動小数点:　始点側の接続スケール
+   EndTangentType　// 整数：終点側の接続要素指定(0:指定なし 1:平面に接続 2:面群にG1連続で接続 3:面群にG2連続で接続
+   EndTangentElement　// 要素(配列)：終点側の接続要素
+   EndTangentScale　// 浮動小数点:　終点側の接続スケール
+   Close　　　　　　// bool：閉じたロフト形状を作成するときはTrue
+   UseGuidesInProfiles　// bool： プロファイル範囲内でガイドせんを利用する場合はTrue
 
 
-�Z�w�肵���\���b�h�v�f�Ƀ��t�g�`���t������
-  �Ԃ�l:�쐬���ꂽ���t�g�t�B�[�`���[��ID    
+〇指定したソリッド要素にロフト形状を付加する
+  返り値:作成されたロフトフィーチャーのID    
 CreateLoft(
-        TargetSolidName, // �v�f�F���t�g�t�B�[�`���[���쐬����Ώۂ̃\���b�h���w��
-        OperationType,   // �I�y���[�V�����^�C�v: �\���b�h�I�y���[�V�����̃^�C�v���w�肷��
-        pParam, // ���t�g�p�����[�^�I�u�W�F�N�g
-        bUpdate �@);�@// bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        TargetSolidName, // 要素：ロフトフィーチャーを作成する対象のソリッドを指定
+        OperationType,   // オペレーションタイプ: ソリッドオペレーションのタイプを指定する
+        pParam, // ロフトパラメータオブジェクト
+        bUpdate 　);　// bool：更新フラグ（未実装、使用しない）
 
-�Z���t�g�V�[�g�v�f���쐬
-  �Ԃ�l:�쐬���ꂽ�V�[�g�v�f�̗v�fID
+〇ロフトシート要素を作成
+  返り値:作成されたシート要素の要素ID
 CreateLoftSheet(
-        ParamObj, // ���t�g�p�����[�^�I�u�W�F�N�g
-        bUpdate);�@// bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        ParamObj, // ロフトパラメータオブジェクト
+        bUpdate);　// bool：更新フラグ（未実装、使用しない）
 
-�Z�D�k�̃X���b�g�p�����[�^�I�u�W�F�N�g�̍쐬
-�@�Ԃ�l:�X���b�g�p�����[�^�I�u�W�F�N�g        
+〇船殻のスロットパラメータオブジェクトの作成
+　返り値:スロットパラメータオブジェクト        
 CreateSlotParam()
 
-�Z�X���b�g�p�����[�^�I�u�W�F�N�g
-   ����
-   SlotName        // ������F�쐬������ރ\���b�h�v�f���́i�󕶎��j
-   CollarName      // ������F�쐬����J���[�v���[�g�v�f���́i�󕶎��j
-   CollarMaterial�@�@�@// �ޗ��F�쐬����J���[�v���[�g�̍ގ����́i�󕶎��j
-   CollarElementGroup�@//  �v�f�O���[�v�F�쐬����J���[�v���[�g�v�f��v�f�O���[�v�ɓ����ꍇ�͗v�f�O���[�v���w��i�󕶎��j
-   Collar2Name      // ������F�쐬����Q�ڂ̃J���[�v���[�g�v�f���́i�󕶎��j
-   Collar2Material�@�@�@// �ޗ��F�쐬����Q�ڂ̃J���[�v���[�g�̍ގ����́i�󕶎��j
-   Collar2ElementGroup�@//  �v�f�O���[�v�F�쐬����Q�ڂ̃J���[�v���[�g�v�f��v�f�O���[�v�ɓ����ꍇ�͗v�f�O���[�v���w��i�󕶎��j
-   ProfileType    // �`��^�C�v: �X���b�g�̌`��^�C�v���w��
-   ProfileParam // �`��p�����[�^: �X���b�g�̌`��^�C�v�̃p�����[�^
-   AttachFace // �v�f�F�X���b�g��������t�F�C�X�v�f
-   ProfileSolid�@// �v�f�F�X���b�g���Ƃ����v���t�@�C���\���b�h�v�f
-   ProfileFlangeSolid�@// �v�f�F�X���b�g���Ƃ����v���t�@�C���̃t�����W�\���b�h�v�f
-   ReverseDir�@�@// bool�F�X���b�g�̌����𔽓]����Ƃ���True
-   ExtendToBoundary�@// bool�F�X���b�g�����E�܂ŉ�������Ƃ���True
-   MakeVevel�@�@// bool�F�X���b�g�ɊJ��`����쐬����Ƃ���True
+〇スロットパラメータオブジェクト
+   属性
+   SlotName        // 文字列：作成する条材ソリッド要素名称（空文字可）
+   CollarName      // 文字列：作成するカラープレート要素名称（空文字可）
+   CollarMaterial　　　// 材料：作成するカラープレートの材質名称（空文字可）
+   CollarElementGroup　//  要素グループ：作成するカラープレート要素を要素グループに入れる場合は要素グループを指定（空文字可）
+   Collar2Name      // 文字列：作成する２つ目のカラープレート要素名称（空文字可）
+   Collar2Material　　　// 材料：作成する２つ目のカラープレートの材質名称（空文字可）
+   Collar2ElementGroup　//  要素グループ：作成する２つ目のカラープレート要素を要素グループに入れる場合は要素グループを指定（空文字可）
+   ProfileType    // 形状タイプ: スロットの形状タイプを指定
+   ProfileParam // 形状パラメータ: スロットの形状タイプのパラメータ
+   AttachFace // 要素：スロットをあけるフェイス要素
+   ProfileSolid　// 要素：スロットをとおすプロファイルソリッド要素
+   ProfileFlangeSolid　// 要素：スロットをとおすプロファイルのフランジソリッド要素
+   ReverseDir　　// bool：スロットの向きを反転するときはTrue
+   ExtendToBoundary　// bool：スロットを境界まで延長するときはTrue
+   MakeVevel　　// bool：スロットに開先形状を作成するときはTrue
 }
 
-�Z�D�k�̃X���b�g�v�f�A�J���[�v���[�g���쐬����
-  �Ԃ�l:�쐬���ꂽ�X���b�g�t�B�[�`���[�A�J���[�v���[�g�P�C�J���[�v���[�g�Q�̗v�fID�z��
+〇船殻のスロット要素、カラープレートを作成する
+  返り値:作成されたスロットフィーチャー、カラープレート１，カラープレート２の要素ID配列
 CreateSlot(
-        ParamObj, // �X���b�g�p�����[�^�I�u�W�F�N�g
-        bUpdate);�@// bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        ParamObj, // スロットパラメータオブジェクト
+        bUpdate);　// bool：更新フラグ（未実装、使用しない）
 
-�Z�D�k�̃t�F�C�X�v���[�g�p�����[�^�I�u�W�F�N�g�̍쐬
-�@�Ԃ�l:�t�F�C�X�v���[�g�p�����[�^�I�u�W�F�N�g        
+〇船殻のフェイスプレートパラメータオブジェクトの作成
+　返り値:フェイスプレートパラメータオブジェクト        
 CreateFacePlateParam()
 
-�Z�t�F�C�X�v���[�g�p�����[�^�I�u�W�F�N�g
-   ����
-   Name // ������F�쐬����t�F�C�X�v���[�g�\���b�h�v�f���́i�󕶎��j
-   ElementGroup // �v�f�O���[�v�F�쐬����\���b�h�v�f��v�f�O���[�v�ɓ����ꍇ�͗v�f�O���[�v���w��i�󕶎��j
-   MaterialName // �ޗ��F�쐬����\���b�h�v�f�̍ގ����́i�󕶎��j
-   DefinitionType // �����F �t�F�C�X�v���[�g�̒�`���@(0:�ʎw�� , 1:���v�f�w�� , 2:�u���P�b�g�v�f�w�� , 3:��t���w�� )
-   ProfileType    // �`��^�C�v: �t�F�C�X�v���[�g�̌`��^�C�v���w��
-   ProfileParam // �`��p�����[�^: �t�F�C�X�v���[�g�̌`��^�C�v�̃p�����[�^
-   FaceAngle // �p�x�F�p�x�w��@�O���͒��p���Ӗ����A��������̑������{�|�Ŏw��
-   ReverseDirection // bool�F�t�F�C�X�v���[�g�̕������̌����𔽓]����Ƃ���True
-   End1Elements  // �v�f(�z��)�F �[���P�A�[���ƂȂ�v�f���w�肷��
-   End1Type       // �`��^�C�v: �[���P�A�t�F�C�X�v���[�g�̒[���^�C�v���w��
-   End1TypeParams // �`��p�����[�^: �[���P �t�F�C�X�v���[�g�̒[���^�C�v�̃p�����[�^
-   End2Elements   // �v�f(�z��)�F �[���Q�A�[���ƂȂ�v�f���w�肷��
-   End2Type       // �`��^�C�v: �[���Q�A�t�F�C�X�v���[�g�̒[���^�C�v���w��
-   End2TypeParams // �`��p�����[�^: �[���Q�A�t�F�C�X�v���[�g�̒[���^�C�v�̃p�����[�^
-   BaseFaces�@�@�@// �v�f(�z��)�F �ʎw��ō쐬����ꍇ�̊�ʁi�t�F�C�X�j
-   AttachFaces�@�@// �v�f(�z��)�F �ʎw��A��t���w��ō쐬����ꍇ�̎�t�ʁi�t�F�C�X�j
-   OrignalFacePlate�@// �v�f�F ���v�f�w��ō쐬����ꍇ�̌��ƂȂ�t�F�C�X�v���[�g�v�f
-   Bracket�@�@�@�@// �v�f�F �u���P�b�g�w��ō쐬����ꍇ�̃u���P�b�g�v�f
-   BaseCurves�@�@// �v�f(�z��)�F ��t���w��ō쐬����ꍇ�̎�t���i�J�[�u�A�G�b�W�j
-   ProjectionDir // �����F��t���w��ō쐬����ꍇ�̎�t���̓��e����
-   NotProjectAttachLines // bool�F��t���w��ō쐬����ꍇ�Ɏ�t����ʂɓ��e���Ȃ��ꍇ��True
-   ReverseAttachDirection // bool�F��t���w��ō쐬����ꍇ�Ɏ�t�����𔽓]����ꍇ��True
-   BaseOwner // �v�f�F �ʎw��ō쐬����ꍇ�̖ʂ̑�����\���b�h�v�f
+〇フェイスプレートパラメータオブジェクト
+   属性
+   Name // 文字列：作成するフェイスプレートソリッド要素名称（空文字可）
+   ElementGroup // 要素グループ：作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）
+   MaterialName // 材料：作成するソリッド要素の材質名称（空文字可）
+   DefinitionType // 整数： フェイスプレートの定義方法(0:面指定 , 1:元要素指定 , 2:ブラケット要素指定 , 3:取付線指定 )
+   ProfileType    // 形状タイプ: フェイスプレートの形状タイプを指定
+   ProfileParam // 形状パラメータ: フェイスプレートの形状タイプのパラメータ
+   FaceAngle // 角度：角度指定　０°は直角を意味し、そこからの増分を＋－で指定
+   ReverseDirection // bool：フェイスプレートの幅方向の向きを反転するときはTrue
+   End1Elements  // 要素(配列)： 端部１、端部となる要素を指定する
+   End1Type       // 形状タイプ: 端部１、フェイスプレートの端部タイプを指定
+   End1TypeParams // 形状パラメータ: 端部１ フェイスプレートの端部タイプのパラメータ
+   End2Elements   // 要素(配列)： 端部２、端部となる要素を指定する
+   End2Type       // 形状タイプ: 端部２、フェイスプレートの端部タイプを指定
+   End2TypeParams // 形状パラメータ: 端部２、フェイスプレートの端部タイプのパラメータ
+   BaseFaces　　　// 要素(配列)： 面指定で作成する場合の基準面（フェイス）
+   AttachFaces　　// 要素(配列)： 面指定、取付線指定で作成する場合の取付面（フェイス）
+   OrignalFacePlate　// 要素： 元要素指定で作成する場合の元となるフェイスプレート要素
+   Bracket　　　　// 要素： ブラケット指定で作成する場合のブラケット要素
+   BaseCurves　　// 要素(配列)： 取付線指定で作成する場合の取付線（カーブ、エッジ）
+   ProjectionDir // 方向：取付線指定で作成する場合の取付線の投影方向
+   NotProjectAttachLines // bool：取付線指定で作成する場合に取付線を面に投影しない場合はTrue
+   ReverseAttachDirection // bool：取付線指定で作成する場合に取付方向を反転する場合はTrue
+   BaseOwner // 要素： 面指定で作成する場合の面の属するソリッド要素
 }
     
 
-�Z�D�k�̃t�F�C�X�v���[�g�v�f�g���쐬����
-  �Ԃ�l:�쐬���ꂽ�t�F�C�X�v���[�g�v�fID
+〇船殻のフェイスプレート要素トを作成する
+  返り値:作成されたフェイスプレート要素ID
 CreateFacePlate(
-        ParamObj, // �t�F�C�X�v���[�g�p�����[�^�I�u�W�F�N�g
-        bUpdate);�@// bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+        ParamObj, // フェイスプレートパラメータオブジェクト
+        bUpdate);　// bool：更新フラグ（未実装、使用しない）
 
-�Z�f�[�^�����ʂ̍쐬�i�ړ��j
-�@�������ʂ��I�t�Z�b�g�ړ��R�s�[�����f�[�^�����ʂ��쐬���܂�
-  �Ԃ�l:�쐬���ꂽ�f�[�^�����ʂ̗v�fID
+〇データム平面の作成（移動）
+　既存平面をオフセット移動コピーしたデータム平面を作成します
+  返り値:作成されたデータム平面の要素ID
 CreateOffsetDatumPlane(
-    Name,         // ������F�쐬����f�[�^�����ʗv�f���́i�󕶎��j
-    ElementGroup, // �v�f�O���[�v�F�쐬����f�[�^�����ʗv�f��v�f�O���[�v�ɓ����ꍇ�͗v�f�O���[�v���w��i�󕶎��j
-    Plane,        // ���ʁF���ɂȂ镽�ʂ��w�肷��
-    OffsetDistance, // �����F���ɂȂ镽�ʂ���̃I�t�Z�b�g�������w��
-    ReferMethod,   // �֘A�ݒ�: �v�f�̊֘A�Â����@�̎w��i�������A�g�p���Ȃ��j
-    bUpdate )  // bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+    Name,         // 文字列：作成するデータム平面要素名称（空文字可）
+    ElementGroup, // 要素グループ：作成するデータム平面要素を要素グループに入れる場合は要素グループを指定（空文字可）
+    Plane,        // 平面：元になる平面を指定する
+    OffsetDistance, // 長さ：元になる平面からのオフセット距離を指定
+    ReferMethod,   // 関連設定: 要素の関連づけ方法の指定（未実装、使用しない）
+    bUpdate )  // bool：更新フラグ（未実装、使用しない）
 
-�Z�f�[�^�����ʂ̍쐬�i��]�j
-�@�������ʂ���]�ړ��R�s�[�����f�[�^�����ʂ��쐬���܂�
-  �Ԃ�l:�쐬���ꂽ�f�[�^�����ʂ̗v�fID
+〇データム平面の作成（回転）
+　既存平面を回転移動コピーしたデータム平面を作成します
+  返り値:作成されたデータム平面の要素ID
 CreateRotatedDatumPlane(
-    Name,         // ������F�쐬����f�[�^�����ʗv�f���́i�󕶎��j
-    ElementGroup, // �v�f�O���[�v�F�쐬����f�[�^�����ʗv�f��v�f�O���[�v�ɓ����ꍇ�͗v�f�O���[�v���w��i�󕶎��j
-    Plane,        // ���ʁF���ɂȂ镽�ʂ��w�肷��
-    Axis,         // ���F ��]�����w�肷��
-    Angle,        // �p�x�F ��]�p�x
-    ReferMethod,   // �֘A�ݒ�: �v�f�̊֘A�Â����@�̎w��i�������A�g�p���Ȃ��j
-    bUpdate )  // bool�F�X�V�t���O�i�������A�g�p���Ȃ��j
+    Name,         // 文字列：作成するデータム平面要素名称（空文字可）
+    ElementGroup, // 要素グループ：作成するデータム平面要素を要素グループに入れる場合は要素グループを指定（空文字可）
+    Plane,        // 平面：元になる平面を指定する
+    Axis,         // 軸： 回転軸を指定する
+    Angle,        // 角度： 回転角度
+    ReferMethod,   // 関連設定: 要素の関連づけ方法の指定（未実装、使用しない）
+    bUpdate )  // bool：更新フラグ（未実装、使用しない）
