@@ -120,6 +120,32 @@ class Neo4jImporter:
 
     def _create_function_node(self, session, func_data):
         """関数ノードの作成"""
+        # 説明に引数定義と戻り値情報を結合して格納
+        base_desc = func_data.get('description', '') or ''
+        parts = [base_desc.strip()]
+
+        params = func_data.get('params') or []
+        if params:
+            param_lines = ["引数:"]
+            for p in params:
+                pname = p.get('name', '')
+                ptype = p.get('type', '')
+                pdesc = (p.get('description', '') or '').strip()
+                required = p.get('is_required', False)
+                req_txt = '必須' if required else '任意'
+                line = f"- {pname} ({ptype}, {req_txt})"
+                if pdesc:
+                    line += f": {pdesc}"
+                param_lines.append(line)
+            parts.append("\n".join(param_lines))
+
+        returns = func_data.get('returns') or {}
+        rtype = returns.get('type')
+        if rtype:
+            parts.append(f"戻り値: {rtype}")
+
+        combined_description = "\n\n".join([s for s in parts if s])
+
         query = """
         MERGE (f:Function {name: $name})
         SET f.description = $description,
@@ -130,7 +156,7 @@ class Neo4jImporter:
         session.run(
             query,
             name=func_data['name'],
-            description=func_data.get('description', ''),
+            description=combined_description,
             category=func_data.get('category', ''),
             implementation_status=func_data.get('implementation_status', ''),
             notes=func_data.get('notes', '')
