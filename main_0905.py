@@ -391,8 +391,6 @@ def main():
         success = run_llm_doc(config)
     elif args.function == "vectorize":
         success = run_vectorization(config)
-    elif args.function == "llm_doc_and_vectorize":
-        success = (run_llm_doc(config) and run_vectorization(config))
     elif args.function == "full_pipeline":
         # 完全パイプライン: Neo4j → ChromaDB → LlamaIndex
         print("🚀 完全パイプライン実行中...")

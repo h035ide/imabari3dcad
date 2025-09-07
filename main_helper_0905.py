@@ -54,7 +54,7 @@ class Config:
     def setup_llm_config(self):
         """LLM設定"""
         # 基本設定
-        self.llm_model = "gpt-4o"
+        self.llm_model = "gpt-5-mini"
         self.response_format = "text"  # "json_object"
         # only for standard models
         self.llm_temperature = 0.1  # or None
