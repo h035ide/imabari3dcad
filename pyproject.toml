@@ -65,6 +65,13 @@ exclude = ["tests*", "data*"]
 line-length = 88
 target-version = ['py38']
 
+[tool.ruff]
+line-length = 120
+
+[tool.flake8]
+max-line-length = 120
+extend-ignore = ["E203", "E266", "E501", "W503"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"] 
