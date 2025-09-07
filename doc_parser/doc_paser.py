@@ -16,7 +16,7 @@ class Config:
     # ファイルパス
     DEFAULT_API_DOC_PATH = "data/src/api.txt"
     DEFAULT_API_ARG_PATH = "data/src/api_arg.txt"
-    DEFAULT_OUTPUT_PATH = "doc_paser/parsed_api_result.json"
+    DEFAULT_OUTPUT_PATH = "doc_parser/parsed_api_result.json"
     DEFAULT_ENCODING = "utf-8"
 
     # モデル設定
@@ -58,7 +58,7 @@ def safe_file_operation(operation, *args, **kwargs):
     except FileNotFoundError as e:
         raise FileNotFoundError(f"ファイルが見つかりません: {e}")
     except UnicodeDecodeError as e:
-        raise UnicodeDecodeError(f"ファイルのエンコーディングが不正です: {e}")
+        raise e
     except PermissionError as e:
         raise PermissionError(f"ファイルへのアクセス権限がありません: {e}")
     except IOError as e:
@@ -66,9 +66,21 @@ def safe_file_operation(operation, *args, **kwargs):
 
 
 def read_file_safely(file_path: str, encoding: str = Config.DEFAULT_ENCODING) -> str:
-    """ファイルを安全に読み込む"""
+    """ファイルを安全に読み込む（エンコーディング自動フォールバック付き）"""
 
     def read_operation():
+        last_err: Exception | None = None
+        for enc in (encoding, "utf-8-sig", "cp932", "shift_jis"):
+            try:
+                with open(file_path, "r", encoding=enc) as file:
+                    return file.read()
+            except UnicodeDecodeError as e:
+                last_err = e
+                continue
+        # すべて失敗した場合は最後のエラーを再送出
+        if last_err:
+            raise last_err
+        # 想定外のケース（理論上到達しない）
         with open(file_path, "r", encoding=encoding) as file:
             return file.read()
 
@@ -517,18 +529,18 @@ class CodeCorrector:
                 (
                     "user",
                     f"""
-以下のPythonコードの問題を修正してください：
+                    以下のPythonコードの問題を修正してください：
 
-問題:
-{json.dumps(state["errors"], ensure_ascii=False, indent=2)}
+                    問題:
+                    {json.dumps(state["errors"], ensure_ascii=False, indent=2)}
 
-コード:
-```python
-{state["current_code"]}
-```
+                    コード:
+                    ```python
+                    {state["current_code"]}
+                    ```
 
-修正されたコードのみを出力してください。
-""",
+                    修正されたコードのみを出力してください。
+                    """,
                 ),
             ]
         )

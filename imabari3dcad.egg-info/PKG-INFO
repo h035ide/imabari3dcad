@@ -39,6 +39,7 @@ Requires-Dist: pytest-cov>=6.2.1
 Requires-Dist: coverage>=7.10.5
 Requires-Dist: pywin32>=311
 Requires-Dist: pytest>=8.4.1
+Requires-Dist: langgraph>=0.6.6
 Provides-Extra: dev
 Requires-Dist: pytest; extra == "dev"
 Requires-Dist: black; extra == "dev"

@@ -1,9 +1,8 @@
 import sys
 import argparse
-import os
 from pathlib import Path
 from dotenv import load_dotenv
-from main_helper_0905 import Config, 
+from main_helper_0905 import Config
 
 # プロジェクトルートをパスに追加
 project_root = Path(__file__).parent
@@ -53,7 +52,7 @@ def run_llm_doc():
 def run_vectorization():
     """LlamaIndexを使用した効率的なベクトル化"""
     try:
-        from code_generator.db.ingest_to_chroma import (
+        from main_helper_0905 import (
             fetch_data_from_neo4j,
             ingest_data_to_chroma
         )
@@ -66,7 +65,8 @@ def run_vectorization():
         records = fetch_data_from_neo4j(
             label="Function",
             db_name=config.neo4j_database,
-            allow_missing_description=True
+            allow_missing_description=True,
+            config=config
         )
 
         if not records:
@@ -119,7 +119,9 @@ def run_llamaindex_vectorization():
 
         # LlamaIndexの設定
         Settings.llm = OpenAI(**config.llamaindex_llm_config)
-        Settings.embed_model = OpenAIEmbedding(**config.llamaindex_embedding_config)
+        Settings.embed_model = OpenAIEmbedding(
+            **config.llamaindex_embedding_config
+        )
 
         print("LlamaIndexを使用したベクトル化を開始...")
 
@@ -158,13 +160,14 @@ def run_llamaindex_vectorization():
 def run_qa_system():
     """LlamaIndexを使用した効率的なQAシステム"""
     try:
-        from code_generator.llamaindex_integration import (build_vector_engine,build_graph_engine)
+        from code_generator.llamaindex_integration import (
+            build_vector_engine, build_graph_engine
+        )
         from llama_index.core import Settings
         from llama_index.llms.openai import OpenAI
 
         # Configから設定を取得
         config = Config()
-
 
         # LlamaIndexの設定
         Settings.llm = OpenAI(**config.llamaindex_llm_config)
@@ -296,9 +299,9 @@ def main():
     elif args.function == "full_pipeline":
         # 完全パイプライン: Neo4j → ChromaDB → LlamaIndex
         print("🚀 完全パイプライン実行中...")
-        success = (run_llm_doc() and 
-                  run_vectorization() and 
-                  run_llamaindex_vectorization())
+        success = (run_llm_doc() and
+                   run_vectorization() and
+                   run_llamaindex_vectorization())
     elif args.function == "qa":
         success = run_qa_system()
     elif args.function == "llamaindex_vectorize":
