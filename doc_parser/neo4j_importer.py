@@ -360,7 +360,7 @@ def load_api_data(file_path=None, use_def_file=True):
 
 
 def import_to_neo4j(uri, user, password, database, file_path=None,
-                    use_def_file=True):
+                    use_def_file=True, config=None):
     """Neo4jにデータをインポートする関数"""
     print("Neo4j Importer script started.")
 
@@ -406,12 +406,12 @@ def main():
         description='Neo4jにAPIデータをインポートするスクリプト',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-使用例:
-  python neo4j_importer.py  # デフォルトでparsed_api_result_def.jsonを使用
-  python neo4j_importer.py --def-file  # parsed_api_result_def.jsonを使用
-  python neo4j_importer.py --original-file  # parsed_api_result.jsonを使用
-  python neo4j_importer.py --file custom.json  # カスタムファイルを使用
-        """
+    使用例:
+    python neo4j_importer.py  # デフォルトでparsed_api_result_def.jsonを使用
+    python neo4j_importer.py --def-file  # parsed_api_result_def.jsonを使用
+    python neo4j_importer.py --original-file  # parsed_api_result.jsonを使用
+    python neo4j_importer.py --file custom.json  # カスタムファイルを使用
+            """
     )
 
     group = parser.add_mutually_exclusive_group()
