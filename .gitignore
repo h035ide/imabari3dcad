@@ -6,3 +6,4 @@ langflow_env/
 chroma_db_store/
 vector_store/
 htmlcov/
+.flake8
