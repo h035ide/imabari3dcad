@@ -97,16 +97,16 @@ def load_api_document(api_doc_path: str = None, api_arg_path: str = None) -> str
         api_arg_content = read_file_safely(api_arg_path)
 
         return f"""
-# APIドキュメント
+        # APIドキュメント
 
-{api_doc_content}
+        {api_doc_content}
 
----
+        ---
 
-# 引数の型と書式
+        # 引数の型と書式
 
-{api_arg_content}
-"""
+        {api_arg_content}
+        """
     except Exception as e:
         print(f"ドキュメントの読み込みに失敗しました: {e}")
         raise
@@ -133,145 +133,145 @@ class PromptManager:
     def get_system_prompt() -> str:
         """システムプロンプトを取得"""
         return """
-<prompt>
-    <developer>
-        <specialty>EVO.SHIP APIドキュメントの正確な解析</specialty>
-        <role>
-            あなたは「EVO.SHIP API」ドキュメントの解析に特化した、非常に優秀なソフトウェアエンジニアです。提供されたAPIドキュメントを厳密に解析し、指定されたJSON形式の単一オブジェクトとして出力します。
-        </role>
-        <workflow>
-            <step>これから行うべきサブタスクの簡潔なチェックリスト（3〜7項目）を提示する。</step>
-            <step>提供されたAPIドキュメントを厳密に解析する。</step>
-            <step>解析結果を指定されたJSON形式の単一オブジェクトで出力する。</step>
-            <note>チェックリストは最終出力JSONのトップレベルフィールド <code>checklist</code> として含めること。</note>
-        </workflow>
-        <guidelines>
-            <general>
-                <item>出力は有効なJSONオブジェクトのみとし、Markdownやその他のテキストは一切含めないこと。</item>
-                <item>ドキュメントに明記されていない情報の推測や補完は行わないこと。</item>
-                <item>解析対象は「APIドキュメント」セクションと「引数の型と書式」セクションから構成される。</item>
-            </general>
-            <analysis_points>
-                <type_definitions>
-                    <item>「引数の型と書式」セクションから<strong>すべての</strong>データ型を漏れなく抽出する。</item>
-                    <item>基本データ型（文字列、浮動小数点、整数、bool）も含める。</item>
-                    <item>特殊文字列型（長さ、角度、数値、範囲、点、方向、平面、変数単位、要素グループ、注記スタイル、材料、スイープ方向、厚み付けタイプ、モールド位置、オペレーションタイプ、関連設定、形状タイプ、形状パラメータ、要素）も含める。</item>
-                    <item>各型は name と description を格納し、descriptionには型の詳細な仕様と書式を含める。</item>
-                    <item>例や書式の説明も description に含める。</item>
-                </type_definitions>
-                <api_entries>
-                    <item>「APIドキュメント」を解析し、関数や独立オブジェクト定義を抽出する。</item>
-                    <kinds>
-                        <function>entry_type = "function"</function>
-                        <object_definition>entry_type = "object_definition"</object_definition>
-                    </kinds>
-                    <fields>
-                        <item>name / description / category</item>
-                        <item>params: name, position(0始まり), type, description, is_required, default_value</item>
-                        <item>properties: name, type, description</item>
-                        <item>returns: type, description, is_array（戻り値が無い場合 type は "void"）</item>
-                        <item>is_required は説明に「空文字不可」「必須」があれば true、明記が無ければ false</item>
-                        <item>implementation_status は「未実装、使用しない」なら 'unimplemented'、それ以外は 'implemented'</item>
-                    </fields>
-                </api_entries>
-            </analysis_points>
-        </guidelines>
-        <format>{json_format}</format>
-    </developer>
-</prompt>
-"""
+        <prompt>
+            <developer>
+                <specialty>EVO.SHIP APIドキュメントの正確な解析</specialty>
+                <role>
+                    あなたは「EVO.SHIP API」ドキュメントの解析に特化した、非常に優秀なソフトウェアエンジニアです。提供されたAPIドキュメントを厳密に解析し、指定されたJSON形式の単一オブジェクトとして出力します。
+                </role>
+                <workflow>
+                    <step>これから行うべきサブタスクの簡潔なチェックリスト（3〜7項目）を提示する。</step>
+                    <step>提供されたAPIドキュメントを厳密に解析する。</step>
+                    <step>解析結果を指定されたJSON形式の単一オブジェクトで出力する。</step>
+                    <note>チェックリストは最終出力JSONのトップレベルフィールド <code>checklist</code> として含めること。</note>
+                </workflow>
+                <guidelines>
+                    <general>
+                        <item>出力は有効なJSONオブジェクトのみとし、Markdownやその他のテキストは一切含めないこと。</item>
+                        <item>ドキュメントに明記されていない情報の推測や補完は行わないこと。</item>
+                        <item>解析対象は「APIドキュメント」セクションと「引数の型と書式」セクションから構成される。</item>
+                    </general>
+                    <analysis_points>
+                        <type_definitions>
+                            <item>「引数の型と書式」セクションから<strong>すべての</strong>データ型を漏れなく抽出する。</item>
+                            <item>基本データ型（文字列、浮動小数点、整数、bool）も含める。</item>
+                            <item>特殊文字列型（長さ、角度、数値、範囲、点、方向、平面、変数単位、要素グループ、注記スタイル、材料、スイープ方向、厚み付けタイプ、モールド位置、オペレーションタイプ、関連設定、形状タイプ、形状パラメータ、要素）も含める。</item>
+                            <item>各型は name と description を格納し、descriptionには型の詳細な仕様と書式を含める。</item>
+                            <item>例や書式の説明も description に含める。</item>
+                        </type_definitions>
+                        <api_entries>
+                            <item>「APIドキュメント」を解析し、関数や独立オブジェクト定義を抽出する。</item>
+                            <kinds>
+                                <function>entry_type = "function"</function>
+                                <object_definition>entry_type = "object_definition"</object_definition>
+                            </kinds>
+                            <fields>
+                                <item>name / description / category</item>
+                                <item>params: name, position(0始まり), type, description, is_required, default_value</item>
+                                <item>properties: name, type, description</item>
+                                <item>returns: type, description, is_array（戻り値が無い場合 type は "void"）</item>
+                                <item>is_required は説明に「空文字不可」「必須」があれば true、明記が無ければ false</item>
+                                <item>implementation_status は「未実装、使用しない」なら 'unimplemented'、それ以外は 'implemented'</item>
+                            </fields>
+                        </api_entries>
+                    </analysis_points>
+                </guidelines>
+                <format>{json_format}</format>
+            </developer>
+        </prompt>
+        """
 
     @staticmethod
     def get_user_prompt() -> str:
         """ユーザープロンプトを取得"""
         return """
-以下のドキュメントを上記方針に従って解析し、単一のJSONオブジェクトのみを出力してください。
+        以下のドキュメントを上記方針に従って解析し、単一のJSONオブジェクトのみを出力してください。
 
-# 重要: データ型の抽出について
-- 「引数の型と書式」セクションから<strong>すべての</strong>データ型を漏れなく抽出してください
-- 基本データ型（文字列、浮動小数点、整数、bool）も含めてください
-- 特殊文字列型（長さ、角度、数値、範囲、点、方向、平面、変数単位、要素グループ、注記スタイル、材料、スイープ方向、厚み付けタイプ、モールド位置、オペレーションタイプ、関連設定、形状タイプ、形状パラメータ、要素）も含めてください
-- 各データ型の詳細な仕様、書式、例も description に含めてください
+        # 重要: データ型の抽出について
+        - 「引数の型と書式」セクションから<strong>すべての</strong>データ型を漏れなく抽出してください
+        - 基本データ型（文字列、浮動小数点、整数、bool）も含めてください
+        - 特殊文字列型（長さ、角度、数値、範囲、点、方向、平面、変数単位、要素グループ、注記スタイル、材料、スイープ方向、厚み付けタイプ、モールド位置、オペレーションタイプ、関連設定、形状タイプ、形状パラメータ、要素）も含めてください
+        - 各データ型の詳細な仕様、書式、例も description に含めてください
 
-# 解析対象ドキュメント
----
-{document}
----
-"""
+        # 解析対象ドキュメント
+        ---
+        {document}
+        ---
+        """
 
     @staticmethod
     def get_json_format() -> str:
         """JSONフォーマット例を取得"""
         return """
-{
-  "type_definitions": [
-    {
-      "name": "文字列",
-      "description": "通常の文字列"
-    },
-    {
-      "name": "浮動小数点",
-      "description": "通常の数値"
-    },
-    {
-      "name": "整数",
-      "description": "通常の数値"
-    },
-    {
-      "name": "bool",
-      "description": "通常の真偽値 True False"
-    },
-    {
-      "name": "長さ",
-      "description": "mm単位の数値、変数要素名、式文字列。例: \"100.0\", \"L1\", \"L1 / 2.0\""
-    },
-    {
-      "name": "角度",
-      "description": "度(°)単位の数値、変数要素名、式文字列。例: \"30.0\", \"Angle1\", \"Angle1 * 0.2\""
-    },
-    {
-      "name": "点",
-      "description": "コンマで区切って各コンポーネントをX,Y,Z（3Dの場合）を長さ（変数も可）で指定。例: \"100.0,50,0,0.0\""
-    },
-    {
-      "name": "平面",
-      "description": "コンマで区切られた文字列で指定。最初のカラムは必ず \"PL\"。例: \"PL,Z\" グローバルXY平面"
-    }
-  ],
-  "api_entries": [
-    {
-      "entry_type": "'function' or 'object_definition'",
-      "name": "string (function or object name)",
-      "description": "string",
-      "category": "string",
-      "params": [
         {
-          "name": "string",
-          "position": "number (0-based index of the parameter)",
-          "type": "string (normalized type name)",
-          "description": "string",
-          "is_required": "boolean",
-          "default_value": "string | null"
+        "type_definitions": [
+            {
+            "name": "文字列",
+            "description": "通常の文字列"
+            },
+            {
+            "name": "浮動小数点",
+            "description": "通常の数値"
+            },
+            {
+            "name": "整数",
+            "description": "通常の数値"
+            },
+            {
+            "name": "bool",
+            "description": "通常の真偽値 True False"
+            },
+            {
+            "name": "長さ",
+            "description": "mm単位の数値、変数要素名、式文字列。例: \"100.0\", \"L1\", \"L1 / 2.0\""
+            },
+            {
+            "name": "角度",
+            "description": "度(°)単位の数値、変数要素名、式文字列。例: \"30.0\", \"Angle1\", \"Angle1 * 0.2\""
+            },
+            {
+            "name": "点",
+            "description": "コンマで区切って各コンポーネントをX,Y,Z（3Dの場合）を長さ（変数も可）で指定。例: \"100.0,50,0,0.0\""
+            },
+            {
+            "name": "平面",
+            "description": "コンマで区切られた文字列で指定。最初のカラムは必ず \"PL\"。例: \"PL,Z\" グローバルXY平面"
+            }
+        ],
+        "api_entries": [
+            {
+            "entry_type": "'function' or 'object_definition'",
+            "name": "string (function or object name)",
+            "description": "string",
+            "category": "string",
+            "params": [
+                {
+                "name": "string",
+                "position": "number (0-based index of the parameter)",
+                "type": "string (normalized type name)",
+                "description": "string",
+                "is_required": "boolean",
+                "default_value": "string | null"
+                }
+            ],
+            "properties": [
+                {
+                "name": "string",
+                "type": "string (normalized type name)",
+                "description": "string"
+                }
+            ],
+            "returns": {
+                "type": "string (normalized type name)",
+                "description": "string",
+                "is_array": "boolean"
+            },
+            "notes": "string | null",
+            "implementation_status": "string ('implemented', 'unimplemented', or 'deprecated')"
+            }
+        ]
         }
-      ],
-      "properties": [
-        {
-          "name": "string",
-          "type": "string (normalized type name)",
-          "description": "string"
-        }
-      ],
-      "returns": {
-        "type": "string (normalized type name)",
-        "description": "string",
-        "is_array": "boolean"
-      },
-      "notes": "string | null",
-      "implementation_status": "string ('implemented', 'unimplemented', or 'deprecated')"
-    }
-  ]
-}
-"""
+        """
 
 
 # ===== データ処理関数 =====
