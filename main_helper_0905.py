@@ -5,6 +5,19 @@ from typing import Optional
 from neo4j import GraphDatabase
 from langchain_openai import OpenAIEmbeddings
 from langchain_chroma import Chroma
+import chromadb
+
+# LlamaIndex imports
+from llama_index.core import (
+    Settings,
+    VectorStoreIndex,
+    StorageContext,
+)
+from llama_index.embeddings.openai import OpenAIEmbedding
+from llama_index.llms.openai import OpenAI
+from llama_index.vector_stores.chroma import ChromaVectorStore
+from llama_index.graph_stores.neo4j import Neo4jPropertyGraphStore
+from llama_index.core.indices.property_graph import PropertyGraphIndex
 
 logger = logging.getLogger(__name__)
 
@@ -159,7 +172,7 @@ def fetch_data_from_neo4j(
     label: str = "ApiFunction",
     db_name: Optional[str] = None,
     allow_missing_description: bool = True,
-    config: Optional[Config] = None
+    config: Optional[Config] = None,
 ):
     """
     Neo4jからベクトル化するデータを取得します。
@@ -207,7 +220,7 @@ def ingest_data_to_chroma(
     records,
     collection_name: Optional[str] = None,
     persist_dir: Optional[str] = None,
-    config: Optional[Config] = None
+    config: Optional[Config] = None,
 ):
     """取得したデータをChromaDBに格納します。"""
     if not records:
@@ -223,7 +236,6 @@ def ingest_data_to_chroma(
         persist_dir = (
             config.chroma_persist_directory if config else "chroma_db_store"
         )
-
     if config is None:
         logger.error("Configが指定されていません。")
         return
@@ -293,5 +305,118 @@ def ingest_data_to_chroma(
             logger.info("ChromaDBへのデータ格納が完了しました。")
 
     except Exception as e:
-        logger.error(f"ChromaDBへのデータ格納中にエラーが発生しました: {e}", exc_info=True)
-        
+        logger.error(
+            f"ChromaDBへのデータ格納中にエラーが発生しました: {e}",
+            exc_info=True,
+        )
+
+
+def build_vector_engine(persist_dir: str, collection: str, config: Config):
+    """
+    既存のChromaDB永続化データからLlamaIndexのVectorQueryEngineを構築します。
+    """
+    if not os.path.exists(persist_dir) or not os.listdir(persist_dir):
+        logger.error(
+            f"ChromaDBの永続化ディレクトリが見つからないか空です: {persist_dir}"
+        )
+        raise FileNotFoundError(
+            "ChromaDBのデータベースが見つかりません。先にデータ格納スクリプトを実行してください。"
+        )
+
+    logger.info(
+        (
+            f"既存のChromaDBコレクション '{collection}' から"
+            "VectorQueryEngineを構築しています..."
+        )
+    )
+
+    # OpenAIの埋め込みモデルをLlamaIndexのSettingsに設定
+    Settings.embed_model = OpenAIEmbedding(
+        **config.llamaindex_embedding_config
+    )
+
+    client = chromadb.PersistentClient(path=persist_dir)
+    chroma_collection = client.get_or_create_collection(collection)
+
+    vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
+    storage_context = StorageContext.from_defaults(vector_store=vector_store)
+
+    # 既存のベクトルストアからインデックスを構築
+    v_index = VectorStoreIndex.from_vector_store(
+        vector_store,
+        storage_context=storage_context,
+    )
+
+    logger.info("VectorQueryEngineの構築が完了しました。")
+    return v_index.as_query_engine()
+
+
+def build_graph_engine(config: Config):
+    """
+    既存のNeo4jグラフからLlamaIndexのPropertyGraphQueryEngineを構築します。
+    APOCプラグインがインストールされていることを前提としています。
+    """
+    uri = config.neo4j_uri
+    user = config.neo4j_user
+    password = config.neo4j_password
+    db_name = config.neo4j_database
+
+    if not all([uri, user, password, db_name]):
+        logger.error("Neo4j接続情報が config から取得できません。")
+        raise ValueError(
+            (
+                "config に neo4j_uri, neo4j_user, neo4j_password, "
+                "neo4j_database が設定されていません。"
+            )
+        )
+
+    logger.info(
+        (
+            f"既存のNeo4jグラフ '{db_name}' から"
+            "PropertyGraphQueryEngineを構築しています..."
+        )
+    )
+
+    # OpenAIのLLMと埋め込みモデルをLlamaIndexのSettingsに設定（configから）
+    Settings.llm = OpenAI(**config.llamaindex_llm_config)
+    Settings.embed_model = OpenAIEmbedding(
+        **config.llamaindex_embedding_config
+    )
+
+    try:
+        # 標準的なNeo4jPropertyGraphStoreを使用（APOCプラグインが必要）
+        # ここでは環境変数の存在を既に検証済みだが、型シグネチャが str を要求するためキャスト
+        assert (
+            user is not None
+            and password is not None
+            and uri is not None
+            and db_name is not None
+        )
+        graph_store = Neo4jPropertyGraphStore(
+            username=str(user),
+            password=str(password),
+            url=str(uri),
+            database=str(db_name),
+        )
+
+        # 既存のグラフ構造からインデックスをロード
+        g_index = PropertyGraphIndex.from_existing(
+            property_graph_store=graph_store,
+        )
+
+        logger.info("PropertyGraphQueryEngineの構築が完了しました。")
+        return g_index.as_query_engine()
+
+    except Exception as e:
+        logger.error(f"Neo4jグラフエンジンの構築に失敗しました: {e}")
+        logger.error("APOCプラグインが正しくインストールされているか確認してください。")
+        logger.error(
+            (
+                f"Neo4jグラフエンジンの構築中に例外が発生しました "
+                f"[{type(e).__name__}]: {e}\n"
+                "失敗したステップ: Neo4jPropertyGraphStoreの初期化または"
+                "PropertyGraphIndexのロード。\n"
+                "APOCプラグインが正しくインストールされているか確認してください。"
+            )
+        )
+        raise

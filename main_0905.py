@@ -13,7 +13,7 @@ if str(project_root) not in sys.path:
 load_dotenv()
 
 
-def run_nollm_doc():
+def run_nollm_doc(config: Config):
     """No LLM ドキュメント処理を実行"""
     try:
         print("No LLM ドキュメント処理を実行中...")
@@ -24,13 +24,10 @@ def run_nollm_doc():
         return False
 
 
-def run_llm_doc():
+def run_llm_doc(config: Config):
     """LLM ドキュメント処理を実行"""
     try:
         from doc_parser.neo4j_importer import import_to_neo4j
-
-        # Configから設定を取得
-        config = Config()
 
         # Neo4jにデータをインポート
         success = import_to_neo4j(
@@ -49,16 +46,13 @@ def run_llm_doc():
         return False
 
 
-def run_vectorization():
+def run_vectorization(config: Config):
     """LlamaIndexを使用した効率的なベクトル化"""
     try:
         from main_helper_0905 import (
             fetch_data_from_neo4j,
             ingest_data_to_chroma
         )
-
-        # Configから設定を取得
-        config = Config()
 
         print("Neo4jからAPIデータを取得中...")
         # Functionノードを取得（Neo4jのラベルに合わせて調整）
@@ -78,7 +72,8 @@ def run_vectorization():
         ingest_data_to_chroma(
             records=records,
             collection_name=config.chroma_collection_name,
-            persist_dir=config.chroma_persist_directory
+            persist_dir=config.chroma_persist_directory,
+            config=config
         )
 
         print("✅ Chromaベクトル化完了")
@@ -89,7 +84,7 @@ def run_vectorization():
         return False
 
 
-def run_llamaindex_vectorization():
+def run_llamaindex_vectorization(config: Config):
     """LlamaIndexを使用した高度なベクトル化"""
     try:
         from llama_index.core import VectorStoreIndex, StorageContext, Settings
@@ -98,9 +93,7 @@ def run_llamaindex_vectorization():
         from llama_index.llms.openai import OpenAI
         import chromadb
 
-        # Configから設定を取得
-        config = Config()
-        
+        # 呼び出し元から受け取った Config を使用
         # 設定情報を表示
         print("🔧 LlamaIndexベクトル化設定:")
         print(f"  LLMモデル: {config.llm_model}")
@@ -108,7 +101,6 @@ def run_llamaindex_vectorization():
         print(f"  バッチサイズ: {config.embedding_batch_size}")
         print(f"  Chroma永続化ディレクトリ: {config.chroma_persist_directory}")
         print(f"  Chromaコレクション: {config.chroma_collection_name}")
-        
         if config.is_inference_model:
             print("  推論モデル設定:")
             print(f"    Verbosity: {config.llm_verbosity}")
@@ -157,17 +149,16 @@ def run_llamaindex_vectorization():
         return False
 
 
-def run_qa_system():
+def run_qa_system(config: Config):
     """LlamaIndexを使用した効率的なQAシステム"""
     try:
-        from code_generator.llamaindex_integration import (
+        from main_helper_0905 import (
             build_vector_engine, build_graph_engine
         )
         from llama_index.core import Settings
         from llama_index.llms.openai import OpenAI
 
-        # Configから設定を取得
-        config = Config()
+        # 呼び出し元から受け取った Config を使用
 
         # LlamaIndexの設定
         Settings.llm = OpenAI(**config.llamaindex_llm_config)
@@ -194,7 +185,8 @@ def run_qa_system():
         try:
             vector_engine = build_vector_engine(
                 persist_dir=config.chroma_persist_directory,
-                collection=config.chroma_collection_name
+                collection=config.chroma_collection_name,
+                config=config
             )
         except Exception as e:
             print(f"❌ ベクトル検索エンジンの構築に失敗: {e}")
@@ -203,7 +195,7 @@ def run_qa_system():
         # 2. グラフ検索エンジンを構築
         print("  → グラフ検索エンジンを構築中...")
         try:
-            graph_engine = build_graph_engine()
+            graph_engine = build_graph_engine(config=config)
         except Exception as e:
             print(f"⚠️ グラフ検索エンジンの構築に失敗: {e}")
             print("  → ベクトル検索のみで実行します...")
@@ -262,22 +254,20 @@ def main():
         description="imabari3dcad メイン - ドキュメント解析とハイブリッド検索システム",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-ワークフロー:
-1. ドキュメント解析 → Neo4jデータ格納
-2. ベクトル化 → ChromaDB構築  
-3. ハイブリッド検索 → Neo4j + ChromaDB
+        ワークフロー:
+        1. ドキュメント解析 → Neo4jデータ格納
+        2. ベクトル化 → ChromaDB構築
+        3. ハイブリッド検索 → Neo4j + ChromaDB
 
-使用例:
-  python main_0905.py --function full_pipeline  # 完全パイプライン実行
-  python main_0905.py --function qa            # ハイブリッド検索
-  python main_0905.py --function config        # 設定表示
+        使用例:
+        python main_0905.py --function full_pipeline  # 完全パイプライン実行
+        python main_0905.py --function qa            # ハイブリッド検索
+        python main_0905.py --function config        # 設定表示
         """
     )
     parser.add_argument("--function", "-f", help="実行する機能")
     parser.add_argument("--list", "-l", action="store_true", help="機能一覧表示")
-    
     args = parser.parse_args()
-    
     # if args.list:
     #     print("利用可能な機能:")
     #     print("  code_generator  - AIコード生成")
@@ -285,35 +275,35 @@ def main():
     #     print("  doc_parser      - ドキュメント解析")
     #     print("  all            - 全機能実行")
     #     return
-    
+
     print(f"実行中: {args.function}")
-    
+    config = Config()
     if args.function == "nollm_doc":
-        success = run_nollm_doc()
+        success = run_nollm_doc(config)
     elif args.function == "llm_doc":
-        success = run_llm_doc()
+        success = run_llm_doc(config)
     elif args.function == "vectorize":
-        success = run_vectorization()
+        success = run_vectorization(config)
     elif args.function == "llm_doc_and_vectorize":
-        success = (run_llm_doc() and run_vectorization())
+        success = (run_llm_doc(config) and run_vectorization(config))
     elif args.function == "full_pipeline":
         # 完全パイプライン: Neo4j → ChromaDB → LlamaIndex
         print("🚀 完全パイプライン実行中...")
-        success = (run_llm_doc() and
-                   run_vectorization() and
-                   run_llamaindex_vectorization())
+        success = (
+            run_llm_doc(config)
+            and run_vectorization(config)
+            and run_llamaindex_vectorization(config)
+        )
     elif args.function == "qa":
-        success = run_qa_system()
+        success = run_qa_system(config)
     elif args.function == "llamaindex_vectorize":
-        success = run_llamaindex_vectorization()
+        success = run_llamaindex_vectorization(config)
     elif args.function == "config":
-        config = Config()
         config.print_llm_config()
         success = True
     else:
         print(f"未知の機能: {args.function}")
         success = False
-    
     if success:
         print("✅ 完了")
     else:
