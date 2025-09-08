@@ -39,8 +39,9 @@ class Config:
         # OpenAI設定（環境変数から読み込み）
         self.openai_api_key = os.getenv("OPENAI_API_KEY")
 
-        # APIドキュメント設定
-        self.api_document_dir = "api_documendata/src"
+        # APIドキュメント設定（プロジェクトルート基準の絶対パス。環境変数で上書き可）
+        default_api_dir = self.project_root / "data" / "src"
+        self.api_document_dir = Path(os.getenv("API_DOCUMENT_DIR", str(default_api_dir)))
 
         # ファイルパス設定
         self.parsed_api_result_def_file = "doc_parser/parsed_api_result_def.json"
@@ -62,9 +63,9 @@ class Config:
         try:
             u = uri.strip()
             if u.startswith("neo4j://") and ("localhost" in u or "127.0.0.1" in u):
-                u = "bolt://" + u[len("neo4j://") :]
+                u = "bolt://" + u[len("neo4j://"):]
             if u.startswith("bolt://"):
-                host_port = u[len("bolt://") :]
+                host_port = u[len("bolt://"):]
                 # ポートが無ければ7687を付与
                 if ":" not in host_port:
                     u = u + ":7687"
