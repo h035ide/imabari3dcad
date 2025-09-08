@@ -22,7 +22,7 @@ def run_nollm_doc(config: Config):
     try:
         print("No LLM ドキュメント処理を実行中...")
         # パッケージ化した graphrag_gpt から通常インポートで実行
-        from graphrag_gpt.ingest0903 import build_databases  # type: ignore[reportMissingImports]
+        from graphrag_gpt.ingest0903 import build_databases
         success = build_databases(config)
 
         if success:
@@ -268,10 +268,10 @@ def run_qa_system(config: Config):
                             database=config.neo4j_database
                         ) as session:
                             cypher = (
-                                "MATCH (f:Function) "
-                                "WHERE toLower(f.name) CONTAINS toLower($kw) "
-                                "RETURN f.name AS name, "
-                                "f.description AS description "
+                                "MATCH (n) "
+                                "WHERE (n:Function OR n:Method) AND toLower(n.name) CONTAINS toLower($kw) "
+                                "RETURN n.name AS name, "
+                                "n.description AS description "
                                 "LIMIT 5"
                             )
                             # 質問文から関数名らしきキーワードを抽出

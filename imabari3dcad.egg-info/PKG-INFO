@@ -3,12 +3,11 @@ Name: imabari3dcad
 Version: 0.1.0
 Summary: 3D CAD application with graph RAG capabilities
 Author-email: Your Name <your.email@example.com>
-Requires-Python: >=3.10
+Requires-Python: <3.13,>=3.10
 Description-Content-Type: text/markdown
-Requires-Dist: llama-index>=0.12.52
-Requires-Dist: llama-index-agent-openai>=0.4.12
+Requires-Dist: llama-index>=0.13.1
 Requires-Dist: llama-index-embeddings-openai>=0.3.1
-Requires-Dist: llama-index-llms-openai>=0.4.7
+Requires-Dist: llama-index-llms-openai>=0.5.0
 Requires-Dist: llama-index-readers-file>=0.4.11
 Requires-Dist: llama-index-readers-llama-parse>=0.4.0
 Requires-Dist: llama-index-workflows>=1.2.0

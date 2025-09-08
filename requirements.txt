@@ -44,6 +44,6 @@ zstandard==0.23.0
 chromadb
 langchain-community
 flake8
-llama-index
+llama-index>=0.13.1
 llama-index-graph-stores-neo4j
 llama-index-vector-stores-chroma
