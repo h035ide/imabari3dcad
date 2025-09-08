@@ -58,6 +58,7 @@
     "code_parser/**",
     "doc_parser/**",
     "db_integration/**",
+    "graphrag_gpt/**",
     "tests/**",
     "*.py"
   ],
@@ -70,10 +71,10 @@
         "code_generator",
         "code_parser",
         "doc_parser",
-        "db_integration"
+        "db_integration",
+        "graphrag_gpt"
       ]
     }
   ],
-  "indexing": false,
-  "logLevel": "information"
+  "indexing": false
 }

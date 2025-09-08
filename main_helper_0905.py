@@ -29,7 +29,9 @@ class Config:
         self.project_root = Path(__file__).parent
 
         # Neo4j設定（環境変数から読み込み）
-        self.neo4j_uri = os.getenv("NEO4J_URI", "neo4j://127.0.0.1:7687")
+        self.neo4j_uri = self._normalize_neo4j_uri(
+            os.getenv("NEO4J_URI", "bolt://127.0.0.1:7687")
+        )
         self.neo4j_user = os.getenv("NEO4J_USER", "neo4j")
         self.neo4j_password = os.getenv("NEO4J_PASSWORD", "password")
         self.neo4j_database = os.getenv("NEO4J_DATABASE", "neo4j")
@@ -37,10 +39,12 @@ class Config:
         # OpenAI設定（環境変数から読み込み）
         self.openai_api_key = os.getenv("OPENAI_API_KEY")
 
+        # APIドキュメント設定（プロジェクトルート基準の絶対パス。環境変数で上書き可）
+        default_api_dir = self.project_root / "data" / "src"
+        self.api_document_dir = Path(os.getenv("API_DOCUMENT_DIR", str(default_api_dir)))
+
         # ファイルパス設定
-        self.parsed_api_result_def_file = (
-            "doc_parser/parsed_api_result_def.json"
-        )
+        self.parsed_api_result_def_file = "doc_parser/parsed_api_result_def.json"
         self.parsed_api_result_file = "doc_parser/parsed_api_result.json"
 
         # Chroma設定
@@ -50,6 +54,25 @@ class Config:
         # LlM設定
         self.setup_llm_config()
         self.setup_embedding_config()
+
+    def _normalize_neo4j_uri(self, uri: str) -> str:
+        """ローカル単一ノード接続でのルーティングエラー回避のためURIを正規化。
+        - neo4j://localhost(127.0.0.1) → bolt://localhost(127.0.0.1)
+        - ポート未指定時は :7687 を付与
+        """
+        try:
+            u = uri.strip()
+            if u.startswith("neo4j://") and ("localhost" in u or "127.0.0.1" in u):
+                u = "bolt://" + u[len("neo4j://"):]
+            if u.startswith("bolt://"):
+                host_port = u[len("bolt://"):]
+                # ポートが無ければ7687を付与
+                if ":" not in host_port:
+                    u = u + ":7687"
+            return u
+        except Exception:
+            # 失敗しても元の値を返す
+            return uri
 
     def setup_llm_config(self):
         """LLM設定"""
@@ -71,30 +94,19 @@ class Config:
 
     def _is_inference_model(self):
         """推論モデルかどうかを判定"""
-        inference_models = [
-            "o4-mini", "o4", "gpt-5", "gpt-5-mini", "gpt-5-nano"
-        ]
-        return any(model in self.llm_model.lower()
-                   for model in inference_models)
+        inference_models = ["o4-mini", "o4", "gpt-5", "gpt-5-mini", "gpt-5-nano"]
+        return any(model in self.llm_model.lower() for model in inference_models)
 
     def _build_llm_configs(self):
         """LLM設定辞書を構築"""
         # 基本設定
-        base_config = {
-            "api_key": self.openai_api_key
-        }
+        base_config = {"api_key": self.openai_api_key}
 
         # LangChain用設定
-        self.langchain_llm_config = {
-            "model_name": self.llm_model,
-            **base_config
-        }
+        self.langchain_llm_config = {"model_name": self.llm_model, **base_config}
 
         # LlamaIndex用設定
-        self.llamaindex_llm_config = {
-            "model": self.llm_model,
-            **base_config
-        }
+        self.llamaindex_llm_config = {"model": self.llm_model, **base_config}
 
         # モデル別パラメータを追加
         if self.is_inference_model:
@@ -111,7 +123,7 @@ class Config:
             "reasoning_effort": self.llm_reasoning_effort,
             "output_version": "responses/v1",
             "verbosity": self.llm_verbosity,
-            "response_format": self.response_format
+            "response_format": self.response_format,
         }
 
         for key, value in inference_params.items():
@@ -138,14 +150,14 @@ class Config:
         # LangChain用設定
         self.langchain_embedding_config = {
             "model": self.embedding_model,
-            "api_key": self.openai_api_key
+            "api_key": self.openai_api_key,
         }
 
         # LlamaIndex用設定
         self.llamaindex_embedding_config = {
             "model": self.embedding_model,
             "batch_size": self.embedding_batch_size,
-            "api_key": self.openai_api_key
+            "api_key": self.openai_api_key,
         }
 
     def print_llm_config(self):
@@ -187,8 +199,7 @@ def fetch_data_from_neo4j(
     logger.info(f"Neo4jデータベース ({config.neo4j_uri}) に接続しています...")
     try:
         with GraphDatabase.driver(
-            config.neo4j_uri,
-            auth=(config.neo4j_user, config.neo4j_password)
+            config.neo4j_uri, auth=(config.neo4j_user, config.neo4j_password)
         ) as driver:
             database = db_name or os.getenv("NEO4J_DATABASE", "codeparsar")
             with driver.session(database=database) as session:
@@ -212,7 +223,9 @@ def fetch_data_from_neo4j(
                 logger.info(f"{len(records)}件の{label}ノードを取得しました。")
                 return records
     except Exception as e:
-        logger.error(f"Neo4jからのデータ取得中にエラーが発生しました: {e}", exc_info=True)
+        logger.error(
+            f"Neo4jからのデータ取得中にエラーが発生しました: {e}", exc_info=True
+        )
         return []
 
 
@@ -233,9 +246,7 @@ def ingest_data_to_chroma(
             config.chroma_collection_name if config else "api_documentation"
         )
     if persist_dir is None:
-        persist_dir = (
-            config.chroma_persist_directory if config else "chroma_db_store"
-        )
+        persist_dir = config.chroma_persist_directory if config else "chroma_db_store"
     if config is None:
         logger.error("Configが指定されていません。")
         return
@@ -247,15 +258,14 @@ def ingest_data_to_chroma(
     for record in records:
         # ドキュメントは、検索対象となるテキスト。
         # 名前と説明を組み合わせることで、検索精度向上を狙う。
-        description = record.get('description') or ""
+        description = record.get("description") or ""
         doc_content = f"API名: {record['name']}\n説明: {description}"
         documents.append(doc_content)
 
         # メタデータには、後でグラフを再検索するために必要な情報を格納
-        metadatas.append({
-            "api_name": record["name"],
-            "neo4j_node_id": record["node_id"]
-        })
+        metadatas.append(
+            {"api_name": record["name"], "neo4j_node_id": record["node_id"]}
+        )
 
         # ChromaDB内でユニークなIDとして、Neo4jのノードIDを使用
         ids.append(record["node_id"])
@@ -279,15 +289,11 @@ def ingest_data_to_chroma(
         vector_store = Chroma(
             collection_name=collection_name,
             embedding_function=embedding_function,
-            persist_directory=persist_dir
+            persist_directory=persist_dir,
         )
 
         # データを追加（既存のIDがあれば更新される）
-        vector_store.add_texts(
-            texts=documents,
-            metadatas=metadatas,
-            ids=ids
-        )
+        vector_store.add_texts(texts=documents, metadatas=metadatas, ids=ids)
 
         # Chroma 0.4.x以降では自動永続化のためpersist()は不要
         # vector_store.persist()  # 削除
@@ -296,9 +302,7 @@ def ingest_data_to_chroma(
         # コレクション内のドキュメント数を取得（公開APIを使用）
         try:
             collection = vector_store.get()
-            doc_count = (
-                len(collection['documents']) if collection['documents'] else 0
-            )
+            doc_count = len(collection["documents"]) if collection["documents"] else 0
             logger.info(
                 f"コレクション '{collection_name}' には現在 "
                 f"{doc_count} 件のドキュメントがあります。"
@@ -339,9 +343,7 @@ def build_vector_engine(
     )
 
     # OpenAIの埋め込みモデルをLlamaIndexのSettingsに設定
-    Settings.embed_model = OpenAIEmbedding(
-        **config.llamaindex_embedding_config
-    )
+    Settings.embed_model = OpenAIEmbedding(**config.llamaindex_embedding_config)
 
     client = chromadb.PersistentClient(path=persist_dir)
     chroma_collection = client.get_or_create_collection(collection)
@@ -387,9 +389,7 @@ def build_graph_engine(config: Config):
 
     # OpenAIのLLMと埋め込みモデルをLlamaIndexのSettingsに設定（configから）
     Settings.llm = OpenAI(**config.llamaindex_llm_config)
-    Settings.embed_model = OpenAIEmbedding(
-        **config.llamaindex_embedding_config
-    )
+    Settings.embed_model = OpenAIEmbedding(**config.llamaindex_embedding_config)
 
     try:
         # 標準的なNeo4jPropertyGraphStoreを使用（APOCプラグインが必要）

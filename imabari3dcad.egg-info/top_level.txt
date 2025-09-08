@@ -6,7 +6,7 @@ db_integration
 doc
 doc_parser
 evoship
-graphrag-gpt
+graphrag_gpt
 htmlcov
 langflow_env
 mycode
