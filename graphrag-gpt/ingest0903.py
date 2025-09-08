@@ -63,7 +63,20 @@ def _read_api_arg_text(data_dir: Path) -> str:
     for p in api_arg_txt_candidates:
         if p.exists():
             return p.read_text(encoding="utf-8")
-    raise FileNotFoundError("api_arg.txt が見つかりませんでした。")
+def _read_api_text(data_dir: Path) -> str:
+    """api.txt を候補パスから読み込む"""
+    api_txt_candidates = [
+        Path("/mnt/data/api.txt"),
+        Path("api.txt"),
+        data_dir / "api.txt",
+    ]
+    for p in api_txt_candidates:
+        if p.exists():
+            return p.read_text(encoding="utf-8")
+    raise FileNotFoundError(
+        "api.txt が見つかりませんでした。次のパスを確認してください: "
+        f"{[str(p) for p in api_txt_candidates]}"
+    )
 
 
 def _read_script_files(data_dir: Path) -> List[Tuple[str, str]]:
