@@ -7,7 +7,4 @@ doc
 doc_parser
 evoship
 graphrag_gpt
-htmlcov
-langflow_env
-mycode
 vector_store
