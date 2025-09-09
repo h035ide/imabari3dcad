@@ -7,7 +7,7 @@ Requires-Python: <3.13,>=3.10
 Description-Content-Type: text/markdown
 Requires-Dist: llama-index>=0.13.1
 Requires-Dist: llama-index-embeddings-openai>=0.3.1
-Requires-Dist: llama-index-llms-openai>=0.5.0
+Requires-Dist: llama-index-llms-openai<0.6,>=0.5.6
 Requires-Dist: llama-index-readers-file>=0.4.11
 Requires-Dist: llama-index-readers-llama-parse>=0.4.0
 Requires-Dist: llama-index-workflows>=1.2.0
@@ -46,183 +46,177 @@ Requires-Dist: pytest; extra == "dev"
 Requires-Dist: black; extra == "dev"
 Requires-Dist: flake8; extra == "dev"
 
-# AI Code Generation Agent: Documentation
+# imabari3dcad ドキュメント（日本語）
 
-## 1. Overview
+## 概要
 
-This system is an advanced AI agent designed to generate Python code based on natural language instructions. It leverages a knowledge graph (Neo4j) and a vector database (ChromaDB) to understand the user's intent and generate high-quality, validated code.
+`imabari3dcad` は、技術ドキュメントを解析して知識グラフ（Neo4j）とベクトルDB（ChromaDB）に格納し、LlamaIndex を用いたハイブリッド検索（ベクトル検索 + グラフ検索）でQAを行うためのツール群です。主なエントリポイントは `main_0905.py` のCLIです。
 
-The agent's key capabilities include:
-- **Hybrid Search:** Combines semantic search and graph traversal for accurate information retrieval.
-- **Interactive Dialogue:** Asks clarifying questions when the user's request is ambiguous or incomplete.
-- **Self-Correction:** Automatically validates its own code using static analysis (`flake8`) and dynamic unit testing, and attempts to fix any issues it finds.
-- **Structured Output:** Provides its final answer in a reliable JSON format.
+## 主な機能（CLI `--function`）
 
-## 2. Directory Structure
+- **nollm_doc**: ルールベース処理でドキュメントを解析し、Neo4jへ取り込み。
+- **llm_doc**: LLMを用いた解析結果をNeo4jへ取り込み。
+- **vectorize**: Neo4jから関数情報を取得し、ChromaDBへ埋め込み格納。
+- **llamaindex_vectorize**: 既存Chromaコレクションから LlamaIndex のインデックスを構築。
+- **qa**: ベクトル検索とグラフ検索を統合したQAを実行（対話/非対話）。
+- **clear_db**: 指定のNeo4jデータベースをクリア（危険操作）。
+- **config**: 使用するLLM/Embeddingの設定を表示。
+- **full_pipeline**: `llm_doc → vectorize → llamaindex_vectorize` を一括実行。
 
-The core logic is located in the `code_generator/` directory.
+---
 
-- `main.py`: The main entry point to start the interactive chat application.
-- `agent.py`: Defines the core agent, its reasoning logic (system prompt), and the tools it uses.
-- `tools.py`: Implements the custom tools the agent can use (e.g., for searching, code validation).
-- `schemas.py`: Defines the Pydantic models for structured data (e.g., the agent's final answer).
-- `db/ingest_to_chroma.py`: A script to prepare the vector database from the Neo4j graph.
-- `rerank_feature/reranker.py`: An optional, unimplemented module for improving search results.
-- `tests/`: Contains all unit and integration tests for the system.
+## ディレクトリ構成（抜粋）
 
-## 3. Setup and Installation
+- `main_0905.py`: CLIエントリポイント。
+- `main_helper_0905.py`: Neo4j/Chroma/LlamaIndex 連携のヘルパと設定クラス `Config`。
+- `doc_parser/`: ドキュメント解析・Neo4jインポーター等。
+- `graphrag_gpt/ingest0903.py`: No LLM の解析・取り込み処理。
+- `chroma_db_store/`: ChromaDB 永続化ディレクトリ。
+- `data/src/`: 解析対象ドキュメント（例: `api.txt`）。
+- `tests/`: テストコード。
 
-### Step 3.1: Environment Variables
+---
 
-Create a `.env` file in the project's root directory. This file must contain the credentials for the services the agent uses.
+## 必要条件
+
+- Python 3.10+（推奨）
+- Neo4j（APOCプラグイン推奨。グラフ検索を使う場合に必要）
+- インターネット接続（OpenAI API を利用）
+
+---
+
+## 1. 環境変数（`.env`）
+
+プロジェクトルートに `.env` を作成し、以下を設定してください。
 
 ```env
-# Neo4j Database Credentials
-NEO4J_URI="bolt://localhost:7687"
+# Neo4j
+NEO4J_URI="bolt://127.0.0.1:7687"
 NEO4J_USER="neo4j"
-NEO4J_PASSWORD="your_neo4j_password"
-NEO4J_DATABASE="neo4j" # Or your specific database name
+NEO4J_PASSWORD="password"
+NEO4J_DATABASE="neo4j"
 
-# OpenAI API Key
+# OpenAI
 OPENAI_API_KEY="sk-..."
+
+# 解析対象ドキュメント（任意。未指定時は data/src）
+API_DOCUMENT_DIR="absolute/or/relative/path/to/docs"
 ```
 
-### Step 3.2: Install Dependencies
+補足:
 
-Install all required Python libraries from `requirements.txt`.
+- `.env` はプロジェクトルートに隠しファイルとして配置してください。
+- Neo4j URI はローカル単一ノードの場合 `bolt://...` を推奨（`neo4j://` はルーティングの都合で置換されます）。
+
+---
+
+## 2. 依存関係のインストール
+
+推奨: `uv`。代替: `pip`。
+
+uv（推奨）:
+
+```bash
+uv pip install -r requirements.txt
+```
+
+pip（代替）:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## 4. Running the System
+注記（Windows PowerShell）: コマンドの連結は使用せず、1行ずつ実行してください。
 
-### Step 4.1: Data Preparation (One-time Setup)
+---
 
-Before running the agent for the first time, you must populate the ChromaDB vector store. This script reads from your Neo4j graph and creates the vector index needed for semantic search.
+## 3. 使い方（CLI）
 
-Run the following command from the project root directory:
-
-```bash
-python -m code_generator.db.ingest_to_chroma
-```
-
-This will create a `chroma_db_store/` directory in your project root containing the vector database.
-
-### Step 4.2: Start the Agent
-
-To start the interactive chat assistant, run the `main.py` script:
+基本形:
 
 ```bash
-python code_generator/main.py
+# uv 環境
+uv run python main_0905.py -f <function>
+
+# 通常のPython
+python main_0905.py -f <function>
 ```
 
-You can then provide instructions in Japanese, for example: "一辺が50mmの正方形のキューブを作成してください".
-
-## 5. Running Tests
-
-To verify that all components are working correctly, you can run the test suite. The tests are designed to run without needing live API keys (they use mocks).
-
-Run the following command from the project root directory:
+主な例:
 
 ```bash
-python -m unittest discover code_generator/tests
+# 解析→ベクトル化→LlamaIndex 準備まで一括
+python main_0905.py -f full_pipeline
+
+# ハイブリッドQA（対話）
+python main_0905.py -f qa
+
+# ハイブリッドQA（非対話）
+python main_0905.py -f qa -q "関数 \"foo_bar\" の説明"
+
+# Neo4j クリア（危険）
+python main_0905.py -f clear_db --db neo4j -y
+
+# 設定の確認
+python main_0905.py -f config
 ```
 
-## 6. System Workflow (Mermaid Diagram)
+オプション:
 
-The agent follows a sophisticated workflow to ensure the quality of its output. The diagram below illustrates this process.
+- `--question, -q`: `qa` の非対話実行用の質問文字列。
+- `--db`: `clear_db` の対象データベース名。
+- `-y, --yes`: 確認なしで危険操作を実行。
 
-```mermaid
-graph TD
-    subgraph "Phase 1: Pre-flight Validation & Context Gathering"
-        A[User Input] --> B{1. Extract Parameters};
-        B --> C{2. Hybrid Search};
-        C --> D{3. Ambiguous?};
-        D -- No --> E{4. Params Missing?};
-        D -- Yes --> F[Ask User for Clarification];
-        F --> A;
-        E -- Yes --> G[Ask User for Missing Params];
-        G --> A;
-        E -- No --> H(Context Ready);
-    end
+---
 
-    subgraph "Phase 2: Code Generation & Self-Correction"
-        H --> I{5. Generate Code Draft};
-        I --> J{6. Validate with Flake8};
-        J -- Fails --> I;
-        J -- Passes --> K{7. Generate Unit Test};
-        K --> L{8. Run Unit Test};
-        L -- Fails --> I;
-        L -- Passes --> M(Final Code Ready);
-    end
+## 4. ワークフローの詳細
 
-    subgraph "Phase 3: Final Output"
-        M --> N{9. Format Output as JSON};
-        N --> O[Display to User];
-    end
+1. 解析（`nollm_doc` / `llm_doc`）
 
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style O fill:#f9f,stroke:#333,stroke-width:2px
-```
+   - ドキュメントを解析し、API関数や説明を Neo4j に格納します。
 
-## 7. How to Modify and Extend
+2. ベクトル化（`vectorize`）
 
-- **To change the agent's core behavior:** The main logic is defined by the system prompt in `code_generator/agent.py`. Modifying this prompt is the primary way to change the agent's workflow.
-- **To add a new tool:**
-    1.  Implement a new `BaseTool` subclass in `code_generator/tools.py`.
-    2.  Add an instance of your new tool to the `tools` list in `code_generator/agent.py`.
-    3.  Update the agent's system prompt to instruct it on how and when to use the new tool.
+   - Neo4j から関数名・説明を取得し、ChromaDB に埋め込みとして保存します。
 
-### Bonus Feature: Integrating the Re-Ranker
+3. LlamaIndex 準備（`llamaindex_vectorize`）
 
-The `rerank_feature/` directory contains an optional module to improve search result relevance using a more powerful cross-encoder model. Due to its large dependencies (`torch`, `sentence-transformers`), it is not enabled by default.
+   - 既存の Chroma コレクションから LlamaIndex のインデックスを構築します。
 
-To enable this feature, follow these steps:
+4. QA（`qa`）
 
-**1. Install Dependencies:**
+   - ベクトル検索（Chroma）とグラフ検索（Neo4j）を統合し、包括的な回答を生成します。
+   - グラフ検索が利用不可の場合はベクトル検索のみで動作します。
 
-First, ensure you have enough disk space and install the required library:
+---
 
-```bash
-pip install -r requirements.txt
-# This will install sentence-transformers and its dependencies.
-```
+## 5. 設定の既定値（`main_helper_0905.Config`）
 
-**2. Modify `code_generator/tools.py`:**
+- Chroma 永続化パス: `chroma_db_store`
+- Chroma コレクション: `api_documentation`
+- 埋め込みモデル: `text-embedding-3-small`
+- LLM モデル: `gpt-5-mini`（推論モデル設定に対応）
 
-In the `_run` method of the `GraphSearchTool` class, you need to activate the re-ranking logic.
+必要に応じて `.env` で上書き、または `Config` の実装を参照してください。
 
-Find this section in the file:
+---
 
-```python
-            # --- [Re-Ranking Integration Point] ---
-            # Re-Ranking機能を有効化するには、以下のコメントを解除し、ReRankerをインポートしてください。
-            # from code_generator.rerank_feature.reranker import ReRanker
-            # reranker = ReRanker()
-            # reranked_results = reranker.rerank(query, results)
-            # top_results = reranked_results[:5] # 上位5件に絞り込み
-            # logger.info(f"Re-Ranking後の候補件数: {len(top_results)}")
-            # node_ids = [doc.metadata.get("neo4j_node_id") for doc in top_results if doc.metadata.get("neo4j_node_id")]
-            # --- [End Re-Ranking Integration Point] ---
+## 6. トラブルシューティング
 
-            # 注：上記のRe-Rankingを有効化した場合、以下の行は不要になります。
-            node_ids = [doc.metadata.get("neo4j_node_id") for doc in results if doc.metadata.get("neo4j_node_id")]
-```
+- Neo4j 接続に失敗する: `NEO4J_URI/USER/PASSWORD/DATABASE` を確認。ローカルは `bolt://127.0.0.1:7687` を推奨。
+- グラフ検索でエラー（APOC関連）: Neo4j に APOC プラグインを導入・有効化してください。未導入でもベクトル検索のみで動作します。
+- `ChromaDB の永続化ディレクトリが見つからない/空` エラー: 先に `vectorize` を実行し、コレクションを作成してください。
+- OpenAI API キー未設定: `.env` の `OPENAI_API_KEY` を設定してください。
 
-And change it to the following (uncomment the code and remove the fallback line):
+---
 
-```python
-            # --- [Re-Ranking Integration Point] ---
-            from code_generator.rerank_feature.reranker import ReRanker
-            reranker = ReRanker()
-            reranked_results = reranker.rerank(query, results)
-            top_results = reranked_results[:5] # 上位5件に絞り込み
-            logger.info(f"Re-Ranking後の候補件数: {len(top_results)}")
-            node_ids = [doc.metadata.get("neo4j_node_id") for doc in top_results if doc.metadata.get("neo4j_node_id")]
-            # --- [End Re-Ranking Integration Point] ---
-```
+## 7. 開発
 
-You will also need to add the import statement `from code_generator.rerank_feature.reranker import ReRanker` at the top of `code_generator/tools.py`.
+- 型チェック・静的検査は `pyright` / 各種リンタ設定を利用。
+- テストは `tests/` を参照。必要に応じて `uv run python -m unittest discover` を利用。
 
-Once these changes are made, the `GraphSearchTool` will use the advanced re-ranking model to provide more accurate context to the agent.
+---
+
+## 8. ライセンス
+
+プロジェクトルートのライセンス表記がある場合はそれに従います。未記載の場合は研究用途を想定しています。
