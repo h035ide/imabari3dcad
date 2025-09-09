@@ -13,7 +13,7 @@ if project_root not in sys.path:
 # --- [End Path Setup] ---
 
 from neo4j import GraphDatabase
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings
 
 # .envファイルを明示的に読み込む
@@ -123,8 +123,8 @@ def ingest_data_to_chroma(records, collection_name: str = CHROMA_COLLECTION_NAME
             ids=ids
         )
 
-        # 変更をディスクに永続化
-        vector_store.persist()
+        # Chroma 0.4.x以降では自動永続化のためpersist()は不要
+        # vector_store.persist()  # 削除
 
         logger.info("ChromaDBへのデータ格納が正常に完了しました。")
         # コレクション内のドキュメント数を取得（公開APIを使用）
