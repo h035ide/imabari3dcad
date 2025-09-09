@@ -10,13 +10,12 @@ authors = [
     {name = "Your Name", email = "your.email@example.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.10,<3.13"
 dependencies = [
     # 主要な依存関係
-    "llama-index>=0.12.52",
-    "llama-index-agent-openai>=0.4.12",
+    "llama-index>=0.13.1",
     "llama-index-embeddings-openai>=0.3.1",
-    "llama-index-llms-openai>=0.4.7",
+    "llama-index-llms-openai>=0.5.6,<0.6",
     "llama-index-readers-file>=0.4.11",
     "llama-index-readers-llama-parse>=0.4.0",
     "llama-index-workflows>=1.2.0",
@@ -47,6 +46,9 @@ dependencies = [
     "coverage>=7.10.5",
     "pywin32>=311",
     "pytest>=8.4.1",
+    "langgraph>=0.6.6",
+    "langchain-neo4j>=0.5.0",
+    "black>=25.1.0",
 ]
 
 [project.optional-dependencies]
@@ -64,6 +66,13 @@ exclude = ["tests*", "data*"]
 [tool.black]
 line-length = 88
 target-version = ['py38']
+
+[tool.ruff]
+line-length = 120
+
+[tool.flake8]
+max-line-length = 120
+extend-ignore = ["E203", "E266", "E501", "W503"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

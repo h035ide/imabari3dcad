@@ -4,9 +4,7 @@ code_generator
 code_parser
 db_integration
 doc
-doc_paser
+doc_parser
 evoship
-htmlcov
-langflow_env
-mycode
+graphrag_gpt
 vector_store
