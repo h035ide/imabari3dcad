@@ -217,7 +217,7 @@
   class AdaptiveInterface:
       def personalize_interface(self, user_profile: UserProfile):
           # ユーザー特性に応じたUI調整
-          # 推奨機能の自動提示
+      def generate_design_alternatives(self, spec: DesignSpec) -> List[DesignOption]:
           # ワークフロー最適化
       
       def predict_user_intent(self, partial_input: str) -> List[Intent]:
