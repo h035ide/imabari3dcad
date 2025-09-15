@@ -6,6 +6,10 @@ from neo4j import GraphDatabase
 from langchain_openai import OpenAIEmbeddings
 from langchain_chroma import Chroma
 import chromadb
+from dotenv import load_dotenv
+
+# .envファイルを明示的にロード
+load_dotenv()
 
 # LlamaIndex imports
 from llama_index.core import (
@@ -76,8 +80,8 @@ class Config:
 
     def setup_llm_config(self):
         """LLM設定"""
-        # 基本設定
-        self.llm_model = "gpt-5-mini"
+        # 基本設定（環境変数で上書き可能）
+        self.llm_model = os.getenv("LLM_MODEL", "gpt-4o-mini")
         self.response_format = "text"  # "json_object"
         # only for standard models
         self.llm_temperature = 0  # or None
@@ -94,7 +98,7 @@ class Config:
 
     def _is_inference_model(self):
         """推論モデルかどうかを判定"""
-        inference_models = ["o4-mini", "o4", "gpt-5", "gpt-5-mini", "gpt-5-nano"]
+        inference_models = ["o1-mini", "o1", "o1-preview"]
         return any(model in self.llm_model.lower() for model in inference_models)
 
     def _build_llm_configs(self):
@@ -143,9 +147,9 @@ class Config:
 
     def setup_embedding_config(self):
         """埋め込みモデル設定"""
-        # 基本設定
-        self.embedding_model = "text-embedding-3-small"
-        self.embedding_batch_size = 100
+        # 基本設定（環境変数で上書き可能）
+        self.embedding_model = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
+        self.embedding_batch_size = int(os.getenv("EMBEDDING_BATCH_SIZE", "100"))
 
         # LangChain用設定
         self.langchain_embedding_config = {
@@ -201,7 +205,7 @@ def fetch_data_from_neo4j(
         with GraphDatabase.driver(
             config.neo4j_uri, auth=(config.neo4j_user, config.neo4j_password)
         ) as driver:
-            database = db_name or os.getenv("NEO4J_DATABASE", "codeparsar")
+            database = db_name or config.neo4j_database
             with driver.session(database=database) as session:
                 if allow_missing_description:
                     query = f"""
@@ -235,7 +239,7 @@ def ingest_data_to_chroma(
     persist_dir: Optional[str] = None,
     config: Optional[Config] = None,
 ):
-    """取得したデータをChromaDBに格納します。"""
+    """取得したデータをChromaDBに格納します。upsert対応で重複IDを適切に処理します。"""
     if not records:
         logger.warning("格納するデータがありません。処理をスキップします。")
         return
@@ -280,29 +284,33 @@ def ingest_data_to_chroma(
         if api_key is None:
             logger.error("OpenAI APIキーが設定されていません。")
             return
+        
         # LangChain側の埋め込みも config のモデルに統一
         embedding_function = OpenAIEmbeddings(
             **config.langchain_embedding_config
         )  # type: ignore
 
-        # ChromaDBのクライアントを初期化（または既存のものを読み込み）
-        vector_store = Chroma(
-            collection_name=collection_name,
-            embedding_function=embedding_function,
-            persist_directory=persist_dir,
+        # chromadb クライアント直利用でupsert対応
+        client = chromadb.PersistentClient(path=persist_dir)
+        chroma_collection = client.get_or_create_collection(collection_name)
+        
+        # 埋め込みベクトルを生成
+        logger.info("埋め込みベクトルを生成中...")
+        embeddings = embedding_function.embed_documents(documents)
+        
+        # upsertでデータを追加/更新（ID重複を適切に処理）
+        chroma_collection.upsert(
+            ids=ids,
+            documents=documents,
+            metadatas=metadatas,
+            embeddings=embeddings
         )
 
-        # データを追加（既存のIDがあれば更新される）
-        vector_store.add_texts(texts=documents, metadatas=metadatas, ids=ids)
-
-        # Chroma 0.4.x以降では自動永続化のためpersist()は不要
-        # vector_store.persist()  # 削除
-
         logger.info("ChromaDBへのデータ格納が正常に完了しました。")
-        # コレクション内のドキュメント数を取得（公開APIを使用）
+        
+        # コレクション内のドキュメント数を取得（chromadb正式APIを使用）
         try:
-            collection = vector_store.get()
-            doc_count = len(collection["documents"]) if collection["documents"] else 0
+            doc_count = chroma_collection.count()
             logger.info(
                 f"コレクション '{collection_name}' には現在 "
                 f"{doc_count} 件のドキュメントがあります。"
@@ -342,8 +350,8 @@ def build_vector_engine(
         )
     )
 
-    # OpenAIの埋め込みモデルをLlamaIndexのSettingsに設定
-    Settings.embed_model = OpenAIEmbedding(**config.llamaindex_embedding_config)
+    # OpenAIの埋め込みモデルを初期化（グローバル設定を避ける）
+    embed_model = OpenAIEmbedding(**config.llamaindex_embedding_config)
 
     client = chromadb.PersistentClient(path=persist_dir)
     chroma_collection = client.get_or_create_collection(collection)
@@ -351,10 +359,11 @@ def build_vector_engine(
     vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
     storage_context = StorageContext.from_defaults(vector_store=vector_store)
 
-    # 既存のベクトルストアからインデックスを構築
+    # 既存のベクトルストアからインデックスを構築（embed_modelを明示的に指定）
     v_index = VectorStoreIndex.from_vector_store(
         vector_store,
         storage_context=storage_context,
+        embed_model=embed_model,
     )
 
     logger.info("VectorQueryEngineの構築が完了しました。")
@@ -387,9 +396,9 @@ def build_graph_engine(config: Config):
         )
     )
 
-    # OpenAIのLLMと埋め込みモデルをLlamaIndexのSettingsに設定（configから）
-    Settings.llm = OpenAI(**config.llamaindex_llm_config)
-    Settings.embed_model = OpenAIEmbedding(**config.llamaindex_embedding_config)
+    # OpenAIのLLMと埋め込みモデルを初期化（グローバル設定を避ける）
+    llm = OpenAI(**config.llamaindex_llm_config)
+    embed_model = OpenAIEmbedding(**config.llamaindex_embedding_config)
 
     try:
         # 標準的なNeo4jPropertyGraphStoreを使用（APOCプラグインが必要）
@@ -407,9 +416,11 @@ def build_graph_engine(config: Config):
             database=str(db_name),
         )
 
-        # 既存のグラフ構造からインデックスをロード
+        # 既存のグラフ構造からインデックスをロード（llmとembed_modelを明示的に指定）
         g_index = PropertyGraphIndex.from_existing(
             property_graph_store=graph_store,
+            llm=llm,
+            embed_model=embed_model,
         )
 
         logger.info("PropertyGraphQueryEngineの構築が完了しました。")
