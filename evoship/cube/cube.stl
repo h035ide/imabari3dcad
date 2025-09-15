@@ -1,0 +1,169 @@
+solid cube
+facet normal 0.0 0.0 -1.0
+outer loop
+vertex 0 0 0
+endloop
+endfacet
+endsolid cube
+vertex 10 0 0
+endloop
+endfacet
+endsolid cube
+vertex 10 30 0
+endloop
+endfacet
+endsolid cube
+facet normal 0.0 0.0 -1.0
+outer loop
+vertex 0 0 0
+endloop
+endfacet
+endsolid cube
+vertex 10 30 0
+endloop
+endfacet
+endsolid cube
+vertex 0 30 0
+endloop
+endfacet
+endsolid cube
+facet normal 0.0 0.0 1.0
+outer loop
+vertex 0 0 20
+endloop
+endfacet
+endsolid cube
+vertex 10 30 20
+endloop
+endfacet
+endsolid cube
+vertex 10 0 20
+endloop
+endfacet
+endsolid cube
+facet normal 0.0 0.0 1.0
+outer loop
+vertex 0 0 20
+endloop
+endfacet
+endsolid cube
+vertex 0 30 20
+endloop
+endfacet
+endsolid cube
+vertex 10 30 20
+endloop
+endfacet
+endsolid cube
+facet normal 0.0 -1.0 0.0
+outer loop
+vertex 0 0 0
+endloop
+endfacet
+endsolid cube
+vertex 10 0 20
+endloop
+endfacet
+endsolid cube
+vertex 10 0 0
+endloop
+endfacet
+endsolid cube
+facet normal 0.0 -1.0 0.0
+outer loop
+vertex 0 0 0
+endloop
+endfacet
+endsolid cube
+vertex 0 0 20
+endloop
+endfacet
+endsolid cube
+vertex 10 0 20
+endloop
+endfacet
+endsolid cube
+facet normal 0.0 1.0 0.0
+outer loop
+vertex 0 30 0
+endloop
+endfacet
+endsolid cube
+vertex 10 30 0
+endloop
+endfacet
+endsolid cube
+vertex 10 30 20
+endloop
+endfacet
+endsolid cube
+facet normal 0.0 1.0 0.0
+outer loop
+vertex 0 30 0
+endloop
+endfacet
+endsolid cube
+vertex 10 30 20
+endloop
+endfacet
+endsolid cube
+vertex 0 30 20
+endloop
+endfacet
+endsolid cube
+facet normal -1.0 0.0 0.0
+outer loop
+vertex 0 0 0
+endloop
+endfacet
+endsolid cube
+vertex 0 30 20
+endloop
+endfacet
+endsolid cube
+vertex 0 0 20
+endloop
+endfacet
+endsolid cube
+facet normal -1.0 0.0 0.0
+outer loop
+vertex 0 0 0
+endloop
+endfacet
+endsolid cube
+vertex 0 30 0
+endloop
+endfacet
+endsolid cube
+vertex 0 30 20
+endloop
+endfacet
+endsolid cube
+facet normal 1.0 0.0 0.0
+outer loop
+vertex 10 0 0
+endloop
+endfacet
+endsolid cube
+vertex 10 0 20
+endloop
+endfacet
+endsolid cube
+vertex 10 30 20
+endloop
+endfacet
+endsolid cube
+facet normal 1.0 0.0 0.0
+outer loop
+vertex 10 0 0
+endloop
+endfacet
+endsolid cube
+vertex 10 30 20
+endloop
+endfacet
+endsolid cube
+vertex 10 30 0
+endloop
+endfacet
+endsolid cube

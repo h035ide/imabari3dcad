@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>ボディ分割(線)</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_sep_body_by_curves.png"/>&nbsp;ボディ分割(線)</h2>
+      <div class="contents">
+        <p>
+	      <a href="about_body.html">ボディ</a>を<a href="about_sketch.html">スケッチ</a>を投影した線で分割してして新たなボディを作成します。
+        </p>
+        <p>
+	      <img src="media/sep_body_by_curves_ex.png"/>
+	    </p>
+	    <h3>操作方法</h3>
+	    <p>
+	      パラメータの入力後OKボタンで実行します。<br/>
+	    </p>
+	    <h3>パラメータ</h3>
+	    <ul>
+	      <li><strong>対象ボディ</strong>
+	        <p>	      
+	          <img src="media/dlg_div_target.png"/><br/>
+	          分割をするボディを選択します。
+	        </p>
+	      </li>
+	      <li><strong>分割線</strong>
+	        <p>	      
+	          <img src="media/dlg_div_element.png"/><br/>
+	          ボディを分割するスケッチを選択します。
+	        </p>
+	      </li>
+	  <li><strong>整列</strong>（オプション）
+	  <p><img src="media/dlg_body_segment_sort_dir.png"/></p>
+	  <p>このコマンドで作成されたボディにはシステムが通し番号を割り振り、別の要素がボディ（やそのフェイスなど）を参照する際にはこの通し番号が使われます。通し番号はボディの座標値の大小によって決まりますが、整列オプションを利用すると任意の方向に沿った順番とすることができます。</p>
+	  <li><strong>関連</strong>（オプション）
+	  	<p><img src="media/dlg_assoc2_unchecked.png" style="vertical-align: top"/> <img src="media/dlg_assoc2_checked_noassoc_hidden.png" style="vertical-align: top"/></p>
+	  	<p>対象ボディ、分割線との<a href="about_relation.html">関連づけ</a>を指定して、新しいボディが対象ボディや分割線の変更に追従するようにできます。既定値は「フィーチャー」です。</p>
+	      </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
+	  

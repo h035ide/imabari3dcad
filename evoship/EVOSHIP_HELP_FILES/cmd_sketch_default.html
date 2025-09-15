@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <script language="javascript" src="script/util.js"></script>
+    <title>選択（スケッチ）</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_default.png"/>&nbsp;選択（スケッチ）</h2>
+      <div class="contents">
+	編集対象のスケッチ内の要素が選択できます。<br/>
+	通常の<a href="cmd_default.html">選択コマンド</a>に加えスケッチモードでは選択された要素に対して以下の機能が可能です。
+	<h3>要素の移動,回転</h3>
+	<p>
+	  要素を選択したままドラッグすると選択要素を移動することができます。<br/>
+	  線や点だけでなく寸法や幾何拘束もドラッグで移動できます。<br/>
+	  Altキーを押しながらドラッグすると選択要素の重心を中心に回転させます。（点、線のみ）<br/>
+	  <img src="media/play_movie.gif" alt="Play Movie" align="middle" onclick="popupAVI('media/skt_move.avi',this.offsetLeft,this.offsetTop,438,402)"/>操作例
+	</p>
+	<p class="warning">
+	  幾何拘束の許す範囲内での移動、回転になります。
+	</p>
+	<h3>寸法値の変更</h3>
+	<p>
+	  寸法要素をダブルクリックすると寸法値変更のダイアログが表示されます。寸法値を入力してＯＫボタンで確定です。	  
+	</p>
+	<h3>拘束の付加</h3>
+	<p>
+	 コンテキストメニューに選択要素の状態に応じて付加できる拘束がメニューに表示されます。<br/>
+	 例)
+	 <ul>
+	   <li>点１つの選択&nbsp;-&nbsp;固定</li>
+	   <li>直線２本の選択&nbsp;-&nbsp;平行,垂直</li>
+	   <li>線と点の選択&nbsp;-&nbsp;一致</li>
+	 </ul>
+	</p>
+	<h3>幾何情報</h3>
+	<p>
+	  点、線要素を１つ選択している時のコンテキストメニューで実行できます。<br/>
+	  要素の幾何情報を表示、編集できます。<a href="cmd_sketch_geominfo.html">幾何情報</a>
+	</p>
+	<h3>カーブ分離</h3>
+	<p>
+	  複数の線に共有されている点を選択している時のコンテキストメニューで実行できます。<a href="cmd_sketch_detach_curve.html">カーブ分離</a>
+	</p>
+	<h3>レイヤー</h3>
+	<p>
+	  コンテキストメニューで選択要素を指定レイヤーに追加できます。<a href="cmd_sketch_layer.html">スケッチレイヤー</a>
+	</p>
+	<h3>グループ化、グループ化解除</h3>
+	<p>
+	  コンテキストメニューで選択要素をグループ化したり、グループから解除できます。<a href="cmd_sketch_group.html">スケッチ要素のグループ化</a>
+	</p>
+      </div>
+    </div>
+  </body>
+</html>
+	  

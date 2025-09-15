@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>要素のユーザー定義属性</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2>要素のユーザー定義属性</h2>
+      <div class="contents">
+        <p>
+          Evo.Shipでは各要素に対して、ユーザー定義属性を付加することができます。<br/>
+          ユーザー定義属性の定義ファイルを作成することで、各要素共通のフォーマットを使って属性を付加できます。
+        </p>
+        <h3>属性ダイアログ</h3>
+        <p>
+          ドキュメントウィンドウまたはモデル構成ウィンドウでユーザー定義属性を付加したい要素を選択し（複数可）、コンテキストメニュー"ユーザー定義属性"を選択すると、属性編集ダイアログが表示されます。
+        </p>
+        <p>
+          <img src="media/dlg_edit_user_property.png"/>
+        </p>
+        <p>
+          属性名や値を入力しOKボタンで属性が付加されます。
+        </p>
+        <ul>
+          <li>必須
+            <p>
+              属性定義ファイルで必須フラグが設定されているかどうかを表す列です。必須の属性値が入力されていない場合、OKボタンでエラーメッセージが表示されます。
+            </p>
+          </li>
+          <li>設定済
+            <p>
+              属性ダイアログを表示したときに、既に要素に対して属性が設定されているかどうかを表します。チェックされていない場合は初期値が表示されています。また、複数選択で属性ダイアログを表示したときは、全ての要素が同じ属性値を持つかどうかを表します。
+            </p>
+          </li>
+        </ul>
+        <h3>属性定義ファイル</h3>
+        <p>
+          属性名や初期値、入力必須などの情報をCSVファイルに定義することができます。<br/>
+          CSVファイルは、「EvUserDefineProperties.csv」のファイル名で、<a href="cmd_open_setting_file_folder.html">設定ファイルフォルダ</a>内に入れます。<br/>
+          CSVのフォーマットは、<br/>
+          "属性名","属性種別","初期値","列挙型の場合は列挙子..." と解釈されます。<br/>
+          属性種別(整数値)には以下のものがあります。
+          <ul>
+            <li>0
+              <p>
+                通常(必須でない)
+              </p>
+            </li>
+            <li>1
+              <p>
+                必須属性
+              </p>
+            </li>
+            <li>2
+              <p>
+                列挙型(必須でない)。後につづく列挙子のいずれかひとつをとる。
+              </p>
+            </li>
+            <li>3
+              <p>
+                列挙型(必須)。後につづく列挙子のいずれかひとつをとる。
+              </p>
+            </li>
+          </ul>
+          例) 属性1,1,<br/>
+          属性2,1,AA<br/>
+          属性3,0,<br/>
+          属性4,1,0<br/>
+          <br/>
+          列挙型の例<br/>
+          属性5,2,値1,値1,値2,値3,値4<br/>
+          属性6,3,RED,BLUE,RED,YELLOW,WHITE,BLACK<br/>
+        </p>
+        <ul class="information">
+          <li>
+            設定ファイルフォルダは、メニューバーの<a href="cmd_open_setting_file_folder.html">ファイル／設定ファイルフォルダを開くコマンド</a>で表示できます。
+          </li>
+          <li>
+            必須フラグが設定されていると、その項目が未入力の場合に属性ダイアログのOKのボタンで警告メッセージが表示されます。
+          </li>
+          <li>
+            定義ファイルから読み込んだ属性は、属性ダイアログ上で属性名を変更したり、属性を削除することができません。
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
+	  

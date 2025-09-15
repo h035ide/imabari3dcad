@@ -1,0 +1,753 @@
+{
+  "metadata": {
+    "timestamp": "2025-08-24T16:27:58.784220",
+    "database": "docparser",
+    "generator": "test_rag_retrieval.py (Neo4jデータのみ使用、詳細分析機能付き)",
+    "export_timestamp": "2025-08-24T16:27:59.558874"
+  },
+  "summary": {
+    "total": 60,
+    "passed": 53,
+    "failed": 7,
+    "test_types": {
+      "test": {
+        "passed": 53,
+        "total": 60,
+        "success_rate": 88.33333333333333
+      }
+    }
+  },
+  "results": [
+    {
+      "test_name": "BlankElement_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 1/2",
+      "test_type": "test"
+    },
+    {
+      "test_name": "BlankElement_positive.py",
+      "passed": true,
+      "details": "引数数一致: 2/2",
+      "test_type": "test"
+    },
+    {
+      "test_name": "BodyDivideByElements_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 5/7",
+      "test_type": "test"
+    },
+    {
+      "test_name": "BodyDivideByElements_positive.py",
+      "passed": false,
+      "details": "引数数一致: 6/7",
+      "test_type": "test",
+      "database_spec": {
+        "name": "BodyDivideByElements",
+        "description": "ボディを指定した要素で分割する。返り値は分割で作成されたボディ要素のID配列。",
+        "parameters": [
+          {
+            "position": 0,
+            "description": "作成する分割フィーチャー要素名称（空文字可）",
+            "name": "pDriveFeatureName",
+            "type": "文字列"
+          },
+          {
+            "position": 1,
+            "description": "分割対象のボディ",
+            "name": "pTargetBody",
+            "type": "要素"
+          },
+          {
+            "position": 2,
+            "description": "分割をする要素（シートボディ、フェイス、平面要素）",
+            "name": "pDivideElements",
+            "type": "要素(配列)"
+          },
+          {
+            "position": 3,
+            "description": "分割されたボディ要素の順番を整列させるのに使用する方向",
+            "name": "pAlignmentDirection",
+            "type": "方向"
+          },
+          {
+            "position": 4,
+            "description": "方向を定義する座標系（通常は指定しない）",
+            "name": "pWCS",
+            "type": "要素"
+          },
+          {
+            "position": 5,
+            "description": "要素の関連づけ方法の指定",
+            "name": "ReferMethod",
+            "type": "関連設定"
+          },
+          {
+            "position": 6,
+            "description": "更新フラグ（未実装、使用しない）",
+            "name": "bUpdate",
+            "type": "bool"
+          }
+        ]
+      },
+      "generated_code": "# test_type: positive\n# This snippet should pass validation as it has the correct number of arguments.\n\npart.BodyDivideByElements(\n    \"pDriveFeatureName\",               # 作成する分割フィーチャー要素名称（空文字可）\n    pTargetBody_element,               # 分割対象のボディ\n    (1.0, 0.0, 0.0),               # 分割されたボディ要素の順番を整列させるのに使用する方向\n    pWCS_element,               # 方向を定義する座標系（通常は指定しない）\n    \"GEOMETRIC\",               # 要素の関連づけ方法の指定\n    True                # 更新フラグ（未実装、使用しない）\n)",
+      "arg_count_details": {
+        "generated": 6,
+        "expected": 7
+      }
+    },
+    {
+      "test_name": "BodySeparateBySubSolids_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 4/6",
+      "test_type": "test"
+    },
+    {
+      "test_name": "BodySeparateBySubSolids_positive.py",
+      "passed": false,
+      "details": "引数数一致: 5/6",
+      "test_type": "test",
+      "database_spec": {
+        "name": "BodySeparateBySubSolids",
+        "description": "指定したソリッドで削除することでボディを分割する（ボディの区分けコマンド）。返り値は分割で作成されたボディ要素のID配列。",
+        "parameters": [
+          {
+            "position": 0,
+            "description": "作成する分割フィーチャー要素名称（空文字可）",
+            "name": "pSeparateFeatureName",
+            "type": "文字列"
+          },
+          {
+            "position": 1,
+            "description": "分割対象のボディ",
+            "name": "pTargetBody",
+            "type": "要素"
+          },
+          {
+            "position": 2,
+            "description": "分割をするソリッド要素（配列）",
+            "name": "pSubSolids",
+            "type": "要素(配列)"
+          },
+          {
+            "position": 3,
+            "description": "分割されたボディ要素の順番を整列させるのに使用する方向",
+            "name": "pAlignmentDirection",
+            "type": "方向"
+          },
+          {
+            "position": 4,
+            "description": "要素の関連づけ方法の指定",
+            "name": "ReferMethod",
+            "type": "関連設定"
+          },
+          {
+            "position": 5,
+            "description": "更新フラグ（未実装、使用しない）",
+            "name": "bUpdate",
+            "type": "bool"
+          }
+        ]
+      },
+      "generated_code": "# test_type: positive\n# This snippet should pass validation as it has the correct number of arguments.\n\npart.BodySeparateBySubSolids(\n    \"pSeparateFeatureName\",               # 作成する分割フィーチャー要素名称（空文字可）\n    pTargetBody_element,               # 分割対象のボディ\n    (1.0, 0.0, 0.0),               # 分割されたボディ要素の順番を整列させるのに使用する方向\n    \"GEOMETRIC\",               # 要素の関連づけ方法の指定\n    True                # 更新フラグ（未実装、使用しない）\n)",
+      "arg_count_details": {
+        "generated": 5,
+        "expected": 6
+      }
+    },
+    {
+      "test_name": "CreateBracketParam_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 2/0",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateBracketParam_positive.py",
+      "passed": true,
+      "details": "引数数一致: 0/0",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateBracket_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 1/2",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateBracket_positive.py",
+      "passed": true,
+      "details": "引数数一致: 2/2",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateElementsFromFile_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 2/1",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateElementsFromFile_positive.py",
+      "passed": true,
+      "details": "引数数一致: 1/1",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateLinearSweepParam_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 2/0",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateLinearSweepParam_positive.py",
+      "passed": true,
+      "details": "引数数一致: 0/0",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateLinearSweepSheet_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 1/2",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateLinearSweepSheet_positive.py",
+      "passed": true,
+      "details": "引数数一致: 2/2",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateLinearSweep_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 3/4",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateLinearSweep_positive.py",
+      "passed": true,
+      "details": "引数数一致: 4/4",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateOffsetSheet_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 5/7",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateOffsetSheet_positive.py",
+      "passed": false,
+      "details": "引数数一致: 6/7",
+      "test_type": "test",
+      "database_spec": {
+        "name": "CreateOffsetSheet",
+        "description": "オフセットシートを作成する。返り値は作成されたオフセットシート要素の要素ID。",
+        "parameters": [
+          {
+            "position": 0,
+            "description": "作成するシート要素名称（空文字可）",
+            "name": "SheetName",
+            "type": "文字列"
+          },
+          {
+            "position": 1,
+            "description": "作成するシート要素を要素グループに入れる場合は要素グループを指定（空文字可）",
+            "name": "ElementGroup",
+            "type": "要素グループ"
+          },
+          {
+            "position": 2,
+            "description": "作成するシート要素の材質名称（空文字可）",
+            "name": "MaterialName",
+            "type": "材料"
+          },
+          {
+            "position": 3,
+            "description": "オフセットする元シート要素、フェイス要素の指定文字列配列",
+            "name": "SrcSurfaces",
+            "type": "要素(配列)"
+          },
+          {
+            "position": 4,
+            "description": "オフセット距離",
+            "name": "OffsetLength",
+            "type": "長さ"
+          },
+          {
+            "position": 5,
+            "description": "オフセット方向を反転するフラグ",
+            "name": "bOffsetBackwards",
+            "type": "bool"
+          },
+          {
+            "position": 6,
+            "description": "更新フラグ（未実装、使用しない）",
+            "name": "bUpdate",
+            "type": "bool"
+          }
+        ]
+      },
+      "generated_code": "# test_type: positive\n# This snippet should pass validation as it has the correct number of arguments.\n\npart.CreateOffsetSheet(\n    \"SheetName\",               # 作成するシート要素名称（空文字可）\n    ElementGroup_element,               # 作成するシート要素を要素グループに入れる場合は要素グループを指定（空文字可）\n    \"STEEL\",               # 作成するシート要素の材質名称（空文字可）\n    100.0,               # オフセット距離\n    True,               # オフセット方向を反転するフラグ\n    True                # 更新フラグ（未実装、使用しない）\n)",
+      "arg_count_details": {
+        "generated": 6,
+        "expected": 7
+      }
+    },
+    {
+      "test_name": "CreateOtherSolid_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 5/6",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateOtherSolid_positive.py",
+      "passed": true,
+      "details": "引数数一致: 6/6",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreatePlate_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 13/14",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreatePlate_positive.py",
+      "passed": true,
+      "details": "引数数一致: 14/14",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateProfileParam_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 2/0",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateProfileParam_positive.py",
+      "passed": true,
+      "details": "引数数一致: 0/0",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateProfile_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 1/2",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateProfile_positive.py",
+      "passed": true,
+      "details": "引数数一致: 2/2",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateSketchArc3Pts_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 6/7",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateSketchArc3Pts_positive.py",
+      "passed": true,
+      "details": "引数数一致: 7/7",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateSketchArc_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 7/8",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateSketchArc_positive.py",
+      "passed": true,
+      "details": "引数数一致: 8/8",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateSketchCircle_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 7/8",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateSketchCircle_positive.py",
+      "passed": true,
+      "details": "引数数一致: 8/8",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateSketchEllipse_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 9/10",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateSketchEllipse_positive.py",
+      "passed": true,
+      "details": "引数数一致: 10/10",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateSketchLayer_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 1/2",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateSketchLayer_positive.py",
+      "passed": true,
+      "details": "引数数一致: 2/2",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateSketchLine_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 5/6",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateSketchLine_positive.py",
+      "passed": true,
+      "details": "引数数一致: 6/6",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateSketchNURBSCurve_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 7/11",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateSketchNURBSCurve_positive.py",
+      "passed": false,
+      "details": "引数数一致: 8/11",
+      "test_type": "test",
+      "database_spec": {
+        "name": "CreateSketchNURBSCurve",
+        "description": "NURBS曲線を作成する。返り値は作成された要素の要素ID。",
+        "parameters": [
+          {
+            "position": 0,
+            "description": "ＮＵＲＢＳ線を作成するスケッチ要素",
+            "name": "SketchPlane",
+            "type": "要素"
+          },
+          {
+            "position": 1,
+            "description": "作成するスケッチＮＵＲＢＳ線名称（空文字可）",
+            "name": "SketchArcName",
+            "type": "文字列"
+          },
+          {
+            "position": 2,
+            "description": "ＮＵＲＢＳ線を作成するスケッチレイヤー（空文字可）",
+            "name": "SketchLayer",
+            "type": "要素"
+          },
+          {
+            "position": 3,
+            "description": "ＮＵＲＢＳ線の次数",
+            "name": "nDegree",
+            "type": "整数"
+          },
+          {
+            "position": 4,
+            "description": "閉じたＮＵＲＢＳ線の場合 True",
+            "name": "bClose",
+            "type": "bool"
+          },
+          {
+            "position": 5,
+            "description": "周期ＮＵＲＢＳ線の場合 True",
+            "name": "bPeriodic",
+            "type": "bool"
+          },
+          {
+            "position": 6,
+            "description": "制御点（点の配列）",
+            "name": "CtrlPoints",
+            "type": "点(配列)"
+          },
+          {
+            "position": 7,
+            "description": "重み（浮動小数点の配列）",
+            "name": "Weights",
+            "type": "浮動小数点(配列)"
+          },
+          {
+            "position": 8,
+            "description": "ノットベクトル（浮動小数点の配列）",
+            "name": "Knots",
+            "type": "浮動小数点(配列)"
+          },
+          {
+            "position": 9,
+            "description": "トリム範囲",
+            "name": "Range",
+            "type": "範囲"
+          },
+          {
+            "position": 10,
+            "description": "更新フラグ（未実装、使用しない）",
+            "name": "bUpdate",
+            "type": "bool"
+          }
+        ]
+      },
+      "generated_code": "# test_type: positive\n# This snippet should pass validation as it has the correct number of arguments.\n\npart.CreateSketchNURBSCurve(\n    SketchPlane_element,               # ＮＵＲＢＳ線を作成するスケッチ要素\n    \"SketchArcName\",               # 作成するスケッチＮＵＲＢＳ線名称（空文字可）\n    SketchLayer_element,               # ＮＵＲＢＳ線を作成するスケッチレイヤー（空文字可）\n    1,               # ＮＵＲＢＳ線の次数\n    True,               # 閉じたＮＵＲＢＳ線の場合 True\n    True,               # 周期ＮＵＲＢＳ線の場合 True\n    (0.0, 2*3.14159),               # トリム範囲\n    True                # 更新フラグ（未実装、使用しない）\n)",
+      "arg_count_details": {
+        "generated": 8,
+        "expected": 11
+      }
+    },
+    {
+      "test_name": "CreateSketchPlane_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 11/12",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateSketchPlane_positive.py",
+      "passed": true,
+      "details": "引数数一致: 12/12",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateSolid_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 2/3",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateSolid_positive.py",
+      "passed": true,
+      "details": "引数数一致: 3/3",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateThicken_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 8/10",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateThicken_positive.py",
+      "passed": false,
+      "details": "引数数一致: 9/10",
+      "test_type": "test",
+      "database_spec": {
+        "name": "CreateThicken",
+        "description": "指定したソリッド要素に指定要素厚みづけした形状を作成する。返り値は作成された厚みづけフィーチャーのID。",
+        "parameters": [
+          {
+            "position": 0,
+            "description": "作成する厚みづけフィーチャー要素名称（空文字可）",
+            "name": "ThickenFeatureName",
+            "type": "文字列"
+          },
+          {
+            "position": 1,
+            "description": "厚みづけフィーチャーを作成する対象のソリッド",
+            "name": "TargetSolidName",
+            "type": "要素"
+          },
+          {
+            "position": 2,
+            "description": "ソリッドオペレーションのタイプを指定（ボディ演算の記号）",
+            "name": "OperationType",
+            "type": "オペレーションタイプ"
+          },
+          {
+            "position": 3,
+            "description": "厚み付けをするシートやフェイス（配列）",
+            "name": "Sheet",
+            "type": "要素(配列)"
+          },
+          {
+            "position": 4,
+            "description": "厚み付けタイプ",
+            "name": "ThickenType",
+            "type": "厚み付けタイプ"
+          },
+          {
+            "position": 5,
+            "description": "板厚（厚み1）",
+            "name": "Thickeness1",
+            "type": "長さ"
+          },
+          {
+            "position": 6,
+            "description": "板厚2（厚み付けタイプが2方向のときに使用）",
+            "name": "Thickeness2",
+            "type": "長さ"
+          },
+          {
+            "position": 7,
+            "description": "厚みづけをするシート、フェイス要素のオフセット距離",
+            "name": "ThickenessOffset",
+            "type": "長さ"
+          },
+          {
+            "position": 8,
+            "description": "要素の関連づけ方法の指定",
+            "name": "ReferMethod",
+            "type": "関連設定"
+          },
+          {
+            "position": 9,
+            "description": "更新フラグ（未実装、使用しない）",
+            "name": "bUpdate",
+            "type": "bool"
+          }
+        ]
+      },
+      "generated_code": "# test_type: positive\n# This snippet should pass validation as it has the correct number of arguments.\n\npart.CreateThicken(\n    \"ThickenFeatureName\",               # 作成する厚みづけフィーチャー要素名称（空文字可）\n    TargetSolidName_element,               # 厚みづけフィーチャーを作成する対象のソリッド\n    \"UNION\",               # ソリッドオペレーションのタイプを指定（ボディ演算の記号）\n    \"SINGLE\",               # 厚み付けタイプ\n    100.0,               # 板厚（厚み1）\n    100.0,               # 板厚2（厚み付けタイプが2方向のときに使用）\n    100.0,               # 厚みづけをするシート、フェイス要素のオフセット距離\n    \"GEOMETRIC\",               # 要素の関連づけ方法の指定\n    True                # 更新フラグ（未実装、使用しない）\n)",
+      "arg_count_details": {
+        "generated": 9,
+        "expected": 10
+      }
+    },
+    {
+      "test_name": "CreateVariable_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 3/4",
+      "test_type": "test"
+    },
+    {
+      "test_name": "CreateVariable_positive.py",
+      "passed": true,
+      "details": "引数数一致: 4/4",
+      "test_type": "test"
+    },
+    {
+      "test_name": "MirrorCopy_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 1/3",
+      "test_type": "test"
+    },
+    {
+      "test_name": "MirrorCopy_positive.py",
+      "passed": false,
+      "details": "引数数一致: 2/3",
+      "test_type": "test",
+      "database_spec": {
+        "name": "MirrorCopy",
+        "description": "指定要素をミラーコピーする。返り値はコピーされた要素ID配列。",
+        "parameters": [
+          {
+            "position": 0,
+            "description": "コピーする要素（配列）",
+            "name": "SrcElements",
+            "type": "要素(配列)"
+          },
+          {
+            "position": 1,
+            "description": "ミラーコピーを行う平面（ドキュメントは \"[in] BSTR plane\" と記載）",
+            "name": "plane",
+            "type": "平面"
+          },
+          {
+            "position": 2,
+            "description": "要素の関連づけ方法の指定",
+            "name": "ReferMethod",
+            "type": "関連設定"
+          }
+        ]
+      },
+      "generated_code": "# test_type: positive\n# This snippet should pass validation as it has the correct number of arguments.\n\npart.MirrorCopy(\n    XY_PLANE,               # ミラーコピーを行う平面（ドキュメントは \"[in] BSTR plane\" と記載）\n    \"GEOMETRIC\"                # 要素の関連づけ方法の指定\n)",
+      "arg_count_details": {
+        "generated": 2,
+        "expected": 3
+      }
+    },
+    {
+      "test_name": "ReverseSheet_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 2/1",
+      "test_type": "test"
+    },
+    {
+      "test_name": "ReverseSheet_positive.py",
+      "passed": true,
+      "details": "引数数一致: 1/1",
+      "test_type": "test"
+    },
+    {
+      "test_name": "SetElementColor_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 4/5",
+      "test_type": "test"
+    },
+    {
+      "test_name": "SetElementColor_positive.py",
+      "passed": true,
+      "details": "引数数一致: 5/5",
+      "test_type": "test"
+    },
+    {
+      "test_name": "SheetAlignNormal_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 3/4",
+      "test_type": "test"
+    },
+    {
+      "test_name": "SheetAlignNormal_positive.py",
+      "passed": true,
+      "details": "引数数一致: 4/4",
+      "test_type": "test"
+    },
+    {
+      "test_name": "TranslationCopy_negative.py",
+      "passed": true,
+      "details": "引数数不一致を正しく検出: 3/5",
+      "test_type": "test"
+    },
+    {
+      "test_name": "TranslationCopy_positive.py",
+      "passed": false,
+      "details": "引数数一致: 4/5",
+      "test_type": "test",
+      "database_spec": {
+        "name": "TranslationCopy",
+        "description": "指定要素を移動コピーする。返り値はコピーされた要素ID配列。",
+        "parameters": [
+          {
+            "position": 0,
+            "description": "コピーする要素（配列）",
+            "name": "SrcElements",
+            "type": "要素(配列)"
+          },
+          {
+            "position": 1,
+            "description": "コピーする数",
+            "name": "nCopy",
+            "type": "整数"
+          },
+          {
+            "position": 2,
+            "description": "コピーする方向",
+            "name": "direction",
+            "type": "方向"
+          },
+          {
+            "position": 3,
+            "description": "移動距離",
+            "name": "distance",
+            "type": "長さ"
+          },
+          {
+            "position": 4,
+            "description": "要素の関連づけ方法の指定",
+            "name": "ReferMethod",
+            "type": "関連設定"
+          }
+        ]
+      },
+      "generated_code": "# test_type: positive\n# This snippet should pass validation as it has the correct number of arguments.\n\npart.TranslationCopy(\n    1,               # コピーする数\n    (1.0, 0.0, 0.0),               # コピーする方向\n    100.0,               # 移動距離\n    \"GEOMETRIC\"                # 要素の関連づけ方法の指定\n)",
+      "arg_count_details": {
+        "generated": 4,
+        "expected": 5
+      }
+    }
+  ]
+}

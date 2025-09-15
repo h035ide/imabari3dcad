@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>溶接長</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2>溶接長</h2>
+      <div class="contents">
+        <p>ソリッドまたはシート要素間の溶接部を検出し、その長さを算出します。
+        </p>
+	    <p>	      
+          <img src="media/cmd_weld_length_ex1.png" />
+	    </p>
+	    <h3>操作方法</h3>
+        <p>ソリッドまたはシート要素を選択してコマンドを実行すると、各要素間の溶接部の合計長が表示されます。
+        要素ごとの溶接長を表示することもできます。溶接線はプレビュー表示され、必要に応じて実体化できます。
+        </p>
+        <h3>パラメータ</h3>
+        <ul>
+	      <li><strong>算出対象</strong>
+	        <p>	      
+              <img src="media/dlg_weld_length_target_select_type.png" />
+	        </p>
+            <p>溶接長を算出する対象要素を選択します。
+            </p>
+            <ul>
+              <li>モデル全体
+                <p>
+                  モデルに含まれる全てのソリッドおよびシート要素を対象とします。
+                </p>
+              </li>
+              <li>表示要素内
+                <p>
+                  モデルに含まれるソリッドおよびシート要素のうち、表示がOnになっている要素を対象とします。
+                </p>
+              </li>
+              <li>選択要素内
+                <p>
+                  対象となるソリッドおよびシート要素を選択します。</p>
+                <p><img src="media/dlg_weld_length_selection.png" /></p>
+              </li>
+              <li>要素グループ内<p>選択した要素グループに含まれる全てのソリッドおよびシート要素を対象とします。</p>
+                <p><img src="media/dlg_weld_length_group_select.png" /></p>
+              </li>
+            </ul>
+          </li>
+	      <li><strong>溶接長の算出</strong>
+	        <p><img src="media/dlg_weld_length_exec.png" /></p>
+            <p>対象要素間の溶接部を検出し、情報ウィンドウに溶接長を表示します。また、ドキュメントウィンドウ内に溶接線をプレビュー表示します。</p>
+          </li>
+          <li><strong>詳細出力</strong>
+            <p><img src="media/dlg_weld_length_detailed_output.png" /></p>
+            <p>チェックした状態で溶接長を算出すると、溶接長の合計だけでなく、溶接される要素の一対ごとに</p>
+            <ul>
+              <li>要素名</li>
+              <li>板厚（形鋼であればウェブの板厚）</li>
+              <li>溶接長</li>
+            </ul>
+            <p>を情報ウィンドウに出力します。</p>
+          </li>
+          <li><strong>溶接線の実体化</strong>
+            <p><img src="media/dlg_weld_length_create_curves.png" /></p>
+            <p>プレビュー表示された溶接線をカーブ要素として作成します。</p>
+            <p class="information">
+              「要素名」ダイアログと「要素グループ」ダイアログで、作成されるカーブの要素名と要素グループを指定できます。
+            </p>
+          </li>
+	      <li><strong>溶接トレランス</strong>
+	        <p>	      
+	          <img src="media/dlg_weld_length_tolerance.png" />
+	        </p>
+            <p>モデル内で要素同士が離れていたり食い込んでいたりしても、フェイス間の距離が溶接トレランス値以下であれば溶接部分とみなされます。</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
+	  

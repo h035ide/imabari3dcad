@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+  <meta name="GENERATOR" content="HelpMachine 2.4.9" />
+  <meta http-equiv="content-type" content="text/html; charset=Shift_JIS" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <link href="basic.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="script/util.js"></script>
+  <title>配管模式図作成</title>
+</head>
+<body>
+<div class="page">
+  <h2>配管模式図作成</h2>
+  <div class="contents">
+  <p><a href="about_piping.html#set">配管セット</a>を選択し、その中に含まれる配管要素の接続状態を模式図として画像ファイル（PNG形式）に出力します。模式図の種類は、は樹形図ふう、路線図ふうのものなど5つの中から選択できます。</p>
+  <h3>操作方法</h3>
+  <p><a href="about_model_config_window.html">モデル構成ウィンドウ</a>に表示された配管セットの<a href="about_context_menu.html">コンテキストメニュー</a>から「配管模式図作成」をクリックします。「名前をつけて保存」ウィンドウが表示されますので、画像ファイル名と模式図の種類を指定してOKをクリックします。</p>
+  <h3>パラメータ</h3>
+  <h4>ファイルの種類</h4>
+  <img src="media/dlg_piping_diagram_save_as.png" alt="ファイルの種類一覧（5種類）" />
+  <p>模式図の種類を指定します。</p>
+  <table style="display:inline;"><tr><td><img src="media/piping_diagram_type_dot.png" alt="模式図の例（ファイルの種類: 樹形図）" /></td></tr><tr><th>樹形図</th></tr></table>
+  <table style="display:inline;"><tr><td><img src="media/piping_diagram_type_twopi.png" alt="模式図の例（ファイルの種類: 相似円）" /></td></tr><tr><th>相似円</th></tr></table>
+  <table style="display:inline;"><tr><td><img src="media/piping_diagram_type_neato.png" alt="模式図の例（ファイルの種類: 路線図1）" /></td></tr><tr><th>路線図1</th></tr></table>
+  <table style="display:inline;"><tr><td><img src="media/piping_diagram_type_fdp.png" alt="模式図の例（ファイルの種類: 路線図2）" /></td></tr><tr><th>路線図2</th></tr></table>
+  <table style="display:inline;"><tr><td><img src="media/piping_diagram_type_sfdp.png" alt="模式図の例（ファイルの種類: 路線図3）" /></td></tr><tr><th>路線図3</th></tr></table>
+  <h3>設定ファイル</h3>
+  <p><a href="cmd_open_setting_file_folder.html">設定ファイルフォルダー</a>内のファイル「EvPipingDiagramSetting.csv」でさらに詳細なパラメータを指定できます。書式については設定ファイル内のコメントを参照してください。</p>
+  <h4>図全体の設定</h4>
+  <p>以下のようなパラメータを指定可能です。</p>
+  <ul>
+    <li>フォントサイズ</li>
+    <li>フォント種類</li>
+    <li>非表示要素指定（フランジ、スリーブ、エルボ）</li>
+  </ul>
+	<p class="information">配管セットの開放端にある要素は非表示指定されていてもかならず表示されます。</p>
+  <h4>要素の設定</h4>
+  <p>配管要素の種類によって（配管機器コンポーネントは名前マッチングによって）以下のようなパラメータを指定可能です。</p>
+  <ul>
+    <li>シンボル外形（円、多角形、点等々）</li>
+    <li>ラベル（要素名）の上下位置</li>
+    <li>ラベル表示のON/OFF（既定値では配管機器コンポーネントのみON）</li>
+    <li>シンボル内部に表示する画像ファイル名</li>
+  </ul>
+  </div>
+</div>
+</body>
+</html>

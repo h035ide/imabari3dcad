@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>ロンジ</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_ship_longi.png"/>&nbsp;ロンジ</h2>
+      <div class="contents">
+	    <p>
+	      ロンジを作成ます。(条材を曲面、曲線上に作成する機能です。)
+	    </p>
+	    <p>
+	      <img src="media/ship_longi_ex1.png"/>&nbsp;<img src="media/ship_longi_ex2.png"/>
+	    </p>
+	    <h3>操作方法</h3>
+	    <p>
+	      パラメータを入力すると作成形状がプレビュー表示されます。形状の確認後、OKボタンで実行します。<br/>
+	    </p>
+	    <h3>パラメータ</h3>
+	    <ul>
+	      <li><strong>作成方法</strong>
+	        <p>
+	          以下の作成方法があります。
+	        </p>
+	        <ul>
+	          <li><strong>座標軸方向指定</strong>
+		        <p>
+		          ロンジと取り付ける曲面と,ロンジの取付位置や方向、長さを絶対座標値で指定して作成します。
+		        </p>
+	          </li>
+	          <li><strong>基準直線指定</strong>
+		        <p>
+		          ロンジと取り付ける曲面とロンジの取付方向を示す直線を指示して作成します。
+		        </p>
+		        <p>
+		          <img src="media/ex_ship_longi_deflines1.png" align="top"/>&nbsp;<img src="media/ex_ship_longi_deflines2.png" align="top"/>
+		        </p>
+	          </li>
+	          <li><strong>取付線指定</strong>
+		        <p>
+		          ロンジと取り付ける曲線とロンジの取付方向を示す直線を指示して作成します。
+		        </p>
+		        <p>
+		          <img src="media/ex_ship_longi_path1.png" align="top"/>&nbsp;
+		        </p>
+	          </li>
+	        </ul>
+	      </li>
+	      <li><strong>形状</strong>
+	        <p>	      
+	          <img src="media/dlg_ship_longi_sel_shape.png" align="top"/>&nbsp;<img src="media/dlg_ship_longi_shape.png" align="top"/>
+	        </p> 
+	        <p> 
+	          ロンジの断面形状、寸法を選択、設定します。(<a href="about_ship_settings.html">既定寸法は設定可能です。</a>)
+	        </p>
+	      </li>
+	      <li><strong>取付面</strong>(座標軸方向指定,基準直線指定)
+	        <p>
+	          ロンジを取り付けるフェイスを選択します。(複数可）
+	        </p>
+	      </li>
+	      <li><strong>基準直線</strong>(基準直線指定,取付線指定)
+	        <p>	      
+	          <img src="media/dlg_ship_lng_defline.png"/>
+	        </p>	      
+	        <p>	      	      
+	          ロンジの取付方向を示す直線を選択します。(複数可)
+	        </p>
+	        <p>	
+	          アングル方向反転をチェックしてロンジのアングルの方向を反転することができます。
+	        </p>      	      
+	      </li>
+	      <li><strong>取付線</strong>(取付線指定)
+	        <p>
+	          ロンジを取り付ける基準線を選択します。
+	        </p>
+	      </li>
+	      <li><strong>取付位置</strong>(座標軸方向指定)
+	        <p>	      
+	          <img src="media/dlg_ship_longi_pos.png"/><br/>
+	        </p>
+	        <ul>
+	          <li>骨材方向,取付方向
+		        <p>
+		          <img src="media/about_longi_dir.png"/><br/>
+		          取付方向は"取付方向,ロンジの向き"で選択します。
+		        </p>
+	          </li>
+	          <li>取付位置
+		        <p>
+		          取付平面の位置(ロンジの向きの方向軸上の座標値）を指示します。
+		        </p>
+	          </li>
+	        </ul>
+	      </li>
+          <li><strong>コピー</strong>(オプション、座標軸方向指定)
+	        <p>	      
+	          <img src="media/dlg_copy_opt.png"/>
+	        </p>
+	        <p>	
+	          コピー数、オフセット値を指定して一度に複数のロンジを作成できます。
+	        </p>
+	      </li>
+	      <li><strong>板逃方向</strong>
+	        <p>	      
+	          <img src="media/dlg_ship_mold.png"/><br/>
+	        </p>
+	        <p>
+	          ロンジの取付位置の板逃を指定します。
+	        </p>
+	        <p>
+	          <img src="media/ex_ship_lng_mold_plus.png"/>&nbsp;<img src="media/ex_ship_lng_mold_minus.png"/>&nbsp;<img src="media/ex_ship_lng_mold_center.png"/>
+	        </p>
+	      </li>
+	      <li><strong>端部1,2</strong>(座標軸方向指定 以外の場合はオプション)
+	        <p>	      
+	          <img src="media/dlg_ship_ss_end_pos.png" align="top"/>&nbsp;<img src="media/dlg_ship_ss_end.png" align="top"/>
+	        </p>	      
+	        <p>	      	      
+              ロンジ端部の形状を設定します。形状、寸法を選択、設定します。(<a href="about_ship_settings.html">既定寸法は設定可能です。</a>)
+	        </p>
+            <p>	
+      	      端部の位置は要素あるいは座標値（座標軸方向指定の場合のみ）で設定します。
+	        </p>
+            <p>	
+              (<a href="cmd_ship_ss_end.html">形状一覧</a>)
+            </p>
+	      </li>
+	      <li><strong>端部1,2スカラップ</strong>(オプション)
+	        <p>	      
+	          <img src="media/dlg_ship_ss_scallop.png"/>
+	        </p>	      
+	        <p>	      	      
+              ロンジ端部にスカラップを設定します。形状、寸法を選択、設定します。(<a href="about_ship_settings.html">既定寸法は設定可能です。</a>)
+	        </p>
+            <p>	
+              (<a href="cmd_ship_ss_end_scallop.html">形状一覧</a>)
+            </p>        
+	      </li>
+        </div>
+      </div>
+  </body>
+</html>
+
+	  

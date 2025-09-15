@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta name="GENERATOR" content="HelpMachine 2.4.9">
+  <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+  <link href="basic.css" rel="stylesheet" type="text/css" />
+  <title>配管拘束</title>
+</head>
+<body>
+    <div class="page">
+      <h2><img src="media/cmd_pipe_constraint.png"/>&nbsp;配管拘束</h2>
+      <div class="contents">
+	    <p>パイプに拘束を付加します。
+        </p>
+        <h3>操作方法</h3>
+        <p>パイプを1本以上選択すると、適用可能な拘束の一覧が表示されますので、希望するものを選択して拘束を付加します。
+        </p>
+        <h3>パラメータ</h3>
+        <ul>
+          <li><strong>拘束する要素</strong>
+            <p><img src="media/dlg_pipe_constraint.png" /></p>
+            <p>選択した要素に応じて付加できる拘束のボタンが表示されます。<br/>
+              また各ボタンに対応するコマンドがコンテキストメニューに表示されますのでそこからの実行も可能です。
+            </p>
+          </li>
+        </ul>
+        <h3><a id="type">拘束タイプ</a></h3>
+        <dl>
+          <dt><strong>平行</strong></dt>
+          <dd>2つのパイプまたはパイプと他要素を平行にします。
+          <p><img src="media/comp_pipe_c_parallel.png" /></p>
+          </dd>
+          <dt><strong>垂直</strong></dt>
+          <dd>2つのパイプまたはパイプと他要素を垂直にします。
+              <p><img src="media/comp_pipe_c_perpendicular.png" /></p>
+          </dd>
+          <dt><strong>長さ</strong></dt>
+          <dd>パイプの長さを設定します。
+              <p><img src="media/comp_pipe_c_dist_length.png" /></p>
+          </dd>
+          <dt><strong>距離(パイプ面)</strong></dt>
+          <dd>
+              2つのパイプまたはパイプと他要素の距離をパイプ面基準で設定します。
+              <p><img src="media/comp_pipe_c_dist_pipe.png" /></p>
+          </dd>
+          <dt><strong>距離(パイプ軸)</strong></dt>
+          <dd>
+              2つのパイプまたはパイプと他要素の距離をパイプ軸基準で設定します。
+              <p><img src="media/comp_pipe_c_dist_axis.png" /></p>
+          </dd>
+          <dt><strong>角度</strong></dt>
+          <dd>
+              2つのパイプまたはパイプと他要素の角度を設定します。
+              <p><img src="media/comp_pipe_c_angle.png" /></p>
+          </dd>
+          <dt><strong>エルボ角度</strong></dt>
+          <dd>
+              エルボの角度を設定します。
+              <p><img src="media/comp_pipe_c_elbow_angle.png" /></p>
+          </dd>
+          <dt><strong>X軸・Y軸・Z軸に平行</strong></dt>
+          <dd>
+              パイプをXYZ軸のいずれかと平行にします。
+              <p><img src="media/comp_pipe_c_fix_dir.png" /></p>
+          </dd>
+          <dt><strong>XY平面・YZ平面・ZX平面に平行</strong></dt>
+          <dd>
+              パイプをXY、YZ、ZX平面のいずれかと平行にします。
+              <p><img src="media/comp_pipe_c_fix_plane.png" /></p>
+          </dd>
+          <dt><strong>固定</strong></dt>
+          <dd>
+              エルボの位置を固定します。
+              <p><img src="media/comp_pipe_c_fix.png" /></p>
+          </dd>
+          <dt><strong>パイプ接続</strong></dt>
+          <dd>
+              2つのパイプ接続点を繋ぎ、間にエルボを作成します。
+          </dd>
+          <dt><strong>結合</strong></dt>
+          <dd>配管機器コンポーネントと、パイプ端点またはフランジを接続します。機器コンポーネント側のもっとも近い接続点と繋がりますが、コンポーネント全体ではなく接続点を選択すれば接続先を変更できます。
+          <p>
+          <img src="media/pipe_constraint_connect_before.png"/>
+          <img src="media/pipe_constraint_connect_after.png"/>
+          </p>
+          </dd>
+        </dl>
+      </div>
+    </div>
+</body>
+</html>
+

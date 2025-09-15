@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>船殻設計の流れ</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2>船殻設計の流れ</h2>
+      <div class="contents">
+	<p>
+	  Evo.Shipでは各部材をソリッドとして正確に解析にもつかえるモデルとして作成することができます。
+	</p>
+	<p>
+	  各部材ソリッド要素には名前(部材名）、<a href="about_material.html">材料</a>,<a href="about_user_attrib.html">その他属性</a>をつけることができます。
+	</p>
+	<p>
+	  各部材は船体のブロック構成に基づいて階層的に管理します。(<a href="about_ship_part_management.html">部材の管理</a>)
+	</p>
+	<p>
+	  設計は以下のような作業手順で行われることを想定して機能が設計されています。
+	</p>
+	<ol>
+	  <li>設計基準の定義
+	    <p>
+	      フレームスペース、ウォーターライン、バトックライン のような設計基準を定義します。Evo.Shipではこれらの値を<a href="about_variable.html">変数</a>として管理します。<br/>
+	      <a href="cmd_ship_vars.html">フレームスペース、ウォーターライン、バトックラインコマンド</a>
+	    </p>
+	  </li>
+	  <li>船体の作成
+	    <p>
+	      船体外形をソリッドとして作成します。
+	      (<a href="cmd_ship_read_surface.html">船体曲面読込</a>,<a href="cmd_stitch_body.html">スティッチボディ</a>が使用できます。)<br/>
+	      作成したソリッドは要素グループ"船体"(船殻設計配下にあります。)で管理します。（<a href="cmd_ship_plate.html">プレート</a>コマンド等でソリッドを使用します。)
+	    </p>
+	  </li>
+	  <li>全体の構造設計
+	    <p>
+	      船全体でモデリングしたほうがよいような構造を設計します。<br/>
+	      <a href="about_ship_part_command.html">船殻構造用の部材コマンド</a>や一般的なモデリングのコマンドを使用します。
+	    </p>
+	  </li>
+	  <li>ブロック分割
+	    <p>
+	      船全体をひとつのドキュメントとして詳細まで設計してしまうとファイルが巨大になりすぎて扱えなくなったり、複数の担当で設計を担当するためにも形状をブロックに分割して複数のファイルに分けておきます。
+	    </p>
+	    <p>
+	      <a href="cmd_div_body.html">ボディ分割</a>&nbsp;<a href="cmd_sep_body_by_curves.html">ボディ分割(線)</a>&nbsp;<a href="cmd_export.html#group">要素グループのエクスポート</a>
+	    </p>
+	  </li>
+	  <li>各ブロック毎の詳細構造設計
+	    <p>
+	      ブロック分割されたファイルで詳細に構造設計を進めます。<br/>
+	      必要があればさらにブロック分割をしたり、<a href="cmd_import.html">インポート</a>,<a href="cmd_merge_import.html">マージインポート</a>で他ブロックを参照できます。<br/>
+	      <a href="about_ship_part_command.html">船殻構造用の部材コマンド</a>や一般的なモデリングのコマンドを使用して詳細な構造を設計します。	    
+	    </p>
+        <p>
+          <a href="about_ship_attrs_command.html">工作属性コマンド</a>を使って「のばし」等の工作属性を付加して<a href="">部品図</a>に反映させることができます。
+	    </p>
+	  </li>
+	  <li>図面の作成
+	    <p>
+	      <a href="cmd_ship_part_dwg.html">部品図</a>コマンドを使用して１品部品図を簡単に作成することができます。
+	    </p>
+	  </li>
+	</ol>
+      </div>
+    </div>
+  </body>
+</html>
+	  

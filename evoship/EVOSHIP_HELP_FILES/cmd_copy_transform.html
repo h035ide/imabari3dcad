@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>コピー座標変換</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_copy_transform.png"/>&nbsp;コピー座標変換</h2>
+      <div class="contents">
+	<h3>操作方法</h3>
+	<p>
+	  パラメータの入力が整うとコピー要素のプレビューが表示されます。要素の確認後、OKボタンで実行します。<br/>
+	  (スケッチモード(2D)では利用できません。)
+	</p>
+	<h3>パラメータ</h3>
+	<p>
+	  <strong>対象要素</strong><br/>
+	  <img src="media/dlg_copy_target_no_count.png"/><br/>
+	</p>
+	<p>
+	  コピーする要素(データム、カーブ、シートボディ、ソリッドボディ)を選択します。<br/>
+	</p>
+	<p>
+		<strong>関連</strong><br/>
+		<img src="media/dlg_copy_assoc_unchecked.png"/> <img src="media/dlg_copy_assoc_checked.png"/>
+		<p>「関連づけを変更」をチェックすると、コピー元要素との<a href="about_relation.html">関連づけの方法</a>を変更できます。既定値は「フィーチャー」です。関連づけを「なし」以外にすると、<a href="about_pattern_feature.html">パターンフィーチャー</a>が作成され、コピー要素がコピー元の変更に追従するようになります。<br/>
+	  (3Dスケッチモードでは関連は設定できません。)<br/>
+	  「個別にコピー」をチェックすると、複数の要素を一度にコピーしても、ひとつひとつ別々に選んでコピーした場合と同じ結果になります。チェックがOFFだと、選択した要素はひとまとまりのものとして扱われ、コピー時に入力したパラメータはすべてのコピー間で共有されます。
+	</p>
+	<p>
+	  <strong>座標変換</strong><br/>
+	  <img src="media/dlg_move_transform.png"/><br/>
+	  座標系を選択します。基準座標系から目標座標系への座標変換を設定します。	  
+	</p>
+      </div>
+    </div>
+  </body>
+</html>
+	  

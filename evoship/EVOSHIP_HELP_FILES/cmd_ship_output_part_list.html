@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <script language="javascript" src="script/util.js"></script>
+    <title>部材データ出力</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2>部材データ出力</h2>
+      <div class="contents">
+	    <p>
+          モデル内の部材の各種データをCSVフォーマットでファイル出力します。
+	    </p>
+	    <h3>操作方法</h3>
+	    <p>
+          ファイル選択ダイアログが表示されますので、出力ファイル名を指定します。
+	    </p>
+        <h3>ファイルのフォーマット</h3>
+        <p>
+          csvの形式で、一行が一つの変数定義となります。<br/>
+          各行は左から以下の内容のカラムになります。
+          <ul>
+            <li><strong>ブロック名</strong>
+              <p>
+                部材のある<a href="about_ship_part_management.html#ship-block-name">ブロック名称</a>
+              </p>
+            </li>
+            <li><strong>部材名</strong>
+              <p>
+                <a href="about_ship_part_management.html#ship-block-name">部材名称</a>
+              </p>
+            </li>
+            <li><strong>部材種別</strong>
+              <p>
+                部材種別毎の文字列です。文字列は以下の内容になります。
+              </p>
+              <p> 板材
+                <ul>
+                  <li>COL (カラープレー)</li>
+                  <li>BKT (ブラケット)</li>
+                  <li>DBL (ダブリング)</li>
+                  <li>PL (その他板材)</li>
+                </ul>
+              </p>
+              <p> 条材
+                <ul>
+                  <li>FB (平鋼)</li>
+                  <li>AB (等辺山形鋼)</li>
+                  <li>ABS (不等辺山形鋼)</li>
+                  <li>NAB (不等辺不等厚山形鋼)</li>
+                  <li>BP (球平形鋼)</li>
+                  <li>I (I形鋼)</li>
+                  <li>H (H形鋼)</li>
+                  <li>T (T形鋼)</li>
+                  <li>CB (溝形鋼)</li>
+                </ul>
+              </p>
+            </li>
+            <li><strong>部材寸法</strong>
+              <p>
+                部材種別が板材の場合は板厚(mm),条材の場合は断面の形状寸法(mm)です。
+              </p>
+              
+            </li>            
+            <li><strong>曲げ加工</strong>
+              <p>
+                板材や条材を曲げ加工する必要がある場合にはB,そうでない場合は空欄です。
+              </p>
+            </li>
+            <li><strong>材質</strong>
+              <p>
+                部材の<a href="about_material.html">材料名称</a>
+              </p>
+            </li>            
+            <li><strong>表面積</strong>
+              <p>
+                部材の表面積(mm2)
+              </p>
+            </li>
+            <li><strong>体積</strong>
+              <p>
+                部材の体積(mm3)
+              </p>
+            </li>            
+            <li><strong>重量</strong>
+              <p>
+                部材の重量(Kg)
+              </p>
+            </li>
+            <li><strong>重心</strong>
+              <p>
+                部材の重心位置(mm)のX座標値,Y座標値,Z座標値
+              </p>
+            </li>            
+            <li><strong>慣性モーメント</strong>
+              <p>
+                部材重心の慣性モーメント(kg X mm2),Lxx,Lxy,Lxz,Lyx,Lyy,Lyz,Lzx,Lzy,Lzz
+              </p>
+            </li>
+            <li><strong>慣性主軸</strong>
+              <p>
+                部材の慣性主軸の方向ベクトル成分X,Y,Z。Ix(X,Y,Z),Iy(X,Y,Z),Iz(X,Y,Z)
+              </p>
+            </li>            
+            <li><strong>主慣性モーメント</strong>
+              <p>
+                部材の主慣性モーメント(kg X mm2),Px,Py,Pz
+              </p>
+            </li>
+          </ul>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
+	  

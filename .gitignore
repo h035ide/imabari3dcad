@@ -1,0 +1,14 @@
+.venv/
+.env
+__pycache__/
+.vscode/
+langflow_env/
+chroma_db_store/
+vector_store/
+htmlcov/
+.flake8
+.benchmarks/
+.pytest_cache/
+.ruff_cache/
+chroma_db_store/
+imabari3dcad.egg-info/

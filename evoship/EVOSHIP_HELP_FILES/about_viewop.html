@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>表示操作</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2>表示操作</h2>
+      <div class="contents">	
+	<ul>
+	  <li><strong>表示方法</strong>
+	    <p>
+	      3Dモデル ドキュメントはシェーディング、ワイヤーフレーム、隠線消去、隠線表示のいずれかで表示できます。<a href="cmd_display_type.html">操作方法</a><br/>
+	      さらに<a href="cmd_display_parse.html">パース表示</a>,<a href="cmd_display_section.html">断面表示</a>することができます。
+	    </p>
+	  </li>
+	  <li><strong>表示方向,ズーム</strong>
+	    <ul>
+	      <li><strong>コマンド</strong>
+		<p>
+		  <a href="cmd_camera.html">カメラコマンド</a>,<a href="cmd_display_dir.html">表示方向コマンド</a>も利用できます。
+		</p>
+	      </li>
+	      <li><strong>キーボード操作</strong>
+		<p>
+		  F1キーで<a href="cmd_camera.html#nearest">最適な既定表示方向</a>に設定します。<br/>
+		  F2キーで要素の全体サイズに<a href="cmd_camera.html#fit">フィット</a>します。
+		</p>
+	      </li>
+	      <li><strong>マウス操作</strong>
+		<p>
+		  ウィンドウ上でマウスの右ボタンをドラッグすることで以下の操作が行えます。<br/>
+		  操作中はカーソルが操作のアイコンにかわります。
+		  <ul>
+		    <li>回転<img src="media/orbit_cursor.png"/></li>
+		    <li>ズーム<img src="media/zoom_cursor.png"/><br/>Shiftキーを押しながらドラッグ</li>
+		    <li>パン<img src="media/pan_cursor.png"/><br/>Ctrlキーを押しながらドラッグ</li>
+		    <li>ロール（画面に垂直な軸で回転）<img src="media/z_rot_cursor.png"/><br/>Altキーを押しながらドラッグ</li>
+		    <li>水平回転<img src="media/v_rot_cursor.png"/><br/>ShiftとCtrlを押しながらドラッグ</li>
+		    <li>垂直回転<img src="media/h_rot_cursor.png"/><br/>ShiftとAltキーを押しながらドラッグ</li>
+		  </ul>
+		  このキー設定は<a href="cmd_opt_sys_mouse.html">変更できます。</a><br/>
+		</p>
+		<p>
+		  マウスホイールの回転でマウスのある位置を中心に拡大、縮小ができます。<br/>
+		  (マウスがウィンドウ内にないときはウィンドウの中心で)
+		</p>
+		<p>
+		  表示方向はマウス操作などで変更できないように<a href="cmd_display_dir_fix.html">固定</a>しておくことも可能です。
+		</p>
+	      </li>
+	    </ul>
+	  </li>
+	  <li><strong>要素表示状態</strong>
+	    <p>
+	      表示フィルタを使うと要素のタイプ毎の表示／非表示を切り替えられます。<a href="cmd_display_filter.html">操作方法</a>
+	    </p>
+	    <p>また各要素個別に表示／非表示を切り替えられます。</p>
+	    <ul>
+	      <li><a href="about_model_config_window.html">モデル構成ウィンドウでの操作</a></li>
+	      <li><a href="cmd_default.html">選択コマンドのコンテキストメニューでの操作</a></li>
+	    </ul>
+	    <p class="information">要素ごとの表示／非表示の切り替えはモデルに対する変更操作として扱われるため、<a href="cmd_undo_redo.html">UNDO（元に戻す）/REDO（やり直し）</a>が可能です。</p>
+	  </li>
+	  <li><strong>複数のウィンドウ</strong>
+	    <p>
+	      １つのドキュメントに複数のウィンドウを作成することがきます。それぞれのウィンドウは異なった表示状態に設定できますので、同じモデルの違う部分を、方向や状態を変えて同時に表示することができます。<a href="cmd_window.html">操作方法</a>
+	    <p class="information">
+	      ドキュメントのウィンドウが全て閉じられた時にドキュメント自体も閉じられます。
+	    </p>
+	    </p>
+	  </li>
+	  <li><strong>分割表示</strong>
+	    <p>
+	      １つのウィンドウを分割して表示することも可能です。<a href="cmd_display_div.html">操作方法</a>
+	    </p>
+	  </li>
+	</ul>
+      </div>
+    </div>
+  </body>
+</html>
+	  

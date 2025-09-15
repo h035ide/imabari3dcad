@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <script language="javascript" src="script/util.js"></script>
+    <title>回転フィーチャー</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_revolve.png" alt="追加"/>&nbsp;<img src="media/cmd_revolve_sub.png" alt="削除"/>&nbsp;<img src="media/cmd_revolve_int.png" alt="積"/>&nbsp;回転フィーチャー</h2>
+      <div class="contents">
+	<p>
+	  プロファイル形状を軸のまわりに回転したソリッドを作成します。<br/>
+	  <img src="media/revolve_ex1.png"/>&nbsp;<img src="media/revolve_ex2.png"/>
+	</p>	
+	<h3>操作方法</h3>
+	<p>
+	  パラメータの入力が整うと作成形状のプレビューと回転方向を示す矢印が表示されます。形状の確認後、OKボタンで実行します。<br/>
+	  <img src="media/play_movie.gif" alt="Play Movie" align="middle" onclick="popupAVI('media/op_revolve.avi',this.offsetLeft,this.offsetTop,318,251)"/>矢印はマウスでドラッグして回転角度を変更することができます。
+	</p>
+	<h3>パラメータ</h3>
+	<ul>
+	  <li><strong>スケッチ</strong>
+	    <p>
+	      <img src="media/dlg_profile_sketch.png"/><br/>
+	      <a href="about_sketch.html">スケッチ</a>（全体、レイヤー、カーブ）をプロファイルとして選択できます。	      
+	    </p>
+	  </li>
+	  <li><strong>回転軸</strong>
+	    <p>
+	      <img src="media/dlg_revolve_axis.png"/><br/>
+	      回転軸となる直線をプロファイルのスケッチから選択します。
+	    </p>
+	  </li>
+	  <li><strong>回転角度</strong>
+	    <p>
+	      <img src="media/dlg_revolve.png"/><br/>
+	      回転角度（３６０°以下）を指定します。
+	    </p>
+	  </li>
+	  <li><strong>厚みづけ</strong>（オプション）
+	    <p>
+	      <img src="media/dlg_profile_thicken.png"/>&nbsp;<img src="media/dlg_profile_thicken2.png"/>&nbsp;<img src="media/revolve_ex_thicken.png"/><br/>	      
+	      プロファイルを厚みづけして回転します。<br/>
+	      厚みづけの量と基準（内側、外側、両側、２方向）を指定します。オフセットを指定してプロファイルをオフセットした位置で厚みづけることもできます。
+	    </p>
+	  </li>
+	  <li><strong>関連づけ設定</strong>（オプション）
+	    <p>
+	      <img src="media/dlg_opt_tagging_no_assoc.png"/><br/>
+	      回転形状の各面に対して<a href="about_sketch.html">スケッチ</a>などを作成した際の関連づけ方法を設定します。<br/>
+	    </p>
+	    <p>	    
+	      "幾何位置で関連を設定"を設定すると幾何位置に対して関連を設定します。<br/>
+	      設定しない場合は回転方向や、厚みづけ方向に対して関連づけます。<a href="cmd_solid_extrude.html#opt_rel">例)</a>
+	    </p>
+	  </li>
+	</ul>
+      </div>
+    </div>
+  </body>
+</html>
+	  

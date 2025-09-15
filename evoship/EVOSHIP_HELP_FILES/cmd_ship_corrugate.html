@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>ウォール</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_ship_corrugate.png" alt="ウォールコマンドアイコン" />&nbsp;ウォール</h2>
+      <div class="contents">
+	    <p>
+	      取付線（平面図での線）や元板を指定して壁（板）を作成します。<br />
+          コルゲートを含む壁（板）を作成することができます。<br />
+	      <img src="media/ship_corrugate_ex1.png" alt="形状サンプル" />&nbsp;
+	    </p>
+	    <h3>操作方法</h3>
+	    <p>
+	      取付線などのパラメータを入力すると作成形状がプレビュー表示されます。形状の確認後、OKボタンで実行します。<br />
+	    </p>
+	    <h3>パラメータ</h3>
+	    <ul>
+	      <li><strong>取付方法</strong>
+	        <p>ウォールの取付方法を選択します。</p>
+	        <p><img src="media/dlg_ship_corrugate_attachment.png" alt="取付方法ダイアログ" /></p>
+	        <ul>
+	          <li>基準線指定<br />
+	          取付線となる基準線と取付方向や板逃などを指定して作成します。
+	          </li>
+	          <li>元要素指定<br />
+	          板状のソリッド要素を元要素として指定して、その形状にコルゲートを追加したものを新規ウォールとして作成します。板厚や板逃は元要素から引き継がれます。
+	          </li>
+	        </ul>
+	      </li>
+          <li><strong>基準線</strong>（基準線指定）
+		    <p>
+	          <img src="media/dlg_ship_corrugate_mold_line.png" alt="基準線ダイアログ" /><br />
+		    </p>
+		    <p>
+              スケッチ、スケッチ線、スケッチレイヤーで指定します。折れ線はナックルとして処理します。
+		    </p>
+	      </li>
+          <li><strong>板厚</strong>（基準線指定）
+            <p>
+	          <img src="media/dlg_thickness.png" alt="板厚ダイアログ" />
+		    </p>
+		    <p>
+              板逃方向（＋側、－側、両側）、板厚、モールド位置を設定します。                  
+		    </p>
+            <p class="information">
+              コルゲートを設定した場合はコルゲートのタイプ設定に含まれる板厚を使用しますので、ここで設定する板厚は無視されます。
+            </p>
+	      </li>
+	      <li><strong>元の板状ソリッド</strong>（元要素指定）
+	      	<p><img src="media/dlg_ship_corrugate_original_plate.png" alt="「元の板状ソリッド」ダイアログ" /></p>
+	      	<p>板状のソリッド要素を指定します。<a href="cmd_solid_extrude.html">押し出し</a>、<a href="cmd_bounded_plate.html">境界指定</a>および<a href="cmd_ship_profile_part.html">条材</a>コマンドで作成したソリッドが利用できます。</p>
+	      	<p class="warning">利用できるソリッド要素にはいくつか制限がありますが、いずれも「平面上の開いた曲線を厚みを付けて平面と垂直な方向に押し出した形状」である必要があります。</p>
+	      <li><strong>元要素の非表示</strong>（元要素指定）
+	        <p>	      
+	          <img src="media/dlg_ship_corrugate_disp_lock.png" />
+	        </p>
+            <p>ウォール作成後、元要素は自動的に非表示になりますが、さらに非表示状態でロックするかどうかを指定します。
+            </p>
+          </li>
+	      <li><strong>コルゲート位置</strong>
+	        <ul>
+              <li><strong>コルゲート反転</strong>
+                <p>
+	              <img src="media/dlg_ship_corrugate_rev.png" /><br/>
+		        </p>
+		        <p>
+                  コルゲートの向きを反転します。
+		        </p>
+	          </li>
+              <li><strong>コルゲート設定</strong>
+		        <p>
+                  コルゲート位置は基準直線の両端からの距離、もしくはコルゲート位置の点要素で設定します。コルゲートの形状はそれぞれの指定位置でタイプを選択します（複数の設定点で異なるコルゲートのタイプも指定できます。その場合でも、板厚は同じでなければなりません）。
+		        </p>
+                <p><img src="media/dlg_ship_corrugate_pos.png" />&nbsp;<img src="media/dlg_ship_corrugate_type.png" /></p>
+                <ul>
+                  <li>追加
+                    <p>
+                     クリックしてコルゲート位置をリストに追加します。下の選択リストで点が選択されている場合は点基準の位置を、そうでない場合は起点からの位置基準のコルゲート位置を追加します。
+                    </p>
+                  </li>
+                  <li>削除
+                    <p>
+                      リストで選択されているコルゲート位置を削除します。
+                    </p>
+                  </li>
+                  <li>基準
+                    <p>
+                      1、2はそれぞれコルゲートの起点位置（端部1、端部2）を表します。文字をクリックすると基準を変更（選択）できます。
+                    </p>
+                  </li>
+                  <li>位置
+                    <p>
+                      起点からの距離を指定します。文字をクリックすると値を修正することができます。
+                    </p>
+                  </li>
+                  <li>タイプ
+                    <p>
+                      文字をクリックすると図のようにコルゲートのタイプ選択ダイアログが表示されます。OKボタンで決定です。
+                    </p>
+                  </li>
+                </ul>
+	          </li>
+	        </ul>
+          </li>
+          <li><strong>取付方向指定</strong>（基準線指定）
+            <p>
+              コルゲートを押し出す方向（順方向、反対方向、両方向、２方向）と量を指定します。
+            </p>
+            <p>
+              <img src="media/dlg_extrude_height.png" align="top" />&nbsp;<img src="media/dlg_extrude_height2.png" align="top" /><br/>
+	        </p>
+	        <p>
+	          押し出し量は長さ指定のほか"サーフェイスまで"と"点まで"で指定することができます。
+	        </p>
+          </li>
+          <li><strong>取付方向指定</strong>（元要素指定）
+            <p>
+              コルゲートを押し出す方向を指定します。元要素として選んだ板状ソリッドから取付方向が取得できない場合に（例：境界指定ソリッド）、この方向が参照されます。
+            </p>
+            <p>
+              <img src="media/dlg_ship_corrugate_extrude_dir.png" /><br />
+	        </p>
+          </li>
+          <li><strong>境界要素　端部１、端部２</strong>（オプション）
+            <p>
+              壁面の端部境界となる要素（フェイス、シート、平面）を選択します。
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
+

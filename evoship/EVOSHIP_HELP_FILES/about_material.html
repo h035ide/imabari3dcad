@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>材料の作成、編集</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2>材料の作成、編集</h2>
+      <div class="contents">
+	<h3>材料設定</h3>
+	<p>
+	  材料として材料カテゴリ名称,材料名称と密度(g/cm3)をシステム(レジストリ)に登録します。<br/>
+	  設定編集はダイアログで行います。
+	</p>
+	<h3>材料編集ダイアログ</h3>
+	<p>
+	  メニューバーのツール/材料設定で設定ダイアログが表示されます。編集後ＯＫボタンで設定します。
+	</p>	
+	<p>
+	  <img src="media/dlg_edit_material.png"/>
+	</p>	
+	<p>
+	  ツリービューでのコンテキストメニューから以下の操作が可能です。<br/>
+	  <img src="media/dlg_edit_material_ctxmenu.png"/>
+	</p>
+	<ul>
+	  <li>材料カテゴリの追加
+	  </li>
+	  <li>材料の追加
+	    <p>
+	      選択されているカテゴリ配下に追加されます。
+	    </p>
+	  </li>
+	  <li>材料の編集
+	    <p>
+	      選択されている材料を編集します。
+	    </p>
+	  </li>
+	  <li>材料,カテゴリの削除
+	    <p>
+	      選択されている材料,カテゴリを削除します。
+	    </p>
+	  </li>
+	</ul>
+	<p>
+	  選択されているカテゴリ名、材料名のクリックで名称を変更できます。
+	</p>
+	<p>
+	  読込ボタンでCSVファイルから材料データを読み込むことができます。<br/>
+	  CSVファイルのフォーマットは<br/>
+	  材料カテゴリ名称,材料名称,密度(g/cm3) と解釈されます。<br/>
+	  例)
+	  鋼鉄,SUS304,7.93<br/>
+	  鋼鉄,SUS316,7.98<br/>
+	  ...<br/>
+	</p>
+	<p class="warning">
+	  キャンセルすると変更が全てキャンセルされます。
+	</p>
+	<h3>ソリッドへの材料設定</h3>
+	<p>	  
+	  <a href="about_model_config_window.html">モデル構成ウィンドウ</a>や<a href="cmd_default.html">選択コマンド</a>でソリッドを選択した際のコンテキストメニュー"材料..."で材料選択ダイアログを表示します。
+	</p>
+	<p>
+	  <img src="media/dlg_material.png"/>
+	</p>
+	<p>
+	  ＯＫボタンで設定します。	  
+	</p>
+	<p class="information">
+	  材料編集ボタンで材料編集ダイアログが表示されますので、設定時に材料を作成することもできます。
+	</p>
+	<h3>既定の材料</h3>
+	<p>
+	  新規に作成されるソリッドの既定材料は<a href="cmd_opt_doc_material.html">材料(オプション)</a>で設定します。
+	</p>
+      </div>
+    </div>
+  </body>
+</html>
+	  

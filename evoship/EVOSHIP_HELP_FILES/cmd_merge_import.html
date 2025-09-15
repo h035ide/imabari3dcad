@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>マージインポート</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2>マージインポート</h2>
+      <div class="contents">
+	    <p>
+          別のモデルファイル(.evomdl)を読み込み、アクティブなドキュメント内で同一の要素の置き換えたり、新しい要素のインポートすることができます。<br/>
+          これにより、複数の設計者で1つのモデルを構築することができます。
+	    </p>
+	    <h3>操作方法</h3>
+	    <p>
+          ファイルメニューの"マージインポート"でファイル選択ダイアログが表示されます。<br/>
+	      インポートするモデルファイル(.evomdl)を選択します。<br/>
+          ここで指示するモデルファイルは、アクティブなドキュメントから派生したファイル（エクスポートまたは別名保存したファイル）である必要があります。<br/>
+          ファイルを選択すると、選択したモデルとアクティブなモデルとの差分が計算され、ツリー形式表示されます。<br/>
+          インポートする要素を選択し、OKボタンで実行します。
+	    </p>
+        <p class="information">
+          利用例は、<a href="sample_merge_import_double_bottom.html">二重底モデルを複数人で設計</a>を参照してください。
+        </p>
+        <h3>マージインポートウィンドウ</h3>
+        <p>
+          <img src="media/dlg_merge_import_window.png"/>
+        </p>
+        <p>
+          左側にモデル構成情報、右側に選択したファイルのプレビューが表示されます。
+        </p>
+        <ul>
+          <li><strong>要素アイコン</strong>
+            <p>
+              要素タイプに応じたアイコンが表示されます。<br/>
+              アクティブなドキュメントにない新しい要素は<img src="media/dlg_merge_import_new_icon.png">、アクティブなドキュメントから変更されている要素は<img src="media/dlg_merge_import_modify_icon.png">のようになります。<br/>
+              また、新しい要素と変更された要素にはアイコンの左側にチェックボックスが表示され、インポートするかどうか選択することができます。
+            </p>
+          </li>
+          <li><strong>コンテキストメニュー</strong>
+            <ul>
+              <li>ツリー上で要素を選択
+                <p>
+                  <img src="media/dlg_merge_import_context_tree_node.png"/>
+                </p>
+              </li>
+              <li>ツリー上でグループや要素フォルダを選択
+                <p>
+                  <img src="media/dlg_merge_import_context_tree_group.png"/>
+                </p>
+              </li>
+              <li>ビュー上で要素を選択
+                <p>
+                  <img src="media/dlg_merge_import_context_view_selected.png"/>
+                </p>
+              </li>
+              <li>ビュー上で選択なし
+                <p>
+                  <img src="media/dlg_merge_import_context_view_no_selection.png"/>
+                </p>
+              </li>
+            </ul>
+          </li>
+          <li><strong>要素選択</strong>
+            <p>
+              <img src="media/dlg_merge_import_check.png"/>
+            </p>
+            <ul>
+              <li>全て選択
+                <p>
+                  変更されている要素と新しい要素を全て選択します。
+                </p>
+              </li>
+              <li>新しい要素のみ選択
+                <p>
+                  新しい要素のみ全て選択します。
+                </p>
+              </li>
+              <li>全て選択解除
+                <p>
+                  現在選択されている要素を全て解除します。
+                </p>
+              </li>
+            </ul>
+          </li>
+          <li><strong>表示方法</strong>
+            <p>
+              <img src="media/dlg_merge_import_display.png"/>
+            </p>
+            <ul>
+              <li>全て表示
+                <p>
+                  元のモデルファイル内の要素を全て表示します。
+                </p>
+              </li>
+              <li>差分のみ表示
+                <p>
+                  ２つのモデルを比較して相違点がある要素のみ表示します。（デフォルト）
+                </p>
+              </li>
+            </ul>
+          </li>
+          <li><strong>表示種別</strong>
+            <p>
+              <img src="media/dlg_merge_import_category.png"/>
+            </p>
+            <ul>
+              <li>グループ別に表示
+                <p>
+                  要素グループ別に並べて表示します。（デフォルト）</br>
+                　グループに属さない要素は一番下に表示されます。
+                </p>
+              </li>
+              <li>名前順に表示
+                <p>
+                  要素の名前順に並べて表示します。
+                </p>
+              </li>
+              <li>要素別に表示
+                <p>
+                  モデル構成ウィンドウのように、要素のタイプ別に並べて表示します。
+                </p>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <h3>マージの注意点</h3>
+        <p class="warning">
+          ツリー上で選択された要素がアクティブドキュメントにインポートされますが、要素の依存関係で不整合が起こらないようにシステムが自動で関連要素をインポートするように動作します。以下にいくつか例を挙げます。
+        </p>
+        <ul>
+          <li><strong>新しい要素を選択した場合の関連要素のインポート</strong>
+            <p>
+              <img src="media/dlg_merge_import_related_new_nodes.png"/>
+            </p>
+            <p>
+              分割されたソリッドを選択すると、関連する分割元のソリッドを含めて全てインポートされます。
+            </p>
+          </li>
+        </ul>
+        <ul>
+          <li><strong>新規のカラープレートを選択した場合の関連要素のインポート</strong>
+            <p>
+            <img src="media/dlg_merge_import_related_new_body_operation.png"/>
+            </p>
+            <ul>
+              <li>スロットを含むボディを置き換える場合
+                <p>
+                  インポート元のモデルファイル内のボディに置き換わります。
+                </p>
+              </li>
+              <li>スロットを含むボディを置き換えない場合
+                <p>
+                  アクティブなドキュメント内のボディにスロットフィーチャーが追加されます。<br/>
+                </p>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <script type="javascript" src="script/util.js"></script>
+    <title>表示領域指定（座標軸上で設定）</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_display_section.png"/>&nbsp;表示領域指定（座標軸上で設定）</h2>
+      <div class="contents">
+      <p>表示領域を指定する際に、3D空間内の方向を1～3個選んで、それぞれの方向における表示範囲を設定します。</p>
+	<h3>操作方法</h3>
+	<p>表示範囲をここからここまでと指定するための方向を選ぶと、表示領域の両端面のプレビューとクリップされる領域を示す矢印が表示されます。矢印をドラッグしたり範囲を数値入力したりして表示領域を調整し、OKボタンをクリックします。<br/>
+	  適用ボタンをクリックすると、コマンドを終了させずに表示領域を適宜確認することができます。<br/>
+	</p>
+	<p class="tip">コマンド実行中に、ドキュメントウィンドウでコンテキストメニューを表示して「表示中心位置を領域中心に設定」することもできます。<br/><img src="media/context_meun_view_clipping_center.png"/></p>
+	<h3>パラメータ</h3>
+	<dl>
+	<dt><p><strong>指定方法</strong><br/><img src="media/dlg_view_clipping_spec_type.png"/></p></dt>
+	<dd><p>表示領域の指定方法を選びます。</p></dd>
+	<dt><p><strong>表示領域設定</strong><br/>
+	<img src="media/dlg_view_clipping_center_span.png"/> <img src="media/dlg_view_clipping_begin_end.png"/></p></dt>
+	<dd>
+	  <p>指定方法に応じて、「中心位置＋表示幅」または「前位置＋後位置」を入力します。</p>
+	  <dl>
+    	<dt><strong>断面の塗りつぶし</strong></dt>
+    	<dd>断面を指定色で塗りつぶすようになります。<br/>
+    	  <img src="media/display_section_fill_ex.png"/>
+    	</dd>
+    	<dt><strong>解除</strong></dt>
+    	<dd>クリックすると指定済みの表示領域がすべて解除されます。</dd>
+	  </dl>
+	</dd>
+	<dt><p><strong>２軸目の方向</strong></p>
+	<img src="media/dlg_view_clipping_2nd_axis_center_span.png"/> <img src="media/dlg_view_clipping_2nd_axis_begin_end.png"/></dt>
+	<dd><p>追加で2つ目の軸を選んで表示領域を指定できます。</p></dd>
+	<dt><p><strong>３軸目の方向</strong></p>
+	<img src="media/dlg_view_clipping_3rd_axis_center_span.png"/> <img src="media/dlg_view_clipping_3rd_axis_begin_end.png"/></dt>
+	<dd><p>追加で3つ目の軸を選んで表示領域を指定できます。</p></dd>
+	</dl>
+      </div>
+    </div>
+  </body>
+</html>
+	  

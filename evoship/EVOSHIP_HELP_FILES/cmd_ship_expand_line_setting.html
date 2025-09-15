@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>逆直線展開設定</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_ship_expand_line_setting.png"/>&nbsp;逆直線展開設定</h2>
+      <div class="contents">
+        <ul>
+          <li>
+            条材に逆直線展開する直線を設定します。
+          </li>
+          <li>
+            条材に逆直線展開の各種パラメータを設定します。
+          </li>
+          <li>
+            逆直線スケッチをスケッチとして自動生成します。
+          </li>
+        </ul>
+        <h3>操作方法(設定)</h3>
+        <p>
+          <img src="media/dlg_ship_expand_line_sketch.png"/>
+        </p>
+        <p>
+          <img src="media/ex_ship_expand_line_sketch.png"/>
+        </p>
+	    <p>
+          条材のWeb面に<a href="about_sketch.html">スケッチ</a>を作成し、逆直線展開する直線を作成しておきます。          
+	    </p>
+        <p>
+          条材,スケッチを選択してOKで設定します。
+        </p>
+        <p>
+          条材を選択した際に既にスケッチが設定されている場合はそのスケッチが選択状態になります。(別のスケッチを選択することも可能です。)
+        </p>
+        <h3>操作方法(逆直線展開パラメータの設定、自動生成)</h3>
+        <p>
+          <img src="media/dlg_ship_expand_line_sketch_setting.png"/>&nbsp;<img src="media/dlg_expand_line_auto_gen_params2.png" align="top"/>&nbsp;
+        </p>
+        <p>
+          設定する条材を選択して、各種パラメータを設定します。
+        </p>
+        <p>
+          OKボタンでパラメータを選択部材に設定します。また、「実行」ボタンで逆直線をスケッチとして作成することもできます。
+          作成されたスケッチは逆直線定義スケッチとして選択されます。
+        </p>
+        <p>
+          直線は可能な限り少ない本数で作成されます。
+        </p>
+        <p>
+          <img src="media/ship_expand_line_auto_gen_params.png" align="top"/>&nbsp;
+        </p>
+        <ul>
+          <li><strong>マージン</strong>
+            <p>
+              逆直線を作成する領域のWeb面の上下端から余白を設定します。
+            </p>
+          </li>
+          <li><strong>オーバーラップ幅</strong>            
+            <p>
+              複数の直線を生成する際の、直線が重複する領域の最小幅を設定します。
+            </p>
+          </li>
+          <li><strong>端部の延長量</strong>            
+            <p>
+              逆直線の条材端部からの飛び出し長さを設定します。
+            </p>
+          </li>
+          <li><strong>N.A.線を作図する</strong>            
+            <p>
+              逆直線をスケッチとして作成する際にN.A.線も作図するかどうかを指定できます。
+            </p>
+          </li>
+          <li><strong>N.A.位置設定</strong>
+            <p>
+              条材の正曲げ、逆曲げ、の部位それぞれのN.A.位置を係数をかけることで調整することができます。
+            </p>
+            <p>
+              <img src="media/ship_expand_line_bend_dir.png"/>
+            </p>
+            <ul>
+              <li><strong>N.A.位置補正係数</strong>
+                <p>
+                  N.A.位置のボトム位置からの高さにこの係数をかけた位置をN.A.線とします。<br/>
+                  1.0では補正なし、0.9では元の位置の９０％の位置となります。
+                </p>
+                <p>
+                  <img src="media/ship_expand_line_na_factor.png" align="top"/>&nbsp;
+                </p>
+              </li>
+              <li><strong>逆直線展開補正係数</strong>
+                <p>
+                  展開された逆直線の位置のボトム位置からの高さにこの係数をかけて逆直線の位置を補正することができます。
+                </p>
+                <p>
+                  <img src="media/ship_expand_line_rev_line_factor.png" align="top"/>&nbsp;
+                </p>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
+	  

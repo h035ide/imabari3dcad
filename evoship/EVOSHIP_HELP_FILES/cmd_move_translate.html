@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>移動</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_move_translate.png"/>&nbsp;移動</h2>
+      <div class="contents">
+	<h3>操作方法</h3>
+	<p>
+	  パラメータの入力が整うと移動後の要素のプレビューが表示されます。要素の確認後、OKボタンで実行します。
+	</p>
+	<h3>パラメータ</h3>
+	<p>
+	  <strong>対象要素</strong><br/>
+	  <img src="media/dlg_move_target.png"/><br/>
+	  移動させる要素(点、カーブ、シートボディ、ソリッドボディ)を選択します。	  
+	</p>
+	<p>
+	  <strong>移動方向、量</strong><br/>
+	  以下の方法で設定します。(スケッチモード(2D)ではベクトル設定のみになります。)
+	</p>
+	<ul>
+	  <li><strong>ベクトル</strong>
+	    <p>
+	      <img src="media/dlg_move_vector.png"/><br/>
+	      移動をベクトルで設定します。
+	    </p>	    
+	  </li>
+	  <li><strong>2点</strong>
+	    <p>
+	      <img src="media/dlg_move_2pt.png"/><br/>
+	      移動を始点(点1)、終点(点2)を指定して設定します。
+	    </p>	    
+	  </li>
+	  <li><strong>方向</strong>
+	    <p>
+	      <img src="media/dlg_move_dir.png"/><br/>
+	      移動の方向(平面(法線方向)、直線（カーブ、エッジ）方向、軸方向、座標系の軸)と移動量で設定します。
+	    </p>	    
+	  </li>
+	  <li><strong>カーブ/サーフェイス</strong>
+	    <p>
+	      <img src="media/dlg_move_curve.png"/>&nbsp;<img src="media/dlg_move_surface.png"/><br/> 
+	      移動の方向としてカーブ上の点の接線、曲率方向、サーフェイス上の点の法線方向、と移動量で設定します。
+	    </p>	    
+	  </li>
+	</ul>
+	<p class="information">
+	  ボディ（ソリッド、シート）の移動は<a href="about_motion_feature.html">移動フィーチャー</a>をボディに追加します。
+	</p>
+      </div>
+    </div>
+  </body>
+</html>
+	  

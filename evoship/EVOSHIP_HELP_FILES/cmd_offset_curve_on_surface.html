@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>面上オフセット線</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_offset_curve_on_surface.png"/>面上オフセット線</h2>
+      <div class="contents">
+	<p>
+	  カーブをサーフェイスに沿ってオフセットします。<br/>
+	  <img src="media/offset_curve_on_surface_ex1.png"/>
+	</p>
+	<h3>操作方法</h3>
+	<p>カーブとサーフェイスを選択して、オフセット量を指定したらOKボタンをクリックします。</p>
+	<h3>パラメータ</h3>
+		<ul>
+			<li><strong>カーブ</strong><p>オフセットしたいカーブを選択します（複数選択可）。カーブがサーフェイス上にない場合は、<a href="cmd_curve_projection.html">投影線</a>を作成してそれを選択してください。</p></li>
+			<li><strong>対象面</strong><p>選択したサーフェイス（フェイスまたはシートボディ）に沿ってカーブがオフセットされます。</p></li>
+			<li><strong>オフセット方法</strong><p><img src="media/dlg_offset_curve_on_surface_distance_type.png"/></p>
+			<p>オフセット量の指定方法を、距離指定と点指定のいずれかより選択します。
+			<ul>
+				<li><strong>距離</strong><p><img src="media/dlg_offset_curve_on_surface_distance.png"/></p>
+				<p>オフセット距離を指定します。ドキュメントウィンドウ内にオフセット方向が矢印で表示されますので、必要に応じて「反転」チェックボックスで反転してください。</p>
+				</li>
+				<li><strong>オフセット位置点</strong>
+				<p><a href="about_input_position.html">位置入力ダイアログ</a>を利用してオフセットカーブの通過点を指定します。</p>
+				</li>
+			</ul>
+			</li>
+			<li><strong>分割長</strong>（オプション）
+			<p><img src="media/dlg_offset_curve_on_surface_facet_segment_length.png"/></p>
+			<p>通常はシステムが最適なトレランスで近似計算を実行しますが、必要であれば近似計算におけるカーブの分割長を指定することができます。</p>
+			</li>
+			<li><strong>関連</strong>（オプション）
+				<p><img src="media/dlg_assoc2_unchecked.png" style="vertical-align: top"/> <img src="media/dlg_assoc2_checked.png" style="vertical-align: top"/></p>
+				<p>選択したカーブやサーフェイスとの<a href="about_relation.html">関連づけの方法</a>を指定します。既定値は「フィーチャー」です。</p>
+			</li>
+		</ul>
+      </div>
+    </div>
+  </body>
+</html>

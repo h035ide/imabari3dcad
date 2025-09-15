@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>部品図</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_ship_part_dwg.png"/>&nbsp;部品図</h2>
+      <div class="contents">
+        <p>
+          部材の部品図(板材、条材の原寸の展開図面)を作成します。部品図はEvo.Shipの<a href="about_dwg_doc_window.html">図面</a>中に各部材毎の<a href="about_dwg_sheet.html">図面シート</a>として作成されます。         
+        </p>
+        <p class="information">
+          この機能は、部品図を作成するための<a href="about_ship_part_dwg_settings.html">設定ファイル</a>を使用します。
+        </p>
+        <p>
+	      <img src="media/ship_part_dwg_ex1.png"/>
+	    </p>
+	    <h3>操作方法</h3>
+        <p>          
+          部品図を作成する部材を選択。OKボタンで図面を作成します。
+        </p>
+        <h3>パラメータ</h3>
+        <ul>
+          <li><strong>出力部材</strong>
+            <p>
+              部品図を作成する部材を指定します。
+            </p>
+          </li>
+          <li><strong>型鋼出力設定</strong>
+            <p>
+              選択部材中の条材について以下の出力方法を指定することができます。
+            </p>
+            <ul>
+              <li><strong>貫通する部材をマーク</strong>
+                <p>
+                  条材が貫通する板のモールド位置をマークするかどうかを指定します。
+                </p>
+              </li>
+              <li><strong>位置のマーキン線</strong>
+                <p>
+                  位置のマーキン線（フレームスペース、ウォーターライン、バトックライン)を部材にどのように描くかを指定することができます。
+                  <ul>
+                    <li><strong>なし</strong>
+                      <p>
+                        位置のマーキン線を描画しません。
+                      </p>
+                    </li>
+                    <li><strong>全て</strong>
+                      <p>
+                        部材にかかる位置のマーキン線を全て描画します。
+                      </p>
+                    </li>
+                    <li><strong>両端のみ</strong>
+                      <p>
+                        部材にかかる位置のマーキン線のうち両端にそれぞれ一つのみ（あれば）描画します。
+                      </p>
+                    </li>
+                    <li><strong>一つおき</strong>
+                      <p>
+                        部材にかかる位置のマーキン線を一つおきに描画します。
+                      </p>
+                    </li>
+                  </ul>
+                </p>
+              </li>
+              <li><strong>伸び尺</strong>
+                <p>
+                  部材に伸び尺を与えて部品図を作成します。
+                </p>
+              </li>
+            </ul>
+          </li>
+          <li><strong>マーキン線の位置を指定</strong>
+            <p>
+              位置のマーキン線（フレームスペース、ウォーターライン、バトックライン)は<a href="cmd_ship_vars.html">設定されているもの</a>を使用しますが、位置情報をファイルから読み込むように指定することができます。ファイルのフォーマットは<a href="cmd_ship_read_vars.html">船体情報読込みコマンド</a>と同じ書式を使用します。
+            </p>
+          </li>
+          <li><strong>出力設定ファイルを指定</strong>
+            <p>
+              <a href="about_ship_part_dwg_settings.html">設定ファイル</a>の一部分を記述したcsvファイル(書式は同様です。)を選択して、設定を一部変更することができます。
+            </p>
+          </li>            
+          <li><strong>フォント</strong>
+            <p>
+              図面の文字を設定します。
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
+	  

@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<HTML lang="ja"><HEAD>
+<meta name="GENERATOR" content="HelpMachine 2.4.9">
+  <link href="basic.css" rel="stylesheet" type="text/css" />
+<TITLE>配管サポート一品図</TITLE>
+</HEAD><BODY>
+<div class="page">
+  <h2><img src="media/cmd_pipe_support_piece_dwg.png" /> 配管サポート一品図</h2>
+  <div class="contents">
+    <p><a href="about_piping.html#support_piece">配管サポート一品要素</a>を選択して一品図を作成します。コマンドを実行すると新規<a href="basic_concept.html#dwgdoc">図面ドキュメント</a>が作成され、そのドキュメント上でサポート一品ひとつにつきひとつの<a href="about_dwg_sheet.html">図面シート</a>が作成されます。</p>
+    <p><img src="media/pipe_support_piece_dwg_ex1.png" /> <img src="media/pipe_support_piece_dwg_ex2.png" /></p>
+    <p class="information">一品図を作成するためにはあらかじめ<a href="#template">テンプレートファイル</a>を用意しておく必要があります（Evo.Shipにサンプルが付属します）。</p>
+    <h3>操作方法</h3>
+      <p>一品図を作成したい配管サポート一品要素を選択し、投影図や派生図の向きと図面のテンプレートファイルを指定してOKボタンをクリックすると図面が作成されます。</p>
+    <h3>パラメータ</h3>
+    <h4>対象配管サポート一品</h4>
+    <img src="media/dlg_pipe_support_piece_dwg_targets.png" />
+    <p>「選択」ボタンをクリックすると配管サポート一品選択ウィンドウが表示されるので、ツリーから一品要素を選択してください。一品図作成の対象となるサポート一品がリストに表示されます。</p>
+    <img src="media/dlg_pipe_support_piece_dwg_tree.png" />
+    <h4>基本図面投影方向</h4>
+    <img src="media/dlg_pipe_support_piece_dwg_base_coords.png" />
+    <p>基準となる投影図の投影方向と図面の向きを指定します。</p>
+    <ul>
+      <li>投影方向の「正面」は、別途指定しないかぎり、サポートに取り付けるパイプのなかで最も径の大きいものの中心線方向となります。</li>
+      <li>角度の「0°」は図面の下方向が鋼材、上方向がUボルトとなる向きです。</li>
+    </ul>
+    <p>パラメータを変更するごとに図面枠のプレビューが表示されますので、確認しながら希望する方向を選んでください。</p>
+    <img src="media/pipe_support_piece_dwg_preview.png" />
+    <h4>正面方向の指定</h4>
+    <img src="media/dlg_pipe_support_piece_dwg_front_dir.png" />
+    <p>図面の正面方向は通常、自動的に決められますが、この欄で指定することもできます。</p>
+    <h4>派生図</h4>
+    <img src="media/dlg_pipe_support_piece_dwg_derived.png" />
+    <p>追加したい派生図を選択します。基本図面と同様に図面枠のプレビューが表示されます。</p>
+    <p>なお「<a name="viewdirproj" id="viewdirproj">ビュー方向投影図</a>」には次のような違いがあります。</p>
+    <ul>
+      <li>プレビューは表示されません（OKをクリックした時点でのビューの向きで図面が作成されます）</li>
+      <li>隠線消去で描画されます</li>
+      <li>通常のラベル類は表示されません</li>
+      <li>矢印つきの部品番号が表示されます</li>
+    </ul>
+    <img src="media/pipe_support_piece_dwg_viewdir.png" />
+    <h4>図面オプション</h4>
+    <img src="media/dlg_pipe_support_piece_dwg_options.png" />
+    <p>投影図に表示される内容を変更できます。</p>
+    <h4>スケール</h4>
+    <img src="media/dlg_dwg_scale_optional.png" />
+    <p>図面のスケールは通常、自動的に決められますが、この欄で指定することもできます。</p>
+    <H4>部品表オプション</h4>
+    <img src="media/dlg_pipe_support_piece_dwg_bom.png" />
+    <p>部品表に表示される内容を変更できます。</p>
+    <h4>テンプレートファイル</h4>
+    <img src="media/dlg_pipe_spool_dwg_template.png" />
+    <p>一品図のテンプレートとなる図面ファイル（.evodwgファイル）を指定します。</p>
+    <h4>出力先</h4>
+    <img src="media/dlg_pipe_spool_dwg_output_as.png" />
+    <p>「このモデル内の新規図面」を選択すると、一品図と配管サポート一品要素とが<a href="about_relation.html">関連を持つ</a>ようになります。このオプションで作成された図面の<a href="about_context_menu.html">コンテキストメニュー</a>には「図面スケッチの更新」という項目が表示され、クリックすると一品図作成以降（または前回の更新以降）の配管サポートの変更内容が図面に反映されます。</p>
+    <h4>出力単位</h4>
+    <img src="media/dlg_pipe_spool_dwg_output_grouping.png" />
+    <p>「出力先」オプションで「新規図面ドキュメント」または「図面ファイル」を選択した場合は、この「出力単位」オプションで、ひとつのドキュメント（ファイル）に複数の図面シートを含めるのか、あるいはドキュメント（ファイル）ひとつにつき図面シートひとつとするのかを選択できます。</p>
+    <h4>投影図注記スタイル</h4>
+    <img src="media/dlg_pipe_support_piece_dwg_styles.png" />
+    <p>一品図内の投影図の注記スタイルを指定します。注記スタイルはあらかじめ「注記スタイルの管理」コマンドで作成しておく必要があります。注記スタイルを指定しなければテンプレート図面のスタイルがそのまま使われます。</p>
+    <h3><a id="template">テンプレートファイル</a></h3>
+    <p>配管サポート一品図コマンドでは、ユーザーが用意したテンプレートファイルを利用して</p>
+    <ol>
+    	<li>投影図の描画領域</li>
+    	<li>部品表の表示項目と位置</li>
+    	<li>表題欄の表示項目と位置</li>
+    </ol>
+    <p>を指定します。</p>
+    <h4>投影図の描画領域</h4>
+    <p>「PROJECTION_DWG」というレイヤー上の図面内要素（カーブか点）に外接する長方形が投影図の描画領域となります。領域指定に使う図面内要素はそのまま一品図上にコピーされますので、一品図上に表示したくなければテンプレートファイル内で非表示にしておいてください。</p>
+    <h4>部品表の表示項目と位置</h4>
+      <p>部品表は「ITEM_ROW_SOURCE」というレイヤーで表示する項目を定義し、「ITEM_ROW_POS_#1,2,3,...」というレイヤーで各行の配置される位置を指定します。</p>
+      <p>「ITEM_ROW_SOURCE」レイヤーには、表示したい項目に対応する書式テキストを含む注記を含めます。またこのレイヤーによって部品表の1行目の基準となる位置が決まります。レイヤーに含まれる図面内要素に外接する長方形の左下隅（×印で示した点）が基準位置となります。</p>
+      <img src="media/pipe_support_piece_dwg_item_source.png" />
+      <p>書式テキストとその意味は下記の表の通りです。</p>
+      <table>
+      <tr><th>%ITEMTYPE%</th><td>鋼材やパッド、Uボルトであればその種別（等辺山形鋼/平鋼、あるいはPAD B/PAD D、UボルトならA/B/C、etc.）を、それ以外であれば要素名を表示します。文字を別の値に置換したい場合には「%ITEMTYPE:元の値1=表示したい値1|元の値2=表示したい値2%」のように記述します。</td></tr>
+      <tr><th>%PROFILE%</th><td>鋼材やパッドの寸法、Uボルトのパイプ呼び径を表示します。</td></tr>
+      <tr><th>%NOMINALDIAMETERNOSUFFIX%</th><td>Uボルトのパイプの呼び径の数字部分のみを表示します。</td></tr>
+      <tr><th>%MATERIAL%</th><td>材質を表示します。</td></tr>
+      <tr><th>%LENGTH%</th><td>鋼材の長さを表示します。</td></tr>
+      <tr><th style="white-space: nowrap">%UNITWEIGHT%</th><td>1点あたりの重量を表示します（単位: kg）</td></tr>
+      <tr><th>%QTY%</th><td>数量を表示します。</td></tr>
+      <tr><th>%ITEMID%</th><td><a href="#viewdirproj">ビュー方向投影図</a>に表示される部品番号を表示します。</td></tr>
+      <tr><th>%PIPENOMINALDIAMETER%</th><td>配管要素の呼び径を表示します。※</td></tr>
+      <tr><th>%PIPEGRADE%</th><td>配管要素の種類（管材）を表示します。※</td></tr>
+      <tr><th>%PIPESCHEDULE%</th><td>配管要素の呼び厚さを表示します。※</td></tr>
+      </table>
+      <p>※ 配管要素は鉄艤装一品にのみ含めることができます。配管サポート一品には含められません。</p>
+      <p class="information">書式テキストは、ひとつの注記要素中に複数記述したり、属性と関係のない文字と混ぜて使ったりできます。たとえばテンプレート図面中に、テキストを「%ITEMTYPE%《寸法: %PROFILE%》」とした注記を作成しておけば、一品図では「等辺山形鋼《寸法: 65X65X6L》」といった内容のテキストをもつ注記が表示されます。</p>
+      <p>「ITEM_ROW_POS_#1,2,3,...」というレイヤーには、表の2行目以降の位置の基準を示す図面内要素（カーブか点）を含めます。「ITEM_ROW_SOURCE」レイヤーと同様に、レイヤーに含まれる図面内要素に外接する長方形の左下隅が基準位置となります。</p>
+      <h5>要素種別によって部品表を分ける</h5>
+      <p>特定の種別の要素のみを含む部品表を作成することもできます。部品表の表示項目と位置を定義するレイヤーの名前を以下のようにしてください。</p>
+      <dl>
+        <dt>鋼材のみ</dt><dd>ANGLE_ITEM_ROW_SOURCE / ANGLE_ITEM_ROW_POS_#1,2,3,...</dd>
+        <dt>Uボルトのみ</dt><dd>BOLT_ITEM_ROW_SOURCE / BOLT_ITEM_ROW_POS_#1,2,3,...</dd>
+        <dt>パッドのみ</dt><dd>PAD_ITEM_ROW_SOURCE / PAD_ITEM_ROW_POS_#1,2,3,...</dd>
+        <dt>スライディングパッドのみ</dt><dd>SLP_ITEM_ROW_SOURCE / SLP_ITEM_ROW_POS_#1,2,3,...</dd>
+      </dl>
+    <h4>表題欄の表示項目と位置</h4>
+      <p>表題欄にサポートの属性を表示するための書式テキストは以下の通りです。</p>
+      <table>
+      <tr><th>%SHIPNAME%</th><td>番船名を表示します。番船名として使われるのは<a href="about_model_config_window.html">モデル構成ウィンドウ</a>内ツリーのルート項目の名前です。</td></tr>
+      <tr><th>%SUPPORTNAME%</th><td>サポート一品要素の名前を表示します。</td></tr>
+      <tr><th style="white-space: nowrap">%STRUCTUREWEIGHT%</th><td>総重量を表示します。</td></tr>
+      <tr><th>%SHIPFRAME%</th><td>サポートが占めるフレーム範囲とP/Sを表示します。</td></tr>
+      <tr><th>%PIPINGBLOCK%</th><td>サポートが配置される区画を表示します。この区画を設定するには「要素グループ/配管設計/区画」配下に区画を表現する要素グループの階層構造を作成し、その配下に配管サポート一品要素を配置してください。</td></tr>
+      <tr><th>%PRODUCTIONCOUNT%</th><td>製作数を表示します。</td></tr>
+      <tr><th>%UPDATEDATE%</th><td>図面の更新日付を表示します。「%UPDATEDATE:yyyy-MM-dd%」のような形式で<a href="https://learn.microsoft.com/ja-jp/windows/win32/intl/day--month--year--and-era-format-pictures">書式指定</a>が可能です。</td></tr>
+      <tr><th>%UPDATETIME%</th><td>図面の更新時間を表示します。「%UPDATETIME:HH:mm:ss%」のような形式で<a href="https://learn.microsoft.com/ja-jp/windows/win32/intl/hour--minute--and-second-format-pictures">書式指定</a>が可能です。</td></tr>
+      </table>
+      <p>表題欄の書式テキストを含む注記は、テンプレート図面内のどのレイヤー上にあってもかまいません。</p>
+      <p class="information">Uボルトは部品表には出力されませんが、総重量にはUボルト重量が含まれます。ただし<a href="about_piping.html#bolt"/>Uボルト重量は既定の設定では未定義</a>のため、総重量は末尾に「＋」記号を付加して表示されます。</p>
+      <p class="information">製作数をカウントする際には、サポート一品の名前と部品表の内容が一致するものが同一とみなされます。細かい形状の違いまでは確認しません。</p>
+    <h3>設定ファイル</h3>
+    <p><a href="cmd_open_setting_file_folder.html">設定ファイルフォルダー</a>内の設定ファイル「EvShipOutfittingSettings.csv」を使うと、</p>
+    <ul>
+      <li>板や穴のサイズを利用したLINER部材の判別</li>
+      <li>部材の種類や図面の構成要素ごとの出力先レイヤー指定</li>
+    </ul>
+    <p>といった機能が利用できます。詳細については設定ファイル内のコメントを参照してください。</p>
+    </div>
+  </div>
+</BODY></HTML>

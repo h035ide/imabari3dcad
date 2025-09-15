@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>ホール</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_ship_hole.png"/>&nbsp;ホール</h2>
+      <div class="contents">
+	<p>
+	  板部品にホールを空けます。<br/>
+	  <img src="media/ship_hole_ex1.png"/>&nbsp;<img src="media/ship_hole_ex2.png"/>
+	</p>
+	<p>
+	  部材の角の頂点を中心位置としてスカラップを作成することができます。
+	</p>
+	<p>
+	  <img src="media/ship_scallop_ex1.png"/>&nbsp;<img src="media/ship_scallop_ex2.png"/>
+	</p>
+	<h3>操作方法</h3>
+	<p>
+	  パラメータの入力後、作成形状がプレビュー表示されます。形状の確認後、OKボタンで実行します。<br/>
+	</p>
+	<h3>パラメータ</h3>
+	<ul>
+	  <li><strong>形状</strong>
+	    <p>	      
+	      ホールの形状、寸法を選択、設定します。(<a href="about_select_profile.html">ダイアログの入力方法</a>)<br/>
+	      <img src="media/dlg_ship_hole_sel_shape.png" align="top"/>&nbsp;<img src="media/dlg_ship_hole_shape.png" align="top"/>
+	    <p>
+	  </li>
+      <li><strong>縦横の入れ替え</strong>
+        <p>
+          ホール形状の基準方向の縦横を逆にします。<br/>
+          <img src="media/ship_hole_ex_rev_hv.png" align="top"/>
+        </p>
+      </li>
+	  <li><strong>取付面</strong>
+	    <p>	      
+	      <img src="media/dlg_ship_sel_face.png"/><br/>	      
+	      ホールを空ける部材の面を選択します。
+	    </p>
+	  </li>
+	  <li><strong>取付位置</strong>
+	    <p>
+	      <img src="media/dlg_ship_hole_method.png"/><br/>
+	    </p>
+	    <p>
+	      以下の取付方法があります。
+	    </p>
+	    <ul>
+	      <li><strong>中心点指定</strong>
+            <p>
+		      ホールの中心点(<a href="about_input_position.html">位置入力</a>),幅方向(<a href="about_input_direction.html">方向入力</a>)を指定します。<br/>
+		      (中心点は平面上になければ投影します。)<br/>
+              中心点や幅方向には<a href="about_sketch.html">スケッチ</a>上の点や線、任意の要素の頂点やエッジ,<a href="about_datum.html">データム</a>等を指定できます。<br/>
+		      <img src="media/dlg_input_position2.png" align="top"/>&nbsp;<img src="media/dlg_input_direction2.png" align="top"/>&nbsp;<img src="media/ship_hole_ex_center_pt.png" align="top"/>
+		    </p>
+	      </li>
+	      <li><strong>領域点指定</strong>
+		    <p>
+		      ホールの領域点(<a href="about_input_position.html">位置入力</a>)を４点指定します。<br/>
+              中心点には<a href="about_sketch.html">スケッチ</a>上の点、任意の要素の頂点,<a href="about_datum.html#point">データム点</a>等を指定できます。<br/>
+		      位置、方向は下図のように決定します。<br/>
+		      <img src="media/dlg_input_position2.png" align="top"/>&nbsp;<img src="media/ship_hole_ex_area.png" align="top"/>
+		    </p>
+	      </li>
+	      <li><strong>ロンジ間</strong>
+		    <p>
+		      ロンジ間の中心位置にホールを作成します。<br/>
+		      向かい合うロンジ４つを選択します。位置、方向は下図のように決定します。<br/>
+		      <img src="media/dlg_ship_sel_longi.png" align="top"/>&nbsp;<img src="media/ship_hole_ex_longi.png" align="top"/>
+		    </p>
+	      </li>
+	      <li><strong>基準面</strong>
+		    <p>	
+              基準面からのオフセットで中心、方向を決定します。<br/>
+		      <img src="media/dlg_ship_hole_sel_basefaces.png" align="top"/>&nbsp;<img src="media/ship_hole_ex_faces.png" align="top"/>
+            </p>      
+          </li>
+          <li><strong>平面との交線上</strong>
+            <p>
+              取付面と選択平面との交線上で中心、方向を決定します。<br/>
+		      <img src="media/dlg_ship_hole_with_plane_section.png" align="top"/>&nbsp;<img src="media/ship_hole_ex_with_plane_section.png" align="top"/>		      
+            </p>      
+            <ul>
+              <li><strong>基準</strong>
+                <p>
+                  取付面上の交線上のどの位置を基準とするかを指定します。<br/>
+                  中点、＋側、－側のいづれかを選択します。
+                </p>
+              </li>
+              <li><strong>オフセット</strong>
+                <p>
+                  基準位置からのオフセットを指定して中心点の位置を移動することができます。
+                </p>
+              </li>
+              <li><strong>境界エッジ方向</strong>
+                <p>
+                  通常ホールの向きは交線の方向となりますが、このオプションを指定することで取付面上のエッジの方向を基準とすることができます。（＋側、－側基準のときのみ。）<br/>
+                  <img src="media/ship_hole_ex_align_border_edge.png"/>
+                </p>
+              </li>
+              <li><strong>スカラップ</strong>
+                <p>
+                  通常ホールの基準位置はホール外形となりますが、このオプションを指定することでホールの中心を基準とすることができ、スカラップとして作成できます。（＋側、－側基準のときのみ。）<br/>
+                  <img src="media/ship_hole_ex_as_scallop.png"/>
+                </p>
+              </li>
+            </ul>
+          </li>
+          <li><strong>2平面の中間</strong>
+
+            <p>	
+              取付面上の２平面の交線の中間線を基準線としてその線上にホールを作成します。<br/>
+              基準線は平面1の法線方向を+として中間線からの移動量を指定することができます。<br/>
+		      <img src="media/dlg_ship_hole_midway_planes.png" align="top"/>&nbsp;<img src="media/ship_hole_midway_planes_ex.png" align="top"/>
+	        </p>
+            <p>	
+              基準位置は「平面との交線上」の場合と同様に指定します。
+	        </p>	      
+          </li>
+	    </ul>
+	  </li>
+	  <li><strong>深さ指定</strong>(オプション)
+        <p>
+	      <img src="media/dlg_ship_hole_depth1.png" align="top"/>&nbsp;<img src="media/dlg_ship_hole_depth2.png" align="top"/>
+        </p>
+	    <p class="information">	
+          通常は貫通ですが、ホールをあける部材ソリッドがコの字になっている場合などでは深さ、方向を指定することで干渉を回避します。<br/>
+          <img src="media/ship_hole_depth_ex.png"/>
+	    </p>	      
+	  </li>
+	  <li><strong>ダブリング作成</strong>(オプション)
+	    <p>	      
+          ダブリングを作成するときは設定します。<br/>
+	      ダブリングの大きさ（幅、板厚）,ホールからのオフセット量を指定します。
+	    </p>	      
+	    <p>	      
+	      <img src="media/dlg_ship_doubling.png"/><br/>&nbsp;<img src="media/ship_hole_doubling_ex.png"/><br/>&nbsp;
+	    </p>
+	  </li>
+	</ul>
+      </div>
+    </div>
+  </body>
+</html>
+	  

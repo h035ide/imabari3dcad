@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>取付部材設定</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_ship_set_attach_part.png"/>&nbsp;取付部材設定</h2>
+      <div class="contents">
+        <p>
+          板部材に取り付ける部材を設定します。部品図に出力されるときに取りつく部材名がマーキン線とともに出力されます。
+	    </p>
+        <p class="information">
+          設定されない場合、マーキン面側についている部材はマーキン線のみ出力します。マーキン面と反対側の面側の部材は出力しません。
+        </p>
+        <p class="warning">
+          このコマンドは部材が正しくとりつく位置あるかどうかのチェックは行いません。
+	    </p>        
+        <h3>パラメータ</h3>
+        <p>
+          <img src="media/dlg_ship_set_attach_part.png" align="top"/>
+        </p>
+	    <h3>操作方法</h3>
+        <ul>
+	      <li><strong>マーキン面の指定</strong>
+            <p>
+              指定する部材を「ベース板」として選択します。現在のマーキン面の状態で「モールド面をマーキン面とする」のチェックが更新されます。
+            </p>
+            <p>
+              マーキン面のデフォルトはモールド面となっています。反対側をマーキン面とするために「モールド面をマーキン面とする」のチェックをはずして、ＯＫボタンで確定します。
+            </p>
+          </li>
+          <li><strong>取付部材の設定</strong>
+            <p>
+              ベース板、取付部材をそれぞれ選択して、ＯＫボタンで確定します。
+            </p>
+          </li>
+          <li><strong>取付除外部材の設定</strong>
+            <p>
+              ここで指定される部材はベース板にマーキン線等を出力しなくなります。
+            </p>
+            <p>
+              ベース板、取付除外部材をそれぞれ選択して、ＯＫボタンで確定します。
+            </p>
+          </li>
+          <li><strong>取付部材の解除</strong>
+            <p>
+              ベース板を選択して、「取付部材の解除」ボタンで設定されている全ての取付部材が解除されます。
+            </p>
+          </li>
+          <li><strong>取付除外部材の解除</strong>
+            <p>
+              ベース板を選択して、「取付除外部材の解除」ボタンで設定されている全ての取付除外部材が解除されます。
+            </p>
+          </li>
+          <li><strong>取付部材の確認</strong>
+            <p>
+              ベース板を選択して「設定部材の確認」ボタンで設定されている部材が「取付部材」として選択されます。
+            </p>
+          </li>
+          <li><strong>ベース板の確認</strong>
+            <p>
+              ベース板を確認したい部材１つを「取付部材」として選択します。「ベース板の確認」ボタンで設定されている場合はベースの部材が「ベース板」として選択されます。
+            </p>
+          </li>
+          <li><strong>特定の取付部材の解除</strong>
+            <p>
+              解除したい部材を「取付部材」として選択します。「設定を解除」ボタンで取付部材設定が解除されます。
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
+	  
