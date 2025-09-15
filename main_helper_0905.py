@@ -320,7 +320,8 @@ def build_vector_engine(
 
     logger.info((f"既存のChromaDBコレクション '{collection}' からVectorQueryEngineを構築しています..."))
 
-    # OpenAIの埋め込みモデルを初期化（グローバル設定を避ける）
+    # OpenAIのLLMと埋め込みモデルを初期化（グローバル設定を避ける）
+    llm = OpenAI(**config.llamaindex_llm_config)
     embed_model = OpenAIEmbedding(**config.llamaindex_embedding_config)
 
     client = chromadb.PersistentClient(path=persist_dir)
@@ -337,7 +338,7 @@ def build_vector_engine(
     )
 
     logger.info("VectorQueryEngineの構築が完了しました。")
-    return v_index.as_query_engine(similarity_top_k=similarity_top_k)
+    return v_index.as_query_engine(llm=llm, similarity_top_k=similarity_top_k)
 
 
 def build_graph_engine(config: Config):
@@ -379,7 +380,7 @@ def build_graph_engine(config: Config):
         )
 
         logger.info("PropertyGraphQueryEngineの構築が完了しました。")
-        return g_index.as_query_engine()
+        return g_index.as_query_engine(llm=llm)
 
     except Exception as e:
         logger.error(f"Neo4jグラフエンジンの構築に失敗しました: {e}")
