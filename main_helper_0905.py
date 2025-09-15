@@ -4,6 +4,7 @@ import logging
 from typing import Optional
 from neo4j import GraphDatabase
 import chromadb
+import numpy as np
 from dotenv import load_dotenv
 from llama_index.core import (
     VectorStoreIndex,
@@ -269,9 +270,12 @@ def ingest_data_to_chroma(
         if api_key is None:
             logger.error("OpenAI APIキーが設定されていません。")
             return
-        # OpenAI埋め込みモデルを使って埋め込みを生成
-        embed_model = OpenAIEmbedding(api_key=api_key)
+        # OpenAI埋め込みモデルを使って埋め込みを生成（設定されたmodel/batch_sizeを反映）
+        embed_model = OpenAIEmbedding(**config.llamaindex_embedding_config)
         embeddings = embed_model.get_text_embedding_batch(documents)
+        # Chroma の型要件に合わせて明示的に List[List[float]] に正規化
+        embeddings_for_chroma = [list(map(float, vec)) for vec in embeddings]
+        embeddings_np = np.asarray(embeddings_for_chroma, dtype=np.float32)
         # chromadb クライアント直利用でupsert対応
         client = chromadb.PersistentClient(path=persist_dir)
         chroma_collection = client.get_or_create_collection(collection_name)
@@ -281,7 +285,7 @@ def ingest_data_to_chroma(
             ids=ids,
             documents=documents,
             metadatas=metadatas,
-            embeddings=embeddings,  # OpenAI埋め込みを明示的に渡す
+            embeddings=embeddings_np,  # OpenAI埋め込みを明示的に渡す
         )
 
         logger.info("ChromaDBへのデータ格納が正常に完了しました。")
