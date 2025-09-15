@@ -98,7 +98,7 @@ class Config:
 
     def _is_inference_model(self):
         """推論モデルかどうかを判定"""
-        inference_models = ["o1-mini", "o1", "o1-preview", "gpt-5", "gpt-5-mini", "gpt-5-nano"]
+        inference_models = ["o4-mini", "o4", "gpt-5", "gpt-5-mini", "gpt-5-nano"]
         return any(model in self.llm_model.lower() for model in inference_models)
 
     def _build_llm_configs(self):
