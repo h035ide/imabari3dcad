@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>例 独自のブラケットコマンド</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2>例&nbsp;独自のブラケットコマンド</h2>
+      <div class="contents">
+	    <h3>作成手順</h3>
+        <ol>
+          <li>
+            <strong>モデルの準備</strong>
+            <p>
+              スケッチで作成したプロファイルを使って、独自のブラケット形状を作成します。<br/>
+              この例の場合、境界指定フィーチャーコマンドと条材コマンドを使用しています。<br/>
+              <img src="media/sample_udf_my_bracket_initial.png"/>
+            </p>
+            <p class="information">
+              スケッチの原点位置を絶対座標ではなく明示的に指定することにより、ユーザー定義フィーチャーが作成しやすくなります。
+            </p>
+          </li>
+          <li>
+            <strong>ユーザー定義フィーチャーの作成</strong>
+            <p>
+              <a href="cmd_new_udf.html">新規-ユーザー定義フィーチャー</a>で作成します。<br/>
+            </p>
+            <ol type="A">
+              <li>
+                <strong>構成要素の選択</strong>
+                <p>
+                  作成した形状を構成要素として選択します。<br/>
+                  関連要素の自動抽出は「パラメータ化」とし、OKボタンでウィザードダイアログを表示します。<br/>
+                  <img src="media/sample_udf_my_bracket_select.png"/>
+                </p>
+              </li>
+              <li>
+                <strong>関連要素の抽出</strong>
+                <p>
+                  境界となる要素（関連要素のうち構成要素として選択されていないもの）は全て選択要素となっています。<br/>
+                  <img src="media/sample_udf_my_bracket_extract.png"/><br/>
+                  特に変更する必要なないので、「次へ」でパラメータ定義へ移動します。
+                </p>
+              </li>
+              <li>
+                <strong>パラメータ定義</strong>
+                <p>
+                  定義ファイルを設定します。<br/>
+                  可変パラメータをチェックして名称を設定します。<br/>
+                  パラメータ化される要素（選択要素）の入力は必ずチェックされますので、分かりやすい名称をつけます。<br/>
+                  また、フレーム位置も変更したいので、変数の入力をチェックして、パラメータ名を入力します。<br/>
+                  <img src="media/sample_udf_my_bracket_parameters.png"/><br/>
+                  「完了」ボタンで定義ファイルを作成します。<br/>
+                </p>
+                <p class="information">
+                  スケッチ寸法を可変パラメータにすると、挿入時に寸法値を変えることができます。
+                </p>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <strong>ユーザー定義フィーチャーを挿入</strong>
+            <p>
+              モデルにデッキを<a href="cmd_insert_udf.html">挿入-ユーザー定義フィーチャー</a>で作成します。
+            </p>              
+            <p>
+              先に作成した定義ファイルを選択します。<br/>
+              フレーム位置の変数を変更し、パラメータ化された要素を選択します。<br/>
+              その後、OKボタンでユーザー定義フィーチャーが作成されます。<br/>
+              <img src="media/sample_udf_my_bracket_insert.png"/><br/>
+            </p>
+            <p class="information">
+              パラメータ化してユーザー定義フィーチャーを作成すると、同一ドキュメントだけでなく、別のドキュメントへも挿入できるようになります。
+            </p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </body>
+</html>
+	  

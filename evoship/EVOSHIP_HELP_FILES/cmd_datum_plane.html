@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>平面(データム)</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_datum_plane.png"/>&nbsp;平面(データム)</h2>
+      <div class="contents">
+	<h3>操作方法</h3>
+	<p>
+	  パラメータの入力が整うと作成平面のプレビューが表示されます。平面の確認後、OKボタンで実行します。
+	</p>
+	<h3>パラメータ</h3>
+	<p>
+	  <strong>平面定義の方法</strong><br/>
+	  <img src="media/dlg_def_datum_plane.png"/>
+	</p>
+	<p>以下の定義方法があります。</p>
+	<ul>
+	  <li><strong>平面要素</strong>
+	    <p>
+	      <img src="media/dlg_datum_plane_planar.png"/>&nbsp;<img src="media/dlg_datum_plane_planar_move.png"/>&nbsp;<img src="media/dlg_datum_plane_planar_rot.png"/><br/>
+	      既存の<a href="about_datum.html#plane">データム平面</a>、フェイス（平面）、<a href="about_datum.html#cs">座標系</a>の軸（Z軸ならXY平面）から平面を作成します。<br/>
+	      既存平面を移動（オフセット）（移動距離を設定します）、回転（回転軸、角度を設定します）した平面を作成できます。<br/>
+	      コピー数を指定して、複数回移動、回転されることもできます。<br/>
+	      <img src="media/datum_plane_planar_move_ex.png"/>&nbsp;<img src="media/datum_plane_planar_rot_ex.png"/><br/>
+	    </p>
+	  </li>
+	  <li><strong>3点</strong>
+	    <p>
+	      平面上の３点を指定して平面を作成します。(<a href="about_input_position.html">位置入力</a>)<br/>
+	    </p>
+	  </li>
+	  <li><strong>基準点と法線方向</strong>
+	    <p>
+	      平面の基準点と法線方向を指定して作成します。(<a href="about_input_position.html">位置入力</a>,<a href="about_input_direction.html">方向入力</a>)<br/>
+	    </p>
+	  </li>
+	  <li><strong>曲線／曲面上の平面</strong>
+      <p>線（カーブ、エッジ）上の位置、あるいは面（フェイス）上の位置を指定して平面を作成します。</p>
+	    <p><img src="media/dlg_datum_plane_on_curve.png"/></p>
+	    <p>線上または面上の点を選択します。あらかじめ点要素を作っておかなくても<a href="about_input_position.html#snap">線や面上の点をスナップ</a>できます。</p>
+	    <p>平面の原点を選択した点に設定する場合は「原点を要素上に」をチェックします。</p>
+	  </li>
+	</ul>
+	<p>
+	  <strong>関連</strong>（オプション）<br/>
+	  <img src="media/dlg_assoc2_unchecked.png" style="vertical-align: top"/> <img src="media/dlg_assoc2_checked.png" style="vertical-align: top"/></p>
+	  <p>平面の定義に使用した要素の変更に追従するように関連づけます。（<a href="about_relation.html">関連の方法</a>）</p>
+      </div>
+    </div>
+  </body>
+</html>
+	  

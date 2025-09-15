@@ -1,0 +1,158 @@
+{
+    "name": "CreateLinearSweep",
+    "description": "指定したソリッド要素に押し出し形状を付加する。返り値:作成された押し出しフィーチャーのID",
+    "parameters": [
+        {
+            "name": "TargetSolidName",
+            "description": "押し出しフィーチャーを作成する対象のソリッドを指定",
+            "position": 0,
+            "type": "要素",
+            "is_object": false
+        },
+        {
+            "name": "OperationType",
+            "description": "ソリッドオペレーションのタイプを指定する",
+            "position": 1,
+            "type": "オペレーションタイプ",
+            "is_object": false
+        },
+        {
+            "name": "pParam",
+            "description": "押し出しパラメータオブジェクト",
+            "position": 2,
+            "type": "押し出しパラメータオブジェクト",
+            "is_object": true,
+            "properties": [
+                {
+                    "name": "NAME",
+                    "description": "要素名（空文字可）",
+                    "type": "文字列",
+                    "is_object": false
+                },
+                {
+                    "name": "ElementGroup",
+                    "description": "作成するシート要素を要素グループに入れる場合は要素グループを指定（空文字可）",
+                    "type": "要素グループ",
+                    "is_object": false
+                },
+                {
+                    "name": "Target1",
+                    "description": "スイープするターゲット要素１（点、線、シート、ソリッド、あるいはソリッドフェイス）",
+                    "type": "要素",
+                    "is_object": false
+                },
+                {
+                    "name": "Target2",
+                    "description": "スイープするターゲット要素２（スイープ方向が２方向の場合に使用）",
+                    "type": "要素",
+                    "is_object": false
+                },
+                {
+                    "name": "ProfileNormal",
+                    "description": "プロファイルの平面法線方向",
+                    "type": "方向",
+                    "is_object": false
+                },
+                {
+                    "name": "ProfileOffset",
+                    "description": "プロファイル位置のオフセット距離",
+                    "type": "長さ",
+                    "is_object": false
+                },
+                {
+                    "name": "DirectionType",
+                    "description": "スイープ方向",
+                    "type": "スイープ方向",
+                    "is_object": false
+                },
+                {
+                    "name": "DirectionParameter1",
+                    "description": "スイープする距離１（SweepTarget1を指定している場合は使用しない）",
+                    "type": "長さ",
+                    "is_object": false
+                },
+                {
+                    "name": "DirectionParameter2",
+                    "description": "スイープする距離２（SweepTarget２を指定している場合は使用しない）",
+                    "type": "長さ",
+                    "is_object": false
+                },
+                {
+                    "name": "SweepDirection",
+                    "description": "スイープする方向を設定する場合に使用",
+                    "type": "方向",
+                    "is_object": false
+                },
+                {
+                    "name": "DraftAngle",
+                    "description": "押し出し方向の勾配角度",
+                    "type": "角度",
+                    "is_object": false
+                },
+                {
+                    "name": "DraftAngle2Type",
+                    "description": "勾配２のタイプ（ドキュメントに詳細指定なし）",
+                    "type": "文字列",
+                    "is_object": false
+                },
+                {
+                    "name": "DraftAngle2",
+                    "description": "２方向目の押し出し方向の勾配角度",
+                    "type": "角度",
+                    "is_object": false
+                },
+                {
+                    "name": "ThickenType",
+                    "description": "厚み付けタイプ",
+                    "type": "厚み付けタイプ",
+                    "is_object": false
+                },
+                {
+                    "name": "Thickeness1",
+                    "description": "板厚",
+                    "type": "長さ",
+                    "is_object": false
+                },
+                {
+                    "name": "Thickeness2",
+                    "description": "板厚２（厚み付けタイプが２方向のときに使用）",
+                    "type": "長さ",
+                    "is_object": false
+                },
+                {
+                    "name": "ThickenessOffset",
+                    "description": "厚みづけのオフセット距離",
+                    "type": "長さ",
+                    "is_object": false
+                },
+                {
+                    "name": "bRefByGeometricMethod",
+                    "description": "Trueの時は幾何位置にもとづいて関連を設定する",
+                    "type": "bool",
+                    "is_object": false
+                },
+                {
+                    "name": "bIntervalSwep",
+                    "description": "（ドキュメント表記）",
+                    "type": "bool",
+                    "is_object": false
+                },
+                {
+                    "name": "ReferMethod",
+                    "description": "要素の関連づけ方法の指定",
+                    "type": "関連設定",
+                    "is_object": false
+                }
+            ]
+        },
+        {
+            "name": "bUpdate",
+            "description": "更新フラグ（未実装、使用しない）",
+            "position": 3,
+            "type": "bool",
+            "is_object": false
+        }
+    ],
+    "return_type": "要素",
+    "return_description": "作成された押し出しフィーチャーのID"
+}

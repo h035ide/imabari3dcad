@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+  <meta name="GENERATOR" content="HelpMachine 2.4.9" />
+  <meta http-equiv="content-type" content="text/html; charset=Shift_JIS" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <link href="basic.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="script/util.js"></script>
+  <title>リビジョン作成</title>
+</head>
+<body>
+<div class="page">
+  <h2>リビジョン作成</h2>
+  <div class="contents">
+  <p>3Dモデルの全部または一部を、名前をつけてドキュメント内に保存しておくことができます。これをリビジョンといいます。</p>
+  <p>保存されたリビジョンは、あとから「3Dモデルの今の状態」と比較することができます。</p>
+  <p id="revtypes">リビジョンの保存形式は3種類あります。</p>
+  <dl>
+    <dt>要素IDのみ</dt>
+    <dd>要素の有無のみを保存・比較できます。データサイズは非常に小さいですが、形状や属性の比較はできません。</dd>
+    <dt>要素情報（最小限）</dt>
+    <dd><a href="cmd_save_as_doc.html">ドキュメントを保存</a>する際の「最小限の情報のみ保存」オプションをONにした場合と同様に、要素を作成する際に指定したパラメーターのみを保存し、ソリッド形状は保存されません。そのためデータサイズはコンパクトですが、形状の比較をするためにはソリッド形状を再計算する必要があり、時間がかかります。</dd>
+    <dt>要素情報</dt>
+    <dd>ソリッド形状も含めてすべての要素情報を保存します。データサイズは大きくなりますが、形状比較する際に再計算の必要がありません。</dd>
+  </dl>
+  <h3>操作方法</h3>
+  <p>リビジョンとして保存したい要素を選択し、保存形式とラベルを指定してOKをクリックします。</p>
+  <h3>パラメーター</h3>
+  <dl>
+    <dt><strong>要素指定方法</strong></dt>
+    <dd><p><img src="media/dlg_revision_sel_method.png" /></p>
+    <p>リビジョンに含める要素の指定方法を選択します。</p>
+      <dl>
+        <dt>全ての要素</dt><dd>モデル内のすべての要素を含めます。</dd>
+        <dt>表示されている要素</dt><dd>表示状態がONになっている要素のみを含めます。</dd>
+        <dt>要素選択</dt><dd><a href="about_selection.html#selection_list">選択リストボックス</a>で選択した任意の要素を含めます。</dd>
+        <dt>グループ選択</dt><dd>選択した要素グループ内の要素を含めます。</p>
+        <p><img src="media/dlg_weld_length_group_select.png" /></p>
+        <p><a href="cmd_revision_diff.html">リビジョン比較</a>コマンドで比較する際の「比較対象要素」パラメーターを「リビジョン作成時と同じ」とすると、ここで選択されたグループ内の要素を3Dモデル側であらためて取得して比較対象とします。</p>
+        </dd>
+      </dl>
+    </dd>
+    <dt><strong>リビジョン種類</strong></dt>
+    <dd><p><img src="media/dlg_revision_type.png" /></p>
+    <p>保存形式を指定します。</p></dd>
+    <dt><strong>ラベル</strong></dt>
+    <dd><p><img src="media/dlg_revision_label.png" /></p>
+    <p>リビジョンに名前をつけます。</p></dd>
+    <dt><strong>リビジョン一覧</strong></dt>
+    <dd><p><img src="media/dlg_revision_list.png" /></p>
+    <p>ドキュメント内に保存ずみのリビジョン一覧が表示されます。「削除」ボタンをクリックするとリビジョンを削除できます。</p>
+    <p class="warning">リビジョンの作成および削除操作はUndoする（もとに戻す）ことができませんのでご注意ください。</p>
+    </dd>
+  </dl>
+  </div>
+</div>
+</body>
+</html>

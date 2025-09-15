@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>要素検索</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2>要素検索</h2>
+      <div class="contents">
+        <p>
+          モデル内の要素を様々な属性値の組み合わせで検索します。
+        </p>
+	    <h3>操作方法</h3>
+        <p>
+          検索対象の要素と検索パラメータを入力し検索実行を行うと、検索結果が選択状態になります。その後、検索した要素に対して操作できます。
+        </p>
+        <h3>パラメータ</h3>
+        <ul>
+	      <li><strong>チェック対象</strong>
+	        <p>	      
+              <img src="media/dlg_match_elm_target_method.png"/>
+	        </p>
+            <p>
+              検索する対象要素を選択します。
+            </p>
+            <ul>
+              <li>モデル全体
+                <p>
+                  モデルに含まれる全ての要素を対象とします。
+                </p>
+              </li>
+              <li>表示要素内
+                <p>
+                  モデル全体で、表示されている要素のみを対象とします。
+                </p>
+              </li>
+              <li>選択要素内
+                <p>
+                  対象となる要素を選択します。
+                </p>
+                <p>
+                  <img src="media/dlg_check_int_target_elm.png"/>
+                </p>
+              </li>
+            </ul>
+          </li>
+	      <li><strong>要素名</strong>
+	        <p>	      
+	          <img src="media/dlg_match_elm_name.png"/>
+	        </p>
+            <p>
+              要素名の一部に入力文字列を含む要素を検索します。（大文字、小文字を区別します）<br/>
+              正規表現を使用をチェックすると、正規表現というパターンを使って文字列一致を行います。
+            </p>
+            <ul>
+              <li>.（任意の一文字）
+                <p>
+                  任意の位置文字を表します。<br/>
+                  例えば、So.idと入力すると、SolidやSomid、So9idなどの文字列が一致します。
+                </p>
+              </li>
+              <li>*（0以上）
+                <p>
+                  直前の文字列を0回以上繰り返します。<br/>
+                  例えば、SS.*Pと入力すると、SSPやSS1P、SS15P、SS250Pなどの文字列が一致します。
+                </p>
+              </li>
+              <li>+（1以上）
+                <p>
+                  直前の文字列を1回以上繰り返します。<br/>
+                  例えば、SS.+Pと入力すると、SS1P、SS15P、SS250Pなどの文字列が一致します。
+                </p>
+              </li>
+              <li>^（先頭）
+                <p>
+                  文字列の先頭を表します。<br/>
+                  例えば、^APSと入力すると、APSから始まる文字列は一致しますが、TAPSやXIAPSなどの文字列は一致しません。
+                </p>
+              </li>
+              <li>$（末尾）
+                <p>
+                  文字列の末尾を表します。<br/>
+                  例えば、APS$と入力すると、APSで終わる文字列は一致しますが、APSTやAPS10などの文字列は一致しません。
+                </p>
+              </li>
+              <li>[]（セット内の1文字）
+                <p>
+                  括弧内で指定された1文字を表します。<br/>
+                  例えば、TK[A-C]と入力すると、TKAかTKB、TKCのいずれかの文字列が一致します。
+                </p>
+              </li>
+              <li>[^]（セット外の1文字）
+                <p>
+                  括弧内で指定された1文字以外を表します。<br/>
+                  例えば、TK[^A,C]と入力すると、TKAとTKC以外の文字列が一致します。
+                </p>
+              </li>
+            </ul>
+            <p class="information">
+              正規表現は複数の表現を組み合わせて使用することができます。<br/>
+              例えば、^SS[0-9]+Pと入力すると、SSから始まるSS0PやSS1250Pなどの文字列が一致します。
+            </p>
+          </li>
+	      <li><strong>板厚</strong>
+	        <p>	      
+	          <img src="media/dlg_match_elm_thickness.png"/>
+	        </p>
+            <p>
+              板厚の値で条件一致します。複数の条件を組み合わせることができます。ex) 5&gt;板厚値、20&le;板厚値<br/>
+              追加ボタンをクリックすると条件が追加され、削除ボタンをクリックすると選択している条件が削除されます。</br>
+            </p>
+            <ul>
+              <li>条件
+                <p>
+                  2つ目以降の条件で、かつ（AND）、または（OR）のいずれかを選択します。
+                </p>
+              </li>
+              <li>等号
+                <p>
+                  等号の種類（＝、≠、＜、≦、＞、≧）のいずれかを選択します。
+                </p>
+              </li>
+              <li>値
+                <p>
+                  条件値を入力します。
+                </p>
+              </li>
+            </ul>
+          </li>
+	      <li><strong>質量</strong>
+	        <p>	      
+	          <img src="media/dlg_match_elm_mass.png"/>
+	        </p>
+            <p>
+              質量の値で条件一致します。複数の条件を組み合わせることができます。<br/>
+            </p>
+          </li>
+	      <li><strong>材料名</strong>
+	        <p>	      
+	          <img src="media/dlg_match_elm_material.png"/>
+	        </p>
+            <p>
+              材料名の一部に入力文字列を含む要素を検索します。（大文字、小文字を区別します）<br/>
+              正規表現を使用をチェックすると、正規表現というパターンを使って文字列一致を行います。<br/>
+              正規表現の使い方は、要素名と同様です。
+            </p>
+          </li>
+	      <li><strong>型鋼の断面タイプ</strong>
+	        <p>	      
+	          <img src="media/dlg_match_elm_profile_type.png"/>
+	        </p>
+            <p>
+              型鋼の断面タイプのみを指定するか、パラメータ値を一致するかを選択することができます。<br/>
+              
+            </p>
+          </li>
+	      <li><strong>条材の長さ</strong>
+	        <p>	      
+	          <img src="media/dlg_match_elm_ss_length.png"/>
+	        </p>
+            <p>
+              条材またはフェイスプレートの長さで条件一致します。複数の条件を組み合わせることができます。<br/>
+              型鋼はEVO.SHIPが認識しているソリッドのみ対象とします。
+            </p>
+          </li>
+	      <li><strong>部材パラメータ</strong>
+	        <p>	      
+	          <img src="media/dlg_match_elm_ship_parts.png"/>
+	        </p>
+            <p>
+              条材のみや板材のみを検索したい場合にチェックします。<br/>
+              型鋼や板はEVO.SHIPが認識しているソリッドのみ対象とします。
+            </p>
+          </li>
+	      <li><strong>検索</strong>
+	        <p>	      
+	          <img src="media/dlg_match_elm_execution.png"/>
+	        </p>
+            <p>
+              与えられたパラメータ条件で要素検索を実行します。
+            </p>
+          </li>
+      </ul>
+      <h3>パラメーター（配管設計）</h3>
+      <dl>
+        <dt id="pipe_end_joint"><strong>配管接合指示</strong></dt>
+        <dd><img src="media/dlg_match_elm_pipe_end_joint.png" />
+        <p>端部に各種接合方法が指定されたパイプ要素を検索します。</p></dd>
+        <dt id="pipe_installation_prep"><strong>現場合わせ属性</strong></dt>
+        <dd><img src="media/dlg_match_elm_pipe_installation_prep.png" />
+        <p>パイプ端部やそこに取り付ける金物に現場合わせが指定されたパイプ要素を検索します。</p></dd>
+        <dt><strong>配管一品属性</strong></dt>
+        <dd><img src="media/dlg_match_elm_pipe_spool_attr.png" />
+        <p>配管一品分け時にパラメータを指定したパイプ要素を検索します。</p></dd>
+      </dl>
+      <h3>検索結果</h3>
+      <ul>
+	      <li><strong>検索結果</strong>
+	        <p>	      
+	          <img src="media/dlg_match_elm_results.png"/>
+	        </p>
+            <p>
+              要素検索を実行すると、条件一致した要素がリストに追加されます。
+            </p>
+          </li>
+	      <li><strong>操作</strong>
+	        <p>	      
+	          <img src="media/dlg_match_elm_operation.png"/>
+	        </p>
+            <p>
+              検索結果に対して以下の操作を実行できます。
+            </p>
+            <ul>
+              <li>要素グループに追加
+                <p>
+                  検索結果を要素グループへ追加します。
+                </p>
+                <p>
+                  <img src="media/dlg_sel_element_group.png"/>
+                </p>
+              </li>
+              <li>色設定
+                <p>
+                  検索結果の要素色を変更します。
+                </p>
+                <p>
+                  <img src="media/dlg_select_color.png"/>
+                </p>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
+	  

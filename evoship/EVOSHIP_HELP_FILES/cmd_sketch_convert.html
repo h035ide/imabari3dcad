@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>スケッチ変換</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_sketch_convert.png"/>&nbsp;スケッチ変換</h2>
+      <div class="contents">
+	<p>
+	  3D要素をスケッチ平面に投影してスケッチ点、線を作成します。
+	</p>
+	<h3>操作方法</h3>
+	<p>
+	  変換したい要素（複数可）を選択して、OKボタンで実行します。<br/>
+	  点、頂点、カーブ、エッジ、フェイスが選択できます。(フェイスはフェイスのエッジが線要素として作成されます。)
+	</p>
+	<h3>パラメータ</h3>
+	<ul>
+		<li><strong>変換する要素</strong>
+			<p><img src="media/dlg_sketch_convert.png"/></p>
+		<ul>
+		  <li><strong>レイヤー</strong>
+		    <p>
+		      作成される要素の<a href="cmd_sketch_layer.html">レイヤー</a>を指定します。
+		    </p>
+		  </li>
+		  <li><strong>関連づけを変更</strong>
+		    <p>
+		      チェックすると、変換もとの要素との関連を変更できます。既定値は「フィーチャー」です。
+		    </p>
+		  </li>
+		</ul>
+		</li>
+		<li><strong>複合線化</strong>
+			<p><img src="media/dlg_sketch_sequencing_method.png" style="vertical-align: top"/> <img src="media/dlg_sketch_curve_seq_tolerance.png" style="vertical-align: top"/></p>
+			<ul>
+				<li>しない<p>スケッチ平面上に作成されたカーブを複合線にしません。</p></li>
+				<li>直線/円弧/複合線<p>スケッチ平面上に作成されたカーブのうち、直線と円弧は独立した要素のまま、それ以外はつながっているカーブ群をひとつの複合線にします。カーブがつながっているかどうかの判定に使うトレランスを指定できます。</p></li>
+				<li>全て複合線<p>スケッチ平面上に作成されたカーブを、その種類にかかわらず、つながっていたら複合線にします。カーブがつながっているかどうかの判定に使うトレランスを指定できます。</p></li>
+			</ul>
+		</ul>
+	</ul>
+      </div>
+    </div>
+  </body>
+</html>
+	  

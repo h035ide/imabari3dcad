@@ -1,0 +1,1399 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2" pages="5">
+  <diagram id="doc_paser_functions" name="doc_paser_functions">
+    <mxGraphModel dx="568" dy="311" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="DPF_TITLE" value="doc_paser 行為ベース ワークフロー" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" parent="1" vertex="1">
+          <mxGeometry x="40" y="40" width="360" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="PqS9zqozncI3o1Njqwn--9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="DPF_START" target="DPF_LOADDOC" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_START" value="Start" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="60" y="160" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PqS9zqozncI3o1Njqwn--10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="DPF_LOADDOC" target="DPF_PROMPT" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_LOADDOC" value="&lt;font face=&quot;UDゴシック&quot;&gt;API原文を連結して読み込む&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="159" y="160" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_PROMPT" value="&lt;font style=&quot;font-size: 11px;&quot;&gt;プロンプトとJSON仕様を準備&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="340" y="160" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_LLM" value="LLMに解析を依頼しJSON出力を得る" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="520" y="160" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_PARSE" value="JSON文字列を構造化データに変換" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="700" y="160" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_POST" value="型名を正規化し配列/必須/順序を付与" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="880" y="160" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PqS9zqozncI3o1Njqwn--11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="DPF_SAVE" target="DPF_END_A" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PqS9zqozncI3o1Njqwn--12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="DPF_SAVE" target="DPF_JSON" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_SAVE" value="解析結果をファイル保存" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="1060" y="160" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_JSON" value="parsed_api_result.json" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="1060" y="210" width="160" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_END_A" value="End" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="1240" y="160" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_TITLE2" value="Neo4j 取込 行為ベース ワークフロー" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" parent="1" vertex="1">
+          <mxGeometry x="40" y="420" width="420" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_START2" value="Start" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="60" y="480.35" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PqS9zqozncI3o1Njqwn--21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="DPF_START2" target="DPF_READJSON" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="320" y="500.3499999999999" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PqS9zqozncI3o1Njqwn--30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.624;exitY=0.978;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitPerimeter=0;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="259.8399999999999" y="519.47" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DPF_IMPORT" value="型→エントリ→依存の順に&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;取り込む&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="200" y="540.35" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_TYPES" value="型(Type)ノードを作成/更新" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="340" y="480.35" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_FUNCS" value="関数・引数・戻り値・型をグラフ化" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="520" y="480.35" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PqS9zqozncI3o1Njqwn--27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="DPF_OBJS" target="DPF_FUNC_PARAM" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PqS9zqozncI3o1Njqwn--29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.625;exitY=1.005;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="DPF_FUNCS" target="DPF_OBJS" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="619.94" y="520.7" as="targetPoint" />
+            <mxPoint x="620" y="520.35" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DPF_OBJS" value="オブジェクト定義と属性・型をグラフ化" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="560" y="530.35" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_DEPS" value="戻り値オブジェクト経由の依存を接続" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="700" y="480.70000000000005" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_END_B" value="End" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="1000" y="480.35" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dpf_4" style="endArrow=block;html=1;" parent="1" source="DPF_PROMPT" target="DPF_LLM" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dpf_5" style="endArrow=block;html=1;" parent="1" source="DPF_LLM" target="DPF_PARSE" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dpf_6" style="endArrow=block;html=1;" parent="1" source="DPF_PARSE" target="DPF_POST" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dpf_7" style="endArrow=block;html=1;" parent="1" source="DPF_POST" target="DPF_SAVE" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dpf_12" style="endArrow=block;html=1;" parent="1" source="DPF_TYPES" target="DPF_FUNCS" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dpf_14" style="endArrow=block;html=1;" parent="1" source="DPF_FUNCS" target="DPF_DEPS" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_PROMPT_TPL" value="プロンプトテンプレートを生成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="380" y="210" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_JSON_FMT" value="JSON出力仕様を準備" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="380" y="260" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dpf_20" style="endArrow=block;html=1;exitX=0.618;exitY=1.019;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="DPF_PROMPT" target="DPF_PROMPT_TPL" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dpf_21" style="endArrow=block;html=1;" parent="1" source="DPF_PROMPT_TPL" target="DPF_JSON_FMT" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_LLM_INIT" value="LLMクライアントを初期化" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="560" y="210" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_PROMPT_FILL" value="原文/仕様をプロンプトへ埋め込む" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="560" y="260" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_QUERY" value="LLMへ問い合わせを実行" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="560" y="310" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dpf_22" style="endArrow=block;html=1;exitX=0.622;exitY=0.984;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="DPF_LLM" target="DPF_LLM_INIT" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dpf_23" style="endArrow=block;html=1;" parent="1" source="DPF_LLM_INIT" target="DPF_PROMPT_FILL" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dpf_24" style="endArrow=block;html=1;" parent="1" source="DPF_PROMPT_FILL" target="DPF_QUERY" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_RESP_CHECK" value="レスポンス整合性を確認(JSON)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="700" y="310" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dpf_25" style="endArrow=block;html=1;" parent="1" source="DPF_QUERY" target="DPF_RESP_CHECK" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dpf_26" style="endArrow=block;html=1;" parent="1" source="DPF_RESP_CHECK" target="DPF_PARSE" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_NORM" value="型名を正規化する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="920" y="210" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_ARRAY" value="配列メタデータを付与する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="920" y="260" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_REQ" value="必須/任意を推定する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="920" y="310" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_POS" value="引数の順序を付与" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="920" y="360" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dpf_28" style="endArrow=block;html=1;" parent="1" source="DPF_NORM" target="DPF_ARRAY" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dpf_29" style="endArrow=block;html=1;" parent="1" source="DPF_ARRAY" target="DPF_REQ" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dpf_30" style="endArrow=block;html=1;" parent="1" source="DPF_REQ" target="DPF_POS" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PqS9zqozncI3o1Njqwn--22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="DPF_READJSON" target="DPF_TYPES" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_READJSON" value="JSONファイルを読み込む" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="160" y="480.35" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dpf_33" style="endArrow=block;html=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="570.3499999999999" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_dpf_34" style="endArrow=block;html=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="620.3499999999999" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_dpf_36" style="endArrow=block;html=1;exitX=0.624;exitY=0.996;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="DPF_READJSON" target="DPF_IMPORT" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_FUNC_PARAM" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;引数を順序付きで接続する(HAS_PARAMETER)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="560" y="580.35" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_FUNC_TYPE" value="&lt;font style=&quot;font-size: 11px;&quot;&gt;型ノードを解決して接続する(HAS_TYPE)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="560" y="630.35" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DPF_FUNC_RET" value="戻り値型を接続する(RETURNS)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="560" y="680.35" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dpf_38" style="endArrow=block;html=1;" parent="1" source="DPF_FUNC_PARAM" target="DPF_FUNC_TYPE" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dpf_39" style="endArrow=block;html=1;" parent="1" source="DPF_FUNC_TYPE" target="DPF_FUNC_RET" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PqS9zqozncI3o1Njqwn--7" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="PqS9zqozncI3o1Njqwn--3" target="DPF_LOADDOC" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PqS9zqozncI3o1Njqwn--3" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;api 1.txt" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;fontFamily=Helvetica;" parent="1" vertex="1">
+          <mxGeometry x="249" y="105" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PqS9zqozncI3o1Njqwn--8" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="PqS9zqozncI3o1Njqwn--4" target="DPF_LOADDOC" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PqS9zqozncI3o1Njqwn--4" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;api 1.txt" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;fontFamily=Helvetica;" parent="1" vertex="1">
+          <mxGeometry x="169" y="105" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PqS9zqozncI3o1Njqwn--15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.624;exitY=1.017;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="DPF_POST" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="980" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PqS9zqozncI3o1Njqwn--25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="PqS9zqozncI3o1Njqwn--23" target="DPF_END_B" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PqS9zqozncI3o1Njqwn--23" value="Neo4j Graph DB" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="880" y="480.35" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PqS9zqozncI3o1Njqwn--24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="PqS9zqozncI3o1Njqwn--23" target="PqS9zqozncI3o1Njqwn--23" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PqS9zqozncI3o1Njqwn--26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="DPF_DEPS" target="PqS9zqozncI3o1Njqwn--23" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="code_parser_functions" name="code_parser_functions">
+    <mxGraphModel dx="1646" dy="889" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="CPF_TITLE" value="code_parser 行為ベース ワークフロー" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" parent="1" vertex="1">
+          <mxGeometry x="40" y="40" width="420" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CPF_START" value="Start" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="60" y="80" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CPF_READ" value="pythonファイルを読み込む" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="160" y="80" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CPF_PARSE" value="Tree-sitterで構文木を生成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="340" y="80" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CPF_METRICS" value="ファイルメトリクスを計算" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="520" y="80" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Ps0jhui57fohxy4ZzbIr-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="CPF_EXTRACT" target="CPF_LLM" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CPF_EXTRACT" value="構文要素を再帰抽出" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="700" y="80" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CPF_CONTAINS" value="親子関係(CONTAINS)を接続" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="740" y="130" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Ps0jhui57fohxy4ZzbIr-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="CPF_LLM" target="CPF_CREATE_NODES" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1060" y="100" />
+              <mxPoint x="1060" y="230" />
+              <mxPoint x="60" y="230" />
+              <mxPoint x="60" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CPF_LLM" value="LLMで関数/クラスに説明を付与する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="880" y="80" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CPF_CREATE_NODES" value="ノードを作成する&lt;div&gt;（種類ごと）&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="80" y="240" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CPF_NODE_PROPS" value="&lt;font style=&quot;font-size: 11px;&quot;&gt;ノードにプロパティを付与&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;(id/name/text/位置/complexity/llm_analysis)&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="260" y="240" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CPF_CREATE_RELS" value="リレーションを作成する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="440" y="240" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CPF_STATS" value="統計を表示する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="620" y="240" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CPF_END" value="End" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="800" y="240" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cpf_1" style="endArrow=block;html=1;" parent="1" source="CPF_START" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="160" y="100.00000000000011" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_cpf_9" style="endArrow=block;html=1;" parent="1" source="CPF_READ" target="CPF_PARSE" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cpf_10" style="endArrow=block;html=1;" parent="1" source="CPF_PARSE" target="CPF_METRICS" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cpf_11" style="endArrow=block;html=1;" parent="1" source="CPF_METRICS" target="CPF_EXTRACT" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cpf_12" style="endArrow=block;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" target="CPF_CONTAINS" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="800" y="120" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_cpf_13" style="endArrow=block;html=1;" parent="1" source="CPF_CONTAINS" target="CPF_ADV" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cpf_19" style="endArrow=block;html=1;" parent="1" source="CPF_CREATE_NODES" target="CPF_NODE_PROPS" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cpf_20" style="endArrow=block;html=1;" parent="1" source="CPF_NODE_PROPS" target="CPF_CREATE_RELS" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cpf_21" style="endArrow=block;html=1;" parent="1" source="CPF_CREATE_RELS" target="CPF_STATS" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cpf_22" style="endArrow=block;html=1;" parent="1" source="CPF_STATS" target="CPF_END" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CPF_ADV" value="&lt;font style=&quot;font-size: 11px;&quot;&gt;高度な関係を抽出する&lt;br&gt;(CALLS / ASSIGNS / HAS_ATTRIBUTE)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="740" y="180" width="120" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="code_generator_functions" name="code_generator_functions">
+    <mxGraphModel dx="2573" dy="1823" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="CG_TITLE" value="code_generator 行為ベース ワークフロー" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" parent="1" vertex="1">
+          <mxGeometry x="80" y="200" width="420" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_START" value="Start" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="80" y="240" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_REGISTER_TOOLS" value="ツールを登録する&lt;div&gt;(抽出/検索/検証/テスト)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="180" y="240" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_INIT_LLM" value="エージェントLLMを初期化する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="360" y="240" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_PREP_PARSER" value="FinalAnswer出力フォーマットを準備" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="540" y="240" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_PROMPT" value="システムプロンプトを構成する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="720" y="240" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_BUILD_AGENT" value="エージェントを構築する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="900" y="240" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_HISTORY" value="履歴管理を有効化する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="1080" y="240" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_REPL_TTL" value="対話ループ（REPL）" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" parent="1" vertex="1">
+          <mxGeometry x="80" y="320" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_INPUT" value="ユーザー入力を受け取る" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="80" y="360" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_RUN_AGENT" value="エージェントを実行する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="260" y="360" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_PARSE_OUT" value="出力をJSONとして検証" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="440" y="355" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_IS_JSON" value="FinalAnswerに適合？" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="620" y="355" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_PRINT_OK" value="説明+コードを整形表示する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="800" y="360" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_PRINT_RAW" value="生テキストとして表示する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6e6;strokeColor=#cc0000;" parent="1" vertex="1">
+          <mxGeometry x="800" y="410" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_TOOLS_TTL" value="ツール行為（エージェントが内部で呼び出す）" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" parent="1" vertex="1">
+          <mxGeometry x="80" y="460" width="420" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_PARAM_EXTRACT" value="意図/パラメータを抽出する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="80" y="500" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_VECTOR_SEARCH" value="ベクトル検索を実行する (Chroma)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="260" y="500" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_AMBIG" value="曖昧性を判定する（閾値）" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="440" y="500" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_ASK_USER" value="候補を提示し質問を促す\n(AMBIGUOUS_RESULTS)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6e6;strokeColor=#cc0000;" parent="1" vertex="1">
+          <mxGeometry x="620" y="500" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_GRAPH_FETCH" value="グラフ詳細を取得する (Neo4j)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="620" y="550" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3_A4m-PtD-nrOlTPxz4W-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="CG_RESULT_FMT" target="CG_LI_SEARCH">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_RESULT_FMT" value="結果をエージェント向けに整形する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="800" y="550" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3_A4m-PtD-nrOlTPxz4W-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="CG_LI_SEARCH" target="CG_VALIDATE">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_LI_SEARCH" value="LlamaIndexでベクトル/グラフをルーティング検索" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="980" y="550" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_VALIDATE" value="flake8で静的検証する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="1160" y="550" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_TEST" value="一時環境でunittestを実行する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="1340" y="550" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_INGEST_TTL" value="前準備: Neo4j→Chroma インジェスト" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" parent="1" vertex="1">
+          <mxGeometry x="80" y="80" width="360" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_INGEST_ENV" value="環境変数を検証する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="80" y="120" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_INGEST_FETCH" value="Neo4jから対象ラベルを取得する\n(例: ApiFunction)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="260" y="120" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_INGEST_DOCS" value="ドキュメント/メタデータ/IDを整形する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="440" y="120" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_INGEST_EMB" value="OpenAI埋め込みを生成する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="620" y="120" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CG_INGEST_CHROMA" value="Chromaに追加し永続化する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="800" y="120" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cg_1" style="endArrow=block;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="CG_START" target="CG_REGISTER_TOOLS" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="180" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_cg_5" style="endArrow=block;html=1;" parent="1" source="CG_REGISTER_TOOLS" target="CG_INIT_LLM" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cg_6" style="endArrow=block;html=1;" parent="1" source="CG_INIT_LLM" target="CG_PREP_PARSER" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cg_7" style="endArrow=block;html=1;" parent="1" source="CG_PREP_PARSER" target="CG_PROMPT" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cg_8" style="endArrow=block;html=1;" parent="1" source="CG_PROMPT" target="CG_BUILD_AGENT" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cg_9" style="endArrow=block;html=1;" parent="1" source="CG_BUILD_AGENT" target="CG_HISTORY" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cg_10" style="endArrow=block;html=1;" parent="1" source="CG_INPUT" target="CG_RUN_AGENT" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cg_11" style="endArrow=block;html=1;" parent="1" source="CG_RUN_AGENT" target="CG_PARSE_OUT" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cg_12" style="endArrow=block;html=1;" parent="1" source="CG_PARSE_OUT" target="CG_IS_JSON" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cg_13" style="endArrow=block;html=1;" parent="1" source="CG_IS_JSON" target="CG_PRINT_OK" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cg_14" style="endArrow=block;html=1;" parent="1" source="CG_IS_JSON" target="CG_PRINT_RAW" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cg_20" style="endArrow=block;html=1;" parent="1" source="CG_PARAM_EXTRACT" target="CG_VECTOR_SEARCH" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cg_21" style="endArrow=block;html=1;" parent="1" source="CG_VECTOR_SEARCH" target="CG_AMBIG" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cg_22" style="endArrow=block;html=1;" parent="1" source="CG_AMBIG" target="CG_ASK_USER" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cg_23" style="endArrow=block;html=1;" parent="1" source="CG_AMBIG" target="CG_GRAPH_FETCH" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cg_24" style="endArrow=block;html=1;" parent="1" source="CG_GRAPH_FETCH" target="CG_RESULT_FMT" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cg_30" style="endArrow=block;html=1;" parent="1" source="CG_VALIDATE" target="CG_TEST" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cg_40" style="endArrow=block;html=1;" parent="1" source="CG_INGEST_ENV" target="CG_INGEST_FETCH" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cg_41" style="endArrow=block;html=1;" parent="1" source="CG_INGEST_FETCH" target="CG_INGEST_DOCS" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cg_42" style="endArrow=block;html=1;" parent="1" source="CG_INGEST_DOCS" target="CG_INGEST_EMB" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cg_43" style="endArrow=block;html=1;" parent="1" source="CG_INGEST_EMB" target="CG_INGEST_CHROMA" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="code_parser_integrated_workflow" name="code_parser_integrated_workflow">
+    <mxGraphModel dx="568" dy="311" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="CP_TITLE" value="code_parser 統合行為ベース ワークフロー" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" parent="1" vertex="1">
+          <mxGeometry x="80" y="40" width="480" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_START" value="Start" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="80" y="188" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_FILE_PHASE" value="メインワークフロー: 統合コード解析" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="80" y="148" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_READ_FILE" value="リファクタリング済み&lt;div&gt;Pythonファイルを読み込む&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="180" y="188" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_PARSE_SYNTAX" value="Tree-sitterで構文木生成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="360" y="188" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_EXTRACT_ELEMENTS" value="構文要素抽出&lt;div&gt;(関数/クラス/変数等)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="540" y="188" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="STsiI7U7XB5t-KR0721v-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="CP_CALCULATE_METRICS" target="CP_LLM_CHECK" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="800" y="270" />
+              <mxPoint x="240" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CP_CALCULATE_METRICS" value="コードメトリクス計算&lt;div&gt;(複雑度/行数等)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="720" y="188" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_EVOLUTION_PHASE" value="前処理: LLMリファクタリング" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="80" y="80" width="350" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_VERSION_DETECT" value="生データファイル&lt;div&gt;(test_GPT.py)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6e6;strokeColor=#cc0000;" parent="1" vertex="1">
+          <mxGeometry x="80" y="110" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_DIFF_ANALYSIS" value="LLMリファクタリング&lt;div&gt;(構造化・品質向上)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="260" y="110" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_REFACTOR_TRACK" value="リファクタリング済み&lt;div&gt;(create_test.py)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="440" y="110" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_LLM_PHASE" value="LLM分析フェーズ (オプション)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="80" y="240" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="STsiI7U7XB5t-KR0721v-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="CP_LLM_CHECK" target="CP_CREATE_NODES" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="240" y="360" />
+              <mxPoint x="160" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CP_LLM_CHECK" value="LLM利用可能？" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="160" y="290" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_LLM_FUNC_ANALYSIS" value="関数分析&lt;div&gt;(目的/パラメータ/戻り値)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="340" y="290" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_LLM_CLASS_ANALYSIS" value="クラス分析&lt;div&gt;(設計パターン/責任)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="520" y="290" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="STsiI7U7XB5t-KR0721v-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="CP_LLM_ERROR_ANALYSIS" target="CP_CREATE_NODES" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="880" y="310" />
+              <mxPoint x="880" y="360" />
+              <mxPoint x="160" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CP_LLM_ERROR_ANALYSIS" value="エラーパターン分析&lt;div&gt;(例外/対処法)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="700" y="290" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_STORAGE_PHASE" value="データ格納フェーズ" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="80" y="330" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_CREATE_NODES" value="Neo4jノード作成&lt;div&gt;(関数/クラス/変数)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="80" y="370" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_VERIFY_NODES" value="ノード存在確認&lt;div&gt;(ID取得・検証)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="260" y="370" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_CREATE_RELATIONS" value="関係性作成&lt;div&gt;(CALLS/CONTAINS/USES)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="440" y="370" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_VECTOR_INDEX" value="ベクトルインデックス化&lt;div&gt;(埋め込み生成)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="620" y="370" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_END" value="End" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="800" y="370" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_NEO4J_DB" value="Neo4j&lt;div&gt;Graph DB&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="470" y="430" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_CHROMA_DB" value="ChromaDB&lt;div&gt;Vector Store&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="650" y="430" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cp_1" style="endArrow=block;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="CP_START" target="CP_READ_FILE" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="180" y="58" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_cp_2" style="endArrow=block;html=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_cp_3" style="endArrow=block;html=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="540" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_cp_4" style="endArrow=block;html=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="720" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_cp_6" style="endArrow=block;html=1;" parent="1" source="CP_READ_FILE" target="CP_PARSE_SYNTAX" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cp_7" style="endArrow=block;html=1;" parent="1" source="CP_PARSE_SYNTAX" target="CP_EXTRACT_ELEMENTS" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cp_8" style="endArrow=block;html=1;" parent="1" source="CP_EXTRACT_ELEMENTS" target="CP_CALCULATE_METRICS" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cp_9b" style="endArrow=block;html=1;strokeStyle=dashed;strokeColor=#999999;" parent="1" source="CP_VERSION_DETECT" target="CP_DIFF_ANALYSIS" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cp_9c" style="endArrow=block;html=1;strokeStyle=dashed;strokeColor=#999999;" parent="1" source="CP_DIFF_ANALYSIS" target="CP_REFACTOR_TRACK" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cp_10" style="endArrow=block;html=1;" parent="1" source="CP_LLM_CHECK" target="CP_LLM_FUNC_ANALYSIS" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cp_11" style="endArrow=block;html=1;" parent="1" source="CP_LLM_FUNC_ANALYSIS" target="CP_LLM_CLASS_ANALYSIS" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cp_12" style="endArrow=block;html=1;" parent="1" source="CP_LLM_CLASS_ANALYSIS" target="CP_LLM_ERROR_ANALYSIS" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cp_15" style="endArrow=block;html=1;" parent="1" source="CP_CREATE_NODES" target="CP_VERIFY_NODES" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cp_15b" style="endArrow=block;html=1;" parent="1" source="CP_VERIFY_NODES" target="CP_CREATE_RELATIONS" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cp_16" style="endArrow=block;html=1;" parent="1" source="CP_CREATE_RELATIONS" target="CP_VECTOR_INDEX" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cp_17" style="endArrow=block;html=1;" parent="1" source="CP_VECTOR_INDEX" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="800" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_cp_26" style="endArrow=block;html=1;" parent="1" source="CP_CREATE_RELATIONS" target="CP_NEO4J_DB" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_YES" value="Yes" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;" parent="1" vertex="1">
+          <mxGeometry x="310" y="290" width="30" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CP_NO" value="No" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;" parent="1" vertex="1">
+          <mxGeometry x="240" y="330" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="STsiI7U7XB5t-KR0721v-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="CP_VECTOR_INDEX" target="CP_CHROMA_DB" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="database_builder_workflow" name="database_builder_workflow">
+    <mxGraphModel dx="1206" dy="1106" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="GJLJmXRbELhOFl_5DVAh-4" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="40" y="40" width="900" height="580" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_TITLE" value="データベース構築 行為ベース ワークフロー" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry width="480" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_START" value="Start" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry y="120" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_STEP1_TITLE" value="ステップ1: API仕様書の解析" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=14;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry y="40" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_READ_API" value="API原文を連結して読み込む&lt;div&gt;(_read_api_text / _read_api_arg_text)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry x="100" y="120" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_NORMALIZE" value="テキスト正規化&lt;div&gt;(_normalize_text)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry x="320" y="120" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_PARSE_TYPES" value="データ型説明を解析&lt;div&gt;(_parse_data_type_descriptions)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry x="500" y="120" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GJLJmXRbELhOFl_5DVAh-3" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="GJLJmXRbELhOFl_5DVAh-4" source="DB_EXTRACT_TRIPLES" target="DB_READ_SCRIPT">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_EXTRACT_TRIPLES" value="トリプル抽出&lt;div&gt;(extract_triples_from_specs)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry x="680" y="120" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_STEP2_TITLE" value="ステップ2: スクリプト例の解析" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=14;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry y="170" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_READ_SCRIPT" value="テストスクリプトを読み込む&lt;div&gt;(_read_test_script)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry x="20" y="265" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_EXTRACT_CALLS" value="メソッド呼び出しを抽出&lt;div&gt;(_extract_method_calls_from_script)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry x="240" y="265" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_SCRIPT_TRIPLES" value="スクリプトトリプル生成&lt;div&gt;(extract_triples_from_script)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry x="460" y="265" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_STEP3_TITLE" value="ステップ3: データ統合とNeo4j格納" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=14;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry y="325" width="320" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_CONVERT_GRAPH" value="GraphDocument形式に変換&lt;div&gt;(_triples_to_graph_documents)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry x="20" y="365" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_CLEAR_NEO4J" value="Neo4jデータベースを初期化&lt;div&gt;(既存データ削除)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6e6;strokeColor=#cc0000;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry x="240" y="365" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_REBUILD_GRAPH" value="グラフデータを一括投入&lt;div&gt;(_rebuild_graph_in_neo4j)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry x="460" y="365" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_STEP4_TITLE" value="ステップ4: ChromaベクトルDB構築" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=14;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry y="425" width="320" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_PARSE_API_SPECS" value="API仕様を再解析&lt;div&gt;(_parse_api_specs)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry x="20" y="465" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_BUILD_CHROMA" value="ChromaDB構築&lt;div&gt;(_build_and_load_chroma_from_specs)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry x="200" y="465" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_GENERATE_EMBEDDINGS" value="OpenAI埋め込み生成&lt;div&gt;(OpenAIEmbeddings)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry x="420" y="465" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_PERSIST_CHROMA" value="ベクトルデータを永続化&lt;div&gt;(Chroma永続化)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry x="640" y="465" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_END" value="End" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry x="820" y="465" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_NEO4J_DB" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;Neo4j&lt;div&gt;Graph DB&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry x="650" y="355" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_CHROMA_DB" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;ChromaDB&lt;div&gt;Vector Store&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry x="670" y="520" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_API_TXT" value="api.txt" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;fontFamily=Helvetica;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry x="100" y="70" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_API_ARG_TXT" value="api_arg.txt" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;fontFamily=Helvetica;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry x="190" y="70" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GJLJmXRbELhOFl_5DVAh-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="GJLJmXRbELhOFl_5DVAh-4" source="DB_TEST_PY" target="DB_READ_SCRIPT">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DB_TEST_PY" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;test.py" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;fontFamily=Helvetica;" parent="GJLJmXRbELhOFl_5DVAh-4" vertex="1">
+          <mxGeometry x="80" y="210" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_1" style="endArrow=block;html=1;" parent="GJLJmXRbELhOFl_5DVAh-4" source="DB_START" target="DB_READ_API" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_2" style="endArrow=block;html=1;" parent="GJLJmXRbELhOFl_5DVAh-4" source="DB_READ_API" target="DB_NORMALIZE" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_3" style="endArrow=block;html=1;" parent="GJLJmXRbELhOFl_5DVAh-4" source="DB_NORMALIZE" target="DB_PARSE_TYPES" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_4" style="endArrow=block;html=1;" parent="GJLJmXRbELhOFl_5DVAh-4" source="DB_PARSE_TYPES" target="DB_EXTRACT_TRIPLES" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_6" style="endArrow=block;html=1;" parent="GJLJmXRbELhOFl_5DVAh-4" source="DB_READ_SCRIPT" target="DB_EXTRACT_CALLS" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_7" style="endArrow=block;html=1;" parent="GJLJmXRbELhOFl_5DVAh-4" source="DB_EXTRACT_CALLS" target="DB_SCRIPT_TRIPLES" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_8" style="endArrow=block;html=1;" parent="GJLJmXRbELhOFl_5DVAh-4" source="DB_SCRIPT_TRIPLES" target="DB_CONVERT_GRAPH" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_9" style="endArrow=block;html=1;" parent="GJLJmXRbELhOFl_5DVAh-4" source="DB_CONVERT_GRAPH" target="DB_CLEAR_NEO4J" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_10" style="endArrow=block;html=1;" parent="GJLJmXRbELhOFl_5DVAh-4" source="DB_CLEAR_NEO4J" target="DB_REBUILD_GRAPH" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_11" style="endArrow=block;html=1;" parent="GJLJmXRbELhOFl_5DVAh-4" source="DB_REBUILD_GRAPH" target="DB_PARSE_API_SPECS" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_12" style="endArrow=block;html=1;" parent="GJLJmXRbELhOFl_5DVAh-4" source="DB_PARSE_API_SPECS" target="DB_BUILD_CHROMA" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_13" style="endArrow=block;html=1;" parent="GJLJmXRbELhOFl_5DVAh-4" source="DB_BUILD_CHROMA" target="DB_GENERATE_EMBEDDINGS" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_14" style="endArrow=block;html=1;" parent="GJLJmXRbELhOFl_5DVAh-4" source="DB_GENERATE_EMBEDDINGS" target="DB_PERSIST_CHROMA" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_15" style="endArrow=block;html=1;" parent="GJLJmXRbELhOFl_5DVAh-4" source="DB_PERSIST_CHROMA" target="DB_END" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_16" style="endArrow=block;html=1;" parent="GJLJmXRbELhOFl_5DVAh-4" source="DB_REBUILD_GRAPH" target="DB_NEO4J_DB" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_17" style="endArrow=block;html=1;" parent="GJLJmXRbELhOFl_5DVAh-4" source="DB_PERSIST_CHROMA" target="DB_CHROMA_DB" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_18" style="endArrow=block;html=1;strokeStyle=dashed;strokeColor=#999999;" parent="GJLJmXRbELhOFl_5DVAh-4" source="DB_API_TXT" target="DB_READ_API" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_19" style="endArrow=block;html=1;strokeStyle=dashed;strokeColor=#999999;" parent="GJLJmXRbELhOFl_5DVAh-4" source="DB_API_ARG_TXT" target="DB_READ_API" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+<mxfile host="65bd71144e" pages="3">
+    <diagram id="doc_paser_functions" name="doc_paser_functions">
+        <mxGraphModel dx="862" dy="465" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="DPF_TITLE" value="doc_paser 行為ベース ワークフロー" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="40" width="360" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="PqS9zqozncI3o1Njqwn--9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="DPF_START" target="DPF_LOADDOC" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_START" value="Start" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="160" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="PqS9zqozncI3o1Njqwn--10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="DPF_LOADDOC" target="DPF_PROMPT" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_LOADDOC" value="&lt;font face=&quot;UDゴシック&quot;&gt;API原文を連結して読み込む&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="159" y="160" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_PROMPT" value="&lt;font style=&quot;font-size: 11px;&quot;&gt;プロンプトとJSON仕様を準備&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="160" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_LLM" value="LLMに解析を依頼しJSON出力を得る" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="160" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_PARSE" value="JSON文字列を構造化データに変換" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="700" y="160" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_POST" value="型名を正規化し配列/必須/順序を付与" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="880" y="160" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="PqS9zqozncI3o1Njqwn--11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="DPF_SAVE" target="DPF_END_A" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="PqS9zqozncI3o1Njqwn--12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="DPF_SAVE" target="DPF_JSON" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_SAVE" value="解析結果をファイル保存" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="1060" y="160" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_JSON" value="parsed_api_result.json" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="1060" y="210" width="160" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_END_A" value="End" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="1240" y="160" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_TITLE2" value="Neo4j 取込 行為ベース ワークフロー" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="420" width="420" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_START2" value="Start" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="480.35" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="PqS9zqozncI3o1Njqwn--21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="DPF_START2" target="DPF_READJSON" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="320" y="500.3499999999999" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="PqS9zqozncI3o1Njqwn--30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.624;exitY=0.978;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitPerimeter=0;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="259.8399999999999" y="519.47" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="DPF_IMPORT" value="型→エントリ→依存の順に&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;取り込む&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="540.35" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_TYPES" value="型(Type)ノードを作成/更新" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="480.35" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_FUNCS" value="関数・引数・戻り値・型をグラフ化" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="480.35" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="PqS9zqozncI3o1Njqwn--27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="DPF_OBJS" target="DPF_FUNC_PARAM" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="PqS9zqozncI3o1Njqwn--29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.625;exitY=1.005;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="DPF_FUNCS" target="DPF_OBJS" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="619.94" y="520.7" as="targetPoint"/>
+                        <mxPoint x="620" y="520.35" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="DPF_OBJS" value="オブジェクト定義と属性・型をグラフ化" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="530.35" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_DEPS" value="戻り値オブジェクト経由の依存を接続" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="700" y="480.70000000000005" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_END_B" value="End" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="1000" y="480.35" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_4" style="endArrow=block;html=1;" parent="1" source="DPF_PROMPT" target="DPF_LLM" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_5" style="endArrow=block;html=1;" parent="1" source="DPF_LLM" target="DPF_PARSE" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_6" style="endArrow=block;html=1;" parent="1" source="DPF_PARSE" target="DPF_POST" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_7" style="endArrow=block;html=1;" parent="1" source="DPF_POST" target="DPF_SAVE" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_12" style="endArrow=block;html=1;" parent="1" source="DPF_TYPES" target="DPF_FUNCS" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_14" style="endArrow=block;html=1;" parent="1" source="DPF_FUNCS" target="DPF_DEPS" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_PROMPT_TPL" value="プロンプトテンプレートを生成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="210" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_JSON_FMT" value="JSON出力仕様を準備" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="260" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_20" style="endArrow=block;html=1;exitX=0.618;exitY=1.019;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="DPF_PROMPT" target="DPF_PROMPT_TPL" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_21" style="endArrow=block;html=1;" parent="1" source="DPF_PROMPT_TPL" target="DPF_JSON_FMT" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_LLM_INIT" value="LLMクライアントを初期化" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="210" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_PROMPT_FILL" value="原文/仕様をプロンプトへ埋め込む" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="260" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_QUERY" value="LLMへ問い合わせを実行" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="310" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_22" style="endArrow=block;html=1;exitX=0.622;exitY=0.984;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="DPF_LLM" target="DPF_LLM_INIT" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_23" style="endArrow=block;html=1;" parent="1" source="DPF_LLM_INIT" target="DPF_PROMPT_FILL" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_24" style="endArrow=block;html=1;" parent="1" source="DPF_PROMPT_FILL" target="DPF_QUERY" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_RESP_CHECK" value="レスポンス整合性を確認(JSON)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="700" y="310" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_25" style="endArrow=block;html=1;" parent="1" source="DPF_QUERY" target="DPF_RESP_CHECK" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_26" style="endArrow=block;html=1;" parent="1" source="DPF_RESP_API" target="DPF_PARSE" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_NORM" value="型名を正規化する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="920" y="210" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_ARRAY" value="配列メタデータを付与する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="920" y="260" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_REQ" value="必須/任意を推定する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="920" y="310" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_POS" value="引数の順序を付与" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="920" y="360" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_28" style="endArrow=block;html=1;" parent="1" source="DPF_NORM" target="DPF_ARRAY" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_29" style="endArrow=block;html=1;" parent="1" source="DPF_ARRAY" target="DPF_REQ" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_30" style="endArrow=block;html=1;" parent="1" source="DPF_REQ" target="DPF_POS" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="PqS9zqozncI3o1Njqwn--22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="DPF_READJSON" target="DPF_TYPES" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_READJSON" value="JSONファイルを読み込む" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="160" y="480.35" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_33" style="endArrow=block;html=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="260" y="570.3499999999999" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_dpf_34" style="endArrow=block;html=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="260" y="620.3499999999999" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_dpf_36" style="endArrow=block;html=1;exitX=0.624;exitY=0.996;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="DPF_READJSON" target="DPF_IMPORT" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_FUNC_PARAM" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;引数を順序付きで接続する(HAS_PARAMETER)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="580.35" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_FUNC_TYPE" value="&lt;font style=&quot;font-size: 11px;&quot;&gt;型ノードを解決して接続する(HAS_TYPE)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="630.35" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_FUNC_RET" value="戻り値型を接続する(RETURNS)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="680.35" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_38" style="endArrow=block;html=1;" parent="1" source="DPF_FUNC_PARAM" target="DPF_FUNC_TYPE" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_39" style="endArrow=block;html=1;" parent="1" source="DPF_FUNC_TYPE" target="DPF_FUNC_RET" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="PqS9zqozncI3o1Njqwn--7" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="PqS9zqozncI3o1Njqwn--3" target="DPF_LOADDOC" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="PqS9zqozncI3o1Njqwn--3" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;api 1.txt" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;fontFamily=Helvetica;" parent="1" vertex="1">
+                    <mxGeometry x="249" y="105" width="60" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="PqS9zqozncI3o1Njqwn--8" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="PqS9zqozncI3o1Njqwn--4" target="DPF_LOADDOC" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="PqS9zqozncI3o1Njqwn--4" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;api 1.txt" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;fontFamily=Helvetica;" parent="1" vertex="1">
+                    <mxGeometry x="169" y="105" width="60" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="PqS9zqozncI3o1Njqwn--15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.624;exitY=1.017;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="DPF_POST" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="980" y="210" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="PqS9zqozncI3o1Njqwn--25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="PqS9zqozncI3o1Njqwn--23" target="DPF_END_B" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="PqS9zqozncI3o1Njqwn--23" value="Neo4j Graph DB" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;" parent="1" vertex="1">
+                    <mxGeometry x="880" y="480.35" width="100" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="PqS9zqozncI3o1Njqwn--24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="PqS9zqozncI3o1Njqwn--23" target="PqS9zqozncI3o1Njqwn--23" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="PqS9zqozncI3o1Njqwn--26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="DPF_DEPS" target="PqS9zqozncI3o1Njqwn--23" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_26a" style="endArrow=block;html=1;" parent="1" source="DPF_PARSE" target="DPF_RESP_API" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_26b" style="endArrow=block;html=1;" parent="1" source="DPF_RESP_API" target="DPF_POST" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_CLEAN" value="クリーンアップ\n(重複/孤立削除)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6e6;strokeColor=#cc0000;" parent="1" vertex="1">
+                    <mxGeometry x="880" y="530.35" width="100" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_45" style="endArrow=block;html=1;" parent="1" source="PqS9zqozncI3o1Njqwn--23" target="DPF_CLEAN" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_TITLE3" value="自己修正エージェント ワークフロー" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="740" width="360" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_START3" value="Start" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="800" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_ANALYZE" value="コード品質を分析" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="160" y="800" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_GEN_CORR" value="LLMで修正案を生成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="800" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_APPLY_CORR" value="修正を適用" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="800" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DPF_DECIDE" target="DPF_ANALYZE">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="780" y="860"/>
+                            <mxPoint x="240" y="860"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="DPF_DECIDE" value="継続/終了 判定" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="700" y="800" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="DPF_END3" value="End" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="880" y="800" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_50" style="endArrow=block;html=1;" parent="1" source="DPF_START3" target="DPF_ANALYZE" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_51" style="endArrow=block;html=1;" parent="1" source="DPF_ANALYZE" target="DPF_GEN_CORR" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_52" style="endArrow=block;html=1;" parent="1" source="DPF_GEN_CORR" target="DPF_APPLY_CORR" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_53" style="endArrow=block;html=1;" parent="1" source="DPF_APPLY_CORR" target="DPF_DECIDE" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dpf_54" style="endArrow=block;html=1;" parent="1" source="DPF_DECIDE" target="DPF_END3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="" style="endArrow=block;html=1;" edge="1" parent="1" source="DPF_RESP_CHECK" target="DPF_RESP_API">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="780" y="310" as="sourcePoint"/>
+                        <mxPoint x="780" y="200" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="DPF_RESP_API" value="Responses API v1 から抽出" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="700" y="220" width="160" height="40" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="code_parser_functions" name="code_parser_functions">
+        <mxGraphModel dx="862" dy="465" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="CPF_TITLE" value="code_parser 行為ベース ワークフロー" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="40" width="420" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="CPF_START" value="Start" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="80" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CPF_READ" value="pythonファイルを読み込む" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="160" y="80" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CPF_PARSE" value="Tree-sitterで構文木を生成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="80" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CPF_METRICS" value="ファイルメトリクスを計算" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="80" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="Ps0jhui57fohxy4ZzbIr-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="CPF_EXTRACT" target="CPF_LLM" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="CPF_EXTRACT" value="構文要素を再帰抽出" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="700" y="80" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CPF_CONTAINS" value="親子関係(CONTAINS)を接続" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="740" y="130" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="Ps0jhui57fohxy4ZzbIr-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="CPF_LLM" target="CPF_CREATE_NODES" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1060" y="100"/>
+                            <mxPoint x="1060" y="230"/>
+                            <mxPoint x="60" y="230"/>
+                            <mxPoint x="60" y="260"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="CPF_LLM" value="LLMで関数/クラスに説明を付与する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="880" y="80" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CPF_CREATE_NODES" value="ノードを作成する&lt;div&gt;（種類ごと）&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="240" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CPF_NODE_PROPS" value="&lt;font style=&quot;font-size: 11px;&quot;&gt;ノードにプロパティを付与&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;(id/name/text/位置/complexity/llm_analysis)&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="260" y="240" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CPF_CREATE_RELS" value="リレーションを作成する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="440" y="240" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CPF_STATS" value="統計を表示する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="620" y="240" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CPF_END" value="End" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="800" y="240" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cpf_1" style="endArrow=block;html=1;" parent="1" source="CPF_START" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="160" y="100.00000000000011" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_cpf_9" style="endArrow=block;html=1;" parent="1" source="CPF_READ" target="CPF_PARSE" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cpf_10" style="endArrow=block;html=1;" parent="1" source="CPF_PARSE" target="CPF_METRICS" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cpf_11" style="endArrow=block;html=1;" parent="1" source="CPF_METRICS" target="CPF_EXTRACT" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cpf_12" style="endArrow=block;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" target="CPF_CONTAINS" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="800" y="120" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_cpf_13" style="endArrow=block;html=1;" parent="1" source="CPF_CONTAINS" target="CPF_ADV" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cpf_19" style="endArrow=block;html=1;" parent="1" source="CPF_CREATE_NODES" target="CPF_NODE_PROPS" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cpf_20" style="endArrow=block;html=1;" parent="1" source="CPF_NODE_PROPS" target="CPF_CREATE_RELS" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cpf_21" style="endArrow=block;html=1;" parent="1" source="CPF_CREATE_RELS" target="CPF_STATS" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cpf_22" style="endArrow=block;html=1;" parent="1" source="CPF_STATS" target="CPF_END" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="CPF_ADV" value="&lt;font style=&quot;font-size: 11px;&quot;&gt;高度な関係を抽出する&lt;br&gt;(CALLS / ASSIGNS / HAS_ATTRIBUTE)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="740" y="180" width="120" height="40" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="code_generator_functions" name="code_generator_functions">
+        <mxGraphModel dx="2573" dy="1823" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="CG_TITLE" value="code_generator 行為ベース ワークフロー" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="200" width="420" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_START" value="Start" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="240" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_REGISTER_TOOLS" value="ツールを登録する&lt;div&gt;(抽出/検索/検証/テスト)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="180" y="240" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_INIT_LLM" value="エージェントLLMを初期化する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="240" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_PREP_PARSER" value="FinalAnswer出力フォーマットを準備" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="540" y="240" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_PROMPT" value="システムプロンプトを構成する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="720" y="240" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_BUILD_AGENT" value="エージェントを構築する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="900" y="240" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_HISTORY" value="履歴管理を有効化する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="1080" y="240" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_REPL_TTL" value="対話ループ（REPL）" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="320" width="220" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_INPUT" value="ユーザー入力を受け取る" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="360" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_RUN_AGENT" value="エージェントを実行する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="260" y="360" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_PARSE_OUT" value="出力をJSONとして検証" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="440" y="355" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_IS_JSON" value="FinalAnswerに適合？" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="620" y="355" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_PRINT_OK" value="説明+コードを整形表示する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="800" y="360" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_PRINT_RAW" value="生テキストとして表示する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6e6;strokeColor=#cc0000;" parent="1" vertex="1">
+                    <mxGeometry x="800" y="410" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_TOOLS_TTL" value="ツール行為（エージェントが内部で呼び出す）" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="460" width="420" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_PARAM_EXTRACT" value="意図/パラメータを抽出する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="500" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_VECTOR_SEARCH" value="ベクトル検索を実行する (Chroma)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="260" y="500" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_AMBIG" value="曖昧性を判定する（閾値）" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="440" y="500" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_ASK_USER" value="候補を提示し質問を促す\n(AMBIGUOUS_RESULTS)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6e6;strokeColor=#cc0000;" parent="1" vertex="1">
+                    <mxGeometry x="620" y="500" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_GRAPH_FETCH" value="グラフ詳細を取得する (Neo4j)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="620" y="550" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="3_A4m-PtD-nrOlTPxz4W-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="CG_RESULT_FMT" target="CG_LI_SEARCH">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_RESULT_FMT" value="結果をエージェント向けに整形する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="800" y="550" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="3_A4m-PtD-nrOlTPxz4W-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="CG_LI_SEARCH" target="CG_VALIDATE">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_LI_SEARCH" value="LlamaIndexでベクトル/グラフをルーティング検索" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="980" y="550" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_VALIDATE" value="flake8で静的検証する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="1160" y="550" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_TEST" value="一時環境でunittestを実行する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="1340" y="550" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_INGEST_TTL" value="前準備: Neo4j→Chroma インジェスト" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="80" width="360" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_INGEST_ENV" value="環境変数を検証する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="120" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_INGEST_FETCH" value="Neo4jから対象ラベルを取得する\n(例: ApiFunction)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="260" y="120" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_INGEST_DOCS" value="ドキュメント/メタデータ/IDを整形する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="440" y="120" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_INGEST_EMB" value="OpenAI埋め込みを生成する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="620" y="120" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CG_INGEST_CHROMA" value="Chromaに追加し永続化する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="800" y="120" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cg_1" style="endArrow=block;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="CG_START" target="CG_REGISTER_TOOLS" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="180" y="260" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_cg_5" style="endArrow=block;html=1;" parent="1" source="CG_REGISTER_TOOLS" target="CG_INIT_LLM" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cg_6" style="endArrow=block;html=1;" parent="1" source="CG_INIT_LLM" target="CG_PREP_PARSER" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cg_7" style="endArrow=block;html=1;" parent="1" source="CG_PREP_PARSER" target="CG_PROMPT" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cg_8" style="endArrow=block;html=1;" parent="1" source="CG_PROMPT" target="CG_BUILD_AGENT" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cg_9" style="endArrow=block;html=1;" parent="1" source="CG_BUILD_AGENT" target="CG_HISTORY" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cg_10" style="endArrow=block;html=1;" parent="1" source="CG_INPUT" target="CG_RUN_AGENT" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cg_11" style="endArrow=block;html=1;" parent="1" source="CG_RUN_AGENT" target="CG_PARSE_OUT" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cg_12" style="endArrow=block;html=1;" parent="1" source="CG_PARSE_OUT" target="CG_IS_JSON" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cg_13" style="endArrow=block;html=1;" parent="1" source="CG_IS_JSON" target="CG_PRINT_OK" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cg_14" style="endArrow=block;html=1;" parent="1" source="CG_IS_JSON" target="CG_PRINT_RAW" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cg_20" style="endArrow=block;html=1;" parent="1" source="CG_PARAM_EXTRACT" target="CG_VECTOR_SEARCH" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cg_21" style="endArrow=block;html=1;" parent="1" source="CG_VECTOR_SEARCH" target="CG_AMBIG" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cg_22" style="endArrow=block;html=1;" parent="1" source="CG_AMBIG" target="CG_ASK_USER" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cg_23" style="endArrow=block;html=1;" parent="1" source="CG_AMBIG" target="CG_GRAPH_FETCH" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cg_24" style="endArrow=block;html=1;" parent="1" source="CG_GRAPH_FETCH" target="CG_RESULT_FMT" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cg_30" style="endArrow=block;html=1;" parent="1" source="CG_VALIDATE" target="CG_TEST" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cg_40" style="endArrow=block;html=1;" parent="1" source="CG_INGEST_ENV" target="CG_INGEST_FETCH" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cg_41" style="endArrow=block;html=1;" parent="1" source="CG_INGEST_FETCH" target="CG_INGEST_DOCS" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cg_42" style="endArrow=block;html=1;" parent="1" source="CG_INGEST_DOCS" target="CG_INGEST_EMB" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cg_43" style="endArrow=block;html=1;" parent="1" source="CG_INGEST_EMB" target="CG_INGEST_CHROMA" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

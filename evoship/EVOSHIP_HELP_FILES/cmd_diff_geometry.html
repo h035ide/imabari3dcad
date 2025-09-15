@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD>
+<meta name="GENERATOR" content="HelpMachine 2.5.1">
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <script language="javascript" src="script/util.js"></script>
+<TITLE>形状差分</TITLE>
+</HEAD><BODY>
+<div class="page">
+
+<h2>形状差分</h2>
+<div class="contents">
+<p>モデルの現在の形状を、<a href="about_history.html">操作履歴</a>をさかのぼった過去の形状と比較して、変更のあったソリッドの名前を一覧表示し、さらに変更前形状をプレビュー表示します。<br/>
+<img src="media/cmd_diff_geom_head1.png"/ width="194" height="158">&nbsp;<img src="media/cmd_diff_geom_head2.png" width="194" height="158"/>&nbsp;<img src="media/cmd_diff_geom_head3.png" width="194" height="158"/></p>
+
+<h3>操作方法</h3>
+<p>現在と過去の形状を比較したいソリッド要素を選択し、OKボタンをクリックします。</p>
+<ul>
+	<li>変更のあった要素
+	<li>あらたに作られた要素
+	<li>削除されてすでに存在しない要素
+</ul>	
+<p>の一覧がリストに表示されます。また、変更前および削除前の形状がプレビュー表示され、現在の形状と比較できます。</p>
+
+<h3>パラメータ</h3>
+<ul>
+	<li><strong>比較基準</strong><br/>
+	<img src="media/dlg_diff_geom_base_elements.png"/><br/>
+	<p>過去のモデルと形状を比較したい要素の選択方法を指定します。</p>
+            <ul>
+              <li>モデル全体
+                <p>
+                  モデルに含まれる全てのソリッドおよびコンポーネント要素を対象とします。
+                </p>
+              </li>
+              <li>表示要素内
+                <p>
+                  モデルに含まれるソリッドおよびコンポーネント要素のうち、表示がOnになっている要素を対象とします。
+                </p>
+              </li>
+              <li>選択要素内
+                <p>
+                  対象となるソリッドおよびコンポーネント要素を選択します。</p>
+                <p><img src="media/dlg_diff_geom_selection.png" /></p>
+              </li>
+              <li>要素グループ内<p>選択した<a href="about_element_group.html">要素グループ</a>に含まれる全てのソリッドおよびコンポーネント要素を対象とします。</p>
+                <p><img src="media/dlg_weld_length_group_select.png" /></p>
+              </li>
+            </ul>
+	</li>
+	<li><strong>比較対象</strong><br/>
+	<img src="media/dlg_diff_geom_old_state.png"/><br/>
+	<p>過去のどの時点と形状を比較するかを操作履歴のステップ数で指定します。入力欄の右側に表示される数字は、ファイルを開いてからの全履歴のステップ数です。「操作履歴の最初と比較」ボタンをクリックすると、ステップ数に最大値がセットされます。</p>
+	</li>
+</ul>
+
+<h3>比較結果</h3>
+<ul>
+	<li><strong>更新された要素</strong><br/>
+	<img src="media/dlg_diff_geom_modified_elements.png"/>
+	<p>形状が変更された要素の名前がリストに表示されます。チェックボックスで変更前形状のプレビュー表示のOn/Offを切り替えられます。また、要素名を右クリックして表示されるコンテキストメニューで要素をズーム表示できます。</p>
+	</li>
+	<li><strong>要素グループに追加</strong><br/>
+	<img src="media/dlg_diff_geom_add_to_group.png"/>
+	<p>更新された要素を指定した要素グループに追加できます。</p>
+	</li>
+	<li><strong>作成された要素</strong><br/>
+	<img src="media/dlg_diff_geom_created_elements.png"/>
+	<p>新しく作成された要素の名前がリストに表示されます。</p>
+	</li>
+	<li><strong>要素グループに追加</strong><br/>
+	<img src="media/dlg_diff_geom_add_to_group.png"/>
+	<p>作成された要素を指定した要素グループに追加できます。</p>
+	</li>
+	<li><strong>削除された要素</strong><br/>
+	<img src="media/dlg_diff_geom_deleted_elements.png"/><br/>
+	<p>削除された要素の名前がリストに表示されます。チェックボックスで削除前形状のプレビュー表示のOn/Offを切り替えられます。また、要素名を右クリックして表示されるコンテキストメニューで要素をズーム表示できます。</p>
+	</li>
+</div><!--contents-->
+</div><!--page-->
+</BODY></HTML>

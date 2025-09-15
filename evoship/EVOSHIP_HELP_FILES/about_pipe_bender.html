@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="Shift_JIS">
+<link href="basic.css" rel="stylesheet" type="text/css" />
+<title>パイプベンダー設定</title>
+</head>
+<body>
+<div class="page">
+<h2>パイプベンダー設定</h2>
+<div class="contents">
+<p><a href="cmd_pipe_spool_drawing.html">配管一品図</a>などのコマンドでは、パイプの曲げ加工についての情報を出力するため、パイプベンダー設定を用意する必要があります。</p>
+<h3>設定ファイル</h3>
+<p>設定は<a href="cmd_open_setting_file_folder.html">設定ファイルフォルダー</a>内のファイル「EvShipPipeBenderData.csv」で指定します。</p>
+<h3>設定内容</h3>
+<p>設定ファイルでは、曲げ加工対象の呼び径ごとに、下記の値を指定します。</p>
+<ul>
+  <li>端部形状ごとのつかみ代長さ（曲げ始め、曲げ終わり）</li>
+  <li>中間つかみ代長さ</li>
+  <li>曲げ伸びしろ</li>
+</ul>
+<p>設定ファイルの書式についてはファイル内のコメント行を参照してください。また曲げ伸びしろの指定につかう要素評価式の詳細については<a href="element_evaluation_expression.html">ヘルプの当該項目</a>を参照してください。</p>
+</div>
+</div>
+</body>
+</html>

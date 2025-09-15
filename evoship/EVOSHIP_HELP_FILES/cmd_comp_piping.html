@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>配管作成</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_comp_piping.png"/>&nbsp;配管作成</h2>
+      <div class="contents">
+        <p>
+	      コンポーネント間に配管を作成します。<br/>
+          <img src="media/comp_piping_ex.png" align="top"/>
+        </p>
+        <p class="information">
+          配管機能を利用するには、あらかじめパイプ接続位置が定義されたコンポーネントを作成する必要があります。
+        </p>
+        <h3>操作方法</h3>
+        <img src="media/comp_piping_op.png" align="top"/>
+        <ol>
+          <li>コンポーネントまたはパイプの接続点をピックします</li>
+          <li>マニピュレータが表示されるので、軸や平面をドラッグするとプレビューが表示されます</li>
+          <li>ビュー上をクリックすると現マニピュレータの位置からパイプを曲げることができます</li>
+          <li>OKボタンでパイプ形状およびエルボ形状が作成されます</li>
+        </ol>
+        <p class="information">
+          作成中に右クリックでコンテキストメニューを表示すると以下の操作が可能です。</br>
+        &nbsp;&nbsp;・ 一つ前の点選択クリア - 一つ前のパイプの曲げ位置をクリアします</br>
+        &nbsp;&nbsp;・ マニピュレータ設定 - マニピュレータ設定コマンドで任意の位置と軸方向を設定できます</br>
+        &nbsp;&nbsp;・ マニピュレータの軸をワーク座標系に設定 - マニピュレータの位置はそのままで軸方向をワーク座標系に設定します</br>
+        </p>
+        <h3>パラメータ</h3>
+        <ul>
+          <li><strong>パイプの直径</strong>
+            <p>
+              作成されるパイプの直径を入力します。
+            </p>
+          </li>
+          <li><strong>エルボの半径</strong>
+            <p>
+              パイプを繋ぐエルボの半径を入力します。
+            </p>
+          </li>
+        </ul>
+        <h3>自動拘束</h3>
+        <img src="media/comp_piping_auto_const.png" align="top"/>
+        <p>
+          配管作成の時に、軸方向や平面、エルボの角度により、自動でパイプに拘束を付加することが出来ます。<br/>
+          対象の拘束タイプは次の通りです。
+        </p>
+        <ul>
+          <li>X軸に平行</li>
+          <li>Y軸に平行</li>
+          <li>Z軸に平行</li>
+          <li>XY平面に平行</li>
+          <li>YZ平面に平行</li>
+          <li>ZX平面に平行</li>
+          <li>90°エルボ</li>
+          <li>45°エルボ</li>
+        </ul>
+        <p>
+          パイプの自動拘束のOn/Offは<a href="cmd_opt_doc_piping.html">配管オプション</a>で変更できます。
+        </p>
+        <p class="tip">拘束対象となるXYZの各軸や平面は、<a href="cmd_work_datum_cs.html">ワーク座標系</a>のものが参照されます。</p>
+        <h3>ティー継手</h3>
+        <img src="media/comp_piping_tee.png" align="top"/>
+        <p>
+          配管作成時に、パイプを選択するとパイプの途中へティー形状を挿入することができます。<br/>
+          また、エルボを選択した場合にも、エルボからティーへ変換されます。
+        </p>
+        <h3>ルート予測</h3>
+        <img src="media/comp_piping_route_wnd.png" align="top"/>
+        <p>
+          配管作成時に終点となる接続点をピックすると、終点までのルートを自動計算して、選択ウィンドウで候補が表示されます。<br/>
+          各番号にマウスカーソルを合わせるとプレビューが更新され、番号をクリックするとパイプ形状が作成されます。
+        </p>
+        <h3>パイプと配管セット</h3>
+        <p>
+          作成されたパイプは繋がっている単位で配管セットとして管理されます。<br/>
+          モデル構成ウィンドウでは、配管フォルダの中に配管セットが作成されます。<br/>
+          &nbsp;&nbsp;<img src="media/comp_piping_set.png" align="top"/><br/>
+          2つの配管セットを配管作成コマンドで接続すると、配管セットがマージされて一つになります。
+        </p>
+        <h3>パイプの利用</h3>
+        <p>
+          作成したパイプは以下のコマンドで利用することができます。
+        </p>
+        <ul>
+          <li>幾何情報表示コマンドで、パイプと他要素との距離計算やパイプの属性を表示</li>
+          <li>干渉チェックコマンドで、コンポーネントやボディ、他パイプとの干渉計算</li>
+          <li>パイプや配管セットの色変更</li>
+          <li>エクスポートでParasolid形式のソリッドとして出力</li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
+	  

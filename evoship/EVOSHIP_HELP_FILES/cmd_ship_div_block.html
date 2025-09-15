@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <script language="javascript" src="script/util.js"></script>
+    <title>ブロック分割</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_ship_div_block.png"/>&nbsp;ブロック分割</h2>
+      <div class="contents">
+	<p>
+	  指定した要素グループ配下のソリッドを再帰的に分割し、ブロック毎の要素グループを作成します。
+	</p>
+	<h3>操作方法</h3>
+	<p>
+	  パラメータを入力すると分割位置がプレビュー表示されます。分割位置の確認後、OKボタンで実行します。
+	  <img src="media/ship_div_block_ex.png"/>
+	</p>
+	<h3>パラメータ</h3>
+	<ul>
+	  <li><strong>分割対象</strong>
+	    <p>	      
+	      <img src="media/dlg_ship_div_block_target.png"/><br/>
+	      分割対象の要素グループを選択します。
+	    </p>
+	  </li>
+	  <li><strong>分割位置</strong>
+	    <p>
+	      <img src="media/dlg_ship_div_block_pos1.png"/><img src="media/dlg_ship_div_block_pos2.png"/>
+	    </p>
+	    <ul>
+	      <li>分割平面指定
+		<p>
+		  X,Y,Z軸上の平面で分割します。軸上の位置を指定します。<br/>		  
+		  <img src="media/play_movie.gif" alt="Play Movie" align="middle" onclick="popupAVI('media/edit_ship_div_pos.avi',this.offsetLeft,this.offsetTop,203,304)"/>操作方法
+		</p>
+	      </li>
+	      <li>分割要素指定
+		<p>
+		  <a href="about_datum.html#plane">平面</a>,<a href="about_body.html">シートボディ</a>を分割要素として複数選択できます。
+		</p>
+	      </li>
+	    </ul>
+	  </li>
+	</ul>
+      </div>
+    </div>
+  </body>
+</html>
+	  

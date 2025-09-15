@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<HTML lang="ja"><HEAD>
+<meta name="GENERATOR" content="HelpMachine 2.4.9">
+  <link href="basic.css" rel="stylesheet" type="text/css" />
+<TITLE>配管サポート集計</TITLE>
+</HEAD><BODY>
+<div class="page">
+  <h2>配管サポート集計</h2>
+  <div class="contents">
+    <p><a href="about_piping.html#support_piece">配管サポート一品</a>で使われている鋼材やUボルト、パッドについて、サイズ・材質ごとに以下の項目を集計してCSVファイルに出力します。</p>
+    <ol>
+      <li>分類（Structural Steel/Pad/U-Bolt/Solid/Component）</li>
+      <li>種別（例：等辺山形鋼、PAD B、A/B/C）</li>
+      <li>寸法（例：65X65X6L、115X115X8t、80A）</li>
+      <li>材質（ただしUボルトは材質設定不可のため空欄）</li>
+      <li>数量または長さ（mm）</li>
+      <li>重量（kgまたはkg/mm）
+      <li>総重量（kg）</li>
+    </ol>
+  <p class="information">Uボルト重量は既定の設定では未定義のためゼロとして出力されます。必要であれば<a href="about_piping.html#bolt"/>重量設定を追加</a>してください。</p>
+  <h3>操作方法</h3>
+  <p>集計対象の配管サポート一品を選択し、OKをクリックして出力先CSVファイル名を指定します。</p>
+  <h3>パラメータ</h3>
+  <h4>集計対象指定方法</h4>
+  <img src="media/dlg_pipe_support_piece_summary_sel_methods.png" />
+  <dl>
+    <dt>すべて</dt>
+    <dd>すべての配管サポート一品要素が対象となります。</dd>
+    <dt>一品を指定</dt>
+    <dd>「対象配管サポート一品」ダイアログボックスが表示されます。<p><img src="media/dlg_pipe_support_piece_dwg_targets.png" /></p>「選択」ボタンをクリックすると配管サポート一品選択ウィンドウが表示されるので、ツリーから一品要素を選択してください。<p><img src="media/dlg_pipe_support_piece_dwg_tree.png" /></p></dd>
+    <dt>要素グループ内</dt>
+    <dd>「要素グループ」ダイアログボックスが表示されます。<p><img src="media/dlg_weld_length_group_select.png" /></p>「選択」ボタンをクリックすると要素グループ選択ウィンドウが表示されるので、出力対象の配管サポート一品要素が含まれる要素グループをツリーから選択してください。</dd>
+  </dl>
+  <h4>オプション</h4>
+  <img src="media/dlg_pipe_support_piece_summary_options.png" />
+  <p>「ヘッダー行を出力」をチェックすると1行目に項目名が出力されます。不要であればチェックを外してください。</p>
+  </div>
+</div>
+</BODY></HTML>

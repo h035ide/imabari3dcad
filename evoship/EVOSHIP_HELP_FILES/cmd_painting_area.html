@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>塗装面積</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2>塗装面積</h2>
+      <div class="contents">
+        <p>ソリッドまたはシート要素間の溶接部を検出し、その面積を要素表面積合計から引いたものを、塗装面積として表示します。
+        </p>
+	    <h3>操作方法</h3>
+        <p>ソリッドまたはシート要素を選択してコマンドを実行すると、塗装面積（要素の表面積から要素間の溶接部面積を引いたもの）が表示されます。
+        要素ごとの塗装面積を表示したり、溶接部の外形をプレビュー表示したりすることもできます。
+        </p>
+        <h3>パラメータ</h3>
+        <ul>
+	      <li><strong>算出対象</strong>
+	        <p>	      
+              <img src="media/dlg_painting_area_target_select_type.png" />
+	        </p>
+            <p>塗装面積を算出する対象要素を選択します。シート要素については表裏両面を塗装するものとみなし、2倍の面積として計算されます。
+            </p>
+            <ul>
+              <li>モデル全体
+                <p>
+                  モデルに含まれる全てのソリッドおよびシート要素を対象とします。
+                </p>
+              </li>
+              <li>表示要素内
+                <p>
+                  モデルに含まれるソリッドおよびシート要素のうち、表示がOnになっている要素を対象とします。
+                </p>
+              </li>
+              <li>選択要素内
+                <p>
+                  対象となるソリッドおよびシート要素を選択します。</p>
+                <p><img src="media/dlg_weld_length_selection.png" /></p>
+              </li>
+              <li>要素グループ内<p>選択した要素グループに含まれる全てのソリッドおよびシート要素を対象とします。</p>
+                <p><img src="media/dlg_weld_length_group_select.png" /></p>
+              </li>
+            </ul>
+          </li>
+	      <li><strong>塗装面積の算出</strong>
+	        <p><img src="media/dlg_painting_area_exec.png" /></p>
+            <p>塗装面積を情報ウィンドウに表示します。</p>
+          </li>
+          <li><strong>溶接部形状</strong>
+            <p><img src="media/dlg_painting_area_preview_weld_faces.png" /></p>
+            <p>チェックした状態で塗装面積を算出すると、ドキュメントウィンドウ内に溶接部の輪郭線をプレビュー表示します。</p>
+            <p><img src="media/dlg_painting_area_ex1.png" /></p>
+          </li>
+          <li><strong>詳細出力</strong>
+            <p><img src="media/dlg_painting_area_detailed_output.png" /></p>
+            <p>チェックした状態で塗装面積を算出すると、合計の塗装面積だけでなく、要素ごとに</p>
+            <ul>
+              <li>要素名</li>
+              <li>塗装面積</li>
+              <li>非塗装面積（溶接部面積）</li>
+              <li>所属する要素グループ</li>
+            </ul>
+            <p>も情報ウィンドウに出力します。</p>
+          </li>
+	      <li><strong>溶接トレランス</strong>
+	        <p>	      
+	          <img src="media/dlg_weld_length_tolerance.png" />
+	        </p>
+            <p>モデル内で要素同士が離れていたり食い込んでいたりしても、フェイス間の距離が溶接トレランス値以下であれば溶接部分とみなされます。</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
+	  

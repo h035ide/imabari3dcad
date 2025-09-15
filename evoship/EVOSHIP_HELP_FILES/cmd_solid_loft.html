@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>ロフトフィーチャー</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_loft.png" alt="追加"/>&nbsp;<img src="media/cmd_loft_sub.png" alt="削除"/>&nbsp;<img src="media/cmd_loft_int.png" alt="積"/>&nbsp;ロフトフィーチャー</h2>
+      <div class="contents">
+	<p>
+	  形状の断面プロファイルをつないだソリッドを作成します。<br/>
+	  <img src="media/loft_ex1.png"/>&nbsp;<img src="media/loft_ex2.png"/>&nbsp;<img src="media/loft_ex3.png"/>
+	</p>
+	<h3>操作方法</h3>
+	<p>
+	  パラメータの入力が整うと作成形状が表示されます。形状の確認後、OKボタンで実行します。<br/>
+	</p>
+	<h3>パラメータ</h3>
+	<ul>
+	  <li><strong>プロファイル</strong>
+	    <p>
+	      <img src="media/dlg_profile_n.png"/><br/>
+	      カーブ(<a href="about_curve.html">カーブ</a>,エッジ、<a href="about_sketch.html">スケッチ</a>(全体、レイヤー、カーブ）),サーフェイス(フェイス,<a href="about_body.html">シートボディ</a>)をプロファイルとして選択できます。<br/>
+	      各プロファイルは閉じている必要があります。
+	      プロファイルの選択順に断面をつないでいきます。<br/>
+	      プロファイルの数に制限はありませんが、開いたロフトを作成する場合、最初と最後のプロファイルはサーフェイスもしくはスケッチである必要があります。<br/>
+	      １つの断面は１要素として選択されなければなりません。（複数の線で構成される断面を選択する場合はスケッチ、スケッチレイヤーを使用してグループとして選択してください。)
+	    </p>
+	  </li>
+	  <li><strong>ガイド</strong>
+	    <p>
+	      <img src="media/dlg_loft_guide.png"/><br/>
+	      断面間はなめらかに補完されますが断面間の形状をガイドとして選択することができます。断面間はガイドに沿って補完されます。<br/>
+	      ガイド線は各断面と交点をもつ必要があります。
+	      <img src="media/loft_no_guide.png"/>&nbsp;<img src="media/loft_guide.png"/><br/>
+	    </p>
+	  </li>
+	  <li><strong>整列</strong>
+	    <p>
+	      <img src="media/dlg_loft_align.png"/><br/>
+	      断面間のねじれはシステムによって最小になるように補完されますが、断面がねじれている場合など意図したように補完されない場合があります。<br/>
+	      ガイド線を与えることにより断面間の位置の対応がとれますが、ガイド線は対応をとるだけでなく形状にも影響を与えます。<br/>
+	      ガイド線を"整列"要素として与えると断面間の位置の対応だけを指示することができます。<br/>
+	      <img src="media/loft_no_align.png"/>&nbsp;<img src="media/loft_align.png"/><br/>
+	    </p>
+	  </li>
+	  <li><strong>接線（開始点、終了点)(オプション)</strong>
+	    <p>
+	      <img src="media/dlg_loft_tan1.png"/>&nbsp;<img src="media/dlg_loft_tan2.png"/><br/>
+	      ロフト形状の側面の接線方向を与えることができます。
+	    </p>
+	    <ul>
+	      <li>接続面指定
+		<p>
+		  G1もしくはG2に連続するフェイスを指定します。<br/>
+		  <img src="media/loft_no_tanface.png"/>&nbsp;<img src="media/loft_tanface.png"/>
+		</p>
+	      </li>
+	      <li>プロファイルに垂直
+		<p>
+		  スケッチをプロファイルに指定した際に利用できます。平面に滑らかに接するようになります。<br/>
+		  <img src="media/loft_no_tanprofile.png"/>&nbsp;<img src="media/loft_tanprofile.png"/>
+		</p>
+	      </li>
+	    </ul>
+	  </li>
+	  <li><strong>閉じる</strong>
+	    <p>
+	      <img src="media/dlg_loft_opt.png"/><br/>
+	      閉じたロフト形状を作成します。<br/>
+	      <img src="media/loft_no_close.png"/>&nbsp;<img src="media/loft_close.png"/>
+	    </p>
+	</ul>
+      </div>
+    </div>
+  </body>
+</html>
+	  

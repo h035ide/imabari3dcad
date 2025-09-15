@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>組み立てシミュレーション</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_ship_part_asm.png" />&nbsp;組み立てシミュレーション</h2>
+      <div class="contents">
+        <p>
+          部材を並べた状態から順番に組み上がっていく様子を表示します。
+	    </p>
+	    <h3>操作方法</h3>
+        <p>
+          <img src="media/dlg_ship_part_asm.png" />
+        </p>
+        <ol>
+	      <li><strong>部材の選択</strong>
+            <p>
+              選択ボタンを押すと要素グループの選択ダイアログが表示されます。そこで部材の小組単位の要素グループを複数一度に選択します。(ShitやCtrlキーを押しながら選択します。)
+            </p>
+            <p>
+              <img src="media/dlg_ship_part_sel_parts.png" />
+            </p>
+          </li>
+	      <li><strong>部材展開</strong>
+            <p>
+              実行ボタンを押すと以下のようにシミュレーションの準備を行います。グラフィックウィンドウが分割され、左側に選択された単位で部材が並べられます。部材はX軸を基準に並べられ、部材名を表示しています。
+            </p>
+            <p>
+              <img src="media/ship_part_asm_ready.png" />
+            </p>
+          </li>
+	      <li><strong>実行</strong>
+            <p>
+              スタートボタンでシミュレーションを実行します。グラフィックウィンドウの右側に部材が組み上がっていきます。組み付けられた部材は左側のウィンドウでは色がグレーアウトされます。
+            </p>
+            <p>
+              実行中でもウィンドウの通常の表示操作（回転、移動、フィットなど）は操作可能です。またいつでもキャンセルボタンでコマンドを終了させることができます。
+            </p>
+            <p>
+              <img src="media/ship_part_asm_started.png" />
+            </p>
+          </li>
+          <li><strong>自動実行しないで組み付け</strong>
+            <p>
+              部材のダイアログのチェックボックスのOn/Offで組み付けを指示することができます。チェックすると部材が組み付けられます。
+            </p>
+            <p>
+              <img src="media/dlg_ship_part_asm_started.png" />
+            </p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </body>
+</html>
+	  

@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=shift_jis" />
+    <link href="basic.css" rel="stylesheet" type="text/css" />
+    <title>スケッチインポート</title>
+  </head>
+  <body>
+    <div class="page">
+      <h2><img src="media/cmd_sketch_import.png"/>&nbsp;スケッチインポート</h2>
+      <div class="contents">
+	    <p>
+	      アクティブなスケッチ内に、別のドキュメントのスケッチ要素を読み込みます。
+	    </p>
+	    <h3>操作方法</h3>
+	    <p>
+          インポートするEvo.Shipモデルファイルを選択します。
+	    </p>
+        <p>
+          同名変数のマージオプションを選択し、OKボタンで要素を読み込みます。
+        </p>
+        <h3>パラメータ</h3>
+        <ul>
+          <li><strong>同名変数のマージ</strong>
+            <p>
+              <img src="media/dlg_import_var_opt.png"/>
+            </p>
+            <ul>
+              <li>既存の変数に置き換え
+                <p>ドキュメント内の変数の値で置き換えます。インポートされる形状が変わる可能性があります。</p>
+              </li>
+              <li>インポート元で上書き
+                <p>インポートするファイル内の変数の値で既存の変数を上書きします。既存の変数を使用している形状が変わる可能性があります。</p>
+              </li>
+              <li>新規変数としてインポート
+                <p>
+                  全て新しい変数としてインポートされます。
+                  変数名は「（変数名）_（数値）」となります。
+                </p>
+              </li>
+              <li>同じ値のみ置き換え
+                <p>
+                  同じ値の変数の場合、ドキュメント内の変数に置き換えられます。
+                  違う値の場合は新しい変数としてインポートされます。
+                  新しい変数の場合は、名前が「（変数名）_（数値）」となります。
+                </p>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
+	  
