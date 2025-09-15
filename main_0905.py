@@ -122,9 +122,9 @@ def run_llamaindex_vectorization(config: Config):
             print("  標準モデル設定:")
             print(f"    Temperature: {config.llm_temperature}")
 
-        # LlamaIndexの設定
-        Settings.llm = OpenAI(**config.llamaindex_llm_config)
-        Settings.embed_model = OpenAIEmbedding(
+        # LlamaIndexのモデルを初期化（グローバル設定を避ける）
+        llm = OpenAI(**config.llamaindex_llm_config)
+        embed_model = OpenAIEmbedding(
             **config.llamaindex_embedding_config
         )
 
@@ -144,10 +144,11 @@ def run_llamaindex_vectorization(config: Config):
             vector_store=vector_store
         )
 
-        # 既存のベクトルストアからインデックスを構築
+        # 既存のベクトルストアからインデックスを構築（embed_modelを明示的に指定）
         VectorStoreIndex.from_vector_store(
             vector_store,
-            storage_context=storage_context
+            storage_context=storage_context,
+            embed_model=embed_model
         )
 
         print("✅ LlamaIndexベクトル化完了")
@@ -194,8 +195,8 @@ def run_qa_system(config: Config):
 
         # 呼び出し元から受け取った Config を使用
 
-        # LlamaIndexの設定
-        Settings.llm = OpenAI(**config.llamaindex_llm_config)
+        # LlamaIndexのLLMを初期化（グローバル設定を避ける）
+        llm = OpenAI(**config.llamaindex_llm_config)
 
         # ユーザーに質問を入力してもらう
         print("\nLlamaIndex統合QAシステム")

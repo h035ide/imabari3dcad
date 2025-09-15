@@ -3,13 +3,10 @@ from pathlib import Path
 import logging
 from typing import Optional
 from neo4j import GraphDatabase
-from langchain_openai import OpenAIEmbeddings
-from langchain_chroma import Chroma
 import chromadb
-
-# LlamaIndex imports
+import numpy as np
+from dotenv import load_dotenv
 from llama_index.core import (
-    Settings,
     VectorStoreIndex,
     StorageContext,
 )
@@ -18,6 +15,9 @@ from llama_index.llms.openai import OpenAI
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.graph_stores.neo4j import Neo4jPropertyGraphStore
 from llama_index.core.indices.property_graph import PropertyGraphIndex
+
+# .envファイルを明示的にロード
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 
@@ -29,9 +29,7 @@ class Config:
         self.project_root = Path(__file__).parent
 
         # Neo4j設定（環境変数から読み込み）
-        self.neo4j_uri = self._normalize_neo4j_uri(
-            os.getenv("NEO4J_URI", "bolt://127.0.0.1:7687")
-        )
+        self.neo4j_uri = self._normalize_neo4j_uri(os.getenv("NEO4J_URI", "bolt://127.0.0.1:7687"))
         self.neo4j_user = os.getenv("NEO4J_USER", "neo4j")
         self.neo4j_password = os.getenv("NEO4J_PASSWORD", "password")
         self.neo4j_database = os.getenv("NEO4J_DATABASE", "neo4j")
@@ -76,8 +74,8 @@ class Config:
 
     def setup_llm_config(self):
         """LLM設定"""
-        # 基本設定
-        self.llm_model = "gpt-5-mini"
+        # 基本設定（環境変数で上書き可能）
+        self.llm_model = os.getenv("LLM_MODEL", "gpt-5-mini")
         self.response_format = "text"  # "json_object"
         # only for standard models
         self.llm_temperature = 0  # or None
@@ -143,9 +141,9 @@ class Config:
 
     def setup_embedding_config(self):
         """埋め込みモデル設定"""
-        # 基本設定
-        self.embedding_model = "text-embedding-3-small"
-        self.embedding_batch_size = 100
+        # 基本設定（環境変数で上書き可能）
+        self.embedding_model = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
+        self.embedding_batch_size = int(os.getenv("EMBEDDING_BATCH_SIZE", "100"))
 
         # LangChain用設定
         self.langchain_embedding_config = {
@@ -198,10 +196,8 @@ def fetch_data_from_neo4j(
 
     logger.info(f"Neo4jデータベース ({config.neo4j_uri}) に接続しています...")
     try:
-        with GraphDatabase.driver(
-            config.neo4j_uri, auth=(config.neo4j_user, config.neo4j_password)
-        ) as driver:
-            database = db_name or os.getenv("NEO4J_DATABASE", "codeparsar")
+        with GraphDatabase.driver(config.neo4j_uri, auth=(config.neo4j_user, config.neo4j_password)) as driver:
+            database = db_name or config.neo4j_database
             with driver.session(database=database) as session:
                 if allow_missing_description:
                     query = f"""
@@ -223,9 +219,7 @@ def fetch_data_from_neo4j(
                 logger.info(f"{len(records)}件の{label}ノードを取得しました。")
                 return records
     except Exception as e:
-        logger.error(
-            f"Neo4jからのデータ取得中にエラーが発生しました: {e}", exc_info=True
-        )
+        logger.error(f"Neo4jからのデータ取得中にエラーが発生しました: {e}", exc_info=True)
         return []
 
 
@@ -235,16 +229,14 @@ def ingest_data_to_chroma(
     persist_dir: Optional[str] = None,
     config: Optional[Config] = None,
 ):
-    """取得したデータをChromaDBに格納します。"""
+    """取得したデータをChromaDBに格納します。upsert対応で重複IDを適切に処理します。"""
     if not records:
         logger.warning("格納するデータがありません。処理をスキップします。")
         return
 
     # デフォルト値を設定
     if collection_name is None:
-        collection_name = (
-            config.chroma_collection_name if config else "api_documentation"
-        )
+        collection_name = config.chroma_collection_name if config else "api_documentation"
     if persist_dir is None:
         persist_dir = config.chroma_persist_directory if config else "chroma_db_store"
     if config is None:
@@ -263,9 +255,7 @@ def ingest_data_to_chroma(
         documents.append(doc_content)
 
         # メタデータには、後でグラフを再検索するために必要な情報を格納
-        metadatas.append(
-            {"api_name": record["name"], "neo4j_node_id": record["node_id"]}
-        )
+        metadatas.append({"api_name": record["name"], "neo4j_node_id": record["node_id"]})
 
         # ChromaDB内でユニークなIDとして、Neo4jのノードIDを使用
         ids.append(record["node_id"])
@@ -280,33 +270,30 @@ def ingest_data_to_chroma(
         if api_key is None:
             logger.error("OpenAI APIキーが設定されていません。")
             return
-        # LangChain側の埋め込みも config のモデルに統一
-        embedding_function = OpenAIEmbeddings(
-            **config.langchain_embedding_config
-        )  # type: ignore
+        # OpenAI埋め込みモデルを使って埋め込みを生成（設定されたmodel/batch_sizeを反映）
+        embed_model = OpenAIEmbedding(**config.llamaindex_embedding_config)
+        embeddings = embed_model.get_text_embedding_batch(documents)
+        # Chroma の型要件に合わせて明示的に List[List[float]] に正規化
+        embeddings_for_chroma = [list(map(float, vec)) for vec in embeddings]
+        embeddings_np = np.asarray(embeddings_for_chroma, dtype=np.float32)
+        # chromadb クライアント直利用でupsert対応
+        client = chromadb.PersistentClient(path=persist_dir)
+        chroma_collection = client.get_or_create_collection(collection_name)
 
-        # ChromaDBのクライアントを初期化（または既存のものを読み込み）
-        vector_store = Chroma(
-            collection_name=collection_name,
-            embedding_function=embedding_function,
-            persist_directory=persist_dir,
+        # upsertでデータを追加/更新（ID重複を適切に処理）
+        chroma_collection.upsert(
+            ids=ids,
+            documents=documents,
+            metadatas=metadatas,
+            embeddings=embeddings_np,  # OpenAI埋め込みを明示的に渡す
         )
 
-        # データを追加（既存のIDがあれば更新される）
-        vector_store.add_texts(texts=documents, metadatas=metadatas, ids=ids)
-
-        # Chroma 0.4.x以降では自動永続化のためpersist()は不要
-        # vector_store.persist()  # 削除
-
         logger.info("ChromaDBへのデータ格納が正常に完了しました。")
-        # コレクション内のドキュメント数を取得（公開APIを使用）
+
+        # コレクション内のドキュメント数を取得（chromadb正式APIを使用）
         try:
-            collection = vector_store.get()
-            doc_count = len(collection["documents"]) if collection["documents"] else 0
-            logger.info(
-                f"コレクション '{collection_name}' には現在 "
-                f"{doc_count} 件のドキュメントがあります。"
-            )
+            doc_count = chroma_collection.count()
+            logger.info(f"コレクション '{collection_name}' には現在 {doc_count} 件のドキュメントがあります。")
         except Exception as e:
             logger.warning(f"ドキュメント数の取得に失敗しました: {e}")
             logger.info("ChromaDBへのデータ格納が完了しました。")
@@ -328,22 +315,14 @@ def build_vector_engine(
     既存のChromaDB永続化データからLlamaIndexのVectorQueryEngineを構築します。
     """
     if not os.path.exists(persist_dir) or not os.listdir(persist_dir):
-        logger.error(
-            f"ChromaDBの永続化ディレクトリが見つからないか空です: {persist_dir}"
-        )
-        raise FileNotFoundError(
-            "ChromaDBのデータベースが見つかりません。先にデータ格納スクリプトを実行してください。"
-        )
+        logger.error(f"ChromaDBの永続化ディレクトリが見つからないか空です: {persist_dir}")
+        raise FileNotFoundError("ChromaDBのデータベースが見つかりません。先にデータ格納スクリプトを実行してください。")
 
-    logger.info(
-        (
-            f"既存のChromaDBコレクション '{collection}' から"
-            "VectorQueryEngineを構築しています..."
-        )
-    )
+    logger.info((f"既存のChromaDBコレクション '{collection}' からVectorQueryEngineを構築しています..."))
 
-    # OpenAIの埋め込みモデルをLlamaIndexのSettingsに設定
-    Settings.embed_model = OpenAIEmbedding(**config.llamaindex_embedding_config)
+    # OpenAIのLLMと埋め込みモデルを初期化（グローバル設定を避ける）
+    llm = OpenAI(**config.llamaindex_llm_config)
+    embed_model = OpenAIEmbedding(**config.llamaindex_embedding_config)
 
     client = chromadb.PersistentClient(path=persist_dir)
     chroma_collection = client.get_or_create_collection(collection)
@@ -351,14 +330,15 @@ def build_vector_engine(
     vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
     storage_context = StorageContext.from_defaults(vector_store=vector_store)
 
-    # 既存のベクトルストアからインデックスを構築
+    # 既存のベクトルストアからインデックスを構築（embed_modelを明示的に指定）
     v_index = VectorStoreIndex.from_vector_store(
         vector_store,
         storage_context=storage_context,
+        embed_model=embed_model,
     )
 
     logger.info("VectorQueryEngineの構築が完了しました。")
-    return v_index.as_query_engine(similarity_top_k=similarity_top_k)
+    return v_index.as_query_engine(llm=llm, similarity_top_k=similarity_top_k)
 
 
 def build_graph_engine(config: Config):
@@ -373,33 +353,18 @@ def build_graph_engine(config: Config):
 
     if not all([uri, user, password, db_name]):
         logger.error("Neo4j接続情報が config から取得できません。")
-        raise ValueError(
-            (
-                "config に neo4j_uri, neo4j_user, neo4j_password, "
-                "neo4j_database が設定されていません。"
-            )
-        )
+        raise ValueError(("config に neo4j_uri, neo4j_user, neo4j_password, neo4j_database が設定されていません。"))
 
-    logger.info(
-        (
-            f"既存のNeo4jグラフ '{db_name}' から"
-            "PropertyGraphQueryEngineを構築しています..."
-        )
-    )
+    logger.info((f"既存のNeo4jグラフ '{db_name}' からPropertyGraphQueryEngineを構築しています..."))
 
-    # OpenAIのLLMと埋め込みモデルをLlamaIndexのSettingsに設定（configから）
-    Settings.llm = OpenAI(**config.llamaindex_llm_config)
-    Settings.embed_model = OpenAIEmbedding(**config.llamaindex_embedding_config)
+    # OpenAIのLLMと埋め込みモデルを初期化（グローバル設定を避ける）
+    llm = OpenAI(**config.llamaindex_llm_config)
+    embed_model = OpenAIEmbedding(**config.llamaindex_embedding_config)
 
     try:
         # 標準的なNeo4jPropertyGraphStoreを使用（APOCプラグインが必要）
         # ここでは環境変数の存在を既に検証済みだが、型シグネチャが str を要求するためキャスト
-        assert (
-            user is not None
-            and password is not None
-            and uri is not None
-            and db_name is not None
-        )
+        assert user is not None and password is not None and uri is not None and db_name is not None
         graph_store = Neo4jPropertyGraphStore(
             username=str(user),
             password=str(password),
@@ -407,13 +372,15 @@ def build_graph_engine(config: Config):
             database=str(db_name),
         )
 
-        # 既存のグラフ構造からインデックスをロード
+        # 既存のグラフ構造からインデックスをロード（llmとembed_modelを明示的に指定）
         g_index = PropertyGraphIndex.from_existing(
             property_graph_store=graph_store,
+            llm=llm,
+            embed_model=embed_model,
         )
 
         logger.info("PropertyGraphQueryEngineの構築が完了しました。")
-        return g_index.as_query_engine()
+        return g_index.as_query_engine(llm=llm)
 
     except Exception as e:
         logger.error(f"Neo4jグラフエンジンの構築に失敗しました: {e}")
