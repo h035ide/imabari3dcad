@@ -268,8 +268,8 @@ def run_qa_system(config: Config):
                             database=config.neo4j_database
                         ) as session:
                             cypher = (
-                                "MATCH (n) "
-                                "WHERE (n:Function OR n:Method) AND toLower(n.name) CONTAINS toLower($kw) "
+                                "MATCH (n:Function) "
+                                "WHERE toLower(n.name) CONTAINS toLower($kw) "
                                 "RETURN n.name AS name, "
                                 "n.description AS description "
                                 "LIMIT 5"

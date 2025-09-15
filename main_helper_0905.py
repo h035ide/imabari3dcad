@@ -80,7 +80,7 @@ class Config:
         self.llm_model = "gpt-5-mini"
         self.response_format = "text"  # "json_object"
         # only for standard models
-        self.llm_temperature = 0.1  # or None
+        self.llm_temperature = 0  # or None
         # only for inference models
         self.llm_verbosity = "high"  # "none" or "low" or "medium" or "high"
         # "none" or "minimal" or "low" or "medium" or "high"
