@@ -81,7 +81,7 @@ class Config:
     def setup_llm_config(self):
         """LLM設定"""
         # 基本設定（環境変数で上書き可能）
-        self.llm_model = os.getenv("LLM_MODEL", "gpt-4o-mini")
+        self.llm_model = os.getenv("LLM_MODEL", "gpt-5-mini")
         self.response_format = "text"  # "json_object"
         # only for standard models
         self.llm_temperature = 0  # or None
@@ -98,7 +98,7 @@ class Config:
 
     def _is_inference_model(self):
         """推論モデルかどうかを判定"""
-        inference_models = ["o1-mini", "o1", "o1-preview"]
+        inference_models = ["o1-mini", "o1", "o1-preview", "gpt-5", "gpt-5-mini", "gpt-5-nano"]
         return any(model in self.llm_model.lower() for model in inference_models)
 
     def _build_llm_configs(self):
