@@ -100,10 +100,9 @@ def run_vectorization(config: Config):
 def run_llamaindex_vectorization(config: Config):
     """LlamaIndexを使用した高度なベクトル化"""
     try:
-        from llama_index.core import VectorStoreIndex, StorageContext, Settings
+        from llama_index.core import VectorStoreIndex, StorageContext
         from llama_index.vector_stores.chroma import ChromaVectorStore
         from llama_index.embeddings.openai import OpenAIEmbedding
-        from llama_index.llms.openai import OpenAI
         import chromadb
 
         # 呼び出し元から受け取った Config を使用
@@ -122,8 +121,7 @@ def run_llamaindex_vectorization(config: Config):
             print("  標準モデル設定:")
             print(f"    Temperature: {config.llm_temperature}")
 
-        # LlamaIndexのモデルを初期化（グローバル設定を避ける）
-        llm = OpenAI(**config.llamaindex_llm_config)
+        # LlamaIndexの埋め込みモデルを初期化（グローバル設定を避ける）
         embed_model = OpenAIEmbedding(
             **config.llamaindex_embedding_config
         )
@@ -190,13 +188,10 @@ def run_qa_system(config: Config):
         from main_helper_0905 import (
             build_vector_engine, build_graph_engine
         )
-        from llama_index.core import Settings
-        from llama_index.llms.openai import OpenAI
 
         # 呼び出し元から受け取った Config を使用
 
-        # LlamaIndexのLLMを初期化（グローバル設定を避ける）
-        llm = OpenAI(**config.llamaindex_llm_config)
+        # 各エンジン内で LLM は明示的に設定されます（config 経由）
 
         # ユーザーに質問を入力してもらう
         print("\nLlamaIndex統合QAシステム")
