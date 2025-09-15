@@ -3,7 +3,6 @@ from pathlib import Path
 import logging
 from typing import Optional
 from neo4j import GraphDatabase
-from langchain_openai import OpenAIEmbeddings
 import chromadb
 from dotenv import load_dotenv
 from llama_index.core import (
@@ -280,22 +279,12 @@ def ingest_data_to_chroma(
         if api_key is None:
             logger.error("OpenAI APIキーが設定されていません。")
             return
-        
-        # LangChain側の埋め込みも config のモデルに統一
-        embedding_function = OpenAIEmbeddings(
-            **config.langchain_embedding_config
-        )  # type: ignore
-
         # chromadb クライアント直利用でupsert対応
         client = chromadb.PersistentClient(path=persist_dir)
         chroma_collection = client.get_or_create_collection(collection_name)
 
-        # 埋め込みベクトルを生成
-        logger.info("埋め込みベクトルを生成中...")
-        embeddings = embedding_function.embed_documents(documents)
-
         # upsertでデータを追加/更新（ID重複を適切に処理）
-        # embeddings を None にして chromadb に自動計算させる
+        # chromadbが自動で埋め込みを計算
         chroma_collection.upsert(
             ids=ids,
             documents=documents,
