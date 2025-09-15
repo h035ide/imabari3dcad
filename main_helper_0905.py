@@ -32,7 +32,7 @@ class Config:
         self.neo4j_uri = self._normalize_neo4j_uri(os.getenv("NEO4J_URI", "bolt://127.0.0.1:7687"))
         self.neo4j_user = os.getenv("NEO4J_USER", "neo4j")
         self.neo4j_password = os.getenv("NEO4J_PASSWORD", "password")
-        self.neo4j_database = os.getenv("NEO4J_DATABASE", "neo4j")
+        self.neo4j_database = os.getenv("NEO4J_DATABASE", "docparser")
 
         # OpenAI設定（環境変数から読み込み）
         self.openai_api_key = os.getenv("OPENAI_API_KEY")
@@ -380,7 +380,30 @@ def build_graph_engine(config: Config):
         )
 
         logger.info("PropertyGraphQueryEngineの構築が完了しました。")
-        return g_index.as_query_engine(llm=llm)
+        # スキーマ情報を明示的に提供してクエリエンジンを構築
+        query_engine = g_index.as_query_engine(llm=llm)
+
+        # デバッグ用: グラフストアから直接サンプルデータを取得
+        try:
+            with graph_store._driver.session(database=str(db_name)) as session:
+                result = session.run(
+                    "MATCH (n:Function) RETURN n.name AS name, n.description AS description, "
+                    "n.parameters AS parameters, n.return_value AS return_value LIMIT 5"
+                )
+                sample_data = list(result)
+                logger.info(f"サンプルFunctionノード（詳細）: {sample_data}")
+
+                # スキーマ情報も取得
+                schema_result = session.run(
+                    "CALL db.schema.nodeTypeProperties() YIELD nodeType, propertyName, propertyTypes "
+                    "RETURN nodeType, collect(propertyName) as properties"
+                )
+                schema_data = list(schema_result)
+                logger.info(f"グラフスキーマ: {schema_data}")
+        except Exception as e:
+            logger.warning(f"サンプルデータ取得に失敗: {e}")
+
+        return query_engine
 
     except Exception as e:
         logger.error(f"Neo4jグラフエンジンの構築に失敗しました: {e}")
