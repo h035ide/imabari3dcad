@@ -28,9 +28,7 @@ class Config:
         self.project_root = Path(__file__).parent
 
         # Neo4j設定（環境変数から読み込み）
-        self.neo4j_uri = self._normalize_neo4j_uri(
-            os.getenv("NEO4J_URI", "bolt://127.0.0.1:7687")
-        )
+        self.neo4j_uri = self._normalize_neo4j_uri(os.getenv("NEO4J_URI", "bolt://127.0.0.1:7687"))
         self.neo4j_user = os.getenv("NEO4J_USER", "neo4j")
         self.neo4j_password = os.getenv("NEO4J_PASSWORD", "password")
         self.neo4j_database = os.getenv("NEO4J_DATABASE", "neo4j")
@@ -197,9 +195,7 @@ def fetch_data_from_neo4j(
 
     logger.info(f"Neo4jデータベース ({config.neo4j_uri}) に接続しています...")
     try:
-        with GraphDatabase.driver(
-            config.neo4j_uri, auth=(config.neo4j_user, config.neo4j_password)
-        ) as driver:
+        with GraphDatabase.driver(config.neo4j_uri, auth=(config.neo4j_user, config.neo4j_password)) as driver:
             database = db_name or config.neo4j_database
             with driver.session(database=database) as session:
                 if allow_missing_description:
@@ -222,9 +218,7 @@ def fetch_data_from_neo4j(
                 logger.info(f"{len(records)}件の{label}ノードを取得しました。")
                 return records
     except Exception as e:
-        logger.error(
-            f"Neo4jからのデータ取得中にエラーが発生しました: {e}", exc_info=True
-        )
+        logger.error(f"Neo4jからのデータ取得中にエラーが発生しました: {e}", exc_info=True)
         return []
 
 
@@ -241,9 +235,7 @@ def ingest_data_to_chroma(
 
     # デフォルト値を設定
     if collection_name is None:
-        collection_name = (
-            config.chroma_collection_name if config else "api_documentation"
-        )
+        collection_name = config.chroma_collection_name if config else "api_documentation"
     if persist_dir is None:
         persist_dir = config.chroma_persist_directory if config else "chroma_db_store"
     if config is None:
@@ -262,9 +254,7 @@ def ingest_data_to_chroma(
         documents.append(doc_content)
 
         # メタデータには、後でグラフを再検索するために必要な情報を格納
-        metadatas.append(
-            {"api_name": record["name"], "neo4j_node_id": record["node_id"]}
-        )
+        metadatas.append({"api_name": record["name"], "neo4j_node_id": record["node_id"]})
 
         # ChromaDB内でユニークなIDとして、Neo4jのノードIDを使用
         ids.append(record["node_id"])
@@ -289,7 +279,7 @@ def ingest_data_to_chroma(
             ids=ids,
             documents=documents,
             metadatas=metadatas,
-            embeddings=None  # chromadbが自動で埋め込みを計算
+            embeddings=None,  # chromadbが自動で埋め込みを計算
         )
 
         logger.info("ChromaDBへのデータ格納が正常に完了しました。")
@@ -297,10 +287,7 @@ def ingest_data_to_chroma(
         # コレクション内のドキュメント数を取得（chromadb正式APIを使用）
         try:
             doc_count = chroma_collection.count()
-            logger.info(
-                f"コレクション '{collection_name}' には現在 "
-                f"{doc_count} 件のドキュメントがあります。"
-            )
+            logger.info(f"コレクション '{collection_name}' には現在 {doc_count} 件のドキュメントがあります。")
         except Exception as e:
             logger.warning(f"ドキュメント数の取得に失敗しました: {e}")
             logger.info("ChromaDBへのデータ格納が完了しました。")
@@ -322,19 +309,10 @@ def build_vector_engine(
     既存のChromaDB永続化データからLlamaIndexのVectorQueryEngineを構築します。
     """
     if not os.path.exists(persist_dir) or not os.listdir(persist_dir):
-        logger.error(
-            f"ChromaDBの永続化ディレクトリが見つからないか空です: {persist_dir}"
-        )
-        raise FileNotFoundError(
-            "ChromaDBのデータベースが見つかりません。先にデータ格納スクリプトを実行してください。"
-        )
+        logger.error(f"ChromaDBの永続化ディレクトリが見つからないか空です: {persist_dir}")
+        raise FileNotFoundError("ChromaDBのデータベースが見つかりません。先にデータ格納スクリプトを実行してください。")
 
-    logger.info(
-        (
-            f"既存のChromaDBコレクション '{collection}' から"
-            "VectorQueryEngineを構築しています..."
-        )
-    )
+    logger.info((f"既存のChromaDBコレクション '{collection}' からVectorQueryEngineを構築しています..."))
 
     # OpenAIの埋め込みモデルを初期化（グローバル設定を避ける）
     embed_model = OpenAIEmbedding(**config.llamaindex_embedding_config)
@@ -368,19 +346,9 @@ def build_graph_engine(config: Config):
 
     if not all([uri, user, password, db_name]):
         logger.error("Neo4j接続情報が config から取得できません。")
-        raise ValueError(
-            (
-                "config に neo4j_uri, neo4j_user, neo4j_password, "
-                "neo4j_database が設定されていません。"
-            )
-        )
+        raise ValueError(("config に neo4j_uri, neo4j_user, neo4j_password, neo4j_database が設定されていません。"))
 
-    logger.info(
-        (
-            f"既存のNeo4jグラフ '{db_name}' から"
-            "PropertyGraphQueryEngineを構築しています..."
-        )
-    )
+    logger.info((f"既存のNeo4jグラフ '{db_name}' からPropertyGraphQueryEngineを構築しています..."))
 
     # OpenAIのLLMと埋め込みモデルを初期化（グローバル設定を避ける）
     llm = OpenAI(**config.llamaindex_llm_config)
@@ -389,12 +357,7 @@ def build_graph_engine(config: Config):
     try:
         # 標準的なNeo4jPropertyGraphStoreを使用（APOCプラグインが必要）
         # ここでは環境変数の存在を既に検証済みだが、型シグネチャが str を要求するためキャスト
-        assert (
-            user is not None
-            and password is not None
-            and uri is not None
-            and db_name is not None
-        )
+        assert user is not None and password is not None and uri is not None and db_name is not None
         graph_store = Neo4jPropertyGraphStore(
             username=str(user),
             password=str(password),
