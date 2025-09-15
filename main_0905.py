@@ -1,4 +1,6 @@
 import sys
+import os
+import logging
 import argparse
 from pathlib import Path
 from dotenv import load_dotenv
@@ -15,6 +17,14 @@ if str(project_root) not in sys.path:
 
 # 環境変数を読み込み
 load_dotenv()
+
+# ロギング設定: LOG_LEVEL 環境変数で調整（未設定は INFO）
+_log_level_name = os.getenv("LOG_LEVEL", "INFO").upper()
+_log_level = getattr(logging, _log_level_name, logging.INFO)
+logging.basicConfig(
+    level=_log_level,
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+)
 
 
 def run_nollm_doc(config: Config):
@@ -247,7 +257,30 @@ def run_qa_system(config: Config):
 
         if graph_engine:
             print("  → グラフ検索を実行中...")
-            graph_response = graph_engine.query(question)
+            # グラフ検索用のプロンプトを具体化（Parameter/Type 関連を辿る）
+            graph_question = f"""
+            Execute this Cypher to get a function and its parameters/return type:
+            MATCH (f:Function)
+            WHERE toLower(f.name) CONTAINS toLower('{vec_kw}')
+            OPTIONAL MATCH (f)-[:HAS_PARAMETER]->(p1:Parameter)
+            WITH f, collect(p1) AS p_direct
+            OPTIONAL MATCH (p2:Parameter)
+            WHERE toLower(p2.parent_function) CONTAINS toLower('{vec_kw}')
+            WITH f, p_direct + collect(p2) AS params
+            OPTIONAL MATCH (f)-[:RETURNS]->(rt:Type)
+            RETURN f.name AS name,
+                   f.description AS description,
+                   [p IN params WHERE p IS NOT NULL |
+                    {{name:p.name, description:p.description, required:p.is_required}}] AS parameters,
+                   coalesce(rt.name, null) AS return_value
+            LIMIT 5
+
+            Then summarize the results in Japanese, focusing on:
+            - Function name and description
+            - Parameters (引数) with types and descriptions
+            - Return value (戻り値) with type and description
+            """
+            graph_response = graph_engine.query(graph_question)
 
             # フォールバック: グラフ応答が空の場合はNeo4jを直接検索
             if not graph_response or str(graph_response).strip() in (
@@ -264,10 +297,15 @@ def run_qa_system(config: Config):
                             database=config.neo4j_database
                         ) as session:
                             cypher = (
-                                "MATCH (n:Function) "
-                                "WHERE toLower(n.name) CONTAINS toLower($kw) "
-                                "RETURN n.name AS name, "
-                                "n.description AS description "
+                                "MATCH (f:Function) "
+                                "WHERE toLower(f.name) CONTAINS toLower($kw) "
+                                "OPTIONAL MATCH (f)-[:HAS_PARAMETER]->(p1:Parameter) "
+                                "WITH f, collect(p1) AS p_direct "
+                                "OPTIONAL MATCH (p2:Parameter) WHERE toLower(p2.parent_function) CONTAINS toLower($kw) "
+                                "WITH f, p_direct + collect(p2) AS params "
+                                "OPTIONAL MATCH (f)-[:RETURNS]->(rt:Type) "
+                                "RETURN f.name AS name, f.description AS description, "
+                                "params AS parameters, rt.name AS return_value "
                                 "LIMIT 5"
                             )
                             # 質問文から関数名らしきキーワードを抽出
@@ -288,7 +326,33 @@ def run_qa_system(config: Config):
                                 for r in rows:
                                     nm = r.get("name")
                                     desc = r.get("description") or ""
-                                    parts.append(f"{nm}:\n{desc}")
+                                    params = r.get("parameters") or []
+                                    retv = r.get("return_value")
+
+                                    def _fmt_param(p):
+                                        if isinstance(p, dict):
+                                            n = p.get("name")
+                                            d = p.get("description")
+                                            req = p.get("is_required") or p.get("required")
+                                            return f"- {n}: {d} (required={req})"
+                                        n = getattr(p, "name", None)
+                                        d = getattr(p, "description", None)
+                                        req = getattr(p, "is_required", None)
+                                        return f"- {n}: {d} (required={req})"
+
+                                    param_lines = []
+                                    try:
+                                        for p in params:
+                                            param_lines.append(_fmt_param(p))
+                                    except Exception:
+                                        param_lines = [str(params)]
+
+                                    section = [f"{nm}:", desc]
+                                    if param_lines:
+                                        section.append("parameters:\n" + "\n".join(param_lines))
+                                    if retv:
+                                        section.append(f"return_value: {retv}")
+                                    parts.append("\n".join(section))
                                 graph_response = "\n\n".join(parts)
                             else:
                                 graph_response = ""
@@ -298,29 +362,30 @@ def run_qa_system(config: Config):
 
             # ハイブリッド回答の統合
             print("  → ハイブリッド回答を生成中...")
-            combined_question = textwrap.dedent(
-                f"""
-                以下の2つの検索結果を統合して、ユーザーの質問に包括的に回答してください。
+            # combined_question = textwrap.dedent(
+            #     f"""
+            #     以下の2つの検索結果を統合して、ユーザーの質問に包括的に回答してください。
 
-                【ベクトル検索結果】
-                {vector_response}
+            #     【ベクトル検索結果】
+            #     {vector_response}
 
-                【グラフ検索結果】
-                {graph_response}
+            #     【グラフ検索結果】
+            #     {graph_response}
 
-                【ユーザーの質問】
-                {question}
+            #     【ユーザーの質問】
+            #     {question}
 
-                回答のガイドライン:
-                - 両方の検索結果の情報を統合
-                - 具体的なAPI関数名とその使用方法を明記
-                - パラメータの詳細と戻り値について説明
-                - 実用的なコード例があれば提供
-                - 不明な点は正直に「不明」と回答
-                - 日本語で回答
-                """
-            ).strip()
-            final_response = vector_engine.query(combined_question)
+            #     回答のガイドライン:
+            #     - 両方の検索結果の情報を統合
+            #     - 具体的なAPI関数名とその使用方法を明記
+            #     - パラメータの詳細と戻り値について説明
+            #     - 実用的なコード例があれば提供
+            #     - 不明な点は正直に「不明」と回答
+            #     - 日本語で回答
+            #     """
+            # ).strip()
+            # final_response = vector_engine.query(combined_question)
+            final_response = ""
         else:
             graph_response = None
             final_response = vector_response
