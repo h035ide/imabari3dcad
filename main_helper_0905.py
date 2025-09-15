@@ -4,16 +4,9 @@ import logging
 from typing import Optional
 from neo4j import GraphDatabase
 from langchain_openai import OpenAIEmbeddings
-from langchain_chroma import Chroma
 import chromadb
 from dotenv import load_dotenv
-
-# .envファイルを明示的にロード
-load_dotenv()
-
-# LlamaIndex imports
 from llama_index.core import (
-    Settings,
     VectorStoreIndex,
     StorageContext,
 )
@@ -22,6 +15,9 @@ from llama_index.llms.openai import OpenAI
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.graph_stores.neo4j import Neo4jPropertyGraphStore
 from llama_index.core.indices.property_graph import PropertyGraphIndex
+
+# .envファイルを明示的にロード
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 
@@ -293,21 +289,22 @@ def ingest_data_to_chroma(
         # chromadb クライアント直利用でupsert対応
         client = chromadb.PersistentClient(path=persist_dir)
         chroma_collection = client.get_or_create_collection(collection_name)
-        
+
         # 埋め込みベクトルを生成
         logger.info("埋め込みベクトルを生成中...")
         embeddings = embedding_function.embed_documents(documents)
-        
+
         # upsertでデータを追加/更新（ID重複を適切に処理）
+        # embeddings を None にして chromadb に自動計算させる
         chroma_collection.upsert(
             ids=ids,
             documents=documents,
             metadatas=metadatas,
-            embeddings=embeddings
+            embeddings=None  # chromadbが自動で埋め込みを計算
         )
 
         logger.info("ChromaDBへのデータ格納が正常に完了しました。")
-        
+
         # コレクション内のドキュメント数を取得（chromadb正式APIを使用）
         try:
             doc_count = chroma_collection.count()
