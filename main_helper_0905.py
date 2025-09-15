@@ -269,17 +269,19 @@ def ingest_data_to_chroma(
         if api_key is None:
             logger.error("OpenAI APIキーが設定されていません。")
             return
+        # OpenAI埋め込みモデルを使って埋め込みを生成
+        embed_model = OpenAIEmbedding(api_key=api_key)
+        embeddings = embed_model.get_text_embedding_batch(documents)
         # chromadb クライアント直利用でupsert対応
         client = chromadb.PersistentClient(path=persist_dir)
         chroma_collection = client.get_or_create_collection(collection_name)
 
         # upsertでデータを追加/更新（ID重複を適切に処理）
-        # chromadbが自動で埋め込みを計算
         chroma_collection.upsert(
             ids=ids,
             documents=documents,
             metadatas=metadatas,
-            embeddings=None,  # chromadbが自動で埋め込みを計算
+            embeddings=embeddings,  # OpenAI埋め込みを明示的に渡す
         )
 
         logger.info("ChromaDBへのデータ格納が正常に完了しました。")
