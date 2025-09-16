@@ -7,7 +7,6 @@ from dotenv import load_dotenv
 from main_helper_0905 import Config
 from neo4j import GraphDatabase
 import re
-import textwrap
 from typing import Optional
 
 # プロジェクトルートをパスに追加
@@ -193,23 +192,23 @@ def run_clear_database(
 
 
 def run_qa_system(config: Config):
-    """LlamaIndexを使用した効率的なQAシステム"""
+    """LangChainでラップしたQAシステム（LangSmithでウォッチ可能）"""
     try:
-        from main_helper_0905 import (
-            build_vector_engine, build_graph_engine
-        )
+        from main_helper_0905 import build_langchain_wrapped_engines
 
-        # 呼び出し元から受け取った Config を使用
-
-        # 各エンジン内で LLM は明示的に設定されます（config 経由）
+        # LangChainでラップしたエンジンを取得
+        engines = build_langchain_wrapped_engines(config)
+        vector_search = engines['vector_search']
+        graph_search = engines['graph_search']
+        generate_response = engines['generate_response']
 
         # ユーザーに質問を入力してもらう
-        print("\nLlamaIndex統合QAシステム")
+        print("\nLangChain統合QAシステム（LangSmith対応）")
         print("=" * 50)
         print("ハイブリッド検索システム:")
         print("  - ベクトル検索: ChromaDB（意味的類似性）")
         print("  - グラフ検索: Neo4j（構造的関係性）")
-        print("  - 統合回答: 両方の結果を組み合わせた包括的回答")
+        print("  - 統合回答: LangChainで生成（LangSmithでウォッチ可能）")
         print("=" * 50)
         question = input("質問を入力してください: ").strip()
 
@@ -220,31 +219,7 @@ def run_qa_system(config: Config):
         print(f"\n📝 質問: {question}")
         print("🔍 ハイブリッド検索中...")
 
-        # 1. ベクトル検索エンジンを構築
-        print("  → ベクトル検索エンジンを構築中...")
-        try:
-            vector_engine = build_vector_engine(
-                persist_dir=config.chroma_persist_directory,
-                collection=config.chroma_collection_name,
-                config=config,
-                similarity_top_k=15
-            )
-        except Exception as e:
-            print(f"❌ ベクトル検索エンジンの構築に失敗: {e}")
-            return False
-
-        # 2. グラフ検索エンジンを構築
-        print("  → グラフ検索エンジンを構築中...")
-        try:
-            graph_engine = build_graph_engine(config=config)
-        except Exception as e:
-            print(f"⚠️ グラフ検索エンジンの構築に失敗: {e}")
-            print("  → ベクトル検索のみで実行します...")
-            graph_engine = None
-
-        # 3. ハイブリッド検索実行
-        print("  → ベクトル検索を実行中...")
-        # 質問から関数名らしきキーワードを抽出し、ベクトル検索のクエリを短く最適化
+        # 質問から関数名らしきキーワードを抽出
         vec_kw = question
         m_vec = re.search(
             r"`([^`]+)`|\"([^\"]+)\"|"
@@ -253,153 +228,112 @@ def run_qa_system(config: Config):
         )
         if m_vec:
             vec_kw = next((g for g in m_vec.groups() if g), question)
-        vector_response = vector_engine.query(vec_kw)
 
-        if graph_engine:
-            print("  → グラフ検索を実行中...")
-            # グラフ検索用のプロンプトを具体化（Parameter/Type 関連を辿る）
-            graph_question = f"""
-            Execute this Cypher to get a function and its parameters/return type:
-            MATCH (f:Function)
-            WHERE toLower(f.name) CONTAINS toLower('{vec_kw}')
-            OPTIONAL MATCH (f)-[:HAS_PARAMETER]->(p1:Parameter)
-            WITH f, collect(p1) AS p_direct
-            OPTIONAL MATCH (p2:Parameter)
-            WHERE toLower(p2.parent_function) CONTAINS toLower('{vec_kw}')
-            WITH f, p_direct + collect(p2) AS params
-            OPTIONAL MATCH (f)-[:RETURNS]->(rt:Type)
-            RETURN f.name AS name,
-                   f.description AS description,
-                   [p IN params WHERE p IS NOT NULL |
-                    {{name:p.name, description:p.description, required:p.is_required}}] AS parameters,
-                   coalesce(rt.name, null) AS return_value
-            LIMIT 5
+        # 3. ハイブリッド検索実行（LangChainでラップ）
+        print("  → ベクトル検索を実行中...")
+        vector_response = vector_search(vec_kw)
 
-            Then summarize the results in Japanese, focusing on:
-            - Function name and description
-            - Parameters (引数) with types and descriptions
-            - Return value (戻り値) with type and description
-            """
-            graph_response = graph_engine.query(graph_question)
+        print("  → グラフ検索を実行中...")
+        # グラフ検索用のプロンプトを具体化（Parameter/Type 関連を辿る）
+        graph_question = f"""
+        Execute this Cypher to get a function and its parameters:
+        MATCH (f:Function)
+        WHERE toLower(f.name) CONTAINS toLower('{vec_kw}')
+        OPTIONAL MATCH (p:Parameter)
+        WHERE toLower(p.parent_function) = toLower(f.name)
+        WITH f, collect(p) AS params
+        RETURN f.name AS name,
+               f.description AS description,
+               [q IN params WHERE q IS NOT NULL AND q.name IS NOT NULL |
+                {{name:q.name, description:q.description, required:coalesce(q.is_required,false)}}] AS parameters,
+               null AS return_value
+        LIMIT 5
 
-            # フォールバック: グラフ応答が空の場合はNeo4jを直接検索
-            if not graph_response or str(graph_response).strip() in (
-                "",
-                "Empty Response",
-            ):
-                try:
-                    print("  → グラフ結果が空のためNeo4jを直接照会...")
-                    with GraphDatabase.driver(
-                        config.neo4j_uri,
-                        auth=(config.neo4j_user, config.neo4j_password),
-                    ) as driver:
-                        with driver.session(
-                            database=config.neo4j_database
-                        ) as session:
-                            cypher = (
-                                "MATCH (f:Function) "
-                                "WHERE toLower(f.name) CONTAINS toLower($kw) "
-                                "OPTIONAL MATCH (f)-[:HAS_PARAMETER]->(p1:Parameter) "
-                                "WITH f, collect(p1) AS p_direct "
-                                "OPTIONAL MATCH (p2:Parameter) WHERE toLower(p2.parent_function) CONTAINS toLower($kw) "
-                                "WITH f, p_direct + collect(p2) AS params "
-                                "OPTIONAL MATCH (f)-[:RETURNS]->(rt:Type) "
-                                "RETURN f.name AS name, f.description AS description, "
-                                "params AS parameters, rt.name AS return_value "
-                                "LIMIT 5"
-                            )
-                            # 質問文から関数名らしきキーワードを抽出
-                            kw = question
-                            m = re.search(
-                                r"`([^`]+)`|\"([^\"]+)\"|"
-                                r"([A-Za-z_][A-Za-z0-9_]*)",
-                                question,
-                            )
-                            if m:
-                                kw = next(
-                                    (g for g in m.groups() if g),
-                                    question,
-                                )
-                            rows = list(session.run(cypher, kw=kw))
-                            if rows:
-                                parts = []
-                                for r in rows:
-                                    nm = r.get("name")
-                                    desc = r.get("description") or ""
-                                    params = r.get("parameters") or []
-                                    retv = r.get("return_value")
+        Then summarize the results in Japanese, focusing on:
+        - Function name and description
+        - Parameters (引数) with descriptions and whether required
+        - Return value (戻り値) if known; otherwise state 不明
+        """
+        graph_response = graph_search(graph_question)
 
-                                    def _fmt_param(p):
-                                        if isinstance(p, dict):
-                                            n = p.get("name")
-                                            d = p.get("description")
-                                            req = p.get("is_required") or p.get("required")
-                                            return f"- {n}: {d} (required={req})"
-                                        n = getattr(p, "name", None)
-                                        d = getattr(p, "description", None)
-                                        req = getattr(p, "is_required", None)
+        # フォールバック: グラフ応答が空の場合はNeo4jを直接検索
+        if not graph_response or str(graph_response).strip() in (
+            "",
+            "Empty Response",
+        ):
+            try:
+                print("  → グラフ結果が空のためNeo4jを直接照会...")
+                with GraphDatabase.driver(
+                    config.neo4j_uri,
+                    auth=(config.neo4j_user, config.neo4j_password),
+                ) as driver:
+                    with driver.session(
+                        database=config.neo4j_database
+                    ) as session:
+                        cypher = (
+                            "MATCH (f:Function) "
+                            "WHERE toLower(f.name) CONTAINS toLower($kw) "
+                            "OPTIONAL MATCH (p:Parameter) "
+                            "WHERE toLower(p.parent_function) = toLower(f.name) "
+                            "WITH f, collect(p) AS params "
+                            "RETURN f.name AS name, f.description AS description, "
+                            "[q IN params WHERE q.name IS NOT NULL | q] AS parameters, null AS return_value "
+                            "LIMIT 5"
+                        )
+                        # ベクトル用に抽出したキーワードをそのまま使用
+                        kw = vec_kw
+                        rows = list(session.run(cypher, kw=kw))
+                        if rows:
+                            parts = []
+                            for r in rows:
+                                nm = r.get("name")
+                                desc = r.get("description") or ""
+                                params = r.get("parameters") or []
+                                retv = r.get("return_value")
+
+                                def _fmt_param(p):
+                                    if isinstance(p, dict):
+                                        n = p.get("name")
+                                        d = p.get("description")
+                                        req = p.get("is_required") or p.get("required")
                                         return f"- {n}: {d} (required={req})"
+                                    n = getattr(p, "name", None)
+                                    d = getattr(p, "description", None)
+                                    req = getattr(p, "is_required", None)
+                                    return f"- {n}: {d} (required={req})"
 
-                                    param_lines = []
-                                    try:
-                                        for p in params:
+                                param_lines = []
+                                try:
+                                    for p in params:
+                                        if p and (isinstance(p, dict) and p.get("name") or getattr(p, "name", None)):
                                             param_lines.append(_fmt_param(p))
-                                    except Exception:
-                                        param_lines = [str(params)]
+                                except Exception:
+                                    param_lines = []
 
-                                    section = [f"{nm}:", desc]
-                                    if param_lines:
-                                        section.append("parameters:\n" + "\n".join(param_lines))
-                                    if retv:
-                                        section.append(f"return_value: {retv}")
-                                    parts.append("\n".join(section))
-                                graph_response = "\n\n".join(parts)
-                            else:
-                                graph_response = ""
-                except Exception:
-                    # フォールバック失敗時はそのまま続行
-                    pass
+                                section = [f"{nm}:", desc]
+                                if param_lines:
+                                    section.append("parameters:\n" + "\n".join(param_lines))
+                                if retv:
+                                    section.append(f"return_value: {retv}")
+                                parts.append("\n".join(section))
+                            graph_response = "\n\n".join(parts)
+                        else:
+                            graph_response = ""
+            except Exception:
+                # フォールバック失敗時はそのまま続行
+                pass
 
-            # ハイブリッド回答の統合
-            print("  → ハイブリッド回答を生成中...")
-            # combined_question = textwrap.dedent(
-            #     f"""
-            #     以下の2つの検索結果を統合して、ユーザーの質問に包括的に回答してください。
-
-            #     【ベクトル検索結果】
-            #     {vector_response}
-
-            #     【グラフ検索結果】
-            #     {graph_response}
-
-            #     【ユーザーの質問】
-            #     {question}
-
-            #     回答のガイドライン:
-            #     - 両方の検索結果の情報を統合
-            #     - 具体的なAPI関数名とその使用方法を明記
-            #     - パラメータの詳細と戻り値について説明
-            #     - 実用的なコード例があれば提供
-            #     - 不明な点は正直に「不明」と回答
-            #     - 日本語で回答
-            #     """
-            # ).strip()
-            # final_response = vector_engine.query(combined_question)
-            final_response = ""
-        else:
-            graph_response = None
-            final_response = vector_response
+        # ハイブリッド回答の統合（LangChainで生成）
+        print("  → ハイブリッド回答を生成中...")
+        final_response = generate_response(vector_response, graph_response, question)
 
         # 4. 結果を表示
         print("\n" + "=" * 50)
         print("回答:")
         print("=" * 50)
         print(f"ベクトル検索結果: {vector_response}")
-        if graph_response is not None:
-            print(f"グラフ検索結果: {graph_response}")
-            print(f"ハイブリッド検索結果: {final_response}")
-        else:
-            print(f"最終結果: {final_response}")
+        print(f"グラフ検索結果: {graph_response}")
+        print(f"ハイブリッド検索結果: {final_response}")
         print("=" * 50)
 
         return True
