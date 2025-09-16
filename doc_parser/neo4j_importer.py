@@ -352,7 +352,7 @@ def load_environment():
     return uri, user, password, database
 
 
-def load_api_data(file_path=None, use_def_file=True):
+def load_api_data(file_path=None, use_def_file=False):
     """APIデータの読み込み
 
     Args:

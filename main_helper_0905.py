@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 import logging
-from typing import Optional
+from typing import Optional, Any, Dict
 from neo4j import GraphDatabase
 import chromadb
 import numpy as np
@@ -15,6 +15,11 @@ from llama_index.llms.openai import OpenAI
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.graph_stores.neo4j import Neo4jPropertyGraphStore
 from llama_index.core.indices.property_graph import PropertyGraphIndex
+
+# LangChain imports
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain.schema import HumanMessage, SystemMessage
+# from langchain.callbacks import LangChainTracer
 
 # .envファイルを明示的にロード
 load_dotenv()
@@ -418,3 +423,79 @@ def build_graph_engine(config: Config):
             )
         )
         raise
+
+
+def build_langchain_wrapped_engines(config: Config):
+    """LangChainでラップしたエンジンを構築（LangSmithでウォッチ可能）"""
+
+    # LangChainのLLMとEmbeddings（サポートされる引数のみを指定）
+    llm_kwargs: Dict[str, Any] = {"model": config.llm_model}
+    if config.openai_api_key:
+        llm_kwargs["api_key"] = config.openai_api_key
+    llm = ChatOpenAI(**llm_kwargs)  # type: ignore[arg-type]
+    embeddings = OpenAIEmbeddings(**config.langchain_embedding_config)  # type: ignore[arg-type]
+
+    # ベクトル検索のラッパー
+    def vector_search_wrapper(query: str):
+        """ベクトル検索をLangChainでラップ"""
+        try:
+            vector_engine = build_vector_engine(
+                persist_dir=config.chroma_persist_directory,
+                collection=config.chroma_collection_name,
+                config=config
+            )
+            return vector_engine.query(query)
+        except Exception as e:
+            logger.error(f"ベクトル検索エラー: {e}")
+            return f"ベクトル検索でエラーが発生しました: {e}"
+
+    # グラフ検索のラッパー
+    def graph_search_wrapper(query: str):
+        """グラフ検索をLangChainでラップ"""
+        try:
+            graph_engine = build_graph_engine(config)
+            return graph_engine.query(query)
+        except Exception as e:
+            logger.error(f"グラフ検索エラー: {e}")
+            return f"グラフ検索でエラーが発生しました: {e}"
+
+    # 統合回答生成のラッパー
+    def generate_integrated_response(vector_result: str, graph_result: str, question: str):
+        """統合回答をLangChainで生成"""
+        try:
+            messages = [
+                SystemMessage(content="""あなたはAPIドキュメントの専門家です。
+以下の検索結果を統合して、ユーザーの質問に包括的に回答してください。
+
+回答のガイドライン:
+- 両方の検索結果の情報を統合
+- 具体的なAPI関数名とその使用方法を明記
+- パラメータの詳細と戻り値について説明
+- 実用的なコード例があれば提供
+- 不明な点は正直に「不明」と回答
+- 日本語で回答"""),
+                HumanMessage(content=f"""
+【ベクトル検索結果】
+{vector_result}
+
+【グラフ検索結果】
+{graph_result}
+
+【ユーザーの質問】
+{question}
+
+上記の情報を統合して回答してください。""")
+            ]
+            response = llm.invoke(messages)
+            return response.content
+        except Exception as e:
+            logger.error(f"統合回答生成エラー: {e}")
+            return f"統合回答生成でエラーが発生しました: {e}"
+
+    return {
+        'vector_search': vector_search_wrapper,
+        'graph_search': graph_search_wrapper,
+        'generate_response': generate_integrated_response,
+        'llm': llm,
+        'embeddings': embeddings
+    }
