@@ -3,7 +3,8 @@
 This module defines the HybridRetriever, which combines the results from
 dense, sparse, and full-text search using Reciprocal Rank Fusion (RRF).
 """
-from typing import List, Tuple, Dict
+from typing import List, Dict
+import logging
 from concurrent.futures import ThreadPoolExecutor
 
 from langchain_core.retrievers import BaseRetriever
@@ -12,6 +13,9 @@ from langchain_community.vectorstores import Chroma
 
 from mycode.fulltext_search import WhooshSearch
 from mycode.sparse_vector_db import SparseVectorSearch
+
+logger = logging.getLogger(__name__)
+
 
 class HybridRetriever(BaseRetriever):
     """
@@ -94,10 +98,10 @@ class HybridRetriever(BaseRetriever):
                 final_documents.append(self.sparse_search.get_document(doc_id))
             except KeyError:
                 # Fallback in case a doc_id somehow doesn't exist in one store
-                print(f"Warning: doc_id {doc_id} not found in sparse store, trying fulltext.")
+                logger.warning("doc_id %s not found in sparse store, trying fulltext.", doc_id)
                 try:
                     final_documents.append(self.fulltext_search.get_document(doc_id))
                 except KeyError:
-                     print(f"Error: doc_id {doc_id} could not be retrieved from any store.")
+                    logger.error("doc_id %s could not be retrieved from any store.", doc_id)
 
         return final_documents
