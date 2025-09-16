@@ -62,7 +62,14 @@ class HybridRetriever(BaseRetriever):
 
         # --- 2. Process results into a common format ---
         # The dense retriever returns (Document, score), others return (doc_id, score)
-        dense_docs = [(doc.metadata["doc_id"], score) for doc, score in dense_results]
+        # Some dense documents may lack a "doc_id" in metadata; skip those safely.
+        dense_docs = []
+        for doc, score in dense_results:
+            doc_id = doc.metadata.get("doc_id")
+            if doc_id is None:
+                logger.warning("Dense retriever returned a document without 'doc_id'; skipping it.")
+                continue
+            dense_docs.append((doc_id, score))
 
         all_results = {
             "dense": dense_docs,
