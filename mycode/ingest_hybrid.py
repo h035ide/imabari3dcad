@@ -26,7 +26,7 @@ from langchain_openai import OpenAIEmbeddings
 try:
     from graphrag_gpt import config
 except ImportError:
-    print("Error: config.py not found in graphrag_gpt/. Make sure it exists in the root directory with your OPENAI_API_KEY.")
+    print("Error: config.py not found in graphrag_gpt/. Make sure it exists in the graphrag_gpt directory with your OPENAI_API_KEY.")
     sys.exit(1)
 
 # --- Constants ---

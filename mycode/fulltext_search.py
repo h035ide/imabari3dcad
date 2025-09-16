@@ -2,7 +2,6 @@
 """
 This module provides a full-text search engine using Whoosh.
 """
-import os
 from pathlib import Path
 from typing import List, Tuple
 
@@ -17,6 +16,7 @@ from whoosh.qparser import QueryParser
 DEFAULT_INDEX_DIR = Path("data/whoosh_index")
 
 # --- Whoosh Search Engine ---
+
 
 class WhooshSearch:
     """
@@ -36,7 +36,10 @@ class WhooshSearch:
         """Opens an existing index or raises an error if it doesn't exist."""
         if self.ix is None:
             if not self.index_dir.exists() or not index.exists_in(self.index_dir):
-                raise FileNotFoundError(f"Whoosh index not found at {self.index_dir}. Please run the ingestion script first.")
+                raise FileNotFoundError(
+                    f"Whoosh index not found at {self.index_dir}. "
+                    f"Please run the ingestion script first."
+                )
             self.ix = index.open_dir(self.index_dir)
 
     def index_documents(self, documents: List[Document], force_recreate: bool = True):
@@ -54,17 +57,15 @@ class WhooshSearch:
         self.index_dir.mkdir(parents=True, exist_ok=True)
 
         self.ix = index.create_in(self.index_dir, self.schema)
-        writer = self.ix.writer()
-
-        for doc in documents:
-            writer.add_document(
-                doc_id=doc.metadata.get("doc_id"),
-                content=doc.page_content,
-                object=doc.metadata.get("object"),
-                method_name=doc.metadata.get("method_name")
-            )
-
-        writer.commit()
+        # Use context manager to ensure commit/cancel is handled properly
+        with self.ix.writer() as writer:
+            for doc in documents:
+                writer.add_document(
+                    doc_id=doc.metadata.get("doc_id"),
+                    content=doc.page_content,
+                    object=doc.metadata.get("object"),
+                    method_name=doc.metadata.get("method_name")
+                )
         print(f"✔ Whoosh index created with {len(documents)} documents at: {self.index_dir}")
 
     def search(self, query_text: str, limit: int = 10) -> List[Tuple[str, float]]:
