@@ -254,7 +254,27 @@ def run_qa_system(config: Config):
         - Parameters (引数) with descriptions and whether required
         - Return value (戻り値) if known; otherwise state 不明
         """
-        graph_response = graph_search(graph_question)
+        # コールバックで空結果を検知（ログ/メトリクス等に活用可能）
+        def _on_empty(info):
+            diag = info.get("diagnosis") if isinstance(info, dict) else None
+            print("  → グラフ検索結果が空です。fallbackを検討します...")
+            if diag:
+                print(
+                    "    診断: "
+                    f"Function件数={diag.get('function_count')}, "
+                    f"keyword一致件数={diag.get('match_count_by_keyword')}, "
+                    f"Parameter件数={diag.get('parameter_count')}"
+                )
+                names = diag.get("sample_function_names") or []
+                if names:
+                    print("    サンプルFunction名: " + ", ".join(map(str, names)))
+
+        graph_response = graph_search(
+            graph_question,
+            on_empty=_on_empty,
+            diagnose=True,
+            keyword=vec_kw,
+        )
 
         # フォールバック: グラフ応答が空の場合はNeo4jを直接検索
         if not graph_response or str(graph_response).strip() in (
