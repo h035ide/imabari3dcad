@@ -91,7 +91,9 @@ def write_file_safely(file_path: str, content: str, encoding: str = Config.DEFAU
     """ファイルを安全に書き込む"""
 
     def write_operation():
-        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        directory = os.path.dirname(file_path)
+        if directory:
+            os.makedirs(directory, exist_ok=True)
         with open(file_path, "w", encoding=encoding) as file:
             file.write(content)
 
@@ -139,51 +141,50 @@ def save_parsed_result(parsed_result: Union[Dict, List], output_file_path: str =
 
 # ===== プロンプト管理 =====
 class PromptManager:
-    """プロンプトの管理クラス"""
+    """プロンプトを管理するクラス"""
 
     @staticmethod
     def get_system_prompt() -> str:
-        """システムプロンプトを取得"""
+        """システムプロンプトを取得する"""
         return """
         <prompt>
             <developer>
                 <specialty>EVO.SHIP APIドキュメントの正確な解析</specialty>
                 <role>
-                    あなたは「EVO.SHIP API」ドキュメントの解析に特化した、非常に優秀なソフトウェアエンジニアです。提供されたAPIドキュメントを厳密に解析し、指定されたJSON形式の単一オブジェクトとして出力します。
+                    あなたは「EVO.SHIP API」ドキュメントを厳密に解析し、指定されたJSON形式で出力する優秀なソフトウェアエンジニアです。
                 </role>
                 <workflow>
-                    <step>これから行うべきサブタスクの簡潔なチェックリスト（3〜7項目）を提示する。</step>
-                    <step>提供されたAPIドキュメントを厳密に解析する。</step>
-                    <step>解析結果を指定されたJSON形式の単一オブジェクトで出力する。</step>
-                    <note>チェックリストは最終出力JSONのトップレベルフィールド <code>checklist</code> として含めること。</note>
+                    <step>これから取り組むサブタスクの簡潔なチェックリストを提示する</step>
+                    <step>提供されたAPIドキュメントを精査する</step>
+                    <step>解析結果を単一のJSONオブジェクトとして出力する</step>
+                    <note>チェックリストは最終出力JSONのトップレベルフィールドchecklistとして含めること</note>
                 </workflow>
                 <guidelines>
                     <general>
-                        <item>出力は有効なJSONオブジェクトのみとし、Markdownやその他のテキストは一切含めないこと。</item>
-                        <item>ドキュメントに明記されていない情報の推測や補完は行わないこと。</item>
-                        <item>解析対象は「APIドキュメント」セクションと「引数の型と書式」セクションから構成される。</item>
+                        <item>出力は有効なJSONオブジェクトのみとし、Markdownやその他のテキストを含めない</item>
+                        <item>ドキュメントに記載されていない情報の推測は絶対に行わない</item>
+                        <item>解析対象は「APIドキュメント」と「引数の型と書式」セクション全体とする</item>
                     </general>
                     <analysis_points>
                         <type_definitions>
-                            <item>「引数の型と書式」セクションから<strong>すべての</strong>データ型を漏れなく抽出する。</item>
-                            <item>基本データ型（文字列、浮動小数点、整数、bool）も含める。</item>
-                            <item>特殊文字列型（長さ、角度、数値、範囲、点、方向、平面、変数単位、要素グループ、注記スタイル、材料、スイープ方向、厚み付けタイプ、モールド位置、オペレーションタイプ、関連設定、形状タイプ、形状パラメータ、要素）も含める。</item>
-                            <item>各型は name と description を格納し、descriptionには型の詳細な仕様と書式を含める。</item>
-                            <item>例や書式の説明も description に含める。</item>
+                            <item>「引数の型と書式」セクションから<strong>すべての</strong>データ型を漏れなく抽出する</item>
+                            <item>基本型（文字列、浮動小数点、整数、bool）も必ず含める</item>
+                            <item>特殊型（長さ、角度、数値、方向、点、平面、変数単位、要素グループ、注記スタイル、材料、スイープ方向、厚み付けタイプ、モールド位置、オペレーションタイプ、連結設定、形状タイプ、形状パラメータ、要素など）も漏らさず抽出する</item>
+                            <item>各型のdescriptionには、形式の詳細・制約・例などを含める</item>
                         </type_definitions>
                         <api_entries>
-                            <item>「APIドキュメント」を解析し、関数や独立オブジェクト定義を抽出する。</item>
+                            <item>「APIドキュメント」セクションを解析し、関数・オブジェクト定義を抽出する</item>
                             <kinds>
                                 <function>entry_type = "function"</function>
                                 <object_definition>entry_type = "object_definition"</object_definition>
                             </kinds>
                             <fields>
                                 <item>name / description / category</item>
-                                <item>params: name, position(0始まり), type, description, is_required, default_value</item>
+                                <item>params: name, position(0-based), type, description, is_required, default_value</item>
                                 <item>properties: name, type, description</item>
-                                <item>returns: type, description, is_array（戻り値が無い場合 type は "void"）</item>
-                                <item>is_required は説明に「空文字不可」「必須」があれば true、明記が無ければ false</item>
-                                <item>implementation_status は「未実装、使用しない」なら 'unimplemented'、それ以外は 'implemented'</item>
+                                <item>returns: type, description, is_array（戻り値が無い場合は type を "void" とする）</item>
+                                <item>is_required は「空欄不可」「必須」とあれば true、記載がなければ false</item>
+                                <item>implementation_status は「未実装」「使用しない」等の場合 'unimplemented'、それ以外は 'implemented'</item>
                             </fields>
                         </api_entries>
                     </analysis_points>
@@ -195,15 +196,15 @@ class PromptManager:
 
     @staticmethod
     def get_user_prompt() -> str:
-        """ユーザープロンプトを取得"""
+        """ユーザープロンプトを取得する"""
         return """
         以下のドキュメントを上記方針に従って解析し、単一のJSONオブジェクトのみを出力してください。
 
         # 重要: データ型の抽出について
         - 「引数の型と書式」セクションから<strong>すべての</strong>データ型を漏れなく抽出してください
         - 基本データ型（文字列、浮動小数点、整数、bool）も含めてください
-        - 特殊文字列型（長さ、角度、数値、範囲、点、方向、平面、変数単位、要素グループ、注記スタイル、材料、スイープ方向、厚み付けタイプ、モールド位置、オペレーションタイプ、関連設定、形状タイプ、形状パラメータ、要素）も含めてください
-        - 各データ型の詳細な仕様、書式、例も description に含めてください
+        - 特殊データ型（長さ、角度、数値、方向、点、平面、変数単位、要素グループ、注記スタイル、材料、スイープ方向、厚み付けタイプ、モールド位置、オペレーションタイプ、連結設定、形状タイプ、形状パラメータ、要素など）も含めてください
+        - 各データ型の description には詳細な仕様、書式、具体例を含めてください
 
         # 解析対象ドキュメント
         ---
@@ -213,98 +214,109 @@ class PromptManager:
 
     @staticmethod
     def get_json_format() -> str:
-        """JSONフォーマット例を取得"""
+        """JSONフォーマット例を取得する"""
         return """
         {
-        "type_definitions": [
+          "type_definitions": [
             {
-            "name": "文字列",
-            "description": "通常の文字列"
+              "name": "文字列",
+              "description": "任意の文字列。例: "Sample""
             },
             {
-            "name": "浮動小数点",
-            "description": "通常の数値"
+              "name": "浮動小数点",
+              "description": "浮動小数点数。例: 100.0"
             },
             {
-            "name": "整数",
-            "description": "通常の数値"
+              "name": "整数",
+              "description": "整数値。例: 10"
             },
             {
-            "name": "bool",
-            "description": "通常の真偽値 True False"
+              "name": "bool",
+              "description": "真偽値。例: true, false"
             },
             {
-            "name": "長さ",
-            "description": "mm単位の数値、変数要素名、式文字列。例: \"100.0\", \"L1\", \"L1 / 2.0\""
+              "name": "長さ",
+              "description": "mm単位の数値、変数要素名、式。例: "100.0", "L1", "L1 / 2.0""
             },
             {
-            "name": "角度",
-            "description": "度(°)単位の数値、変数要素名、式文字列。例: \"30.0\", \"Angle1\", \"Angle1 * 0.2\""
+              "name": "角度",
+              "description": "度(°)単位の数値、変数要素名、式。例: "30.0", "Angle1", "Angle1 * 0.2""
             },
             {
-            "name": "点",
-            "description": "コンマで区切って各コンポーネントをX,Y,Z（3Dの場合）を長さ（変数も可）で指定。例: \"100.0,50,0,0.0\""
+              "name": "点",
+              "description": "X,Y,Z(必要に応じてW)の座標をコンマ区切りで指定。例: "100.0,50.0,0.0""
             },
             {
-            "name": "平面",
-            "description": "コンマで区切られた文字列で指定。最初のカラムは必ず \"PL\"。例: \"PL,Z\" グローバルXY平面"
+              "name": "平面",
+              "description": "最初のカラムに "PL" を含む平面指定。例: "PL,Z" はグローバルXY平面"
             }
-        ],
-        "api_entries": [
+          ],
+          "api_entries": [
             {
-            "entry_type": "'function' or 'object_definition'",
-            "name": "string (function or object name)",
-            "description": "string",
-            "category": "string",
-            "params": [
+              "entry_type": "'function' または 'object_definition'",
+              "name": "名前",
+              "description": "概要説明",
+              "category": "カテゴリ名",
+              "params": [
                 {
-                "name": "string",
-                "position": "number (0-based index of the parameter)",
-                "type": "string (normalized type name)",
-                "description": "string",
-                "is_required": "boolean",
-                "default_value": "string | null"
+                  "name": "パラメータ名",
+                  "position": "0-based インデックス",
+                  "type": "正規化済み型名",
+                  "description": "説明文",
+                  "is_required": "true / false",
+                  "default_value": "デフォルト値または null"
                 }
-            ],
-            "properties": [
+              ],
+              "properties": [
                 {
-                "name": "string",
-                "type": "string (normalized type name)",
-                "description": "string"
+                  "name": "プロパティ名",
+                  "type": "正規化済み型名",
+                  "description": "説明文"
                 }
-            ],
-            "returns": {
-                "type": "string (normalized type name)",
-                "description": "string",
-                "is_array": "boolean"
-            },
-            "notes": "string | null",
-            "implementation_status": "string ('implemented', 'unimplemented', or 'deprecated')"
+              ],
+              "returns": {
+                "type": "正規化済み型名 (戻り値なしの場合は "void")",
+                "description": "説明文",
+                "is_array": "true / false"
+              },
+              "notes": "補足 (または null)",
+              "implementation_status": "'implemented' / 'unimplemented' / 'deprecated'"
             }
-        ]
+          ]
         }
         """
 
-
-# ===== データ処理関数 =====
+# ===== データ処理ユーティリティ =====
 class DataProcessor:
-    """データ処理クラス"""
+    """解析結果を整形するユーティリティクラス"""
+
+    ARRAY_MARKERS = ("(配列)", "配列", "(array)", "[]")
 
     @staticmethod
     def normalize_type_name(type_name: str) -> str:
-        """型名を正規化"""
+        """型名を正規化する"""
         if not isinstance(type_name, str):
             return type_name
 
         name = type_name.strip()
+        if not name:
+            return name
+
+        is_array = DataProcessor._is_array_type(name)
+        base_name = DataProcessor._strip_array_notation(name) if is_array else name
+
         mapping = {
             "string": "文字列",
             "str": "文字列",
+            "text": "文字列",
             "float": "浮動小数点",
             "double": "浮動小数点",
             "number": "浮動小数点",
+            "numeric": "浮動小数点",
+            "decimal": "浮動小数点",
             "int": "整数",
             "integer": "整数",
+            "long": "整数",
             "boolean": "bool",
             "bool": "bool",
             "length": "長さ",
@@ -316,141 +328,231 @@ class DataProcessor:
             "point2d": "点(2D)",
             "element": "要素",
             "elementid": "要素ID",
-            "element group": "要素グループ",
+            "elementgroup": "要素グループ",
             "material": "材料",
             "style": "注記スタイル",
             "bstr": "BSTR",
             "配列": "配列",
-            "浮動小数点(配列)": "浮動小数点(配列)",
+            "void": "void",
         }
 
-        key = name.lower().replace(" ", "")
-        return mapping.get(key, name)
+        key = DataProcessor._normalize_key(base_name)
+        return mapping.get(key, base_name)
 
     @staticmethod
-    def enrich_array_object_info(param: Dict[str, Any]) -> None:
-        """配列オブジェクト情報を充実させる"""
-        t = param.get("type_name")
-        if not isinstance(t, str):
+    def enrich_array_object_info(item: Dict[str, Any], type_value: str | None = None) -> None:
+        """配列情報を付加する"""
+        if type_value is None:
+            type_value = item.get("type") or item.get("type_name")
+
+        if not isinstance(type_value, str) or not type_value.strip():
+            item["array_info"] = None
             return
 
-        is_array = "(配列)" in t or t.endswith("配列") or t.endswith("(array)")
-        if is_array:
-            base = t.replace("(配列)", "").replace("配列", "").strip("：: ")
-            element_type = base if base and base != "要素" else None
-            param["array_info"] = {
+        if DataProcessor._is_array_type(type_value):
+            base = DataProcessor._strip_array_notation(type_value)
+            item["array_info"] = {
                 "is_array": True,
-                "element_type": element_type,
+                "element_type": DataProcessor.normalize_type_name(base),
                 "min_length": None,
                 "max_length": None,
             }
         else:
-            param["array_info"] = None
+            item["array_info"] = None
 
     @staticmethod
     def infer_is_required(param: Dict[str, Any]) -> None:
-        """必須性を推論"""
-        cons = param.get("constraints") or []
-        desc = param.get("description_raw") or ""
-        text = " ".join(cons) + " " + desc
+        """必須かどうかを推定する"""
+        constraints = param.get("constraints")
+        if isinstance(constraints, list):
+            constraints_text = " ".join(str(c) for c in constraints)
+        elif isinstance(constraints, str):
+            constraints_text = constraints
+        else:
+            constraints_text = ""
 
-        required = ("空文字不可" in text) or ("必須" in text)
-        if "空文字可" in text:
+        description = param.get("description_raw") or param.get("description") or ""
+        text = f"{constraints_text} {description}"
+
+        required = ("空欄不可" in text) or ("必須" in text)
+        if ("空欄可" in text) or ("任意" in text):
             required = False
+
+        existing = param.get("is_required")
+        if existing is not None:
+            required = required or DataProcessor._to_bool(existing)
 
         param["is_required"] = bool(required)
 
     @staticmethod
     def postprocess_parsed_result(parsed_result: Union[Dict, List]) -> Union[Dict, List]:
-        """解析結果の後処理を実行"""
-        if not isinstance(parsed_result, list):
+        """解析結果の後処理を実施する"""
+        if not isinstance(parsed_result, dict):
             return parsed_result
 
-        for fn in parsed_result:
-            # 戻り値の正規化
-            if isinstance(fn.get("returns"), dict):
-                r_t = fn["returns"].get("type_name")
-                if r_t is not None:
-                    fn["returns"]["type_name"] = DataProcessor.normalize_type_name(r_t)
+        type_definitions = parsed_result.get("type_definitions") or []
+        parsed_result["type_definitions"] = type_definitions
 
-            # パラメータの処理
-            params = fn.get("params") or []
-            for idx, p in enumerate(params):
-                t = p.get("type_name")
-                if t is not None:
-                    p["type_name"] = DataProcessor.normalize_type_name(t)
-                DataProcessor.enrich_array_object_info(p)
-                DataProcessor.infer_is_required(p)
-                p["position"] = idx
-            fn["params"] = params
+        api_entries = parsed_result.get("api_entries") or []
+        for entry in api_entries:
+            params = entry.get("params") or []
+            for index, param in enumerate(params):
+                original_type = param.get("type")
+                DataProcessor.enrich_array_object_info(param, original_type)
+                if original_type is not None:
+                    param["type"] = DataProcessor.normalize_type_name(original_type)
+                DataProcessor.infer_is_required(param)
+                param["is_required"] = DataProcessor._to_bool(param.get("is_required"))
+                param["position"] = index
+                param["default_value"] = DataProcessor._normalize_default_value(param.get("default_value"))
+            entry["params"] = params
+
+            properties = entry.get("properties") or []
+            for prop in properties:
+                original_type = prop.get("type")
+                DataProcessor.enrich_array_object_info(prop, original_type)
+                if original_type is not None:
+                    prop["type"] = DataProcessor.normalize_type_name(original_type)
+            entry["properties"] = properties
+
+            returns = entry.get("returns")
+            if isinstance(returns, dict):
+                original_type = returns.get("type")
+                is_array = False
+                if original_type is None or original_type == "":
+                    returns["type"] = "void"
+                else:
+                    is_array = DataProcessor._is_array_type(original_type)
+                    base_type = DataProcessor._strip_array_notation(original_type) if is_array else original_type
+                    returns["type"] = DataProcessor.normalize_type_name(base_type)
+                provided_flag = DataProcessor._to_bool(returns.get("is_array"))
+                returns["is_array"] = bool(provided_flag or is_array)
+                returns["description"] = returns.get("description") or ""
+            entry.setdefault("notes", None)
+            entry.setdefault("implementation_status", "implemented")
+
+        parsed_result["api_entries"] = api_entries
 
         return parsed_result
 
-
-# ===== LLM処理関数 =====
-class LLMProcessor:
-    """LLM処理クラス"""
+    @staticmethod
+    def _normalize_key(value: str) -> str:
+        """マッピング用にキーを正規化する"""
+        return value.lower().replace(" ", "").replace("_", "").replace("-", "")
 
     @staticmethod
-    def create_llm() -> ChatOpenAI:
-        """LLMインスタンスを作成"""
-        return ChatOpenAI(**Config.MODEL_CONFIG).bind(response_format={"type": "json_object"})
+    def _is_array_type(type_name: str) -> bool:
+        """型が配列かどうかを判定する"""
+        if not isinstance(type_name, str):
+            return False
+        normalized = type_name.strip().lower()
+        return any(marker in normalized for marker in DataProcessor.ARRAY_MARKERS) or normalized.endswith("[]")
+
+    @staticmethod
+    def _strip_array_notation(type_name: str) -> str:
+        """型名から配列表現を取り除く"""
+        if not isinstance(type_name, str):
+            return type_name
+        stripped = type_name.replace("(配列)", "").replace("(array)", "")
+        stripped = stripped.strip()
+        if stripped.endswith("[]"):
+            stripped = stripped[:-2]
+        if stripped.endswith("配列"):
+            stripped = stripped[:-len("配列")]
+        return stripped.strip()
+
+    @staticmethod
+    def _to_bool(value: Any) -> bool:
+        """真偽値として解釈する"""
+        if isinstance(value, bool):
+            return value
+        if isinstance(value, str):
+            normalized = value.strip().lower()
+            if normalized in {"true", "1", "yes", "y"}:
+                return True
+            if normalized in {"false", "0", "no", "n"}:
+                return False
+        return bool(value)
+
+    @staticmethod
+    def _normalize_default_value(value: Any) -> Any:
+        """デフォルト値を正規化する"""
+        if isinstance(value, str):
+            lowered = value.strip().lower()
+            if lowered in {"", "none", "null"}:
+                return None
+        return value
+
+# ===== LLMユーティリティ =====
+class LLMProcessor:
+    """LLMを利用した解析処理をまとめたユーティリティクラス"""
+
+    STRUCTURED_RESPONSE_FORMAT = {"type": "json_object"}
+
+    @staticmethod
+    def create_structured_llm() -> ChatOpenAI:
+        """構造化応答を強制するLLMインスタンスを生成する"""
+        return ChatOpenAI(**Config.MODEL_CONFIG).bind(response_format=LLMProcessor.STRUCTURED_RESPONSE_FORMAT)
+
+    @staticmethod
+    def create_text_llm() -> ChatOpenAI:
+        """自由形式のテキストを生成するLLMインスタンスを生成する"""
+        return ChatOpenAI(**Config.MODEL_CONFIG)
 
     @staticmethod
     def parse_response(response: Any) -> Union[Dict, List]:
-        """LLMの応答をパース"""
-        print(f"Response type: {type(response.content)}")
-        print(f"Response content preview: {str(response.content)[:200]}...")
+        """LLMの応答をパースする"""
+        content = response.content
+        print(f"Response type: {type(content)}")
+        preview = str(content)
+        print(f"Response content preview: {preview[:200]}...")
 
         try:
-            if isinstance(response.content, str):
-                parsed_result = json.loads(response.content)
-            elif isinstance(response.content, (dict, list)):
-                parsed_result = response.content
+            if isinstance(content, str):
+                parsed_result = json.loads(content)
+            elif isinstance(content, (dict, list)):
+                parsed_result = content
             else:
-                parsed_result = json.loads(str(response.content))
-            print("✅ パース成功")
+                parsed_result = json.loads(str(content))
+            print("Parse succeeded.")
             return parsed_result
-        except json.JSONDecodeError as e:
-            print(f"❌ JSONパースエラー: {e}")
-            print("LLM出力:", response.content)
-            if isinstance(response.content, (dict, list)):
-                return response.content
+        except json.JSONDecodeError as exc:
+            print(f"JSON parse error: {exc}")
+            print("LLM output:", content)
+            if isinstance(content, (dict, list)):
+                return content
             raise
-        except Exception as e:
-            print(f"❌ 予期しないエラー: {e}")
-            print("LLM出力:", response.content)
+        except Exception as exc:
+            print(f"Unexpected error while parsing LLM response: {exc}")
+            print("LLM output:", content)
             raise
 
     @staticmethod
     def extract_from_responses_api(parsed_result: Union[Dict, List]) -> Union[Dict, List]:
-        """Responses API v1形式から実際のコンテンツを抽出"""
+        """Responses API v1形式から実際のコンテンツを抽出する"""
         if not isinstance(parsed_result, list) or len(parsed_result) == 0:
             return parsed_result
 
-        print("🔍 Responses API v1形式を検出、テキスト要素を抽出中...")
+        print("Inspecting response for Responses API v1 envelope...")
 
-        # テキスト要素を探す
-        text_element = next(
-            (item for item in parsed_result if isinstance(item, dict) and item.get("type") == "text"), None
-        )
+        text_element = next((item for item in parsed_result if isinstance(item, dict) and item.get("type") == "text"), None)
 
         if text_element and "text" in text_element:
             try:
                 actual_content = json.loads(text_element["text"])
-                print("✅ Responses API v1形式から正しく抽出")
+                print("Extracted text element successfully.")
                 return actual_content
-            except json.JSONDecodeError as e:
-                print(f"❌ textフィールド内のJSONパースエラー: {e}")
-                print("text内容:", text_element["text"][:200])
+            except json.JSONDecodeError as exc:
+                print(f"JSON parse error inside text element: {exc}")
+                print("Raw text element:", text_element["text"][:200])
                 return parsed_result
-        else:
-            print("⚠️ テキスト要素が見つかりませんでした")
-            return parsed_result
 
+        print("No text element found in response list.")
+        return parsed_result
 
 # ===== 自己修正機能 =====
 class CodeQualityAnalyzer:
+
     """コード品質分析クラス"""
 
     @staticmethod
@@ -522,7 +624,7 @@ class CodeCorrector:
         print("🔧 修正の生成中...")
 
         # LLMを使用して修正を生成
-        llm = LLMProcessor.create_llm()
+        llm = LLMProcessor.create_text_llm()
         correction_prompt = ChatPromptTemplate.from_messages(
             [
                 ("system", "あなたは優秀なPython開発者です。コードの問題を修正してください。"),
@@ -680,7 +782,7 @@ def analyze_api_document(args: argparse.Namespace) -> Dict[str, Any]:
     json_format_instructions = PromptManager.get_json_format()
 
     # LLMの作成と実行
-    llm = LLMProcessor.create_llm()
+    llm = LLMProcessor.create_structured_llm()
     prompt = ChatPromptTemplate.from_messages(
         [
             ("system", system_prompt_template),
