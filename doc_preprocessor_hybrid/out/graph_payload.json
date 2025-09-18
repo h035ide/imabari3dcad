@@ -1,0 +1,6201 @@
+{
+  "nodes": [
+    {
+      "id": "Applicationオブジェクト",
+      "label": "Object",
+      "properties": {
+        "name": "Applicationオブジェクト"
+      }
+    },
+    {
+      "id": "ShowMainWindow",
+      "label": "Method",
+      "properties": {
+        "name": "ShowMainWindow",
+        "description": "EvoShipのメインウィンドウを表示する",
+        "category": "Applicationオブジェクト"
+      }
+    },
+    {
+      "id": "不明",
+      "label": "Type",
+      "properties": {
+        "name": "不明"
+      }
+    },
+    {
+      "id": "bool",
+      "label": "Type",
+      "properties": {
+        "name": "bool"
+      }
+    },
+    {
+      "id": "ShowMainWindow:bShow",
+      "label": "Parameter",
+      "properties": {
+        "name": "bShow",
+        "description": "表示する時はTrue",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "LoadPart",
+      "label": "Method",
+      "properties": {
+        "name": "LoadPart",
+        "description": "Partオブジェクトを読み込む",
+        "category": "Applicationオブジェクト"
+      }
+    },
+    {
+      "id": "文字列",
+      "label": "Type",
+      "properties": {
+        "name": "文字列"
+      }
+    },
+    {
+      "id": "LoadPart:FileName",
+      "label": "Parameter",
+      "properties": {
+        "name": "FileName",
+        "description": "保存されているドキュメントのファイルパス名",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "LoadPart:bForceEvaluation",
+      "label": "Parameter",
+      "properties": {
+        "name": "bForceEvaluation",
+        "description": "強制的に全要素を再計算して開くときはTrue　(通常はFalse）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "OpenDocument",
+      "label": "Method",
+      "properties": {
+        "name": "OpenDocument",
+        "description": "Documentを開く",
+        "category": "Applicationオブジェクト"
+      }
+    },
+    {
+      "id": "OpenDocument:FileName",
+      "label": "Parameter",
+      "properties": {
+        "name": "FileName",
+        "description": "保存されているドキュメントのファイルパス名",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "OpenDocument:bForceEvaluation",
+      "label": "Parameter",
+      "properties": {
+        "name": "bForceEvaluation",
+        "description": "強制的に全要素を再計算して開くときはTrue　(通常はFalse）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "Documentオブジェクト",
+      "label": "Object",
+      "properties": {
+        "name": "Documentオブジェクト"
+      }
+    },
+    {
+      "id": "Save",
+      "label": "Method",
+      "properties": {
+        "name": "Save",
+        "description": "ドキュメントをファイルに保存する",
+        "category": "Documentオブジェクト"
+      }
+    },
+    {
+      "id": "Save:FileName",
+      "label": "Parameter",
+      "properties": {
+        "name": "FileName",
+        "description": "保存するファイルパス名",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "Save:bAsCompactFormat",
+      "label": "Parameter",
+      "properties": {
+        "name": "bAsCompactFormat",
+        "description": "最小サイズになる形式で保存する時はTrue（開くのに計算を必要とします）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "ExporAsSTL",
+      "label": "Method",
+      "properties": {
+        "name": "ExporAsSTL",
+        "description": "ドキュメントをSTLとして保存する",
+        "category": "Documentオブジェクト"
+      }
+    },
+    {
+      "id": "STLパラメータオブジェクト",
+      "label": "Type",
+      "properties": {
+        "name": "STLパラメータオブジェクト"
+      }
+    },
+    {
+      "id": "ExporAsSTL:FileName",
+      "label": "Parameter",
+      "properties": {
+        "name": "FileName",
+        "description": "保存するSTLファイルパス名",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "ExporAsSTL:pOpt",
+      "label": "Parameter",
+      "properties": {
+        "name": "pOpt",
+        "description": "",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "Viewオブジェクト",
+      "label": "Object",
+      "properties": {
+        "name": "Viewオブジェクト"
+      }
+    },
+    {
+      "id": "SetDirection",
+      "label": "Method",
+      "properties": {
+        "name": "SetDirection",
+        "description": "ビューの表示方向を設定する",
+        "category": "Viewオブジェクト"
+      }
+    },
+    {
+      "id": "方向",
+      "label": "Type",
+      "properties": {
+        "name": "方向"
+      }
+    },
+    {
+      "id": "SetDirection:outDir",
+      "label": "Parameter",
+      "properties": {
+        "name": "outDir",
+        "description": "画面から外側に向く方向",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "SetDirection:upDir",
+      "label": "Parameter",
+      "properties": {
+        "name": "upDir",
+        "description": "画面の上方向",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "SetDirection:bFitToModel",
+      "label": "Parameter",
+      "properties": {
+        "name": "bFitToModel",
+        "description": "表示方向にあわせて表示範囲を要素にフィットさせる時はTrue",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "ExportToBitmap",
+      "label": "Method",
+      "properties": {
+        "name": "ExportToBitmap",
+        "description": "ビューの表示内容をビットマップファイルとして出力する",
+        "category": "Viewオブジェクト"
+      }
+    },
+    {
+      "id": "整数",
+      "label": "Type",
+      "properties": {
+        "name": "整数"
+      }
+    },
+    {
+      "id": "ExportToBitmap:FileName",
+      "label": "Parameter",
+      "properties": {
+        "name": "FileName",
+        "description": "ビットマップファイルのファイル名",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "ExportToBitmap:nBitapWidth",
+      "label": "Parameter",
+      "properties": {
+        "name": "nBitapWidth",
+        "description": "ビットマップファイルの横方向のピクセルサイズ（縦方向はビューの縦横比から取得）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "Partオブジェクト",
+      "label": "Object",
+      "properties": {
+        "name": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "CreateSketchPlane",
+      "label": "Method",
+      "properties": {
+        "name": "CreateSketchPlane",
+        "description": "スケッチ平面の作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "ID",
+      "label": "Type",
+      "properties": {
+        "name": "ID"
+      }
+    },
+    {
+      "id": "要素グループ",
+      "label": "Type",
+      "properties": {
+        "name": "要素グループ"
+      }
+    },
+    {
+      "id": "平面",
+      "label": "Type",
+      "properties": {
+        "name": "平面"
+      }
+    },
+    {
+      "id": "長さ",
+      "label": "Type",
+      "properties": {
+        "name": "長さ"
+      }
+    },
+    {
+      "id": "CreateSketchPlane:ElementName",
+      "label": "Parameter",
+      "properties": {
+        "name": "ElementName",
+        "description": "作成するスケッチ平面名称（空文字可）",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchPlane:ElementGroup",
+      "label": "Parameter",
+      "properties": {
+        "name": "ElementGroup",
+        "description": "作成するスケッチ平面を要素グループに入れる場合は要素グループを指定（空文字可）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchPlane:PlaneDef",
+      "label": "Parameter",
+      "properties": {
+        "name": "PlaneDef",
+        "description": "スケッチ平面を作成する平面を指定する",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchPlane:PlaneOffset",
+      "label": "Parameter",
+      "properties": {
+        "name": "PlaneOffset",
+        "description": "平面からのオフセット距離を指定",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchPlane:bRevPlane",
+      "label": "Parameter",
+      "properties": {
+        "name": "bRevPlane",
+        "description": "スケッチ平面を反転するかどうかのフラグ(bool)",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchLayer",
+      "label": "Method",
+      "properties": {
+        "name": "CreateSketchLayer",
+        "description": "スケッチレイヤーの作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "要素",
+      "label": "Type",
+      "properties": {
+        "name": "要素"
+      }
+    },
+    {
+      "id": "CreateSketchLayer:SketchLayerName",
+      "label": "Parameter",
+      "properties": {
+        "name": "SketchLayerName",
+        "description": "作成するスケッチレイヤー名称（空文字可）",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchLayer:SketchPlane",
+      "label": "Parameter",
+      "properties": {
+        "name": "SketchPlane",
+        "description": "レイヤーを作成するスケッチ要素",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchLine",
+      "label": "Method",
+      "properties": {
+        "name": "CreateSketchLine",
+        "description": "スケッチ直線作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "点",
+      "label": "Type",
+      "properties": {
+        "name": "点"
+      }
+    },
+    {
+      "id": "CreateSketchLine:SketchPlane",
+      "label": "Parameter",
+      "properties": {
+        "name": "SketchPlane",
+        "description": "直線を作成するスケッチ要素",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchLine:SketchLineName",
+      "label": "Parameter",
+      "properties": {
+        "name": "SketchLineName",
+        "description": "作成するスケッチ直線名称（空文字可）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchLine:SketchLayer",
+      "label": "Parameter",
+      "properties": {
+        "name": "SketchLayer",
+        "description": "直線を作成するスケッチレイヤー(空文字可）",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchLine:StartPoint",
+      "label": "Parameter",
+      "properties": {
+        "name": "StartPoint",
+        "description": "始点",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchLine:EndPoint",
+      "label": "Parameter",
+      "properties": {
+        "name": "EndPoint",
+        "description": "終点",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchLine:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 5,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchArc",
+      "label": "Method",
+      "properties": {
+        "name": "CreateSketchArc",
+        "description": "スケッチ円弧を中心点と始終点を指定して作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "CreateSketchArc:SketchPlane",
+      "label": "Parameter",
+      "properties": {
+        "name": "SketchPlane",
+        "description": "円弧を作成するスケッチ要素",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchArc:SketchArcName",
+      "label": "Parameter",
+      "properties": {
+        "name": "SketchArcName",
+        "description": "作成するスケッチ円弧名称（空文字可）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchArc:SketchLayer",
+      "label": "Parameter",
+      "properties": {
+        "name": "SketchLayer",
+        "description": "円弧を作成するスケッチレイヤー(空文字可）",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchArc:CenterPoint",
+      "label": "Parameter",
+      "properties": {
+        "name": "CenterPoint",
+        "description": "中心点",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchArc:StartPoint",
+      "label": "Parameter",
+      "properties": {
+        "name": "StartPoint",
+        "description": "始点",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchArc:EndPoint",
+      "label": "Parameter",
+      "properties": {
+        "name": "EndPoint",
+        "description": "終点",
+        "position": 5,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchArc:bCCW",
+      "label": "Parameter",
+      "properties": {
+        "name": "bCCW",
+        "description": "円弧の回転方向Trueの場合は反時計周り",
+        "position": 6,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchArc:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 7,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchArc3Pts",
+      "label": "Method",
+      "properties": {
+        "name": "CreateSketchArc3Pts",
+        "description": "スケッチ円弧を周上の３点を指定して作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "CreateSketchArc3Pts:SketchPlane",
+      "label": "Parameter",
+      "properties": {
+        "name": "SketchPlane",
+        "description": "円弧を作成するスケッチ要素",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchArc3Pts:SketchArcName",
+      "label": "Parameter",
+      "properties": {
+        "name": "SketchArcName",
+        "description": "作成するスケッチ円弧名称（空文字可）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchArc3Pts:SketchLayer",
+      "label": "Parameter",
+      "properties": {
+        "name": "SketchLayer",
+        "description": "円弧を作成するスケッチレイヤー(空文字可）",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchArc3Pts:StartPoint",
+      "label": "Parameter",
+      "properties": {
+        "name": "StartPoint",
+        "description": "始点",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchArc3Pts:MidPoint",
+      "label": "Parameter",
+      "properties": {
+        "name": "MidPoint",
+        "description": "通過点",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchArc3Pts:EndPoint",
+      "label": "Parameter",
+      "properties": {
+        "name": "EndPoint",
+        "description": "終点",
+        "position": 5,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchArc3Pts:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 6,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchCircle",
+      "label": "Method",
+      "properties": {
+        "name": "CreateSketchCircle",
+        "description": "スケッチ円を中心点を指定して作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "CreateSketchCircle:SketchPlane",
+      "label": "Parameter",
+      "properties": {
+        "name": "SketchPlane",
+        "description": "円を作成するスケッチ要素",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchCircle:SketchArcName",
+      "label": "Parameter",
+      "properties": {
+        "name": "SketchArcName",
+        "description": "作成するスケッチ円名称（空文字可）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchCircle:SketchLayer",
+      "label": "Parameter",
+      "properties": {
+        "name": "SketchLayer",
+        "description": "円を作成するスケッチレイヤー(空文字可）",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchCircle:Centeroint",
+      "label": "Parameter",
+      "properties": {
+        "name": "Centeroint",
+        "description": "中心点",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchCircle:RadiusOrDiameter",
+      "label": "Parameter",
+      "properties": {
+        "name": "RadiusOrDiameter",
+        "description": "半径または直径",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchCircle:bDiameter",
+      "label": "Parameter",
+      "properties": {
+        "name": "bDiameter",
+        "description": "直径を指定する場合はTrue",
+        "position": 5,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchCircle:bCCW",
+      "label": "Parameter",
+      "properties": {
+        "name": "bCCW",
+        "description": "円の回転方向Trueの場合は反時計周り",
+        "position": 6,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchCircle:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 7,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchEllipse",
+      "label": "Method",
+      "properties": {
+        "name": "CreateSketchEllipse",
+        "description": "スケッチ楕円を中心点を指定して作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "範囲",
+      "label": "Type",
+      "properties": {
+        "name": "範囲"
+      }
+    },
+    {
+      "id": "CreateSketchEllipse:SketchPlane",
+      "label": "Parameter",
+      "properties": {
+        "name": "SketchPlane",
+        "description": "楕円を作成するスケッチ要素",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchEllipse:SketchArcName",
+      "label": "Parameter",
+      "properties": {
+        "name": "SketchArcName",
+        "description": "作成するスケッチ楕円名称（空文字可）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchEllipse:SketchLayer",
+      "label": "Parameter",
+      "properties": {
+        "name": "SketchLayer",
+        "description": "楕円を作成するスケッチレイヤー(空文字可）",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchEllipse:Centeroint",
+      "label": "Parameter",
+      "properties": {
+        "name": "Centeroint",
+        "description": "中心点",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchEllipse:bCCW",
+      "label": "Parameter",
+      "properties": {
+        "name": "bCCW",
+        "description": "楕円の回転方向Trueの場合は反時計周り",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchEllipse:MajorDir",
+      "label": "Parameter",
+      "properties": {
+        "name": "MajorDir",
+        "description": "主軸方向を指定",
+        "position": 5,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchEllipse:MajorRadius",
+      "label": "Parameter",
+      "properties": {
+        "name": "MajorRadius",
+        "description": "主軸半径",
+        "position": 6,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchEllipse:MinorRadius",
+      "label": "Parameter",
+      "properties": {
+        "name": "MinorRadius",
+        "description": "副軸半径",
+        "position": 7,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchEllipse:Range",
+      "label": "Parameter",
+      "properties": {
+        "name": "Range",
+        "description": "(0-2pi)",
+        "position": 8,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchNURBSCurve",
+      "label": "Method",
+      "properties": {
+        "name": "CreateSketchNURBSCurve",
+        "description": "スケッチＮＵＲＢＳ線を中心点を指定して作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "浮動小数点",
+      "label": "Type",
+      "properties": {
+        "name": "浮動小数点"
+      }
+    },
+    {
+      "id": "CreateSketchNURBSCurve:SketchPlane",
+      "label": "Parameter",
+      "properties": {
+        "name": "SketchPlane",
+        "description": "ＮＵＲＢＳ線を作成するスケッチ要素",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchNURBSCurve:SketchArcName",
+      "label": "Parameter",
+      "properties": {
+        "name": "SketchArcName",
+        "description": "作成するスケッチＮＵＲＢＳ線名称（空文字可）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchNURBSCurve:SketchLayer",
+      "label": "Parameter",
+      "properties": {
+        "name": "SketchLayer",
+        "description": "ＮＵＲＢＳ線を作成するスケッチレイヤー(空文字可）",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchNURBSCurve:nDegree",
+      "label": "Parameter",
+      "properties": {
+        "name": "nDegree",
+        "description": "ＮＵＲＢＳ線の次数",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchNURBSCurve:bClose",
+      "label": "Parameter",
+      "properties": {
+        "name": "bClose",
+        "description": "閉じたＮＵＲＢＳ線の場合True",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchNURBSCurve:bPeriodic",
+      "label": "Parameter",
+      "properties": {
+        "name": "bPeriodic",
+        "description": "周期ＮＵＲＢＳ線の場合True",
+        "position": 5,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchNURBSCurve:CtrlPoints",
+      "label": "Parameter",
+      "properties": {
+        "name": "CtrlPoints",
+        "description": "制御点",
+        "position": 6,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchNURBSCurve:Weights",
+      "label": "Parameter",
+      "properties": {
+        "name": "Weights",
+        "description": "重み",
+        "position": 7,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchNURBSCurve:Knots",
+      "label": "Parameter",
+      "properties": {
+        "name": "Knots",
+        "description": "ノットベクトル",
+        "position": 8,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchNURBSCurve:Range",
+      "label": "Parameter",
+      "properties": {
+        "name": "Range",
+        "description": "トリム範囲",
+        "position": 9,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSketchNURBSCurve:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 10,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateElementsFromFile",
+      "label": "Method",
+      "properties": {
+        "name": "CreateElementsFromFile",
+        "description": "ファイルをインポートして要素を作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "CreateElementsFromFile:FileName",
+      "label": "Parameter",
+      "properties": {
+        "name": "FileName",
+        "description": "ファイルパス（現状、Parasolid形式のみ）",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateOffsetSheet",
+      "label": "Method",
+      "properties": {
+        "name": "CreateOffsetSheet",
+        "description": "オフセットシートを作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "材料",
+      "label": "Type",
+      "properties": {
+        "name": "材料"
+      }
+    },
+    {
+      "id": "CreateOffsetSheet:SheetName",
+      "label": "Parameter",
+      "properties": {
+        "name": "SheetName",
+        "description": "作成するシート要素名称（空文字可）",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateOffsetSheet:ElementGroup",
+      "label": "Parameter",
+      "properties": {
+        "name": "ElementGroup",
+        "description": "作成するシート要素を要素グループに入れる場合は要素グループを指定（空文字可）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateOffsetSheet:MaterialName",
+      "label": "Parameter",
+      "properties": {
+        "name": "MaterialName",
+        "description": "作成するシート要素の材質名称（空文字可）",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateOffsetSheet:SrcSurfaces",
+      "label": "Parameter",
+      "properties": {
+        "name": "SrcSurfaces",
+        "description": "オフセットする元シート要素、フェイス要素の指定文字列配列",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateOffsetSheet:OffsetLength",
+      "label": "Parameter",
+      "properties": {
+        "name": "OffsetLength",
+        "description": "オフセット距離",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateOffsetSheet:bOffsetBackwards",
+      "label": "Parameter",
+      "properties": {
+        "name": "bOffsetBackwards",
+        "description": "オフセット方向を反転",
+        "position": 5,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateOffsetSheet:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 6,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateLinearSweep",
+      "label": "Method",
+      "properties": {
+        "name": "CreateLinearSweep",
+        "description": "指定したソリッド要素に押し出し形状を付加する",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "オペレーションタイプ",
+      "label": "Type",
+      "properties": {
+        "name": "オペレーションタイプ"
+      }
+    },
+    {
+      "id": "押し出しパラメータオブジェクト",
+      "label": "Type",
+      "properties": {
+        "name": "押し出しパラメータオブジェクト"
+      }
+    },
+    {
+      "id": "CreateLinearSweep:TargetSolidName",
+      "label": "Parameter",
+      "properties": {
+        "name": "TargetSolidName",
+        "description": "押し出しフィーチャーを作成する対象のソリッドを指定",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateLinearSweep:OperationType",
+      "label": "Parameter",
+      "properties": {
+        "name": "OperationType",
+        "description": "ソリッドオペレーションのタイプを指定する",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateLinearSweep:pParam",
+      "label": "Parameter",
+      "properties": {
+        "name": "pParam",
+        "description": "",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateLinearSweep:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateLinearSweepSheet",
+      "label": "Method",
+      "properties": {
+        "name": "CreateLinearSweepSheet",
+        "description": "プロファイル要素を押し出してシート要素を作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "CreateLinearSweepSheet:ParamObj",
+      "label": "Parameter",
+      "properties": {
+        "name": "ParamObj",
+        "description": "",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateLinearSweepSheet:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "SheetAlignNormal",
+      "label": "Method",
+      "properties": {
+        "name": "SheetAlignNormal",
+        "description": "シート要素の向き（表側、法線方向）を指定した方向に揃える",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "SheetAlignNormal:SheetElement",
+      "label": "Parameter",
+      "properties": {
+        "name": "SheetElement",
+        "description": "方向を揃えるシート要素",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "SheetAlignNormal:dirX",
+      "label": "Parameter",
+      "properties": {
+        "name": "dirX",
+        "description": "方向ベクトルのX成分",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "SheetAlignNormal:dirY",
+      "label": "Parameter",
+      "properties": {
+        "name": "dirY",
+        "description": "方向ベクトルのY成分",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "SheetAlignNormal:dirZ",
+      "label": "Parameter",
+      "properties": {
+        "name": "dirZ",
+        "description": "方向ベクトルのZ成分",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "ReverseSheet",
+      "label": "Method",
+      "properties": {
+        "name": "ReverseSheet",
+        "description": "シート要素の向きを反転する",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "ReverseSheet:SheetElement",
+      "label": "Parameter",
+      "properties": {
+        "name": "SheetElement",
+        "description": "反転するシート要素",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BlankElement",
+      "label": "Method",
+      "properties": {
+        "name": "BlankElement",
+        "description": "指定要素を表示状態を設定する",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "BlankElement:Element",
+      "label": "Parameter",
+      "properties": {
+        "name": "Element",
+        "description": "表示状態を指定する要素",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BlankElement:bBlank",
+      "label": "Parameter",
+      "properties": {
+        "name": "bBlank",
+        "description": "Trueの時は非表示にする。Falseの時は表示する。",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "TranslationCopy",
+      "label": "Method",
+      "properties": {
+        "name": "TranslationCopy",
+        "description": "指定要素を移動コピーする",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "関連設定",
+      "label": "Type",
+      "properties": {
+        "name": "関連設定"
+      }
+    },
+    {
+      "id": "TranslationCopy:SrcElements",
+      "label": "Parameter",
+      "properties": {
+        "name": "SrcElements",
+        "description": "コピーする要素",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "TranslationCopy:nCopy",
+      "label": "Parameter",
+      "properties": {
+        "name": "nCopy",
+        "description": "コピーする数",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "TranslationCopy:direction",
+      "label": "Parameter",
+      "properties": {
+        "name": "direction",
+        "description": "コピーする方向",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "TranslationCopy:distance",
+      "label": "Parameter",
+      "properties": {
+        "name": "distance",
+        "description": "移動距離",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "TranslationCopy:ReferMethod",
+      "label": "Parameter",
+      "properties": {
+        "name": "ReferMethod",
+        "description": "要素の関連づけ方法の指定",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "MirrorCopy",
+      "label": "Method",
+      "properties": {
+        "name": "MirrorCopy",
+        "description": "指定要素をミラーコピーする",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "MirrorCopy:SrcElements",
+      "label": "Parameter",
+      "properties": {
+        "name": "SrcElements",
+        "description": "コピーする要素",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "MirrorCopy:ReferMethod",
+      "label": "Parameter",
+      "properties": {
+        "name": "ReferMethod",
+        "description": "要素の関連づけ方法の指定",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSolid",
+      "label": "Method",
+      "properties": {
+        "name": "CreateSolid",
+        "description": "空のソリッド要素を作成する",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "CreateSolid:SolidName",
+      "label": "Parameter",
+      "properties": {
+        "name": "SolidName",
+        "description": "作成するソリッド要素名称（空文字可）",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSolid:ElementGroup",
+      "label": "Parameter",
+      "properties": {
+        "name": "ElementGroup",
+        "description": "作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSolid:MaterialName",
+      "label": "Parameter",
+      "properties": {
+        "name": "MaterialName",
+        "description": "作成するソリッド要素の材質名称（空文字可）",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateThicken",
+      "label": "Method",
+      "properties": {
+        "name": "CreateThicken",
+        "description": "指定したソリッド要素に指定要素厚みづけした形状を作成する",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "厚み付けタイプ",
+      "label": "Type",
+      "properties": {
+        "name": "厚み付けタイプ"
+      }
+    },
+    {
+      "id": "CreateThicken:ThickenFeatureName",
+      "label": "Parameter",
+      "properties": {
+        "name": "ThickenFeatureName",
+        "description": "作成する厚みづけフィーチャー要素名称（空文字可）",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateThicken:TargetSolidName",
+      "label": "Parameter",
+      "properties": {
+        "name": "TargetSolidName",
+        "description": "厚みづけフィーチャーを作成する対象のソリッドを指定",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateThicken:OperationType",
+      "label": "Parameter",
+      "properties": {
+        "name": "OperationType",
+        "description": "ソリッドオペレーションのタイプを指定する",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateThicken:Sheet",
+      "label": "Parameter",
+      "properties": {
+        "name": "Sheet",
+        "description": "厚み付けをするシートやフェイス",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateThicken:ThickenType",
+      "label": "Parameter",
+      "properties": {
+        "name": "ThickenType",
+        "description": "",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateThicken:Thickeness1",
+      "label": "Parameter",
+      "properties": {
+        "name": "Thickeness1",
+        "description": "板厚",
+        "position": 5,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateThicken:Thickeness2",
+      "label": "Parameter",
+      "properties": {
+        "name": "Thickeness2",
+        "description": "板厚２（厚み付けタイプが２方向のときに使用）",
+        "position": 6,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateThicken:ThickenessOffset",
+      "label": "Parameter",
+      "properties": {
+        "name": "ThickenessOffset",
+        "description": "厚みづけをするシート、フェイス要素のオフセット距離",
+        "position": 7,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateThicken:ReferMethod",
+      "label": "Parameter",
+      "properties": {
+        "name": "ReferMethod",
+        "description": "要素の関連づけ方法の指定",
+        "position": 8,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateThicken:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 9,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateOtherSolid",
+      "label": "Method",
+      "properties": {
+        "name": "CreateOtherSolid",
+        "description": "指定したソリッド要素に別のソリッド要素形状を付加する",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "CreateOtherSolid:OtherSolidFeatureName",
+      "label": "Parameter",
+      "properties": {
+        "name": "OtherSolidFeatureName",
+        "description": "作成する別ソリッドフィーチャー要素名称（空文字可）",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateOtherSolid:TargetSolidName",
+      "label": "Parameter",
+      "properties": {
+        "name": "TargetSolidName",
+        "description": "別ソリッドフィーチャーを作成する対象のソリッドを指定",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateOtherSolid:OperationType",
+      "label": "Parameter",
+      "properties": {
+        "name": "OperationType",
+        "description": "ソリッドオペレーションのタイプを指定する",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateOtherSolid:SourceSolid",
+      "label": "Parameter",
+      "properties": {
+        "name": "SourceSolid",
+        "description": "別ソリッドフィーチャーとするソリッド要素を指定する",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateOtherSolid:ReferMethod",
+      "label": "Parameter",
+      "properties": {
+        "name": "ReferMethod",
+        "description": "要素の関連づけ方法の指定",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateOtherSolid:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 5,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBracket",
+      "label": "Method",
+      "properties": {
+        "name": "CreateBracket",
+        "description": "船殻のブラケットソリッド要素を作成する",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "ブラケットパラメータオブジェクト",
+      "label": "Type",
+      "properties": {
+        "name": "ブラケットパラメータオブジェクト"
+      }
+    },
+    {
+      "id": "CreateBracket:ParamObj",
+      "label": "Parameter",
+      "properties": {
+        "name": "ParamObj",
+        "description": "",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBracket:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreatePlate",
+      "label": "Method",
+      "properties": {
+        "name": "CreatePlate",
+        "description": "船殻のプレートソリッド要素を作成する",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "モールド位置",
+      "label": "Type",
+      "properties": {
+        "name": "モールド位置"
+      }
+    },
+    {
+      "id": "CreatePlate:PlateName",
+      "label": "Parameter",
+      "properties": {
+        "name": "PlateName",
+        "description": "作成するプレートソリッド要素名称（空文字可）",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreatePlate:ElementGroup",
+      "label": "Parameter",
+      "properties": {
+        "name": "ElementGroup",
+        "description": "作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreatePlate:MaterialName",
+      "label": "Parameter",
+      "properties": {
+        "name": "MaterialName",
+        "description": "作成するソリッド要素の材質名称（空文字可）",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreatePlate:Plane",
+      "label": "Parameter",
+      "properties": {
+        "name": "Plane",
+        "description": "プレートのる平面位置",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreatePlate:PlaneOffset",
+      "label": "Parameter",
+      "properties": {
+        "name": "PlaneOffset",
+        "description": "平面のオフセット距離を指定",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreatePlate:Thickness",
+      "label": "Parameter",
+      "properties": {
+        "name": "Thickness",
+        "description": "板厚",
+        "position": 5,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreatePlate:nMold",
+      "label": "Parameter",
+      "properties": {
+        "name": "nMold",
+        "description": "",
+        "position": 6,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreatePlate:MoldOffset",
+      "label": "Parameter",
+      "properties": {
+        "name": "MoldOffset",
+        "description": "モールド位置のオフセット距離",
+        "position": 7,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreatePlate:BoundSolid",
+      "label": "Parameter",
+      "properties": {
+        "name": "BoundSolid",
+        "description": "プレートソリッドの境界となるソリッド要素。",
+        "position": 8,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreatePlate:Section1End1",
+      "label": "Parameter",
+      "properties": {
+        "name": "Section1End1",
+        "description": "プレートソリッドの平面上の方向１の境界位置の座標値１",
+        "position": 9,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreatePlate:Section1End2",
+      "label": "Parameter",
+      "properties": {
+        "name": "Section1End2",
+        "description": "プレートソリッドの平面上の方向１の境界位置の座標値２",
+        "position": 10,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreatePlate:Section2End1",
+      "label": "Parameter",
+      "properties": {
+        "name": "Section2End1",
+        "description": "プレートソリッドの平面上の方向２の境界位置の座標値１",
+        "position": 11,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreatePlate:Section2End2",
+      "label": "Parameter",
+      "properties": {
+        "name": "Section2End2",
+        "description": "プレートソリッドの平面上の方向２の境界位置の座標値２",
+        "position": 12,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreatePlate:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 13,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateProfile",
+      "label": "Method",
+      "properties": {
+        "name": "CreateProfile",
+        "description": "船殻の条材ソリッド要素を取付線指定で作成する",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト",
+      "label": "Type",
+      "properties": {
+        "name": "条材要素のパラメータオブジェクト"
+      }
+    },
+    {
+      "id": "CreateProfile:ParamObj",
+      "label": "Parameter",
+      "properties": {
+        "name": "ParamObj",
+        "description": "",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateProfile:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodyDivideByElements",
+      "label": "Method",
+      "properties": {
+        "name": "BodyDivideByElements",
+        "description": "ボディを指定した要素で分割する",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "BodyDivideByElements:pDriveFeatureName",
+      "label": "Parameter",
+      "properties": {
+        "name": "pDriveFeatureName",
+        "description": "作成する分割フィーチャー要素名称（空文字可）",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodyDivideByElements:pTargetBody",
+      "label": "Parameter",
+      "properties": {
+        "name": "pTargetBody",
+        "description": "分割対象のボディ",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodyDivideByElements:pDivideElements",
+      "label": "Parameter",
+      "properties": {
+        "name": "pDivideElements",
+        "description": "分割をする要素（シートボディ、フェイス、平面要素）",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodyDivideByElements:pAlignmentDirection",
+      "label": "Parameter",
+      "properties": {
+        "name": "pAlignmentDirection",
+        "description": "分割されたボディ要素の順番を整列させるのに使用する方向",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodyDivideByElements:pWCS",
+      "label": "Parameter",
+      "properties": {
+        "name": "pWCS",
+        "description": "方向を定義する座標系（通常は指定しない）",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodyDivideByElements:ReferMethod",
+      "label": "Parameter",
+      "properties": {
+        "name": "ReferMethod",
+        "description": "要素の関連づけ方法の指定",
+        "position": 5,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodyDivideByElements:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 6,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodySeparateBySubSolids",
+      "label": "Method",
+      "properties": {
+        "name": "BodySeparateBySubSolids",
+        "description": "ボディを指定したソリッドで削除することで分割する（ボディの区分けコマンド）",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "BodySeparateBySubSolids:pSeparateFeatureName",
+      "label": "Parameter",
+      "properties": {
+        "name": "pSeparateFeatureName",
+        "description": "作成する分割フィーチャー要素名称（空文字可）",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodySeparateBySubSolids:pTargetBody",
+      "label": "Parameter",
+      "properties": {
+        "name": "pTargetBody",
+        "description": "分割対象のボディ",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodySeparateBySubSolids:pSubSolids",
+      "label": "Parameter",
+      "properties": {
+        "name": "pSubSolids",
+        "description": "分割をするソリッド要素",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodySeparateBySubSolids:pAlignmentDirection",
+      "label": "Parameter",
+      "properties": {
+        "name": "pAlignmentDirection",
+        "description": "分割されたボディ要素の順番を整列させるのに使用する方向",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodySeparateBySubSolids:ReferMethod",
+      "label": "Parameter",
+      "properties": {
+        "name": "ReferMethod",
+        "description": "要素の関連づけ方法の指定",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodySeparateBySubSolids:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 5,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodyDivideByCurves",
+      "label": "Method",
+      "properties": {
+        "name": "BodyDivideByCurves",
+        "description": "ボディを指定した線で分割する",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "BodyDivideByCurves:pDriveFeatureName",
+      "label": "Parameter",
+      "properties": {
+        "name": "pDriveFeatureName",
+        "description": "作成する分割フィーチャー要素名称（空文字可）",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodyDivideByCurves:pTargetBody",
+      "label": "Parameter",
+      "properties": {
+        "name": "pTargetBody",
+        "description": "分割対象のボディ",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodyDivideByCurves:pDivideCurves",
+      "label": "Parameter",
+      "properties": {
+        "name": "pDivideCurves",
+        "description": "分割をするスケッチ等の線要素",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodyDivideByCurves:bNorProjection",
+      "label": "Parameter",
+      "properties": {
+        "name": "bNorProjection",
+        "description": "線要素を要素に投影するかどうかのフラグ",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodyDivideByCurves:CorrectEndPointsTolerance",
+      "label": "Parameter",
+      "properties": {
+        "name": "CorrectEndPointsTolerance",
+        "description": "分割線が複数の場合の分割線同士のの判定トレランスを指定（通常は指定しない、空文字）",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodyDivideByCurves:AlignmentDirection",
+      "label": "Parameter",
+      "properties": {
+        "name": "AlignmentDirection",
+        "description": "分割されたボディ要素の順番を整列させるのに使用する方向",
+        "position": 5,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodyDivideByCurves:ReferMethod",
+      "label": "Parameter",
+      "properties": {
+        "name": "ReferMethod",
+        "description": "要素の関連づけ方法の指定",
+        "position": 6,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodyDivideByCurves:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 7,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodyDivideByPlanes",
+      "label": "Method",
+      "properties": {
+        "name": "BodyDivideByPlanes",
+        "description": "ボディを指定した平面で分割する",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "BodyDivideByPlanes:pDriveFeatureName",
+      "label": "Parameter",
+      "properties": {
+        "name": "pDriveFeatureName",
+        "description": "作成する分割フィーチャー要素名称（空文字可）",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodyDivideByPlanes:TargetBody",
+      "label": "Parameter",
+      "properties": {
+        "name": "TargetBody",
+        "description": "分割対象のボディ",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodyDivideByPlanes:plane",
+      "label": "Parameter",
+      "properties": {
+        "name": "plane",
+        "description": "分割をする平面",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "BodyDivideByPlanes:nPlaneCopy",
+      "label": "Parameter",
+      "properties": {
+        "name": "nPlaneCopy",
+        "description": "分割をする平面を複数コピーして分割をする（通常は1)",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CutBody",
+      "label": "Method",
+      "properties": {
+        "name": "CutBody",
+        "description": "ボディを指定した要素でカットする",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "CutBody:FeatureName",
+      "label": "Parameter",
+      "properties": {
+        "name": "FeatureName",
+        "description": "作成するカットフィーチャー要素名称（空文字可）",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CutBody:TargetBody",
+      "label": "Parameter",
+      "properties": {
+        "name": "TargetBody",
+        "description": "カット対象のソリッド、シート",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CutBody:CutElement",
+      "label": "Parameter",
+      "properties": {
+        "name": "CutElement",
+        "description": "カットする要素(平面、シート）",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CutBody:ElementOffset",
+      "label": "Parameter",
+      "properties": {
+        "name": "ElementOffset",
+        "description": "カットする要素のオフセット距離を指定",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CutBody:bCutForward",
+      "label": "Parameter",
+      "properties": {
+        "name": "bCutForward",
+        "description": "要素の関連づけ方法の指定",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBoundedPlate",
+      "label": "Method",
+      "properties": {
+        "name": "CreateBoundedPlate",
+        "description": "指定したソリッド要素に境界要素を指定した板形状を作成する",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "CreateBoundedPlate:FeatureName",
+      "label": "Parameter",
+      "properties": {
+        "name": "FeatureName",
+        "description": "作成する境界要素指定フィーチャー要素名称（空文字可）",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBoundedPlate:TargetSolid",
+      "label": "Parameter",
+      "properties": {
+        "name": "TargetSolid",
+        "description": "境界要素指定フィーチャーを作成する対象のソリッドを指定",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBoundedPlate:OperationType",
+      "label": "Parameter",
+      "properties": {
+        "name": "OperationType",
+        "description": "ソリッドオペレーションのタイプを指定する",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBoundedPlate:Plane",
+      "label": "Parameter",
+      "properties": {
+        "name": "Plane",
+        "description": "板の定義平面位置",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBoundedPlate:PlaneOffset",
+      "label": "Parameter",
+      "properties": {
+        "name": "PlaneOffset",
+        "description": "平面のオフセット距離を指定",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBoundedPlate:BoundObjects",
+      "label": "Parameter",
+      "properties": {
+        "name": "BoundObjects",
+        "description": "境界要素（シート、フェイス、スケッチ、平面、ソリッド）",
+        "position": 5,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBoundedPlate:ThickenType",
+      "label": "Parameter",
+      "properties": {
+        "name": "ThickenType",
+        "description": "",
+        "position": 6,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBoundedPlate:Thickness1",
+      "label": "Parameter",
+      "properties": {
+        "name": "Thickness1",
+        "description": "板厚",
+        "position": 7,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBoundedPlate:Thickness2",
+      "label": "Parameter",
+      "properties": {
+        "name": "Thickness2",
+        "description": "板厚２（厚み付けタイプが２方向のときに使用）",
+        "position": 8,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBoundedPlate:ThicknessOffset",
+      "label": "Parameter",
+      "properties": {
+        "name": "ThicknessOffset",
+        "description": "厚みづけをする板のオフセット距離",
+        "position": 9,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBoundedPlate:RefByGeometricMethod",
+      "label": "Parameter",
+      "properties": {
+        "name": "RefByGeometricMethod",
+        "description": "Trueの時は幾何位置にもとづいて関連を設定する",
+        "position": 10,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBoundedPlate:ReferMethod",
+      "label": "Parameter",
+      "properties": {
+        "name": "ReferMethod",
+        "description": "要素の関連づけ方法の指定",
+        "position": 11,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBoundedPlate:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 12,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBoundingBox",
+      "label": "Method",
+      "properties": {
+        "name": "CreateBoundingBox",
+        "description": "指定したソリッド要素に境界ボックス形状を作成する",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "CreateBoundingBox:FeatureName",
+      "label": "Parameter",
+      "properties": {
+        "name": "FeatureName",
+        "description": "作成する境界ボックスフィーチャー要素名称（空文字可）",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBoundingBox:TargetSolid",
+      "label": "Parameter",
+      "properties": {
+        "name": "TargetSolid",
+        "description": "境界ボックスフィーチャーを作成する対象のソリッドを指定",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBoundingBox:OperationType",
+      "label": "Parameter",
+      "properties": {
+        "name": "OperationType",
+        "description": "ソリッドオペレーションのタイプを指定する",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBoundingBox:Bodies",
+      "label": "Parameter",
+      "properties": {
+        "name": "Bodies",
+        "description": "境界ボックスを計算するソリッド、シート要素",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBoundingBox:bOptimalBox",
+      "label": "Parameter",
+      "properties": {
+        "name": "bOptimalBox",
+        "description": "Trueを指定するとボックスを計算する座標系を最適なものにする。（そうでない場合は絶対座標系で計算する）",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBoundingBox:ReferMethod",
+      "label": "Parameter",
+      "properties": {
+        "name": "ReferMethod",
+        "description": "要素の関連づけ方法の指定",
+        "position": 5,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateBoundingBox:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 6,
+        "is_required": false
+      }
+    },
+    {
+      "id": "SetElementColor",
+      "label": "Method",
+      "properties": {
+        "name": "SetElementColor",
+        "description": "指定要素の色を設定する",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "SetElementColor:Element",
+      "label": "Parameter",
+      "properties": {
+        "name": "Element",
+        "description": "色を設定する要素",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "SetElementColor:RValue",
+      "label": "Parameter",
+      "properties": {
+        "name": "RValue",
+        "description": "赤色の値(0-255)",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSweep",
+      "label": "Method",
+      "properties": {
+        "name": "CreateSweep",
+        "description": "指定したソリッド要素にスイープ形状を付加する",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "スイープパラメータオブジェクト",
+      "label": "Type",
+      "properties": {
+        "name": "スイープパラメータオブジェクト"
+      }
+    },
+    {
+      "id": "CreateSweep:TargetSolidName",
+      "label": "Parameter",
+      "properties": {
+        "name": "TargetSolidName",
+        "description": "スイープフィーチャーを作成する対象のソリッドを指定",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSweep:OperationType",
+      "label": "Parameter",
+      "properties": {
+        "name": "OperationType",
+        "description": "ソリッドオペレーションのタイプを指定する",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSweep:pParam",
+      "label": "Parameter",
+      "properties": {
+        "name": "pParam",
+        "description": "",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSweep:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSweepSheet",
+      "label": "Method",
+      "properties": {
+        "name": "CreateSweepSheet",
+        "description": "プロファイル要素をスイープしてシート要素を作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "CreateSweepSheet:ParamObj",
+      "label": "Parameter",
+      "properties": {
+        "name": "ParamObj",
+        "description": "",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSweepSheet:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateRotationalSweep",
+      "label": "Method",
+      "properties": {
+        "name": "CreateRotationalSweep",
+        "description": "指定したソリッド要素に回転形状を付加する",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "回転パラメータオブジェクト",
+      "label": "Type",
+      "properties": {
+        "name": "回転パラメータオブジェクト"
+      }
+    },
+    {
+      "id": "CreateRotationalSweep:TargetSolidName",
+      "label": "Parameter",
+      "properties": {
+        "name": "TargetSolidName",
+        "description": "回転フィーチャーを作成する対象のソリッドを指定",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateRotationalSweep:OperationType",
+      "label": "Parameter",
+      "properties": {
+        "name": "OperationType",
+        "description": "ソリッドオペレーションのタイプを指定する",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateRotationalSweep:pParam",
+      "label": "Parameter",
+      "properties": {
+        "name": "pParam",
+        "description": "",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateRotationalSweep:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateRotationalSweepSheet",
+      "label": "Method",
+      "properties": {
+        "name": "CreateRotationalSweepSheet",
+        "description": "プロファイル要素を回転してシート要素を作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "CreateRotationalSweepSheet:ParamObj",
+      "label": "Parameter",
+      "properties": {
+        "name": "ParamObj",
+        "description": "",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateRotationalSweepSheet:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateLine",
+      "label": "Method",
+      "properties": {
+        "name": "CreateLine",
+        "description": "3Dの直線線要素を作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "CreateLine:StartPoint",
+      "label": "Parameter",
+      "properties": {
+        "name": "StartPoint",
+        "description": "始点",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateArc",
+      "label": "Method",
+      "properties": {
+        "name": "CreateArc",
+        "description": "3Dの円弧線要素を作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "CreateArc:CenterPoint",
+      "label": "Parameter",
+      "properties": {
+        "name": "CenterPoint",
+        "description": "中心点",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateArc:Normal",
+      "label": "Parameter",
+      "properties": {
+        "name": "Normal",
+        "description": "軸方向",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateArc:MajorDir",
+      "label": "Parameter",
+      "properties": {
+        "name": "MajorDir",
+        "description": "主軸方向（パラメータ０の位置方向",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateArc:Radius",
+      "label": "Parameter",
+      "properties": {
+        "name": "Radius",
+        "description": "半径",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateArc:bClose",
+      "label": "Parameter",
+      "properties": {
+        "name": "bClose",
+        "description": "Trueの時は円を作成する",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateEllipse",
+      "label": "Method",
+      "properties": {
+        "name": "CreateEllipse",
+        "description": "3Dの楕円線要素を作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "CreateEllipse:CenterPoint",
+      "label": "Parameter",
+      "properties": {
+        "name": "CenterPoint",
+        "description": "中心点",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateEllipse:Normal",
+      "label": "Parameter",
+      "properties": {
+        "name": "Normal",
+        "description": "軸方向",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateEllipse:MajorDir",
+      "label": "Parameter",
+      "properties": {
+        "name": "MajorDir",
+        "description": "主軸方向（パラメータ０の位置方向",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateEllipse:MajorRadius",
+      "label": "Parameter",
+      "properties": {
+        "name": "MajorRadius",
+        "description": "主軸半径",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateEllipse:MinorRadius",
+      "label": "Parameter",
+      "properties": {
+        "name": "MinorRadius",
+        "description": "副軸半径",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateEllipse:bClose",
+      "label": "Parameter",
+      "properties": {
+        "name": "bClose",
+        "description": "Trueの時は閉じたを作成する",
+        "position": 5,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateNURBSCurve",
+      "label": "Method",
+      "properties": {
+        "name": "CreateNURBSCurve",
+        "description": "3DのＮＵＲＢＳ線要素を作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "CreateNURBSCurve:nDegree",
+      "label": "Parameter",
+      "properties": {
+        "name": "nDegree",
+        "description": "ＮＵＲＢＳ線の次数",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateNURBSCurve:bClose",
+      "label": "Parameter",
+      "properties": {
+        "name": "bClose",
+        "description": "閉じたＮＵＲＢＳ線の場合True",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateNURBSCurve:bPeriodic",
+      "label": "Parameter",
+      "properties": {
+        "name": "bPeriodic",
+        "description": "周期ＮＵＲＢＳ線の場合True",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateNURBSCurve:CtrlPoints",
+      "label": "Parameter",
+      "properties": {
+        "name": "CtrlPoints",
+        "description": "制御点",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateNURBSCurve:Weights",
+      "label": "Parameter",
+      "properties": {
+        "name": "Weights",
+        "description": "重み",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateNURBSCurve:Knots",
+      "label": "Parameter",
+      "properties": {
+        "name": "Knots",
+        "description": "ノットベクトル",
+        "position": 5,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateNURBSCurve:Range",
+      "label": "Parameter",
+      "properties": {
+        "name": "Range",
+        "description": "トリム範囲",
+        "position": 6,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateLoft",
+      "label": "Method",
+      "properties": {
+        "name": "CreateLoft",
+        "description": "指定したソリッド要素にロフト形状を付加する",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "ロフトパラメータオブジェクト",
+      "label": "Type",
+      "properties": {
+        "name": "ロフトパラメータオブジェクト"
+      }
+    },
+    {
+      "id": "CreateLoft:TargetSolidName",
+      "label": "Parameter",
+      "properties": {
+        "name": "TargetSolidName",
+        "description": "ロフトフィーチャーを作成する対象のソリッドを指定",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateLoft:OperationType",
+      "label": "Parameter",
+      "properties": {
+        "name": "OperationType",
+        "description": "ソリッドオペレーションのタイプを指定する",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateLoft:pParam",
+      "label": "Parameter",
+      "properties": {
+        "name": "pParam",
+        "description": "",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateLoft:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateLoftSheet",
+      "label": "Method",
+      "properties": {
+        "name": "CreateLoftSheet",
+        "description": "ロフトシート要素を作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "CreateLoftSheet:ParamObj",
+      "label": "Parameter",
+      "properties": {
+        "name": "ParamObj",
+        "description": "",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateLoftSheet:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSlot",
+      "label": "Method",
+      "properties": {
+        "name": "CreateSlot",
+        "description": "船殻のスロット要素、カラープレートを作成する",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "スロットパラメータオブジェクト",
+      "label": "Type",
+      "properties": {
+        "name": "スロットパラメータオブジェクト"
+      }
+    },
+    {
+      "id": "CreateSlot:ParamObj",
+      "label": "Parameter",
+      "properties": {
+        "name": "ParamObj",
+        "description": "",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateSlot:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateFacePlate",
+      "label": "Method",
+      "properties": {
+        "name": "CreateFacePlate",
+        "description": "船殻のフェイスプレート要素トを作成する",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "フェイスプレートパラメータオブジェクト",
+      "label": "Type",
+      "properties": {
+        "name": "フェイスプレートパラメータオブジェクト"
+      }
+    },
+    {
+      "id": "CreateFacePlate:ParamObj",
+      "label": "Parameter",
+      "properties": {
+        "name": "ParamObj",
+        "description": "",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateFacePlate:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateOffsetDatumPlane",
+      "label": "Method",
+      "properties": {
+        "name": "CreateOffsetDatumPlane",
+        "description": "データム平面の作成（移動）",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "CreateOffsetDatumPlane:Name",
+      "label": "Parameter",
+      "properties": {
+        "name": "Name",
+        "description": "作成するデータム平面要素名称（空文字可）",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateOffsetDatumPlane:ElementGroup",
+      "label": "Parameter",
+      "properties": {
+        "name": "ElementGroup",
+        "description": "作成するデータム平面要素を要素グループに入れる場合は要素グループを指定（空文字可）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateOffsetDatumPlane:Plane",
+      "label": "Parameter",
+      "properties": {
+        "name": "Plane",
+        "description": "元になる平面を指定する",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateOffsetDatumPlane:OffsetDistance",
+      "label": "Parameter",
+      "properties": {
+        "name": "OffsetDistance",
+        "description": "元になる平面からのオフセット距離を指定",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateOffsetDatumPlane:ReferMethod",
+      "label": "Parameter",
+      "properties": {
+        "name": "ReferMethod",
+        "description": "要素の関連づけ方法の指定（未実装、使用しない）",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateOffsetDatumPlane:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 5,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateRotatedDatumPlane",
+      "label": "Method",
+      "properties": {
+        "name": "CreateRotatedDatumPlane",
+        "description": "データム平面の作成（回転）",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "軸",
+      "label": "Type",
+      "properties": {
+        "name": "軸"
+      }
+    },
+    {
+      "id": "角度",
+      "label": "Type",
+      "properties": {
+        "name": "角度"
+      }
+    },
+    {
+      "id": "CreateRotatedDatumPlane:Name",
+      "label": "Parameter",
+      "properties": {
+        "name": "Name",
+        "description": "作成するデータム平面要素名称（空文字可）",
+        "position": 0,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateRotatedDatumPlane:ElementGroup",
+      "label": "Parameter",
+      "properties": {
+        "name": "ElementGroup",
+        "description": "作成するデータム平面要素を要素グループに入れる場合は要素グループを指定（空文字可）",
+        "position": 1,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateRotatedDatumPlane:Plane",
+      "label": "Parameter",
+      "properties": {
+        "name": "Plane",
+        "description": "元になる平面を指定する",
+        "position": 2,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateRotatedDatumPlane:Axis",
+      "label": "Parameter",
+      "properties": {
+        "name": "Axis",
+        "description": "回転軸を指定する",
+        "position": 3,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateRotatedDatumPlane:Angle",
+      "label": "Parameter",
+      "properties": {
+        "name": "Angle",
+        "description": "回転角度",
+        "position": 4,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateRotatedDatumPlane:ReferMethod",
+      "label": "Parameter",
+      "properties": {
+        "name": "ReferMethod",
+        "description": "要素の関連づけ方法の指定（未実装、使用しない）",
+        "position": 5,
+        "is_required": false
+      }
+    },
+    {
+      "id": "CreateRotatedDatumPlane:bUpdate",
+      "label": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
+        "position": 6,
+        "is_required": false
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "type": "BELONGS_TO",
+      "start": "ShowMainWindow",
+      "end": "Applicationオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "ShowMainWindow",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "ShowMainWindow",
+      "end": "ShowMainWindow:bShow"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "ShowMainWindow:bShow",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "LoadPart",
+      "end": "Applicationオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "LoadPart",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "LoadPart",
+      "end": "LoadPart:FileName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "LoadPart:FileName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "LoadPart",
+      "end": "LoadPart:bForceEvaluation"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "LoadPart:bForceEvaluation",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "OpenDocument",
+      "end": "Applicationオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "OpenDocument",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "OpenDocument",
+      "end": "OpenDocument:FileName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "OpenDocument:FileName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "OpenDocument",
+      "end": "OpenDocument:bForceEvaluation"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "OpenDocument:bForceEvaluation",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "Save",
+      "end": "Documentオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "Save",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "Save",
+      "end": "Save:FileName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "Save:FileName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "Save",
+      "end": "Save:bAsCompactFormat"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "Save:bAsCompactFormat",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "ExporAsSTL",
+      "end": "Documentオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "ExporAsSTL",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "ExporAsSTL",
+      "end": "ExporAsSTL:FileName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "ExporAsSTL:FileName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "ExporAsSTL",
+      "end": "ExporAsSTL:pOpt"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "ExporAsSTL:pOpt",
+      "end": "STLパラメータオブジェクト"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "SetDirection",
+      "end": "Viewオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "SetDirection",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "SetDirection",
+      "end": "SetDirection:outDir"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "SetDirection:outDir",
+      "end": "方向"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "SetDirection",
+      "end": "SetDirection:upDir"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "SetDirection:upDir",
+      "end": "方向"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "SetDirection",
+      "end": "SetDirection:bFitToModel"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "SetDirection:bFitToModel",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "ExportToBitmap",
+      "end": "Viewオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "ExportToBitmap",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "ExportToBitmap",
+      "end": "ExportToBitmap:FileName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "ExportToBitmap:FileName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "ExportToBitmap",
+      "end": "ExportToBitmap:nBitapWidth"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "ExportToBitmap:nBitapWidth",
+      "end": "整数"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateSketchPlane",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateSketchPlane",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchPlane",
+      "end": "CreateSketchPlane:ElementName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchPlane:ElementName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchPlane",
+      "end": "CreateSketchPlane:ElementGroup"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchPlane:ElementGroup",
+      "end": "要素グループ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchPlane",
+      "end": "CreateSketchPlane:PlaneDef"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchPlane:PlaneDef",
+      "end": "平面"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchPlane",
+      "end": "CreateSketchPlane:PlaneOffset"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchPlane:PlaneOffset",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchPlane",
+      "end": "CreateSketchPlane:bRevPlane"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchPlane:bRevPlane",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateSketchLayer",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateSketchLayer",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchLayer",
+      "end": "CreateSketchLayer:SketchLayerName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchLayer:SketchLayerName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchLayer",
+      "end": "CreateSketchLayer:SketchPlane"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchLayer:SketchPlane",
+      "end": "要素"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateSketchLine",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateSketchLine",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchLine",
+      "end": "CreateSketchLine:SketchPlane"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchLine:SketchPlane",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchLine",
+      "end": "CreateSketchLine:SketchLineName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchLine:SketchLineName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchLine",
+      "end": "CreateSketchLine:SketchLayer"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchLine:SketchLayer",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchLine",
+      "end": "CreateSketchLine:StartPoint"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchLine:StartPoint",
+      "end": "点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchLine",
+      "end": "CreateSketchLine:EndPoint"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchLine:EndPoint",
+      "end": "点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchLine",
+      "end": "CreateSketchLine:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchLine:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateSketchArc",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateSketchArc",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchArc",
+      "end": "CreateSketchArc:SketchPlane"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchArc:SketchPlane",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchArc",
+      "end": "CreateSketchArc:SketchArcName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchArc:SketchArcName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchArc",
+      "end": "CreateSketchArc:SketchLayer"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchArc:SketchLayer",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchArc",
+      "end": "CreateSketchArc:CenterPoint"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchArc:CenterPoint",
+      "end": "点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchArc",
+      "end": "CreateSketchArc:StartPoint"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchArc:StartPoint",
+      "end": "点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchArc",
+      "end": "CreateSketchArc:EndPoint"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchArc:EndPoint",
+      "end": "点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchArc",
+      "end": "CreateSketchArc:bCCW"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchArc:bCCW",
+      "end": "bool"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchArc",
+      "end": "CreateSketchArc:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchArc:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateSketchArc3Pts",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateSketchArc3Pts",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchArc3Pts",
+      "end": "CreateSketchArc3Pts:SketchPlane"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchArc3Pts:SketchPlane",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchArc3Pts",
+      "end": "CreateSketchArc3Pts:SketchArcName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchArc3Pts:SketchArcName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchArc3Pts",
+      "end": "CreateSketchArc3Pts:SketchLayer"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchArc3Pts:SketchLayer",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchArc3Pts",
+      "end": "CreateSketchArc3Pts:StartPoint"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchArc3Pts:StartPoint",
+      "end": "点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchArc3Pts",
+      "end": "CreateSketchArc3Pts:MidPoint"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchArc3Pts:MidPoint",
+      "end": "点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchArc3Pts",
+      "end": "CreateSketchArc3Pts:EndPoint"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchArc3Pts:EndPoint",
+      "end": "点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchArc3Pts",
+      "end": "CreateSketchArc3Pts:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchArc3Pts:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateSketchCircle",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateSketchCircle",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchCircle",
+      "end": "CreateSketchCircle:SketchPlane"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchCircle:SketchPlane",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchCircle",
+      "end": "CreateSketchCircle:SketchArcName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchCircle:SketchArcName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchCircle",
+      "end": "CreateSketchCircle:SketchLayer"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchCircle:SketchLayer",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchCircle",
+      "end": "CreateSketchCircle:Centeroint"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchCircle:Centeroint",
+      "end": "点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchCircle",
+      "end": "CreateSketchCircle:RadiusOrDiameter"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchCircle:RadiusOrDiameter",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchCircle",
+      "end": "CreateSketchCircle:bDiameter"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchCircle:bDiameter",
+      "end": "bool"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchCircle",
+      "end": "CreateSketchCircle:bCCW"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchCircle:bCCW",
+      "end": "bool"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchCircle",
+      "end": "CreateSketchCircle:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchCircle:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateSketchEllipse",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateSketchEllipse",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchEllipse",
+      "end": "CreateSketchEllipse:SketchPlane"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchEllipse:SketchPlane",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchEllipse",
+      "end": "CreateSketchEllipse:SketchArcName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchEllipse:SketchArcName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchEllipse",
+      "end": "CreateSketchEllipse:SketchLayer"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchEllipse:SketchLayer",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchEllipse",
+      "end": "CreateSketchEllipse:Centeroint"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchEllipse:Centeroint",
+      "end": "点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchEllipse",
+      "end": "CreateSketchEllipse:bCCW"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchEllipse:bCCW",
+      "end": "bool"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchEllipse",
+      "end": "CreateSketchEllipse:MajorDir"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchEllipse:MajorDir",
+      "end": "方向"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchEllipse",
+      "end": "CreateSketchEllipse:MajorRadius"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchEllipse:MajorRadius",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchEllipse",
+      "end": "CreateSketchEllipse:MinorRadius"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchEllipse:MinorRadius",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchEllipse",
+      "end": "CreateSketchEllipse:Range"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchEllipse:Range",
+      "end": "範囲"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateSketchNURBSCurve",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateSketchNURBSCurve",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchNURBSCurve",
+      "end": "CreateSketchNURBSCurve:SketchPlane"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchNURBSCurve:SketchPlane",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchNURBSCurve",
+      "end": "CreateSketchNURBSCurve:SketchArcName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchNURBSCurve:SketchArcName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchNURBSCurve",
+      "end": "CreateSketchNURBSCurve:SketchLayer"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchNURBSCurve:SketchLayer",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchNURBSCurve",
+      "end": "CreateSketchNURBSCurve:nDegree"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchNURBSCurve:nDegree",
+      "end": "整数"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchNURBSCurve",
+      "end": "CreateSketchNURBSCurve:bClose"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchNURBSCurve:bClose",
+      "end": "bool"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchNURBSCurve",
+      "end": "CreateSketchNURBSCurve:bPeriodic"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchNURBSCurve:bPeriodic",
+      "end": "bool"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchNURBSCurve",
+      "end": "CreateSketchNURBSCurve:CtrlPoints"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchNURBSCurve:CtrlPoints",
+      "end": "点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchNURBSCurve",
+      "end": "CreateSketchNURBSCurve:Weights"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchNURBSCurve:Weights",
+      "end": "浮動小数点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchNURBSCurve",
+      "end": "CreateSketchNURBSCurve:Knots"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchNURBSCurve:Knots",
+      "end": "浮動小数点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchNURBSCurve",
+      "end": "CreateSketchNURBSCurve:Range"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchNURBSCurve:Range",
+      "end": "範囲"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSketchNURBSCurve",
+      "end": "CreateSketchNURBSCurve:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSketchNURBSCurve:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateElementsFromFile",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateElementsFromFile",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateElementsFromFile",
+      "end": "CreateElementsFromFile:FileName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateElementsFromFile:FileName",
+      "end": "文字列"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateOffsetSheet",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateOffsetSheet",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateOffsetSheet",
+      "end": "CreateOffsetSheet:SheetName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateOffsetSheet:SheetName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateOffsetSheet",
+      "end": "CreateOffsetSheet:ElementGroup"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateOffsetSheet:ElementGroup",
+      "end": "要素グループ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateOffsetSheet",
+      "end": "CreateOffsetSheet:MaterialName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateOffsetSheet:MaterialName",
+      "end": "材料"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateOffsetSheet",
+      "end": "CreateOffsetSheet:SrcSurfaces"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateOffsetSheet:SrcSurfaces",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateOffsetSheet",
+      "end": "CreateOffsetSheet:OffsetLength"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateOffsetSheet:OffsetLength",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateOffsetSheet",
+      "end": "CreateOffsetSheet:bOffsetBackwards"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateOffsetSheet:bOffsetBackwards",
+      "end": "bool"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateOffsetSheet",
+      "end": "CreateOffsetSheet:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateOffsetSheet:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateLinearSweep",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateLinearSweep",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateLinearSweep",
+      "end": "CreateLinearSweep:TargetSolidName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateLinearSweep:TargetSolidName",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateLinearSweep",
+      "end": "CreateLinearSweep:OperationType"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateLinearSweep:OperationType",
+      "end": "オペレーションタイプ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateLinearSweep",
+      "end": "CreateLinearSweep:pParam"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateLinearSweep:pParam",
+      "end": "押し出しパラメータオブジェクト"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateLinearSweep",
+      "end": "CreateLinearSweep:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateLinearSweep:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateLinearSweepSheet",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateLinearSweepSheet",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateLinearSweepSheet",
+      "end": "CreateLinearSweepSheet:ParamObj"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateLinearSweepSheet:ParamObj",
+      "end": "押し出しパラメータオブジェクト"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateLinearSweepSheet",
+      "end": "CreateLinearSweepSheet:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateLinearSweepSheet:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "SheetAlignNormal",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "SheetAlignNormal",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "SheetAlignNormal",
+      "end": "SheetAlignNormal:SheetElement"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "SheetAlignNormal:SheetElement",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "SheetAlignNormal",
+      "end": "SheetAlignNormal:dirX"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "SheetAlignNormal:dirX",
+      "end": "浮動小数点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "SheetAlignNormal",
+      "end": "SheetAlignNormal:dirY"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "SheetAlignNormal:dirY",
+      "end": "浮動小数点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "SheetAlignNormal",
+      "end": "SheetAlignNormal:dirZ"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "SheetAlignNormal:dirZ",
+      "end": "浮動小数点"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "ReverseSheet",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "ReverseSheet",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "ReverseSheet",
+      "end": "ReverseSheet:SheetElement"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "ReverseSheet:SheetElement",
+      "end": "要素"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "BlankElement",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "BlankElement",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BlankElement",
+      "end": "BlankElement:Element"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BlankElement:Element",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BlankElement",
+      "end": "BlankElement:bBlank"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BlankElement:bBlank",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "TranslationCopy",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "TranslationCopy",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "TranslationCopy",
+      "end": "TranslationCopy:SrcElements"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "TranslationCopy:SrcElements",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "TranslationCopy",
+      "end": "TranslationCopy:nCopy"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "TranslationCopy:nCopy",
+      "end": "整数"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "TranslationCopy",
+      "end": "TranslationCopy:direction"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "TranslationCopy:direction",
+      "end": "方向"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "TranslationCopy",
+      "end": "TranslationCopy:distance"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "TranslationCopy:distance",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "TranslationCopy",
+      "end": "TranslationCopy:ReferMethod"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "TranslationCopy:ReferMethod",
+      "end": "関連設定"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "MirrorCopy",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "MirrorCopy",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "MirrorCopy",
+      "end": "MirrorCopy:SrcElements"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "MirrorCopy:SrcElements",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "MirrorCopy",
+      "end": "MirrorCopy:ReferMethod"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "MirrorCopy:ReferMethod",
+      "end": "関連設定"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateSolid",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateSolid",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSolid",
+      "end": "CreateSolid:SolidName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSolid:SolidName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSolid",
+      "end": "CreateSolid:ElementGroup"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSolid:ElementGroup",
+      "end": "要素グループ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSolid",
+      "end": "CreateSolid:MaterialName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSolid:MaterialName",
+      "end": "材料"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateThicken",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateThicken",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateThicken",
+      "end": "CreateThicken:ThickenFeatureName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateThicken:ThickenFeatureName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateThicken",
+      "end": "CreateThicken:TargetSolidName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateThicken:TargetSolidName",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateThicken",
+      "end": "CreateThicken:OperationType"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateThicken:OperationType",
+      "end": "オペレーションタイプ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateThicken",
+      "end": "CreateThicken:Sheet"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateThicken:Sheet",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateThicken",
+      "end": "CreateThicken:ThickenType"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateThicken:ThickenType",
+      "end": "厚み付けタイプ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateThicken",
+      "end": "CreateThicken:Thickeness1"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateThicken:Thickeness1",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateThicken",
+      "end": "CreateThicken:Thickeness2"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateThicken:Thickeness2",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateThicken",
+      "end": "CreateThicken:ThickenessOffset"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateThicken:ThickenessOffset",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateThicken",
+      "end": "CreateThicken:ReferMethod"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateThicken:ReferMethod",
+      "end": "関連設定"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateThicken",
+      "end": "CreateThicken:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateThicken:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateOtherSolid",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateOtherSolid",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateOtherSolid",
+      "end": "CreateOtherSolid:OtherSolidFeatureName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateOtherSolid:OtherSolidFeatureName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateOtherSolid",
+      "end": "CreateOtherSolid:TargetSolidName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateOtherSolid:TargetSolidName",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateOtherSolid",
+      "end": "CreateOtherSolid:OperationType"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateOtherSolid:OperationType",
+      "end": "オペレーションタイプ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateOtherSolid",
+      "end": "CreateOtherSolid:SourceSolid"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateOtherSolid:SourceSolid",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateOtherSolid",
+      "end": "CreateOtherSolid:ReferMethod"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateOtherSolid:ReferMethod",
+      "end": "関連設定"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateOtherSolid",
+      "end": "CreateOtherSolid:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateOtherSolid:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateBracket",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateBracket",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBracket",
+      "end": "CreateBracket:ParamObj"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBracket:ParamObj",
+      "end": "ブラケットパラメータオブジェクト"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBracket",
+      "end": "CreateBracket:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBracket:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreatePlate",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreatePlate",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreatePlate",
+      "end": "CreatePlate:PlateName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreatePlate:PlateName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreatePlate",
+      "end": "CreatePlate:ElementGroup"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreatePlate:ElementGroup",
+      "end": "要素グループ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreatePlate",
+      "end": "CreatePlate:MaterialName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreatePlate:MaterialName",
+      "end": "材料"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreatePlate",
+      "end": "CreatePlate:Plane"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreatePlate:Plane",
+      "end": "平面"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreatePlate",
+      "end": "CreatePlate:PlaneOffset"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreatePlate:PlaneOffset",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreatePlate",
+      "end": "CreatePlate:Thickness"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreatePlate:Thickness",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreatePlate",
+      "end": "CreatePlate:nMold"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreatePlate:nMold",
+      "end": "モールド位置"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreatePlate",
+      "end": "CreatePlate:MoldOffset"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreatePlate:MoldOffset",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreatePlate",
+      "end": "CreatePlate:BoundSolid"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreatePlate:BoundSolid",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreatePlate",
+      "end": "CreatePlate:Section1End1"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreatePlate:Section1End1",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreatePlate",
+      "end": "CreatePlate:Section1End2"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreatePlate:Section1End2",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreatePlate",
+      "end": "CreatePlate:Section2End1"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreatePlate:Section2End1",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreatePlate",
+      "end": "CreatePlate:Section2End2"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreatePlate:Section2End2",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreatePlate",
+      "end": "CreatePlate:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreatePlate:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateProfile",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateProfile",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateProfile",
+      "end": "CreateProfile:ParamObj"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateProfile:ParamObj",
+      "end": "条材要素のパラメータオブジェクト"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateProfile",
+      "end": "CreateProfile:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateProfile:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "BodyDivideByElements",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "BodyDivideByElements",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodyDivideByElements",
+      "end": "BodyDivideByElements:pDriveFeatureName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodyDivideByElements:pDriveFeatureName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodyDivideByElements",
+      "end": "BodyDivideByElements:pTargetBody"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodyDivideByElements:pTargetBody",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodyDivideByElements",
+      "end": "BodyDivideByElements:pDivideElements"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodyDivideByElements:pDivideElements",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodyDivideByElements",
+      "end": "BodyDivideByElements:pAlignmentDirection"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodyDivideByElements:pAlignmentDirection",
+      "end": "方向"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodyDivideByElements",
+      "end": "BodyDivideByElements:pWCS"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodyDivideByElements:pWCS",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodyDivideByElements",
+      "end": "BodyDivideByElements:ReferMethod"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodyDivideByElements:ReferMethod",
+      "end": "関連設定"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodyDivideByElements",
+      "end": "BodyDivideByElements:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodyDivideByElements:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "BodySeparateBySubSolids",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "BodySeparateBySubSolids",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodySeparateBySubSolids",
+      "end": "BodySeparateBySubSolids:pSeparateFeatureName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodySeparateBySubSolids:pSeparateFeatureName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodySeparateBySubSolids",
+      "end": "BodySeparateBySubSolids:pTargetBody"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodySeparateBySubSolids:pTargetBody",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodySeparateBySubSolids",
+      "end": "BodySeparateBySubSolids:pSubSolids"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodySeparateBySubSolids:pSubSolids",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodySeparateBySubSolids",
+      "end": "BodySeparateBySubSolids:pAlignmentDirection"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodySeparateBySubSolids:pAlignmentDirection",
+      "end": "方向"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodySeparateBySubSolids",
+      "end": "BodySeparateBySubSolids:ReferMethod"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodySeparateBySubSolids:ReferMethod",
+      "end": "関連設定"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodySeparateBySubSolids",
+      "end": "BodySeparateBySubSolids:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodySeparateBySubSolids:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "BodyDivideByCurves",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "BodyDivideByCurves",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodyDivideByCurves",
+      "end": "BodyDivideByCurves:pDriveFeatureName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodyDivideByCurves:pDriveFeatureName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodyDivideByCurves",
+      "end": "BodyDivideByCurves:pTargetBody"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodyDivideByCurves:pTargetBody",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodyDivideByCurves",
+      "end": "BodyDivideByCurves:pDivideCurves"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodyDivideByCurves:pDivideCurves",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodyDivideByCurves",
+      "end": "BodyDivideByCurves:bNorProjection"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodyDivideByCurves:bNorProjection",
+      "end": "bool"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodyDivideByCurves",
+      "end": "BodyDivideByCurves:CorrectEndPointsTolerance"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodyDivideByCurves:CorrectEndPointsTolerance",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodyDivideByCurves",
+      "end": "BodyDivideByCurves:AlignmentDirection"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodyDivideByCurves:AlignmentDirection",
+      "end": "方向"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodyDivideByCurves",
+      "end": "BodyDivideByCurves:ReferMethod"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodyDivideByCurves:ReferMethod",
+      "end": "関連設定"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodyDivideByCurves",
+      "end": "BodyDivideByCurves:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodyDivideByCurves:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "BodyDivideByPlanes",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "BodyDivideByPlanes",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodyDivideByPlanes",
+      "end": "BodyDivideByPlanes:pDriveFeatureName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodyDivideByPlanes:pDriveFeatureName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodyDivideByPlanes",
+      "end": "BodyDivideByPlanes:TargetBody"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodyDivideByPlanes:TargetBody",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodyDivideByPlanes",
+      "end": "BodyDivideByPlanes:plane"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodyDivideByPlanes:plane",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "BodyDivideByPlanes",
+      "end": "BodyDivideByPlanes:nPlaneCopy"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "BodyDivideByPlanes:nPlaneCopy",
+      "end": "整数"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CutBody",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CutBody",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CutBody",
+      "end": "CutBody:FeatureName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CutBody:FeatureName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CutBody",
+      "end": "CutBody:TargetBody"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CutBody:TargetBody",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CutBody",
+      "end": "CutBody:CutElement"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CutBody:CutElement",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CutBody",
+      "end": "CutBody:ElementOffset"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CutBody:ElementOffset",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CutBody",
+      "end": "CutBody:bCutForward"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CutBody:bCutForward",
+      "end": "関連設定"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateBoundedPlate",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateBoundedPlate",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBoundedPlate",
+      "end": "CreateBoundedPlate:FeatureName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBoundedPlate:FeatureName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBoundedPlate",
+      "end": "CreateBoundedPlate:TargetSolid"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBoundedPlate:TargetSolid",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBoundedPlate",
+      "end": "CreateBoundedPlate:OperationType"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBoundedPlate:OperationType",
+      "end": "オペレーションタイプ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBoundedPlate",
+      "end": "CreateBoundedPlate:Plane"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBoundedPlate:Plane",
+      "end": "平面"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBoundedPlate",
+      "end": "CreateBoundedPlate:PlaneOffset"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBoundedPlate:PlaneOffset",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBoundedPlate",
+      "end": "CreateBoundedPlate:BoundObjects"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBoundedPlate:BoundObjects",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBoundedPlate",
+      "end": "CreateBoundedPlate:ThickenType"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBoundedPlate:ThickenType",
+      "end": "厚み付けタイプ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBoundedPlate",
+      "end": "CreateBoundedPlate:Thickness1"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBoundedPlate:Thickness1",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBoundedPlate",
+      "end": "CreateBoundedPlate:Thickness2"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBoundedPlate:Thickness2",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBoundedPlate",
+      "end": "CreateBoundedPlate:ThicknessOffset"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBoundedPlate:ThicknessOffset",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBoundedPlate",
+      "end": "CreateBoundedPlate:RefByGeometricMethod"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBoundedPlate:RefByGeometricMethod",
+      "end": "bool"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBoundedPlate",
+      "end": "CreateBoundedPlate:ReferMethod"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBoundedPlate:ReferMethod",
+      "end": "関連設定"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBoundedPlate",
+      "end": "CreateBoundedPlate:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBoundedPlate:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateBoundingBox",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateBoundingBox",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBoundingBox",
+      "end": "CreateBoundingBox:FeatureName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBoundingBox:FeatureName",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBoundingBox",
+      "end": "CreateBoundingBox:TargetSolid"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBoundingBox:TargetSolid",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBoundingBox",
+      "end": "CreateBoundingBox:OperationType"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBoundingBox:OperationType",
+      "end": "オペレーションタイプ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBoundingBox",
+      "end": "CreateBoundingBox:Bodies"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBoundingBox:Bodies",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBoundingBox",
+      "end": "CreateBoundingBox:bOptimalBox"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBoundingBox:bOptimalBox",
+      "end": "bool"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBoundingBox",
+      "end": "CreateBoundingBox:ReferMethod"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBoundingBox:ReferMethod",
+      "end": "関連設定"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateBoundingBox",
+      "end": "CreateBoundingBox:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateBoundingBox:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "SetElementColor",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "SetElementColor",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "SetElementColor",
+      "end": "SetElementColor:Element"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "SetElementColor:Element",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "SetElementColor",
+      "end": "SetElementColor:RValue"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "SetElementColor:RValue",
+      "end": "整数"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateSweep",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateSweep",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSweep",
+      "end": "CreateSweep:TargetSolidName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSweep:TargetSolidName",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSweep",
+      "end": "CreateSweep:OperationType"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSweep:OperationType",
+      "end": "オペレーションタイプ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSweep",
+      "end": "CreateSweep:pParam"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSweep:pParam",
+      "end": "スイープパラメータオブジェクト"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSweep",
+      "end": "CreateSweep:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSweep:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateSweepSheet",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateSweepSheet",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSweepSheet",
+      "end": "CreateSweepSheet:ParamObj"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSweepSheet:ParamObj",
+      "end": "スイープパラメータオブジェクト"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSweepSheet",
+      "end": "CreateSweepSheet:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSweepSheet:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateRotationalSweep",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateRotationalSweep",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateRotationalSweep",
+      "end": "CreateRotationalSweep:TargetSolidName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateRotationalSweep:TargetSolidName",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateRotationalSweep",
+      "end": "CreateRotationalSweep:OperationType"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateRotationalSweep:OperationType",
+      "end": "オペレーションタイプ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateRotationalSweep",
+      "end": "CreateRotationalSweep:pParam"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateRotationalSweep:pParam",
+      "end": "回転パラメータオブジェクト"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateRotationalSweep",
+      "end": "CreateRotationalSweep:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateRotationalSweep:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateRotationalSweepSheet",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateRotationalSweepSheet",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateRotationalSweepSheet",
+      "end": "CreateRotationalSweepSheet:ParamObj"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateRotationalSweepSheet:ParamObj",
+      "end": "回転パラメータオブジェクト"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateRotationalSweepSheet",
+      "end": "CreateRotationalSweepSheet:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateRotationalSweepSheet:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateLine",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateLine",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateLine",
+      "end": "CreateLine:StartPoint"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateLine:StartPoint",
+      "end": "点"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateArc",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateArc",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateArc",
+      "end": "CreateArc:CenterPoint"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateArc:CenterPoint",
+      "end": "点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateArc",
+      "end": "CreateArc:Normal"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateArc:Normal",
+      "end": "方向"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateArc",
+      "end": "CreateArc:MajorDir"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateArc:MajorDir",
+      "end": "方向"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateArc",
+      "end": "CreateArc:Radius"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateArc:Radius",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateArc",
+      "end": "CreateArc:bClose"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateArc:bClose",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateEllipse",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateEllipse",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateEllipse",
+      "end": "CreateEllipse:CenterPoint"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateEllipse:CenterPoint",
+      "end": "点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateEllipse",
+      "end": "CreateEllipse:Normal"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateEllipse:Normal",
+      "end": "方向"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateEllipse",
+      "end": "CreateEllipse:MajorDir"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateEllipse:MajorDir",
+      "end": "方向"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateEllipse",
+      "end": "CreateEllipse:MajorRadius"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateEllipse:MajorRadius",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateEllipse",
+      "end": "CreateEllipse:MinorRadius"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateEllipse:MinorRadius",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateEllipse",
+      "end": "CreateEllipse:bClose"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateEllipse:bClose",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateNURBSCurve",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateNURBSCurve",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateNURBSCurve",
+      "end": "CreateNURBSCurve:nDegree"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateNURBSCurve:nDegree",
+      "end": "整数"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateNURBSCurve",
+      "end": "CreateNURBSCurve:bClose"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateNURBSCurve:bClose",
+      "end": "bool"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateNURBSCurve",
+      "end": "CreateNURBSCurve:bPeriodic"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateNURBSCurve:bPeriodic",
+      "end": "bool"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateNURBSCurve",
+      "end": "CreateNURBSCurve:CtrlPoints"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateNURBSCurve:CtrlPoints",
+      "end": "点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateNURBSCurve",
+      "end": "CreateNURBSCurve:Weights"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateNURBSCurve:Weights",
+      "end": "浮動小数点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateNURBSCurve",
+      "end": "CreateNURBSCurve:Knots"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateNURBSCurve:Knots",
+      "end": "浮動小数点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateNURBSCurve",
+      "end": "CreateNURBSCurve:Range"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateNURBSCurve:Range",
+      "end": "範囲"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateLoft",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateLoft",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateLoft",
+      "end": "CreateLoft:TargetSolidName"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateLoft:TargetSolidName",
+      "end": "要素"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateLoft",
+      "end": "CreateLoft:OperationType"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateLoft:OperationType",
+      "end": "オペレーションタイプ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateLoft",
+      "end": "CreateLoft:pParam"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateLoft:pParam",
+      "end": "ロフトパラメータオブジェクト"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateLoft",
+      "end": "CreateLoft:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateLoft:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateLoftSheet",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateLoftSheet",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateLoftSheet",
+      "end": "CreateLoftSheet:ParamObj"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateLoftSheet:ParamObj",
+      "end": "ロフトパラメータオブジェクト"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateLoftSheet",
+      "end": "CreateLoftSheet:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateLoftSheet:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateSlot",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateSlot",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSlot",
+      "end": "CreateSlot:ParamObj"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSlot:ParamObj",
+      "end": "スロットパラメータオブジェクト"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateSlot",
+      "end": "CreateSlot:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateSlot:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateFacePlate",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateFacePlate",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateFacePlate",
+      "end": "CreateFacePlate:ParamObj"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateFacePlate:ParamObj",
+      "end": "フェイスプレートパラメータオブジェクト"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateFacePlate",
+      "end": "CreateFacePlate:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateFacePlate:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateOffsetDatumPlane",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateOffsetDatumPlane",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateOffsetDatumPlane",
+      "end": "CreateOffsetDatumPlane:Name"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateOffsetDatumPlane:Name",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateOffsetDatumPlane",
+      "end": "CreateOffsetDatumPlane:ElementGroup"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateOffsetDatumPlane:ElementGroup",
+      "end": "要素グループ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateOffsetDatumPlane",
+      "end": "CreateOffsetDatumPlane:Plane"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateOffsetDatumPlane:Plane",
+      "end": "平面"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateOffsetDatumPlane",
+      "end": "CreateOffsetDatumPlane:OffsetDistance"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateOffsetDatumPlane:OffsetDistance",
+      "end": "長さ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateOffsetDatumPlane",
+      "end": "CreateOffsetDatumPlane:ReferMethod"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateOffsetDatumPlane:ReferMethod",
+      "end": "関連設定"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateOffsetDatumPlane",
+      "end": "CreateOffsetDatumPlane:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateOffsetDatumPlane:bUpdate",
+      "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateRotatedDatumPlane",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateRotatedDatumPlane",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateRotatedDatumPlane",
+      "end": "CreateRotatedDatumPlane:Name"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateRotatedDatumPlane:Name",
+      "end": "文字列"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateRotatedDatumPlane",
+      "end": "CreateRotatedDatumPlane:ElementGroup"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateRotatedDatumPlane:ElementGroup",
+      "end": "要素グループ"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateRotatedDatumPlane",
+      "end": "CreateRotatedDatumPlane:Plane"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateRotatedDatumPlane:Plane",
+      "end": "平面"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateRotatedDatumPlane",
+      "end": "CreateRotatedDatumPlane:Axis"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateRotatedDatumPlane:Axis",
+      "end": "軸"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateRotatedDatumPlane",
+      "end": "CreateRotatedDatumPlane:Angle"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateRotatedDatumPlane:Angle",
+      "end": "角度"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateRotatedDatumPlane",
+      "end": "CreateRotatedDatumPlane:ReferMethod"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateRotatedDatumPlane:ReferMethod",
+      "end": "関連設定"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateRotatedDatumPlane",
+      "end": "CreateRotatedDatumPlane:bUpdate"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateRotatedDatumPlane:bUpdate",
+      "end": "bool"
+    }
+  ]
+}

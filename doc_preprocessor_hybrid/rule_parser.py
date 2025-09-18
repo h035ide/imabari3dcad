@@ -14,6 +14,8 @@ TITLE_RE = re.compile(r"^〇(.+)$")
 RETURN_RE = re.compile(r"^返り値[:：]\s*(.+)$")
 METHOD_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*\($")
 PARAM_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*,?\s*//\s*([^:：]+)[:：]\s*(.+)$")
+# コロンなしコメント形式にも対応する緩和版（例: pOpt) // STLパラメータオブジェクト）
+PARAM_RE_LOOSE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*,?\s*//\s*(.+)$")
 CLOSING_RE = re.compile(r"\)\s*;?(?:\s*//.*)?$")
 ARRAY_MARKERS = ("(配列)", "[]", "(array)")
 
@@ -174,6 +176,27 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
                     collecting = False
                 i += 1
                 continue
+            # コロンなしコメントに対応（例: pOpt) // STLパラメータオブジェクト）
+            loose_match = PARAM_RE_LOOSE.match(line)
+            if loose_match:
+                pname, comment = loose_match.groups()
+                # コメント中にコロンがあれば型:説明として解釈、なければ型のみ
+                if ":" in comment or "：" in comment:
+                    raw = re.split(r"[:：]", comment, maxsplit=1)
+                    ptype = raw[0].strip()
+                    pdesc = raw[1].strip() if len(raw) > 1 else ""
+                else:
+                    ptype = comment.strip()
+                    pdesc = ""
+                parameter = _build_parameter(pname, ptype, pdesc, param_index)
+                current_entry.params.append(parameter)
+                param_index += 1
+                if CLOSING_RE.search(line):
+                    _finalize_entry(current_entry, entries)
+                    current_entry = None
+                    collecting = False
+                i += 1
+                continue
             if CLOSING_RE.search(line):
                 idx_close = line.rfind(")")
                 before = line[:idx_close]
@@ -189,6 +212,20 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
                     pname, ptype, pdesc = pm2.groups()
                     parameter = _build_parameter(pname, ptype, pdesc, param_index)
                     current_entry.params.append(parameter)
+                else:
+                    # 緩和版でも試す（コロン無しパターンの救済）
+                    pm2_loose = PARAM_RE_LOOSE.match(synthetic)
+                    if pm2_loose:
+                        pname, comment2 = pm2_loose.groups()
+                        if ":" in comment2 or "：" in comment2:
+                            raw2 = re.split(r"[:：]", comment2, maxsplit=1)
+                            ptype = raw2[0].strip()
+                            pdesc = raw2[1].strip() if len(raw2) > 1 else ""
+                        else:
+                            ptype = comment2.strip()
+                            pdesc = ""
+                        parameter = _build_parameter(pname, ptype, pdesc, param_index)
+                        current_entry.params.append(parameter)
                 _finalize_entry(current_entry, entries)
                 current_entry = None
                 collecting = False
