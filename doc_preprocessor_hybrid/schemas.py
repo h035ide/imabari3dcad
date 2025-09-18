@@ -4,6 +4,7 @@ from dataclasses import dataclass, field, asdict
 from typing import Dict, List, Optional
 
 
+
 @dataclass
 class TypeDefinition:
     name: str
@@ -24,10 +25,27 @@ class Parameter:
     position: int = 0
     raw_type: Optional[str] = None
 
-    def to_dict(self) -> Dict[str, object]:
-        data = asdict(self)
-        return data
+    def metadata(self) -> Dict[str, object]:
+        meta: Dict[str, object] = {"position": self.position}
+        if self.is_required:
+            meta["is_required"] = self.is_required
+        if self.default_value is not None:
+            meta["default_value"] = self.default_value
+        if self.raw_type and self.raw_type != self.type:
+            meta["raw_type"] = self.raw_type
+        return meta
 
+    def to_dict(self) -> Dict[str, object]:
+        data: Dict[str, object] = {
+            "name": self.name,
+            "type": self.type,
+        }
+        if self.description:
+            data["description"] = self.description
+        metadata = self.metadata()
+        if metadata:
+            data["metadata"] = metadata
+        return data
 
 @dataclass
 class ReturnSpec:

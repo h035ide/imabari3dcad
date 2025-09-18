@@ -72,17 +72,18 @@ def build_graph_payload(bundle: ApiBundle) -> Dict[str, List[Dict[str, object]]]
 
         for param in entry.params:
             param_node_id = f"{entry.name}:{param.name}"
+            param_properties = {"name": param.name}
+            if param.description:
+                param_properties["description"] = param.description
+            metadata = param.metadata() if hasattr(param, "metadata") else {}
+            if metadata:
+                param_properties["metadata"] = metadata
             nodes.setdefault(
                 param_node_id,
                 {
                     "id": param_node_id,
                     "label": "Parameter",
-                    "properties": {
-                        "name": param.name,
-                        "description": param.description,
-                        "position": param.position,
-                        "is_required": param.is_required,
-                    },
+                    "properties": param_properties,
                 },
             )
             relationships.append(
