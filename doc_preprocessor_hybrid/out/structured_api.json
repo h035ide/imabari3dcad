@@ -21,7 +21,7 @@
     },
     {
       "name": "bool",
-      "description": "通常の真偽値　True False\n以下のタイプは全てPythonの型としては文字列。文字列の書式の仕様",
+      "description": "通常の真偽値 True False\n以下のタイプは全てPythonの型としては文字列。文字列の書式の仕様",
       "source": "api_arg"
     },
     {
@@ -51,12 +51,12 @@
     },
     {
       "name": "方向",
-      "description": "〇　各軸方向は\"+X\",\"-X\",\"+Y\",\"-X\",\"+Z\",\"-Z\" で指定\n〇　\",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を数値（変数も可）で指定",
+      "description": "〇 各軸方向は\"+X\",\"-X\",\"+Y\",\"-X\",\"+Z\",\"-Z\" で指定\n〇 \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を数値（変数も可）で指定",
       "source": "api_arg"
     },
     {
       "name": "平面",
-      "description": "\",\" コンマで区切られた文字列で指定。最初のカラムは必ず\"PL\"\n次のカラムが\"O\"の場合はその次のカラムにオフセット距離（長さ）を指定\n以降は\n〇　\"X\" グローバルＹＺ平面　, \"Y\" グローバルＺＸ平面　, \"Z\" グローバルＸＹ平面\n〇　\"F\"　の場合はボディのフェイスを指定　（要素の項参照）\n例）\"PL,Z\"　グローバルＸＹ平面\n\"PL,O,500.0,X\" グローバルＹＺ平面をＸ方向に500移動させた平面",
+      "description": "\",\" コンマで区切られた文字列で指定。最初のカラムは必ず\"PL\"\n次のカラムが\"O\"の場合はその次のカラムにオフセット距離（長さ）を指定\n以降は\n〇 \"X\" グローバルＹＺ平面 , \"Y\" グローバルＺＸ平面 , \"Z\" グローバルＸＹ平面\n〇 \"F\" の場合はボディのフェイスを指定 （要素の項参照）\n例）\"PL,Z\" グローバルＸＹ平面\n\"PL,O,500.0,X\" グローバルＹＺ平面をＸ方向に500移動させた平面",
       "source": "api_arg"
     },
     {
@@ -81,22 +81,22 @@
     },
     {
       "name": "スイープ方向",
-      "description": "\"N\"  順方向\n\"R\"　反対方向\n\"B\"　両方向\n\"2\"  ２方向\n\"T\"   貫通",
+      "description": "\"N\"  順方向\n\"R\" 反対方向\n\"B\" 両方向\n\"2\"  ２方向\n\"T\"   貫通",
       "source": "api_arg"
     },
     {
       "name": "厚み付けタイプ",
-      "description": "\"+\"　内側\n\"-\"　外側\n\"B\"　両方向\n\"2\"  ２方向\n\"\" （空文字）厚み付けしない",
+      "description": "\"+\" 内側\n\"-\" 外側\n\"B\" 両方向\n\"2\"  ２方向\n\"\" （空文字）厚み付けしない",
       "source": "api_arg"
     },
     {
       "name": "モールド位置",
-      "description": "\"+\"　＋側\n\"-\"　ー側\n\"\" （空文字）センター",
+      "description": "\"+\" ＋側\n\"-\" ー側\n\"\" （空文字）センター",
       "source": "api_arg"
     },
     {
-      "name": "オペレーションタイプ　（ボディ）",
-      "description": "\"+\"　和\n\"-\"　削除\n\"*\"  積",
+      "name": "オペレーションタイプ （ボディ）",
+      "description": "\"+\" 和\n\"-\" 削除\n\"*\"  積",
       "source": "api_arg"
     },
     {
@@ -106,12 +106,12 @@
     },
     {
       "name": "形状タイプ",
-      "description": "EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号 (ヘルプのEVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイルの項を\n参照)\n例）\"1007\" 平鋼、\"1003\" 不等辺不等厚山形鋼\n\"1101\" 条材端部Sタイプ　、\"1120\" 条材端部スカラップA1タイプ\n\"1503\"  ブラケット2-Bタイプ",
+      "description": "EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号 (ヘルプのEVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイルの項を\n参照)\n例）\"1007\" 平鋼、\"1003\" 不等辺不等厚山形鋼\n\"1101\" 条材端部Sタイプ 、\"1120\" 条材端部スカラップA1タイプ\n\"1503\"  ブラケット2-Bタイプ",
       "source": "api_arg"
     },
     {
       "name": "形状パラメータ",
-      "description": "各形状タイプの寸法値を文字列配列で設定\n例) 不当辺山形鋼(1002)の形状タイプの場合　[\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]",
+      "description": "各形状タイプの寸法値を文字列配列で設定\n例) 不当辺山形鋼(1002)の形状タイプの場合 [\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]",
       "source": "api_arg"
     },
     {
@@ -148,12 +148,10 @@
       "params": [
         {
           "name": "bShow",
-          "type": "bool",
-          "description": "表示する時はTrue",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 0
+          }
         }
       ],
       "properties": [],
@@ -179,19 +177,16 @@
           "name": "FileName",
           "type": "文字列",
           "description": "保存されているドキュメントのファイルパス名",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "bForceEvaluation",
-          "type": "bool",
-          "description": "強制的に全要素を再計算して開くときはTrue　(通常はFalse）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 1
+          }
         }
       ],
       "properties": [],
@@ -217,19 +212,16 @@
           "name": "FileName",
           "type": "文字列",
           "description": "保存されているドキュメントのファイルパス名",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "bForceEvaluation",
-          "type": "bool",
-          "description": "強制的に全要素を再計算して開くときはTrue　(通常はFalse）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 1
+          }
         }
       ],
       "properties": [],
@@ -331,19 +323,16 @@
           "name": "FileName",
           "type": "文字列",
           "description": "保存するファイルパス名",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "bAsCompactFormat",
-          "type": "bool",
-          "description": "最小サイズになる形式で保存する時はTrue（開くのに計算を必要とします）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 1
+          }
         }
       ],
       "properties": [],
@@ -483,19 +472,16 @@
           "name": "FileName",
           "type": "文字列",
           "description": "保存するSTLファイルパス名",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "pOpt",
-          "type": "STLパラメータオブジェクト",
-          "description": "",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "STLパラメータオブジェクト"
+          "type": "不明",
+          "metadata": {
+            "position": 1
+          }
         }
       ],
       "properties": [],
@@ -521,28 +507,24 @@
           "name": "outDir",
           "type": "方向",
           "description": "画面から外側に向く方向",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "方向"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "upDir",
           "type": "方向",
           "description": "画面の上方向",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "方向"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "bFitToModel",
-          "type": "bool",
-          "description": "表示方向にあわせて表示範囲を要素にフィットさせる時はTrue",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 2
+          }
         }
       ],
       "properties": [],
@@ -568,19 +550,16 @@
           "name": "FileName",
           "type": "文字列",
           "description": "ビットマップファイルのファイル名",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "nBitapWidth",
-          "type": "整数",
-          "description": "ビットマップファイルの横方向のピクセルサイズ（縦方向はビューの縦横比から取得）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "整数"
+          "type": "不明",
+          "metadata": {
+            "position": 1
+          }
         }
       ],
       "properties": [],
@@ -606,46 +585,41 @@
           "name": "ElementName",
           "type": "文字列",
           "description": "作成するスケッチ平面名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "ElementGroup",
           "type": "要素グループ",
           "description": "作成するスケッチ平面を要素グループに入れる場合は要素グループを指定（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "要素グループ"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "PlaneDef",
           "type": "平面",
           "description": "スケッチ平面を作成する平面を指定する",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "平面"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "PlaneOffset",
           "type": "長さ",
           "description": "平面からのオフセット距離を指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 3
+          }
         },
         {
           "name": "bRevPlane",
           "type": "bool",
           "description": "スケッチ平面を反転するかどうかのフラグ(bool)",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "bool"
+          "metadata": {
+            "position": 4
+          }
         }
       ],
       "properties": [],
@@ -671,19 +645,16 @@
           "name": "SketchLayerName",
           "type": "文字列",
           "description": "作成するスケッチレイヤー名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "SketchPlane",
-          "type": "要素",
-          "description": "レイヤーを作成するスケッチ要素",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "要素"
+          "type": "不明",
+          "metadata": {
+            "position": 1
+          }
         }
       ],
       "properties": [],
@@ -709,55 +680,50 @@
           "name": "SketchPlane",
           "type": "要素",
           "description": "直線を作成するスケッチ要素",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "SketchLineName",
           "type": "文字列",
           "description": "作成するスケッチ直線名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "SketchLayer",
           "type": "要素",
           "description": "直線を作成するスケッチレイヤー(空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "StartPoint",
           "type": "点",
           "description": "始点",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "点(2D)"
+          "metadata": {
+            "position": 3,
+            "raw_type": "点(2D)"
+          }
         },
         {
           "name": "EndPoint",
           "type": "点",
           "description": "終点",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "点(2D)"
+          "metadata": {
+            "position": 4,
+            "raw_type": "点(2D)"
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 5,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 5
+          }
         }
       ],
       "properties": [],
@@ -783,73 +749,67 @@
           "name": "SketchPlane",
           "type": "要素",
           "description": "円弧を作成するスケッチ要素",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "SketchArcName",
           "type": "文字列",
           "description": "作成するスケッチ円弧名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "SketchLayer",
           "type": "要素",
           "description": "円弧を作成するスケッチレイヤー(空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "CenterPoint",
           "type": "点",
           "description": "中心点",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "点(2D)"
+          "metadata": {
+            "position": 3,
+            "raw_type": "点(2D)"
+          }
         },
         {
           "name": "StartPoint",
           "type": "点",
           "description": "始点",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "点(2D)"
+          "metadata": {
+            "position": 4,
+            "raw_type": "点(2D)"
+          }
         },
         {
           "name": "EndPoint",
           "type": "点",
           "description": "終点",
-          "is_required": false,
-          "default_value": null,
-          "position": 5,
-          "raw_type": "点(2D)"
+          "metadata": {
+            "position": 5,
+            "raw_type": "点(2D)"
+          }
         },
         {
           "name": "bCCW",
           "type": "bool",
           "description": "円弧の回転方向Trueの場合は反時計周り",
-          "is_required": false,
-          "default_value": null,
-          "position": 6,
-          "raw_type": "bool"
+          "metadata": {
+            "position": 6
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 7,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 7
+          }
         }
       ],
       "properties": [],
@@ -875,64 +835,59 @@
           "name": "SketchPlane",
           "type": "要素",
           "description": "円弧を作成するスケッチ要素",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "SketchArcName",
           "type": "文字列",
           "description": "作成するスケッチ円弧名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "SketchLayer",
           "type": "要素",
           "description": "円弧を作成するスケッチレイヤー(空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "StartPoint",
           "type": "点",
           "description": "始点",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "点(2D)"
+          "metadata": {
+            "position": 3,
+            "raw_type": "点(2D)"
+          }
         },
         {
           "name": "MidPoint",
           "type": "点",
           "description": "通過点",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "点(2D)"
+          "metadata": {
+            "position": 4,
+            "raw_type": "点(2D)"
+          }
         },
         {
           "name": "EndPoint",
           "type": "点",
           "description": "終点",
-          "is_required": false,
-          "default_value": null,
-          "position": 5,
-          "raw_type": "点(2D)"
+          "metadata": {
+            "position": 5,
+            "raw_type": "点(2D)"
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 6,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 6
+          }
         }
       ],
       "properties": [],
@@ -958,73 +913,65 @@
           "name": "SketchPlane",
           "type": "要素",
           "description": "円を作成するスケッチ要素",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "SketchArcName",
           "type": "文字列",
           "description": "作成するスケッチ円名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "SketchLayer",
           "type": "要素",
           "description": "円を作成するスケッチレイヤー(空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "Centeroint",
           "type": "点",
           "description": "中心点",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "点(2D)"
+          "metadata": {
+            "position": 3,
+            "raw_type": "点(2D)"
+          }
         },
         {
           "name": "RadiusOrDiameter",
           "type": "長さ",
           "description": "半径または直径",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 4
+          }
         },
         {
           "name": "bDiameter",
           "type": "bool",
           "description": "直径を指定する場合はTrue",
-          "is_required": false,
-          "default_value": null,
-          "position": 5,
-          "raw_type": "bool"
+          "metadata": {
+            "position": 5
+          }
         },
         {
           "name": "bCCW",
           "type": "bool",
           "description": "円の回転方向Trueの場合は反時計周り",
-          "is_required": false,
-          "default_value": null,
-          "position": 6,
-          "raw_type": "bool"
+          "metadata": {
+            "position": 6
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 7,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 7
+          }
         }
       ],
       "properties": [],
@@ -1050,82 +997,75 @@
           "name": "SketchPlane",
           "type": "要素",
           "description": "楕円を作成するスケッチ要素",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "SketchArcName",
           "type": "文字列",
           "description": "作成するスケッチ楕円名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "SketchLayer",
           "type": "要素",
           "description": "楕円を作成するスケッチレイヤー(空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "Centeroint",
           "type": "点",
           "description": "中心点",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "点(2D)"
+          "metadata": {
+            "position": 3,
+            "raw_type": "点(2D)"
+          }
         },
         {
           "name": "bCCW",
           "type": "bool",
           "description": "楕円の回転方向Trueの場合は反時計周り",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "bool"
+          "metadata": {
+            "position": 4
+          }
         },
         {
           "name": "MajorDir",
           "type": "方向",
           "description": "主軸方向を指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 5,
-          "raw_type": "方向(2D)"
+          "metadata": {
+            "position": 5,
+            "raw_type": "方向(2D)"
+          }
         },
         {
           "name": "MajorRadius",
           "type": "長さ",
           "description": "主軸半径",
-          "is_required": false,
-          "default_value": null,
-          "position": 6,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 6
+          }
         },
         {
           "name": "MinorRadius",
           "type": "長さ",
           "description": "副軸半径",
-          "is_required": false,
-          "default_value": null,
-          "position": 7,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 7
+          }
         },
         {
           "name": "Range",
           "type": "範囲",
           "description": "(0-2pi)",
-          "is_required": false,
-          "default_value": null,
-          "position": 8,
-          "raw_type": "範囲"
+          "metadata": {
+            "position": 8
+          }
         }
       ],
       "properties": [],
@@ -1151,100 +1091,91 @@
           "name": "SketchPlane",
           "type": "要素",
           "description": "ＮＵＲＢＳ線を作成するスケッチ要素",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "SketchArcName",
           "type": "文字列",
           "description": "作成するスケッチＮＵＲＢＳ線名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "SketchLayer",
           "type": "要素",
           "description": "ＮＵＲＢＳ線を作成するスケッチレイヤー(空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "nDegree",
           "type": "整数",
           "description": "ＮＵＲＢＳ線の次数",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "整数"
+          "metadata": {
+            "position": 3
+          }
         },
         {
           "name": "bClose",
           "type": "bool",
           "description": "閉じたＮＵＲＢＳ線の場合True",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "bool"
+          "metadata": {
+            "position": 4
+          }
         },
         {
           "name": "bPeriodic",
           "type": "bool",
           "description": "周期ＮＵＲＢＳ線の場合True",
-          "is_required": false,
-          "default_value": null,
-          "position": 5,
-          "raw_type": "bool"
+          "metadata": {
+            "position": 5
+          }
         },
         {
           "name": "CtrlPoints",
           "type": "点[]",
           "description": "制御点",
-          "is_required": false,
-          "default_value": null,
-          "position": 6,
-          "raw_type": "点(配列)"
+          "metadata": {
+            "position": 6,
+            "raw_type": "点(配列)"
+          }
         },
         {
           "name": "Weights",
           "type": "浮動小数点[]",
           "description": "重み",
-          "is_required": false,
-          "default_value": null,
-          "position": 7,
-          "raw_type": "浮動小数点(配列)"
+          "metadata": {
+            "position": 7,
+            "raw_type": "浮動小数点(配列)"
+          }
         },
         {
           "name": "Knots",
           "type": "浮動小数点[]",
           "description": "ノットベクトル",
-          "is_required": false,
-          "default_value": null,
-          "position": 8,
-          "raw_type": "浮動小数点(配列)"
+          "metadata": {
+            "position": 8,
+            "raw_type": "浮動小数点(配列)"
+          }
         },
         {
           "name": "Range",
           "type": "範囲",
           "description": "トリム範囲",
-          "is_required": false,
-          "default_value": null,
-          "position": 9,
-          "raw_type": "範囲"
+          "metadata": {
+            "position": 9
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 10,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 10
+          }
         }
       ],
       "properties": [],
@@ -1270,10 +1201,9 @@
           "name": "FileName",
           "type": "文字列",
           "description": "ファイルパス（現状、Parasolid形式のみ）",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         }
       ],
       "properties": [],
@@ -1299,64 +1229,58 @@
           "name": "SheetName",
           "type": "文字列",
           "description": "作成するシート要素名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "ElementGroup",
           "type": "要素グループ",
           "description": "作成するシート要素を要素グループに入れる場合は要素グループを指定（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "要素グループ"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "MaterialName",
           "type": "材料",
           "description": "作成するシート要素の材質名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "材料"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "SrcSurfaces",
           "type": "要素[]",
           "description": "オフセットする元シート要素、フェイス要素の指定文字列配列",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "要素(配列)"
+          "metadata": {
+            "position": 3,
+            "raw_type": "要素(配列)"
+          }
         },
         {
           "name": "OffsetLength",
           "type": "長さ",
           "description": "オフセット距離",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 4
+          }
         },
         {
           "name": "bOffsetBackwards",
           "type": "bool",
           "description": "オフセット方向を反転",
-          "is_required": false,
-          "default_value": null,
-          "position": 5,
-          "raw_type": "bool"
+          "metadata": {
+            "position": 5
+          }
         },
         {
           "name": "bUpdate",
           "type": "bool",
           "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 6,
-          "raw_type": "bool"
+          "metadata": {
+            "position": 6
+          }
         }
       ],
       "properties": [],
@@ -1401,37 +1325,31 @@
           "name": "TargetSolidName",
           "type": "要素",
           "description": "押し出しフィーチャーを作成する対象のソリッドを指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "OperationType",
           "type": "オペレーションタイプ",
           "description": "ソリッドオペレーションのタイプを指定する",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "オペレーションタイプ"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "pParam",
           "type": "押し出しパラメータオブジェクト",
-          "description": "",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "押し出しパラメータオブジェクト"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 3
+          }
         }
       ],
       "properties": [],
@@ -1456,20 +1374,16 @@
         {
           "name": "ParamObj",
           "type": "押し出しパラメータオブジェクト",
-          "description": "",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "押し出しパラメータオブジェクト"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 1
+          }
         }
       ],
       "properties": [],
@@ -1495,37 +1409,32 @@
           "name": "SheetElement",
           "type": "要素",
           "description": "方向を揃えるシート要素",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "dirX",
           "type": "浮動小数点",
           "description": "方向ベクトルのX成分",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "浮動小数点"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "dirY",
           "type": "浮動小数点",
           "description": "方向ベクトルのY成分",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "浮動小数点"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "dirZ",
-          "type": "浮動小数点",
-          "description": "方向ベクトルのZ成分",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "浮動小数点"
+          "type": "不明",
+          "metadata": {
+            "position": 3
+          }
         }
       ],
       "properties": [],
@@ -1549,12 +1458,10 @@
       "params": [
         {
           "name": "SheetElement",
-          "type": "要素",
-          "description": "反転するシート要素",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "要素"
+          "type": "不明",
+          "metadata": {
+            "position": 0
+          }
         }
       ],
       "properties": [],
@@ -1580,19 +1487,16 @@
           "name": "Element",
           "type": "要素",
           "description": "表示状態を指定する要素",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "bBlank",
-          "type": "bool",
-          "description": "Trueの時は非表示にする。Falseの時は表示する。",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 1
+          }
         }
       ],
       "properties": [],
@@ -1618,46 +1522,41 @@
           "name": "SrcElements",
           "type": "要素[]",
           "description": "コピーする要素",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "要素(配列)"
+          "metadata": {
+            "position": 0,
+            "raw_type": "要素(配列)"
+          }
         },
         {
           "name": "nCopy",
           "type": "整数",
           "description": "コピーする数",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "整数"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "direction",
           "type": "方向",
           "description": "コピーする方向",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "方向"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "distance",
           "type": "長さ",
           "description": "移動距離",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 3
+          }
         },
         {
           "name": "ReferMethod",
-          "type": "関連設定",
-          "description": "要素の関連づけ方法の指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "関連設定"
+          "type": "不明",
+          "metadata": {
+            "position": 4
+          }
         }
       ],
       "properties": [],
@@ -1683,19 +1582,24 @@
           "name": "SrcElements",
           "type": "要素[]",
           "description": "コピーする要素",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "要素(配列)"
+          "metadata": {
+            "position": 0,
+            "raw_type": "要素(配列)"
+          }
+        },
+        {
+          "name": "plane",
+          "type": "[in] BSTR",
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "ReferMethod",
-          "type": "関連設定",
-          "description": "要素の関連づけ方法の指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "関連設定"
+          "type": "不明",
+          "metadata": {
+            "position": 2
+          }
         }
       ],
       "properties": [],
@@ -1721,28 +1625,24 @@
           "name": "SolidName",
           "type": "文字列",
           "description": "作成するソリッド要素名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "ElementGroup",
           "type": "要素グループ",
           "description": "作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "要素グループ"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "MaterialName",
-          "type": "材料",
-          "description": "作成するソリッド要素の材質名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "材料"
+          "type": "不明",
+          "metadata": {
+            "position": 2
+          }
         }
       ],
       "properties": [],
@@ -1768,91 +1668,80 @@
           "name": "ThickenFeatureName",
           "type": "文字列",
           "description": "作成する厚みづけフィーチャー要素名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "TargetSolidName",
           "type": "要素",
           "description": "厚みづけフィーチャーを作成する対象のソリッドを指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "OperationType",
           "type": "オペレーションタイプ",
           "description": "ソリッドオペレーションのタイプを指定する",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "オペレーションタイプ"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "Sheet",
           "type": "要素[]",
           "description": "厚み付けをするシートやフェイス",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "要素(配列)"
+          "metadata": {
+            "position": 3,
+            "raw_type": "要素(配列)"
+          }
         },
         {
           "name": "ThickenType",
           "type": "厚み付けタイプ",
-          "description": "",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "厚み付けタイプ"
+          "metadata": {
+            "position": 4
+          }
         },
         {
           "name": "Thickeness1",
           "type": "長さ",
           "description": "板厚",
-          "is_required": false,
-          "default_value": null,
-          "position": 5,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 5
+          }
         },
         {
           "name": "Thickeness2",
           "type": "長さ",
           "description": "板厚２（厚み付けタイプが２方向のときに使用）",
-          "is_required": false,
-          "default_value": null,
-          "position": 6,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 6
+          }
         },
         {
           "name": "ThickenessOffset",
           "type": "長さ",
           "description": "厚みづけをするシート、フェイス要素のオフセット距離",
-          "is_required": false,
-          "default_value": null,
-          "position": 7,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 7
+          }
         },
         {
           "name": "ReferMethod",
           "type": "関連設定",
           "description": "要素の関連づけ方法の指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 8,
-          "raw_type": "関連設定"
+          "metadata": {
+            "position": 8
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 9,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 9
+          }
         }
       ],
       "properties": [],
@@ -1878,55 +1767,48 @@
           "name": "OtherSolidFeatureName",
           "type": "文字列",
           "description": "作成する別ソリッドフィーチャー要素名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "TargetSolidName",
           "type": "要素",
           "description": "別ソリッドフィーチャーを作成する対象のソリッドを指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "OperationType",
           "type": "オペレーションタイプ",
           "description": "ソリッドオペレーションのタイプを指定する",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "オペレーションタイプ"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "SourceSolid",
           "type": "要素",
           "description": "別ソリッドフィーチャーとするソリッド要素を指定する",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 3
+          }
         },
         {
           "name": "ReferMethod",
           "type": "関連設定",
           "description": "要素の関連づけ方法の指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "関連設定"
+          "metadata": {
+            "position": 4
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 5,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 5
+          }
         }
       ],
       "properties": [],
@@ -1970,20 +1852,16 @@
         {
           "name": "ParamObj",
           "type": "ブラケットパラメータオブジェクト",
-          "description": "",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "ブラケットパラメータオブジェクト"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 1
+          }
         }
       ],
       "properties": [],
@@ -2009,127 +1887,111 @@
           "name": "PlateName",
           "type": "文字列",
           "description": "作成するプレートソリッド要素名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "ElementGroup",
           "type": "要素グループ",
           "description": "作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "要素グループ"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "MaterialName",
           "type": "材料",
           "description": "作成するソリッド要素の材質名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "材料"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "Plane",
           "type": "平面",
           "description": "プレートのる平面位置",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "平面"
+          "metadata": {
+            "position": 3
+          }
         },
         {
           "name": "PlaneOffset",
           "type": "長さ",
           "description": "平面のオフセット距離を指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 4
+          }
         },
         {
           "name": "Thickness",
           "type": "長さ",
           "description": "板厚",
-          "is_required": false,
-          "default_value": null,
-          "position": 5,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 5
+          }
         },
         {
           "name": "nMold",
           "type": "モールド位置",
-          "description": "",
-          "is_required": false,
-          "default_value": null,
-          "position": 6,
-          "raw_type": "モールド位置"
+          "metadata": {
+            "position": 6
+          }
         },
         {
           "name": "MoldOffset",
           "type": "長さ",
           "description": "モールド位置のオフセット距離",
-          "is_required": false,
-          "default_value": null,
-          "position": 7,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 7
+          }
         },
         {
           "name": "BoundSolid",
           "type": "要素",
           "description": "プレートソリッドの境界となるソリッド要素。",
-          "is_required": false,
-          "default_value": null,
-          "position": 8,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 8
+          }
         },
         {
           "name": "Section1End1",
           "type": "長さ",
           "description": "プレートソリッドの平面上の方向１の境界位置の座標値１",
-          "is_required": false,
-          "default_value": null,
-          "position": 9,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 9
+          }
         },
         {
           "name": "Section1End2",
           "type": "長さ",
           "description": "プレートソリッドの平面上の方向１の境界位置の座標値２",
-          "is_required": false,
-          "default_value": null,
-          "position": 10,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 10
+          }
         },
         {
           "name": "Section2End1",
           "type": "長さ",
           "description": "プレートソリッドの平面上の方向２の境界位置の座標値１",
-          "is_required": false,
-          "default_value": null,
-          "position": 11,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 11
+          }
         },
         {
           "name": "Section2End2",
           "type": "長さ",
           "description": "プレートソリッドの平面上の方向２の境界位置の座標値２",
-          "is_required": false,
-          "default_value": null,
-          "position": 12,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 12
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 13,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 13
+          }
         }
       ],
       "properties": [],
@@ -2173,26 +2035,22 @@
         {
           "name": "ParamObj",
           "type": "条材要素のパラメータオブジェクト",
-          "description": "",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "条材要素のパラメータオブジェクト"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 1
+          }
         }
       ],
       "properties": [],
       "returns": {
         "type": "不明",
-        "description": "作成した条材ソリッド要素のID(配列　配列[0]Web要素 配列[1]フランジ要素",
+        "description": "作成した条材ソリッド要素のID(配列 配列[0]Web要素 配列[1]フランジ要素",
         "is_array": true,
         "raw_type": null
       },
@@ -2200,7 +2058,7 @@
       "implementation_status": "implemented",
       "object_name": "Partオブジェクト",
       "title_jp": "船殻の条材ソリッド要素を取付線指定で作成する",
-      "raw_return": "作成した条材ソリッド要素のID(配列　配列[0]Web要素 配列[1]フランジ要素"
+      "raw_return": "作成した条材ソリッド要素のID(配列 配列[0]Web要素 配列[1]フランジ要素"
     },
     {
       "entry_type": "function",
@@ -2212,64 +2070,57 @@
           "name": "pDriveFeatureName",
           "type": "文字列",
           "description": "作成する分割フィーチャー要素名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "pTargetBody",
           "type": "要素",
           "description": "分割対象のボディ",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "pDivideElements",
           "type": "要素[]",
           "description": "分割をする要素（シートボディ、フェイス、平面要素）",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "要素(配列)"
+          "metadata": {
+            "position": 2,
+            "raw_type": "要素(配列)"
+          }
         },
         {
           "name": "pAlignmentDirection",
           "type": "方向",
           "description": "分割されたボディ要素の順番を整列させるのに使用する方向",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "方向"
+          "metadata": {
+            "position": 3
+          }
         },
         {
           "name": "pWCS",
           "type": "要素",
           "description": "方向を定義する座標系（通常は指定しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 4
+          }
         },
         {
           "name": "ReferMethod",
           "type": "関連設定",
           "description": "要素の関連づけ方法の指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 5,
-          "raw_type": "関連設定"
+          "metadata": {
+            "position": 5
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 6,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 6
+          }
         }
       ],
       "properties": [],
@@ -2295,55 +2146,49 @@
           "name": "pSeparateFeatureName",
           "type": "文字列",
           "description": "作成する分割フィーチャー要素名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "pTargetBody",
           "type": "要素",
           "description": "分割対象のボディ",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "pSubSolids",
           "type": "要素[]",
           "description": "分割をするソリッド要素",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "要素(配列)"
+          "metadata": {
+            "position": 2,
+            "raw_type": "要素(配列)"
+          }
         },
         {
           "name": "pAlignmentDirection",
           "type": "方向",
           "description": "分割されたボディ要素の順番を整列させるのに使用する方向",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "方向"
+          "metadata": {
+            "position": 3
+          }
         },
         {
           "name": "ReferMethod",
           "type": "関連設定",
           "description": "要素の関連づけ方法の指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "関連設定"
+          "metadata": {
+            "position": 4
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 5,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 5
+          }
         }
       ],
       "properties": [],
@@ -2369,73 +2214,65 @@
           "name": "pDriveFeatureName",
           "type": "文字列",
           "description": "作成する分割フィーチャー要素名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "pTargetBody",
           "type": "要素",
           "description": "分割対象のボディ",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "pDivideCurves",
           "type": "要素[]",
           "description": "分割をするスケッチ等の線要素",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "要素(配列)"
+          "metadata": {
+            "position": 2,
+            "raw_type": "要素(配列)"
+          }
         },
         {
           "name": "bNorProjection",
           "type": "bool",
           "description": "線要素を要素に投影するかどうかのフラグ",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "bool"
+          "metadata": {
+            "position": 3
+          }
         },
         {
           "name": "CorrectEndPointsTolerance",
           "type": "長さ",
           "description": "分割線が複数の場合の分割線同士のの判定トレランスを指定（通常は指定しない、空文字）",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 4
+          }
         },
         {
           "name": "AlignmentDirection",
           "type": "方向",
           "description": "分割されたボディ要素の順番を整列させるのに使用する方向",
-          "is_required": false,
-          "default_value": null,
-          "position": 5,
-          "raw_type": "方向"
+          "metadata": {
+            "position": 5
+          }
         },
         {
           "name": "ReferMethod",
           "type": "関連設定",
           "description": "要素の関連づけ方法の指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 6,
-          "raw_type": "関連設定"
+          "metadata": {
+            "position": 6
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 7,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 7
+          }
         }
       ],
       "properties": [],
@@ -2461,37 +2298,33 @@
           "name": "pDriveFeatureName",
           "type": "文字列",
           "description": "作成する分割フィーチャー要素名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "TargetBody",
           "type": "要素",
           "description": "分割対象のボディ",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "plane",
           "type": "要素",
           "description": "分割をする平面",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "nPlaneCopy",
           "type": "整数",
           "description": "分割をする平面を複数コピーして分割をする（通常は1)",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "整数"
+          "metadata": {
+            "position": 3
+          }
         }
       ],
       "properties": [],
@@ -2517,46 +2350,48 @@
           "name": "FeatureName",
           "type": "文字列",
           "description": "作成するカットフィーチャー要素名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "TargetBody",
           "type": "要素",
           "description": "カット対象のソリッド、シート",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "CutElement",
           "type": "要素",
           "description": "カットする要素(平面、シート）",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "ElementOffset",
           "type": "長さ",
           "description": "カットする要素のオフセット距離を指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 3
+          }
         },
         {
           "name": "bCutForward",
           "type": "関連設定",
           "description": "要素の関連づけ方法の指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "関連設定"
+          "metadata": {
+            "position": 4
+          }
+        },
+        {
+          "name": "ReferMethod",
+          "type": "不明",
+          "metadata": {
+            "position": 5
+          }
         }
       ],
       "properties": [],
@@ -2582,118 +2417,104 @@
           "name": "FeatureName",
           "type": "文字列",
           "description": "作成する境界要素指定フィーチャー要素名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "TargetSolid",
           "type": "要素",
           "description": "境界要素指定フィーチャーを作成する対象のソリッドを指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "OperationType",
           "type": "オペレーションタイプ",
           "description": "ソリッドオペレーションのタイプを指定する",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "オペレーションタイプ"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "Plane",
           "type": "平面",
           "description": "板の定義平面位置",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "平面"
+          "metadata": {
+            "position": 3
+          }
         },
         {
           "name": "PlaneOffset",
           "type": "長さ",
           "description": "平面のオフセット距離を指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 4
+          }
         },
         {
           "name": "BoundObjects",
           "type": "要素[]",
           "description": "境界要素（シート、フェイス、スケッチ、平面、ソリッド）",
-          "is_required": false,
-          "default_value": null,
-          "position": 5,
-          "raw_type": "要素(配列)"
+          "metadata": {
+            "position": 5,
+            "raw_type": "要素(配列)"
+          }
         },
         {
           "name": "ThickenType",
           "type": "厚み付けタイプ",
-          "description": "",
-          "is_required": false,
-          "default_value": null,
-          "position": 6,
-          "raw_type": "厚み付けタイプ"
+          "metadata": {
+            "position": 6
+          }
         },
         {
           "name": "Thickness1",
           "type": "長さ",
           "description": "板厚",
-          "is_required": false,
-          "default_value": null,
-          "position": 7,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 7
+          }
         },
         {
           "name": "Thickness2",
           "type": "長さ",
           "description": "板厚２（厚み付けタイプが２方向のときに使用）",
-          "is_required": false,
-          "default_value": null,
-          "position": 8,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 8
+          }
         },
         {
           "name": "ThicknessOffset",
           "type": "長さ",
           "description": "厚みづけをする板のオフセット距離",
-          "is_required": false,
-          "default_value": null,
-          "position": 9,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 9
+          }
         },
         {
           "name": "RefByGeometricMethod",
           "type": "bool",
           "description": "Trueの時は幾何位置にもとづいて関連を設定する",
-          "is_required": false,
-          "default_value": null,
-          "position": 10,
-          "raw_type": "bool"
+          "metadata": {
+            "position": 10
+          }
         },
         {
           "name": "ReferMethod",
           "type": "関連設定",
           "description": "要素の関連づけ方法の指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 11,
-          "raw_type": "関連設定"
+          "metadata": {
+            "position": 11
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 12,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 12
+          }
         }
       ],
       "properties": [],
@@ -2719,64 +2540,57 @@
           "name": "FeatureName",
           "type": "文字列",
           "description": "作成する境界ボックスフィーチャー要素名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "TargetSolid",
           "type": "要素",
           "description": "境界ボックスフィーチャーを作成する対象のソリッドを指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "OperationType",
           "type": "オペレーションタイプ",
           "description": "ソリッドオペレーションのタイプを指定する",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "オペレーションタイプ"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "Bodies",
           "type": "要素[]",
           "description": "境界ボックスを計算するソリッド、シート要素",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "要素(配列)"
+          "metadata": {
+            "position": 3,
+            "raw_type": "要素(配列)"
+          }
         },
         {
           "name": "bOptimalBox",
           "type": "bool",
           "description": "Trueを指定するとボックスを計算する座標系を最適なものにする。（そうでない場合は絶対座標系で計算する）",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "bool"
+          "metadata": {
+            "position": 4
+          }
         },
         {
           "name": "ReferMethod",
           "type": "関連設定",
           "description": "要素の関連づけ方法の指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 5,
-          "raw_type": "関連設定"
+          "metadata": {
+            "position": 5
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 6,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 6
+          }
         }
       ],
       "properties": [],
@@ -2802,19 +2616,17 @@
           "name": "Element",
           "type": "要素",
           "description": "色を設定する要素",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "RValue",
           "type": "整数",
           "description": "赤色の値(0-255)",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "整数"
+          "metadata": {
+            "position": 1
+          }
         }
       ],
       "properties": [],
@@ -2859,37 +2671,31 @@
           "name": "TargetSolidName",
           "type": "要素",
           "description": "スイープフィーチャーを作成する対象のソリッドを指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "OperationType",
           "type": "オペレーションタイプ",
           "description": "ソリッドオペレーションのタイプを指定する",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "オペレーションタイプ"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "pParam",
           "type": "スイープパラメータオブジェクト",
-          "description": "",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "スイープパラメータオブジェクト"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 3
+          }
         }
       ],
       "properties": [],
@@ -2914,20 +2720,16 @@
         {
           "name": "ParamObj",
           "type": "スイープパラメータオブジェクト",
-          "description": "",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "スイープパラメータオブジェクト"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 1
+          }
         }
       ],
       "properties": [],
@@ -2972,37 +2774,31 @@
           "name": "TargetSolidName",
           "type": "要素",
           "description": "回転フィーチャーを作成する対象のソリッドを指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "OperationType",
           "type": "オペレーションタイプ",
           "description": "ソリッドオペレーションのタイプを指定する",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "オペレーションタイプ"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "pParam",
           "type": "回転パラメータオブジェクト",
-          "description": "",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "回転パラメータオブジェクト"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 3
+          }
         }
       ],
       "properties": [],
@@ -3027,20 +2823,16 @@
         {
           "name": "ParamObj",
           "type": "回転パラメータオブジェクト",
-          "description": "",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "回転パラメータオブジェクト"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 1
+          }
         }
       ],
       "properties": [],
@@ -3066,10 +2858,17 @@
           "name": "StartPoint",
           "type": "点",
           "description": "始点",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "点(3D)"
+          "metadata": {
+            "position": 0,
+            "raw_type": "点(3D)"
+          }
+        },
+        {
+          "name": "EndPoint",
+          "type": "不明",
+          "metadata": {
+            "position": 1
+          }
         }
       ],
       "properties": [],
@@ -3095,46 +2894,49 @@
           "name": "CenterPoint",
           "type": "点",
           "description": "中心点",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "点(3D)"
+          "metadata": {
+            "position": 0,
+            "raw_type": "点(3D)"
+          }
         },
         {
           "name": "Normal",
           "type": "方向",
           "description": "軸方向",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "方向"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "MajorDir",
           "type": "方向",
           "description": "主軸方向（パラメータ０の位置方向",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "方向"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "Radius",
           "type": "長さ",
           "description": "半径",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 3
+          }
         },
         {
           "name": "bClose",
           "type": "bool",
           "description": "Trueの時は円を作成する",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "bool"
+          "metadata": {
+            "position": 4
+          }
+        },
+        {
+          "name": "Range",
+          "type": "不明",
+          "metadata": {
+            "position": 5
+          }
         }
       ],
       "properties": [],
@@ -3160,55 +2962,57 @@
           "name": "CenterPoint",
           "type": "点",
           "description": "中心点",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "点(3D)"
+          "metadata": {
+            "position": 0,
+            "raw_type": "点(3D)"
+          }
         },
         {
           "name": "Normal",
           "type": "方向",
           "description": "軸方向",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "方向"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "MajorDir",
           "type": "方向",
           "description": "主軸方向（パラメータ０の位置方向",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "方向"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "MajorRadius",
           "type": "長さ",
           "description": "主軸半径",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 3
+          }
         },
         {
           "name": "MinorRadius",
           "type": "長さ",
           "description": "副軸半径",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 4
+          }
         },
         {
           "name": "bClose",
           "type": "bool",
           "description": "Trueの時は閉じたを作成する",
-          "is_required": false,
-          "default_value": null,
-          "position": 5,
-          "raw_type": "bool"
+          "metadata": {
+            "position": 5
+          }
+        },
+        {
+          "name": "Range",
+          "type": "不明",
+          "metadata": {
+            "position": 6
+          }
         }
       ],
       "properties": [],
@@ -3253,37 +3057,31 @@
           "name": "TargetSolidName",
           "type": "要素",
           "description": "ロフトフィーチャーを作成する対象のソリッドを指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "要素"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "OperationType",
           "type": "オペレーションタイプ",
           "description": "ソリッドオペレーションのタイプを指定する",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "オペレーションタイプ"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "pParam",
           "type": "ロフトパラメータオブジェクト",
-          "description": "",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "ロフトパラメータオブジェクト"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 3
+          }
         }
       ],
       "properties": [],
@@ -3308,20 +3106,16 @@
         {
           "name": "ParamObj",
           "type": "ロフトパラメータオブジェクト",
-          "description": "",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "ロフトパラメータオブジェクト"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 1
+          }
         }
       ],
       "properties": [],
@@ -3365,20 +3159,16 @@
         {
           "name": "ParamObj",
           "type": "スロットパラメータオブジェクト",
-          "description": "",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "スロットパラメータオブジェクト"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 1
+          }
         }
       ],
       "properties": [],
@@ -3422,20 +3212,16 @@
         {
           "name": "ParamObj",
           "type": "フェイスプレートパラメータオブジェクト",
-          "description": "",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "フェイスプレートパラメータオブジェクト"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 1
+          }
         }
       ],
       "properties": [],
@@ -3461,55 +3247,48 @@
           "name": "Name",
           "type": "文字列",
           "description": "作成するデータム平面要素名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "ElementGroup",
           "type": "要素グループ",
           "description": "作成するデータム平面要素を要素グループに入れる場合は要素グループを指定（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "要素グループ"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "Plane",
           "type": "平面",
           "description": "元になる平面を指定する",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "平面"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "OffsetDistance",
           "type": "長さ",
           "description": "元になる平面からのオフセット距離を指定",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "長さ"
+          "metadata": {
+            "position": 3
+          }
         },
         {
           "name": "ReferMethod",
           "type": "関連設定",
           "description": "要素の関連づけ方法の指定（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "関連設定"
+          "metadata": {
+            "position": 4
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 5,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 5
+          }
         }
       ],
       "properties": [],
@@ -3535,64 +3314,56 @@
           "name": "Name",
           "type": "文字列",
           "description": "作成するデータム平面要素名称（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "文字列"
+          "metadata": {
+            "position": 0
+          }
         },
         {
           "name": "ElementGroup",
           "type": "要素グループ",
           "description": "作成するデータム平面要素を要素グループに入れる場合は要素グループを指定（空文字可）",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "要素グループ"
+          "metadata": {
+            "position": 1
+          }
         },
         {
           "name": "Plane",
           "type": "平面",
           "description": "元になる平面を指定する",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "平面"
+          "metadata": {
+            "position": 2
+          }
         },
         {
           "name": "Axis",
           "type": "軸",
           "description": "回転軸を指定する",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "軸"
+          "metadata": {
+            "position": 3
+          }
         },
         {
           "name": "Angle",
           "type": "角度",
           "description": "回転角度",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "角度"
+          "metadata": {
+            "position": 4
+          }
         },
         {
           "name": "ReferMethod",
           "type": "関連設定",
           "description": "要素の関連づけ方法の指定（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 5,
-          "raw_type": "関連設定"
+          "metadata": {
+            "position": 5
+          }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
-          "is_required": false,
-          "default_value": null,
-          "position": 6,
-          "raw_type": "bool"
+          "type": "不明",
+          "metadata": {
+            "position": 6
+          }
         }
       ],
       "properties": [],

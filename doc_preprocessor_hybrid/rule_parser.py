@@ -22,10 +22,15 @@ PARAM_RE_LOOSE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*,?\s*//\s*(.+)$")
 CLOSING_RE = re.compile(r"\)\s*;?(?:\s*//.*)?$")
 ARRAY_MARKERS = ("(配列)", "[]", "(array)")
 
+VECTOR_PARAM_LIMIT = 6
+FALLBACK_PARAM_DESCRIPTION = "No description provided"
+
 
 def _normalize_text(text: str) -> str:
     text = text.replace("\ufeff", "")
     text = text.replace("\r\n", "\n").replace("\r", "\n")
+    # 全角スペースを半角へ
+    text = text.replace("\u3000", " ")
     text = "\n".join(line.rstrip() for line in text.split("\n"))
     return text
 
@@ -95,6 +100,26 @@ def _guess_return_type(desc: str) -> str:
 def _guess_return_is_array(desc: str) -> bool:
     desc = desc or ""
     return ("配列" in desc) or ("の配列" in desc)
+
+
+def _parse_bare_param(candidate: str) -> Tuple[str, str] | None:
+    """コメント無しのパラメータ表記をヒューリスティックに解析する。
+    例: "[in] BSTR plane" → name=plane, type="[in] BSTR"
+    """
+    if not candidate:
+        return None
+    # 末尾のカンマを除去、全角スペース→半角
+    cand = candidate.strip().rstrip(',').replace("\u3000", " ")
+    # 括弧内属性はそのまま型側に残す
+    tokens = re.split(r"\s+", cand)
+    if not tokens:
+        return None
+    pname = tokens[-1]
+    if not re.match(r"^[A-Za-z_][A-Za-z0-9_]*$", pname):
+        # 末尾が識別子でない場合は放棄
+        return None
+    ptype = " ".join(tokens[:-1]).strip() or "不明"
+    return pname, ptype
 
 
 def parse_type_definitions(text: str) -> List[TypeDefinition]:
@@ -233,6 +258,27 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
                     collecting = False
                 i += 1
                 continue
+            # コメントが無い純粋な型+名前行の救済（例: "[in] BSTR plane,")
+            bare = line
+            # 閉じ括弧以降を除去
+            if ")" in bare:
+                bare = bare.split(")", 1)[0]
+            # コメント以降を除去
+            if "//" in bare:
+                bare = bare.split("//", 1)[0]
+            # 末尾のパラメータ片を取得
+            pname_ptype = _parse_bare_param(bare)
+            if pname_ptype:
+                pname, ptype = pname_ptype
+                parameter = _build_parameter(pname, ptype, "", param_index)
+                current_entry.params.append(parameter)
+                param_index += 1
+                if CLOSING_RE.search(line):
+                    _finalize_entry(current_entry, entries)
+                    current_entry = None
+                    collecting = False
+                i += 1
+                continue
             if CLOSING_RE.search(line):
                 idx_close = line.rfind(")")
                 before = line[:idx_close]
@@ -262,6 +308,13 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
                             pdesc = ""
                         parameter = _build_parameter(pname, ptype, pdesc, param_index)
                         current_entry.params.append(parameter)
+                    else:
+                        # コメント無しの純粋表記も救済
+                        bare_parsed = _parse_bare_param(candidate)
+                        if bare_parsed:
+                            pname, ptype = bare_parsed
+                            parameter = _build_parameter(pname, ptype, "", param_index)
+                            current_entry.params.append(parameter)
                 _finalize_entry(current_entry, entries)
                 current_entry = None
                 collecting = False
@@ -294,22 +347,29 @@ def dump_bundle(bundle: ApiBundle, path: Path) -> None:
 
 def generate_vector_chunks(entries: Iterable[ApiEntry]) -> Iterable[dict]:
     for entry in entries:
-        params = "\n".join(
-            f"- {p.name} ({p.type}): {p.description}" for p in entry.params
-        )
+        limited_params = []
+        for idx, param in enumerate(entry.params):
+            if idx >= VECTOR_PARAM_LIMIT:
+                break
+            description = param.description.strip() if param.description else FALLBACK_PARAM_DESCRIPTION
+            limited_params.append(f"- {param.name} ({param.type}): {description}")
+        if len(entry.params) > VECTOR_PARAM_LIMIT:
+            remaining = len(entry.params) - VECTOR_PARAM_LIMIT
+            limited_params.append(f"... ({remaining} more parameters)")
+        params_text = "\n".join(limited_params)
+        summary_parts = []
+        if entry.description:
+            summary_parts.append(f"Description: {entry.description}")
+        if entry.category:
+            summary_parts.append(f"Category: {entry.category}")
+        if entry.returns and entry.returns.description:
+            summary_parts.append(f"Return: {entry.returns.description}")
+        if params_text:
+            summary_parts.append(params_text)
         payload = {
             "id": entry.name,
             "object": entry.object_name,
             "title_jp": entry.title_jp,
-            "content": "\n".join(
-                piece
-                for piece in [
-                    f"機能: {entry.description}",
-                    f"カテゴリ: {entry.category}",
-                    f"返り値: {entry.returns.description if entry.returns else ''}",
-                    params,
-                ]
-                if piece
-            ),
+            "content": "\n".join(summary_parts),
         }
         yield payload
