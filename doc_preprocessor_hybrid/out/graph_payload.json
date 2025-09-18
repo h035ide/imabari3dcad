@@ -3461,6 +3461,62 @@
           "position": 6
         }
       }
+    },
+    {
+      "id": "数値",
+      "label": "TypeDef",
+      "properties": {
+        "name": "数値",
+        "description": "数値、変数要素名,式文字列、\n例)  \"3\", \"N1\", \"N1*5\""
+      }
+    },
+    {
+      "id": "変数単位",
+      "label": "TypeDef",
+      "properties": {
+        "name": "変数単位",
+        "description": "長さ \"mm\",\"cm\",\"m\",\"in\",\"ft\",\"pt\"のいずれか\n角度 \"deg\",\"rad\"のいずれか\n数値 \"\"(空白),\"num\"のいずれか"
+      }
+    },
+    {
+      "id": "注記スタイル",
+      "label": "TypeDef",
+      "properties": {
+        "name": "注記スタイル",
+        "description": "EVO.SHIPに設定している注記スタイルの名称"
+      }
+    },
+    {
+      "id": "スイープ方向",
+      "label": "TypeDef",
+      "properties": {
+        "name": "スイープ方向",
+        "description": "\"N\"  順方向\n\"R\" 反対方向\n\"B\" 両方向\n\"2\"  ２方向\n\"T\"   貫通"
+      }
+    },
+    {
+      "id": "オペレーションタイプ （ボディ）",
+      "label": "TypeDef",
+      "properties": {
+        "name": "オペレーションタイプ （ボディ）",
+        "description": "\"+\" 和\n\"-\" 削除\n\"*\"  積"
+      }
+    },
+    {
+      "id": "形状タイプ",
+      "label": "TypeDef",
+      "properties": {
+        "name": "形状タイプ",
+        "description": "EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号 (ヘルプのEVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイルの項を\n参照)\n例）\"1007\" 平鋼、\"1003\" 不等辺不等厚山形鋼\n\"1101\" 条材端部Sタイプ 、\"1120\" 条材端部スカラップA1タイプ\n\"1503\"  ブラケット2-Bタイプ"
+      }
+    },
+    {
+      "id": "形状パラメータ",
+      "label": "TypeDef",
+      "properties": {
+        "name": "形状パラメータ",
+        "description": "各形状タイプの寸法値を文字列配列で設定\n例) 不当辺山形鋼(1002)の形状タイプの場合 [\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]"
+      }
     }
   ],
   "relationships": [

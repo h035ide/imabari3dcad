@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Dict, List, Set
 
-from .schemas import ApiBundle, ApiEntry, Parameter
+from .schemas import ApiBundle, ApiEntry
 
 
 def _collect_type_nodes(entry: ApiEntry, nodes: Dict[str, Dict[str, object]]) -> None:
@@ -100,5 +100,17 @@ def build_graph_payload(bundle: ApiBundle) -> Dict[str, List[Dict[str, object]]]
                     "end": param.type.rstrip("[]"),
                 }
             )
+
+    # Add type_definitions as dedicated nodes (no source field)
+    for typedef in getattr(bundle, "type_definitions", []) or []:
+        if typedef.name and typedef.name not in nodes:
+            nodes[typedef.name] = {
+                "id": typedef.name,
+                "label": "TypeDef",
+                "properties": {
+                    "name": typedef.name,
+                    "description": typedef.description or "",
+                },
+            }
 
     return {"nodes": list(nodes.values()), "relationships": relationships}
