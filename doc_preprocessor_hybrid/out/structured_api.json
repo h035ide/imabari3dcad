@@ -123,6 +123,25 @@
   "api_entries": [
     {
       "entry_type": "function",
+      "name": "Quit",
+      "description": "EvoShipを終了する",
+      "category": "Applicationオブジェクト",
+      "params": [],
+      "properties": [],
+      "returns": {
+        "type": "void",
+        "description": "なし",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Applicationオブジェクト",
+      "title_jp": "EvoShipを終了する",
+      "raw_return": "なし"
+    },
+    {
+      "entry_type": "function",
       "name": "ShowMainWindow",
       "description": "EvoShipのメインウィンドウを表示する",
       "category": "Applicationオブジェクト",
@@ -139,7 +158,7 @@
       ],
       "properties": [],
       "returns": {
-        "type": "不明",
+        "type": "void",
         "description": "なし",
         "is_array": false,
         "raw_type": null
@@ -228,6 +247,82 @@
     },
     {
       "entry_type": "function",
+      "name": "Create3DDocument",
+      "description": "3DのDocumentを新規に作成する",
+      "category": "Applicationオブジェクト",
+      "params": [],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "Documentオブジェクト",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Applicationオブジェクト",
+      "title_jp": "3DのDocumentを新規に作成する",
+      "raw_return": "Documentオブジェクト"
+    },
+    {
+      "entry_type": "function",
+      "name": "GetActiveDocument",
+      "description": "アクティブなDocumentオブジェクトを取得する",
+      "category": "Applicationオブジェクト",
+      "params": [],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "Documentオブジェクト",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Applicationオブジェクト",
+      "title_jp": "アクティブなDocumentオブジェクトを取得する",
+      "raw_return": "Documentオブジェクト"
+    },
+    {
+      "entry_type": "function",
+      "name": "GetDocuments",
+      "description": "開かれているDocumentオブジェクトを全て取得する",
+      "category": "Applicationオブジェクト",
+      "params": [],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "Documentオブジェクトの配列",
+        "is_array": true,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Applicationオブジェクト",
+      "title_jp": "開かれているDocumentオブジェクトを全て取得する",
+      "raw_return": "Documentオブジェクトの配列"
+    },
+    {
+      "entry_type": "function",
+      "name": "Close",
+      "description": "ドキュメントを閉じる",
+      "category": "Documentオブジェクト",
+      "params": [],
+      "properties": [],
+      "returns": {
+        "type": "void",
+        "description": "なし",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Documentオブジェクト",
+      "title_jp": "ドキュメントを閉じる",
+      "raw_return": "なし"
+    },
+    {
+      "entry_type": "function",
       "name": "Save",
       "description": "ドキュメントをファイルに保存する",
       "category": "Documentオブジェクト",
@@ -253,7 +348,7 @@
       ],
       "properties": [],
       "returns": {
-        "type": "不明",
+        "type": "void",
         "description": "なし",
         "is_array": false,
         "raw_type": null
@@ -263,6 +358,120 @@
       "object_name": "Documentオブジェクト",
       "title_jp": "ドキュメントをファイルに保存する",
       "raw_return": "なし"
+    },
+    {
+      "entry_type": "function",
+      "name": "GetPart",
+      "description": "Partオブジェクトの取得",
+      "category": "Documentオブジェクト",
+      "params": [],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "Partオブジェクト",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Documentオブジェクト",
+      "title_jp": "Partオブジェクトの取得",
+      "raw_return": "Partオブジェクト"
+    },
+    {
+      "entry_type": "function",
+      "name": "IsActive",
+      "description": "ドキュメントがアクティブ（カレント）かどうか",
+      "category": "Documentオブジェクト",
+      "params": [],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "bool ドキュメントがActiveな時はTrue",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Documentオブジェクト",
+      "title_jp": "ドキュメントがアクティブ（カレント）かどうか",
+      "raw_return": "bool ドキュメントがActiveな時はTrue"
+    },
+    {
+      "entry_type": "function",
+      "name": "Activate",
+      "description": "ドキュメントをアクティベイト（カレントに）する",
+      "category": "Documentオブジェクト",
+      "params": [],
+      "properties": [],
+      "returns": {
+        "type": "void",
+        "description": "なし",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Documentオブジェクト",
+      "title_jp": "ドキュメントをアクティベイト（カレントに）する",
+      "raw_return": "なし"
+    },
+    {
+      "entry_type": "function",
+      "name": "FitAllViews",
+      "description": "ドキュメントのビューを要素にフィットする",
+      "category": "Documentオブジェクト",
+      "params": [],
+      "properties": [],
+      "returns": {
+        "type": "void",
+        "description": "なし",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Documentオブジェクト",
+      "title_jp": "ドキュメントのビューを要素にフィットする",
+      "raw_return": "なし"
+    },
+    {
+      "entry_type": "function",
+      "name": "GetViews",
+      "description": "ドキュメントのビューを取得する",
+      "category": "Documentオブジェクト",
+      "params": [],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "Viewオブジェクトの配列",
+        "is_array": true,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Documentオブジェクト",
+      "title_jp": "ドキュメントのビューを取得する",
+      "raw_return": "Viewオブジェクトの配列"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateSTLOption",
+      "description": "ドキュメントをSTLとして保存する際のパラメータオブジェクトの作成",
+      "category": "Documentオブジェクト",
+      "params": [],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "STLパラメータオブジェクト",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Documentオブジェクト",
+      "title_jp": "ドキュメントをSTLとして保存する際のパラメータオブジェクトの作成",
+      "raw_return": "STLパラメータオブジェクト"
     },
     {
       "entry_type": "function",
@@ -291,7 +500,7 @@
       ],
       "properties": [],
       "returns": {
-        "type": "不明",
+        "type": "void",
         "description": "なし",
         "is_array": false,
         "raw_type": null
@@ -338,7 +547,7 @@
       ],
       "properties": [],
       "returns": {
-        "type": "不明",
+        "type": "void",
         "description": "なし",
         "is_array": false,
         "raw_type": null
@@ -376,7 +585,7 @@
       ],
       "properties": [],
       "returns": {
-        "type": "不明",
+        "type": "void",
         "description": "なし",
         "is_array": false,
         "raw_type": null
@@ -1071,7 +1280,7 @@
       "returns": {
         "type": "ID",
         "description": "作成された要素の要素IDの配列",
-        "is_array": false,
+        "is_array": true,
         "raw_type": null
       },
       "notes": null,
@@ -1162,6 +1371,25 @@
       "object_name": "Partオブジェクト",
       "title_jp": "オフセットシートを作成",
       "raw_return": "作成されたオフセットシート要素の要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateLinearSweepParam",
+      "description": "押し出しパラメータオブジェクトの作成",
+      "category": "Partオブジェクト",
+      "params": [],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "押し出しパラメータオブジェクト",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "押し出しパラメータオブジェクトの作成",
+      "raw_return": "押し出しパラメータオブジェクト"
     },
     {
       "entry_type": "function",
@@ -1302,7 +1530,7 @@
       ],
       "properties": [],
       "returns": {
-        "type": "不明",
+        "type": "void",
         "description": "なし",
         "is_array": false,
         "raw_type": null
@@ -1369,7 +1597,7 @@
       ],
       "properties": [],
       "returns": {
-        "type": "不明",
+        "type": "void",
         "description": "なし",
         "is_array": false,
         "raw_type": null
@@ -1436,7 +1664,7 @@
       "returns": {
         "type": "ID",
         "description": "コピーされた要素ID配列",
-        "is_array": false,
+        "is_array": true,
         "raw_type": null
       },
       "notes": null,
@@ -1474,7 +1702,7 @@
       "returns": {
         "type": "ID",
         "description": "コピーされた要素ID配列",
-        "is_array": false,
+        "is_array": true,
         "raw_type": null
       },
       "notes": null,
@@ -1716,6 +1944,25 @@
     },
     {
       "entry_type": "function",
+      "name": "CreateBracketParam",
+      "description": "船殻のブラケット要素のパラメータオブジェクトの作成",
+      "category": "Partオブジェクト",
+      "params": [],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "ブラケット要素のパラメータオブジェクト",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "船殻のブラケット要素のパラメータオブジェクトの作成",
+      "raw_return": "ブラケット要素のパラメータオブジェクト"
+    },
+    {
+      "entry_type": "function",
       "name": "CreateBracket",
       "description": "船殻のブラケットソリッド要素を作成する",
       "category": "Partオブジェクト",
@@ -1900,6 +2147,25 @@
     },
     {
       "entry_type": "function",
+      "name": "CreateProfileParam",
+      "description": "船殻の条材ソリッド要素のパラメータオブジェクトの作成",
+      "category": "Partオブジェクト",
+      "params": [],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "条材要素のパラメータオブジェクト",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "船殻の条材ソリッド要素のパラメータオブジェクトの作成",
+      "raw_return": "条材要素のパラメータオブジェクト"
+    },
+    {
+      "entry_type": "function",
       "name": "CreateProfile",
       "description": "船殻の条材ソリッド要素を取付線指定で作成する",
       "category": "Partオブジェクト",
@@ -1927,7 +2193,7 @@
       "returns": {
         "type": "不明",
         "description": "作成した条材ソリッド要素のID(配列　配列[0]Web要素 配列[1]フランジ要素",
-        "is_array": false,
+        "is_array": true,
         "raw_type": null
       },
       "notes": null,
@@ -2010,7 +2276,7 @@
       "returns": {
         "type": "不明",
         "description": "分割で作成されたボディ要素のID配列",
-        "is_array": false,
+        "is_array": true,
         "raw_type": null
       },
       "notes": null,
@@ -2084,7 +2350,7 @@
       "returns": {
         "type": "不明",
         "description": "分割で作成されたボディ要素のID配列",
-        "is_array": false,
+        "is_array": true,
         "raw_type": null
       },
       "notes": null,
@@ -2176,7 +2442,7 @@
       "returns": {
         "type": "不明",
         "description": "分割で作成されたボディ要素のID配列",
-        "is_array": false,
+        "is_array": true,
         "raw_type": null
       },
       "notes": null,
@@ -2232,7 +2498,7 @@
       "returns": {
         "type": "不明",
         "description": "分割で作成されたボディ要素のID配列",
-        "is_array": false,
+        "is_array": true,
         "raw_type": null
       },
       "notes": null,
@@ -2566,6 +2832,25 @@
     },
     {
       "entry_type": "function",
+      "name": "CreateSweepParam",
+      "description": "スイープパラメータオブジェクトの作成",
+      "category": "Partオブジェクト",
+      "params": [],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "スイープパラメータオブジェクト",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "スイープパラメータオブジェクトの作成",
+      "raw_return": "スイープパラメータオブジェクト"
+    },
+    {
+      "entry_type": "function",
       "name": "CreateSweep",
       "description": "指定したソリッド要素にスイープ形状を付加する",
       "category": "Partオブジェクト",
@@ -2657,6 +2942,25 @@
       "object_name": "Partオブジェクト",
       "title_jp": "プロファイル要素をスイープしてシート要素を作成",
       "raw_return": "作成されたシート要素の要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateRotationalSweepParam",
+      "description": "回転パラメータオブジェクトの作成",
+      "category": "Partオブジェクト",
+      "params": [],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "回転パラメータオブジェクト",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "回転パラメータオブジェクトの作成",
+      "raw_return": "回転パラメータオブジェクト"
     },
     {
       "entry_type": "function",
@@ -2922,86 +3226,22 @@
     },
     {
       "entry_type": "function",
-      "name": "CreateNURBSCurve",
-      "description": "3DのＮＵＲＢＳ線要素を作成",
+      "name": "CreateLoftParam",
+      "description": "ロフトパラメータオブジェクトの作成",
       "category": "Partオブジェクト",
-      "params": [
-        {
-          "name": "nDegree",
-          "type": "整数",
-          "description": "ＮＵＲＢＳ線の次数",
-          "is_required": false,
-          "default_value": null,
-          "position": 0,
-          "raw_type": "整数"
-        },
-        {
-          "name": "bClose",
-          "type": "bool",
-          "description": "閉じたＮＵＲＢＳ線の場合True",
-          "is_required": false,
-          "default_value": null,
-          "position": 1,
-          "raw_type": "bool"
-        },
-        {
-          "name": "bPeriodic",
-          "type": "bool",
-          "description": "周期ＮＵＲＢＳ線の場合True",
-          "is_required": false,
-          "default_value": null,
-          "position": 2,
-          "raw_type": "bool"
-        },
-        {
-          "name": "CtrlPoints",
-          "type": "点[]",
-          "description": "制御点",
-          "is_required": false,
-          "default_value": null,
-          "position": 3,
-          "raw_type": "点(配列)"
-        },
-        {
-          "name": "Weights",
-          "type": "浮動小数点[]",
-          "description": "重み",
-          "is_required": false,
-          "default_value": null,
-          "position": 4,
-          "raw_type": "浮動小数点(配列)"
-        },
-        {
-          "name": "Knots",
-          "type": "浮動小数点[]",
-          "description": "ノットベクトル",
-          "is_required": false,
-          "default_value": null,
-          "position": 5,
-          "raw_type": "浮動小数点(配列)"
-        },
-        {
-          "name": "Range",
-          "type": "範囲",
-          "description": "トリム範囲",
-          "is_required": false,
-          "default_value": null,
-          "position": 6,
-          "raw_type": "範囲"
-        }
-      ],
+      "params": [],
       "properties": [],
       "returns": {
-        "type": "ID",
-        "description": "線要素の要素ID",
+        "type": "不明",
+        "description": "ロフトパラメータオブジェクト",
         "is_array": false,
         "raw_type": null
       },
       "notes": null,
       "implementation_status": "implemented",
       "object_name": "Partオブジェクト",
-      "title_jp": "3DのＮＵＲＢＳ線要素を作成",
-      "raw_return": "線要素の要素ID"
+      "title_jp": "ロフトパラメータオブジェクトの作成",
+      "raw_return": "ロフトパラメータオブジェクト"
     },
     {
       "entry_type": "function",
@@ -3099,6 +3339,25 @@
     },
     {
       "entry_type": "function",
+      "name": "CreateSlotParam",
+      "description": "船殻のスロットパラメータオブジェクトの作成",
+      "category": "Partオブジェクト",
+      "params": [],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "スロットパラメータオブジェクト",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "船殻のスロットパラメータオブジェクトの作成",
+      "raw_return": "スロットパラメータオブジェクト"
+    },
+    {
+      "entry_type": "function",
       "name": "CreateSlot",
       "description": "船殻のスロット要素、カラープレートを作成する",
       "category": "Partオブジェクト",
@@ -3126,7 +3385,7 @@
       "returns": {
         "type": "ID",
         "description": "作成されたスロットフィーチャー、カラープレート１，カラープレート２の要素ID配列",
-        "is_array": false,
+        "is_array": true,
         "raw_type": null
       },
       "notes": null,
@@ -3134,6 +3393,25 @@
       "object_name": "Partオブジェクト",
       "title_jp": "船殻のスロット要素、カラープレートを作成する",
       "raw_return": "作成されたスロットフィーチャー、カラープレート１，カラープレート２の要素ID配列"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateFacePlateParam",
+      "description": "船殻のフェイスプレートパラメータオブジェクトの作成",
+      "category": "Partオブジェクト",
+      "params": [],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "フェイスプレートパラメータオブジェクト",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "船殻のフェイスプレートパラメータオブジェクトの作成",
+      "raw_return": "フェイスプレートパラメータオブジェクト"
     },
     {
       "entry_type": "function",

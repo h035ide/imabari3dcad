@@ -8,19 +8,28 @@
       }
     },
     {
+      "id": "Quit",
+      "label": "Method",
+      "properties": {
+        "name": "Quit",
+        "description": "EvoShipを終了する",
+        "category": "Applicationオブジェクト"
+      }
+    },
+    {
+      "id": "void",
+      "label": "Type",
+      "properties": {
+        "name": "void"
+      }
+    },
+    {
       "id": "ShowMainWindow",
       "label": "Method",
       "properties": {
         "name": "ShowMainWindow",
         "description": "EvoShipのメインウィンドウを表示する",
         "category": "Applicationオブジェクト"
-      }
-    },
-    {
-      "id": "不明",
-      "label": "Type",
-      "properties": {
-        "name": "不明"
       }
     },
     {
@@ -47,6 +56,13 @@
         "name": "LoadPart",
         "description": "Partオブジェクトを読み込む",
         "category": "Applicationオブジェクト"
+      }
+    },
+    {
+      "id": "不明",
+      "label": "Type",
+      "properties": {
+        "name": "不明"
       }
     },
     {
@@ -106,10 +122,46 @@
       }
     },
     {
+      "id": "Create3DDocument",
+      "label": "Method",
+      "properties": {
+        "name": "Create3DDocument",
+        "description": "3DのDocumentを新規に作成する",
+        "category": "Applicationオブジェクト"
+      }
+    },
+    {
+      "id": "GetActiveDocument",
+      "label": "Method",
+      "properties": {
+        "name": "GetActiveDocument",
+        "description": "アクティブなDocumentオブジェクトを取得する",
+        "category": "Applicationオブジェクト"
+      }
+    },
+    {
+      "id": "GetDocuments",
+      "label": "Method",
+      "properties": {
+        "name": "GetDocuments",
+        "description": "開かれているDocumentオブジェクトを全て取得する",
+        "category": "Applicationオブジェクト"
+      }
+    },
+    {
       "id": "Documentオブジェクト",
       "label": "Object",
       "properties": {
         "name": "Documentオブジェクト"
+      }
+    },
+    {
+      "id": "Close",
+      "label": "Method",
+      "properties": {
+        "name": "Close",
+        "description": "ドキュメントを閉じる",
+        "category": "Documentオブジェクト"
       }
     },
     {
@@ -139,6 +191,60 @@
         "description": "最小サイズになる形式で保存する時はTrue（開くのに計算を必要とします）",
         "position": 1,
         "is_required": false
+      }
+    },
+    {
+      "id": "GetPart",
+      "label": "Method",
+      "properties": {
+        "name": "GetPart",
+        "description": "Partオブジェクトの取得",
+        "category": "Documentオブジェクト"
+      }
+    },
+    {
+      "id": "IsActive",
+      "label": "Method",
+      "properties": {
+        "name": "IsActive",
+        "description": "ドキュメントがアクティブ（カレント）かどうか",
+        "category": "Documentオブジェクト"
+      }
+    },
+    {
+      "id": "Activate",
+      "label": "Method",
+      "properties": {
+        "name": "Activate",
+        "description": "ドキュメントをアクティベイト（カレントに）する",
+        "category": "Documentオブジェクト"
+      }
+    },
+    {
+      "id": "FitAllViews",
+      "label": "Method",
+      "properties": {
+        "name": "FitAllViews",
+        "description": "ドキュメントのビューを要素にフィットする",
+        "category": "Documentオブジェクト"
+      }
+    },
+    {
+      "id": "GetViews",
+      "label": "Method",
+      "properties": {
+        "name": "GetViews",
+        "description": "ドキュメントのビューを取得する",
+        "category": "Documentオブジェクト"
+      }
+    },
+    {
+      "id": "CreateSTLOption",
+      "label": "Method",
+      "properties": {
+        "name": "CreateSTLOption",
+        "description": "ドキュメントをSTLとして保存する際のパラメータオブジェクトの作成",
+        "category": "Documentオブジェクト"
       }
     },
     {
@@ -1067,6 +1173,15 @@
       }
     },
     {
+      "id": "CreateLinearSweepParam",
+      "label": "Method",
+      "properties": {
+        "name": "CreateLinearSweepParam",
+        "description": "押し出しパラメータオブジェクトの作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
       "id": "CreateLinearSweep",
       "label": "Method",
       "properties": {
@@ -1575,6 +1690,15 @@
       }
     },
     {
+      "id": "CreateBracketParam",
+      "label": "Method",
+      "properties": {
+        "name": "CreateBracketParam",
+        "description": "船殻のブラケット要素のパラメータオブジェクトの作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
       "id": "CreateBracket",
       "label": "Method",
       "properties": {
@@ -1764,6 +1888,15 @@
         "description": "更新フラグ（未実装、使用しない）",
         "position": 13,
         "is_required": false
+      }
+    },
+    {
+      "id": "CreateProfileParam",
+      "label": "Method",
+      "properties": {
+        "name": "CreateProfileParam",
+        "description": "船殻の条材ソリッド要素のパラメータオブジェクトの作成",
+        "category": "Partオブジェクト"
       }
     },
     {
@@ -2395,6 +2528,15 @@
       }
     },
     {
+      "id": "CreateSweepParam",
+      "label": "Method",
+      "properties": {
+        "name": "CreateSweepParam",
+        "description": "スイープパラメータオブジェクトの作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
       "id": "CreateSweep",
       "label": "Method",
       "properties": {
@@ -2477,6 +2619,15 @@
         "description": "更新フラグ（未実装、使用しない）",
         "position": 1,
         "is_required": false
+      }
+    },
+    {
+      "id": "CreateRotationalSweepParam",
+      "label": "Method",
+      "properties": {
+        "name": "CreateRotationalSweepParam",
+        "description": "回転パラメータオブジェクトの作成",
+        "category": "Partオブジェクト"
       }
     },
     {
@@ -2712,82 +2863,12 @@
       }
     },
     {
-      "id": "CreateNURBSCurve",
+      "id": "CreateLoftParam",
       "label": "Method",
       "properties": {
-        "name": "CreateNURBSCurve",
-        "description": "3DのＮＵＲＢＳ線要素を作成",
+        "name": "CreateLoftParam",
+        "description": "ロフトパラメータオブジェクトの作成",
         "category": "Partオブジェクト"
-      }
-    },
-    {
-      "id": "CreateNURBSCurve:nDegree",
-      "label": "Parameter",
-      "properties": {
-        "name": "nDegree",
-        "description": "ＮＵＲＢＳ線の次数",
-        "position": 0,
-        "is_required": false
-      }
-    },
-    {
-      "id": "CreateNURBSCurve:bClose",
-      "label": "Parameter",
-      "properties": {
-        "name": "bClose",
-        "description": "閉じたＮＵＲＢＳ線の場合True",
-        "position": 1,
-        "is_required": false
-      }
-    },
-    {
-      "id": "CreateNURBSCurve:bPeriodic",
-      "label": "Parameter",
-      "properties": {
-        "name": "bPeriodic",
-        "description": "周期ＮＵＲＢＳ線の場合True",
-        "position": 2,
-        "is_required": false
-      }
-    },
-    {
-      "id": "CreateNURBSCurve:CtrlPoints",
-      "label": "Parameter",
-      "properties": {
-        "name": "CtrlPoints",
-        "description": "制御点",
-        "position": 3,
-        "is_required": false
-      }
-    },
-    {
-      "id": "CreateNURBSCurve:Weights",
-      "label": "Parameter",
-      "properties": {
-        "name": "Weights",
-        "description": "重み",
-        "position": 4,
-        "is_required": false
-      }
-    },
-    {
-      "id": "CreateNURBSCurve:Knots",
-      "label": "Parameter",
-      "properties": {
-        "name": "Knots",
-        "description": "ノットベクトル",
-        "position": 5,
-        "is_required": false
-      }
-    },
-    {
-      "id": "CreateNURBSCurve:Range",
-      "label": "Parameter",
-      "properties": {
-        "name": "Range",
-        "description": "トリム範囲",
-        "position": 6,
-        "is_required": false
       }
     },
     {
@@ -2876,6 +2957,15 @@
       }
     },
     {
+      "id": "CreateSlotParam",
+      "label": "Method",
+      "properties": {
+        "name": "CreateSlotParam",
+        "description": "船殻のスロットパラメータオブジェクトの作成",
+        "category": "Partオブジェクト"
+      }
+    },
+    {
       "id": "CreateSlot",
       "label": "Method",
       "properties": {
@@ -2909,6 +2999,15 @@
         "description": "更新フラグ（未実装、使用しない）",
         "position": 1,
         "is_required": false
+      }
+    },
+    {
+      "id": "CreateFacePlateParam",
+      "label": "Method",
+      "properties": {
+        "name": "CreateFacePlateParam",
+        "description": "船殻のフェイスプレートパラメータオブジェクトの作成",
+        "category": "Partオブジェクト"
       }
     },
     {
@@ -3113,15 +3212,28 @@
   "relationships": [
     {
       "type": "BELONGS_TO",
+      "start": "Quit",
+      "end": "Applicationオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "Quit",
+      "end": "void",
+      "properties": {
+        "raw_type": "void"
+      }
+    },
+    {
+      "type": "BELONGS_TO",
       "start": "ShowMainWindow",
       "end": "Applicationオブジェクト"
     },
     {
       "type": "RETURNS",
       "start": "ShowMainWindow",
-      "end": "不明",
+      "end": "void",
       "properties": {
-        "raw_type": "不明"
+        "raw_type": "void"
       }
     },
     {
@@ -3202,15 +3314,67 @@
     },
     {
       "type": "BELONGS_TO",
+      "start": "Create3DDocument",
+      "end": "Applicationオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "Create3DDocument",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "GetActiveDocument",
+      "end": "Applicationオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "GetActiveDocument",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "GetDocuments",
+      "end": "Applicationオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "GetDocuments",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "Close",
+      "end": "Documentオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "Close",
+      "end": "void",
+      "properties": {
+        "raw_type": "void"
+      }
+    },
+    {
+      "type": "BELONGS_TO",
       "start": "Save",
       "end": "Documentオブジェクト"
     },
     {
       "type": "RETURNS",
       "start": "Save",
-      "end": "不明",
+      "end": "void",
       "properties": {
-        "raw_type": "不明"
+        "raw_type": "void"
       }
     },
     {
@@ -3235,15 +3399,93 @@
     },
     {
       "type": "BELONGS_TO",
+      "start": "GetPart",
+      "end": "Documentオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "GetPart",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "IsActive",
+      "end": "Documentオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "IsActive",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "Activate",
+      "end": "Documentオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "Activate",
+      "end": "void",
+      "properties": {
+        "raw_type": "void"
+      }
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "FitAllViews",
+      "end": "Documentオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "FitAllViews",
+      "end": "void",
+      "properties": {
+        "raw_type": "void"
+      }
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "GetViews",
+      "end": "Documentオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "GetViews",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateSTLOption",
+      "end": "Documentオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateSTLOption",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "BELONGS_TO",
       "start": "ExporAsSTL",
       "end": "Documentオブジェクト"
     },
     {
       "type": "RETURNS",
       "start": "ExporAsSTL",
-      "end": "不明",
+      "end": "void",
       "properties": {
-        "raw_type": "不明"
+        "raw_type": "void"
       }
     },
     {
@@ -3274,9 +3516,9 @@
     {
       "type": "RETURNS",
       "start": "SetDirection",
-      "end": "不明",
+      "end": "void",
       "properties": {
-        "raw_type": "不明"
+        "raw_type": "void"
       }
     },
     {
@@ -3317,9 +3559,9 @@
     {
       "type": "RETURNS",
       "start": "ExportToBitmap",
-      "end": "不明",
+      "end": "void",
       "properties": {
-        "raw_type": "不明"
+        "raw_type": "void"
       }
     },
     {
@@ -4114,6 +4356,19 @@
     },
     {
       "type": "BELONGS_TO",
+      "start": "CreateLinearSweepParam",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateLinearSweepParam",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "BELONGS_TO",
       "start": "CreateLinearSweep",
       "end": "Partオブジェクト"
     },
@@ -4206,9 +4461,9 @@
     {
       "type": "RETURNS",
       "start": "SheetAlignNormal",
-      "end": "不明",
+      "end": "void",
       "properties": {
-        "raw_type": "不明"
+        "raw_type": "void"
       }
     },
     {
@@ -4282,9 +4537,9 @@
     {
       "type": "RETURNS",
       "start": "BlankElement",
-      "end": "不明",
+      "end": "void",
       "properties": {
-        "raw_type": "不明"
+        "raw_type": "void"
       }
     },
     {
@@ -4634,6 +4889,19 @@
     },
     {
       "type": "BELONGS_TO",
+      "start": "CreateBracketParam",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateBracketParam",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "BELONGS_TO",
       "start": "CreateBracket",
       "end": "Partオブジェクト"
     },
@@ -4817,6 +5085,19 @@
       "type": "HAS_TYPE",
       "start": "CreatePlate:bUpdate",
       "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateProfileParam",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateProfileParam",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
     },
     {
       "type": "BELONGS_TO",
@@ -5477,6 +5758,19 @@
     },
     {
       "type": "BELONGS_TO",
+      "start": "CreateSweepParam",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateSweepParam",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "BELONGS_TO",
       "start": "CreateSweep",
       "end": "Partオブジェクト"
     },
@@ -5560,6 +5854,19 @@
       "type": "HAS_TYPE",
       "start": "CreateSweepSheet:bUpdate",
       "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateRotationalSweepParam",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateRotationalSweepParam",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
     },
     {
       "type": "BELONGS_TO",
@@ -5808,86 +6115,16 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "CreateNURBSCurve",
+      "start": "CreateLoftParam",
       "end": "Partオブジェクト"
     },
     {
       "type": "RETURNS",
-      "start": "CreateNURBSCurve",
-      "end": "ID",
+      "start": "CreateLoftParam",
+      "end": "不明",
       "properties": {
-        "raw_type": "ID"
+        "raw_type": "不明"
       }
-    },
-    {
-      "type": "HAS_PARAMETER",
-      "start": "CreateNURBSCurve",
-      "end": "CreateNURBSCurve:nDegree"
-    },
-    {
-      "type": "HAS_TYPE",
-      "start": "CreateNURBSCurve:nDegree",
-      "end": "整数"
-    },
-    {
-      "type": "HAS_PARAMETER",
-      "start": "CreateNURBSCurve",
-      "end": "CreateNURBSCurve:bClose"
-    },
-    {
-      "type": "HAS_TYPE",
-      "start": "CreateNURBSCurve:bClose",
-      "end": "bool"
-    },
-    {
-      "type": "HAS_PARAMETER",
-      "start": "CreateNURBSCurve",
-      "end": "CreateNURBSCurve:bPeriodic"
-    },
-    {
-      "type": "HAS_TYPE",
-      "start": "CreateNURBSCurve:bPeriodic",
-      "end": "bool"
-    },
-    {
-      "type": "HAS_PARAMETER",
-      "start": "CreateNURBSCurve",
-      "end": "CreateNURBSCurve:CtrlPoints"
-    },
-    {
-      "type": "HAS_TYPE",
-      "start": "CreateNURBSCurve:CtrlPoints",
-      "end": "点"
-    },
-    {
-      "type": "HAS_PARAMETER",
-      "start": "CreateNURBSCurve",
-      "end": "CreateNURBSCurve:Weights"
-    },
-    {
-      "type": "HAS_TYPE",
-      "start": "CreateNURBSCurve:Weights",
-      "end": "浮動小数点"
-    },
-    {
-      "type": "HAS_PARAMETER",
-      "start": "CreateNURBSCurve",
-      "end": "CreateNURBSCurve:Knots"
-    },
-    {
-      "type": "HAS_TYPE",
-      "start": "CreateNURBSCurve:Knots",
-      "end": "浮動小数点"
-    },
-    {
-      "type": "HAS_PARAMETER",
-      "start": "CreateNURBSCurve",
-      "end": "CreateNURBSCurve:Range"
-    },
-    {
-      "type": "HAS_TYPE",
-      "start": "CreateNURBSCurve:Range",
-      "end": "範囲"
     },
     {
       "type": "BELONGS_TO",
@@ -5977,6 +6214,19 @@
     },
     {
       "type": "BELONGS_TO",
+      "start": "CreateSlotParam",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateSlotParam",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
+    },
+    {
+      "type": "BELONGS_TO",
       "start": "CreateSlot",
       "end": "Partオブジェクト"
     },
@@ -6007,6 +6257,19 @@
       "type": "HAS_TYPE",
       "start": "CreateSlot:bUpdate",
       "end": "bool"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateFacePlateParam",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateFacePlateParam",
+      "end": "不明",
+      "properties": {
+        "raw_type": "不明"
+      }
     },
     {
       "type": "BELONGS_TO",

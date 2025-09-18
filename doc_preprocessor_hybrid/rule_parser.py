@@ -12,7 +12,10 @@ from .schemas import ApiBundle, ApiEntry, Parameter, ReturnSpec, TypeDefinition
 HEADER_RE = re.compile(r"^■(.+?)(?:のメソッド)?$")
 TITLE_RE = re.compile(r"^〇(.+)$")
 RETURN_RE = re.compile(r"^返り値[:：]\s*(.+)$")
+# パラメータ改行型: 末尾が '(' で改行してパラメータが続く
 METHOD_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*\($")
+# パラメータ無しの同一行型: 例) Quit() / Create3DDocument()
+ZERO_PARAM_METHOD_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*\(\)\s*;?$")
 PARAM_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*,?\s*//\s*([^:：]+)[:：]\s*(.+)$")
 # コロンなしコメント形式にも対応する緩和版（例: pOpt) // STLパラメータオブジェクト）
 PARAM_RE_LOOSE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*,?\s*//\s*(.+)$")
@@ -82,9 +85,16 @@ def _build_parameter(name: str, raw_type: str, description: str, position: int) 
 
 def _guess_return_type(desc: str) -> str:
     desc = desc or ""
+    if "なし" in desc:
+        return "void"
     if re.search(r"\bID\b", desc, flags=re.IGNORECASE) or "要素ID" in desc:
         return "ID"
     return "不明"
+
+
+def _guess_return_is_array(desc: str) -> bool:
+    desc = desc or ""
+    return ("配列" in desc) or ("の配列" in desc)
 
 
 def parse_type_definitions(text: str) -> List[TypeDefinition]:
@@ -146,6 +156,28 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
                     current_return = ret_match.group(1).strip()
                     i += 1
             continue
+        # パラメータ無しの同一行メソッド（e.g., Quit(), Create3DDocument()）
+        zero_match = ZERO_PARAM_METHOD_RE.match(line)
+        if zero_match:
+            method_name = zero_match.group(1)
+            entry = ApiEntry(
+                entry_type="function",
+                name=method_name,
+                description=current_title,
+                category=current_object,
+                object_name=current_object,
+                title_jp=current_title,
+                raw_return=current_return,
+                returns=ReturnSpec(
+                    type=_guess_return_type(current_return),
+                    description=current_return,
+                    is_array=_guess_return_is_array(current_return),
+                ),
+            )
+            entries.append(entry)
+            i += 1
+            continue
+
         method_match = METHOD_RE.match(line)
         if method_match:
             method_name = method_match.group(1)
@@ -157,7 +189,11 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
                 object_name=current_object,
                 title_jp=current_title,
                 raw_return=current_return,
-                returns=ReturnSpec(type=_guess_return_type(current_return), description=current_return),
+                returns=ReturnSpec(
+                    type=_guess_return_type(current_return),
+                    description=current_return,
+                    is_array=_guess_return_is_array(current_return),
+                ),
             )
             collecting = True
             param_index = 0
