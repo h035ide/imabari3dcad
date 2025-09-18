@@ -1,0 +1,3334 @@
+{
+  "checklist": [
+    "parsed_api_doc",
+    "parsed_api_arg"
+  ],
+  "type_definitions": [
+    {
+      "name": "文字列",
+      "description": "通常の文字列",
+      "source": "api_arg"
+    },
+    {
+      "name": "浮動小数点",
+      "description": "通常の数値",
+      "source": "api_arg"
+    },
+    {
+      "name": "整数",
+      "description": "通常の数値",
+      "source": "api_arg"
+    },
+    {
+      "name": "bool",
+      "description": "通常の真偽値　True False\n以下のタイプは全てPythonの型としては文字列。文字列の書式の仕様",
+      "source": "api_arg"
+    },
+    {
+      "name": "長さ",
+      "description": "mm単位の数値、変数要素名,式文字列、\n例) \"100.0\" , \"L1\", \"L1 / 2.0\"",
+      "source": "api_arg"
+    },
+    {
+      "name": "角度",
+      "description": "度(°)単位の数値、変数要素名,式文字列、\n例) \"30.0\" , \"Angle1\" , \"Angle1 * 0.2\"",
+      "source": "api_arg"
+    },
+    {
+      "name": "数値",
+      "description": "数値、変数要素名,式文字列、\n例)  \"3\", \"N1\", \"N1*5\"",
+      "source": "api_arg"
+    },
+    {
+      "name": "範囲",
+      "description": "上限、下限の数値をコンマで区切って指定\n例)  \"0.0,1.0\" ,  \"L1,L2\", \"-1.0,1.0\"",
+      "source": "api_arg"
+    },
+    {
+      "name": "点",
+      "description": "\",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定\n例) \"100.0,50,0,0.0\" , \"FRM1,0.0,1000.0\"",
+      "source": "api_arg"
+    },
+    {
+      "name": "方向",
+      "description": "〇　各軸方向は\"+X\",\"-X\",\"+Y\",\"-X\",\"+Z\",\"-Z\" で指定\n〇　\",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を数値（変数も可）で指定",
+      "source": "api_arg"
+    },
+    {
+      "name": "平面",
+      "description": "\",\" コンマで区切られた文字列で指定。最初のカラムは必ず\"PL\"\n次のカラムが\"O\"の場合はその次のカラムにオフセット距離（長さ）を指定\n以降は\n〇　\"X\" グローバルＹＺ平面　, \"Y\" グローバルＺＸ平面　, \"Z\" グローバルＸＹ平面\n〇　\"F\"　の場合はボディのフェイスを指定　（要素の項参照）\n例）\"PL,Z\"　グローバルＸＹ平面\n\"PL,O,500.0,X\" グローバルＹＺ平面をＸ方向に500移動させた平面",
+      "source": "api_arg"
+    },
+    {
+      "name": "変数単位",
+      "description": "長さ \"mm\",\"cm\",\"m\",\"in\",\"ft\",\"pt\"のいずれか\n角度 \"deg\",\"rad\"のいずれか\n数値 \"\"(空白),\"num\"のいずれか",
+      "source": "api_arg"
+    },
+    {
+      "name": "要素グループ",
+      "description": "EVO.SHIPの要素グループ名\n要素グループの階層は\"/\"で区切る",
+      "source": "api_arg"
+    },
+    {
+      "name": "注記スタイル",
+      "description": "EVO.SHIPに設定している注記スタイルの名称",
+      "source": "api_arg"
+    },
+    {
+      "name": "材料",
+      "description": "EVO.SHIPに設定している材料の名称",
+      "source": "api_arg"
+    },
+    {
+      "name": "スイープ方向",
+      "description": "\"N\"  順方向\n\"R\"　反対方向\n\"B\"　両方向\n\"2\"  ２方向\n\"T\"   貫通",
+      "source": "api_arg"
+    },
+    {
+      "name": "厚み付けタイプ",
+      "description": "\"+\"　内側\n\"-\"　外側\n\"B\"　両方向\n\"2\"  ２方向\n\"\" （空文字）厚み付けしない",
+      "source": "api_arg"
+    },
+    {
+      "name": "モールド位置",
+      "description": "\"+\"　＋側\n\"-\"　ー側\n\"\" （空文字）センター",
+      "source": "api_arg"
+    },
+    {
+      "name": "オペレーションタイプ　（ボディ）",
+      "description": "\"+\"　和\n\"-\"　削除\n\"*\"  積",
+      "source": "api_arg"
+    },
+    {
+      "name": "関連設定",
+      "description": "ボディ関連とする場合は\"B\"\nそれ以外（空白含む）はフィーチャー関連",
+      "source": "api_arg"
+    },
+    {
+      "name": "形状タイプ",
+      "description": "EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号 (ヘルプのEVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイルの項を\n参照)\n例）\"1007\" 平鋼、\"1003\" 不等辺不等厚山形鋼\n\"1101\" 条材端部Sタイプ　、\"1120\" 条材端部スカラップA1タイプ\n\"1503\"  ブラケット2-Bタイプ",
+      "source": "api_arg"
+    },
+    {
+      "name": "形状パラメータ",
+      "description": "各形状タイプの寸法値を文字列配列で設定\n例) 不当辺山形鋼(1002)の形状タイプの場合　[\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]",
+      "source": "api_arg"
+    },
+    {
+      "name": "要素",
+      "description": "(複数要素の場合は文字列の配列とする)\nEVO.SHIPの各要素を指定する\n〇IDで指定\nEVO.SHIPの要素はユニークなIDを必ずもつのでそのID文字列を\"ID@\"をプレフィックスとして指定\n例）\"ID@d8baafc30be94411a6ab9d6173c1d1dd\" (d8baafc30be94411a6ab9d6173c1d1ddというIDをもつ要素)\n〇要素名で指定\nEVO.SHIPの要素名称は重複を許すので、複数見つかった際にどれになるかは不定\n要素名称はEVO.SHIPの要素グループを指定するのこともできる\n例）G1という要素グループ配下のG2という要素グループ配下のAという名前の要素の指定\nG1/G2/A\n〇板ソリッド要素の板厚面を指定（条材ソリッドの場合はウェブ部分）\n必ず文字列配列で指定\n配列の最初の要素は\"PLS\"という固定文字列\n次の配列要素（２番目）は\"True\"か\"False\"で,\"True\"の場合はFace内部穴を削除する\n次の配列要素（３番目）は常に\"False\" (システムで利用します）\nその次から３っつの要素（４番目、５番目、６番目）で板厚面のどちら側かを\n指定するために外側方向（おおよそ）をベクトル指定する\n最後の要素でソリッド要素を指定する\n例）[\"PLS\",\"False\",\"False\",\"0.0\",\"0.0\",\"-1.0\",\"ID@d8baafc30be94411a6ab9d6173c1d1dd\"]\nd8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつソリッド要素（板材)の(0,0,-1)方向を向いている側の面の指定\n〇ソリッドやシート要素のフェイスを指定\n\",\" コンマで区切られた文字列で指定\n最初のカラムでソリッドやシート要素のＩＤを指定、次のカラムは固定文字\"F\"、その次のカラムからフェイス上の点の座標値を指定（複数フェイス指定可能）\n例 \"ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8\"\nd8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつ要素でそのFace上の座標値が(-10,0.5,2.3)と(-11.0,0.0,4.8)\nである２つのフェイスを指定",
+      "source": "api_arg"
+    }
+  ],
+  "api_entries": [
+    {
+      "entry_type": "function",
+      "name": "ShowMainWindow",
+      "description": "EvoShipのメインウィンドウを表示する",
+      "category": "Applicationオブジェクト",
+      "params": [
+        {
+          "name": "bShow",
+          "type": "bool",
+          "description": "表示する時はTrue",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "なし",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Applicationオブジェクト",
+      "title_jp": "EvoShipのメインウィンドウを表示する",
+      "raw_return": "なし"
+    },
+    {
+      "entry_type": "function",
+      "name": "LoadPart",
+      "description": "Partオブジェクトを読み込む",
+      "category": "Applicationオブジェクト",
+      "params": [
+        {
+          "name": "FileName",
+          "type": "文字列",
+          "description": "保存されているドキュメントのファイルパス名",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "bForceEvaluation",
+          "type": "bool",
+          "description": "強制的に全要素を再計算して開くときはTrue　(通常はFalse）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "Partオブジェクト",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Applicationオブジェクト",
+      "title_jp": "Partオブジェクトを読み込む",
+      "raw_return": "Partオブジェクト"
+    },
+    {
+      "entry_type": "function",
+      "name": "OpenDocument",
+      "description": "Documentを開く",
+      "category": "Applicationオブジェクト",
+      "params": [
+        {
+          "name": "FileName",
+          "type": "文字列",
+          "description": "保存されているドキュメントのファイルパス名",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "bForceEvaluation",
+          "type": "bool",
+          "description": "強制的に全要素を再計算して開くときはTrue　(通常はFalse）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "Documentオブジェクト",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Applicationオブジェクト",
+      "title_jp": "Documentを開く",
+      "raw_return": "Documentオブジェクト"
+    },
+    {
+      "entry_type": "function",
+      "name": "Save",
+      "description": "ドキュメントをファイルに保存する",
+      "category": "Documentオブジェクト",
+      "params": [
+        {
+          "name": "FileName",
+          "type": "文字列",
+          "description": "保存するファイルパス名",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "bAsCompactFormat",
+          "type": "bool",
+          "description": "最小サイズになる形式で保存する時はTrue（開くのに計算を必要とします）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "なし",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Documentオブジェクト",
+      "title_jp": "ドキュメントをファイルに保存する",
+      "raw_return": "なし"
+    },
+    {
+      "entry_type": "function",
+      "name": "ExporAsSTL",
+      "description": "ドキュメントをSTLとして保存する",
+      "category": "Documentオブジェクト",
+      "params": [
+        {
+          "name": "FileName",
+          "type": "文字列",
+          "description": "保存するSTLファイルパス名",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "pOpt",
+          "type": "STLパラメータオブジェクト",
+          "description": "",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "STLパラメータオブジェクト"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "なし",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Documentオブジェクト",
+      "title_jp": "ドキュメントをSTLとして保存する",
+      "raw_return": "なし"
+    },
+    {
+      "entry_type": "function",
+      "name": "SetDirection",
+      "description": "ビューの表示方向を設定する",
+      "category": "Viewオブジェクト",
+      "params": [
+        {
+          "name": "outDir",
+          "type": "方向",
+          "description": "画面から外側に向く方向",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "方向"
+        },
+        {
+          "name": "upDir",
+          "type": "方向",
+          "description": "画面の上方向",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "方向"
+        },
+        {
+          "name": "bFitToModel",
+          "type": "bool",
+          "description": "表示方向にあわせて表示範囲を要素にフィットさせる時はTrue",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "なし",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Viewオブジェクト",
+      "title_jp": "ビューの表示方向を設定する",
+      "raw_return": "なし"
+    },
+    {
+      "entry_type": "function",
+      "name": "ExportToBitmap",
+      "description": "ビューの表示内容をビットマップファイルとして出力する",
+      "category": "Viewオブジェクト",
+      "params": [
+        {
+          "name": "FileName",
+          "type": "文字列",
+          "description": "ビットマップファイルのファイル名",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "nBitapWidth",
+          "type": "整数",
+          "description": "ビットマップファイルの横方向のピクセルサイズ（縦方向はビューの縦横比から取得）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "整数"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "なし",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Viewオブジェクト",
+      "title_jp": "ビューの表示内容をビットマップファイルとして出力する",
+      "raw_return": "なし"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateSketchPlane",
+      "description": "スケッチ平面の作成",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "ElementName",
+          "type": "文字列",
+          "description": "作成するスケッチ平面名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "ElementGroup",
+          "type": "要素グループ",
+          "description": "作成するスケッチ平面を要素グループに入れる場合は要素グループを指定（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "要素グループ"
+        },
+        {
+          "name": "PlaneDef",
+          "type": "平面",
+          "description": "スケッチ平面を作成する平面を指定する",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "平面"
+        },
+        {
+          "name": "PlaneOffset",
+          "type": "長さ",
+          "description": "平面からのオフセット距離を指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "bRevPlane",
+          "type": "bool",
+          "description": "スケッチ平面を反転するかどうかのフラグ(bool)",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "作成されたスケッチ平面要素の要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "スケッチ平面の作成",
+      "raw_return": "作成されたスケッチ平面要素の要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateSketchLayer",
+      "description": "スケッチレイヤーの作成",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "SketchLayerName",
+          "type": "文字列",
+          "description": "作成するスケッチレイヤー名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "SketchPlane",
+          "type": "要素",
+          "description": "レイヤーを作成するスケッチ要素",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "要素"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "作成されたスケッチレイヤー要素の要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "スケッチレイヤーの作成",
+      "raw_return": "作成されたスケッチレイヤー要素の要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateSketchLine",
+      "description": "スケッチ直線作成",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "SketchPlane",
+          "type": "要素",
+          "description": "直線を作成するスケッチ要素",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "要素"
+        },
+        {
+          "name": "SketchLineName",
+          "type": "文字列",
+          "description": "作成するスケッチ直線名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "SketchLayer",
+          "type": "要素",
+          "description": "直線を作成するスケッチレイヤー(空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "要素"
+        },
+        {
+          "name": "StartPoint",
+          "type": "点",
+          "description": "始点",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "点(2D)"
+        },
+        {
+          "name": "EndPoint",
+          "type": "点",
+          "description": "終点",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "点(2D)"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 5,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "作成されたスケッチ直線要素の要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "スケッチ直線作成",
+      "raw_return": "作成されたスケッチ直線要素の要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateSketchArc",
+      "description": "スケッチ円弧を中心点と始終点を指定して作成",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "SketchPlane",
+          "type": "要素",
+          "description": "円弧を作成するスケッチ要素",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "要素"
+        },
+        {
+          "name": "SketchArcName",
+          "type": "文字列",
+          "description": "作成するスケッチ円弧名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "SketchLayer",
+          "type": "要素",
+          "description": "円弧を作成するスケッチレイヤー(空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "要素"
+        },
+        {
+          "name": "CenterPoint",
+          "type": "点",
+          "description": "中心点",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "点(2D)"
+        },
+        {
+          "name": "StartPoint",
+          "type": "点",
+          "description": "始点",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "点(2D)"
+        },
+        {
+          "name": "EndPoint",
+          "type": "点",
+          "description": "終点",
+          "is_required": false,
+          "default_value": null,
+          "position": 5,
+          "raw_type": "点(2D)"
+        },
+        {
+          "name": "bCCW",
+          "type": "bool",
+          "description": "円弧の回転方向Trueの場合は反時計周り",
+          "is_required": false,
+          "default_value": null,
+          "position": 6,
+          "raw_type": "bool"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 7,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "作成されたスケッチ円弧要素の要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "スケッチ円弧を中心点と始終点を指定して作成",
+      "raw_return": "作成されたスケッチ円弧要素の要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateSketchArc3Pts",
+      "description": "スケッチ円弧を周上の３点を指定して作成",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "SketchPlane",
+          "type": "要素",
+          "description": "円弧を作成するスケッチ要素",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "要素"
+        },
+        {
+          "name": "SketchArcName",
+          "type": "文字列",
+          "description": "作成するスケッチ円弧名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "SketchLayer",
+          "type": "要素",
+          "description": "円弧を作成するスケッチレイヤー(空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "要素"
+        },
+        {
+          "name": "StartPoint",
+          "type": "点",
+          "description": "始点",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "点(2D)"
+        },
+        {
+          "name": "MidPoint",
+          "type": "点",
+          "description": "通過点",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "点(2D)"
+        },
+        {
+          "name": "EndPoint",
+          "type": "点",
+          "description": "終点",
+          "is_required": false,
+          "default_value": null,
+          "position": 5,
+          "raw_type": "点(2D)"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 6,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "作成されたスケッチ円弧要素の要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "スケッチ円弧を周上の３点を指定して作成",
+      "raw_return": "作成されたスケッチ円弧要素の要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateSketchCircle",
+      "description": "スケッチ円を中心点を指定して作成",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "SketchPlane",
+          "type": "要素",
+          "description": "円を作成するスケッチ要素",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "要素"
+        },
+        {
+          "name": "SketchArcName",
+          "type": "文字列",
+          "description": "作成するスケッチ円名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "SketchLayer",
+          "type": "要素",
+          "description": "円を作成するスケッチレイヤー(空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "要素"
+        },
+        {
+          "name": "Centeroint",
+          "type": "点",
+          "description": "中心点",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "点(2D)"
+        },
+        {
+          "name": "RadiusOrDiameter",
+          "type": "長さ",
+          "description": "半径または直径",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "bDiameter",
+          "type": "bool",
+          "description": "直径を指定する場合はTrue",
+          "is_required": false,
+          "default_value": null,
+          "position": 5,
+          "raw_type": "bool"
+        },
+        {
+          "name": "bCCW",
+          "type": "bool",
+          "description": "円の回転方向Trueの場合は反時計周り",
+          "is_required": false,
+          "default_value": null,
+          "position": 6,
+          "raw_type": "bool"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 7,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "作成されたスケッチ円要素の要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "スケッチ円を中心点を指定して作成",
+      "raw_return": "作成されたスケッチ円要素の要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateSketchEllipse",
+      "description": "スケッチ楕円を中心点を指定して作成",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "SketchPlane",
+          "type": "要素",
+          "description": "楕円を作成するスケッチ要素",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "要素"
+        },
+        {
+          "name": "SketchArcName",
+          "type": "文字列",
+          "description": "作成するスケッチ楕円名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "SketchLayer",
+          "type": "要素",
+          "description": "楕円を作成するスケッチレイヤー(空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "要素"
+        },
+        {
+          "name": "Centeroint",
+          "type": "点",
+          "description": "中心点",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "点(2D)"
+        },
+        {
+          "name": "bCCW",
+          "type": "bool",
+          "description": "楕円の回転方向Trueの場合は反時計周り",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "bool"
+        },
+        {
+          "name": "MajorDir",
+          "type": "方向",
+          "description": "主軸方向を指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 5,
+          "raw_type": "方向(2D)"
+        },
+        {
+          "name": "MajorRadius",
+          "type": "長さ",
+          "description": "主軸半径",
+          "is_required": false,
+          "default_value": null,
+          "position": 6,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "MinorRadius",
+          "type": "長さ",
+          "description": "副軸半径",
+          "is_required": false,
+          "default_value": null,
+          "position": 7,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "Range",
+          "type": "範囲",
+          "description": "(0-2pi)",
+          "is_required": false,
+          "default_value": null,
+          "position": 8,
+          "raw_type": "範囲"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "作成されたスケッチ楕円要素の要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "スケッチ楕円を中心点を指定して作成",
+      "raw_return": "作成されたスケッチ楕円要素の要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateSketchNURBSCurve",
+      "description": "スケッチＮＵＲＢＳ線を中心点を指定して作成",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "SketchPlane",
+          "type": "要素",
+          "description": "ＮＵＲＢＳ線を作成するスケッチ要素",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "要素"
+        },
+        {
+          "name": "SketchArcName",
+          "type": "文字列",
+          "description": "作成するスケッチＮＵＲＢＳ線名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "SketchLayer",
+          "type": "要素",
+          "description": "ＮＵＲＢＳ線を作成するスケッチレイヤー(空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "要素"
+        },
+        {
+          "name": "nDegree",
+          "type": "整数",
+          "description": "ＮＵＲＢＳ線の次数",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "整数"
+        },
+        {
+          "name": "bClose",
+          "type": "bool",
+          "description": "閉じたＮＵＲＢＳ線の場合True",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "bool"
+        },
+        {
+          "name": "bPeriodic",
+          "type": "bool",
+          "description": "周期ＮＵＲＢＳ線の場合True",
+          "is_required": false,
+          "default_value": null,
+          "position": 5,
+          "raw_type": "bool"
+        },
+        {
+          "name": "CtrlPoints",
+          "type": "点[]",
+          "description": "制御点",
+          "is_required": false,
+          "default_value": null,
+          "position": 6,
+          "raw_type": "点(配列)"
+        },
+        {
+          "name": "Weights",
+          "type": "浮動小数点[]",
+          "description": "重み",
+          "is_required": false,
+          "default_value": null,
+          "position": 7,
+          "raw_type": "浮動小数点(配列)"
+        },
+        {
+          "name": "Knots",
+          "type": "浮動小数点[]",
+          "description": "ノットベクトル",
+          "is_required": false,
+          "default_value": null,
+          "position": 8,
+          "raw_type": "浮動小数点(配列)"
+        },
+        {
+          "name": "Range",
+          "type": "範囲",
+          "description": "トリム範囲",
+          "is_required": false,
+          "default_value": null,
+          "position": 9,
+          "raw_type": "範囲"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 10,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "作成されたスケッチＮＵＲＢＳ線要素の要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "スケッチＮＵＲＢＳ線を中心点を指定して作成",
+      "raw_return": "作成されたスケッチＮＵＲＢＳ線要素の要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateElementsFromFile",
+      "description": "ファイルをインポートして要素を作成",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "FileName",
+          "type": "文字列",
+          "description": "ファイルパス（現状、Parasolid形式のみ）",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "作成された要素の要素IDの配列",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "ファイルをインポートして要素を作成",
+      "raw_return": "作成された要素の要素IDの配列"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateOffsetSheet",
+      "description": "オフセットシートを作成",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "SheetName",
+          "type": "文字列",
+          "description": "作成するシート要素名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "ElementGroup",
+          "type": "要素グループ",
+          "description": "作成するシート要素を要素グループに入れる場合は要素グループを指定（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "要素グループ"
+        },
+        {
+          "name": "MaterialName",
+          "type": "材料",
+          "description": "作成するシート要素の材質名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "材料"
+        },
+        {
+          "name": "SrcSurfaces",
+          "type": "要素[]",
+          "description": "オフセットする元シート要素、フェイス要素の指定文字列配列",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "OffsetLength",
+          "type": "長さ",
+          "description": "オフセット距離",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "bOffsetBackwards",
+          "type": "bool",
+          "description": "オフセット方向を反転",
+          "is_required": false,
+          "default_value": null,
+          "position": 5,
+          "raw_type": "bool"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 6,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "作成されたオフセットシート要素の要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "オフセットシートを作成",
+      "raw_return": "作成されたオフセットシート要素の要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateLinearSweep",
+      "description": "指定したソリッド要素に押し出し形状を付加する",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "TargetSolidName",
+          "type": "要素",
+          "description": "押し出しフィーチャーを作成する対象のソリッドを指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "要素"
+        },
+        {
+          "name": "OperationType",
+          "type": "オペレーションタイプ",
+          "description": "ソリッドオペレーションのタイプを指定する",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "オペレーションタイプ"
+        },
+        {
+          "name": "pParam",
+          "type": "押し出しパラメータオブジェクト",
+          "description": "",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "押し出しパラメータオブジェクト"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "作成された押し出しフィーチャーのID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "指定したソリッド要素に押し出し形状を付加する",
+      "raw_return": "作成された押し出しフィーチャーのID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateLinearSweepSheet",
+      "description": "プロファイル要素を押し出してシート要素を作成",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "ParamObj",
+          "type": "押し出しパラメータオブジェクト",
+          "description": "",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "押し出しパラメータオブジェクト"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "作成されたシート要素の要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "プロファイル要素を押し出してシート要素を作成",
+      "raw_return": "作成されたシート要素の要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "SheetAlignNormal",
+      "description": "シート要素の向き（表側、法線方向）を指定した方向に揃える",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "SheetElement",
+          "type": "要素",
+          "description": "方向を揃えるシート要素",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "要素"
+        },
+        {
+          "name": "dirX",
+          "type": "浮動小数点",
+          "description": "方向ベクトルのX成分",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "浮動小数点"
+        },
+        {
+          "name": "dirY",
+          "type": "浮動小数点",
+          "description": "方向ベクトルのY成分",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "浮動小数点"
+        },
+        {
+          "name": "dirZ",
+          "type": "浮動小数点",
+          "description": "方向ベクトルのZ成分",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "浮動小数点"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "なし",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "シート要素の向き（表側、法線方向）を指定した方向に揃える",
+      "raw_return": "なし"
+    },
+    {
+      "entry_type": "function",
+      "name": "ReverseSheet",
+      "description": "シート要素の向きを反転する",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "SheetElement",
+          "type": "要素",
+          "description": "反転するシート要素",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "要素"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "シート反転フィーチャーの要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "シート要素の向きを反転する",
+      "raw_return": "シート反転フィーチャーの要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "BlankElement",
+      "description": "指定要素を表示状態を設定する",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "Element",
+          "type": "要素",
+          "description": "表示状態を指定する要素",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "要素"
+        },
+        {
+          "name": "bBlank",
+          "type": "bool",
+          "description": "Trueの時は非表示にする。Falseの時は表示する。",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "なし",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "指定要素を表示状態を設定する",
+      "raw_return": "なし"
+    },
+    {
+      "entry_type": "function",
+      "name": "TranslationCopy",
+      "description": "指定要素を移動コピーする",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "SrcElements",
+          "type": "要素[]",
+          "description": "コピーする要素",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "nCopy",
+          "type": "整数",
+          "description": "コピーする数",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "整数"
+        },
+        {
+          "name": "direction",
+          "type": "方向",
+          "description": "コピーする方向",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "方向"
+        },
+        {
+          "name": "distance",
+          "type": "長さ",
+          "description": "移動距離",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "ReferMethod",
+          "type": "関連設定",
+          "description": "要素の関連づけ方法の指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "関連設定"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "コピーされた要素ID配列",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "指定要素を移動コピーする",
+      "raw_return": "コピーされた要素ID配列"
+    },
+    {
+      "entry_type": "function",
+      "name": "MirrorCopy",
+      "description": "指定要素をミラーコピーする",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "SrcElements",
+          "type": "要素[]",
+          "description": "コピーする要素",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "ReferMethod",
+          "type": "関連設定",
+          "description": "要素の関連づけ方法の指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "関連設定"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "コピーされた要素ID配列",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "指定要素をミラーコピーする",
+      "raw_return": "コピーされた要素ID配列"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateSolid",
+      "description": "空のソリッド要素を作成する",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "SolidName",
+          "type": "文字列",
+          "description": "作成するソリッド要素名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "ElementGroup",
+          "type": "要素グループ",
+          "description": "作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "要素グループ"
+        },
+        {
+          "name": "MaterialName",
+          "type": "材料",
+          "description": "作成するソリッド要素の材質名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "材料"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "作成されたソリッドの要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "空のソリッド要素を作成する",
+      "raw_return": "作成されたソリッドの要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateThicken",
+      "description": "指定したソリッド要素に指定要素厚みづけした形状を作成する",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "ThickenFeatureName",
+          "type": "文字列",
+          "description": "作成する厚みづけフィーチャー要素名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "TargetSolidName",
+          "type": "要素",
+          "description": "厚みづけフィーチャーを作成する対象のソリッドを指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "要素"
+        },
+        {
+          "name": "OperationType",
+          "type": "オペレーションタイプ",
+          "description": "ソリッドオペレーションのタイプを指定する",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "オペレーションタイプ"
+        },
+        {
+          "name": "Sheet",
+          "type": "要素[]",
+          "description": "厚み付けをするシートやフェイス",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "ThickenType",
+          "type": "厚み付けタイプ",
+          "description": "",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "厚み付けタイプ"
+        },
+        {
+          "name": "Thickeness1",
+          "type": "長さ",
+          "description": "板厚",
+          "is_required": false,
+          "default_value": null,
+          "position": 5,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "Thickeness2",
+          "type": "長さ",
+          "description": "板厚２（厚み付けタイプが２方向のときに使用）",
+          "is_required": false,
+          "default_value": null,
+          "position": 6,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "ThickenessOffset",
+          "type": "長さ",
+          "description": "厚みづけをするシート、フェイス要素のオフセット距離",
+          "is_required": false,
+          "default_value": null,
+          "position": 7,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "ReferMethod",
+          "type": "関連設定",
+          "description": "要素の関連づけ方法の指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 8,
+          "raw_type": "関連設定"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 9,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "作成された厚みづけフィーチャーのID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "指定したソリッド要素に指定要素厚みづけした形状を作成する",
+      "raw_return": "作成された厚みづけフィーチャーのID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateOtherSolid",
+      "description": "指定したソリッド要素に別のソリッド要素形状を付加する",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "OtherSolidFeatureName",
+          "type": "文字列",
+          "description": "作成する別ソリッドフィーチャー要素名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "TargetSolidName",
+          "type": "要素",
+          "description": "別ソリッドフィーチャーを作成する対象のソリッドを指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "要素"
+        },
+        {
+          "name": "OperationType",
+          "type": "オペレーションタイプ",
+          "description": "ソリッドオペレーションのタイプを指定する",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "オペレーションタイプ"
+        },
+        {
+          "name": "SourceSolid",
+          "type": "要素",
+          "description": "別ソリッドフィーチャーとするソリッド要素を指定する",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "要素"
+        },
+        {
+          "name": "ReferMethod",
+          "type": "関連設定",
+          "description": "要素の関連づけ方法の指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "関連設定"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 5,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "作成された別ソリッドフィーチャーのID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "指定したソリッド要素に別のソリッド要素形状を付加する",
+      "raw_return": "作成された別ソリッドフィーチャーのID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateBracket",
+      "description": "船殻のブラケットソリッド要素を作成する",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "ParamObj",
+          "type": "ブラケットパラメータオブジェクト",
+          "description": "",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "ブラケットパラメータオブジェクト"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "作成したソリッド要素のID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "船殻のブラケットソリッド要素を作成する",
+      "raw_return": "作成したソリッド要素のID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreatePlate",
+      "description": "船殻のプレートソリッド要素を作成する",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "PlateName",
+          "type": "文字列",
+          "description": "作成するプレートソリッド要素名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "ElementGroup",
+          "type": "要素グループ",
+          "description": "作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "要素グループ"
+        },
+        {
+          "name": "MaterialName",
+          "type": "材料",
+          "description": "作成するソリッド要素の材質名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "材料"
+        },
+        {
+          "name": "Plane",
+          "type": "平面",
+          "description": "プレートのる平面位置",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "平面"
+        },
+        {
+          "name": "PlaneOffset",
+          "type": "長さ",
+          "description": "平面のオフセット距離を指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "Thickness",
+          "type": "長さ",
+          "description": "板厚",
+          "is_required": false,
+          "default_value": null,
+          "position": 5,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "nMold",
+          "type": "モールド位置",
+          "description": "",
+          "is_required": false,
+          "default_value": null,
+          "position": 6,
+          "raw_type": "モールド位置"
+        },
+        {
+          "name": "MoldOffset",
+          "type": "長さ",
+          "description": "モールド位置のオフセット距離",
+          "is_required": false,
+          "default_value": null,
+          "position": 7,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "BoundSolid",
+          "type": "要素",
+          "description": "プレートソリッドの境界となるソリッド要素。",
+          "is_required": false,
+          "default_value": null,
+          "position": 8,
+          "raw_type": "要素"
+        },
+        {
+          "name": "Section1End1",
+          "type": "長さ",
+          "description": "プレートソリッドの平面上の方向１の境界位置の座標値１",
+          "is_required": false,
+          "default_value": null,
+          "position": 9,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "Section1End2",
+          "type": "長さ",
+          "description": "プレートソリッドの平面上の方向１の境界位置の座標値２",
+          "is_required": false,
+          "default_value": null,
+          "position": 10,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "Section2End1",
+          "type": "長さ",
+          "description": "プレートソリッドの平面上の方向２の境界位置の座標値１",
+          "is_required": false,
+          "default_value": null,
+          "position": 11,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "Section2End2",
+          "type": "長さ",
+          "description": "プレートソリッドの平面上の方向２の境界位置の座標値２",
+          "is_required": false,
+          "default_value": null,
+          "position": 12,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 13,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "作成したソリッド要素のID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "船殻のプレートソリッド要素を作成する",
+      "raw_return": "作成したソリッド要素のID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateProfile",
+      "description": "船殻の条材ソリッド要素を取付線指定で作成する",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "ParamObj",
+          "type": "条材要素のパラメータオブジェクト",
+          "description": "",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "条材要素のパラメータオブジェクト"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "作成した条材ソリッド要素のID(配列　配列[0]Web要素 配列[1]フランジ要素",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "船殻の条材ソリッド要素を取付線指定で作成する",
+      "raw_return": "作成した条材ソリッド要素のID(配列　配列[0]Web要素 配列[1]フランジ要素"
+    },
+    {
+      "entry_type": "function",
+      "name": "BodyDivideByElements",
+      "description": "ボディを指定した要素で分割する",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "pDriveFeatureName",
+          "type": "文字列",
+          "description": "作成する分割フィーチャー要素名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "pTargetBody",
+          "type": "要素",
+          "description": "分割対象のボディ",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "要素"
+        },
+        {
+          "name": "pDivideElements",
+          "type": "要素[]",
+          "description": "分割をする要素（シートボディ、フェイス、平面要素）",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "pAlignmentDirection",
+          "type": "方向",
+          "description": "分割されたボディ要素の順番を整列させるのに使用する方向",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "方向"
+        },
+        {
+          "name": "pWCS",
+          "type": "要素",
+          "description": "方向を定義する座標系（通常は指定しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "要素"
+        },
+        {
+          "name": "ReferMethod",
+          "type": "関連設定",
+          "description": "要素の関連づけ方法の指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 5,
+          "raw_type": "関連設定"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 6,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "分割で作成されたボディ要素のID配列",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "ボディを指定した要素で分割する",
+      "raw_return": "分割で作成されたボディ要素のID配列"
+    },
+    {
+      "entry_type": "function",
+      "name": "BodySeparateBySubSolids",
+      "description": "ボディを指定したソリッドで削除することで分割する（ボディの区分けコマンド）",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "pSeparateFeatureName",
+          "type": "文字列",
+          "description": "作成する分割フィーチャー要素名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "pTargetBody",
+          "type": "要素",
+          "description": "分割対象のボディ",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "要素"
+        },
+        {
+          "name": "pSubSolids",
+          "type": "要素[]",
+          "description": "分割をするソリッド要素",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "pAlignmentDirection",
+          "type": "方向",
+          "description": "分割されたボディ要素の順番を整列させるのに使用する方向",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "方向"
+        },
+        {
+          "name": "ReferMethod",
+          "type": "関連設定",
+          "description": "要素の関連づけ方法の指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "関連設定"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 5,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "分割で作成されたボディ要素のID配列",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "ボディを指定したソリッドで削除することで分割する（ボディの区分けコマンド）",
+      "raw_return": "分割で作成されたボディ要素のID配列"
+    },
+    {
+      "entry_type": "function",
+      "name": "BodyDivideByCurves",
+      "description": "ボディを指定した線で分割する",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "pDriveFeatureName",
+          "type": "文字列",
+          "description": "作成する分割フィーチャー要素名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "pTargetBody",
+          "type": "要素",
+          "description": "分割対象のボディ",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "要素"
+        },
+        {
+          "name": "pDivideCurves",
+          "type": "要素[]",
+          "description": "分割をするスケッチ等の線要素",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "bNorProjection",
+          "type": "bool",
+          "description": "線要素を要素に投影するかどうかのフラグ",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "bool"
+        },
+        {
+          "name": "CorrectEndPointsTolerance",
+          "type": "長さ",
+          "description": "分割線が複数の場合の分割線同士のの判定トレランスを指定（通常は指定しない、空文字）",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "AlignmentDirection",
+          "type": "方向",
+          "description": "分割されたボディ要素の順番を整列させるのに使用する方向",
+          "is_required": false,
+          "default_value": null,
+          "position": 5,
+          "raw_type": "方向"
+        },
+        {
+          "name": "ReferMethod",
+          "type": "関連設定",
+          "description": "要素の関連づけ方法の指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 6,
+          "raw_type": "関連設定"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 7,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "分割で作成されたボディ要素のID配列",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "ボディを指定した線で分割する",
+      "raw_return": "分割で作成されたボディ要素のID配列"
+    },
+    {
+      "entry_type": "function",
+      "name": "BodyDivideByPlanes",
+      "description": "ボディを指定した平面で分割する",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "pDriveFeatureName",
+          "type": "文字列",
+          "description": "作成する分割フィーチャー要素名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "TargetBody",
+          "type": "要素",
+          "description": "分割対象のボディ",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "要素"
+        },
+        {
+          "name": "plane",
+          "type": "要素",
+          "description": "分割をする平面",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "要素"
+        },
+        {
+          "name": "nPlaneCopy",
+          "type": "整数",
+          "description": "分割をする平面を複数コピーして分割をする（通常は1)",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "整数"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "分割で作成されたボディ要素のID配列",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "ボディを指定した平面で分割する",
+      "raw_return": "分割で作成されたボディ要素のID配列"
+    },
+    {
+      "entry_type": "function",
+      "name": "CutBody",
+      "description": "ボディを指定した要素でカットする",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "FeatureName",
+          "type": "文字列",
+          "description": "作成するカットフィーチャー要素名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "TargetBody",
+          "type": "要素",
+          "description": "カット対象のソリッド、シート",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "要素"
+        },
+        {
+          "name": "CutElement",
+          "type": "要素",
+          "description": "カットする要素(平面、シート）",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "要素"
+        },
+        {
+          "name": "ElementOffset",
+          "type": "長さ",
+          "description": "カットする要素のオフセット距離を指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "bCutForward",
+          "type": "関連設定",
+          "description": "要素の関連づけ方法の指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "関連設定"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "作成されたカットフィーチャーのID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "ボディを指定した要素でカットする",
+      "raw_return": "作成されたカットフィーチャーのID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateBoundedPlate",
+      "description": "指定したソリッド要素に境界要素を指定した板形状を作成する",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "FeatureName",
+          "type": "文字列",
+          "description": "作成する境界要素指定フィーチャー要素名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "TargetSolid",
+          "type": "要素",
+          "description": "境界要素指定フィーチャーを作成する対象のソリッドを指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "要素"
+        },
+        {
+          "name": "OperationType",
+          "type": "オペレーションタイプ",
+          "description": "ソリッドオペレーションのタイプを指定する",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "オペレーションタイプ"
+        },
+        {
+          "name": "Plane",
+          "type": "平面",
+          "description": "板の定義平面位置",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "平面"
+        },
+        {
+          "name": "PlaneOffset",
+          "type": "長さ",
+          "description": "平面のオフセット距離を指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "BoundObjects",
+          "type": "要素[]",
+          "description": "境界要素（シート、フェイス、スケッチ、平面、ソリッド）",
+          "is_required": false,
+          "default_value": null,
+          "position": 5,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "ThickenType",
+          "type": "厚み付けタイプ",
+          "description": "",
+          "is_required": false,
+          "default_value": null,
+          "position": 6,
+          "raw_type": "厚み付けタイプ"
+        },
+        {
+          "name": "Thickness1",
+          "type": "長さ",
+          "description": "板厚",
+          "is_required": false,
+          "default_value": null,
+          "position": 7,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "Thickness2",
+          "type": "長さ",
+          "description": "板厚２（厚み付けタイプが２方向のときに使用）",
+          "is_required": false,
+          "default_value": null,
+          "position": 8,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "ThicknessOffset",
+          "type": "長さ",
+          "description": "厚みづけをする板のオフセット距離",
+          "is_required": false,
+          "default_value": null,
+          "position": 9,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "RefByGeometricMethod",
+          "type": "bool",
+          "description": "Trueの時は幾何位置にもとづいて関連を設定する",
+          "is_required": false,
+          "default_value": null,
+          "position": 10,
+          "raw_type": "bool"
+        },
+        {
+          "name": "ReferMethod",
+          "type": "関連設定",
+          "description": "要素の関連づけ方法の指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 11,
+          "raw_type": "関連設定"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 12,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "作成された境界要素指定フィーチャーのID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "指定したソリッド要素に境界要素を指定した板形状を作成する",
+      "raw_return": "作成された境界要素指定フィーチャーのID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateBoundingBox",
+      "description": "指定したソリッド要素に境界ボックス形状を作成する",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "FeatureName",
+          "type": "文字列",
+          "description": "作成する境界ボックスフィーチャー要素名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "TargetSolid",
+          "type": "要素",
+          "description": "境界ボックスフィーチャーを作成する対象のソリッドを指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "要素"
+        },
+        {
+          "name": "OperationType",
+          "type": "オペレーションタイプ",
+          "description": "ソリッドオペレーションのタイプを指定する",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "オペレーションタイプ"
+        },
+        {
+          "name": "Bodies",
+          "type": "要素[]",
+          "description": "境界ボックスを計算するソリッド、シート要素",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "bOptimalBox",
+          "type": "bool",
+          "description": "Trueを指定するとボックスを計算する座標系を最適なものにする。（そうでない場合は絶対座標系で計算する）",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "bool"
+        },
+        {
+          "name": "ReferMethod",
+          "type": "関連設定",
+          "description": "要素の関連づけ方法の指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 5,
+          "raw_type": "関連設定"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 6,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "作成された境界ボックス形状フィーチャーのID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "指定したソリッド要素に境界ボックス形状を作成する",
+      "raw_return": "作成された境界ボックス形状フィーチャーのID"
+    },
+    {
+      "entry_type": "function",
+      "name": "SetElementColor",
+      "description": "指定要素の色を設定する",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "Element",
+          "type": "要素",
+          "description": "色を設定する要素",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "要素"
+        },
+        {
+          "name": "RValue",
+          "type": "整数",
+          "description": "赤色の値(0-255)",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "整数"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "作成された境界ボックス形状フィーチャーのID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "指定要素の色を設定する",
+      "raw_return": "作成された境界ボックス形状フィーチャーのID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateSweep",
+      "description": "指定したソリッド要素にスイープ形状を付加する",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "TargetSolidName",
+          "type": "要素",
+          "description": "スイープフィーチャーを作成する対象のソリッドを指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "要素"
+        },
+        {
+          "name": "OperationType",
+          "type": "オペレーションタイプ",
+          "description": "ソリッドオペレーションのタイプを指定する",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "オペレーションタイプ"
+        },
+        {
+          "name": "pParam",
+          "type": "スイープパラメータオブジェクト",
+          "description": "",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "スイープパラメータオブジェクト"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "作成されたスイープフィーチャーのID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "指定したソリッド要素にスイープ形状を付加する",
+      "raw_return": "作成されたスイープフィーチャーのID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateSweepSheet",
+      "description": "プロファイル要素をスイープしてシート要素を作成",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "ParamObj",
+          "type": "スイープパラメータオブジェクト",
+          "description": "",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "スイープパラメータオブジェクト"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "作成されたシート要素の要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "プロファイル要素をスイープしてシート要素を作成",
+      "raw_return": "作成されたシート要素の要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateRotationalSweep",
+      "description": "指定したソリッド要素に回転形状を付加する",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "TargetSolidName",
+          "type": "要素",
+          "description": "回転フィーチャーを作成する対象のソリッドを指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "要素"
+        },
+        {
+          "name": "OperationType",
+          "type": "オペレーションタイプ",
+          "description": "ソリッドオペレーションのタイプを指定する",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "オペレーションタイプ"
+        },
+        {
+          "name": "pParam",
+          "type": "回転パラメータオブジェクト",
+          "description": "",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "回転パラメータオブジェクト"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "作成された回転フィーチャーのID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "指定したソリッド要素に回転形状を付加する",
+      "raw_return": "作成された回転フィーチャーのID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateRotationalSweepSheet",
+      "description": "プロファイル要素を回転してシート要素を作成",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "ParamObj",
+          "type": "回転パラメータオブジェクト",
+          "description": "",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "回転パラメータオブジェクト"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "作成されたシート要素の要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "プロファイル要素を回転してシート要素を作成",
+      "raw_return": "作成されたシート要素の要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateLine",
+      "description": "3Dの直線線要素を作成",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "StartPoint",
+          "type": "点",
+          "description": "始点",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "点(3D)"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "線要素の要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "3Dの直線線要素を作成",
+      "raw_return": "線要素の要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateArc",
+      "description": "3Dの円弧線要素を作成",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "CenterPoint",
+          "type": "点",
+          "description": "中心点",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "点(3D)"
+        },
+        {
+          "name": "Normal",
+          "type": "方向",
+          "description": "軸方向",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "方向"
+        },
+        {
+          "name": "MajorDir",
+          "type": "方向",
+          "description": "主軸方向（パラメータ０の位置方向",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "方向"
+        },
+        {
+          "name": "Radius",
+          "type": "長さ",
+          "description": "半径",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "bClose",
+          "type": "bool",
+          "description": "Trueの時は円を作成する",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "線要素の要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "3Dの円弧線要素を作成",
+      "raw_return": "線要素の要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateEllipse",
+      "description": "3Dの楕円線要素を作成",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "CenterPoint",
+          "type": "点",
+          "description": "中心点",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "点(3D)"
+        },
+        {
+          "name": "Normal",
+          "type": "方向",
+          "description": "軸方向",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "方向"
+        },
+        {
+          "name": "MajorDir",
+          "type": "方向",
+          "description": "主軸方向（パラメータ０の位置方向",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "方向"
+        },
+        {
+          "name": "MajorRadius",
+          "type": "長さ",
+          "description": "主軸半径",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "MinorRadius",
+          "type": "長さ",
+          "description": "副軸半径",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "bClose",
+          "type": "bool",
+          "description": "Trueの時は閉じたを作成する",
+          "is_required": false,
+          "default_value": null,
+          "position": 5,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "線要素の要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "3Dの楕円線要素を作成",
+      "raw_return": "線要素の要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateNURBSCurve",
+      "description": "3DのＮＵＲＢＳ線要素を作成",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "nDegree",
+          "type": "整数",
+          "description": "ＮＵＲＢＳ線の次数",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "整数"
+        },
+        {
+          "name": "bClose",
+          "type": "bool",
+          "description": "閉じたＮＵＲＢＳ線の場合True",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "bool"
+        },
+        {
+          "name": "bPeriodic",
+          "type": "bool",
+          "description": "周期ＮＵＲＢＳ線の場合True",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "bool"
+        },
+        {
+          "name": "CtrlPoints",
+          "type": "点[]",
+          "description": "制御点",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "点(配列)"
+        },
+        {
+          "name": "Weights",
+          "type": "浮動小数点[]",
+          "description": "重み",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "浮動小数点(配列)"
+        },
+        {
+          "name": "Knots",
+          "type": "浮動小数点[]",
+          "description": "ノットベクトル",
+          "is_required": false,
+          "default_value": null,
+          "position": 5,
+          "raw_type": "浮動小数点(配列)"
+        },
+        {
+          "name": "Range",
+          "type": "範囲",
+          "description": "トリム範囲",
+          "is_required": false,
+          "default_value": null,
+          "position": 6,
+          "raw_type": "範囲"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "線要素の要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "3DのＮＵＲＢＳ線要素を作成",
+      "raw_return": "線要素の要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateLoft",
+      "description": "指定したソリッド要素にロフト形状を付加する",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "TargetSolidName",
+          "type": "要素",
+          "description": "ロフトフィーチャーを作成する対象のソリッドを指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "要素"
+        },
+        {
+          "name": "OperationType",
+          "type": "オペレーションタイプ",
+          "description": "ソリッドオペレーションのタイプを指定する",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "オペレーションタイプ"
+        },
+        {
+          "name": "pParam",
+          "type": "ロフトパラメータオブジェクト",
+          "description": "",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "ロフトパラメータオブジェクト"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "不明",
+        "description": "作成されたロフトフィーチャーのID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "指定したソリッド要素にロフト形状を付加する",
+      "raw_return": "作成されたロフトフィーチャーのID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateLoftSheet",
+      "description": "ロフトシート要素を作成",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "ParamObj",
+          "type": "ロフトパラメータオブジェクト",
+          "description": "",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "ロフトパラメータオブジェクト"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "作成されたシート要素の要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "ロフトシート要素を作成",
+      "raw_return": "作成されたシート要素の要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateSlot",
+      "description": "船殻のスロット要素、カラープレートを作成する",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "ParamObj",
+          "type": "スロットパラメータオブジェクト",
+          "description": "",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "スロットパラメータオブジェクト"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "作成されたスロットフィーチャー、カラープレート１，カラープレート２の要素ID配列",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "船殻のスロット要素、カラープレートを作成する",
+      "raw_return": "作成されたスロットフィーチャー、カラープレート１，カラープレート２の要素ID配列"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateFacePlate",
+      "description": "船殻のフェイスプレート要素トを作成する",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "ParamObj",
+          "type": "フェイスプレートパラメータオブジェクト",
+          "description": "",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "フェイスプレートパラメータオブジェクト"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "作成されたフェイスプレート要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "船殻のフェイスプレート要素トを作成する",
+      "raw_return": "作成されたフェイスプレート要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateOffsetDatumPlane",
+      "description": "データム平面の作成（移動）",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "Name",
+          "type": "文字列",
+          "description": "作成するデータム平面要素名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "ElementGroup",
+          "type": "要素グループ",
+          "description": "作成するデータム平面要素を要素グループに入れる場合は要素グループを指定（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "要素グループ"
+        },
+        {
+          "name": "Plane",
+          "type": "平面",
+          "description": "元になる平面を指定する",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "平面"
+        },
+        {
+          "name": "OffsetDistance",
+          "type": "長さ",
+          "description": "元になる平面からのオフセット距離を指定",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "ReferMethod",
+          "type": "関連設定",
+          "description": "要素の関連づけ方法の指定（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "関連設定"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 5,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "作成されたフェイスプレート要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "データム平面の作成（移動）",
+      "raw_return": "作成されたフェイスプレート要素ID"
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateRotatedDatumPlane",
+      "description": "データム平面の作成（回転）",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "Name",
+          "type": "文字列",
+          "description": "作成するデータム平面要素名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "ElementGroup",
+          "type": "要素グループ",
+          "description": "作成するデータム平面要素を要素グループに入れる場合は要素グループを指定（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "position": 1,
+          "raw_type": "要素グループ"
+        },
+        {
+          "name": "Plane",
+          "type": "平面",
+          "description": "元になる平面を指定する",
+          "is_required": false,
+          "default_value": null,
+          "position": 2,
+          "raw_type": "平面"
+        },
+        {
+          "name": "Axis",
+          "type": "軸",
+          "description": "回転軸を指定する",
+          "is_required": false,
+          "default_value": null,
+          "position": 3,
+          "raw_type": "軸"
+        },
+        {
+          "name": "Angle",
+          "type": "角度",
+          "description": "回転角度",
+          "is_required": false,
+          "default_value": null,
+          "position": 4,
+          "raw_type": "角度"
+        },
+        {
+          "name": "ReferMethod",
+          "type": "関連設定",
+          "description": "要素の関連づけ方法の指定（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 5,
+          "raw_type": "関連設定"
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "position": 6,
+          "raw_type": "bool"
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "作成されたフェイスプレート要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "データム平面の作成（回転）",
+      "raw_return": "作成されたフェイスプレート要素ID"
+    }
+  ]
+}
