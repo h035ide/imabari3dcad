@@ -1,25 +1,25 @@
-# Hybrid Preprocessing Pipeline
+# ハイブリッド前処理パイプライン
 
-This module builds a two-stage preprocessing flow for the EVO.SHIP API documents.
+このモジュールは、EVO.SHIP の API ドキュメントに対して二段階の前処理フローを構築します。
 
-1. **Deterministic extraction**
-   - Parse `api.txt` into object/function definitions with parameters and return metadata.
-   - Parse `api_arg.txt` into normalized type descriptions.
-   - Produce a baseline JSON that follows the existing `type_definitions` / `api_entries` schema.
-2. **Targeted LLM enrichment (optional)**
-   - Send only ambiguous entries (missing descriptions, unclear categories, etc.) to an LLM.
-   - Merge the edited fragments back into the baseline JSON while preserving traceability.
-3. **Structured outputs**
- - `structured_api.json`: the enriched schema-aligned view.
- - `graph_payload.json`: triples + node metadata ready for Neo4j ingestion.
- - `vector_chunks.jsonl`: text chunks for vector DB construction.
+1. **決定的（ルールベース）抽出**
+   - `api.txt` を解析し、パラメータや戻り値のメタデータを伴うオブジェクト／関数定義に変換します。
+   - `api_arg.txt` を解析し、正規化された型記述に整えます。
+   - 既存の `type_definitions` / `api_entries` スキーマに従うベースライン JSON を生成します。
+2. **対象を絞った LLM 補強（任意）**
+   - 説明不足や分類が曖昧な項目など、あいまいなエントリのみを LLM に送ります。
+   - 変更された断片をトレーサビリティを保ったままベースライン JSON にマージします。
+3. **構造化された出力**
+ - `structured_api.json`: スキーマに整合した、補強後のビュー。
+ - `graph_payload.json`: Neo4j 取り込み用のトリプルとノードメタデータ。
+ - `vector_chunks.jsonl`: ベクターデータベース構築用のテキストチャンク。
 
-The deterministic layer reuses the rule-based strengths of the current pipeline, while the second stage keeps the LLM usage scoped and auditable.
+決定的なレイヤーでは既存パイプラインのルールベースの強みを再利用し、第2段階では LLM の利用範囲を限定して監査可能性を保ちます。
 
-## Usage
+## 使い方
 
 ```bash
 python -m doc_preprocessor_hybrid.cli --api-doc data/src/api.txt --api-arg data/src/api_arg.txt --output-dir doc_preprocessor_hybrid/out
 ```
 
-Add `--llm` (with a valid `OPENAI_API_KEY`) to enable the enrichment step.
+補強ステップを有効にするには、`--llm`（有効な `OPENAI_API_KEY` が必要）を追加してください。
