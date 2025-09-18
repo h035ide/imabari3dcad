@@ -4,15 +4,14 @@ from dataclasses import dataclass, field, asdict
 from typing import Dict, List, Optional
 
 
-
 @dataclass
 class TypeDefinition:
     name: str
     description: str
-    source: str = "api_arg"
 
     def to_dict(self) -> Dict[str, str]:
-        return {"name": self.name, "description": self.description, "source": self.source}
+        # 'source' は出力しない
+        return {"name": self.name, "description": self.description}
 
 
 @dataclass
@@ -46,6 +45,7 @@ class Parameter:
         if metadata:
             data["metadata"] = metadata
         return data
+
 
 @dataclass
 class ReturnSpec:
