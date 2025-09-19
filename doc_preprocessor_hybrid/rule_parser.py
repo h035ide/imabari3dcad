@@ -19,8 +19,15 @@ ZERO_PARAM_METHOD_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*\(\)\s*;?$")
 PARAM_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*,?\s*//\s*([^:：]+)[:：]\s*(.+)$")
 # コロンなしコメント形式にも対応する緩和版（例: pOpt) // STLパラメータオブジェクト）
 PARAM_RE_LOOSE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*,?\s*//\s*(.+)$")
-CLOSING_RE = re.compile(r"\)\s*;?(?:\s*//.*)?$")
 ARRAY_MARKERS = ("(配列)", "[]", "(array)")
+
+def _is_closing_line(raw_line: str) -> bool:
+    code_part = raw_line.split("//", 1)[0].rstrip()
+    if not code_part:
+        return False
+    code_part = code_part.rstrip(";").rstrip()
+    return code_part.endswith(")")
+
 
 VECTOR_PARAM_LIMIT = 6
 FALLBACK_PARAM_DESCRIPTION = "No description provided"
@@ -103,6 +110,8 @@ def _build_parameter(name: str, raw_type: str, description: str, position: int) 
 
 def _guess_return_type(desc: str) -> str:
     desc = desc or ""
+    if not desc.strip():
+        return "void"
     if "なし" in desc:
         return "void"
     if re.search(r"\bID\b", desc, flags=re.IGNORECASE) or "要素ID" in desc:
@@ -199,6 +208,7 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
         title_match = TITLE_RE.match(line)
         if title_match:
             current_title = title_match.group(1).strip()
+            current_return = ""
             i += 1
             if i < len(lines):
                 ret_match = RETURN_RE.match(lines[i].strip())
@@ -259,7 +269,7 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
                 parameter = _build_parameter(pname, ptype, pdesc, param_index)
                 current_entry.params.append(parameter)
                 param_index += 1
-                if CLOSING_RE.search(line):
+                if _is_closing_line(line):
                     _finalize_entry(current_entry, entries)
                     current_entry = None
                     collecting = False
@@ -280,7 +290,7 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
                 parameter = _build_parameter(pname, ptype, pdesc, param_index)
                 current_entry.params.append(parameter)
                 param_index += 1
-                if CLOSING_RE.search(line):
+                if _is_closing_line(line):
                     _finalize_entry(current_entry, entries)
                     current_entry = None
                     collecting = False
@@ -301,13 +311,13 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
                 parameter = _build_parameter(pname, ptype, "", param_index)
                 current_entry.params.append(parameter)
                 param_index += 1
-                if CLOSING_RE.search(line):
+                if _is_closing_line(line):
                     _finalize_entry(current_entry, entries)
                     current_entry = None
                     collecting = False
                 i += 1
                 continue
-            if CLOSING_RE.search(line):
+            if _is_closing_line(line):
                 idx_close = line.rfind(")")
                 before = line[:idx_close]
                 # カンマで分割して最後の要素を取得（従来の方法）
