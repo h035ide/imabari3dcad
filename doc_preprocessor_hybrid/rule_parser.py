@@ -21,12 +21,125 @@ PARAM_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*,?\s*//\s*([^:：]+)[:：]\s
 PARAM_RE_LOOSE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*,?\s*//\s*(.+)$")
 ARRAY_MARKERS = ("(配列)", "[]", "(array)")
 
+TYPE_CANONICAL_MAP: dict[str, tuple[str, str]] = {
+    "文字列": ("string", "str"),
+    "浮動小数点": ("float", "float"),
+    "bool": ("bool", "bool"),
+    "整数": ("integer", "int"),
+    "長さ": ("length", "str"),
+    "角度": ("angle", "str"),
+    "数値": ("number", "str"),
+    "範囲": ("range", "str"),
+    "点": ("point", "str"),
+    "方向": ("direction", "str"),
+    "平面": ("plane", "str"),
+    "変数単位": ("unit", "str"),
+    "要素グループ": ("element_group", "str"),
+    "材料": ("material", "str"),
+    "スイープ方向": ("direction", "str"),
+    "厚み付けタイプ": ("thicken_type", "str"),
+    "モールド位置": ("mold_position", "str"),
+    "オペレーションタイプ （ボディ）": ("operation_body", "str"),
+    "関連設定": ("relationship", "str"),
+    "形状タイプ": ("shape_type", "str"),
+    "形状パラメータ": ("shape_parameter", "str"),
+    "要素": ("element", "str"),
+}
+
+
+ENUM_DESCRIPTION_SUFFIX_NAMES = {"長さ", "角度", "数値"}
+
+TYPE_ONE_OF_MAP: dict[str, List[str]] = {
+    "長さ": ["millimeter_literal", "variable_reference", "expression"],
+    "角度": ["degree_literal", "variable_reference", "expression"],
+    "数値": ["numeric_literal", "variable_reference", "expression"],
+    "点": ["cartesian_point", "variable_reference", "expression"],
+    "範囲": ["comma_delimited_range", "variable_reference", "expression"],
+    "要素": [
+        "element_id",
+        "element_group",
+        "element_reference",
+        "element_array",
+    ],
+}
+
 def _is_closing_line(raw_line: str) -> bool:
     code_part = raw_line.split("//", 1)[0].rstrip()
     if not code_part:
         return False
     code_part = code_part.rstrip(";").rstrip()
     return code_part.endswith(")")
+
+
+def _normalize_type_definition_description(name: str, description: str) -> str:
+    description = (description or "").strip()
+    if not description:
+        return ""
+    lines = [line.strip() for line in description.split("\n") if line.strip()]
+    if not lines:
+        return ""
+    if name in ENUM_DESCRIPTION_SUFFIX_NAMES:
+        first = lines[0].rstrip("。")
+        if "のいずれか" not in first:
+            first = f"{first}のいずれか"
+        if not first.endswith("。"):
+            first = f"{first}。"
+        lines[0] = first
+    return "\n".join(lines)
+
+
+def _refine_element_definition(type_def: TypeDefinition) -> None:
+    type_def.description = (
+        "モデル内の要素を参照する識別子を受け取ります。\n"
+        "- element_id: 既存要素を一意に識別する ID（例: ID@...）。\n"
+        "- element_group: 要素グループ名。複数要素をまとめて参照します。\n"
+        "- element_reference: 操作対象の単一要素を指すラベルや名称。\n"
+        "- element_array: 面リストや辺リストなど、複数要素を配列で指定するケース。"
+    )
+
+
+def _apply_type_metadata(type_def: TypeDefinition) -> None:
+    type_def.description = _normalize_type_definition_description(type_def.name, type_def.description)
+    meta = TYPE_CANONICAL_MAP.get(type_def.name)
+    if meta:
+        type_def.canonical_type, type_def.py_type = meta
+    one_of = TYPE_ONE_OF_MAP.get(type_def.name)
+    if one_of:
+        type_def.one_of = one_of
+    if type_def.name == "要素":
+        _refine_element_definition(type_def)
+    if type_def.name == "点":
+        type_def.description = (
+            "モデル座標系の点を表す値を指定します。数値リテラルのほか、変数参照や式を利用できます。"
+        )
+
+
+def _build_point_variants(base: TypeDefinition) -> List[TypeDefinition]:
+    variants: List[TypeDefinition] = []
+    base_summary = base.description.split("\n")[0] if base.description else "座標を表す点"
+    base_summary = base_summary.rstrip("。")
+    for dim, token in (("2D", "cartesian_2d"), ("3D", "cartesian_3d")):
+        desc = f"{base_summary}（{dim} 座標）"
+        variants.append(
+            TypeDefinition(
+                name=f"{base.name}({dim})",
+                description=f"{desc}。",
+                examples=list(base.examples),
+                canonical_type="point",
+                py_type="str",
+                one_of=[token, "variable_reference", "expression"],
+            )
+        )
+    return variants
+
+
+def _augment_type_definitions(definitions: List[TypeDefinition]) -> List[TypeDefinition]:
+    augmented: List[TypeDefinition] = []
+    for definition in definitions:
+        augmented.append(definition)
+        if definition.name == "点":
+            augmented.extend(_build_point_variants(definition))
+    return augmented
 
 
 VECTOR_PARAM_LIMIT = 6
@@ -72,6 +185,7 @@ def _clean_type_name(raw: str) -> Tuple[str, bool]:
         "真偽値": "bool",
         "論理値": "bool",
     }
+
     key = name.lower()
     name = mapping.get(key, name)
     return name, is_array
@@ -103,6 +217,8 @@ def _build_parameter(name: str, raw_type: str, description: str, position: int) 
         raw_type=raw_type.strip(),
         dimension=dim,
     )
+    if dim:
+        param.type = f"{param.type}({dim})"
     if is_array:
         param.type = f"{param.type}[]"
     return param
@@ -175,7 +291,12 @@ def parse_type_definitions(text: str) -> List[TypeDefinition]:
 
     if current_name and current_lines:
         definitions.append(TypeDefinition(name=current_name, description="\n".join(current_lines)))
-    return definitions
+
+    refined: List[TypeDefinition] = []
+    for type_def in definitions:
+        _apply_type_metadata(type_def)
+        refined.append(type_def)
+    return _augment_type_definitions(refined)
 
 
 def _finalize_entry(entry: ApiEntry, entries: List[ApiEntry]) -> None:

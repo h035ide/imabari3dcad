@@ -6,55 +6,128 @@
   "type_definitions": [
     {
       "name": "文字列",
-      "description": "通常の文字列"
+      "description": "通常の文字列",
+      "canonical_type": "string",
+      "py_type": "str"
     },
     {
       "name": "浮動小数点",
-      "description": "通常の数値"
+      "description": "通常の数値",
+      "canonical_type": "float",
+      "py_type": "float"
     },
     {
       "name": "整数",
-      "description": "通常の数値"
+      "description": "通常の数値",
+      "canonical_type": "integer",
+      "py_type": "int"
     },
     {
       "name": "bool",
-      "description": "通常の真偽値 True False"
+      "description": "通常の真偽値 True False",
+      "canonical_type": "bool",
+      "py_type": "bool"
     },
     {
       "name": "長さ",
-      "description": "mm単位の数値、変数要素名,式文字列、\n例) \"100.0\" , \"L1\", \"L1 / 2.0\""
+      "description": "mm単位の数値、変数要素名,式文字列、のいずれか。\n例) \"100.0\" , \"L1\", \"L1 / 2.0\"",
+      "canonical_type": "length",
+      "py_type": "str",
+      "one_of": [
+        "millimeter_literal",
+        "variable_reference",
+        "expression"
+      ]
     },
     {
       "name": "角度",
-      "description": "度(°)単位の数値、変数要素名,式文字列、\n例) \"30.0\" , \"Angle1\" , \"Angle1 * 0.2\""
+      "description": "度(°)単位の数値、変数要素名,式文字列、のいずれか。\n例) \"30.0\" , \"Angle1\" , \"Angle1 * 0.2\"",
+      "canonical_type": "angle",
+      "py_type": "str",
+      "one_of": [
+        "degree_literal",
+        "variable_reference",
+        "expression"
+      ]
     },
     {
       "name": "数値",
-      "description": "数値、変数要素名,式文字列、\n例)  \"3\", \"N1\", \"N1*5\""
+      "description": "数値、変数要素名,式文字列、のいずれか。\n例)  \"3\", \"N1\", \"N1*5\"",
+      "canonical_type": "number",
+      "py_type": "str",
+      "one_of": [
+        "numeric_literal",
+        "variable_reference",
+        "expression"
+      ]
     },
     {
       "name": "範囲",
-      "description": "上限、下限の数値をコンマで区切って指定\n例)  \"0.0,1.0\" ,  \"L1,L2\", \"-1.0,1.0\""
+      "description": "上限、下限の数値をコンマで区切って指定\n例)  \"0.0,1.0\" ,  \"L1,L2\", \"-1.0,1.0\"",
+      "canonical_type": "range",
+      "py_type": "str",
+      "one_of": [
+        "comma_delimited_range",
+        "variable_reference",
+        "expression"
+      ]
     },
     {
       "name": "点",
-      "description": "\",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定\n例) \"100.0,50,0,0.0\" , \"FRM1,0.0,1000.0\""
+      "description": "モデル座標系の点を表す値を指定します。数値リテラルのほか、変数参照や式を利用できます。",
+      "canonical_type": "point",
+      "py_type": "str",
+      "one_of": [
+        "cartesian_point",
+        "variable_reference",
+        "expression"
+      ]
+    },
+    {
+      "name": "点(2D)",
+      "description": "モデル座標系の点を表す値を指定します。数値リテラルのほか、変数参照や式を利用できます（2D 座標）。",
+      "canonical_type": "point",
+      "py_type": "str",
+      "one_of": [
+        "cartesian_2d",
+        "variable_reference",
+        "expression"
+      ]
+    },
+    {
+      "name": "点(3D)",
+      "description": "モデル座標系の点を表す値を指定します。数値リテラルのほか、変数参照や式を利用できます（3D 座標）。",
+      "canonical_type": "point",
+      "py_type": "str",
+      "one_of": [
+        "cartesian_3d",
+        "variable_reference",
+        "expression"
+      ]
     },
     {
       "name": "方向",
-      "description": "〇 各軸方向は\"+X\",\"-X\",\"+Y\",\"-X\",\"+Z\",\"-Z\" で指定\n〇 \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を数値（変数も可）で指定"
+      "description": "〇 各軸方向は\"+X\",\"-X\",\"+Y\",\"-X\",\"+Z\",\"-Z\" で指定\n〇 \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を数値（変数も可）で指定",
+      "canonical_type": "direction",
+      "py_type": "str"
     },
     {
       "name": "平面",
-      "description": "\",\" コンマで区切られた文字列で指定。最初のカラムは必ず\"PL\"\n次のカラムが\"O\"の場合はその次のカラムにオフセット距離（長さ）を指定\n以降は\n〇 \"X\" グローバルＹＺ平面 , \"Y\" グローバルＺＸ平面 , \"Z\" グローバルＸＹ平面\n〇 \"F\" の場合はボディのフェイスを指定 （要素の項参照）\n例）\"PL,Z\" グローバルＸＹ平面\n\"PL,O,500.0,X\" グローバルＹＺ平面をＸ方向に500移動させた平面"
+      "description": "\",\" コンマで区切られた文字列で指定。最初のカラムは必ず\"PL\"\n次のカラムが\"O\"の場合はその次のカラムにオフセット距離（長さ）を指定\n以降は\n〇 \"X\" グローバルＹＺ平面 , \"Y\" グローバルＺＸ平面 , \"Z\" グローバルＸＹ平面\n〇 \"F\" の場合はボディのフェイスを指定 （要素の項参照）\n例）\"PL,Z\" グローバルＸＹ平面\n\"PL,O,500.0,X\" グローバルＹＺ平面をＸ方向に500移動させた平面",
+      "canonical_type": "plane",
+      "py_type": "str"
     },
     {
       "name": "変数単位",
-      "description": "長さ \"mm\",\"cm\",\"m\",\"in\",\"ft\",\"pt\"のいずれか\n角度 \"deg\",\"rad\"のいずれか\n数値 \"\"(空白),\"num\"のいずれか"
+      "description": "長さ \"mm\",\"cm\",\"m\",\"in\",\"ft\",\"pt\"のいずれか\n角度 \"deg\",\"rad\"のいずれか\n数値 \"\"(空白),\"num\"のいずれか",
+      "canonical_type": "unit",
+      "py_type": "str"
     },
     {
       "name": "要素グループ",
-      "description": "EVO.SHIPの要素グループ名\n要素グループの階層は\"/\"で区切る"
+      "description": "EVO.SHIPの要素グループ名\n要素グループの階層は\"/\"で区切る",
+      "canonical_type": "element_group",
+      "py_type": "str"
     },
     {
       "name": "注記スタイル",
@@ -62,39 +135,63 @@
     },
     {
       "name": "材料",
-      "description": "EVO.SHIPに設定している材料の名称"
+      "description": "EVO.SHIPに設定している材料の名称",
+      "canonical_type": "material",
+      "py_type": "str"
     },
     {
       "name": "スイープ方向",
-      "description": "\"N\"  順方向\n\"R\" 反対方向\n\"B\" 両方向\n\"2\"  ２方向\n\"T\"   貫通"
+      "description": "\"N\"  順方向\n\"R\" 反対方向\n\"B\" 両方向\n\"2\"  ２方向\n\"T\"   貫通",
+      "canonical_type": "direction",
+      "py_type": "str"
     },
     {
       "name": "厚み付けタイプ",
-      "description": "\"+\" 内側\n\"-\" 外側\n\"B\" 両方向\n\"2\"  ２方向\n\"\" （空文字）厚み付けしない"
+      "description": "\"+\" 内側\n\"-\" 外側\n\"B\" 両方向\n\"2\"  ２方向\n\"\" （空文字）厚み付けしない",
+      "canonical_type": "thicken_type",
+      "py_type": "str"
     },
     {
       "name": "モールド位置",
-      "description": "\"+\" ＋側\n\"-\" ー側\n\"\" （空文字）センター"
+      "description": "\"+\" ＋側\n\"-\" ー側\n\"\" （空文字）センター",
+      "canonical_type": "mold_position",
+      "py_type": "str"
     },
     {
       "name": "オペレーションタイプ （ボディ）",
-      "description": "\"+\" 和\n\"-\" 削除\n\"*\"  積"
+      "description": "\"+\" 和\n\"-\" 削除\n\"*\"  積",
+      "canonical_type": "operation_body",
+      "py_type": "str"
     },
     {
       "name": "関連設定",
-      "description": "ボディ関連とする場合は\"B\"\nそれ以外（空白含む）はフィーチャー関連"
+      "description": "ボディ関連とする場合は\"B\"\nそれ以外（空白含む）はフィーチャー関連",
+      "canonical_type": "relationship",
+      "py_type": "str"
     },
     {
       "name": "形状タイプ",
-      "description": "EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号 (ヘルプのEVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイルの項を\n参照)\n例）\"1007\" 平鋼、\"1003\" 不等辺不等厚山形鋼\n\"1101\" 条材端部Sタイプ 、\"1120\" 条材端部スカラップA1タイプ\n\"1503\"  ブラケット2-Bタイプ"
+      "description": "EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号 (ヘルプのEVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイルの項を\n参照)\n例）\"1007\" 平鋼、\"1003\" 不等辺不等厚山形鋼\n\"1101\" 条材端部Sタイプ 、\"1120\" 条材端部スカラップA1タイプ\n\"1503\"  ブラケット2-Bタイプ",
+      "canonical_type": "shape_type",
+      "py_type": "str"
     },
     {
       "name": "形状パラメータ",
-      "description": "各形状タイプの寸法値を文字列配列で設定\n例) 不当辺山形鋼(1002)の形状タイプの場合 [\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]"
+      "description": "各形状タイプの寸法値を文字列配列で設定\n例) 不当辺山形鋼(1002)の形状タイプの場合 [\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]",
+      "canonical_type": "shape_parameter",
+      "py_type": "str"
     },
     {
       "name": "要素",
-      "description": "(複数要素の場合は文字列の配列とする)\nEVO.SHIPの各要素を指定する\n〇IDで指定\nEVO.SHIPの要素はユニークなIDを必ずもつのでそのID文字列を\"ID@\"をプレフィックスとして指定\n例）\"ID@d8baafc30be94411a6ab9d6173c1d1dd\" (d8baafc30be94411a6ab9d6173c1d1ddというIDをもつ要素)\n〇要素名で指定\nEVO.SHIPの要素名称は重複を許すので、複数見つかった際にどれになるかは不定\n要素名称はEVO.SHIPの要素グループを指定するのこともできる\n例）G1という要素グループ配下のG2という要素グループ配下のAという名前の要素の指定\nG1/G2/A\n〇板ソリッド要素の板厚面を指定（条材ソリッドの場合はウェブ部分）\n必ず文字列配列で指定\n配列の最初の要素は\"PLS\"という固定文字列\n次の配列要素（２番目）は\"True\"か\"False\"で,\"True\"の場合はFace内部穴を削除する\n次の配列要素（３番目）は常に\"False\" (システムで利用します）\nその次から３っつの要素（４番目、５番目、６番目）で板厚面のどちら側かを\n指定するために外側方向（おおよそ）をベクトル指定する\n最後の要素でソリッド要素を指定する\n例）[\"PLS\",\"False\",\"False\",\"0.0\",\"0.0\",\"-1.0\",\"ID@d8baafc30be94411a6ab9d6173c1d1dd\"]\nd8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつソリッド要素（板材)の(0,0,-1)方向を向いている側の面の指定\n〇ソリッドやシート要素のフェイスを指定\n\",\" コンマで区切られた文字列で指定\n最初のカラムでソリッドやシート要素のＩＤを指定、次のカラムは固定文字\"F\"、その次のカラムからフェイス上の点の座標値を指定（複数フェイス指定可能）\n例 \"ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8\"\nd8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつ要素でそのFace上の座標値が(-10,0.5,2.3)と(-11.0,0.0,4.8)\nである２つのフェイスを指定"
+      "description": "モデル内の要素を参照する識別子を受け取ります。\n- element_id: 既存要素を一意に識別する ID（例: ID@...）。\n- element_group: 要素グループ名。複数要素をまとめて参照します。\n- element_reference: 操作対象の単一要素を指すラベルや名称。\n- element_array: 面リストや辺リストなど、複数要素を配列で指定するケース。",
+      "canonical_type": "element",
+      "py_type": "str",
+      "one_of": [
+        "element_id",
+        "element_group",
+        "element_reference",
+        "element_array"
+      ]
     }
   ],
   "api_entries": [
@@ -740,21 +837,19 @@
         },
         {
           "name": "StartPoint",
-          "type": "点",
+          "type": "点(2D)",
           "description": "始点",
           "metadata": {
             "position": 3,
-            "raw_type": "点(2D)",
             "dimension": "2D"
           }
         },
         {
           "name": "EndPoint",
-          "type": "点",
+          "type": "点(2D)",
           "description": "終点",
           "metadata": {
             "position": 4,
-            "raw_type": "点(2D)",
             "dimension": "2D"
           }
         },
@@ -811,31 +906,28 @@
         },
         {
           "name": "CenterPoint",
-          "type": "点",
+          "type": "点(2D)",
           "description": "中心点",
           "metadata": {
             "position": 3,
-            "raw_type": "点(2D)",
             "dimension": "2D"
           }
         },
         {
           "name": "StartPoint",
-          "type": "点",
+          "type": "点(2D)",
           "description": "始点",
           "metadata": {
             "position": 4,
-            "raw_type": "点(2D)",
             "dimension": "2D"
           }
         },
         {
           "name": "EndPoint",
-          "type": "点",
+          "type": "点(2D)",
           "description": "終点",
           "metadata": {
             "position": 5,
-            "raw_type": "点(2D)",
             "dimension": "2D"
           }
         },
@@ -900,31 +992,28 @@
         },
         {
           "name": "StartPoint",
-          "type": "点",
+          "type": "点(2D)",
           "description": "始点",
           "metadata": {
             "position": 3,
-            "raw_type": "点(2D)",
             "dimension": "2D"
           }
         },
         {
           "name": "MidPoint",
-          "type": "点",
+          "type": "点(2D)",
           "description": "通過点",
           "metadata": {
             "position": 4,
-            "raw_type": "点(2D)",
             "dimension": "2D"
           }
         },
         {
           "name": "EndPoint",
-          "type": "点",
+          "type": "点(2D)",
           "description": "終点",
           "metadata": {
             "position": 5,
-            "raw_type": "点(2D)",
             "dimension": "2D"
           }
         },
@@ -981,11 +1070,10 @@
         },
         {
           "name": "Centeroint",
-          "type": "点",
+          "type": "点(2D)",
           "description": "中心点",
           "metadata": {
             "position": 3,
-            "raw_type": "点(2D)",
             "dimension": "2D"
           }
         },
@@ -1066,11 +1154,10 @@
         },
         {
           "name": "Centeroint",
-          "type": "点",
+          "type": "点(2D)",
           "description": "中心点",
           "metadata": {
             "position": 3,
-            "raw_type": "点(2D)",
             "dimension": "2D"
           }
         },
@@ -1084,11 +1171,10 @@
         },
         {
           "name": "MajorDir",
-          "type": "方向",
+          "type": "方向(2D)",
           "description": "主軸方向を指定",
           "metadata": {
             "position": 5,
-            "raw_type": "方向(2D)",
             "dimension": "2D"
           }
         },
@@ -2972,21 +3058,19 @@
       "params": [
         {
           "name": "StartPoint",
-          "type": "点",
+          "type": "点(3D)",
           "description": "始点",
           "metadata": {
             "position": 0,
-            "raw_type": "点(3D)",
             "dimension": "3D"
           }
         },
         {
           "name": "EndPoint",
-          "type": "点",
+          "type": "点(3D)",
           "description": "終点",
           "metadata": {
             "position": 1,
-            "raw_type": "点(3D)",
             "dimension": "3D"
           }
         }
@@ -3012,11 +3096,10 @@
       "params": [
         {
           "name": "CenterPoint",
-          "type": "点",
+          "type": "点(3D)",
           "description": "中心点",
           "metadata": {
             "position": 0,
-            "raw_type": "点(3D)",
             "dimension": "3D"
           }
         },
@@ -3082,11 +3165,10 @@
       "params": [
         {
           "name": "CenterPoint",
-          "type": "点",
+          "type": "点(3D)",
           "description": "中心点",
           "metadata": {
             "position": 0,
-            "raw_type": "点(3D)",
             "dimension": "3D"
           }
         },
