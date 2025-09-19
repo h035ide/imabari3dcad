@@ -6,15 +6,21 @@
   "type_definitions": [
     {
       "name": "文字列",
-      "description": "通常の文字列"
+      "description": "通常の文字列",
+      "canonical_type": "string",
+      "py_type": "str"
     },
     {
       "name": "浮動小数点",
-      "description": "通常の数値"
+      "description": "通常の数値",
+      "canonical_type": "float",
+      "py_type": "float"
     },
     {
       "name": "整数",
-      "description": "通常の数値"
+      "description": "整数を表す型",
+      "canonical_type": "integer",
+      "py_type": "int"
     },
     {
       "name": "bool",
@@ -22,83 +28,167 @@
       "examples": [
         "True",
         "False"
-      ]
+      ],
+      "canonical_type": "bool",
+      "py_type": "bool"
     },
     {
       "name": "長さ",
-      "description": "mm単位の数値、変数要素名、または式文字列",
+      "description": "mm単位の数値、変数要素名、または式文字列のいずれか。",
       "examples": [
         "100.0",
         "L1",
         "L1 / 2.0"
+      ],
+      "canonical_type": "length",
+      "py_type": "str",
+      "one_of": [
+        "millimeter_literal",
+        "variable_reference",
+        "expression"
       ]
     },
     {
       "name": "角度",
-      "description": "度(°)単位の数値、変数要素名、または式の文字列",
+      "description": "度(°)単位の数値、変数要素名、式文字列のいずれか。",
       "examples": [
         "30.0",
         "Angle1",
         "Angle1 * 0.2"
+      ],
+      "canonical_type": "angle",
+      "py_type": "str",
+      "one_of": [
+        "degree_literal",
+        "variable_reference",
+        "expression"
       ]
     },
     {
       "name": "数値",
-      "description": "数値、変数要素名、式文字列",
+      "description": "数値、変数要素名、式文字列のいずれか。",
       "examples": [
         "3",
         "N1",
         "N1*5"
+      ],
+      "canonical_type": "number",
+      "py_type": "str",
+      "one_of": [
+        "numeric_literal",
+        "variable_reference",
+        "expression"
       ]
     },
     {
       "name": "範囲",
-      "description": "上限と下限の数値をコンマで区切って指定",
+      "description": "上限と下限の数値をコンマで区切って指定。",
       "examples": [
-        "\"0.0,1.0\"",
-        "\"L1,L2\"",
-        "\"-1.0,1.0\""
+        "0.0,1.0",
+        "L1,L2",
+        "-1.0,1.0"
+      ],
+      "canonical_type": "range",
+      "py_type": "str",
+      "one_of": [
+        "comma_delimited_range",
+        "variable_reference",
+        "expression"
       ]
     },
     {
       "name": "点",
-      "description": "コンマで区切って各コンポーネントをX,Y,Z（3Dの場合）の長さ（変数も可）で指定する",
+      "description": "モデル座標系の点を表す値を指定します。",
       "examples": [
-        "100.0,50,0,0.0",
-        "FRM1,0.0,1000.0"
+        "数値リテラル",
+        "変数参照",
+        "式"
+      ],
+      "canonical_type": "point",
+      "py_type": "str",
+      "one_of": [
+        "cartesian_point",
+        "variable_reference",
+        "expression"
+      ]
+    },
+    {
+      "name": "点(2D)",
+      "description": "モデル座標系の2D点を指定します。",
+      "examples": [
+        "数値リテラル",
+        "変数参照",
+        "式"
+      ],
+      "canonical_type": "point",
+      "py_type": "str",
+      "one_of": [
+        "cartesian_2d",
+        "variable_reference",
+        "expression"
+      ]
+    },
+    {
+      "name": "点(3D)",
+      "description": "モデル座標系の点を表す値を指定します（3D座標）。",
+      "examples": [
+        "数値リテラル",
+        "変数参照",
+        "式"
+      ],
+      "canonical_type": "point",
+      "py_type": "str",
+      "one_of": [
+        "cartesian_3d",
+        "variable_reference",
+        "expression"
       ]
     },
     {
       "name": "方向",
-      "description": "各軸方向は '+X'、'-X'、'+Y'、'-Y'、'+Z'、'-Z' のいずれかで指定します。複数の成分はカンマで区切り、X、Y、Z（3Dの場合）それぞれを数値または変数で指定します。",
+      "description": "各軸の方向を指定する文字列。コンマで区切って各コンポーネント（X,Y,Z：3Dの場合）を数値または変数で指定します。",
       "examples": [
-        "\"+X\", \"-X\", \"+Y\", \"-Y\", \"+Z\", \"-Z\"",
-        "X,Y,Z をカンマ区切りで指定（数値または変数）"
-      ]
+        "\"+X\",\"-X\",\"+Y\",\"-X\",\"+Z\",\"-Z\"",
+        "コンマで区切って各コンポーネントをX,Y,Z（3Dの場合）を数値（変数も可）で指定"
+      ],
+      "canonical_type": "direction",
+      "py_type": "str"
     },
     {
       "name": "平面",
-      "description": "コンマで区切られた文字列で指定。最初のカラムは必ず PL。次のカラムが O の場合、その次のカラムにオフセット距離（長さ）を指定。以降は平面指定を行う：X=グローバル YZ 平面、Y=グローバル ZX 平面、Z=グローバル XY 平面、F=ボディのフェイス指定（要素の項参照）。",
+      "description": "コンマ区切りの文字列。最初のカラムは必ず\"PL\"。次のカラムが\"O\"の場合、その次にオフセット距離（数値）を指定。以降で平面を指定：\"X\"=グローバル YZ 平面、\"Y\"=グローバル ZX 平面、\"Z\"=グローバル XY 平面、\"F\"=ボディのフェイスを指定。",
       "examples": [
-        "PL,Z",
-        "PL,O,500.0,X"
-      ]
+        "\"PL,Z\" グローバルＸＹ平面",
+        "\"PL,O,500.0,X\" グローバルＹＺ平面をＸ方向に500移動させた平面"
+      ],
+      "canonical_type": "plane",
+      "py_type": "str"
     },
     {
       "name": "変数単位",
-      "description": "変数の単位。長さ・角度・数値のいずれかを指定します。",
+      "description": "長さ、角度、または数値の単位を表す文字列。",
       "examples": [
-        "長さ: \"mm\",\"cm\",\"m\",\"in\",\"ft\",\"pt\"",
-        "角度: \"deg\",\"rad\"",
-        "数値: \"\" (空白), \"num\""
-      ]
+        "mm",
+        "cm",
+        "m",
+        "in",
+        "ft",
+        "pt",
+        "deg",
+        "rad",
+        "num"
+      ],
+      "canonical_type": "unit",
+      "py_type": "str"
     },
     {
       "name": "要素グループ",
       "description": "EVO.SHIPの要素グループ名",
       "examples": [
         "要素グループの階層は\"/\"で区切る"
-      ]
+      ],
+      "canonical_type": "element_group",
+      "py_type": "str"
     },
     {
       "name": "注記スタイル",
@@ -106,82 +196,105 @@
     },
     {
       "name": "材料",
-      "description": "EVO.SHIPに設定されている材料の名称を表す文字列"
+      "description": "EVO.SHIPに設定している材料の名称",
+      "canonical_type": "material",
+      "py_type": "str"
     },
     {
       "name": "スイープ方向",
-      "description": "スイープ方向を表すコード。",
+      "description": "スイープ方向を示すコード。",
       "examples": [
-        "\"N\"  順方向",
-        "\"R\" 反対方向",
-        "\"B\" 両方向",
-        "\"2\"  ２方向",
-        "\"T\"   貫通"
-      ]
+        "N: 順方向",
+        "R: 反対方向",
+        "B: 両方向",
+        "2: ２方向",
+        "T: 貫通"
+      ],
+      "canonical_type": "direction",
+      "py_type": "str"
     },
     {
       "name": "厚み付けタイプ",
-      "description": "厚み付けの方向を示す",
+      "description": "厚み付けの方向を示すタイプ",
       "examples": [
-        "+ 内側",
-        "- 外側",
-        "B 両方向",
-        "2 ２方向",
-        "（空文字） 厚み付けしない"
-      ]
+        "\"+\" 内側",
+        "\"-\" 外側",
+        "\"B\" 両方向",
+        "\"2\" ２方向",
+        "\"\" （空文字）厚み付けしない"
+      ],
+      "canonical_type": "thicken_type",
+      "py_type": "str"
     },
     {
       "name": "モールド位置",
-      "description": "モールドの位置を示す。",
+      "description": "モールドの位置を示す文字列。",
       "examples": [
-        "\"+\" ＋側",
-        "\"-\" ー側",
-        "\"\" （空文字）センター"
-      ]
+        "+",
+        "-"
+      ],
+      "canonical_type": "mold_position",
+      "py_type": "str"
     },
     {
       "name": "オペレーションタイプ （ボディ）",
-      "description": "操作を表す記号。",
+      "description": "操作を表す記号",
       "examples": [
-        "+：和",
-        "-：削除",
-        "*：積"
-      ]
+        "\"+\" 和",
+        "\"-\" 削除",
+        "\"*\"  積"
+      ],
+      "canonical_type": "operation_body",
+      "py_type": "str"
     },
     {
       "name": "関連設定",
-      "description": "ボディ関連かフィーチャー関連かを示す。",
+      "description": "ボディ関連の場合は'B'、それ以外はフィーチャー関連",
       "examples": [
-        "B — ボディ関連",
-        "空白またはその他 — フィーチャー関連"
-      ]
+        "B",
+        "（空白）"
+      ],
+      "canonical_type": "relationship",
+      "py_type": "str"
     },
     {
       "name": "形状タイプ",
-      "description": "EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号（ヘルプの「EVO.SHIPの基礎」→「船殻設計機能」→「部材既定寸法設定ファイル」の項を参照）",
+      "description": "EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号（ヘルプ参照）",
       "examples": [
-        "1007 平鋼",
-        "1003 不等辺不等厚山形鋼",
-        "1101 条材端部Sタイプ",
-        "1120 条材端部スカラップA1タイプ",
-        "1503 ブラケット2-Bタイプ"
-      ]
+        "1007 (平鋼)",
+        "1003 (不等辺不等厚山形鋼)",
+        "1101 (条材端部Sタイプ)",
+        "1120 (条材端部スカラップA1タイプ)",
+        "1503 (ブラケット2-Bタイプ)"
+      ],
+      "canonical_type": "shape_type",
+      "py_type": "str"
     },
     {
       "name": "形状パラメータ",
-      "description": "各形状タイプの寸法値を文字列配列で設定",
+      "description": "各形状タイプの寸法値を文字列の配列で指定します。",
       "examples": [
-        "不当辺山形鋼(1002)の形状タイプの場合 [\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]"
-      ]
+        "例) 不当辺山形鋼(1002)の形状タイプの場合 [\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]"
+      ],
+      "canonical_type": "shape_parameter",
+      "py_type": "str"
     },
     {
       "name": "要素",
-      "description": "複数要素は文字列配列とする。要素指定は次の方法がある：\n1) ID指定：要素のユニークIDを\"ID@\"でプレフィックスして指定。\n2) 名称指定：要素名または要素グループのパス（例：G1/G2/A）。名称は重複を許し、複数見つかった場合どれが選ばれるかは不定。\n3) 板ソリッドの板厚面指定（条材ソリッドはウェブ部分）：必ず文字列配列で指定。配列の最初は固定文字列\"PLS\"、2番目はFace内部穴を削除するかの\"True\"/\"False\"、3番目は常に\"False\"（システム用）、4〜6番目は外側方向を示すベクトル（x,y,z）、最後の要素で対象ソリッド要素を指定（ID@...）。\n4) ソリッドやシート要素のフェイス指定：カンマ区切りの文字列で指定。最初のカラムは要素ID、次は固定文字\"F\"、以降はフェイス上の点の座標値（複数フェイス指定可）。",
+      "description": "モデル内の要素を参照する識別子を受け取ります。",
       "examples": [
-        "ID@d8baafc30be94411a6ab9d6173c1d1dd",
-        "G1/G2/A",
-        "[\"PLS\",\"False\",\"False\",\"0.0\",\"0.0\",\"-1.0\",\"ID@d8baafc30be94411a6ab9d6173c1d1dd\"]",
-        "ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8"
+        "element_id: 既存要素を一意に識別する ID（例: ID@...）",
+        "element_group: 要素グループ名（複数要素の参照）",
+        "element_reference: 単一要素を指すラベルや名称",
+        "element_array: 面リストや辺リストなどの配列で指定"
+      ],
+      "canonical_type": "element",
+      "py_type": "str",
+      "one_of": [
+        "element_id",
+        "element_group",
+        "element_reference",
+        "element_array"
       ]
     }
   ],
@@ -236,13 +349,13 @@
     {
       "entry_type": "function",
       "name": "LoadPart",
-      "description": "指定したファイルパスからPartドキュメントを読み込み、Partオブジェクトを返します。bForceEvaluationがTrueの場合、開く際に全要素を強制的に再計算します。",
+      "description": "指定したファイルを読み込み、対応するPartオブジェクトを返します。bForceEvaluationがTrueの場合、開く際に全要素を強制的に再計算します。",
       "category": "Applicationオブジェクト",
       "params": [
         {
           "name": "FileName",
           "type": "文字列",
-          "description": "保存されているドキュメントのファイルパス名を指定します。",
+          "description": "読み込むドキュメントのファイルパス名（フルパス）",
           "metadata": {
             "position": 0
           }
@@ -250,7 +363,7 @@
         {
           "name": "bForceEvaluation",
           "type": "bool",
-          "description": "Trueにすると、開く際にすべての要素を強制的に再計算して読み込みます（通常はFalse）。",
+          "description": "Trueにすると開く際に全要素を強制的に再計算して読み込みます。通常はFalse。",
           "metadata": {
             "position": 1
           }
@@ -259,7 +372,7 @@
       "properties": [],
       "returns": {
         "type": "Partオブジェクト",
-        "description": "読み込まれたPartオブジェクト",
+        "description": "読み込んだドキュメントに対応するPartオブジェクトを返します。",
         "is_array": false,
         "raw_type": null
       },
@@ -272,13 +385,13 @@
     {
       "entry_type": "function",
       "name": "OpenDocument",
-      "description": "指定した保存済みドキュメントを開く。bForceEvaluation=true の場合は読み込み時に全要素を強制的に再計算する。",
+      "description": "保存済みのドキュメントを開く。bForceEvaluation を True にすると、全要素を強制的に再計算してから開く（通常は False）。",
       "category": "Applicationオブジェクト",
       "params": [
         {
           "name": "FileName",
           "type": "文字列",
-          "description": "開く保存されているドキュメントのファイルパス名",
+          "description": "保存されているドキュメントのファイルパス名",
           "metadata": {
             "position": 0
           }
@@ -286,7 +399,7 @@
         {
           "name": "bForceEvaluation",
           "type": "bool",
-          "description": "True の場合、ドキュメントを開く際に全要素を強制再計算する（通常は False）。",
+          "description": "True にすると全要素を強制的に再計算してから開く（通常は False）。",
           "metadata": {
             "position": 1
           }
@@ -308,13 +421,13 @@
     {
       "entry_type": "function",
       "name": "Create3DDocument",
-      "description": "3D用の新しいDocumentを作成して返します。3D専用のDocumentオブジェクトを新規作成するために使用します。",
+      "description": "新しい3D用のDocumentを作成し、作成された3Dドキュメントを表すDocumentオブジェクトを返します。",
       "category": "Applicationオブジェクト",
       "params": [],
       "properties": [],
       "returns": {
         "type": "Document",
-        "description": "作成されたDocumentオブジェクト",
+        "description": "作成された3Dドキュメントを表すDocumentオブジェクト",
         "is_array": false,
         "raw_type": null
       },
@@ -327,13 +440,13 @@
     {
       "entry_type": "function",
       "name": "GetActiveDocument",
-      "description": "現在アクティブなDocumentオブジェクトを取得します。編集や参照のために、現在選択されているドキュメントへの参照を返します。",
+      "description": "アプリケーションで現在アクティブなDocumentオブジェクトを取得します。",
       "category": "Applicationオブジェクト",
       "params": [],
       "properties": [],
       "returns": {
         "type": "Document",
-        "description": "アクティブなDocumentオブジェクト（編集・参照に使用するオブジェクト）",
+        "description": "アプリケーションで現在アクティブなDocumentオブジェクト",
         "is_array": false,
         "raw_type": null
       },
@@ -346,13 +459,13 @@
     {
       "entry_type": "function",
       "name": "GetDocuments",
-      "description": "現在開かれているすべてのDocumentオブジェクトを取得して配列で返す。",
+      "description": "現在開かれているすべてのDocumentオブジェクトを取得する。",
       "category": "Applicationオブジェクト",
       "params": [],
       "properties": [],
       "returns": {
         "type": "Document[]",
-        "description": "現在開かれているDocumentオブジェクトの配列。",
+        "description": "現在開かれているDocumentオブジェクトの配列。ドキュメントが存在しない場合は空配列を返す。",
         "is_array": true,
         "raw_type": null
       },
@@ -426,7 +539,7 @@
       "properties": [],
       "returns": {
         "type": "Part",
-        "description": "取得されたPartオブジェクト",
+        "description": "取得したPartオブジェクトを返します。",
         "is_array": false,
         "raw_type": null
       },
@@ -439,13 +552,13 @@
     {
       "entry_type": "function",
       "name": "IsActive",
-      "description": "ドキュメントが現在アクティブ（カレント）かどうかを返します。",
+      "description": "ドキュメントが現在アクティブ（カレント）であるかどうかを示すブール値を返します。",
       "category": "Documentオブジェクト",
       "params": [],
       "properties": [],
       "returns": {
         "type": "bool",
-        "description": "ドキュメントがアクティブ（カレント）であればTrue、そうでなければFalse",
+        "description": "ドキュメントがActiveな時はTrue、そうでなければFalseを返します。",
         "is_array": false,
         "raw_type": null
       },
@@ -496,13 +609,13 @@
     {
       "entry_type": "function",
       "name": "GetViews",
-      "description": "ドキュメントに含まれるビューの一覧を取得します。各要素はViewオブジェクトです。",
+      "description": "ドキュメントに関連付けられた全てのViewオブジェクトの一覧を取得する。",
       "category": "Documentオブジェクト",
       "params": [],
       "properties": [],
       "returns": {
         "type": "View",
-        "description": "Viewオブジェクトの配列",
+        "description": "ドキュメントに関連付けられたViewオブジェクトの配列",
         "is_array": true,
         "raw_type": null
       },
@@ -515,13 +628,13 @@
     {
       "entry_type": "function",
       "name": "CreateSTLOption",
-      "description": "ドキュメントをSTLとして保存する際に使用するパラメータを格納するオブジェクトを作成して返します。",
+      "description": "ドキュメントをSTL形式で保存する際の設定を格納するパラメータオブジェクトを作成します。",
       "category": "Documentオブジェクト",
       "params": [],
       "properties": [],
       "returns": {
         "type": "object",
-        "description": "STLパラメータオブジェクト",
+        "description": "STLの出力設定を保持するパラメータオブジェクト（STLパラメータオブジェクト）",
         "is_array": false,
         "raw_type": null
       },
@@ -534,13 +647,13 @@
     {
       "entry_type": "function",
       "name": "ExporAsSTL",
-      "description": "ドキュメントをSTL形式で指定したファイルに保存します。FileName に出力先のファイルパスを指定します。pOpt はエクスポート用のオプション引数（型不明、詳細はAPIドキュメント参照）です。",
+      "description": "ドキュメントのジオメトリをSTL形式で指定したファイルパスに保存する。エクスポートの詳細設定は pOpt で指定する。",
       "category": "Documentオブジェクト",
       "params": [
         {
           "name": "FileName",
           "type": "文字列",
-          "description": "保存するSTLファイルパス名",
+          "description": "保存先のSTLファイルパス名（ファイル名を含む文字列）",
           "metadata": {
             "position": 0
           }
@@ -548,7 +661,7 @@
         {
           "name": "pOpt",
           "type": "不明",
-          "description": "エクスポートのオプションを指定する引数。型は不明で、詳細はAPIドキュメントを参照してください。省略可能な場合があります。",
+          "description": "エクスポートに関するオプションを指定する引数。詳細な仕様は不明",
           "metadata": {
             "position": 1
           }
@@ -557,7 +670,7 @@
       "properties": [],
       "returns": {
         "type": "void",
-        "description": "なし（STLファイルを作成し、戻り値はありません）",
+        "description": "なし（ファイルへSTLを書き出すのみ）",
         "is_array": false,
         "raw_type": null
       },
@@ -650,7 +763,7 @@
     {
       "entry_type": "function",
       "name": "CreateSketchPlane",
-      "description": "スケッチ平面を作成する。指定した平面定義、オフセット、軸方向や反転フラグに基づいてスケッチ平面要素を生成する。",
+      "description": "スケッチ平面を作成する。基準平面およびオフセット、原点や軸方向、注記スタイル、要素グループ等を指定してスケッチ平面要素を生成する。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -736,24 +849,23 @@
         {
           "name": "bDefAxisIsX",
           "type": "bool",
-          "description": "スケッチ平面の基準軸としてX軸を使用する場合はTrue。bool型。",
+          "description": "スケッチ平面の基準軸としてX軸を使用する場合はTrue（bool）",
           "metadata": {
             "position": 10
           }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "作成後にモデル／ドキュメントを更新（反映）するかのフラグ。Trueで更新を行う。",
+          "type": "不明",
+          "description": "作成後にモデル／表示を更新するかどうかのフラグ（bool）",
           "metadata": {
-            "position": 11,
-            "raw_type": "不明"
+            "position": 11
           }
         }
       ],
       "properties": [],
       "returns": {
-        "type": "int",
+        "type": "ID",
         "description": "作成されたスケッチ平面要素の要素ID",
         "is_array": false,
         "raw_type": null
@@ -767,7 +879,7 @@
     {
       "entry_type": "function",
       "name": "CreateSketchLayer",
-      "description": "スケッチレイヤーを作成します。",
+      "description": "指定したスケッチ平面上に新しいスケッチレイヤーを作成します。SketchLayerName に空文字を渡すと既定の名称が使用されます。作成されたレイヤーの要素IDを返します。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -781,7 +893,7 @@
         {
           "name": "SketchPlane",
           "type": "不明",
-          "description": "説明なし",
+          "description": "スケッチを配置する平面を指定する参照。Plane や面オブジェクトなどの平面参照が渡されることを想定します（具体的な型は API 実装依存）。",
           "metadata": {
             "position": 1
           }
@@ -803,7 +915,7 @@
     {
       "entry_type": "function",
       "name": "CreateSketchLine",
-      "description": "指定したスケッチ要素上に直線を作成します。",
+      "description": "指定したスケッチ上に直線要素を作成する。作成された直線要素の要素IDを返す。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -832,30 +944,29 @@
         },
         {
           "name": "StartPoint",
-          "type": "点",
-          "description": "線分の始点（2D座標）。",
+          "type": "点(2D)",
+          "description": "始点（2D座標）",
           "metadata": {
             "position": 3,
-            "raw_type": "点(2D)",
             "dimension": "2D"
           }
         },
         {
           "name": "EndPoint",
-          "type": "点",
-          "description": "線分の終点（2D座標）。",
+          "type": "点(2D)",
+          "description": "終点（2D座標）",
           "metadata": {
             "position": 4,
-            "raw_type": "点(2D)",
             "dimension": "2D"
           }
         },
         {
           "name": "bUpdate",
-          "type": "不明",
-          "description": "作成後にスケッチを更新するかどうかを示すブール値（true/false）。",
+          "type": "ブール値",
+          "description": "作成後にスケッチを更新するかどうか（true=更新する、false=更新しない）",
           "metadata": {
-            "position": 5
+            "position": 5,
+            "raw_type": "不明"
           }
         }
       ],
@@ -875,7 +986,7 @@
     {
       "entry_type": "function",
       "name": "CreateSketchArc",
-      "description": "スケッチ平面上に中心点と始終点を指定して円弧を作成します。",
+      "description": "スケッチ平面上に中心点と始点・終点を指定して円弧スケッチ要素を作成します。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -904,31 +1015,28 @@
         },
         {
           "name": "CenterPoint",
-          "type": "点",
+          "type": "点(2D)",
           "description": "中心点",
           "metadata": {
             "position": 3,
-            "raw_type": "点(2D)",
             "dimension": "2D"
           }
         },
         {
           "name": "StartPoint",
-          "type": "点",
+          "type": "点(2D)",
           "description": "始点",
           "metadata": {
             "position": 4,
-            "raw_type": "点(2D)",
             "dimension": "2D"
           }
         },
         {
           "name": "EndPoint",
-          "type": "点",
+          "type": "点(2D)",
           "description": "終点",
           "metadata": {
             "position": 5,
-            "raw_type": "点(2D)",
             "dimension": "2D"
           }
         },
@@ -942,10 +1050,11 @@
         },
         {
           "name": "bUpdate",
-          "type": "不明",
-          "description": "作成後にスケッチを更新するかを示すフラグ（True/False）",
+          "type": "bool",
+          "description": "作成後にスケッチを更新するかどうか（Trueで更新）",
           "metadata": {
-            "position": 7
+            "position": 7,
+            "raw_type": "不明"
           }
         }
       ],
@@ -965,7 +1074,7 @@
     {
       "entry_type": "function",
       "name": "CreateSketchArc3Pts",
-      "description": "スケッチ上の3点（始点、通過点、終点）を指定して円弧を作成する。",
+      "description": "スケッチ上の3点（始点、通過点、終点）を指定して、スケッチ円弧を作成します。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -994,46 +1103,44 @@
         },
         {
           "name": "StartPoint",
-          "type": "点",
+          "type": "点(2D)",
           "description": "始点",
           "metadata": {
             "position": 3,
-            "raw_type": "点(2D)",
             "dimension": "2D"
           }
         },
         {
           "name": "MidPoint",
-          "type": "点",
+          "type": "点(2D)",
           "description": "通過点",
           "metadata": {
             "position": 4,
-            "raw_type": "点(2D)",
             "dimension": "2D"
           }
         },
         {
           "name": "EndPoint",
-          "type": "点",
+          "type": "点(2D)",
           "description": "終点",
           "metadata": {
             "position": 5,
-            "raw_type": "点(2D)",
             "dimension": "2D"
           }
         },
         {
           "name": "bUpdate",
-          "type": "不明",
-          "description": "作成後にスケッチを更新するかどうかを示すフラグ。",
+          "type": "ブール値",
+          "description": "作成後にスケッチを即時更新（再計算／再描画）するかを指定するフラグ。true=更新する、false=更新しない。",
           "metadata": {
-            "position": 6
+            "position": 6,
+            "raw_type": "不明"
           }
         }
       ],
       "properties": [],
       "returns": {
-        "type": "ID",
+        "type": "要素ID",
         "description": "作成されたスケッチ円弧要素の要素ID",
         "is_array": false,
         "raw_type": null
@@ -1047,7 +1154,7 @@
     {
       "entry_type": "function",
       "name": "CreateSketchCircle",
-      "description": "指定した中心点と半径（または直径）を用いてスケッチ上に円を作成します。",
+      "description": "スケッチ上に中心点と半径（または直径）を指定して円を作成します。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -1076,11 +1183,10 @@
         },
         {
           "name": "Centeroint",
-          "type": "点",
-          "description": "中心点",
+          "type": "点(2D)",
+          "description": "中心点（スケッチ平面上の2D座標）",
           "metadata": {
             "position": 3,
-            "raw_type": "点(2D)",
             "dimension": "2D"
           }
         },
@@ -1111,7 +1217,7 @@
         {
           "name": "bUpdate",
           "type": "不明",
-          "description": "作成後にスケッチを更新するかどうか（Trueで更新）",
+          "description": "Trueの場合、作成後にスケッチ/モデルを更新する",
           "metadata": {
             "position": 7
           }
@@ -1119,7 +1225,7 @@
       ],
       "properties": [],
       "returns": {
-        "type": "element_id",
+        "type": "要素ID",
         "description": "作成されたスケッチ円要素の要素ID",
         "is_array": false,
         "raw_type": null
@@ -1133,13 +1239,13 @@
     {
       "entry_type": "function",
       "name": "CreateSketchEllipse",
-      "description": "スケッチに中心点・主軸・副軸を指定して楕円を作成します。",
+      "description": "中心点・主軸方向・半径を指定してスケッチ上に楕円を作成します。",
       "category": "Partオブジェクト",
       "params": [
         {
           "name": "SketchPlane",
           "type": "要素",
-          "description": "楕円を作成するスケッチ平面またはスケッチ要素",
+          "description": "楕円を作成するスケッチ要素",
           "metadata": {
             "position": 0
           }
@@ -1162,36 +1268,34 @@
         },
         {
           "name": "Centeroint",
-          "type": "点",
-          "description": "中心点（2D座標）",
+          "type": "点(2D)",
+          "description": "楕円の中心点（2D座標）",
           "metadata": {
             "position": 3,
-            "raw_type": "点(2D)",
             "dimension": "2D"
           }
         },
         {
           "name": "bCCW",
           "type": "bool",
-          "description": "楕円の回転方向。Trueの場合は反時計回り、Falseの場合は時計回りで描画",
+          "description": "楕円の描画方向。Trueで反時計回り、Falseで時計回り",
           "metadata": {
             "position": 4
           }
         },
         {
           "name": "MajorDir",
-          "type": "方向",
-          "description": "主軸の方向ベクトル（2D）を指定",
+          "type": "方向(2D)",
+          "description": "楕円の主軸方向（2D方向）",
           "metadata": {
             "position": 5,
-            "raw_type": "方向(2D)",
             "dimension": "2D"
           }
         },
         {
           "name": "MajorRadius",
           "type": "長さ",
-          "description": "主軸半径（長さ）",
+          "description": "主軸半径",
           "metadata": {
             "position": 6
           }
@@ -1199,7 +1303,7 @@
         {
           "name": "MinorRadius",
           "type": "長さ",
-          "description": "副軸半径（長さ）",
+          "description": "副軸半径",
           "metadata": {
             "position": 7
           }
@@ -1207,7 +1311,7 @@
         {
           "name": "Range",
           "type": "範囲",
-          "description": "楕円弧の角度範囲（開始角, 終了角）。単位はラジアンで、各値は通常0〜2πの範囲を想定",
+          "description": "パラメータ角の範囲（ラジアン）。通常は0〜2πの範囲で指定",
           "metadata": {
             "position": 8
           }
@@ -1215,7 +1319,7 @@
         {
           "name": "bUpdate",
           "type": "不明",
-          "description": "作成後にスケッチを更新するかを指定するフラグ（Trueで更新）",
+          "description": "作成後にスケッチを更新するかどうかを指定するフラグ（Trueで更新）",
           "metadata": {
             "position": 9
           }
@@ -1223,8 +1327,8 @@
       ],
       "properties": [],
       "returns": {
-        "type": "ID",
-        "description": "作成されたスケッチ楕円要素の要素ID（作成されたスケッチ要素を一意に識別するID）",
+        "type": "要素ID",
+        "description": "作成されたスケッチ楕円要素の要素ID",
         "is_array": false,
         "raw_type": null
       },
@@ -1237,7 +1341,7 @@
     {
       "entry_type": "function",
       "name": "CreateSketchNURBSCurve",
-      "description": "指定したスケッチ平面に制御点・重み・ノット・トリム範囲を用いてスケッチNURBS線を作成します。閉じた線や周期線も指定可能です。",
+      "description": "スケッチ平面上で中心点を指定してNURBS曲線（スケッチNURBS線）を作成します。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -1326,7 +1430,7 @@
         {
           "name": "bUpdate",
           "type": "不明",
-          "description": "作成後にスケッチやドキュメントを更新するかを示すフラグ。Trueで更新を行う。",
+          "description": "Trueの場合、作成後にスケッチを更新します。",
           "metadata": {
             "position": 10
           }
@@ -1335,7 +1439,7 @@
       "properties": [],
       "returns": {
         "type": "ID",
-        "description": "作成されたスケッチＮＵＲＢＳ線要素の要素ID（要素を識別するID）",
+        "description": "作成されたスケッチNURBS線要素の要素ID",
         "is_array": false,
         "raw_type": null
       },
@@ -1453,13 +1557,13 @@
     {
       "entry_type": "function",
       "name": "CreateLinearSweepParam",
-      "description": "押し出し（リニアスイープ）操作に使用するパラメータを格納するオブジェクトを作成して返します。",
+      "description": "押し出し（リニアスイープ）操作の設定を保持するパラメータオブジェクトを作成して返します。",
       "category": "Partオブジェクト",
       "params": [],
       "properties": [],
       "returns": {
-        "type": "object",
-        "description": "押し出し（リニアスイープ）操作の設定を保持するパラメータオブジェクト。",
+        "type": "LinearSweepParam",
+        "description": "押し出しパラメータオブジェクト",
         "is_array": false,
         "raw_type": null
       },
@@ -1472,7 +1576,7 @@
     {
       "entry_type": "function",
       "name": "CreateLinearSweep",
-      "description": "指定したソリッド要素に対してリニアスイープ（押し出し）形状のフィーチャーを作成して追加する。",
+      "description": "指定したソリッド要素に対して線形押し出し（スイープ）フィーチャーを作成する。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -1494,7 +1598,7 @@
         {
           "name": "pParam",
           "type": "押し出しパラメータオブジェクト",
-          "description": "押し出しの長さ、方向、断面（プロファイル）など、押し出しフィーチャーの設定を保持するパラメータオブジェクト。",
+          "description": "押し出しの各種設定を保持するパラメータオブジェクト（深さや方向などの情報を含むことが想定される）。",
           "metadata": {
             "position": 2
           }
@@ -1502,7 +1606,7 @@
         {
           "name": "bUpdate",
           "type": "不明",
-          "description": "作成後にモデルを即時更新するかどうかを示すブール値（true/false）。",
+          "description": "作成後にモデルを更新するかどうかを指定するブール値。true の場合は更新を実行する。",
           "metadata": {
             "position": 3
           }
@@ -1511,7 +1615,7 @@
       "properties": [],
       "returns": {
         "type": "int",
-        "description": "作成された押し出しフィーチャーのID（整数）",
+        "description": "作成された押し出しフィーチャーのID",
         "is_array": false,
         "raw_type": null
       },
@@ -1524,31 +1628,30 @@
     {
       "entry_type": "function",
       "name": "CreateLinearSweepSheet",
-      "description": "プロファイル要素を押し出して新しいシート要素を作成します。ParamObjで押し出しに必要な設定を指定します。",
+      "description": "プロファイル要素を押し出してシート要素を作成します。押し出しパラメータに基づいて新しいシート要素を生成します。",
       "category": "Partオブジェクト",
       "params": [
         {
           "name": "ParamObj",
           "type": "押し出しパラメータオブジェクト",
-          "description": "押し出しに使用するパラメータを格納したオブジェクト。プロファイル情報や押し出し量などの設定を含みます。",
+          "description": "押し出し操作のパラメータを保持するオブジェクト。プロファイルや距離、方向などの設定を含む（詳細は押し出しパラメータオブジェクト参照）。",
           "metadata": {
             "position": 0
           }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "作成後にモデルを更新するかどうかを示すフラグ。trueで更新を行う、falseで行わない。",
+          "type": "不明",
+          "description": "処理後にドキュメントや表示を更新するかどうかを示す真偽値（実装によって既定値が異なる場合があります）。",
           "metadata": {
-            "position": 1,
-            "raw_type": "不明"
+            "position": 1
           }
         }
       ],
       "properties": [],
       "returns": {
         "type": "ID",
-        "description": "作成されたシート要素の要素ID（要素識別子）",
+        "description": "作成されたシート要素の要素ID（整数）",
         "is_array": false,
         "raw_type": null
       },
@@ -1561,7 +1664,7 @@
     {
       "entry_type": "function",
       "name": "SheetAlignNormal",
-      "description": "シート要素の表側（法線方向）を指定した方向ベクトルに揃える。",
+      "description": "シート要素の表面（法線方向）を指定した方向ベクトルに合わせて揃える。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -1590,10 +1693,11 @@
         },
         {
           "name": "dirZ",
-          "type": "不明",
+          "type": "浮動小数点",
           "description": "方向ベクトルのZ成分",
           "metadata": {
-            "position": 3
+            "position": 3,
+            "raw_type": "不明"
           }
         }
       ],
@@ -1613,13 +1717,13 @@
     {
       "entry_type": "function",
       "name": "ReverseSheet",
-      "description": "指定したシート要素の向きを反転する。",
+      "description": "指定したシート要素の法線方向を反転し、対応するシート反転フィーチャーを作成します。",
       "category": "Partオブジェクト",
       "params": [
         {
           "name": "SheetElement",
           "type": "不明",
-          "description": "反転対象のシート要素を指定します。",
+          "description": "反転するシート要素を指定します。詳細な指定方法はAPIの要素指定ルールを参照してください。",
           "metadata": {
             "position": 0
           }
@@ -1641,13 +1745,13 @@
     {
       "entry_type": "function",
       "name": "BlankElement",
-      "description": "指定した要素の表示／非表示（ブランク）状態を設定する。",
+      "description": "指定した要素の表示状態（ブランク／表示）を設定する。",
       "category": "Partオブジェクト",
       "params": [
         {
           "name": "Element",
           "type": "要素",
-          "description": "表示状態を変更する対象の要素。表示／非表示を切り替える要素を指定します。",
+          "description": "表示状態を設定する対象の要素。",
           "metadata": {
             "position": 0
           }
@@ -1655,7 +1759,7 @@
         {
           "name": "bBlank",
           "type": "不明",
-          "description": "要素をブランク（非表示）にするかどうかを指定するフラグ。true に設定すると非表示（ブランク）、false で表示になります。",
+          "description": "要素をブランク（非表示）にするか表示するかを指定するフラグ（真偽値を想定）。",
           "metadata": {
             "position": 1
           }
@@ -1664,7 +1768,7 @@
       "properties": [],
       "returns": {
         "type": "void",
-        "description": "なし（値は返されません）",
+        "description": "なし",
         "is_array": false,
         "raw_type": null
       },
@@ -1677,7 +1781,7 @@
     {
       "entry_type": "function",
       "name": "TranslationCopy",
-      "description": "指定した要素を、指定方向へ指定距離だけ移動させながら複数のコピーを作成する。",
+      "description": "指定した要素を指定方向へ指定距離だけ移動させながら複数コピーします。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -1716,7 +1820,7 @@
         {
           "name": "ReferMethod",
           "type": "不明",
-          "description": "参照方法（ドキュメントに説明がありません）",
+          "description": "複製に用いる参照方法を指定します。詳細な値や挙動はドキュメントに記載されていません。",
           "metadata": {
             "position": 4
           }
@@ -1725,7 +1829,7 @@
       "properties": [],
       "returns": {
         "type": "ID",
-        "description": "コピーされた要素のID配列",
+        "description": "コピーされた要素ID配列",
         "is_array": true,
         "raw_type": null
       },
@@ -1738,7 +1842,7 @@
     {
       "entry_type": "function",
       "name": "MirrorCopy",
-      "description": "指定した要素を指定した平面に対してミラーコピーする",
+      "description": "指定した要素を指定の平面に対してミラーコピーする",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -1753,7 +1857,7 @@
         {
           "name": "plane",
           "type": "文字列",
-          "description": "ミラーコピーの基準となる平面を指定する文字列",
+          "description": "ミラーする平面を指定する文字列",
           "metadata": {
             "position": 1,
             "raw_type": "[in] BSTR"
@@ -1762,7 +1866,7 @@
         {
           "name": "ReferMethod",
           "type": "不明",
-          "description": "参照方法を指定する（詳細はドキュメントを参照）",
+          "description": "ミラーコピーの参照方法を指定する（詳細はAPIドキュメント参照）",
           "metadata": {
             "position": 2
           }
@@ -1771,7 +1875,7 @@
       "properties": [],
       "returns": {
         "type": "ID[]",
-        "description": "コピーされた要素のID配列",
+        "description": "コピーされた要素ID配列",
         "is_array": true,
         "raw_type": null
       },
@@ -1828,7 +1932,7 @@
     {
       "entry_type": "function",
       "name": "CreateThicken",
-      "description": "指定したソリッド要素に対して、指定したシートやフェイスを厚み付けして厚みづけフィーチャーを作成する。",
+      "description": "指定したソリッド要素に対して、指定のシートやフェイスを厚み付けして新しい厚みづけフィーチャー（ソリッド）を作成する。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -1867,7 +1971,7 @@
         {
           "name": "ThickenType",
           "type": "厚み付けタイプ",
-          "description": "厚み付けの方向や方式を指定する（例: 一方向、両方向など）。",
+          "description": "厚み付けの方式を指定する（例：片方向、両方向、オフセットなど）",
           "metadata": {
             "position": 4
           }
@@ -1907,7 +2011,7 @@
         {
           "name": "bUpdate",
           "type": "不明",
-          "description": "作成後にモデルを更新するかどうかを示すフラグ（true/false）。",
+          "description": "処理後にモデルを更新するかどうかを指定する（trueで更新を行う）",
           "metadata": {
             "position": 9
           }
@@ -1929,7 +2033,7 @@
     {
       "entry_type": "function",
       "name": "CreateOtherSolid",
-      "description": "指定したソリッド要素に別のソリッド要素の形状を追加して、新しい別ソリッドフィーチャーを作成する。",
+      "description": "指定したソリッド要素に別のソリッド要素形状を付加する。作成された別ソリッドフィーチャーのIDを返す。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -1975,7 +2079,7 @@
         {
           "name": "bUpdate",
           "type": "不明",
-          "description": "既存の別ソリッドフィーチャーを更新するかを指定するフラグ。原資料に説明がなく、通常は真偽値が想定される。",
+          "description": "作成処理時の更新フラグ。既存の関連情報を更新するかどうかを指定する（ドキュメントに詳細なし）。",
           "metadata": {
             "position": 5
           }
@@ -1983,7 +2087,7 @@
       ],
       "properties": [],
       "returns": {
-        "type": "要素ID",
+        "type": "文字列",
         "description": "作成された別ソリッドフィーチャーのID",
         "is_array": false,
         "raw_type": null
@@ -1997,13 +2101,13 @@
     {
       "entry_type": "function",
       "name": "CreateBracketParam",
-      "description": "船殻のブラケット要素のパラメータを格納する新しいパラメータオブジェクトを作成して返す。返されたオブジェクトのプロパティを設定してから要素作成 API に渡す。",
+      "description": "船殻モデルのブラケット要素用のパラメータオブジェクトを作成して返す。ブラケットの位置や寸法などの設定に使用される。",
       "category": "Partオブジェクト",
       "params": [],
       "properties": [],
       "returns": {
         "type": "object",
-        "description": "作成されたブラケット要素のパラメータオブジェクト",
+        "description": "ブラケット要素のパラメータを保持するオブジェクト",
         "is_array": false,
         "raw_type": null
       },
@@ -2016,31 +2120,30 @@
     {
       "entry_type": "function",
       "name": "CreateBracket",
-      "description": "船殻用のブラケットのソリッド要素を作成する。ParamObjで指定したパラメータに基づき新しいソリッド要素を生成する。",
+      "description": "ParamObjに指定したパラメータに基づき、船殻のブラケットのソリッド要素を作成する。",
       "category": "Partオブジェクト",
       "params": [
         {
           "name": "ParamObj",
           "type": "ブラケットパラメータオブジェクト",
-          "description": "ブラケットの形状・寸法・位置などを指定するパラメータを保持するオブジェクト。",
+          "description": "ブラケットの形状・寸法・位置など、作成に必要な設定を保持するパラメータオブジェクト。",
           "metadata": {
             "position": 0
           }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "既存の要素がある場合に更新を行うかどうかを指定するフラグ。trueで更新を試みる。",
+          "type": "不明",
+          "description": "既存要素を更新する場合はtrue。新規作成のみの場合はfalse。",
           "metadata": {
-            "position": 1,
-            "raw_type": "不明"
+            "position": 1
           }
         }
       ],
       "properties": [],
       "returns": {
         "type": "int",
-        "description": "作成したソリッド要素のID（数値）",
+        "description": "作成したソリッド要素のID",
         "is_array": false,
         "raw_type": null
       },
@@ -2053,7 +2156,7 @@
     {
       "entry_type": "function",
       "name": "CreatePlate",
-      "description": "船殻のプレート形状のソリッド要素を作成する。",
+      "description": "船殻モデルにプレート形状のソリッド要素を作成する",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -2083,7 +2186,7 @@
         {
           "name": "Plane",
           "type": "平面",
-          "description": "プレートが配置される基準平面。",
+          "description": "プレートが載る参照平面",
           "metadata": {
             "position": 3
           }
@@ -2107,7 +2210,7 @@
         {
           "name": "nMold",
           "type": "モールド位置",
-          "description": "モールド位置を指定する値（モールド番号や側を表す識別子）。",
+          "description": "モールド位置の識別番号",
           "metadata": {
             "position": 6
           }
@@ -2162,10 +2265,11 @@
         },
         {
           "name": "bUpdate",
-          "type": "不明",
-          "description": "作成後に関連情報や表示を更新するかどうかを示す真偽フラグ。",
+          "type": "論理",
+          "description": "処理後に要素を更新するかどうかを示すフラグ（true/false）",
           "metadata": {
-            "position": 13
+            "position": 13,
+            "raw_type": "不明"
           }
         }
       ],
@@ -2185,13 +2289,13 @@
     {
       "entry_type": "function",
       "name": "CreateProfileParam",
-      "description": "船殻の条材ソリッド要素のパラメータを格納するパラメータオブジェクトを作成して返す。",
+      "description": "船殻の条材ソリッド要素（縦方向補強材）のパラメータを格納するオブジェクトを作成して返します。",
       "category": "Partオブジェクト",
       "params": [],
       "properties": [],
       "returns": {
         "type": "object",
-        "description": "条材要素のパラメータを格納したオブジェクトを返す。",
+        "description": "条材要素のパラメータを表すオブジェクト",
         "is_array": false,
         "raw_type": null
       },
@@ -2204,13 +2308,13 @@
     {
       "entry_type": "function",
       "name": "CreateProfile",
-      "description": "取付線を指定して船殻の条材（条材ソリッド）要素を作成する。",
+      "description": "船殻の条材ソリッド要素を、指定した取付線に沿って作成する。",
       "category": "Partオブジェクト",
       "params": [
         {
           "name": "ParamObj",
           "type": "条材要素のパラメータオブジェクト",
-          "description": "条材ソリッド要素の作成に必要なパラメータを含むオブジェクト（形状・寸法・取付線指定などを含む）",
+          "description": "作成する条材の形状・寸法・材質などの設定を格納したパラメータオブジェクト。",
           "metadata": {
             "position": 0
           }
@@ -2218,7 +2322,7 @@
         {
           "name": "bUpdate",
           "type": "不明",
-          "description": "既存の要素がある場合にそれらを更新するかどうかを示すフラグ（真偽値を想定）",
+          "description": "既存の条材要素を更新するかどうかを示すフラグ（真偽値）。",
           "metadata": {
             "position": 1
           }
@@ -2226,8 +2330,8 @@
       ],
       "properties": [],
       "returns": {
-        "type": "int[]",
-        "description": "作成した条材ソリッド要素のID配列。配列[0]がWeb要素のID、配列[1]がフランジ要素のID。",
+        "type": "要素IDの配列",
+        "description": "作成した条材ソリッド要素のIDを格納した配列。配列[0]がWeb要素のID、配列[1]がフランジ要素のID。",
         "is_array": true,
         "raw_type": null
       },
@@ -2240,7 +2344,7 @@
     {
       "entry_type": "function",
       "name": "BodyDivideByElements",
-      "description": "指定した要素（シートボディ、フェイス、平面など）を用いてターゲットボディを分割する。生成する分割フィーチャーに名称を付けられ、分割後に作成されたボディ要素のID配列を返す。",
+      "description": "指定した要素（シートボディ、フェイス、平面）でターゲットのボディを分割する。分割により新しいボディ要素が生成され、作成されたボディ要素のID配列を返す。pAlignmentDirection／pWCSで要素順序の整列を指定できる。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -2287,18 +2391,17 @@
         {
           "name": "ReferMethod",
           "type": "関連設定",
-          "description": "要素の関連づけ方法を指定する（分割後の要素を元の要素にどのように関連付けるかを制御）",
+          "description": "要素の関連づけ方法の指定",
           "metadata": {
             "position": 5
           }
         },
         {
           "name": "bUpdate",
-          "type": "boolean",
-          "description": "処理後にモデルを更新するかどうかを指定するフラグ（trueで更新する）",
+          "type": "不明",
+          "description": "処理後にモデルを更新するかどうかを指定するフラグ（真: 更新する、偽: 更新しない）。",
           "metadata": {
-            "position": 6,
-            "raw_type": "不明"
+            "position": 6
           }
         }
       ],
@@ -2318,7 +2421,7 @@
     {
       "entry_type": "function",
       "name": "BodySeparateBySubSolids",
-      "description": "指定したソリッドで対象ボディを削除・切断して分割（区分け）を行い、複数のボディを作成するコマンド。",
+      "description": "指定したソリッドを用いてボディを分割（削除により区分け）するコマンド。分割によって新しく作成されたボディは個別の要素として返される。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -2365,7 +2468,7 @@
         {
           "name": "bUpdate",
           "type": "不明",
-          "description": "処理後にモデルを更新するかどうかを指定するフラグ（trueで更新を実行）。",
+          "description": "処理後にモデルを更新するかどうかを指定するフラグ（真偽値）",
           "metadata": {
             "position": 5
           }
@@ -2374,7 +2477,7 @@
       "properties": [],
       "returns": {
         "type": "文字列[]",
-        "description": "分割処理で作成されたボディ要素のIDの文字列配列",
+        "description": "分割で作成されたボディ要素のIDの配列（文字列の配列）",
         "is_array": true,
         "raw_type": null
       },
@@ -2387,7 +2490,7 @@
     {
       "entry_type": "function",
       "name": "BodyDivideByCurves",
-      "description": "指定した線（スケッチ等）によってボディを分割する。",
+      "description": "指定した線（スケッチ等）を用いてターゲットボディを分割する。分割により作成されたボディ要素のID配列を返す。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -2418,7 +2521,7 @@
         {
           "name": "bNorProjection",
           "type": "bool",
-          "description": "線要素を要素に投影するかどうかのフラグ",
+          "description": "線要素を対象ボディに投影して分割を行うかを指定するフラグ。trueで投影して分割、falseで投影せずに使用する。",
           "metadata": {
             "position": 3
           }
@@ -2426,7 +2529,7 @@
         {
           "name": "CorrectEndPointsTolerance",
           "type": "長さ",
-          "description": "分割線が複数の場合の分割線同士のの判定トレランスを指定（通常は指定しない、空文字）",
+          "description": "複数の分割線がある場合に、線の端点間の距離がこのトレランス以下なら同一とみなすための許容値。通常は未指定（空文字）。",
           "metadata": {
             "position": 4
           }
@@ -2434,7 +2537,7 @@
         {
           "name": "AlignmentDirection",
           "type": "方向",
-          "description": "分割されたボディ要素の順番を整列させるのに使用する方向",
+          "description": "分割後に生成されるボディ要素の順序を整列するために使用する方向（方向指定、必要に応じて空指定）。",
           "metadata": {
             "position": 5
           }
@@ -2442,7 +2545,7 @@
         {
           "name": "ReferMethod",
           "type": "関連設定",
-          "description": "分割後の要素と元の要素との関連づけ方法を指定。",
+          "description": "作成される要素と元要素の関連づけ方法を指定する設定。",
           "metadata": {
             "position": 6
           }
@@ -2450,7 +2553,7 @@
         {
           "name": "bUpdate",
           "type": "bool",
-          "description": "更新フラグ（未実装、使用しない）",
+          "description": "更新フラグ（未実装のため現状では使用しない）。",
           "metadata": {
             "position": 7
           }
@@ -2458,8 +2561,8 @@
       ],
       "properties": [],
       "returns": {
-        "type": "文字列[]",
-        "description": "分割で作成されたボディ要素のID配列",
+        "type": "要素ID",
+        "description": "分割操作で作成されたボディ要素のID配列",
         "is_array": true,
         "raw_type": null
       },
@@ -2472,7 +2575,7 @@
     {
       "entry_type": "function",
       "name": "BodyDivideByPlanes",
-      "description": "指定した平面でボディを分割する。分割によって作成されたボディ要素のID配列を返す。",
+      "description": "指定した平面でボディを分割し、分割で作成されたボディ要素のID配列を返す。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -2486,7 +2589,7 @@
         {
           "name": "TargetBody",
           "type": "要素",
-          "description": "分割対象のボディ要素",
+          "description": "分割対象のボディ",
           "metadata": {
             "position": 1
           }
@@ -2494,7 +2597,7 @@
         {
           "name": "plane",
           "type": "要素",
-          "description": "分割に用いる平面要素",
+          "description": "分割をする平面",
           "metadata": {
             "position": 2
           }
@@ -2502,7 +2605,7 @@
         {
           "name": "nPlaneCopy",
           "type": "整数",
-          "description": "分割に使用する平面を複数コピーする回数。通常は1",
+          "description": "分割をする平面を複数コピーして分割をする（通常は1)",
           "metadata": {
             "position": 3
           }
@@ -2510,7 +2613,7 @@
         {
           "name": "pAlignmentDirection",
           "type": "方向",
-          "description": "分割後のボディ要素の順序を整列させるための方向指定",
+          "description": "分割されたボディ要素の順番を整列させるのに使用する方向",
           "metadata": {
             "position": 4
           }
@@ -2518,7 +2621,7 @@
         {
           "name": "WCS",
           "type": "要素",
-          "description": "要素分割に使用する座標系。通常は指定しない",
+          "description": "要素分割に使用する座標系を指定。通常は指定しない",
           "metadata": {
             "position": 5
           }
@@ -2542,8 +2645,8 @@
       ],
       "properties": [],
       "returns": {
-        "type": "要素ID配列",
-        "description": "分割で作成されたボディ要素のID配列",
+        "type": "整数配列",
+        "description": "分割で作成されたボディ要素のIDの配列",
         "is_array": true,
         "raw_type": null
       },
@@ -2556,7 +2659,7 @@
     {
       "entry_type": "function",
       "name": "CutBody",
-      "description": "指定した要素（平面やシート）を用いて、ソリッドまたはシートボディをカットする。カットフィーチャーが作成され、そのIDが返される。",
+      "description": "指定した要素（平面、シート）を用いてソリッドまたはシートボディを切断し、カットフィーチャーを作成します。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -2602,7 +2705,7 @@
         {
           "name": "ReferMethod",
           "type": "不明",
-          "description": "参照方法の指定（詳細はドキュメントに記載なし）",
+          "description": "参照（関連づけ）方法を指定します。ドキュメントに詳細が記載されていないため、具体的な選択肢や形式は不明です。",
           "metadata": {
             "position": 5
           }
@@ -2610,7 +2713,7 @@
       ],
       "properties": [],
       "returns": {
-        "type": "整数",
+        "type": "要素ID",
         "description": "作成されたカットフィーチャーのID",
         "is_array": false,
         "raw_type": null
@@ -2624,7 +2727,7 @@
     {
       "entry_type": "function",
       "name": "CreateBoundedPlate",
-      "description": "指定したソリッド要素に対して、指定した境界要素を用いて板状の境界フィーチャーを作成する",
+      "description": "指定したソリッド要素に対して、境界となる要素（シート、フェイス、スケッチ、平面、ソリッド）を用いて板状のフィーチャーを作成する。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -2679,7 +2782,7 @@
         {
           "name": "ThickenType",
           "type": "厚み付けタイプ",
-          "description": "板に対する厚み付け方法を指定する（例：片方向、両方向など）",
+          "description": "板に対する厚み付けの方法を指定する（厚み付けの方向や方式を選択する設定）。",
           "metadata": {
             "position": 6
           }
@@ -2749,7 +2852,7 @@
     {
       "entry_type": "function",
       "name": "CreateBoundingBox",
-      "description": "指定したソリッド（およびシート）要素から境界ボックス形状のフィーチャーを作成する。",
+      "description": "指定したソリッド要素に対して境界ボックス形状のフィーチャーを作成する。オプションで複数要素を指定して計算方法や関連付けを制御できる。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -2771,7 +2874,7 @@
         {
           "name": "OperationType",
           "type": "オペレーションタイプ",
-          "description": "ソリッドオペレーションのタイプを指定する",
+          "description": "ソリッドに対して適用するオペレーションの種類を指定する。",
           "metadata": {
             "position": 2
           }
@@ -2779,7 +2882,7 @@
         {
           "name": "Bodies",
           "type": "要素[]",
-          "description": "境界ボックス計算に含めるソリッドまたはシート要素の配列（複数要素を指定可）",
+          "description": "境界ボックスの計算に使用するソリッドまたはシート要素の配列。TargetSolidとは別に複数要素を指定する場合に使用する。",
           "metadata": {
             "position": 3,
             "raw_type": "要素(配列)"
@@ -2788,7 +2891,7 @@
         {
           "name": "bOptimalBox",
           "type": "bool",
-          "description": "Trueを指定するとボックスを計算する座標系を最適なものにする。（そうでない場合は絶対座標系で計算する）",
+          "description": "Trueの場合、要素に最適化された局所座標系でボックスを計算する。Falseの場合は絶対座標系で計算する。",
           "metadata": {
             "position": 4
           }
@@ -2796,7 +2899,7 @@
         {
           "name": "ReferMethod",
           "type": "関連設定",
-          "description": "作成される境界ボックスと元要素との関連付け方法を指定する",
+          "description": "作成するフィーチャーと元要素との関連付け方法を指定する。",
           "metadata": {
             "position": 5
           }
@@ -2804,7 +2907,7 @@
         {
           "name": "bUpdate",
           "type": "bool",
-          "description": "更新フラグ（未実装のため現状では使用されません）",
+          "description": "更新フラグ。現在は未実装のため呼び出し時に無視される。",
           "metadata": {
             "position": 6
           }
@@ -2885,13 +2988,13 @@
     {
       "entry_type": "function",
       "name": "CreateSweepParam",
-      "description": "スイープ操作で使用するスイープパラメータオブジェクトを作成して返します。",
+      "description": "スイープ操作で使用するパラメータを保持するスイープパラメータオブジェクトを作成して返します。",
       "category": "Partオブジェクト",
       "params": [],
       "properties": [],
       "returns": {
-        "type": "object",
-        "description": "作成されたスイープパラメータオブジェクト",
+        "type": "スイープパラメータオブジェクト",
+        "description": "スイープ操作で使用するパラメータを保持するオブジェクト。",
         "is_array": false,
         "raw_type": null
       },
@@ -2904,7 +3007,7 @@
     {
       "entry_type": "function",
       "name": "CreateSweep",
-      "description": "指定したソリッド要素にスイープフィーチャーを作成してスイープ形状を付加する。",
+      "description": "指定したソリッド要素にスイープフィーチャーを作成して付加する。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -2926,7 +3029,7 @@
         {
           "name": "pParam",
           "type": "スイープパラメータオブジェクト",
-          "description": "スイープのプロファイル、経路、寸法やその他オプションを指定するスイープパラメータオブジェクト。",
+          "description": "スイープの経路・断面・方向・その他オプションを指定するパラメータオブジェクト。",
           "metadata": {
             "position": 2
           }
@@ -2934,7 +3037,7 @@
         {
           "name": "bUpdate",
           "type": "不明",
-          "description": "作成後にドキュメントやモデルを即時に更新するかを指定するブール値（trueで更新を実行）。",
+          "description": "作成後にモデルを再計算/更新するかを示す真偽値（trueで更新を実行）",
           "metadata": {
             "position": 3
           }
@@ -2942,7 +3045,7 @@
       ],
       "properties": [],
       "returns": {
-        "type": "string",
+        "type": "整数",
         "description": "作成されたスイープフィーチャーのID",
         "is_array": false,
         "raw_type": null
@@ -2956,13 +3059,13 @@
     {
       "entry_type": "function",
       "name": "CreateSweepSheet",
-      "description": "指定したプロファイル要素をスイープして新しいシート要素を作成します。ParamObjでスイープ設定（スイープ方向、ガイド曲線、プロファイル参照、オフセット等）を指定します。bUpdateが真の場合は可能な範囲で既存要素を更新します。",
+      "description": "プロファイル要素をスイープしてシート要素を作成します。",
       "category": "Partオブジェクト",
       "params": [
         {
           "name": "ParamObj",
           "type": "スイープパラメータオブジェクト",
-          "description": "スイープ動作を指定するパラメータオブジェクト（スイープ方向、プロファイル参照、ガイド曲線、オフセットなどの設定を含む）",
+          "description": "スイープ操作に使用するパラメータを保持するオブジェクト。",
           "metadata": {
             "position": 0
           }
@@ -2970,7 +3073,7 @@
         {
           "name": "bUpdate",
           "type": "不明",
-          "description": "既存要素を更新するかを示すフラグ（真なら可能な場合は既存要素を更新、偽なら常に新規作成）",
+          "description": "既存の要素を更新するかどうかを指定するフラグ（true の場合は更新）。",
           "metadata": {
             "position": 1
           }
@@ -2979,7 +3082,7 @@
       "properties": [],
       "returns": {
         "type": "ID",
-        "description": "作成（または更新）されたシート要素の要素ID（ID形式）。処理失敗時は無効なIDまたはnullとなる可能性がある。",
+        "description": "作成されたシート要素の要素ID。",
         "is_array": false,
         "raw_type": null
       },
@@ -2992,13 +3095,13 @@
     {
       "entry_type": "function",
       "name": "CreateRotationalSweepParam",
-      "description": "回転パラメータオブジェクトを作成して返します。",
+      "description": "回転スイープ（ローテーショナルスイープ）を作成するためのパラメータを格納するオブジェクトを生成します。",
       "category": "Partオブジェクト",
       "params": [],
       "properties": [],
       "returns": {
-        "type": "回転パラメータオブジェクト",
-        "description": "回転パラメータオブジェクト",
+        "type": "object",
+        "description": "回転スイープを定義するパラメータを保持するオブジェクト",
         "is_array": false,
         "raw_type": null
       },
@@ -3011,7 +3114,7 @@
     {
       "entry_type": "function",
       "name": "CreateRotationalSweep",
-      "description": "指定したソリッド要素に対して回転スイープ（回転体）フィーチャーを作成する。",
+      "description": "指定したソリッド要素に回転スイープ（回転フィーチャー）を作成する。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -3033,7 +3136,7 @@
         {
           "name": "pParam",
           "type": "回転パラメータオブジェクト",
-          "description": "回転の軸・角度・プロファイルなど、回転フィーチャーの設定を保持するパラメータオブジェクト。",
+          "description": "回転軸、角度、プロファイルなど、回転スイープのパラメータを保持するオブジェクト。",
           "metadata": {
             "position": 2
           }
@@ -3041,7 +3144,7 @@
         {
           "name": "bUpdate",
           "type": "不明",
-          "description": "作成後にモデルを即時更新するかどうかを指定するブール値。",
+          "description": "作成後にモデルを更新（再計算）するかを示すブール値（true = 更新する、false = 更新しない）。",
           "metadata": {
             "position": 3
           }
@@ -3049,8 +3152,8 @@
       ],
       "properties": [],
       "returns": {
-        "type": "要素",
-        "description": "作成された回転フィーチャーを識別するID（要素）",
+        "type": "string",
+        "description": "作成された回転フィーチャーのID",
         "is_array": false,
         "raw_type": null
       },
@@ -3063,21 +3166,21 @@
     {
       "entry_type": "function",
       "name": "CreateRotationalSweepSheet",
-      "description": "指定したプロファイルを回転（回転スイープ）してシート要素を生成します。ParamObj で回転軸・角度・プロファイル参照などのパラメータを指定します。",
+      "description": "指定したプロファイル要素を回転パラメータに基づいて回転させ、シート要素を作成します。ParamObjで回転軸、回転角度、回転対象のプロファイル参照などを指定します。bUpdateがtrueの場合は既存の要素を更新します。",
       "category": "Partオブジェクト",
       "params": [
         {
           "name": "ParamObj",
           "type": "回転パラメータオブジェクト",
-          "description": "回転スイープに必要なパラメータを保持するオブジェクト（例：回転軸、角度、元のプロファイル参照など）",
+          "description": "回転の定義を持つパラメータオブジェクト。回転軸、回転角度、回転対象のプロファイル参照や関連オプションを含みます。",
           "metadata": {
             "position": 0
           }
         },
         {
           "name": "bUpdate",
-          "type": "boolean",
-          "description": "既存の要素がある場合にそれを更新するかどうかを示すブール値（true=更新、false=新規作成）",
+          "type": "bool",
+          "description": "既存の要素を更新するかどうかを示すフラグ。trueで既存要素を更新、falseで新規作成。",
           "metadata": {
             "position": 1,
             "raw_type": "不明"
@@ -3086,8 +3189,8 @@
       ],
       "properties": [],
       "returns": {
-        "type": "integer",
-        "description": "作成されたシート要素の要素ID（整数）",
+        "type": "element ID",
+        "description": "作成されたシート要素の要素ID。",
         "is_array": false,
         "raw_type": null
       },
@@ -3105,21 +3208,19 @@
       "params": [
         {
           "name": "StartPoint",
-          "type": "点",
+          "type": "点(3D)",
           "description": "始点",
           "metadata": {
             "position": 0,
-            "raw_type": "点(3D)",
             "dimension": "3D"
           }
         },
         {
           "name": "EndPoint",
-          "type": "点",
+          "type": "点(3D)",
           "description": "終点",
           "metadata": {
             "position": 1,
-            "raw_type": "点(3D)",
             "dimension": "3D"
           }
         }
@@ -3145,11 +3246,10 @@
       "params": [
         {
           "name": "CenterPoint",
-          "type": "点",
+          "type": "点(3D)",
           "description": "中心点",
           "metadata": {
             "position": 0,
-            "raw_type": "点(3D)",
             "dimension": "3D"
           }
         },
@@ -3215,11 +3315,10 @@
       "params": [
         {
           "name": "CenterPoint",
-          "type": "点",
+          "type": "点(3D)",
           "description": "中心点",
           "metadata": {
             "position": 0,
-            "raw_type": "点(3D)",
             "dimension": "3D"
           }
         },
@@ -3288,7 +3387,7 @@
     {
       "entry_type": "function",
       "name": "CreateLoftParam",
-      "description": "ロフト操作に使用するパラメータオブジェクトを新規に作成して返します。",
+      "description": "ロフト用のパラメータオブジェクトを作成して返します",
       "category": "Partオブジェクト",
       "params": [],
       "properties": [],
@@ -3307,7 +3406,7 @@
     {
       "entry_type": "function",
       "name": "CreateLoft",
-      "description": "指定したソリッド要素にロフト形状（ロフトフィーチャー）を作成して付加する。",
+      "description": "指定したソリッド要素にロフト形状のフィーチャーを作成してモデルに追加する。",
       "category": "Partオブジェクト",
       "params": [
         {
@@ -3329,7 +3428,7 @@
         {
           "name": "pParam",
           "type": "ロフトパラメータオブジェクト",
-          "description": "ロフト作成に使用する各種設定を保持するパラメータオブジェクト。プロファイルやガイド、連続性などの設定を含む。",
+          "description": "ロフト生成に用いるパラメータを格納したオブジェクト（ロフトの設定を含む）",
           "metadata": {
             "position": 2
           }
@@ -3337,7 +3436,7 @@
         {
           "name": "bUpdate",
           "type": "不明",
-          "description": "作成後にモデルを更新するかどうかを指定する真偽値。trueで更新を実行、falseで更新を行わない。",
+          "description": "作成後にモデルを更新するかを指定するブール値（trueで即時更新、falseで更新しない）",
           "metadata": {
             "position": 3
           }
@@ -3359,13 +3458,13 @@
     {
       "entry_type": "function",
       "name": "CreateLoftSheet",
-      "description": "ロフトシート要素を作成します。ParamObjで指定したパラメータに基づいてシートを作成し、作成された要素のIDを返します。",
+      "description": "ロフトのパラメータに基づいてシート要素を作成します。",
       "category": "Partオブジェクト",
       "params": [
         {
           "name": "ParamObj",
           "type": "ロフトパラメータオブジェクト",
-          "description": "ロフトシート作成に必要なパラメータを含むオブジェクト。",
+          "description": "ロフト作成に必要なパラメータを含むオブジェクト。",
           "metadata": {
             "position": 0
           }
@@ -3373,7 +3472,7 @@
         {
           "name": "bUpdate",
           "type": "不明",
-          "description": "既存のシート要素を更新するかどうかを示すフラグ（真偽値）。",
+          "description": "既存のシート要素を更新するかどうかを示すフラグ（true/false）。",
           "metadata": {
             "position": 1
           }
@@ -3395,13 +3494,13 @@
     {
       "entry_type": "function",
       "name": "CreateSlotParam",
-      "description": "船殻（Part）のスロットに割り当てるスロットパラメータオブジェクトを新規作成して返します。",
+      "description": "船殻のスロットに使用するパラメータオブジェクトを作成して返します。",
       "category": "Partオブジェクト",
       "params": [],
       "properties": [],
       "returns": {
         "type": "object",
-        "description": "作成されたスロットパラメータオブジェクトを返します。",
+        "description": "スロットパラメータオブジェクト（スロットの設定を保持するオブジェクト）",
         "is_array": false,
         "raw_type": null
       },
@@ -3414,31 +3513,30 @@
     {
       "entry_type": "function",
       "name": "CreateSlot",
-      "description": "船体にスロットフィーチャーと2つのカラープレート要素を作成する。",
+      "description": "船殻のスロット要素と、対応するカラープレート（カラープレート1、カラープレート2）を作成する。ParamObjで指定したパラメータに基づいて作成する。",
       "category": "Partオブジェクト",
       "params": [
         {
           "name": "ParamObj",
           "type": "スロットパラメータオブジェクト",
-          "description": "スロット作成に必要な設定を含むオブジェクト（位置・寸法・形状などのパラメータを保持）",
+          "description": "スロット作成に必要なパラメータを含むオブジェクト。",
           "metadata": {
             "position": 0
           }
         },
         {
           "name": "bUpdate",
-          "type": "bool",
-          "description": "既存の関連要素を更新するかを指定するフラグ。true を指定すると既存要素を更新する挙動になることが想定される",
+          "type": "不明",
+          "description": "既存の要素を更新する場合にtrueを指定するフラグ。",
           "metadata": {
-            "position": 1,
-            "raw_type": "不明"
+            "position": 1
           }
         }
       ],
       "properties": [],
       "returns": {
         "type": "ID[]",
-        "description": "作成されたスロットフィーチャー、カラープレート1、カラープレート2の要素IDを順に格納した配列",
+        "description": "作成されたスロットフィーチャー、カラープレート１，カラープレート２の要素ID配列",
         "is_array": true,
         "raw_type": null
       },
@@ -3451,12 +3549,12 @@
     {
       "entry_type": "function",
       "name": "CreateFacePlateParam",
-      "description": "船殻のフェイスプレートに使用するフェイスプレートパラメータオブジェクトを作成して返します。",
+      "description": "船殻のフェイスプレート（面板）用のパラメータオブジェクトを作成して返します。",
       "category": "Partオブジェクト",
       "params": [],
       "properties": [],
       "returns": {
-        "type": "オブジェクト",
+        "type": "フェイスプレートパラメータオブジェクト",
         "description": "作成されたフェイスプレートパラメータオブジェクト",
         "is_array": false,
         "raw_type": null
@@ -3470,13 +3568,13 @@
     {
       "entry_type": "function",
       "name": "CreateFacePlate",
-      "description": "船殻のフェイスプレート要素を作成する",
+      "description": "船殻のフェイスプレート要素を作成する。ParamObjで指定したパラメータに基づいて新しいフェイスプレート要素を生成し、その要素の識別子を返す。bUpdateは既存要素の更新動作を制御する（実装依存）。",
       "category": "Partオブジェクト",
       "params": [
         {
           "name": "ParamObj",
           "type": "フェイスプレートパラメータオブジェクト",
-          "description": "フェイスプレート作成用のパラメータを保持するオブジェクト",
+          "description": "フェイスプレートの形状、位置、寸法など作成に必要な設定を含むパラメータオブジェクト",
           "metadata": {
             "position": 0
           }
@@ -3484,7 +3582,7 @@
         {
           "name": "bUpdate",
           "type": "不明",
-          "description": "既存の要素がある場合に更新するかどうかを指定する真偽値",
+          "description": "既存のフェイスプレート要素を更新する場合に true を指定するフラグ（false の場合は新規作成）",
           "metadata": {
             "position": 1
           }
@@ -3493,7 +3591,7 @@
       "properties": [],
       "returns": {
         "type": "ID",
-        "description": "作成されたフェイスプレート要素のID",
+        "description": "作成されたフェイスプレート要素の識別子（ID）",
         "is_array": false,
         "raw_type": null
       },
