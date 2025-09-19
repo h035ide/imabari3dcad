@@ -11,7 +11,7 @@ from .schemas import ApiBundle, ApiEntry, Parameter, ReturnSpec, TypeDefinition
 
 HEADER_RE = re.compile(r"^■(.+?)(?:のメソッド)?$")
 TITLE_RE = re.compile(r"^〇(.+)$")
-RETURN_RE = re.compile(r"^返り値[:：]\s*(.+)$")
+RETURN_RE = re.compile(r"^\s*返り値[:：]\s*(.+)$")
 # パラメータ改行型: 末尾が '(' で改行してパラメータが続く
 METHOD_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*\($")
 # パラメータ無しの同一行型: 例) Quit() / Create3DDocument()
@@ -126,19 +126,33 @@ def parse_type_definitions(text: str) -> List[TypeDefinition]:
     definitions: List[TypeDefinition] = []
     current_name = None
     current_lines: List[str] = []
-    for line in _normalize_text(text).split("\n"):
-        stripped = line.strip()
-        if not stripped:
+    lines = _normalize_text(text).split("\n")
+    
+    i = 0
+    while i < len(lines):
+        line = lines[i].strip()
+        if not line:
+            i += 1
             continue
-        if stripped.startswith("■"):
+            
+        if line.startswith("■"):
             if current_name and current_lines:
                 definitions.append(
                     TypeDefinition(name=current_name, description="\n".join(current_lines))
                 )
-            current_name = stripped.replace("■", "", 1).strip()
+            current_name = line.replace("■", "", 1).strip()
             current_lines = []
-        elif current_name:
-            current_lines.append(stripped)
+            i += 1
+            continue
+            
+        if current_name:
+            # bool型の特別処理：次の行が「以下のタイプは全てPythonの型としては文字列...」の場合はスキップ
+            if current_name == "bool" and line == "以下のタイプは全てPythonの型としては文字列。文字列の書式の仕様":
+                i += 1
+                continue
+            current_lines.append(line)
+        i += 1
+        
     if current_name and current_lines:
         definitions.append(TypeDefinition(name=current_name, description="\n".join(current_lines)))
     return definitions
@@ -225,7 +239,11 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
             i += 1
             continue
         if collecting and current_entry:
-            param_match = PARAM_RE.match(line)
+            # 閉じ括弧を除去してからパラメータ解析（//の前の）を除去
+            import re
+            processed_line = re.sub(r'\s*\)\s*(?=//)', '', line.strip())
+            
+            param_match = PARAM_RE.match(processed_line)
             if param_match:
                 pname, ptype, pdesc = param_match.groups()
                 parameter = _build_parameter(pname, ptype, pdesc, param_index)
@@ -282,7 +300,17 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
             if CLOSING_RE.search(line):
                 idx_close = line.rfind(")")
                 before = line[:idx_close]
-                candidate = before.split(",")[-1].strip()
+                
+                # カンマで分割して最後の要素を取得（従来の方法）
+                if "," in before:
+                    candidate = before.split(",")[-1].strip()
+                else:
+                    # カンマがない場合は、括弧の前の部分全体を候補とする
+                    candidate = before.strip()
+                
+                # 閉じ括弧を除去
+                candidate = candidate.rstrip(")")
+                
                 comment = ""
                 if "//" in line:
                     comment = line.split("//", 1)[1].strip()

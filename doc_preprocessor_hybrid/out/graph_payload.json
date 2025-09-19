@@ -33,10 +33,10 @@
       }
     },
     {
-      "id": "不明",
+      "id": "bool",
       "label": "Type",
       "properties": {
-        "name": "不明"
+        "name": "bool"
       }
     },
     {
@@ -44,6 +44,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bShow",
+        "description": "表示する時はTrue",
         "metadata": {
           "position": 0
         }
@@ -56,6 +57,13 @@
         "name": "LoadPart",
         "description": "Partオブジェクトを読み込む",
         "category": "Applicationオブジェクト"
+      }
+    },
+    {
+      "id": "不明",
+      "label": "Type",
+      "properties": {
+        "name": "不明"
       }
     },
     {
@@ -81,6 +89,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bForceEvaluation",
+        "description": "強制的に全要素を再計算して開くときはTrue (通常はFalse）",
         "metadata": {
           "position": 1
         }
@@ -111,6 +120,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bForceEvaluation",
+        "description": "強制的に全要素を再計算して開くときはTrue (通常はFalse）",
         "metadata": {
           "position": 1
         }
@@ -184,6 +194,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bAsCompactFormat",
+        "description": "最小サイズになる形式で保存する時はTrue（開くのに計算を必要とします）",
         "metadata": {
           "position": 1
         }
@@ -323,6 +334,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bFitToModel",
+        "description": "表示方向にあわせて表示範囲を要素にフィットさせる時はTrue",
         "metadata": {
           "position": 2
         }
@@ -335,6 +347,13 @@
         "name": "ExportToBitmap",
         "description": "ビューの表示内容をビットマップファイルとして出力する",
         "category": "Viewオブジェクト"
+      }
+    },
+    {
+      "id": "整数",
+      "label": "Type",
+      "properties": {
+        "name": "整数"
       }
     },
     {
@@ -353,6 +372,7 @@
       "label": "Parameter",
       "properties": {
         "name": "nBitapWidth",
+        "description": "ビットマップファイルの横方向のピクセルサイズ（縦方向はビューの縦横比から取得）",
         "metadata": {
           "position": 1
         }
@@ -400,13 +420,6 @@
       "label": "Type",
       "properties": {
         "name": "長さ"
-      }
-    },
-    {
-      "id": "bool",
-      "label": "Type",
-      "properties": {
-        "name": "bool"
       }
     },
     {
@@ -992,13 +1005,6 @@
         "name": "CreateSketchNURBSCurve",
         "description": "スケッチＮＵＲＢＳ線を中心点を指定して作成",
         "category": "Partオブジェクト"
-      }
-    },
-    {
-      "id": "整数",
-      "label": "Type",
-      "properties": {
-        "name": "整数"
       }
     },
     {
@@ -1597,6 +1603,7 @@
       "label": "Parameter",
       "properties": {
         "name": "MaterialName",
+        "description": "作成するソリッド要素の材質名称（空文字可）",
         "metadata": {
           "position": 2
         }
@@ -2319,6 +2326,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
         "metadata": {
           "position": 7
         }
@@ -2597,6 +2605,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
         "metadata": {
           "position": 12
         }
@@ -2683,6 +2692,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
         "metadata": {
           "position": 6
         }
@@ -2937,8 +2947,10 @@
       "label": "Parameter",
       "properties": {
         "name": "EndPoint",
+        "description": "終点",
         "metadata": {
-          "position": 1
+          "position": 1,
+          "raw_type": "点(3D)"
         }
       }
     },
@@ -3012,6 +3024,7 @@
       "label": "Parameter",
       "properties": {
         "name": "Range",
+        "description": "(0-2pi)",
         "metadata": {
           "position": 5
         }
@@ -3098,6 +3111,7 @@
       "label": "Parameter",
       "properties": {
         "name": "Range",
+        "description": "(0-2pi)",
         "metadata": {
           "position": 6
         }
@@ -3358,6 +3372,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
         "metadata": {
           "position": 5
         }
@@ -3457,6 +3472,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ（未実装、使用しない）",
         "metadata": {
           "position": 6
         }
@@ -3554,7 +3570,7 @@
     {
       "type": "HAS_TYPE",
       "start": "ShowMainWindow:bShow",
-      "end": "不明"
+      "end": "bool"
     },
     {
       "type": "BELONGS_TO",
@@ -3587,7 +3603,7 @@
     {
       "type": "HAS_TYPE",
       "start": "LoadPart:bForceEvaluation",
-      "end": "不明"
+      "end": "bool"
     },
     {
       "type": "BELONGS_TO",
@@ -3620,7 +3636,7 @@
     {
       "type": "HAS_TYPE",
       "start": "OpenDocument:bForceEvaluation",
-      "end": "不明"
+      "end": "bool"
     },
     {
       "type": "BELONGS_TO",
@@ -3705,7 +3721,7 @@
     {
       "type": "HAS_TYPE",
       "start": "Save:bAsCompactFormat",
-      "end": "不明"
+      "end": "bool"
     },
     {
       "type": "BELONGS_TO",
@@ -3859,7 +3875,7 @@
     {
       "type": "HAS_TYPE",
       "start": "SetDirection:bFitToModel",
-      "end": "不明"
+      "end": "bool"
     },
     {
       "type": "BELONGS_TO",
@@ -3892,7 +3908,7 @@
     {
       "type": "HAS_TYPE",
       "start": "ExportToBitmap:nBitapWidth",
-      "end": "不明"
+      "end": "整数"
     },
     {
       "type": "BELONGS_TO",
@@ -5019,7 +5035,7 @@
     {
       "type": "HAS_TYPE",
       "start": "CreateSolid:MaterialName",
-      "end": "不明"
+      "end": "材料"
     },
     {
       "type": "BELONGS_TO",
@@ -5699,7 +5715,7 @@
     {
       "type": "HAS_TYPE",
       "start": "BodyDivideByCurves:bUpdate",
-      "end": "不明"
+      "end": "bool"
     },
     {
       "type": "BELONGS_TO",
@@ -5968,7 +5984,7 @@
     {
       "type": "HAS_TYPE",
       "start": "CreateBoundedPlate:bUpdate",
-      "end": "不明"
+      "end": "bool"
     },
     {
       "type": "BELONGS_TO",
@@ -6051,7 +6067,7 @@
     {
       "type": "HAS_TYPE",
       "start": "CreateBoundingBox:bUpdate",
-      "end": "不明"
+      "end": "bool"
     },
     {
       "type": "BELONGS_TO",
@@ -6315,7 +6331,7 @@
     {
       "type": "HAS_TYPE",
       "start": "CreateLine:EndPoint",
-      "end": "不明"
+      "end": "点"
     },
     {
       "type": "BELONGS_TO",
@@ -6388,7 +6404,7 @@
     {
       "type": "HAS_TYPE",
       "start": "CreateArc:Range",
-      "end": "不明"
+      "end": "範囲"
     },
     {
       "type": "BELONGS_TO",
@@ -6471,7 +6487,7 @@
     {
       "type": "HAS_TYPE",
       "start": "CreateEllipse:Range",
-      "end": "不明"
+      "end": "範囲"
     },
     {
       "type": "BELONGS_TO",
@@ -6735,7 +6751,7 @@
     {
       "type": "HAS_TYPE",
       "start": "CreateOffsetDatumPlane:bUpdate",
-      "end": "不明"
+      "end": "bool"
     },
     {
       "type": "BELONGS_TO",
@@ -6818,7 +6834,7 @@
     {
       "type": "HAS_TYPE",
       "start": "CreateRotatedDatumPlane:bUpdate",
-      "end": "不明"
+      "end": "bool"
     }
   ]
 }
