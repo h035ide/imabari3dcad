@@ -603,6 +603,61 @@
           "metadata": {
             "position": 4
           }
+        },
+        {
+          "name": "bRevUV",
+          "type": "bool",
+          "description": "スケッチ平面のX,Y軸を交換するかどうかのフラグ(bool)",
+          "metadata": {
+            "position": 5
+          }
+        },
+        {
+          "name": "bRevUDir",
+          "type": "bool",
+          "description": "スケッチ平面のX軸となる方向を反転するかどうかのフラグ(bool)",
+          "metadata": {
+            "position": 6
+          }
+        },
+        {
+          "name": "StyleName",
+          "type": "注記スタイル",
+          "description": "スケッチ平面に適用する注記スタイル名称（空文字可）",
+          "metadata": {
+            "position": 7
+          }
+        },
+        {
+          "name": "OriginPoint",
+          "type": "点",
+          "description": "スケッチ平面の原点を指定（空文字可）",
+          "metadata": {
+            "position": 8
+          }
+        },
+        {
+          "name": "AxisDirection",
+          "type": "方向",
+          "description": "スケッチ平面の軸方向を指定（空文字可）",
+          "metadata": {
+            "position": 9
+          }
+        },
+        {
+          "name": "bDefAxisIsX",
+          "type": "bool",
+          "description": "スケッチ平面のX実を指定する場合はTrue(bool)",
+          "metadata": {
+            "position": 10
+          }
+        },
+        {
+          "name": "bUpdate",
+          "type": "不明",
+          "metadata": {
+            "position": 11
+          }
         }
       ],
       "properties": [],
@@ -1059,6 +1114,13 @@
           "description": "(0-2pi)",
           "metadata": {
             "position": 8
+          }
+        },
+        {
+          "name": "bUpdate",
+          "type": "不明",
+          "metadata": {
+            "position": 9
           }
         }
       ],
@@ -2322,6 +2384,38 @@
           "metadata": {
             "position": 3
           }
+        },
+        {
+          "name": "pAlignmentDirection",
+          "type": "方向",
+          "description": "分割されたボディ要素の順番を整列させるのに使用する方向",
+          "metadata": {
+            "position": 4
+          }
+        },
+        {
+          "name": "WCS",
+          "type": "要素",
+          "description": "要素分割に使用する座標系を指定。通常は指定しない",
+          "metadata": {
+            "position": 5
+          }
+        },
+        {
+          "name": "ReferMethod",
+          "type": "関連設定",
+          "description": "要素の関連づけ方法の指定",
+          "metadata": {
+            "position": 6
+          }
+        },
+        {
+          "name": "bUpdate",
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "metadata": {
+            "position": 7
+          }
         }
       ],
       "properties": [],
@@ -2626,20 +2720,43 @@
           "metadata": {
             "position": 1
           }
+        },
+        {
+          "name": "GValue",
+          "type": "整数",
+          "description": "緑色の値(0-255)",
+          "metadata": {
+            "position": 2
+          }
+        },
+        {
+          "name": "BValue",
+          "type": "整数",
+          "description": "青色の値(0-255)",
+          "metadata": {
+            "position": 3
+          }
+        },
+        {
+          "name": "Transparency",
+          "type": "浮動小数点",
+          "description": "透明度の指定(0.0不透明-1.0透明)",
+          "metadata": {
+            "position": 4
+          }
         }
       ],
       "properties": [],
       "returns": {
-        "type": "不明",
-        "description": "作成された境界ボックス形状フィーチャーのID",
+        "type": "void",
+        "description": "",
         "is_array": false,
         "raw_type": null
       },
       "notes": null,
       "implementation_status": "implemented",
       "object_name": "Partオブジェクト",
-      "title_jp": "指定要素の色を設定する",
-      "raw_return": "作成された境界ボックス形状フィーチャーのID"
+      "title_jp": "指定要素の色を設定する"
     },
     {
       "entry_type": "function",
@@ -3301,16 +3418,15 @@
       ],
       "properties": [],
       "returns": {
-        "type": "ID",
-        "description": "作成されたフェイスプレート要素ID",
+        "type": "void",
+        "description": "",
         "is_array": false,
         "raw_type": null
       },
       "notes": null,
       "implementation_status": "implemented",
       "object_name": "Partオブジェクト",
-      "title_jp": "データム平面の作成（移動）",
-      "raw_return": "作成されたフェイスプレート要素ID"
+      "title_jp": "データム平面の作成（移動）"
     },
     {
       "entry_type": "function",
@@ -3377,16 +3493,15 @@
       ],
       "properties": [],
       "returns": {
-        "type": "ID",
-        "description": "作成されたフェイスプレート要素ID",
+        "type": "void",
+        "description": "",
         "is_array": false,
         "raw_type": null
       },
       "notes": null,
       "implementation_status": "implemented",
       "object_name": "Partオブジェクト",
-      "title_jp": "データム平面の作成（回転）",
-      "raw_return": "作成されたフェイスプレート要素ID"
+      "title_jp": "データム平面の作成（回転）"
     }
   ]
 }
