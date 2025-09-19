@@ -689,7 +689,8 @@
           "description": "始点",
           "metadata": {
             "position": 3,
-            "raw_type": "点(2D)"
+            "raw_type": "点(2D)",
+            "dimension": "2D"
           }
         },
         {
@@ -698,7 +699,8 @@
           "description": "終点",
           "metadata": {
             "position": 4,
-            "raw_type": "点(2D)"
+            "raw_type": "点(2D)",
+            "dimension": "2D"
           }
         },
         {
@@ -758,7 +760,8 @@
           "description": "中心点",
           "metadata": {
             "position": 3,
-            "raw_type": "点(2D)"
+            "raw_type": "点(2D)",
+            "dimension": "2D"
           }
         },
         {
@@ -767,7 +770,8 @@
           "description": "始点",
           "metadata": {
             "position": 4,
-            "raw_type": "点(2D)"
+            "raw_type": "点(2D)",
+            "dimension": "2D"
           }
         },
         {
@@ -776,7 +780,8 @@
           "description": "終点",
           "metadata": {
             "position": 5,
-            "raw_type": "点(2D)"
+            "raw_type": "点(2D)",
+            "dimension": "2D"
           }
         },
         {
@@ -844,7 +849,8 @@
           "description": "始点",
           "metadata": {
             "position": 3,
-            "raw_type": "点(2D)"
+            "raw_type": "点(2D)",
+            "dimension": "2D"
           }
         },
         {
@@ -853,7 +859,8 @@
           "description": "通過点",
           "metadata": {
             "position": 4,
-            "raw_type": "点(2D)"
+            "raw_type": "点(2D)",
+            "dimension": "2D"
           }
         },
         {
@@ -862,7 +869,8 @@
           "description": "終点",
           "metadata": {
             "position": 5,
-            "raw_type": "点(2D)"
+            "raw_type": "点(2D)",
+            "dimension": "2D"
           }
         },
         {
@@ -922,7 +930,8 @@
           "description": "中心点",
           "metadata": {
             "position": 3,
-            "raw_type": "点(2D)"
+            "raw_type": "点(2D)",
+            "dimension": "2D"
           }
         },
         {
@@ -1006,7 +1015,8 @@
           "description": "中心点",
           "metadata": {
             "position": 3,
-            "raw_type": "点(2D)"
+            "raw_type": "点(2D)",
+            "dimension": "2D"
           }
         },
         {
@@ -1023,7 +1033,8 @@
           "description": "主軸方向を指定",
           "metadata": {
             "position": 5,
-            "raw_type": "方向(2D)"
+            "raw_type": "方向(2D)",
+            "dimension": "2D"
           }
         },
         {
@@ -1572,9 +1583,10 @@
         },
         {
           "name": "plane",
-          "type": "[in] BSTR",
+          "type": "文字列",
           "metadata": {
-            "position": 1
+            "position": 1,
+            "raw_type": "[in] BSTR"
           }
         },
         {
@@ -2847,7 +2859,8 @@
           "description": "始点",
           "metadata": {
             "position": 0,
-            "raw_type": "点(3D)"
+            "raw_type": "点(3D)",
+            "dimension": "3D"
           }
         },
         {
@@ -2856,7 +2869,8 @@
           "description": "終点",
           "metadata": {
             "position": 1,
-            "raw_type": "点(3D)"
+            "raw_type": "点(3D)",
+            "dimension": "3D"
           }
         }
       ],
@@ -2885,7 +2899,8 @@
           "description": "中心点",
           "metadata": {
             "position": 0,
-            "raw_type": "点(3D)"
+            "raw_type": "点(3D)",
+            "dimension": "3D"
           }
         },
         {
@@ -2954,7 +2969,8 @@
           "description": "中心点",
           "metadata": {
             "position": 0,
-            "raw_type": "点(3D)"
+            "raw_type": "点(3D)",
+            "dimension": "3D"
           }
         },
         {

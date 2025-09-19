@@ -22,7 +22,10 @@ PROMPT = ChatPromptTemplate.from_messages(
     [
         (
             "system",
-            "You polish EVO.SHIP API metadata. Respond with compact JSON, list only changed fields, and do not invent values.",
+            (
+                "You polish EVO.SHIP API metadata. Respond with compact JSON, list only changed fields, "
+                "and do not invent values."
+            ),
         ),
         (
             "user",
@@ -33,8 +36,10 @@ PROMPT = ChatPromptTemplate.from_messages(
             Documentation excerpt:
             {doc_snippet}
 
-            Update description fields, infer better return type if possible, and fill missing parameter descriptions.
-            Only include keys you actually change. For params, include only entries that require updates with an existing name.
+            Update description fields, infer better return type if possible,
+            and fill missing parameter descriptions.
+            Only include keys you actually change. For params, include only entries
+            that require updates with an existing name.
             Output JSON with optional keys: description, returns, params.
             """,
         ),
@@ -45,7 +50,10 @@ TYPE_PROMPT = ChatPromptTemplate.from_messages(
     [
         (
             "system",
-            "You revise EVO.SHIP type definitions. Respond with compact JSON, include only modified keys, and avoid hallucinating values.",
+            (
+                "You revise EVO.SHIP type definitions. Respond with compact JSON, include only modified keys, "
+                "and avoid hallucinating values."
+            ),
         ),
         (
             "user",
@@ -56,7 +64,8 @@ TYPE_PROMPT = ChatPromptTemplate.from_messages(
             Definition text:
             {definition_text}
 
-            If the description mixes core meaning with concrete examples, keep the core meaning in description and move the examples to an examples array of short strings.
+            If the description mixes core meaning with concrete examples, keep the core meaning in description
+            and move the examples to an examples array of short strings.
             Only include keys you change (description and/or examples). Return JSON.
             """,
         ),
@@ -78,7 +87,8 @@ def _doc_snippet(entry: ApiEntry) -> str:
 def _needs_enrichment(entry: ApiEntry) -> bool:
     if not entry.description:
         return True
-    if entry.returns and entry.returns.type in {"不明", "void"} and entry.raw_return:
+    # 返り値は raw_return が "なし" などで確定している場合は触らない
+    if entry.returns and entry.returns.type in {"不明"} and entry.raw_return:
         return True
     for param in entry.params:
         if not param.description:
@@ -92,9 +102,12 @@ def _apply_enrichment(entry: ApiEntry, payload: Dict[str, object]) -> None:
         entry.description = description.strip()
     returns = payload.get("returns")
     if isinstance(returns, dict):
+        # 保守的ガード: raw_return が "なし" 等のときは type=void を維持
+        raw = (entry.raw_return or "").strip()
+        locked_void = raw in {"なし", "None", "void", ""}
         target = entry.returns or ReturnSpec()
         r_type = returns.get("type")
-        if isinstance(r_type, str) and r_type:
+        if isinstance(r_type, str) and r_type and not locked_void:
             target.type = r_type.strip()
         r_desc = returns.get("description")
         if isinstance(r_desc, str):
@@ -116,10 +129,12 @@ def _apply_enrichment(entry: ApiEntry, payload: Dict[str, object]) -> None:
                     desc = update.get("description")
                     if isinstance(desc, str) and desc:
                         param.description = desc.strip()
+                    # 型上書きは原則禁止（ルール出力優先）。未知型ならば補完を許可
                     inferred_type = update.get("type")
                     if isinstance(inferred_type, str) and inferred_type:
-                        param.type = inferred_type.strip()
-                        param.raw_type = param.raw_type or inferred_type.strip()
+                        if param.type in {"不明", "unknown"}:
+                            param.type = inferred_type.strip()
+                            param.raw_type = param.raw_type or inferred_type.strip()
                     break
 
 
