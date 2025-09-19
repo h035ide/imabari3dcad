@@ -41,6 +41,10 @@ def _read_text_file(path: Path) -> str:
 
 def _clean_type_name(raw: str) -> Tuple[str, bool]:
     name = raw.strip()
+    # COM/IDL 属性の除去と代表型の正規化
+    name = re.sub(r"\[[^\]]*\]", "", name).strip()  # [in], [out] など
+    name = name.replace("BSTR", "string").replace("LPWSTR", "string").replace("LPSTR", "string")
+    # 2D/3D注記など括弧内は後で落とす（dimension抽出は別）
     is_array = any(marker in name for marker in ARRAY_MARKERS)
     if is_array:
         for marker in ARRAY_MARKERS:
@@ -58,6 +62,8 @@ def _clean_type_name(raw: str) -> Tuple[str, bool]:
         "integer": "整数",
         "bool": "bool",
         "boolean": "bool",
+        "真偽値": "bool",
+        "論理値": "bool",
     }
     key = name.lower()
     name = mapping.get(key, name)
@@ -75,6 +81,12 @@ def _is_required(desc: str) -> bool:
 
 def _build_parameter(name: str, raw_type: str, description: str, position: int) -> Parameter:
     cleaned, is_array = _clean_type_name(raw_type)
+    # 次元(2D/3D)抽出
+    dim: str | None = None
+    if "(2D)" in raw_type:
+        dim = "2D"
+    elif "(3D)" in raw_type:
+        dim = "3D"
     param = Parameter(
         name=name,
         type=cleaned,
@@ -82,6 +94,7 @@ def _build_parameter(name: str, raw_type: str, description: str, position: int) 
         is_required=_is_required(description),
         position=position,
         raw_type=raw_type.strip(),
+        dimension=dim,
     )
     if is_array:
         param.type = f"{param.type}[]"
@@ -127,14 +140,13 @@ def parse_type_definitions(text: str) -> List[TypeDefinition]:
     current_name = None
     current_lines: List[str] = []
     lines = _normalize_text(text).split("\n")
-    
+
     i = 0
     while i < len(lines):
         line = lines[i].strip()
         if not line:
             i += 1
             continue
-            
         if line.startswith("■"):
             if current_name and current_lines:
                 definitions.append(
@@ -144,7 +156,6 @@ def parse_type_definitions(text: str) -> List[TypeDefinition]:
             current_lines = []
             i += 1
             continue
-            
         if current_name:
             # bool型の特別処理：次の行が「以下のタイプは全てPythonの型としては文字列...」の場合はスキップ
             if current_name == "bool" and line == "以下のタイプは全てPythonの型としては文字列。文字列の書式の仕様":
@@ -152,7 +163,7 @@ def parse_type_definitions(text: str) -> List[TypeDefinition]:
                 continue
             current_lines.append(line)
         i += 1
-        
+
     if current_name and current_lines:
         definitions.append(TypeDefinition(name=current_name, description="\n".join(current_lines)))
     return definitions
@@ -242,7 +253,6 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
             # 閉じ括弧を除去してからパラメータ解析（//の前の）を除去
             import re
             processed_line = re.sub(r'\s*\)\s*(?=//)', '', line.strip())
-            
             param_match = PARAM_RE.match(processed_line)
             if param_match:
                 pname, ptype, pdesc = param_match.groups()
@@ -300,7 +310,6 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
             if CLOSING_RE.search(line):
                 idx_close = line.rfind(")")
                 before = line[:idx_close]
-                
                 # カンマで分割して最後の要素を取得（従来の方法）
                 if "," in before:
                     candidate = before.split(",")[-1].strip()
@@ -310,7 +319,6 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
                 
                 # 閉じ括弧を除去
                 candidate = candidate.rstrip(")")
-                
                 comment = ""
                 if "//" in line:
                     comment = line.split("//", 1)[1].strip()
