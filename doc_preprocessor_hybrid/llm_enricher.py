@@ -7,18 +7,22 @@ from typing import Dict, List, Optional
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 
-from .schemas import ApiBundle, ApiEntry, ReturnSpec
+from .schemas import ApiBundle, ApiEntry, ReturnSpec, TypeDefinition
+
+from dotenv import load_dotenv
+
+# .envファイルを明示的にロード
+load_dotenv()
 
 DEFAULT_MODEL_CONFIG: Dict[str, object] = {
     "model": "gpt-5-mini",
-    "temperature": 0.2,
 }
 
 PROMPT = ChatPromptTemplate.from_messages(
     [
         (
             "system",
-            "You polish EVO.SHIP API metadata. Respond with compact JSON and do not invent fields.",
+            "You polish EVO.SHIP API metadata. Respond with compact JSON, list only changed fields, and do not invent values.",
         ),
         (
             "user",
@@ -30,7 +34,30 @@ PROMPT = ChatPromptTemplate.from_messages(
             {doc_snippet}
 
             Update description fields, infer better return type if possible, and fill missing parameter descriptions.
-            Output JSON with keys: description, returns, params.
+            Only include keys you actually change. For params, include only entries that require updates with an existing name.
+            Output JSON with optional keys: description, returns, params.
+            """,
+        ),
+    ]
+)
+
+TYPE_PROMPT = ChatPromptTemplate.from_messages(
+    [
+        (
+            "system",
+            "You revise EVO.SHIP type definitions. Respond with compact JSON, include only modified keys, and avoid hallucinating values.",
+        ),
+        (
+            "user",
+            """
+            Current metadata:
+            {current_json}
+
+            Definition text:
+            {definition_text}
+
+            If the description mixes core meaning with concrete examples, keep the core meaning in description and move the examples to an examples array of short strings.
+            Only include keys you change (description and/or examples). Return JSON.
             """,
         ),
     ]
@@ -96,6 +123,21 @@ def _apply_enrichment(entry: ApiEntry, payload: Dict[str, object]) -> None:
                     break
 
 
+def _apply_type_enrichment(type_def: TypeDefinition, payload: Dict[str, object]) -> bool:
+    updated = False
+    description = payload.get("description")
+    if isinstance(description, str) and description.strip() and description.strip() != type_def.description:
+        type_def.description = description.strip()
+        updated = True
+    examples = payload.get("examples")
+    if isinstance(examples, list):
+        cleaned = [str(item).strip() for item in examples if str(item).strip()]
+        if cleaned and cleaned != type_def.examples:
+            type_def.examples = cleaned
+            updated = True
+    return updated
+
+
 def enrich_bundle(
     bundle: ApiBundle,
     enabled: bool = True,
@@ -112,13 +154,32 @@ def enrich_bundle(
 
     config = {**DEFAULT_MODEL_CONFIG, **(model_config or {})}
     llm = ChatOpenAI(**config)
-    chain = PROMPT | llm
+    type_chain = TYPE_PROMPT | llm
+    entry_chain = PROMPT | llm
+
+    for type_def in bundle.type_definitions:
+        current_json = json.dumps(type_def.to_dict(), ensure_ascii=False)
+        try:
+            result = type_chain.invoke(
+                {
+                    "current_json": current_json,
+                    "definition_text": type_def.description,
+                }
+            )
+            content = result.content if hasattr(result, "content") else str(result)
+            payload = json.loads(content)
+            if not isinstance(payload, dict):
+                raise ValueError("Type definition payload must be a JSON object")
+            if _apply_type_enrichment(type_def, payload):
+                audit_log.append({"status": "updated_type", "definition": type_def.name})
+        except Exception as exc:  # noqa: BLE001 - bubble up aggregate context
+            audit_log.append({"status": "error_type", "definition": type_def.name, "error": str(exc)})
 
     entries = [entry for entry in bundle.api_entries if _needs_enrichment(entry)]
     for entry in entries:
         current_json = json.dumps(entry.to_dict(), ensure_ascii=False)
         try:
-            result = chain.invoke(
+            result = entry_chain.invoke(
                 {
                     "current_json": current_json,
                     "doc_snippet": _doc_snippet(entry),
@@ -126,8 +187,10 @@ def enrich_bundle(
             )
             content = result.content if hasattr(result, "content") else str(result)
             payload = json.loads(content)
+            if not isinstance(payload, dict):
+                raise ValueError("Entry payload must be a JSON object")
             _apply_enrichment(entry, payload)
-            audit_log.append({"status": "updated", "entry": entry.name})
+            audit_log.append({"status": "updated_entry", "entry": entry.name})
         except Exception as exc:  # noqa: BLE001 - bubble up aggregate context
-            audit_log.append({"status": "error", "entry": entry.name, "error": str(exc)})
+            audit_log.append({"status": "error_entry", "entry": entry.name, "error": str(exc)})
     return audit_log

@@ -21,3 +21,7 @@ class PipelineConfig:
     @property
     def vector_output(self) -> Path:
         return self.output_dir / "vector_chunks.jsonl"
+
+    @property
+    def structured_output_enriched(self) -> Path:
+        return self.output_dir / "structured_api_enriched.json"

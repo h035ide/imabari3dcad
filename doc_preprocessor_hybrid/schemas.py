@@ -8,10 +8,13 @@ from typing import Dict, List, Optional
 class TypeDefinition:
     name: str
     description: str
+    examples: List[str] = field(default_factory=list)
 
-    def to_dict(self) -> Dict[str, str]:
-        # 'source' は出力しない
-        return {"name": self.name, "description": self.description}
+    def to_dict(self) -> Dict[str, object]:
+        data: Dict[str, object] = {"name": self.name, "description": self.description}
+        if self.examples:
+            data["examples"] = self.examples
+        return data
 
 
 @dataclass

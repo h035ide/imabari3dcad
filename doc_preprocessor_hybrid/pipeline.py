@@ -30,9 +30,11 @@ def run_pipeline(
     cfg = config or PipelineConfig()
     bundle = parse_api_documents(cfg.api_doc_path, cfg.api_arg_path)
 
+    dump_bundle(bundle, cfg.structured_output)
+
     audit = enrich_bundle(bundle, enabled=use_llm, model_config=model_overrides)
 
-    dump_bundle(bundle, cfg.structured_output)
+    dump_bundle(bundle, cfg.structured_output_enriched if use_llm else cfg.structured_output)
 
     graph_payload = build_graph_payload(bundle)
     _write_graph(graph_payload, cfg.graph_output)
@@ -41,7 +43,10 @@ def run_pipeline(
     _write_jsonl(vector_records, cfg.vector_output)
 
     return {
-        "structured_output": str(cfg.structured_output),
+        "raw_structured_output": str(cfg.structured_output),
+        "structured_output": str(
+            cfg.structured_output_enriched if use_llm else cfg.structured_output
+        ),
         "graph_output": str(cfg.graph_output),
         "vector_output": str(cfg.vector_output),
         "audit": audit,
