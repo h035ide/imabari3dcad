@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
-from typing import Iterable, List, Tuple
+from typing import Dict, Iterable, List, Optional, Tuple
 
 from .config import PipelineConfig
 from .schemas import ApiBundle, ApiEntry, Parameter, ReturnSpec, TypeDefinition
@@ -512,6 +512,74 @@ def dump_bundle(bundle: ApiBundle, path: Path) -> None:
     path.write_text(json.dumps(bundle.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+
+
+def _parameter_from_dict(payload: Dict[str, object]) -> Parameter:
+    metadata = payload.get("metadata", {}) if isinstance(payload, dict) else {}
+    return Parameter(
+        name=payload["name"],
+        type=payload.get("type", ""),
+        description=payload.get("description", ""),
+        is_required=metadata.get("is_required", False),
+        default_value=metadata.get("default_value"),
+        position=metadata.get("position", 0),
+        raw_type=metadata.get("raw_type"),
+        dimension=metadata.get("dimension"),
+    )
+
+
+def _parameters_from_list(values: List[Dict[str, object]]) -> List[Parameter]:
+    return [_parameter_from_dict(item) for item in values]
+
+
+def _return_from_dict(data: Optional[Dict[str, object]]) -> Optional[ReturnSpec]:
+    if not data:
+        return None
+    return ReturnSpec(
+        type=data.get("type", "void"),
+        description=data.get("description", ""),
+        is_array=data.get("is_array", False),
+        raw_type=data.get("raw_type"),
+    )
+
+
+def _type_definition_from_dict(data: Dict[str, object]) -> TypeDefinition:
+    return TypeDefinition(
+        name=data.get("name", ""),
+        description=data.get("description", ""),
+        examples=list(data.get("examples", [])),
+        canonical_type=data.get("canonical_type"),
+        py_type=data.get("py_type"),
+        one_of=data.get("one_of"),
+    )
+
+
+def _api_entry_from_dict(data: Dict[str, object]) -> ApiEntry:
+    params = _parameters_from_list(data.get("params", []))
+    properties = _parameters_from_list(data.get("properties", []))
+    returns = _return_from_dict(data.get("returns"))
+    return ApiEntry(
+        entry_type=data.get("entry_type", "function"),
+        name=data.get("name", ""),
+        description=data.get("description", ""),
+        category=data.get("category", ""),
+        params=params,
+        properties=properties,
+        returns=returns,
+        notes=data.get("notes"),
+        implementation_status=data.get("implementation_status", "implemented"),
+        object_name=data.get("object_name"),
+        title_jp=data.get("title_jp"),
+        raw_return=data.get("raw_return"),
+    )
+
+
+def load_bundle(path: Path) -> ApiBundle:
+    payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    type_definitions = [_type_definition_from_dict(item) for item in payload.get("type_definitions", [])]
+    entries = [_api_entry_from_dict(item) for item in payload.get("api_entries", [])]
+    checklist = payload.get("checklist", [])
+    return ApiBundle(type_definitions=type_definitions, api_entries=entries, checklist=checklist)
 def generate_vector_chunks(entries: Iterable[ApiEntry]) -> Iterable[dict]:
     for entry in entries:
         limited_params = []
