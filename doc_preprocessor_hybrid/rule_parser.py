@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import json
 import re
@@ -62,6 +62,7 @@ TYPE_ONE_OF_MAP: dict[str, List[str]] = {
         "element_array",
     ],
 }
+
 
 def _is_closing_line(raw_line: str) -> bool:
     code_part = raw_line.split("//", 1)[0].rstrip()
@@ -447,7 +448,7 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
                 else:
                     # カンマがない場合は、括弧の前の部分全体を候補とする
                     candidate = before.strip()
-                
+
                 # 閉じ括弧を除去
                 candidate = candidate.rstrip(")")
                 comment = ""
@@ -510,8 +511,6 @@ def parse_api_documents(api_doc_path: Path | None = None, api_arg_path: Path | N
 def dump_bundle(bundle: ApiBundle, path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(bundle.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
-
-
 
 
 def _parameter_from_dict(payload: Dict[str, object]) -> Parameter:
@@ -580,6 +579,8 @@ def load_bundle(path: Path) -> ApiBundle:
     entries = [_api_entry_from_dict(item) for item in payload.get("api_entries", [])]
     checklist = payload.get("checklist", [])
     return ApiBundle(type_definitions=type_definitions, api_entries=entries, checklist=checklist)
+
+
 def generate_vector_chunks(entries: Iterable[ApiEntry]) -> Iterable[dict]:
     for entry in entries:
         limited_params = []
