@@ -1,6 +1,7 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import json
+import chromadb
 from pathlib import Path
 from typing import Dict, Optional
 
@@ -8,6 +9,9 @@ from .config import PipelineConfig
 from .graph_builder import build_graph_payload
 from .llm_enricher import enrich_bundle
 from .rule_parser import dump_bundle, generate_vector_chunks, load_bundle, parse_api_documents
+from .storage.chroma_loader import ChromaIngestError, store_vectors
+from .storage.config import StorageConfig
+from .storage.neo4j_loader import store_bundle as store_bundle_in_neo4j
 
 
 def _write_jsonl(records, path: Path) -> None:
@@ -22,11 +26,12 @@ def _write_graph(payload: Dict[str, object], path: Path) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-
 def run_pipeline(
     config: Optional[PipelineConfig] = None,
     use_llm: bool = False,
     model_overrides: Optional[Dict[str, object]] = None,
+    store_neo4j: bool = False,
+    store_chroma: bool = False,
 ) -> Dict[str, object]:
     cfg = config or PipelineConfig()
 
@@ -71,7 +76,33 @@ def run_pipeline(
         else cfg.structured_output
     )
 
-    return {
+    storage_results: Dict[str, object] = {}
+    if store_neo4j or store_chroma:
+        storage_config = StorageConfig.load()
+        if store_neo4j:
+            if storage_config.neo4j.enabled:
+                try:
+                    storage_results["neo4j"] = store_bundle_in_neo4j(bundle, storage_config.neo4j)
+                except Exception as exc:  # pragma: no cover - connection errors
+                    storage_results["neo4j"] = {"error": str(exc)}
+            else:
+                storage_results["neo4j"] = {
+                    "error": "NEO4J_URI/NEO4J_USER/NEO4J_PASSWORD are required",
+                }
+        if store_chroma:
+            if storage_config.chroma.enabled:
+                try:
+                    storage_results["chroma"] = store_vectors(bundle, cfg.vector_output, storage_config.chroma)
+                except (ChromaIngestError, FileNotFoundError) as exc:
+                    storage_results["chroma"] = {"error": str(exc)}
+                except Exception as exc:  # pragma: no cover
+                    storage_results["chroma"] = {"error": str(exc)}
+            else:
+                storage_results["chroma"] = {
+                    "error": "CHROMA_COLLECTION must be set",
+                }
+
+    result: Dict[str, object] = {
         "raw_structured_output": str(cfg.structured_output),
         "structured_output": str(structured_path),
         "graph_output": str(cfg.graph_output),
@@ -80,3 +111,6 @@ def run_pipeline(
         "bundle_source": bundle_source,
         "used_existing_structured": used_existing_structured,
     }
+    if storage_results:
+        result["storage"] = storage_results
+    return result
