@@ -155,7 +155,14 @@
         "cartesian_2d",
         "variable_reference",
         "expression"
-      ]
+      ],
+      "source": {
+        "path": "data\\src\\api_arg.txt",
+        "start_line": 34,
+        "end_line": 36,
+        "text": "■点\n   \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定\n  例) \"100.0,50,0,0.0\" , \"FRM1,0.0,1000.0\"",
+        "checksum": "62bff97d59d76892f25e0495255215f3471df3b9"
+      }
     },
     {
       "name": "点(3D)",
@@ -166,7 +173,14 @@
         "cartesian_3d",
         "variable_reference",
         "expression"
-      ]
+      ],
+      "source": {
+        "path": "data\\src\\api_arg.txt",
+        "start_line": 34,
+        "end_line": 36,
+        "text": "■点\n   \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定\n  例) \"100.0,50,0,0.0\" , \"FRM1,0.0,1000.0\"",
+        "checksum": "62bff97d59d76892f25e0495255215f3471df3b9"
+      }
     },
     {
       "name": "方向",
