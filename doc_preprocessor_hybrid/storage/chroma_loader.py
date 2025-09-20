@@ -2,7 +2,7 @@
 
 import json
 from pathlib import Path
-from typing import Dict, Iterable, List
+from typing import Dict, List
 
 import chromadb
 from chromadb.api import ClientAPI

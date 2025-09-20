@@ -4,7 +4,7 @@ from typing import Dict, Iterable, Optional
 
 from neo4j import GraphDatabase, basic_auth
 
-from ..schemas import ApiBundle, ApiEntry, Parameter, ReturnSpec, TypeDefinition
+from ..schemas import ApiBundle, ApiEntry, Parameter, TypeDefinition
 from .config import Neo4jConnectionConfig
 
 

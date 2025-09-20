@@ -240,6 +240,7 @@ def _apply_enrichment(entry: ApiEntry, payload: Dict[str, object]) -> None:
                         param.raw_type = param.raw_type or inferred_type.strip()
                 break
 
+
 def _apply_type_enrichment(type_def: TypeDefinition, payload: Dict[str, object]) -> bool:
     updated = False
     description = payload.get("description")
@@ -325,4 +326,3 @@ def enrich_bundle(
         except Exception as exc:  # noqa: BLE001 - bubble up aggregate context
             audit_log.append({"status": "error_entry", "entry": entry.name, "error": str(exc)})
     return audit_log
-
