@@ -58,7 +58,15 @@ def run_pipeline(
         bundle_source = "parsed"
 
     if use_llm:
-        audit = enrich_bundle(bundle, enabled=True, model_config=model_overrides)
+        api_doc_text = cfg.api_doc_path.read_text(encoding="utf-8") if cfg.api_doc_path.exists() else None
+        api_arg_text = cfg.api_arg_path.read_text(encoding="utf-8") if cfg.api_arg_path.exists() else None
+        audit = enrich_bundle(
+            bundle,
+            enabled=True,
+            model_config=model_overrides,
+            api_doc_text=api_doc_text,
+            api_arg_text=api_arg_text,
+        )
         dump_bundle(bundle, cfg.structured_output_enriched)
         bundle_source = "structured_api_enriched"
     else:

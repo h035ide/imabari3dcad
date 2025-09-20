@@ -11,12 +11,18 @@ from .schemas import ApiBundle, ApiEntry, ReturnSpec, TypeDefinition
 
 from dotenv import load_dotenv
 
-# .envファイルを明示的にロード
+# load environment variables from .env when present
 load_dotenv()
 
 DEFAULT_MODEL_CONFIG: Dict[str, object] = {
     "model": "gpt-5-mini",
 }
+
+MAX_ENTRY_SOURCE_CHARS = 1200
+MAX_TYPE_SOURCE_CHARS = 800
+ENTRY_CONTEXT_WINDOW = 12
+TYPE_CONTEXT_WINDOW = 8
+MAX_TYPE_CONTEXTS_PER_ENTRY = 4
 
 PROMPT = ChatPromptTemplate.from_messages(
     [
@@ -33,8 +39,14 @@ PROMPT = ChatPromptTemplate.from_messages(
             Current metadata:
             {current_json}
 
-            Documentation excerpt:
+            Parsed summary:
             {doc_snippet}
+
+            api.txt excerpt (rule-based):
+            {api_source}
+
+            Relevant type definitions from api_arg.txt:
+            {type_context}
 
             Update description fields, infer better return type if possible,
             and fill missing parameter descriptions.
@@ -64,6 +76,9 @@ TYPE_PROMPT = ChatPromptTemplate.from_messages(
             Definition text:
             {definition_text}
 
+            Raw excerpt from api_arg.txt:
+            {source_excerpt}
+
             If the description mixes core meaning with concrete examples, keep the core meaning in description
             and move the examples to an examples array of short strings.
             Only include keys you change (description and/or examples). Return JSON.
@@ -76,19 +91,103 @@ TYPE_PROMPT = ChatPromptTemplate.from_messages(
 def _doc_snippet(entry: ApiEntry) -> str:
     chunks: List[str] = []
     if entry.title_jp:
-        chunks.append(f"タイトル: {entry.title_jp}")
+        chunks.append(f"Title JP: {entry.title_jp}")
     if entry.raw_return:
-        chunks.append(f"返り値: {entry.raw_return}")
+        chunks.append(f"Raw return: {entry.raw_return}")
     for param in entry.params:
-        chunks.append(f"引数 {param.name}: {param.description or '説明なし'}")
+        label = param.type or ""
+        chunks.append(
+            f"Param {param.name} ({label}): {param.description or 'No description'}"
+        )
     return "\n".join(chunks)
+
+
+def _prepare_lines(text: Optional[str]) -> List[str]:
+    if not text:
+        return []
+    return text.splitlines()
+
+
+def _truncate_text(value: str, limit: int) -> str:
+    value = value.strip()
+    if len(value) <= limit:
+        return value
+    return value[: limit - 3].rstrip() + "..."
+
+
+def _find_line_index(lines: List[str], targets: List[str]) -> Optional[int]:
+    for idx, line in enumerate(lines):
+        for target in targets:
+            if target and target in line:
+                return idx
+    return None
+
+
+def _extract_entry_context(entry: ApiEntry, lines: List[str]) -> str:
+    if not lines:
+        return ""
+    targets = [f"{entry.name}("]
+    if entry.title_jp:
+        targets.append(entry.title_jp)
+    idx = _find_line_index(lines, targets)
+    if idx is None:
+        return ""
+    start = max(0, idx - ENTRY_CONTEXT_WINDOW)
+    end = min(len(lines), idx + ENTRY_CONTEXT_WINDOW)
+    snippet = "\n".join(lines[start:end])
+    return _truncate_text(snippet, MAX_ENTRY_SOURCE_CHARS)
+
+
+def _extract_type_context(type_def: TypeDefinition, lines: List[str]) -> str:
+    if not lines:
+        return ""
+    targets = [f"隨・｣ｰ{type_def.name}"]
+    idx = _find_line_index(lines, targets)
+    if idx is None:
+        return ""
+    start = idx
+    end = idx + 1
+    line_count = len(lines)
+    while start > 0 and lines[start - 1].strip() and not lines[start - 1].startswith("隨・｣ｰ"):
+        start -= 1
+    while end < line_count and lines[end].strip() and not lines[end].startswith("隨・｣ｰ"):
+        end += 1
+    snippet = "\n".join(lines[max(0, start - TYPE_CONTEXT_WINDOW): min(line_count, end + TYPE_CONTEXT_WINDOW)])
+    return _truncate_text(snippet, MAX_TYPE_SOURCE_CHARS)
+
+
+def _normalise_type_token(raw: str) -> List[str]:
+    if not raw:
+        return []
+    tokens = [raw]
+    if raw.endswith("[]"):
+        tokens.append(raw[:-2])
+    if "(" in raw and raw.endswith(")"):
+        base = raw.split("(", 1)[0]
+        tokens.append(base)
+    return tokens
+
+
+def _collect_entry_type_context(entry: ApiEntry, context_map: Dict[str, str]) -> str:
+    seen: List[str] = []
+    snippets: List[str] = []
+    for param in entry.params:
+        for candidate in _normalise_type_token(param.type):
+            if candidate in context_map and candidate not in seen:
+                snippet = context_map[candidate]
+                if snippet:
+                    snippets.append(f"Type {candidate}:\n{snippet}")
+                    seen.append(candidate)
+                break
+        if len(snippets) >= MAX_TYPE_CONTEXTS_PER_ENTRY:
+            break
+    return "\n\n".join(snippets)
 
 
 def _needs_enrichment(entry: ApiEntry) -> bool:
     if not entry.description:
         return True
-    # 返り値は raw_return が "なし" などで確定している場合は触らない
-    if entry.returns and entry.returns.type in {"不明"} and entry.raw_return:
+    # Keep type=void when raw_return already indicates no value
         return True
     for param in entry.params:
         if not param.description:
@@ -100,11 +199,13 @@ def _apply_enrichment(entry: ApiEntry, payload: Dict[str, object]) -> None:
     description = payload.get("description")
     if isinstance(description, str) and description:
         entry.description = description.strip()
+
     returns = payload.get("returns")
     if isinstance(returns, dict):
-        # 保守的ガード: raw_return が "なし" 等のときは type=void を維持
+        # Keep type=void when raw_return already indicates no value
         raw = (entry.raw_return or "").strip()
-        locked_void = raw in {"なし", "None", "void", ""}
+        normalized = raw.lower()
+        locked_void = raw in {"なし", "�Ȃ�"} or normalized in {"", "none", "void"}
         target = entry.returns or ReturnSpec()
         r_type = returns.get("type")
         if isinstance(r_type, str) and r_type and not locked_void:
@@ -116,6 +217,7 @@ def _apply_enrichment(entry: ApiEntry, payload: Dict[str, object]) -> None:
         if isinstance(is_array, bool):
             target.is_array = is_array
         entry.returns = target
+
     params_payload = payload.get("params")
     if isinstance(params_payload, list):
         for update in params_payload:
@@ -125,18 +227,18 @@ def _apply_enrichment(entry: ApiEntry, payload: Dict[str, object]) -> None:
             if not isinstance(name, str):
                 continue
             for param in entry.params:
-                if param.name == name:
-                    desc = update.get("description")
-                    if isinstance(desc, str) and desc:
-                        param.description = desc.strip()
-                    # 型上書きは原則禁止（ルール出力優先）。未知型ならば補完を許可
-                    inferred_type = update.get("type")
-                    if isinstance(inferred_type, str) and inferred_type:
-                        if param.type in {"不明", "unknown"}:
-                            param.type = inferred_type.strip()
-                            param.raw_type = param.raw_type or inferred_type.strip()
-                    break
-
+                if param.name != name:
+                    continue
+                desc = update.get("description")
+                if isinstance(desc, str) and desc:
+                    param.description = desc.strip()
+                # Only allow type override when parameter type was unknown
+                inferred_type = update.get("type")
+                if isinstance(inferred_type, str) and inferred_type:
+                    if param.type in {"不明", "unknown"}:
+                        param.type = inferred_type.strip()
+                        param.raw_type = param.raw_type or inferred_type.strip()
+                break
 
 def _apply_type_enrichment(type_def: TypeDefinition, payload: Dict[str, object]) -> bool:
     updated = False
@@ -157,6 +259,8 @@ def enrich_bundle(
     bundle: ApiBundle,
     enabled: bool = True,
     model_config: Optional[Dict[str, object]] = None,
+    api_doc_text: Optional[str] = None,
+    api_arg_text: Optional[str] = None,
 ) -> List[Dict[str, object]]:
     """Enrich bundle entries with LLM hints. Returns audit log."""
     audit_log: List[Dict[str, object]] = []
@@ -172,6 +276,13 @@ def enrich_bundle(
     type_chain = TYPE_PROMPT | llm
     entry_chain = PROMPT | llm
 
+    api_doc_lines = _prepare_lines(api_doc_text)
+    api_arg_lines = _prepare_lines(api_arg_text)
+    type_context_map: Dict[str, str] = {}
+    if api_arg_lines:
+        for definition in bundle.type_definitions:
+            type_context_map[definition.name] = _extract_type_context(definition, api_arg_lines)
+
     for type_def in bundle.type_definitions:
         current_json = json.dumps(type_def.to_dict(), ensure_ascii=False)
         try:
@@ -179,6 +290,7 @@ def enrich_bundle(
                 {
                     "current_json": current_json,
                     "definition_text": type_def.description,
+                    "source_excerpt": type_context_map.get(type_def.name, ""),
                 }
             )
             content = result.content if hasattr(result, "content") else str(result)
@@ -194,10 +306,14 @@ def enrich_bundle(
     for entry in entries:
         current_json = json.dumps(entry.to_dict(), ensure_ascii=False)
         try:
+            api_source = _extract_entry_context(entry, api_doc_lines)
+            type_context = _collect_entry_type_context(entry, type_context_map)
             result = entry_chain.invoke(
                 {
                     "current_json": current_json,
                     "doc_snippet": _doc_snippet(entry),
+                    "api_source": api_source,
+                    "type_context": type_context,
                 }
             )
             content = result.content if hasattr(result, "content") else str(result)
@@ -209,3 +325,4 @@ def enrich_bundle(
         except Exception as exc:  # noqa: BLE001 - bubble up aggregate context
             audit_log.append({"status": "error_entry", "entry": entry.name, "error": str(exc)})
     return audit_log
+
