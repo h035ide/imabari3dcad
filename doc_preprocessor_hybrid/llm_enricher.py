@@ -124,6 +124,8 @@ def _find_line_index(lines: List[str], targets: List[str]) -> Optional[int]:
 
 
 def _extract_entry_context(entry: ApiEntry, lines: List[str]) -> str:
+    if entry.source and entry.source.text:
+        return _truncate_text(entry.source.text, MAX_ENTRY_SOURCE_CHARS)
     if not lines:
         return ""
     targets = [f"{entry.name}("]
@@ -139,32 +141,33 @@ def _extract_entry_context(entry: ApiEntry, lines: List[str]) -> str:
 
 
 def _extract_type_context(type_def: TypeDefinition, lines: List[str]) -> str:
+    if type_def.source and type_def.source.text:
+        return _truncate_text(type_def.source.text, MAX_TYPE_SOURCE_CHARS)
     if not lines:
         return ""
-    
-    # 型名の正規化: 括弧や次元情報を除去して基本名を取得
+
     base_name = type_def.name
     if "(" in base_name:
         base_name = base_name.split("(")[0].strip()
-    
-    # 複数の検索パターンを試す
+
     targets = [
         f"■{type_def.name}",  # 完全一致
         f"■{base_name}",      # 基本名のみ
     ]
-    
+
     idx = _find_line_index(lines, targets)
     if idx is None:
         return ""
-    start = idx
-    end = idx + 1
+    start_idx = idx
+    end_idx = idx + 1
     line_count = len(lines)
-    while start > 0 and lines[start - 1].strip() and not lines[start - 1].startswith("■"):
-        start -= 1
-    while end < line_count and lines[end].strip() and not lines[end].startswith("■"):
-        end += 1
-    snippet = "\n".join(lines[max(0, start - TYPE_CONTEXT_WINDOW): min(line_count, end + TYPE_CONTEXT_WINDOW)])
+    while start_idx > 0 and lines[start_idx - 1].strip() and not lines[start_idx - 1].startswith("■"):
+        start_idx -= 1
+    while end_idx < line_count and lines[end_idx].strip() and not lines[end_idx].startswith("■"):
+        end_idx += 1
+    snippet = "\n".join(lines[max(0, start_idx - TYPE_CONTEXT_WINDOW): min(line_count, end_idx + TYPE_CONTEXT_WINDOW)])
     return _truncate_text(snippet, MAX_TYPE_SOURCE_CHARS)
+
 
 
 def _normalise_type_token(raw: str) -> List[str]:
@@ -205,7 +208,7 @@ def _collect_entry_type_context(entry: ApiEntry, context_map: Dict[str, str]) ->
 def _needs_enrichment(entry: ApiEntry) -> bool:
     if not entry.description:
         return True
-    # Keep type=void when raw_return already indicates no value
+    if entry.returns and not entry.returns.description:
         return True
     for param in entry.params:
         if not param.description:
@@ -297,17 +300,18 @@ def enrich_bundle(
 
     api_doc_lines = _prepare_lines(api_doc_text)
     api_arg_lines = _prepare_lines(api_arg_text)
+
     type_context_map: Dict[str, str] = {}
-    if api_arg_lines:
-        for definition in bundle.type_definitions:
+    for definition in bundle.type_definitions:
+        context = ""
+        if definition.source and definition.source.text:
+            context = _truncate_text(definition.source.text, MAX_TYPE_SOURCE_CHARS)
+        elif api_arg_lines:
             context = _extract_type_context(definition, api_arg_lines)
-            type_context_map[definition.name] = context
-            # デバッグ用: 型定義のコンテキスト抽出を確認
-            print(f"DEBUG: Type {definition.name} context length: {len(context)}")
-            if context:
-                print(f"DEBUG: Type {definition.name} context: {repr(context[:100])}...")
-            else:
-                print(f"DEBUG: Type {definition.name} - no context found")
+        type_context_map[definition.name] = context
+        base_name = definition.name.split('(', 1)[0].strip()
+        if base_name and base_name not in type_context_map:
+            type_context_map[base_name] = context
 
     for type_def in bundle.type_definitions:
         current_json = json.dumps(type_def.to_dict(), ensure_ascii=False)
@@ -332,13 +336,11 @@ def enrich_bundle(
     for entry in entries:
         current_json = json.dumps(entry.to_dict(), ensure_ascii=False)
         try:
-            api_source = _extract_entry_context(entry, api_doc_lines)
+            if entry.source and entry.source.text:
+                api_source = _truncate_text(entry.source.text, MAX_ENTRY_SOURCE_CHARS)
+            else:
+                api_source = _extract_entry_context(entry, api_doc_lines)
             type_context = _collect_entry_type_context(entry, type_context_map)
-            # デバッグ用: type_contextの内容を確認
-            print(f"DEBUG: Entry {entry.name}")
-            print(f"DEBUG: type_context_map keys: {list(type_context_map.keys())}")
-            print(f"DEBUG: type_context length: {len(type_context)}")
-            print(f"DEBUG: type_context content: {repr(type_context[:200])}...")
             result = entry_chain.invoke(
                 {
                     "current_json": current_json,

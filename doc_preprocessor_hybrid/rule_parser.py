@@ -2,11 +2,12 @@
 
 import json
 import re
+import hashlib
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Tuple
 
 from .config import PipelineConfig
-from .schemas import ApiBundle, ApiEntry, Parameter, ReturnSpec, TypeDefinition
+from .schemas import ApiBundle, ApiEntry, Parameter, ReturnSpec, TypeDefinition, SourceFragment
 
 
 HEADER_RE = re.compile(r"^■(.+?)(?:のメソッド)?$")
@@ -62,6 +63,24 @@ TYPE_ONE_OF_MAP: dict[str, List[str]] = {
         "element_array",
     ],
 }
+
+
+def _build_source_fragment(lines: List[str], start_idx: int, end_idx: int, path: Path | None) -> SourceFragment | None:
+    if path is None:
+        return None
+    if not lines:
+        return None
+    start = max(0, min(start_idx, len(lines) - 1))
+    end = max(start, min(end_idx, len(lines) - 1))
+    snippet = "\n".join(lines[start : end + 1])
+    checksum = hashlib.sha1(snippet.encode("utf-8")).hexdigest() if snippet else ""
+    return SourceFragment(
+        path=str(path),
+        start_line=start + 1,
+        end_line=end + 1,
+        text=snippet,
+        checksum=checksum,
+    )
 
 
 def _is_closing_line(raw_line: str) -> bool:
@@ -261,37 +280,54 @@ def _parse_bare_param(candidate: str) -> Tuple[str, str] | None:
     return pname, ptype
 
 
-def parse_type_definitions(text: str) -> List[TypeDefinition]:
+def parse_type_definitions(text: str, *, path: Path | None = None) -> List[TypeDefinition]:
     definitions: List[TypeDefinition] = []
-    current_name = None
-    current_lines: List[str] = []
     lines = _normalize_text(text).split("\n")
 
-    i = 0
-    while i < len(lines):
-        line = lines[i].strip()
+    current_name: str | None = None
+    current_lines: List[str] = []
+    current_start: int | None = None
+    current_end: int | None = None
+
+    def finalize() -> None:
+        nonlocal current_name, current_lines, current_start, current_end
+        if not current_name or not current_lines:
+            current_name = None
+            current_lines = []
+            current_start = None
+            current_end = None
+            return
+        type_def = TypeDefinition(name=current_name, description="\n".join(current_lines))
+        fragment = None
+        if current_start is not None:
+            end_idx = current_end if current_end is not None else current_start
+            fragment = _build_source_fragment(lines, current_start, end_idx, path)
+        if fragment:
+            type_def.source = fragment
+        definitions.append(type_def)
+        current_name = None
+        current_lines = []
+        current_start = None
+        current_end = None
+
+    for idx, raw_line in enumerate(lines):
+        line = raw_line.strip()
         if not line:
-            i += 1
             continue
         if line.startswith("■"):
-            if current_name and current_lines:
-                definitions.append(
-                    TypeDefinition(name=current_name, description="\n".join(current_lines))
-                )
+            finalize()
             current_name = line.replace("■", "", 1).strip()
             current_lines = []
-            i += 1
+            current_start = idx
+            current_end = idx
             continue
         if current_name:
-            # bool型の特別処理：次の行が「以下のタイプは全てPythonの型としては文字列...」の場合はスキップ
-            if current_name == "bool" and line == "以下のタイプは全てPythonの型としては文字列。文字列の書式の仕様":
-                i += 1
+            if current_name == "bool" and line.startswith("以下のタイプ"):
                 continue
             current_lines.append(line)
-        i += 1
+            current_end = idx
 
-    if current_name and current_lines:
-        definitions.append(TypeDefinition(name=current_name, description="\n".join(current_lines)))
+    finalize()
 
     refined: List[TypeDefinition] = []
     for type_def in definitions:
@@ -300,13 +336,14 @@ def parse_type_definitions(text: str) -> List[TypeDefinition]:
     return _augment_type_definitions(refined)
 
 
+
 def _finalize_entry(entry: ApiEntry, entries: List[ApiEntry]) -> None:
     if entry.returns is None:
         entry.returns = ReturnSpec()
     entries.append(entry)
 
 
-def parse_api_specs(text: str) -> List[ApiEntry]:
+def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
     entries: List[ApiEntry] = []
     lines = _normalize_text(text).split("\n")
     current_object = ""
@@ -315,30 +352,43 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
     collecting = False
     current_entry: ApiEntry | None = None
     param_index = 0
+    block_start_idx: int | None = None
+    entry_start_idx: int | None = None
+    entry_end_idx: int | None = None
+
+    def attach_source(entry: ApiEntry | None, start_idx: int | None, end_idx: int | None) -> None:
+        if not entry or start_idx is None or end_idx is None:
+            return
+        fragment = _build_source_fragment(lines, start_idx, end_idx, path)
+        if fragment:
+            entry.source = fragment
 
     i = 0
     while i < len(lines):
-        line = lines[i].strip()
+        raw_line = lines[i]
+        line = raw_line.strip()
         if not line:
             i += 1
             continue
         header_match = HEADER_RE.match(line)
         if header_match:
             current_object = header_match.group(1).strip()
+            block_start_idx = None
             i += 1
             continue
         title_match = TITLE_RE.match(line)
         if title_match:
             current_title = title_match.group(1).strip()
             current_return = ""
+            block_start_idx = i
             i += 1
             if i < len(lines):
-                ret_match = RETURN_RE.match(lines[i].strip())
+                ret_line = lines[i].strip()
+                ret_match = RETURN_RE.match(ret_line)
                 if ret_match:
                     current_return = ret_match.group(1).strip()
                     i += 1
             continue
-        # パラメータ無しの同一行メソッド（e.g., Quit(), Create3DDocument()）
         zero_match = ZERO_PARAM_METHOD_RE.match(line)
         if zero_match:
             method_name = zero_match.group(1)
@@ -356,13 +406,18 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
                     is_array=_guess_return_is_array(current_return),
                 ),
             )
-            entries.append(entry)
+            start_idx = block_start_idx if block_start_idx is not None else i
+            attach_source(entry, start_idx, i)
+            _finalize_entry(entry, entries)
+            block_start_idx = None
             i += 1
             continue
 
         method_match = METHOD_RE.match(line)
         if method_match:
             method_name = method_match.group(1)
+            entry_start_idx = block_start_idx if block_start_idx is not None else i
+            entry_end_idx = i
             current_entry = ApiEntry(
                 entry_type="function",
                 name=method_name,
@@ -379,29 +434,30 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
             )
             collecting = True
             param_index = 0
+            block_start_idx = None
             i += 1
             continue
         if collecting and current_entry:
-            # 閉じ括弧を除去してからパラメータ解析（//の前の）を除去
-            import re
-            processed_line = re.sub(r'\s*\)\s*(?=//)', '', line.strip())
+            processed_line = re.sub(r'\s*\)\s*(?=//)', '', line)
             param_match = PARAM_RE.match(processed_line)
             if param_match:
                 pname, ptype, pdesc = param_match.groups()
                 parameter = _build_parameter(pname, ptype, pdesc, param_index)
                 current_entry.params.append(parameter)
                 param_index += 1
-                if _is_closing_line(line):
+                entry_end_idx = i
+                if _is_closing_line(raw_line):
+                    attach_source(current_entry, entry_start_idx, entry_end_idx)
                     _finalize_entry(current_entry, entries)
                     current_entry = None
                     collecting = False
+                    entry_start_idx = None
+                    entry_end_idx = None
                 i += 1
                 continue
-            # コロンなしコメントに対応（例: pOpt) // STLパラメータオブジェクト）
             loose_match = PARAM_RE_LOOSE.match(line)
             if loose_match:
                 pname, comment = loose_match.groups()
-                # コメント中にコロンがあれば型:説明として解釈、なければ型のみ
                 if ":" in comment or "：" in comment:
                     raw = re.split(r"[:：]", comment, maxsplit=1)
                     ptype = raw[0].strip()
@@ -412,48 +468,48 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
                 parameter = _build_parameter(pname, ptype, pdesc, param_index)
                 current_entry.params.append(parameter)
                 param_index += 1
-                if _is_closing_line(line):
+                entry_end_idx = i
+                if _is_closing_line(raw_line):
+                    attach_source(current_entry, entry_start_idx, entry_end_idx)
                     _finalize_entry(current_entry, entries)
                     current_entry = None
                     collecting = False
+                    entry_start_idx = None
+                    entry_end_idx = None
                 i += 1
                 continue
-            # コメントが無い純粋な型+名前行の救済（例: "[in] BSTR plane,")
-            bare = line
-            # 閉じ括弧以降を除去
+            bare = raw_line
             if ")" in bare:
                 bare = bare.split(")", 1)[0]
-            # コメント以降を除去
             if "//" in bare:
                 bare = bare.split("//", 1)[0]
-            # 末尾のパラメータ片を取得
             pname_ptype = _parse_bare_param(bare)
             if pname_ptype:
                 pname, ptype = pname_ptype
                 parameter = _build_parameter(pname, ptype, "", param_index)
                 current_entry.params.append(parameter)
                 param_index += 1
-                if _is_closing_line(line):
+                entry_end_idx = i
+                if _is_closing_line(raw_line):
+                    attach_source(current_entry, entry_start_idx, entry_end_idx)
                     _finalize_entry(current_entry, entries)
                     current_entry = None
                     collecting = False
+                    entry_start_idx = None
+                    entry_end_idx = None
                 i += 1
                 continue
-            if _is_closing_line(line):
-                idx_close = line.rfind(")")
-                before = line[:idx_close]
-                # カンマで分割して最後の要素を取得（従来の方法）
+            if _is_closing_line(raw_line):
+                idx_close = raw_line.rfind(")")
+                before = raw_line[:idx_close]
                 if "," in before:
                     candidate = before.split(",")[-1].strip()
                 else:
-                    # カンマがない場合は、括弧の前の部分全体を候補とする
                     candidate = before.strip()
-
-                # 閉じ括弧を除去
                 candidate = candidate.rstrip(")")
                 comment = ""
-                if "//" in line:
-                    comment = line.split("//", 1)[1].strip()
+                if "//" in raw_line:
+                    comment = raw_line.split("//", 1)[1].strip()
                 synthetic = candidate
                 if comment:
                     synthetic = f"{candidate} // {comment}"
@@ -463,7 +519,6 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
                     parameter = _build_parameter(pname, ptype, pdesc, param_index)
                     current_entry.params.append(parameter)
                 else:
-                    # 緩和版でも試す（コロン無しパターンの救済）
                     pm2_loose = PARAM_RE_LOOSE.match(synthetic)
                     if pm2_loose:
                         pname, comment2 = pm2_loose.groups()
@@ -477,19 +532,28 @@ def parse_api_specs(text: str) -> List[ApiEntry]:
                         parameter = _build_parameter(pname, ptype, pdesc, param_index)
                         current_entry.params.append(parameter)
                     else:
-                        # コメント無しの純粋表記も救済
                         bare_parsed = _parse_bare_param(candidate)
                         if bare_parsed:
                             pname, ptype = bare_parsed
                             parameter = _build_parameter(pname, ptype, "", param_index)
                             current_entry.params.append(parameter)
+                entry_end_idx = i
+                attach_source(current_entry, entry_start_idx, entry_end_idx)
                 _finalize_entry(current_entry, entries)
                 current_entry = None
                 collecting = False
+                entry_start_idx = None
+                entry_end_idx = None
                 i += 1
                 continue
         i += 1
+
+    if current_entry:
+        attach_source(current_entry, entry_start_idx, entry_end_idx or (len(lines) - 1))
+        _finalize_entry(current_entry, entries)
+
     return entries
+
 
 
 def parse_api_documents(api_doc_path: Path | None = None, api_arg_path: Path | None = None) -> ApiBundle:
@@ -500,8 +564,8 @@ def parse_api_documents(api_doc_path: Path | None = None, api_arg_path: Path | N
     api_text = _read_text_file(doc_path)
     arg_text = _read_text_file(arg_path)
 
-    types = parse_type_definitions(arg_text)
-    entries = parse_api_specs(api_text)
+    types = parse_type_definitions(arg_text, path=arg_path)
+    entries = parse_api_specs(api_text, path=doc_path)
 
     checklist = ["parsed_api_doc", "parsed_api_arg"]
 
@@ -543,6 +607,8 @@ def _return_from_dict(data: Optional[Dict[str, object]]) -> Optional[ReturnSpec]
 
 
 def _type_definition_from_dict(data: Dict[str, object]) -> TypeDefinition:
+    source_payload = data.get("source")
+    source = SourceFragment.from_dict(source_payload) if isinstance(source_payload, dict) else None
     return TypeDefinition(
         name=data.get("name", ""),
         description=data.get("description", ""),
@@ -550,6 +616,7 @@ def _type_definition_from_dict(data: Dict[str, object]) -> TypeDefinition:
         canonical_type=data.get("canonical_type"),
         py_type=data.get("py_type"),
         one_of=data.get("one_of"),
+        source=source,
     )
 
 
@@ -557,6 +624,8 @@ def _api_entry_from_dict(data: Dict[str, object]) -> ApiEntry:
     params = _parameters_from_list(data.get("params", []))
     properties = _parameters_from_list(data.get("properties", []))
     returns = _return_from_dict(data.get("returns"))
+    source_payload = data.get("source")
+    source = SourceFragment.from_dict(source_payload) if isinstance(source_payload, dict) else None
     return ApiEntry(
         entry_type=data.get("entry_type", "function"),
         name=data.get("name", ""),
@@ -570,6 +639,7 @@ def _api_entry_from_dict(data: Dict[str, object]) -> ApiEntry:
         object_name=data.get("object_name"),
         title_jp=data.get("title_jp"),
         raw_return=data.get("raw_return"),
+        source=source,
     )
 
 

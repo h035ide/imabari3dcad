@@ -36,7 +36,7 @@ def build_graph_payload(bundle: ApiBundle) -> Dict[str, List[Dict[str, object]]]
             }
             seen_objects.add(entry.object_name)
 
-        nodes.setdefault(
+        method_node = nodes.setdefault(
             entry.name,
             {
                 "id": entry.name,
@@ -48,6 +48,12 @@ def build_graph_payload(bundle: ApiBundle) -> Dict[str, List[Dict[str, object]]]
                 },
             },
         )
+        if entry.source:
+            props = method_node.setdefault("properties", {})
+            props["source_path"] = entry.source.path
+            props["source_start_line"] = entry.source.start_line
+            props["source_end_line"] = entry.source.end_line
+            props["source_checksum"] = entry.source.checksum
 
         if entry.object_name:
             relationships.append(
@@ -101,10 +107,10 @@ def build_graph_payload(bundle: ApiBundle) -> Dict[str, List[Dict[str, object]]]
                 }
             )
 
-    # Add type_definitions as dedicated nodes (no source field)
+    # Add type_definitions as dedicated nodes with provenance metadata
     for typedef in getattr(bundle, "type_definitions", []) or []:
         if typedef.name and typedef.name not in nodes:
-            nodes[typedef.name] = {
+            node = nodes[typedef.name] = {
                 "id": typedef.name,
                 "label": "TypeDef",
                 "properties": {
@@ -112,5 +118,11 @@ def build_graph_payload(bundle: ApiBundle) -> Dict[str, List[Dict[str, object]]]
                     "description": typedef.description or "",
                 },
             }
+            if typedef.source:
+                props = node.setdefault("properties", {})
+                props["source_path"] = typedef.source.path
+                props["source_start_line"] = typedef.source.start_line
+                props["source_end_line"] = typedef.source.end_line
+                props["source_checksum"] = typedef.source.checksum
 
     return {"nodes": list(nodes.values()), "relationships": relationships}
