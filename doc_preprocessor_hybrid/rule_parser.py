@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import json
 import re
@@ -72,7 +72,7 @@ def _build_source_fragment(lines: List[str], start_idx: int, end_idx: int, path:
         return None
     start = max(0, min(start_idx, len(lines) - 1))
     end = max(start, min(end_idx, len(lines) - 1))
-    snippet = "\n".join(lines[start : end + 1])
+    snippet = "\n".join(lines[start:end + 1])
     checksum = hashlib.sha1(snippet.encode("utf-8")).hexdigest() if snippet else ""
     return SourceFragment(
         path=str(path),
@@ -132,9 +132,6 @@ def _apply_type_metadata(type_def: TypeDefinition) -> None:
         type_def.description = (
             "モデル座標系の点を表す値を指定します。数値リテラルのほか、変数参照や式を利用できます。"
         )
-
-
-
 
 
 def _build_point_variants(base: TypeDefinition) -> List[TypeDefinition]:
@@ -337,7 +334,6 @@ def parse_type_definitions(text: str, *, path: Path | None = None) -> List[TypeD
         _apply_type_metadata(type_def)
         refined.append(type_def)
     return _augment_type_definitions(refined)
-
 
 
 def _finalize_entry(entry: ApiEntry, entries: List[ApiEntry]) -> None:
@@ -556,7 +552,6 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
         _finalize_entry(current_entry, entries)
 
     return entries
-
 
 
 def parse_api_documents(api_doc_path: Path | None = None, api_arg_path: Path | None = None) -> ApiBundle:

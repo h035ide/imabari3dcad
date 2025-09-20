@@ -169,7 +169,6 @@ def _extract_type_context(type_def: TypeDefinition, lines: List[str]) -> str:
     return _truncate_text(snippet, MAX_TYPE_SOURCE_CHARS)
 
 
-
 def _normalise_type_token(raw: str) -> List[str]:
     if not raw:
         return []
@@ -191,7 +190,6 @@ def _collect_entry_type_context(entry: ApiEntry, context_map: Dict[str, str]) ->
             base_candidate = candidate
             if "(" in candidate:
                 base_candidate = candidate.split("(")[0].strip()
-            
             # 完全一致と基本名の両方を試す
             for search_key in [candidate, base_candidate]:
                 if search_key in context_map and search_key not in seen:
