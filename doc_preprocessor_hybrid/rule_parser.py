@@ -134,22 +134,25 @@ def _apply_type_metadata(type_def: TypeDefinition) -> None:
         )
 
 
+
+
+
 def _build_point_variants(base: TypeDefinition) -> List[TypeDefinition]:
     variants: List[TypeDefinition] = []
-    base_summary = base.description.split("\n")[0] if base.description else "座標を表す点"
-    base_summary = base_summary.rstrip("。")
+    base_summary = base.description.split("\n")[0] if base.description else base.name
+    base_summary = base_summary.rstrip("。").rstrip("．").rstrip("。")
     for dim, token in (("2D", "cartesian_2d"), ("3D", "cartesian_3d")):
         desc = f"{base_summary}（{dim} 座標）"
-        variants.append(
-            TypeDefinition(
-                name=f"{base.name}({dim})",
-                description=f"{desc}。",
-                examples=list(base.examples),
-                canonical_type="point",
-                py_type="str",
-                one_of=[token, "variable_reference", "expression"],
-            )
+        variant = TypeDefinition(
+            name=f"{base.name}({dim})",
+            description=f"{desc}。",
+            examples=list(base.examples),
+            canonical_type="point",
+            py_type="str",
+            one_of=[token, "variable_reference", "expression"],
+            source=base.source,
         )
+        variants.append(variant)
     return variants
 
 
