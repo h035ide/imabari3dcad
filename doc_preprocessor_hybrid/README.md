@@ -57,3 +57,6 @@ python -m doc_preprocessor_hybrid.cli --store-chroma
 ```
 
 Neo4j/Chroma を同時に実行するには `--store-neo4j --store-chroma` を併用してください。
+### LLM 補強時のソース参照
+
+`--llm` 実行時には、ルールベースで切り出した `api.txt` / `api_arg.txt` の抜粋も併せてプロンプトへ送信するようになりました。これにより LLM は原文の文脈を参照しながら最小限の追記を行います。`api.txt` からは対象 API の近傍行、`api_arg.txt` からは関連する型定義を自動抽出します。
