@@ -141,7 +141,18 @@ def _extract_entry_context(entry: ApiEntry, lines: List[str]) -> str:
 def _extract_type_context(type_def: TypeDefinition, lines: List[str]) -> str:
     if not lines:
         return ""
-    targets = [f"■{type_def.name}"]
+    
+    # 型名の正規化: 括弧や次元情報を除去して基本名を取得
+    base_name = type_def.name
+    if "(" in base_name:
+        base_name = base_name.split("(")[0].strip()
+    
+    # 複数の検索パターンを試す
+    targets = [
+        f"■{type_def.name}",  # 完全一致
+        f"■{base_name}",      # 基本名のみ
+    ]
+    
     idx = _find_line_index(lines, targets)
     if idx is None:
         return ""
@@ -173,14 +184,21 @@ def _collect_entry_type_context(entry: ApiEntry, context_map: Dict[str, str]) ->
     snippets: List[str] = []
     for param in entry.params:
         for candidate in _normalise_type_token(param.type):
-            if candidate in context_map and candidate not in seen:
-                snippet = context_map[candidate]
-                if snippet:
-                    snippets.append(f"Type {candidate}:\n{snippet}")
-                    seen.append(candidate)
+            # 基本名も試す
+            base_candidate = candidate
+            if "(" in candidate:
+                base_candidate = candidate.split("(")[0].strip()
+            
+            # 完全一致と基本名の両方を試す
+            for search_key in [candidate, base_candidate]:
+                if search_key in context_map and search_key not in seen:
+                    snippet = context_map[search_key]
+                    if snippet:
+                        snippets.append(f"Type {search_key}:\n{snippet}")
+                        seen.append(search_key)
+                        break
+            if len(snippets) >= MAX_TYPE_CONTEXTS_PER_ENTRY:
                 break
-        if len(snippets) >= MAX_TYPE_CONTEXTS_PER_ENTRY:
-            break
     return "\n\n".join(snippets)
 
 
