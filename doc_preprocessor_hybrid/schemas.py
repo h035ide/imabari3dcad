@@ -5,6 +5,34 @@ from typing import Dict, List, Optional
 
 
 @dataclass
+class SourceFragment:
+    path: str
+    start_line: int
+    end_line: int
+    text: str
+    checksum: str
+
+    def to_dict(self) -> Dict[str, object]:
+        return {
+            "path": self.path,
+            "start_line": self.start_line,
+            "end_line": self.end_line,
+            "text": self.text,
+            "checksum": self.checksum,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, object]) -> "SourceFragment":
+        return cls(
+            path=str(data.get("path", "")),
+            start_line=int(data.get("start_line", 0)),
+            end_line=int(data.get("end_line", 0)),
+            text=str(data.get("text", "")),
+            checksum=str(data.get("checksum", "")),
+        )
+
+
+@dataclass
 class TypeDefinition:
     name: str
     description: str
@@ -13,6 +41,7 @@ class TypeDefinition:
     canonical_type: Optional[str] = None  # e.g., "string","integer","length","angle","point","direction"
     py_type: Optional[str] = None  # e.g., "str","int","float","bool","list","dict"
     one_of: Optional[List[str]] = None  # e.g., ["number_mm","variable_name","expression"]
+    source: Optional[SourceFragment] = None
 
     def to_dict(self) -> Dict[str, object]:
         data: Dict[str, object] = {"name": self.name, "description": self.description}
@@ -24,6 +53,8 @@ class TypeDefinition:
             data["py_type"] = self.py_type
         if self.one_of:
             data["one_of"] = self.one_of
+        if self.source:
+            data["source"] = self.source.to_dict()
         return data
 
 
@@ -89,6 +120,7 @@ class ApiEntry:
     object_name: Optional[str] = None
     title_jp: Optional[str] = None
     raw_return: Optional[str] = None
+    source: Optional[SourceFragment] = None
 
     def to_dict(self) -> Dict[str, object]:
         data = {
@@ -108,6 +140,8 @@ class ApiEntry:
             data["title_jp"] = self.title_jp
         if self.raw_return:
             data["raw_return"] = self.raw_return
+        if self.source:
+            data["source"] = self.source.to_dict()
         return data
 
 
