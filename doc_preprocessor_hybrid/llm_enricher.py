@@ -141,16 +141,16 @@ def _extract_entry_context(entry: ApiEntry, lines: List[str]) -> str:
 def _extract_type_context(type_def: TypeDefinition, lines: List[str]) -> str:
     if not lines:
         return ""
-    targets = [f"隨・｣ｰ{type_def.name}"]
+    targets = [f"■{type_def.name}"]
     idx = _find_line_index(lines, targets)
     if idx is None:
         return ""
     start = idx
     end = idx + 1
     line_count = len(lines)
-    while start > 0 and lines[start - 1].strip() and not lines[start - 1].startswith("隨・｣ｰ"):
+    while start > 0 and lines[start - 1].strip() and not lines[start - 1].startswith("■"):
         start -= 1
-    while end < line_count and lines[end].strip() and not lines[end].startswith("隨・｣ｰ"):
+    while end < line_count and lines[end].strip() and not lines[end].startswith("■"):
         end += 1
     snippet = "\n".join(lines[max(0, start - TYPE_CONTEXT_WINDOW): min(line_count, end + TYPE_CONTEXT_WINDOW)])
     return _truncate_text(snippet, MAX_TYPE_SOURCE_CHARS)
@@ -282,7 +282,14 @@ def enrich_bundle(
     type_context_map: Dict[str, str] = {}
     if api_arg_lines:
         for definition in bundle.type_definitions:
-            type_context_map[definition.name] = _extract_type_context(definition, api_arg_lines)
+            context = _extract_type_context(definition, api_arg_lines)
+            type_context_map[definition.name] = context
+            # デバッグ用: 型定義のコンテキスト抽出を確認
+            print(f"DEBUG: Type {definition.name} context length: {len(context)}")
+            if context:
+                print(f"DEBUG: Type {definition.name} context: {repr(context[:100])}...")
+            else:
+                print(f"DEBUG: Type {definition.name} - no context found")
 
     for type_def in bundle.type_definitions:
         current_json = json.dumps(type_def.to_dict(), ensure_ascii=False)
@@ -309,6 +316,11 @@ def enrich_bundle(
         try:
             api_source = _extract_entry_context(entry, api_doc_lines)
             type_context = _collect_entry_type_context(entry, type_context_map)
+            # デバッグ用: type_contextの内容を確認
+            print(f"DEBUG: Entry {entry.name}")
+            print(f"DEBUG: type_context_map keys: {list(type_context_map.keys())}")
+            print(f"DEBUG: type_context length: {len(type_context)}")
+            print(f"DEBUG: type_context content: {repr(type_context[:200])}...")
             result = entry_chain.invoke(
                 {
                     "current_json": current_json,
