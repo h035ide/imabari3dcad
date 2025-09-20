@@ -23,3 +23,37 @@ python -m doc_preprocessor_hybrid.cli --api-doc data/src/api.txt --api-arg data/
 ```
 
 補強ステップを有効にするには、`--llm`（有効な `OPENAI_API_KEY` が必要）を追加してください。
+## 外部ストレージへの格納
+
+`structured_api_enriched.json` を既に生成済みであれば、同梱のローダーを使って Neo4j と ChromaDB へデータを同期できます。接続設定は環境変数で行います。
+
+### Neo4j
+
+| 環境変数 | 説明 |
+| --- | --- |
+| `NEO4J_URI` | 例: `bolt://localhost:7687` |
+| `NEO4J_USERNAME` / `NEO4J_USER` | ログインユーザー |
+| `NEO4J_PASSWORD` | パスワード |
+| `NEO4J_DATABASE` | (任意) 対象データベース名 |
+| `NEO4J_CLEAR` | (任意) `false` の場合は既存ノードを保持 |
+
+```
+python -m doc_preprocessor_hybrid.cli --store-neo4j
+```
+
+### ChromaDB
+
+| 環境変数 | 説明 |
+| --- | --- |
+| `CHROMA_COLLECTION` | コレクション名 (必須) |
+| `CHROMA_PERSIST_DIRECTORY` | 例: `vector_store` (既定値) |
+| `CHROMA_CLEAR` | (任意) `false` で増分アップサート |
+| `CHROMA_EMBEDDING_PROVIDER` | `openai` (既定) または `sentence-transformers` |
+| `CHROMA_EMBEDDING_MODEL` | 使用モデル (未設定時は既定値) |
+| `OPENAI_API_KEY` | `openai` プロバイダー利用時に必須 |
+
+```
+python -m doc_preprocessor_hybrid.cli --store-chroma
+```
+
+Neo4j/Chroma を同時に実行するには `--store-neo4j --store-chroma` を併用してください。

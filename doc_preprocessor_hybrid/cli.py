@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import argparse
 import json
@@ -19,6 +19,8 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--llm", action="store_true", help="Enable LLM enrichment phase")
     parser.add_argument("--model", default=None, help="Override OpenAI model id")
+    parser.add_argument("--store-neo4j", action="store_true", help="Persist results into Neo4j using env credentials")
+    parser.add_argument("--store-chroma", action="store_true", help="Persist vector chunks into ChromaDB")
     parser.add_argument("--dry-run", action="store_true", help="Print plan without writing files")
     return parser
 
@@ -42,11 +44,19 @@ def main(argv: list[str] | None = None) -> int:
             "output_dir": str(config.output_dir),
             "llm": args.llm,
             "model": args.model,
+            "store_neo4j": args.store_neo4j,
+            "store_chroma": args.store_chroma,
         }
         print(json.dumps(preview, ensure_ascii=False, indent=2))
         return 0
 
-    result = run_pipeline(config=config, use_llm=args.llm, model_overrides=model_overrides)
+    result = run_pipeline(
+        config=config,
+        use_llm=args.llm,
+        model_overrides=model_overrides,
+        store_neo4j=args.store_neo4j,
+        store_chroma=args.store_chroma,
+    )
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0
 
