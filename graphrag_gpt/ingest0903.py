@@ -6,6 +6,8 @@ import re
 from typing import List, Dict, Optional, Tuple, Protocol, Union, Any
 import shutil
 import logging
+import json
+from datetime import datetime
 
 from langchain_core.documents import Document
 from langchain_neo4j import Neo4jGraph
@@ -685,6 +687,63 @@ def _rebuild_graph_in_neo4j(
         raise
 
 
+def _export_neo4j_to_text(
+    config: IngestConfigProtocol, out_dir: Path
+) -> Tuple[Path, Path]:
+    """Neo4j内のノード/リレーションをJSONLでエクスポートする。
+
+    nodes.jsonl: {id, labels, properties}
+    relationships.jsonl: {id, type, start, end, properties}
+    """
+    if not all([config.neo4j_uri, config.neo4j_user, config.neo4j_password]):
+        raise ValueError("Neo4j接続情報が未設定です")
+
+    graph = Neo4jGraph(
+        url=config.neo4j_uri,
+        username=config.neo4j_user,
+        password=config.neo4j_password,
+        database=config.neo4j_database,
+    )
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+    ts = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
+    nodes_path = out_dir / f"nodes_{ts}.jsonl"
+    rels_path = out_dir / f"relationships_{ts}.jsonl"
+
+    # ノードをエクスポート（elementId を使用）
+    with nodes_path.open("w", encoding="utf-8") as f_nodes:
+        result = graph.query(
+            "MATCH (n) RETURN elementId(n) AS element_id, labels(n) AS labels, properties(n) AS props"
+        )
+        for row in result:
+            rec = {
+                "element_id": row["element_id"],
+                "labels": row["labels"],
+                "properties": row["props"],
+            }
+            f_nodes.write(json.dumps(rec, ensure_ascii=False) + "\n")
+
+    # リレーションをエクスポート（elementId を使用）
+    with rels_path.open("w", encoding="utf-8") as f_rels:
+        query = (
+            "MATCH (a)-[r]->(b) "
+            "RETURN elementId(r) AS element_id, type(r) AS type, "
+            "elementId(a) AS start_element_id, elementId(b) AS end_element_id, properties(r) AS props"
+        )
+        result = graph.query(query)
+        for row in result:
+            rec = {
+                "element_id": row["element_id"],
+                "type": row["type"],
+                "start_element_id": row["start_element_id"],
+                "end_element_id": row["end_element_id"],
+                "properties": row["props"],
+            }
+            f_rels.write(json.dumps(rec, ensure_ascii=False) + "\n")
+
+    return nodes_path, rels_path
+
+
 def _build_and_load_chroma(
     api_entries: List[Dict[str, Any]],
     script_files: List[Tuple[str, str]],
@@ -776,6 +835,42 @@ def _build_and_load_neo4j_from_docs(
         logger.error(f"エラー詳細: {str(e)}")
 
 
+def _dump_preprocessed_artifacts(
+    out_dir: Path,
+    api_entries: List[Dict[str, Any]],
+    type_descriptions: Dict[str, str],
+    spec_triples: List[Dict[str, Any]],
+    spec_node_props: Dict[str, Dict[str, Any]],
+    script_triples: List[Dict[str, Any]],
+    script_node_props: Dict[str, Dict[str, Any]],
+) -> None:
+    """前処理の成果物をJSONで書き出す。
+
+    - api_entries.json: _parse_api_specs の結果
+    - type_descriptions.json: _parse_data_type_descriptions の結果
+    - graph_specs.json: 仕様由来のトリプル/ノード
+    - graph_scripts.json: スクリプト由来のトリプル/ノード
+    - graph_all.json: 統合（トリプル/ノード）
+    """
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    def _dump(obj: Any, name: str) -> None:
+        (out_dir / name).write_text(
+            json.dumps(obj, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+
+    _dump(api_entries, "api_entries.json")
+    _dump(type_descriptions, "type_descriptions.json")
+    _dump({"triples": spec_triples, "nodes": spec_node_props}, "graph_specs.json")
+    _dump({"triples": script_triples, "nodes": script_node_props}, "graph_scripts.json")
+
+    # 統合ビュー
+    all_triples = list(spec_triples) + list(script_triples)
+    all_nodes = dict(spec_node_props)
+    all_nodes.update(script_node_props)
+    _dump({"triples": all_triples, "nodes": all_nodes}, "graph_all.json")
+
+
 def build_databases(config: IngestConfigProtocol) -> bool:
     """データベース構築のメイン処理（Configベース）"""
     logger.info("データベース構築プロセスを開始します...")
@@ -818,7 +913,23 @@ def build_databases(config: IngestConfigProtocol) -> bool:
             logger.warning("data ディレクトリに解析対象の .py ファイルが見つかりませんでした。スクリプト例の解析をスキップします。")
             script_triples, script_node_props = [], {}
 
-        # --- 3. データ統合 → GraphDocument 構築 → Neo4j投入 ---
+        # --- 3. 前処理結果をファイル出力（Neo4j投入の前） ---
+        try:
+            dump_dir = Path(config.api_document_dir) / "preprocessed"
+            _dump_preprocessed_artifacts(
+                out_dir=dump_dir,
+                api_entries=api_entries,
+                type_descriptions=type_descriptions,
+                spec_triples=spec_triples,
+                spec_node_props=spec_node_props,
+                script_triples=script_triples,
+                script_node_props=script_node_props,
+            )
+            logger.info(f"前処理成果物を出力しました: {dump_dir}")
+        except Exception as e:
+            logger.warning(f"前処理成果物の出力に失敗しました: {e}")
+
+        # --- 4. データ統合 → GraphDocument 構築 → Neo4j投入 ---
         logger.info("データを統合してグラフを構築中...")
         all_triples = spec_triples + script_triples
         all_node_props = spec_node_props
@@ -826,7 +937,15 @@ def build_databases(config: IngestConfigProtocol) -> bool:
         gdocs = _triples_to_graph_documents(all_triples, all_node_props)
         _build_and_load_neo4j_from_docs(gdocs, config)
 
-        # --- 4. ベクトルデータベース (Chroma) を構築（読み済みデータを再利用） ---
+        # --- 4. Neo4jの内容をテキスト(JSONL)でエクスポート ---
+        try:
+            export_dir = Path(config.api_document_dir) / "preprocessed" / "neo4j_export"
+            nodes_fp, rels_fp = _export_neo4j_to_text(config, export_dir)
+            logger.info(f"Neo4jをエクスポートしました: {nodes_fp.name}, {rels_fp.name}")
+        except Exception as e:
+            logger.warning(f"Neo4jエクスポートに失敗しました: {e}")
+
+        # --- 5. ベクトルデータベース (Chroma) を構築（読み済みデータを再利用） ---
         logger.info("ChromaDB構築プロセス")
         _build_and_load_chroma(api_entries, script_files, config)
 
@@ -842,17 +961,17 @@ def build_databases(config: IngestConfigProtocol) -> bool:
 def main() -> None:
     """従来の互換性のためのメイン処理（非推奨）"""
     # 従来のconfig.pyベースの実行（互換性のため残す）
-    import config
+    # import config
 
     class LegacyConfig:
         def __init__(self):
-            self.neo4j_uri = config.NEO4J_URI
-            self.neo4j_user = config.NEO4J_USER
-            self.neo4j_password = config.NEO4J_PASSWORD
-            self.neo4j_database = getattr(config, "NEO4J_DATABASE", "neo4j")
-            self.openai_api_key = config.OPENAI_API_KEY
+            self.neo4j_uri = os.getenv("NEO4J_URI", "bolt://127.0.0.1:7687")
+            self.neo4j_user = os.getenv("NEO4J_USER", "neo4j")
+            self.neo4j_password = os.getenv("NEO4J_PASSWORD", "password")
+            self.neo4j_database = os.getenv("NEO4J_DATABASE", "neo4j")
+            self.openai_api_key = os.getenv("OPENAI_API_KEY")
             self.api_document_dir = "data/src"
-            self.chroma_persist_directory = "data/src/chroma_db"
+            self.chroma_persist_directory = "chroma_db_store"
             self.langchain_embedding_config = {
                 "model": "text-embedding-3-small",
                 "api_key": self.openai_api_key
@@ -863,4 +982,8 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    # 環境変数を読み込み
+    from dotenv import load_dotenv
+    import os
+    load_dotenv()
     main()
