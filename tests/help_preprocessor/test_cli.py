@@ -47,10 +47,11 @@ def test_cli_dry_run_creates_cache(tmp_path: Path) -> None:
         index_file=source_root / "index.txt",
     )
     pipeline = HelpPreprocessorPipeline(config)
-    pipeline.run(dry_run=True)
+    pipeline_result = pipeline.run(dry_run=True)
 
     cache_file = cache_dir / "index_parse.json"
     assert cache_file.exists()
     payload = json.loads(cache_file.read_text(encoding="utf-8"))
     assert payload["diagnostics"].get("html_samples")
     assert "index_errors" in payload["diagnostics"]
+    assert pipeline_result.graph_nodes
