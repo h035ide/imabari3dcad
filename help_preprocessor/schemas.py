@@ -36,6 +36,7 @@ class HelpSection:
     anchors: list[str] = field(default_factory=list)
     links: list[HelpLink] = field(default_factory=list)
     media: list[MediaAsset] = field(default_factory=list)
+    level: int = 0
 
 
 @dataclass(slots=True)

@@ -23,9 +23,11 @@ class HelpPreprocessorConfig:
     log_level: str = "INFO"
     openai_model: Optional[str] = None
     chroma_collection: Optional[str] = None
+    chroma_persist_dir: Optional[Path] = None
     neo4j_uri: Optional[str] = None
     neo4j_username: Optional[str] = None
     neo4j_password: Optional[str] = None
+    neo4j_database: Optional[str] = None
 
 
 def load_config_from_env(env: Mapping[str, str] | None = None) -> HelpPreprocessorConfig:
@@ -89,7 +91,9 @@ def load_config_from_env(env: Mapping[str, str] | None = None) -> HelpPreprocess
         log_level=_get_str("HELP_LOG_LEVEL", "INFO") or "INFO",
         openai_model=_get_str("HELP_OPENAI_MODEL"),
         chroma_collection=_get_str("HELP_CHROMA_COLLECTION"),
+        chroma_persist_dir=_get_optional_path("HELP_CHROMA_PERSIST_DIR"),
         neo4j_uri=_get_str("HELP_NEO4J_URI"),
         neo4j_username=_get_str("HELP_NEO4J_USERNAME"),
         neo4j_password=_get_str("HELP_NEO4J_PASSWORD"),
+        neo4j_database=_get_str("HELP_NEO4J_DATABASE"),
     )

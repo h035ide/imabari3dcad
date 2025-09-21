@@ -162,7 +162,7 @@ class HelpHTMLParser:
             seen_tokens.add(identifier)
             return identifier
 
-        def create_section(snippet: str, title: str, token: str) -> None:
+        def create_section(snippet: str, title: str, token: str, level: int) -> None:
             text = self._extract_text(snippet)
             if not text:
                 return
@@ -178,17 +178,19 @@ class HelpHTMLParser:
                     anchors=anchors,
                     links=links,
                     media=media,
+                    level=level,
                 )
             )
 
+
         if not matches:
-            create_section(html, html_path.stem, "body")
+            create_section(html, html_path.stem, 'body', level=0)
             return sections
 
         first_start = matches[0].start()
         leading = html[:first_start]
         if leading.strip():
-            create_section(leading, html_path.stem, "intro")
+            create_section(leading, html_path.stem, 'intro', level=0)
 
         for idx, match in enumerate(matches):
             next_start = matches[idx + 1].start() if idx + 1 < len(matches) else len(html)
@@ -198,14 +200,15 @@ class HelpHTMLParser:
             title = self._clean_text(raw_title) or html_path.stem
             anchor = self._extract_id(attrs)
             token = anchor if anchor else self._slugify(title)
-            create_section(snippet, title, token)
+            level = self._heading_level(match.group("tag"))
+            create_section(snippet, title, token, level=level)
 
         return sections
 
     @staticmethod
     def _extract_id(attrs: str) -> str | None:
-        double_pattern = re.compile(r"id\\s*=\\s*\"([^\"]+)\"", re.IGNORECASE)
-        single_pattern = re.compile(r"id\\s*=\\s*'([^']+)'", re.IGNORECASE)
+        double_pattern = re.compile(r"id\s*=\s*\"([^\"]+)\"", re.IGNORECASE)
+        single_pattern = re.compile(r"id\s*=\s*'([^']+)'", re.IGNORECASE)
         match = double_pattern.search(attrs) or single_pattern.search(attrs)
         if match:
             return match.group(1).strip()

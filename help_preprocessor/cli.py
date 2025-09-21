@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 """Command line interface for the help preprocessor."""
 
@@ -9,7 +9,8 @@ from typing import Sequence
 
 from .config import HelpPreprocessorConfig, load_config_from_env
 from .html_parser import HelpHTMLParser
-from .pipeline import HelpPreprocessorPipeline
+from .pipeline import HelpPreprocessorPipeline`r`nfrom .storage.chroma_loader import HelpChromaLoader
+from .storage.neo4j_loader import HelpNeo4jLoader
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -52,9 +53,11 @@ def _apply_cli_overrides(config: HelpPreprocessorConfig, args: argparse.Namespac
         log_level=log_level,
         openai_model=config.openai_model,
         chroma_collection=config.chroma_collection,
+        chroma_persist_dir=config.chroma_persist_dir,
         neo4j_uri=config.neo4j_uri,
         neo4j_username=config.neo4j_username,
         neo4j_password=config.neo4j_password,
+        neo4j_database=config.neo4j_database,
     )
 
 
@@ -88,6 +91,44 @@ def _dry_run_normalize(config: HelpPreprocessorConfig, limit: int) -> None:
         logging.debug("Sample content: %s", normalized[:200])
 
 
+
+def _create_neo4j_loader(config: HelpPreprocessorConfig) -> HelpNeo4jLoader | None:
+    """Instantiate the Neo4j loader when credentials are available."""
+
+    required = {
+        "HELP_NEO4J_URI": config.neo4j_uri,
+        "HELP_NEO4J_USERNAME": config.neo4j_username,
+        "HELP_NEO4J_PASSWORD": config.neo4j_password,
+    }
+    missing = [name for name, value in required.items() if not value]
+    if missing:
+        logging.info(
+            "Skipping Neo4j loader; missing configuration values: %s",
+            ", ".join(missing),
+        )
+        return None
+
+    return HelpNeo4jLoader(
+        uri=config.neo4j_uri or "",
+        username=config.neo4j_username or "",
+        password=config.neo4j_password or "",
+        database=config.neo4j_database,
+    )
+
+
+def _create_chroma_loader(config: HelpPreprocessorConfig) -> HelpChromaLoader | None:
+    """Instantiate the Chroma loader when a collection is configured."""
+
+    if not config.chroma_collection:
+        logging.info("Skipping Chroma loader; HELP_CHROMA_COLLECTION is not set.")
+        return None
+
+    persist_directory = str(config.chroma_persist_dir) if config.chroma_persist_dir else None
+    return HelpChromaLoader(
+        config.chroma_collection,
+        persist_directory=persist_directory,
+    )
+
 def main(argv: Sequence[str] | None = None) -> None:  # pragma: no cover - thin wrapper
     """Entry point for command line execution."""
 
@@ -99,10 +140,31 @@ def main(argv: Sequence[str] | None = None) -> None:  # pragma: no cover - thin 
 
     _configure_logging(config.log_level)
 
-    pipeline = HelpPreprocessorPipeline(config)
+    neo4j_loader = None
+    chroma_loader = None
 
-    if args.dry_run:
-        _dry_run_normalize(config, args.sample_limit)
-        return
+    try:
+        if not args.dry_run:
+            neo4j_loader = _create_neo4j_loader(config)
+            chroma_loader = _create_chroma_loader(config)
 
-    pipeline.run(dry_run=args.dry_run)
+        pipeline = HelpPreprocessorPipeline(
+            config,
+            neo4j_loader=neo4j_loader,
+            chroma_loader=chroma_loader,
+        )
+
+        if args.dry_run:
+            _dry_run_normalize(config, args.sample_limit)
+            pipeline.run(dry_run=True)
+            return
+
+        pipeline.run(dry_run=False)
+    finally:
+        if neo4j_loader is not None:
+            neo4j_loader.close()
+
+
+
+
+
