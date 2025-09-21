@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from typing import Dict, List, Optional
 
 from langchain_core.prompts import ChatPromptTemplate
@@ -16,6 +17,9 @@ load_dotenv()
 
 DEFAULT_MODEL_CONFIG: Dict[str, object] = {
     "model": "gpt-5-mini",
+    "temperature": 0,
+    "llm_verbosity": "high",
+    "llm_reasoning_effort": "high",
 }
 
 MAX_ENTRY_SOURCE_CHARS = 1200
@@ -24,68 +28,78 @@ ENTRY_CONTEXT_WINDOW = 12
 TYPE_CONTEXT_WINDOW = 8
 MAX_TYPE_CONTEXTS_PER_ENTRY = 4
 
+POINT_COMPONENT_PATTERN = re.compile(
+    r"^-?\d+(?:\.\d+)?$|^[A-Za-z_][A-Za-z0-9_]*$"
+)
+
 PROMPT = ChatPromptTemplate.from_messages(
     [
         (
             "system",
             (
-                "You polish EVO.SHIP API metadata. Respond with compact JSON, list only changed fields, "
-                "and do not invent values."
+                "You are the EVO.SHIP API metadata editor. Follow every directive inside <rules>.\n"
+                "<rules>\n"
+                "  <purpose>Polish existing metadata without inventing new behaviour.</purpose>\n"
+                "  <output>Return minified JSON containing only fields that changed.</output>\n"
+                "  <hallucination_guard>Never fabricate parameter names or values.</hallucination_guard>\n"
+                "  <language_policy>Keep the original language of each field unless explicitly localised.</language_policy>\n"
+                "</rules>"
             ),
         ),
         (
             "user",
             """
-            Current metadata:
-            {current_json}
-
-            Parsed summary:
-            {doc_snippet}
-
-            api.txt excerpt (rule-based):
-            {api_source}
-
-            Relevant type definitions from api_arg.txt:
-            {type_context}
-
-            Update description fields, infer better return type if possible,
-            and fill missing parameter descriptions.
-            Only include keys you actually change. For params, include only entries
-            that require updates with an existing name.
-            Output JSON with optional keys: description, returns, params.
+            <task name="enrich_api_entry">
+              <current_metadata>{current_json}</current_metadata>
+              <summary>{doc_snippet}</summary>
+              <sources>
+                <api_doc_excerpt>{api_source}</api_doc_excerpt>
+                <type_context>{type_context}</type_context>
+              </sources>
+              <requirements>
+                <item>Improve descriptions and return types when the evidence supports it.</item>
+                <item>Fill missing parameter descriptions using the provided context only.</item>
+                <item>Include only parameters with existing names that require updates.</item>
+                <item>Respond with JSON and omit commentary.</item>
+              </requirements>
+            </task>
             """,
         ),
     ]
 )
+
 
 TYPE_PROMPT = ChatPromptTemplate.from_messages(
     [
         (
             "system",
             (
-                "You revise EVO.SHIP type definitions. Respond with compact JSON, include only modified keys, "
-                "and avoid hallucinating values."
+                "You maintain EVO.SHIP type definitions. Adhere to <rules>.\n"
+                "<rules>\n"
+                "  <output>Return compact JSON with only modified keys.</output>\n"
+                "  <examples>Capture concrete usage examples in an `examples` array when available.</examples>\n"
+                "  <integrity>Do not invent fields or values not grounded in the sources.</integrity>\n"
+                "</rules>"
             ),
         ),
         (
             "user",
             """
-            Current metadata:
-            {current_json}
-
-            Definition text:
-            {definition_text}
-
-            Raw excerpt from api_arg.txt:
-            {source_excerpt}
-
-            If the description mixes core meaning with concrete examples, keep the core meaning in description
-            and move the examples to an examples array of short strings.
-            Only include keys you change (description and/or examples). Return JSON.
+            <task name="enrich_type_definition">
+              <current_metadata>{current_json}</current_metadata>
+              <definition_text>{definition_text}</definition_text>
+              <source_excerpt>{source_excerpt}</source_excerpt>
+              <requirements>
+                <item>Separate core meaning into `description` and practical illustrations into `examples`.</item>
+                <item>Include only the keys you update.</item>
+                <item>Return JSON only.</item>
+              </requirements>
+            </task>
             """,
         ),
     ]
 )
+
 
 
 def _doc_snippet(entry: ApiEntry) -> str:
@@ -203,6 +217,23 @@ def _collect_entry_type_context(entry: ApiEntry, context_map: Dict[str, str]) ->
     return "\n\n".join(snippets)
 
 
+def _normalise_point_examples(examples: List[str]) -> List[str]:
+    normalised: List[str] = []
+    for example in examples:
+        cleaned = example.strip()
+        if cleaned.startswith(("'", '"')) and cleaned.endswith(("'", '"')) and len(cleaned) >= 2:
+            cleaned = cleaned[1:-1].strip()
+        tokens = [token.strip() for token in cleaned.split(",") if token.strip()]
+        if not tokens:
+            continue
+        if all(POINT_COMPONENT_PATTERN.match(token) for token in tokens):
+            candidate = ",".join(tokens)
+            if candidate not in normalised:
+                normalised.append(candidate)
+    return normalised
+
+
+
 def _needs_enrichment(entry: ApiEntry) -> bool:
     if not entry.description:
         return True
@@ -266,12 +297,18 @@ def _apply_type_enrichment(type_def: TypeDefinition, payload: Dict[str, object])
     if isinstance(description, str) and description.strip() and description.strip() != type_def.description:
         type_def.description = description.strip()
         updated = True
-    examples = payload.get("examples")
-    if isinstance(examples, list):
-        cleaned = [str(item).strip() for item in examples if str(item).strip()]
-        if cleaned and cleaned != type_def.examples:
-            type_def.examples = cleaned
-            updated = True
+        examples = payload.get("examples")
+        if isinstance(examples, list):
+            cleaned = [str(item).strip() for item in examples if str(item).strip()]
+            if type_def.name.startswith("点"):
+                normalised = _normalise_point_examples(cleaned)
+                if normalised:
+                    cleaned = normalised
+                else:
+                    cleaned = []
+            if cleaned and cleaned != type_def.examples:
+                type_def.examples = cleaned
+                updated = True
     return updated
 
 
@@ -292,7 +329,16 @@ def enrich_bundle(
         return audit_log
 
     config = {**DEFAULT_MODEL_CONFIG, **(model_config or {})}
+    llm_verbosity = config.pop("llm_verbosity", None)
+    llm_reasoning = config.pop("llm_reasoning_effort", None)
     llm = ChatOpenAI(**config)
+    if llm_verbosity and hasattr(llm, "llm_verbosity"):
+        llm.llm_verbosity = llm_verbosity
+    if llm_reasoning:
+        if hasattr(llm, "llm_reasoning_effort"):
+            llm.llm_reasoning_effort = llm_reasoning
+        elif hasattr(llm, "default_reasoning_effort"):
+            llm.default_reasoning_effort = llm_reasoning
     type_chain = TYPE_PROMPT | llm
     entry_chain = PROMPT | llm
 
