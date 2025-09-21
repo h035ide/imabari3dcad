@@ -11,7 +11,8 @@ from help_preprocessor.pipeline import HelpPreprocessorPipeline
 def _create_sample_help(root: Path) -> None:
     root.mkdir(parents=True, exist_ok=True)
     (root / "index.txt").write_text("*Top\nTopic One (topic_one)\n", encoding="shift_jis")
-    (root / "topic_one.html").write_text("<html><body>トピック</body></html>", encoding="shift_jis")
+    html = '<html><body><p>Intro</p><h2>Overview</h2><p>Content</p></body></html>'
+    (root / "topic_one.html").write_text(html, encoding="shift_jis")
 
 
 def test_cli_dry_run_creates_cache(tmp_path: Path) -> None:
@@ -21,14 +22,12 @@ def test_cli_dry_run_creates_cache(tmp_path: Path) -> None:
     _create_sample_help(source_root)
 
     env = os.environ.copy()
-    env.update(
-        {
-            "HELP_SOURCE_ROOT": str(source_root),
-            "HELP_CACHE_DIR": str(cache_dir),
-            "HELP_OUTPUT_DIR": str(output_dir),
-            "HELP_LOG_LEVEL": "INFO",
-        }
-    )
+    env.update({
+        "HELP_SOURCE_ROOT": str(source_root),
+        "HELP_CACHE_DIR": str(cache_dir),
+        "HELP_OUTPUT_DIR": str(output_dir),
+        "HELP_LOG_LEVEL": "INFO",
+    })
 
     result = subprocess.run(
         [sys.executable, "-m", "help_preprocessor.cli", "--dry-run", "--sample-limit", "1"],
