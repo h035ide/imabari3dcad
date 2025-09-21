@@ -184,3 +184,17 @@ EVOSHIP ? Shift_JIS ????????????????????????????
 2. ??? `uv run help-preprocess --dry-run --sample-limit 5` ???????????????? index.txt ?????????????
 3. ?????????????????????????????????????????????????????? `HELP_CACHE_DIR` ?? `index_parse.json` ??????????
 
+## help_preprocessor Outputs
+
+The help preprocessor splits EVOSHIP HTML files into multi-heading sections. Each section becomes both a Neo4j node payload (via `help_preprocessor/storage/neo4j_loader.py`) and a vector chunk with metadata such as anchors, outbound links, and referenced media paths. To persist the data end-to-end:
+
+1. Configure the following environment variables (for example in `.env`):
+   - `HELP_SOURCE_ROOT` ? root of `EVOSHIP_HELP_FILES`
+   - `HELP_CACHE_DIR` ? directory for `index_parse.json` cache
+   - `HELP_OUTPUT_DIR` ? downstream artifacts (optional for dry-runs)
+   - `HELP_NEO4J_URI`, `HELP_NEO4J_USERNAME`, `HELP_NEO4J_PASSWORD`, `HELP_NEO4J_DATABASE` ? Neo4j connection
+   - `HELP_CHROMA_COLLECTION`, `HELP_CHROMA_PERSIST_DIR` ? Chroma collection name and persistence directory
+2. Run `uv run help-preprocess --dry-run` to verify decoding diagnostics, section counts, and to warm the cache.
+3. Execute `uv run help-preprocess` without `--dry-run` to write graph payloads to Neo4j and chunks to Chroma using the configured loaders.
+
+The loader tests in `tests/help_preprocessor/test_storage.py` describe the expected payload formats if you need to integrate with alternate backends.

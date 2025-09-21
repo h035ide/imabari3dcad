@@ -4,8 +4,6 @@ import json
 
 from help_preprocessor.config import HelpPreprocessorConfig
 from help_preprocessor.pipeline import HelpPreprocessorPipeline
-from help_preprocessor.storage.chroma_loader import HelpChromaLoader
-from help_preprocessor.storage.neo4j_loader import HelpNeo4jLoader
 
 
 def _create_help_source(tmp_path: Path) -> tuple[Path, Path, Path]:
@@ -68,14 +66,14 @@ def test_pipeline_storage_integration(tmp_path: Path) -> None:
     source_root, cache_dir, output_dir = _create_help_source(tmp_path)
     config = _build_config(source_root, cache_dir, output_dir)
 
-    class RecordingNeo4j(HelpNeo4jLoader):
+    class RecordingNeo4j:
         def __init__(self) -> None:
             self.calls: list[tuple[list[dict], list[dict]]] = []
 
         def upsert(self, nodes: list[dict], relationships: list[dict]) -> None:
             self.calls.append((nodes, relationships))
 
-    class RecordingChroma(HelpChromaLoader):
+    class RecordingChroma:
         def __init__(self) -> None:
             self.calls: list[list[dict]] = []
 
@@ -110,3 +108,5 @@ def test_pipeline_dry_run_skips_storage(tmp_path: Path) -> None:
     pipeline.run(dry_run=True)
 
     assert loader.calls == 0
+
+
