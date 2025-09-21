@@ -450,13 +450,91 @@ def build_langchain_wrapped_engines(config: Config):
             return f"ベクトル検索でエラーが発生しました: {e}"
 
     # グラフ検索のラッパー
-    def graph_search_wrapper(query: str):
-        """グラフ検索をLangChainでラップ"""
+    def graph_search_wrapper(
+        query: str,
+        *,
+        on_result: Optional[Any] = None,
+        on_empty: Optional[Any] = None,
+        on_error: Optional[Any] = None,
+        diagnose: bool = False,
+        keyword: Optional[str] = None,
+    ):
+        """グラフ検索をLangChainでラップ
+
+        on_result(response: Any) -> None: 成功時に呼ばれるコールバック
+        on_empty(info: dict) -> None: 結果が空/実質空のときに呼ばれるコールバック
+        on_error(error: Exception) -> None: 例外時に呼ばれるコールバック
+        """
         try:
             graph_engine = build_graph_engine(config)
-            return graph_engine.query(query)
+            response = graph_engine.query(query)
+
+            # 空判定: None, 空文字, "Empty Response" 等
+            as_str = str(response).strip() if response is not None else ""
+            is_empty = (not as_str) or (as_str in ("", "Empty Response"))
+
+            if is_empty:
+                diag: Optional[dict] = None
+                if diagnose:
+                    diag = {}
+                    try:
+                        with GraphDatabase.driver(
+                            config.neo4j_uri,
+                            auth=(config.neo4j_user, config.neo4j_password),
+                        ) as driver:
+                            with driver.session(database=config.neo4j_database) as session:
+                                # 全体件数
+                                total_funcs = session.run("MATCH (f:Function) RETURN count(f) AS c").single()
+                                diag["function_count"] = (total_funcs and total_funcs.get("c")) or 0
+                                # キーワード一致件数
+                                kw = keyword or ""
+                                match_funcs = session.run(
+                                    (
+                                        "MATCH (f:Function) "
+                                        "WHERE toLower(f.name) CONTAINS toLower($kw) "
+                                        "RETURN count(f) AS c"
+                                    ),
+                                    kw=kw,
+                                ).single()
+                                diag["match_count_by_keyword"] = (match_funcs and match_funcs.get("c")) or 0
+                                # サンプル名
+                                sample = session.run(
+                                    "MATCH (f:Function) RETURN f.name AS name LIMIT 5"
+                                )
+                                diag["sample_function_names"] = [r.get("name") for r in sample if r.get("name")]
+                                # Parameter の存在
+                                total_params = session.run("MATCH (p:Parameter) RETURN count(p) AS c").single()
+                                diag["parameter_count"] = (total_params and total_params.get("c")) or 0
+                    except Exception:
+                        # 診断に失敗しても無視
+                        pass
+                if callable(on_empty):
+                    try:
+                        on_empty({
+                            "query": query,
+                            "raw_response": response,
+                            "normalized": as_str,
+                            "diagnosis": diag,
+                            "keyword": keyword,
+                        })
+                    except Exception:
+                        # コールバック失敗は主処理に影響させない
+                        pass
+            else:
+                if callable(on_result):
+                    try:
+                        on_result(response)
+                    except Exception:
+                        pass
+
+            return response
         except Exception as e:
             logger.error(f"グラフ検索エラー: {e}")
+            if callable(on_error):
+                try:
+                    on_error(e)
+                except Exception:
+                    pass
             return f"グラフ検索でエラーが発生しました: {e}"
 
     # 統合回答生成のラッパー
