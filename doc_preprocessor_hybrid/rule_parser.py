@@ -118,6 +118,73 @@ def _refine_element_definition(type_def: TypeDefinition) -> None:
     )
 
 
+
+DEFAULT_POINT_EXAMPLES: Tuple[Tuple[str, ...], ...] = (
+    ("100.0", "50.0", "0.0"),
+    ("FRM1", "0.0", "1000.0"),
+)
+POINT_COMPONENT_PATTERN = re.compile(
+    r"^-?\d+(?:\.\d+)?$|^[A-Za-z_][A-Za-z0-9_]*$"
+)
+
+
+def _unique_preserve_order(values: Iterable[str]) -> List[str]:
+    seen: set[str] = set()
+    ordered: List[str] = []
+    for value in values:
+        if value in seen:
+            continue
+        ordered.append(value)
+        seen.add(value)
+    return ordered
+
+
+def _tokenize_point_example(example: str) -> List[str]:
+    if not example:
+        return []
+    cleaned = example.strip()
+    if cleaned.startswith(("'", '"')) and cleaned.endswith(("'", '"')) and len(cleaned) >= 2:
+        cleaned = cleaned[1:-1].strip()
+    tokens = [token.strip() for token in cleaned.split(",")]
+    normalized: List[str] = []
+    for token in tokens:
+        if not token:
+            continue
+        if POINT_COMPONENT_PATTERN.match(token):
+            normalized.append(token)
+        else:
+            return []
+    return normalized
+
+
+def _parse_point_examples(examples: List[str]) -> List[List[str]]:
+    parsed: List[List[str]] = []
+    for example in examples:
+        tokens = _tokenize_point_example(example)
+        if tokens and tokens not in parsed:
+            parsed.append(tokens)
+    return parsed
+
+
+def _examples_to_strings(parsed_examples: List[List[str]], *, limit: int | None = None) -> List[str]:
+    formatted: List[str] = []
+    for tokens in parsed_examples:
+        if limit is not None and len(tokens) < limit:
+            continue
+        subset = tokens if limit is None else tokens[:limit]
+        formatted.append(",".join(subset))
+    return _unique_preserve_order(formatted)
+
+
+def _fallback_point_examples(components: int) -> List[str]:
+    values = [",".join(example[:components]) for example in DEFAULT_POINT_EXAMPLES if len(example) >= components]
+    if not values:
+        head = DEFAULT_POINT_EXAMPLES[0]
+        values = [",".join(head[:components])]
+    return _unique_preserve_order(values)
+
+
+
 def _apply_type_metadata(type_def: TypeDefinition) -> None:
     type_def.description = _normalize_type_definition_description(type_def.name, type_def.description)
     meta = TYPE_CANONICAL_MAP.get(type_def.name)
@@ -132,18 +199,32 @@ def _apply_type_metadata(type_def: TypeDefinition) -> None:
         type_def.description = (
             "モデル座標系の点を表す値を指定します。数値リテラルのほか、変数参照や式を利用できます。"
         )
+        parsed_examples = _parse_point_examples(type_def.examples)
+        if not parsed_examples:
+            parsed_examples = [list(example) for example in DEFAULT_POINT_EXAMPLES]
+        type_def.examples = _examples_to_strings(parsed_examples)
 
 
 def _build_point_variants(base: TypeDefinition) -> List[TypeDefinition]:
-    variants: List[TypeDefinition] = []
+    parsed_examples = _parse_point_examples(base.examples)
+    if not parsed_examples:
+        parsed_examples = [list(example) for example in DEFAULT_POINT_EXAMPLES]
+    base.examples = _examples_to_strings(parsed_examples)
     base_summary = base.description.split("\n")[0] if base.description else base.name
-    base_summary = base_summary.rstrip("。").rstrip("．").rstrip("。")
-    for dim, token in (("2D", "cartesian_2d"), ("3D", "cartesian_3d")):
+    base_summary = base_summary.rstrip("。").rstrip("．")
+    variants: List[TypeDefinition] = []
+    for dim, token, components in (
+        ("2D", "cartesian_2d", 2),
+        ("3D", "cartesian_3d", 3),
+    ):
+        examples = _examples_to_strings(parsed_examples, limit=components)
+        if not examples:
+            examples = _fallback_point_examples(components)
         desc = f"{base_summary}（{dim} 座標）"
         variant = TypeDefinition(
             name=f"{base.name}({dim})",
             description=f"{desc}。",
-            examples=list(base.examples),
+            examples=examples,
             canonical_type="point",
             py_type="str",
             one_of=[token, "variable_reference", "expression"],
