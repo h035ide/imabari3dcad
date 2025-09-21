@@ -2,16 +2,20 @@ from __future__ import annotations
 
 """High-level orchestration for the help preprocessor pipeline."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import json
 import logging
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable
 
 from .config import HelpPreprocessorConfig
+from .graph_builder import HelpGraphBuilder
 from .html_parser import HelpHTMLParser
 from .index_parser import HelpIndexParser
-from .schemas import HelpCategory, HelpTopic
+from .schemas import HelpCategory, HelpSection, HelpTopic
+from .storage.chroma_loader import HelpChromaLoader
+from .storage.neo4j_loader import HelpNeo4jLoader
+from .vector_generator import HelpVectorGenerator
 
 
 @dataclass(slots=True)
@@ -23,29 +27,60 @@ class ParsedArtifacts:
 
 
 @dataclass(slots=True)
+class PipelineResult:
+    """Aggregated output from a pipeline run."""
+
+    artifacts: ParsedArtifacts
+    graph_nodes: list[dict]
+    graph_relationships: list[dict]
+    vector_chunks: list[dict]
+
+
+@dataclass(slots=True)
 class HelpPreprocessorPipeline:
     """Coordinate parsing, graph building, and storage steps."""
 
     config: HelpPreprocessorConfig
+    graph_builder: HelpGraphBuilder = field(default_factory=HelpGraphBuilder)
+    vector_generator: HelpVectorGenerator = field(default_factory=HelpVectorGenerator)
+    neo4j_loader: HelpNeo4jLoader | None = None
+    chroma_loader: HelpChromaLoader | None = None
+    _section_cache: dict[Path, list[HelpSection]] = field(default_factory=dict, init=False)
 
-    def run(self, dry_run: bool = False) -> None:
+    def run(self, dry_run: bool = False) -> PipelineResult:
         """Execute the end-to-end pipeline."""
+
+        result = self.build_only()
+
+        if dry_run:
+            logging.debug("Dry-run mode enabled; skipping storage integration.")
+            return result
+
+        if self.neo4j_loader is not None:
+            logging.info(
+                "Writing %s nodes and %s relationships to Neo4j.",
+                len(result.graph_nodes),
+                len(result.graph_relationships),
+            )
+            self.neo4j_loader.upsert(result.graph_nodes, result.graph_relationships)
+
+        if self.chroma_loader is not None and result.vector_chunks:
+            logging.info("Writing %s vector chunks to Chroma.", len(result.vector_chunks))
+            self.chroma_loader.upsert(result.vector_chunks)
+
+        return result
+
+    def build_only(self) -> PipelineResult:
+        """Perform parsing and transformation without writing to storage."""
 
         artifacts = self._load_or_parse()
         category_count = self._count_categories(artifacts.root_category)
         topic_count = sum(1 for _ in artifacts.root_category.iter_topics())
         logging.info("Parsed %s categories and %s topics", category_count, topic_count)
 
-        if dry_run:
-            logging.debug("Dry-run mode enabled; skipping storage integration.")
-            return
-
-        raise NotImplementedError("Storage integration will be implemented in Phase 4.")
-
-    def build_only(self) -> ParsedArtifacts:
-        """Perform parsing and transformation without writing to storage."""
-
-        return self._load_or_parse()
+        graph_nodes, graph_relationships = self._build_graph_payloads(artifacts.root_category)
+        vector_chunks = self._build_vector_chunks(artifacts.root_category)
+        return PipelineResult(artifacts, graph_nodes, graph_relationships, vector_chunks)
 
     def _cache_path(self) -> Path:
         cache_dir = self.config.cache_dir
@@ -85,6 +120,35 @@ class HelpPreprocessorPipeline:
         )
         logging.debug("Cached parsed artifacts at %s", cache_file)
         return ParsedArtifacts(root_category=root_category, diagnostics=diagnostics)
+
+    def _build_graph_payloads(self, root: HelpCategory) -> tuple[list[dict], list[dict]]:
+        nodes = self.graph_builder.build_nodes(root)
+        relationships = self.graph_builder.build_relationships(root)
+        logging.debug("Graph payload generated: %s nodes, %s relationships", len(nodes), len(relationships))
+        return nodes, relationships
+
+    def _build_vector_chunks(self, root: HelpCategory) -> list[dict]:
+        chunks: list[dict] = []
+        for section in self._iter_sections(root):
+            chunks.extend(self.vector_generator.build_chunks(section))
+        logging.debug("Vector payload generated: %s chunks", len(chunks))
+        return chunks
+
+    def _iter_sections(self, root: HelpCategory) -> Iterable[HelpSection]:
+        html_parser = HelpHTMLParser(self.config.source_root, encoding=self.config.encoding)
+        for topic in root.iter_topics():
+            if not topic.sections:
+                sections = self._section_cache.get(topic.source_path)
+                if sections is None:
+                    try:
+                        sections = list(html_parser.parse_file(topic.source_path))
+                    except FileNotFoundError:
+                        logging.warning("Help topic source not found: %s", topic.source_path)
+                        sections = []
+                    self._section_cache[topic.source_path] = sections
+                topic.sections.extend(sections)
+            for section in topic.sections:
+                yield section
 
     def _collect_html_diagnostics(self) -> list[dict[str, str]]:
         html_parser = HelpHTMLParser(self.config.source_root, encoding=self.config.encoding)

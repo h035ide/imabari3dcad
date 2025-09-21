@@ -3,13 +3,14 @@ from __future__ import annotations
 """HTML parsing utilities for the help preprocessor."""
 
 from dataclasses import dataclass
-from codecs import BOM_UTF8
+from html import unescape
+from html.parser import HTMLParser
 import logging
-import unicodedata
+import re
 from pathlib import Path
 from typing import Iterable, Sequence
 
-from .schemas import HelpSection, MediaAsset
+from .schemas import HelpLink, HelpSection, MediaAsset
 
 
 _LOGGER = logging.getLogger(__name__)
@@ -26,6 +27,38 @@ class HTMLDecodeDiagnostics:
     fallback_used: bool
     errors: dict[str, str]
 
+
+class _TextExtractor(HTMLParser):
+    """Simple HTML to text converter ignoring script/style tags."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self._chunks: list[str] = []
+        self._skip_depth = 0
+
+    def handle_starttag(self, tag: str, attrs) -> None:  # pragma: no cover - HTMLParser base
+        if tag in {"script", "style"}:
+            self._skip_depth += 1
+        if self._skip_depth == 0 and tag in {"br", "p", "li", "div"}:
+            self._chunks.append('\n')
+
+    def handle_endtag(self, tag: str) -> None:  # pragma: no cover - HTMLParser base
+        if tag in {"script", "style"} and self._skip_depth:
+            self._skip_depth -= 1
+        if self._skip_depth == 0 and tag in {"p", "li", "div"}:
+            self._chunks.append('\n')
+
+    def handle_data(self, data: str) -> None:  # pragma: no cover - HTMLParser base
+        if self._skip_depth:
+            return
+        text = data.strip()
+        if text:
+            self._chunks.append(unescape(text))
+
+    def get_text(self) -> str:
+        joined = ' '.join(chunk for chunk in self._chunks if chunk)
+        joined = re.sub(r'\s+', ' ', joined)
+        return joined.strip()
 
 class HelpHTMLParser:
     """Parse Shift_JIS encoded EVOSHIP help HTML into structured sections."""
@@ -56,7 +89,7 @@ class HelpHTMLParser:
                 break
 
         if decoded_text is None or selected is None:  # pragma: no cover - error path
-            detail = ", ".join(f"{enc}: {msg}" for enc, msg in errors.items())
+            detail = ', '.join(f"{enc}: {msg}" for enc, msg in errors.items())
             raise UnicodeDecodeError(
                 selected or self.encoding,
                 raw,
@@ -66,7 +99,7 @@ class HelpHTMLParser:
             )
 
         normalized = self._normalize_html(decoded_text)
-        bom = raw.startswith(BOM_UTF8)
+        bom = raw.startswith(b'\xef\xbb\xbf')
         fallback = selected != self.encoding
 
         diagnostics = HTMLDecodeDiagnostics(
@@ -88,13 +121,10 @@ class HelpHTMLParser:
 
     @staticmethod
     def _normalize_html(text: str) -> str:
-        """Apply newline and Unicode normalization to decoded HTML text."""
-
-        unified_newlines = text.replace("\r\n", "\n").replace("\r", "\n")
-        # Normalize Shift_JIS half-width Kana, punctuation, etc.
-        return unicodedata.normalize("NFKC", unified_newlines)
-
+        """Apply newline normalization to decoded HTML text."""
+        return text.replace('\r\n', '\n').replace('\r', '\n')
     def _log_diagnostics(self, diagnostics: HTMLDecodeDiagnostics) -> None:
+
         """Emit debug-level logging for decode diagnostics."""
 
         if _LOGGER.isEnabledFor(logging.DEBUG):
@@ -109,16 +139,79 @@ class HelpHTMLParser:
             )
 
     # ------------------------------------------------------------------
-    # Placeholders for upcoming parsing logic
+    # Parsing utilities
     # ------------------------------------------------------------------
-    def parse_file(self, html_path: Path) -> Iterable[HelpSection]:  # pragma: no cover - placeholder
-        """Yield structured sections for a single HTML document."""
+    def parse_file(self, html_path: Path) -> list[HelpSection]:
+        """Return structured sections for a single HTML document."""
 
-        self.read_normalized_html(html_path)
-        raise NotImplementedError("HTML parsing has not been implemented yet.")
+        if not html_path.exists():  # pragma: no cover - defensive
+            raise FileNotFoundError(html_path)
 
-    def collect_media(self, html_path: Path) -> list[MediaAsset]:  # pragma: no cover - placeholder
+        normalized, _ = self.read_normalized_html(html_path)
+        title = self._extract_title(normalized) or html_path.stem
+        text = self._extract_text(normalized)
+        anchors = self._extract_anchors(normalized)
+        links = self._extract_links(normalized)
+        media = self._extract_media(html_path, normalized)
+
+        section = HelpSection(
+            section_id=f"{html_path.stem}#body",
+            title=title,
+            content=text,
+            anchors=anchors,
+            links=links,
+            media=media,
+        )
+        return [section]
+
+    def collect_media(self, html_path: Path) -> list[MediaAsset]:
         """Return media assets referenced within a help HTML document."""
 
-        self.read_normalized_html(html_path)
-        raise NotImplementedError("Media extraction has not been implemented yet.")
+        if not html_path.exists():  # pragma: no cover - defensive
+            return []
+        normalized, _ = self.read_normalized_html(html_path)
+        return self._extract_media(html_path, normalized)
+
+    def _extract_title(self, html: str) -> str | None:
+        title_pattern = re.compile(r'<title[^>]*>(.*?)</title>', re.IGNORECASE | re.DOTALL)
+        match = title_pattern.search(html)
+        if match:
+            return unescape(match.group(1).strip())
+        heading_pattern = re.compile(r'<h1[^>]*>(.*?)</h1>', re.IGNORECASE | re.DOTALL)
+        match = heading_pattern.search(html)
+        if match:
+            text = re.sub(r'<[^>]+>', ' ', match.group(1))
+            return unescape(text).strip()
+        return None
+
+    def _extract_text(self, html: str) -> str:
+        parser = _TextExtractor()
+        parser.feed(html)
+        return parser.get_text()
+
+    def _extract_anchors(self, html: str) -> list[str]:
+        pattern = re.compile(r'id="([^"]+)"', re.IGNORECASE)
+        return sorted(set(pattern.findall(html)))
+
+    def _extract_links(self, html: str) -> list[HelpLink]:
+        pattern = re.compile(r'<a[^>]+href="([^"]+)"[^>]*>(.*?)</a>', re.IGNORECASE | re.DOTALL)
+        links: list[HelpLink] = []
+        for href, text in pattern.findall(html):
+            clean_text = unescape(re.sub(r'<[^>]+>', ' ', text)).strip()
+            target_id = href.split('#', 1)[1] if '#' in href else None
+            links.append(HelpLink(href=href.strip(), text=clean_text or href.strip(), target_id=target_id))
+        return links
+
+    def _extract_media(self, html_path: Path, html: str) -> list[MediaAsset]:
+        pattern = re.compile(r'<(img|video|audio|source)[^>]+(src|data)="([^"]+)"', re.IGNORECASE)
+        media: list[MediaAsset] = []
+        for tag, _, src in pattern.findall(html):
+            asset_path = (html_path.parent / src).resolve()
+            media.append(
+                MediaAsset(
+                    identifier=f"{html_path.stem}:{src}",
+                    path=asset_path,
+                    media_type=tag.lower(),
+                )
+            )
+        return media
