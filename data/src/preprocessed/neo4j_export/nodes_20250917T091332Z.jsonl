@@ -1,0 +1,415 @@
+{"id": 2, "labels": ["Method"], "properties": {"id": "BodyDivideByPlanes", "description": "ボディを指定した平面で分割する", "name": "BodyDivideByPlanes"}}
+{"id": 3, "labels": ["ReturnValue"], "properties": {"id": "BodyDivideByPlanes_ReturnValue", "description": "分割で作成されたボディ要素のID配列"}}
+{"id": 4, "labels": ["Concept"], "properties": {"id": "ボディを指定した平面で分割機能", "name": "ボディを指定した平面で分割機能"}}
+{"id": 5, "labels": ["Parameter"], "properties": {"id": "BodyDivideByPlanes_pDriveFeatureName", "order": 0, "description": "作成する分割フィーチャー要素名称（空文字可）", "name": "pDriveFeatureName"}}
+{"id": 6, "labels": ["Parameter"], "properties": {"id": "BodyDivideByPlanes_TargetBody", "order": 1, "description": "分割対象のボディ", "name": "TargetBody"}}
+{"id": 7, "labels": ["Parameter"], "properties": {"id": "BodyDivideByPlanes_plane", "order": 2, "description": "分割をする平面", "name": "plane"}}
+{"id": 8, "labels": ["Parameter"], "properties": {"id": "BodyDivideByPlanes_nPlaneCopy", "order": 3, "description": "分割をする平面を複数コピーして分割をする（通常は1)", "name": "nPlaneCopy"}}
+{"id": 9, "labels": ["Method"], "properties": {"id": "CutBody", "description": "ボディを指定した要素でカットする", "name": "CutBody"}}
+{"id": 10, "labels": ["ReturnValue"], "properties": {"id": "CutBody_ReturnValue", "description": "作成されたカットフィーチャーのID"}}
+{"id": 11, "labels": ["Concept"], "properties": {"id": "ボディを指定した要素でカット機能", "name": "ボディを指定した要素でカット機能"}}
+{"id": 12, "labels": ["Parameter"], "properties": {"id": "CutBody_FeatureName", "order": 0, "description": "作成するカットフィーチャー要素名称（空文字可）", "name": "FeatureName"}}
+{"id": 13, "labels": ["Parameter"], "properties": {"id": "CutBody_TargetBody", "order": 1, "description": "カット対象のソリッド、シート", "name": "TargetBody"}}
+{"id": 14, "labels": ["Parameter"], "properties": {"id": "CutBody_CutElement", "order": 2, "description": "カットする要素(平面、シート）", "name": "CutElement"}}
+{"id": 15, "labels": ["Parameter"], "properties": {"id": "CutBody_ElementOffset", "order": 3, "description": "カットする要素のオフセット距離を指定", "name": "ElementOffset"}}
+{"id": 16, "labels": ["Parameter"], "properties": {"id": "CutBody_bCutForward", "order": 4, "description": "要素の関連づけ方法の指定", "name": "bCutForward"}}
+{"id": 17, "labels": ["Method"], "properties": {"id": "CreateBoundedPlate", "description": "指定したソリッド要素に境界要素を指定した板形状を作成する", "name": "CreateBoundedPlate"}}
+{"id": 18, "labels": ["ReturnValue"], "properties": {"id": "CreateBoundedPlate_ReturnValue", "description": "作成された境界要素指定フィーチャーのID"}}
+{"id": 19, "labels": ["Concept"], "properties": {"id": "指定したソリッド要素に境界要素を指定した板形状機能", "name": "指定したソリッド要素に境界要素を指定した板形状機能"}}
+{"id": 20, "labels": ["Parameter"], "properties": {"id": "CreateBoundedPlate_FeatureName", "order": 0, "description": "作成する境界要素指定フィーチャー要素名称（空文字可）", "name": "FeatureName"}}
+{"id": 21, "labels": ["Parameter"], "properties": {"id": "CreateBoundedPlate_TargetSolid", "order": 1, "description": "境界要素指定フィーチャーを作成する対象のソリッドを指定", "name": "TargetSolid"}}
+{"id": 22, "labels": ["Parameter"], "properties": {"id": "CreateBoundedPlate_OperationType", "order": 2, "description": "ソリッドオペレーションのタイプを指定する", "name": "OperationType"}}
+{"id": 23, "labels": ["Parameter"], "properties": {"id": "CreateBoundedPlate_Plane", "order": 3, "description": "板の定義平面位置", "name": "Plane"}}
+{"id": 24, "labels": ["Parameter"], "properties": {"id": "CreateBoundedPlate_PlaneOffset", "order": 4, "description": "平面のオフセット距離を指定", "name": "PlaneOffset"}}
+{"id": 25, "labels": ["Parameter"], "properties": {"id": "CreateBoundedPlate_BoundObjects", "order": 5, "description": "境界要素（シート、フェイス、スケッチ、平面、ソリッド）", "name": "BoundObjects"}}
+{"id": 26, "labels": ["Parameter"], "properties": {"id": "CreateBoundedPlate_ThickenType", "order": 6, "description": "", "name": "ThickenType"}}
+{"id": 27, "labels": ["Parameter"], "properties": {"id": "CreateBoundedPlate_Thickness1", "order": 7, "description": "板厚", "name": "Thickness1"}}
+{"id": 28, "labels": ["Parameter"], "properties": {"id": "CreateBoundedPlate_Thickness2", "order": 8, "description": "板厚２（厚み付けタイプが２方向のときに使用）", "name": "Thickness2"}}
+{"id": 29, "labels": ["Parameter"], "properties": {"id": "CreateBoundedPlate_ThicknessOffset", "order": 9, "description": "厚みづけをする板のオフセット距離", "name": "ThicknessOffset"}}
+{"id": 30, "labels": ["Parameter"], "properties": {"id": "CreateBoundedPlate_RefByGeometricMethod", "order": 10, "description": "Trueの時は幾何位置にもとづいて関連を設定する", "name": "RefByGeometricMethod"}}
+{"id": 31, "labels": ["Parameter"], "properties": {"id": "CreateBoundedPlate_ReferMethod", "order": 11, "description": "要素の関連づけ方法の指定", "name": "ReferMethod"}}
+{"id": 32, "labels": ["Parameter"], "properties": {"id": "CreateBoundedPlate_bUpdate", "order": 12, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 33, "labels": ["Method"], "properties": {"id": "CreateBoundingBox", "description": "指定したソリッド要素に境界ボックス形状を作成する", "name": "CreateBoundingBox"}}
+{"id": 34, "labels": ["ReturnValue"], "properties": {"id": "CreateBoundingBox_ReturnValue", "description": "作成された境界ボックス形状フィーチャーのID"}}
+{"id": 35, "labels": ["Concept"], "properties": {"id": "指定したソリッド要素に境界ボックス形状機能", "name": "指定したソリッド要素に境界ボックス形状機能"}}
+{"id": 36, "labels": ["Parameter"], "properties": {"id": "CreateBoundingBox_FeatureName", "order": 0, "description": "作成する境界ボックスフィーチャー要素名称（空文字可）", "name": "FeatureName"}}
+{"id": 37, "labels": ["Parameter"], "properties": {"id": "CreateBoundingBox_TargetSolid", "order": 1, "description": "境界ボックスフィーチャーを作成する対象のソリッドを指定", "name": "TargetSolid"}}
+{"id": 38, "labels": ["Parameter"], "properties": {"id": "CreateBoundingBox_OperationType", "order": 2, "description": "ソリッドオペレーションのタイプを指定する", "name": "OperationType"}}
+{"id": 39, "labels": ["Parameter"], "properties": {"id": "CreateBoundingBox_Bodies", "order": 3, "description": "境界ボックスを計算するソリッド、シート要素", "name": "Bodies"}}
+{"id": 40, "labels": ["Parameter"], "properties": {"id": "CreateBoundingBox_bOptimalBox", "order": 4, "description": "Trueを指定するとボックスを計算する座標系を最適なものにする。（そうでない場合は絶対座標系で計算する）", "name": "bOptimalBox"}}
+{"id": 41, "labels": ["Parameter"], "properties": {"id": "CreateBoundingBox_ReferMethod", "order": 5, "description": "要素の関連づけ方法の指定", "name": "ReferMethod"}}
+{"id": 42, "labels": ["Parameter"], "properties": {"id": "CreateBoundingBox_bUpdate", "order": 6, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 43, "labels": ["Method"], "properties": {"id": "SetElementColor", "description": "指定要素の色を設定する", "name": "SetElementColor"}}
+{"id": 44, "labels": ["ReturnValue"], "properties": {"id": "SetElementColor_ReturnValue", "description": "作成された境界ボックス形状フィーチャーのID"}}
+{"id": 45, "labels": ["Concept"], "properties": {"id": "指定要素色機能", "name": "指定要素色機能"}}
+{"id": 46, "labels": ["Parameter"], "properties": {"id": "SetElementColor_Element", "order": 0, "description": "色を設定する要素", "name": "Element"}}
+{"id": 47, "labels": ["Parameter"], "properties": {"id": "SetElementColor_RValue", "order": 1, "description": "赤色の値(0-255)", "name": "RValue"}}
+{"id": 48, "labels": ["Method"], "properties": {"id": "CreateSweep", "description": "指定したソリッド要素にスイープ形状を付加する", "name": "CreateSweep"}}
+{"id": 49, "labels": ["ReturnValue"], "properties": {"id": "CreateSweep_ReturnValue", "description": "作成されたスイープフィーチャーのID"}}
+{"id": 50, "labels": ["Concept"], "properties": {"id": "指定したソリッド要素にスイープ形状を付加機能", "name": "指定したソリッド要素にスイープ形状を付加機能"}}
+{"id": 51, "labels": ["Parameter"], "properties": {"id": "CreateSweep_TargetSolidName", "order": 0, "description": "スイープフィーチャーを作成する対象のソリッドを指定", "name": "TargetSolidName"}}
+{"id": 52, "labels": ["Parameter"], "properties": {"id": "CreateSweep_OperationType", "order": 1, "description": "ソリッドオペレーションのタイプを指定する", "name": "OperationType"}}
+{"id": 53, "labels": ["Parameter"], "properties": {"id": "CreateSweep_bUpdate", "order": 2, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 54, "labels": ["Method"], "properties": {"id": "CreateSweepSheet", "description": "プロファイル要素をスイープしてシート要素を作成", "name": "CreateSweepSheet"}}
+{"id": 55, "labels": ["ReturnValue"], "properties": {"id": "CreateSweepSheet_ReturnValue", "description": "作成されたシート要素の要素ID"}}
+{"id": 56, "labels": ["Concept"], "properties": {"id": "プロファイル要素をスイープしてシート要素を作成機能", "name": "プロファイル要素をスイープしてシート要素を作成機能"}}
+{"id": 57, "labels": ["Parameter"], "properties": {"id": "CreateSweepSheet_bUpdate", "order": 0, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 58, "labels": ["Method"], "properties": {"id": "CreateRotationalSweep", "description": "指定したソリッド要素に回転形状を付加する", "name": "CreateRotationalSweep"}}
+{"id": 59, "labels": ["ReturnValue"], "properties": {"id": "CreateRotationalSweep_ReturnValue", "description": "作成された回転フィーチャーのID"}}
+{"id": 60, "labels": ["Concept"], "properties": {"id": "指定したソリッド要素に回転形状を付加機能", "name": "指定したソリッド要素に回転形状を付加機能"}}
+{"id": 61, "labels": ["Parameter"], "properties": {"id": "CreateRotationalSweep_TargetSolidName", "order": 0, "description": "回転フィーチャーを作成する対象のソリッドを指定", "name": "TargetSolidName"}}
+{"id": 62, "labels": ["Parameter"], "properties": {"id": "CreateRotationalSweep_OperationType", "order": 1, "description": "ソリッドオペレーションのタイプを指定する", "name": "OperationType"}}
+{"id": 63, "labels": ["Parameter"], "properties": {"id": "CreateRotationalSweep_bUpdate", "order": 2, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 64, "labels": ["Method"], "properties": {"id": "CreateRotationalSweepSheet", "description": "プロファイル要素を回転してシート要素を作成", "name": "CreateRotationalSweepSheet"}}
+{"id": 65, "labels": ["ReturnValue"], "properties": {"id": "CreateRotationalSweepSheet_ReturnValue", "description": "作成されたシート要素の要素ID"}}
+{"id": 66, "labels": ["Concept"], "properties": {"id": "プロファイル要素を回転してシート要素を作成機能", "name": "プロファイル要素を回転してシート要素を作成機能"}}
+{"id": 67, "labels": ["Parameter"], "properties": {"id": "CreateRotationalSweepSheet_bUpdate", "order": 0, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 68, "labels": ["Method"], "properties": {"id": "CreateLine", "description": "3Dの直線線要素を作成", "name": "CreateLine"}}
+{"id": 69, "labels": ["ReturnValue"], "properties": {"id": "CreateLine_ReturnValue", "description": "線要素の要素ID"}}
+{"id": 70, "labels": ["Concept"], "properties": {"id": "3D直線線要素を作成機能", "name": "3D直線線要素を作成機能"}}
+{"id": 71, "labels": ["Parameter"], "properties": {"id": "CreateLine_StartPoint", "order": 0, "description": "始点", "name": "StartPoint"}}
+{"id": 72, "labels": ["Method"], "properties": {"id": "CreateArc", "description": "3Dの円弧線要素を作成", "name": "CreateArc"}}
+{"id": 73, "labels": ["ReturnValue"], "properties": {"id": "CreateArc_ReturnValue", "description": "線要素の要素ID"}}
+{"id": 74, "labels": ["Concept"], "properties": {"id": "3D円弧線要素を作成機能", "name": "3D円弧線要素を作成機能"}}
+{"id": 75, "labels": ["Parameter"], "properties": {"id": "CreateArc_CenterPoint", "order": 0, "description": "中心点", "name": "CenterPoint"}}
+{"id": 76, "labels": ["Parameter"], "properties": {"id": "CreateArc_Normal", "order": 1, "description": "軸方向", "name": "Normal"}}
+{"id": 77, "labels": ["Parameter"], "properties": {"id": "CreateArc_MajorDir", "order": 2, "description": "主軸方向（パラメータ０の位置方向", "name": "MajorDir"}}
+{"id": 78, "labels": ["Parameter"], "properties": {"id": "CreateArc_Radius", "order": 3, "description": "半径", "name": "Radius"}}
+{"id": 79, "labels": ["Parameter"], "properties": {"id": "CreateArc_bClose", "order": 4, "description": "Trueの時は円を作成する", "name": "bClose"}}
+{"id": 80, "labels": ["Method"], "properties": {"id": "CreateEllipse", "description": "3Dの楕円線要素を作成", "name": "CreateEllipse"}}
+{"id": 81, "labels": ["ReturnValue"], "properties": {"id": "CreateEllipse_ReturnValue", "description": "線要素の要素ID"}}
+{"id": 82, "labels": ["Concept"], "properties": {"id": "3D楕円線要素を作成機能", "name": "3D楕円線要素を作成機能"}}
+{"id": 83, "labels": ["Parameter"], "properties": {"id": "CreateEllipse_CenterPoint", "order": 0, "description": "中心点", "name": "CenterPoint"}}
+{"id": 84, "labels": ["Parameter"], "properties": {"id": "CreateEllipse_Normal", "order": 1, "description": "軸方向", "name": "Normal"}}
+{"id": 85, "labels": ["Parameter"], "properties": {"id": "CreateEllipse_MajorDir", "order": 2, "description": "主軸方向（パラメータ０の位置方向", "name": "MajorDir"}}
+{"id": 86, "labels": ["Parameter"], "properties": {"id": "CreateEllipse_MajorRadius", "order": 3, "description": "主軸半径", "name": "MajorRadius"}}
+{"id": 87, "labels": ["Parameter"], "properties": {"id": "CreateEllipse_MinorRadius", "order": 4, "description": "副軸半径", "name": "MinorRadius"}}
+{"id": 88, "labels": ["Parameter"], "properties": {"id": "CreateEllipse_bClose", "order": 5, "description": "Trueの時は閉じたを作成する", "name": "bClose"}}
+{"id": 89, "labels": ["Method"], "properties": {"id": "CreateNURBSCurve", "description": "3DのＮＵＲＢＳ線要素を作成", "name": "CreateNURBSCurve"}}
+{"id": 90, "labels": ["ReturnValue"], "properties": {"id": "CreateNURBSCurve_ReturnValue", "description": "線要素の要素ID"}}
+{"id": 91, "labels": ["Concept"], "properties": {"id": "3DＮＵＲＢＳ線要素を作成機能", "name": "3DＮＵＲＢＳ線要素を作成機能"}}
+{"id": 92, "labels": ["Parameter"], "properties": {"id": "CreateNURBSCurve_nDegree", "order": 0, "description": "ＮＵＲＢＳ線の次数", "name": "nDegree"}}
+{"id": 93, "labels": ["Parameter"], "properties": {"id": "CreateNURBSCurve_bClose", "order": 1, "description": "閉じたＮＵＲＢＳ線の場合True", "name": "bClose"}}
+{"id": 94, "labels": ["Parameter"], "properties": {"id": "CreateNURBSCurve_bPeriodic", "order": 2, "description": "周期ＮＵＲＢＳ線の場合True", "name": "bPeriodic"}}
+{"id": 95, "labels": ["Parameter"], "properties": {"id": "CreateNURBSCurve_CtrlPoints", "order": 3, "description": "制御点", "name": "CtrlPoints"}}
+{"id": 96, "labels": ["Parameter"], "properties": {"id": "CreateNURBSCurve_Weights", "order": 4, "description": "重み", "name": "Weights"}}
+{"id": 97, "labels": ["Parameter"], "properties": {"id": "CreateNURBSCurve_Knots", "order": 5, "description": "ノットベクトル", "name": "Knots"}}
+{"id": 98, "labels": ["Parameter"], "properties": {"id": "CreateNURBSCurve_Range", "order": 6, "description": "トリム範囲", "name": "Range"}}
+{"id": 99, "labels": ["Method"], "properties": {"id": "CreateLoft", "description": "指定したソリッド要素にロフト形状を付加する", "name": "CreateLoft"}}
+{"id": 100, "labels": ["ReturnValue"], "properties": {"id": "CreateLoft_ReturnValue", "description": "作成されたロフトフィーチャーのID"}}
+{"id": 101, "labels": ["Concept"], "properties": {"id": "指定したソリッド要素にロフト形状を付加機能", "name": "指定したソリッド要素にロフト形状を付加機能"}}
+{"id": 102, "labels": ["Parameter"], "properties": {"id": "CreateLoft_TargetSolidName", "order": 0, "description": "ロフトフィーチャーを作成する対象のソリッドを指定", "name": "TargetSolidName"}}
+{"id": 103, "labels": ["Parameter"], "properties": {"id": "CreateLoft_OperationType", "order": 1, "description": "ソリッドオペレーションのタイプを指定する", "name": "OperationType"}}
+{"id": 104, "labels": ["Parameter"], "properties": {"id": "CreateLoft_bUpdate", "order": 2, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 105, "labels": ["Method"], "properties": {"id": "CreateLoftSheet", "description": "ロフトシート要素を作成", "name": "CreateLoftSheet"}}
+{"id": 106, "labels": ["ReturnValue"], "properties": {"id": "CreateLoftSheet_ReturnValue", "description": "作成されたシート要素の要素ID"}}
+{"id": 107, "labels": ["Concept"], "properties": {"id": "ロフトシート要素を作成機能", "name": "ロフトシート要素を作成機能"}}
+{"id": 108, "labels": ["Parameter"], "properties": {"id": "CreateLoftSheet_bUpdate", "order": 0, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 109, "labels": ["Method"], "properties": {"id": "CreateSlot", "description": "船殻のスロット要素、カラープレートを作成する", "name": "CreateSlot"}}
+{"id": 110, "labels": ["ReturnValue"], "properties": {"id": "CreateSlot_ReturnValue", "description": "作成されたスロットフィーチャー、カラープレート１，カラープレート２の要素ID配列"}}
+{"id": 111, "labels": ["Concept"], "properties": {"id": "船殻スロット要素、カラープレート機能", "name": "船殻スロット要素、カラープレート機能"}}
+{"id": 112, "labels": ["Parameter"], "properties": {"id": "CreateSlot_bUpdate", "order": 0, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 113, "labels": ["Method"], "properties": {"id": "CreateFacePlate", "description": "船殻のフェイスプレート要素トを作成する", "name": "CreateFacePlate"}}
+{"id": 114, "labels": ["ReturnValue"], "properties": {"id": "CreateFacePlate_ReturnValue", "description": "作成されたフェイスプレート要素ID"}}
+{"id": 115, "labels": ["Concept"], "properties": {"id": "船殻フェイスプレート要素ト機能", "name": "船殻フェイスプレート要素ト機能"}}
+{"id": 116, "labels": ["Parameter"], "properties": {"id": "CreateFacePlate_bUpdate", "order": 0, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 117, "labels": ["Method"], "properties": {"id": "CreateOffsetDatumPlane", "description": "データム平面の作成（移動）", "name": "CreateOffsetDatumPlane"}}
+{"id": 118, "labels": ["ReturnValue"], "properties": {"id": "CreateOffsetDatumPlane_ReturnValue", "description": "作成されたフェイスプレート要素ID"}}
+{"id": 119, "labels": ["Concept"], "properties": {"id": "データム平面作成（移動）機能", "name": "データム平面作成（移動）機能"}}
+{"id": 120, "labels": ["Parameter"], "properties": {"id": "CreateOffsetDatumPlane_Name", "order": 0, "description": "作成するデータム平面要素名称（空文字可）", "name": "Name"}}
+{"id": 121, "labels": ["Parameter"], "properties": {"id": "CreateOffsetDatumPlane_ElementGroup", "order": 1, "description": "作成するデータム平面要素を要素グループに入れる場合は要素グループを指定（空文字可）", "name": "ElementGroup"}}
+{"id": 122, "labels": ["Parameter"], "properties": {"id": "CreateOffsetDatumPlane_Plane", "order": 2, "description": "元になる平面を指定する", "name": "Plane"}}
+{"id": 123, "labels": ["Parameter"], "properties": {"id": "CreateOffsetDatumPlane_OffsetDistance", "order": 3, "description": "元になる平面からのオフセット距離を指定", "name": "OffsetDistance"}}
+{"id": 124, "labels": ["Parameter"], "properties": {"id": "CreateOffsetDatumPlane_ReferMethod", "order": 4, "description": "要素の関連づけ方法の指定（未実装、使用しない）", "name": "ReferMethod"}}
+{"id": 125, "labels": ["Parameter"], "properties": {"id": "CreateOffsetDatumPlane_bUpdate", "order": 5, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 126, "labels": ["Method"], "properties": {"id": "CreateRotatedDatumPlane", "description": "データム平面の作成（回転）", "name": "CreateRotatedDatumPlane"}}
+{"id": 127, "labels": ["ReturnValue"], "properties": {"id": "CreateRotatedDatumPlane_ReturnValue", "description": "作成されたフェイスプレート要素ID"}}
+{"id": 128, "labels": ["Concept"], "properties": {"id": "データム平面作成（回転）機能", "name": "データム平面作成（回転）機能"}}
+{"id": 129, "labels": ["Parameter"], "properties": {"id": "CreateRotatedDatumPlane_Name", "order": 0, "description": "作成するデータム平面要素名称（空文字可）", "name": "Name"}}
+{"id": 130, "labels": ["Parameter"], "properties": {"id": "CreateRotatedDatumPlane_ElementGroup", "order": 1, "description": "作成するデータム平面要素を要素グループに入れる場合は要素グループを指定（空文字可）", "name": "ElementGroup"}}
+{"id": 131, "labels": ["Parameter"], "properties": {"id": "CreateRotatedDatumPlane_Plane", "order": 2, "description": "元になる平面を指定する", "name": "Plane"}}
+{"id": 132, "labels": ["Parameter"], "properties": {"id": "CreateRotatedDatumPlane_Axis", "order": 3, "description": "回転軸を指定する", "name": "Axis"}}
+{"id": 133, "labels": ["DataType"], "properties": {"id": "軸", "name": "軸"}}
+{"id": 134, "labels": ["Parameter"], "properties": {"id": "CreateRotatedDatumPlane_Angle", "order": 4, "description": "回転角度", "name": "Angle"}}
+{"id": 135, "labels": ["DataType"], "properties": {"id": "角度", "description": "度(°)単位の数値、変数要素名,式文字列、\n例) \"30.0\" , \"Angle1\" , \"Angle1 * 0.2\"", "name": "角度"}}
+{"id": 136, "labels": ["Parameter"], "properties": {"id": "CreateRotatedDatumPlane_ReferMethod", "order": 5, "description": "要素の関連づけ方法の指定（未実装、使用しない）", "name": "ReferMethod"}}
+{"id": 137, "labels": ["Parameter"], "properties": {"id": "CreateRotatedDatumPlane_bUpdate", "order": 6, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 830, "labels": ["Object"], "properties": {"id": "Application", "name": "Application"}}
+{"id": 831, "labels": ["Method"], "properties": {"id": "ShowMainWindow", "description": "EvoShipのメインウィンドウを表示する", "name": "ShowMainWindow"}}
+{"id": 832, "labels": ["ReturnValue"], "properties": {"id": "ShowMainWindow_ReturnValue", "description": "なし"}}
+{"id": 833, "labels": ["DataType"], "properties": {"id": "不明", "name": "不明"}}
+{"id": 834, "labels": ["Concept"], "properties": {"id": "EvoShipメインウィンドウを表示機能", "name": "EvoShipメインウィンドウを表示機能"}}
+{"id": 835, "labels": ["Parameter"], "properties": {"id": "ShowMainWindow_bShow", "order": 0, "description": "表示する時はTrue", "name": "bShow"}}
+{"id": 836, "labels": ["DataType"], "properties": {"id": "bool", "description": "通常の真偽値 True False\n以下のタイプは全てPythonの型としては文字列。文字列の書式の仕様", "name": "bool"}}
+{"id": 837, "labels": ["Method"], "properties": {"id": "LoadPart", "description": "Partオブジェクトを読み込む", "name": "LoadPart"}}
+{"id": 838, "labels": ["ReturnValue"], "properties": {"id": "LoadPart_ReturnValue", "description": "Partオブジェクト"}}
+{"id": 839, "labels": ["Concept"], "properties": {"id": "Partオブジェクトを読み込む機能", "name": "Partオブジェクトを読み込む機能"}}
+{"id": 840, "labels": ["Entity"], "properties": {"id": "オブジェクト", "name": "オブジェクト"}}
+{"id": 841, "labels": ["Parameter"], "properties": {"id": "LoadPart_FileName", "order": 0, "description": "保存されているドキュメントのファイルパス名", "name": "FileName"}}
+{"id": 842, "labels": ["DataType"], "properties": {"id": "文字列", "description": "通常の文字列", "name": "文字列"}}
+{"id": 843, "labels": ["Entity"], "properties": {"id": "ドキュメント", "name": "ドキュメント"}}
+{"id": 844, "labels": ["Parameter"], "properties": {"id": "LoadPart_bForceEvaluation", "order": 1, "description": "強制的に全要素を再計算して開くときはTrue (通常はFalse）", "name": "bForceEvaluation"}}
+{"id": 845, "labels": ["Entity"], "properties": {"id": "要素", "name": "要素"}}
+{"id": 846, "labels": ["Method"], "properties": {"id": "OpenDocument", "description": "Documentを開く", "name": "OpenDocument"}}
+{"id": 847, "labels": ["ReturnValue"], "properties": {"id": "OpenDocument_ReturnValue", "description": "Documentオブジェクト"}}
+{"id": 848, "labels": ["Concept"], "properties": {"id": "Documentを開く機能", "name": "Documentを開く機能"}}
+{"id": 849, "labels": ["Parameter"], "properties": {"id": "OpenDocument_FileName", "order": 0, "description": "保存されているドキュメントのファイルパス名", "name": "FileName"}}
+{"id": 850, "labels": ["Parameter"], "properties": {"id": "OpenDocument_bForceEvaluation", "order": 1, "description": "強制的に全要素を再計算して開くときはTrue (通常はFalse）", "name": "bForceEvaluation"}}
+{"id": 851, "labels": ["Object"], "properties": {"id": "Document", "name": "Document"}}
+{"id": 852, "labels": ["Method"], "properties": {"id": "Save", "description": "ドキュメントをファイルに保存する", "name": "Save"}}
+{"id": 853, "labels": ["ReturnValue"], "properties": {"id": "Save_ReturnValue", "description": "なし"}}
+{"id": 854, "labels": ["Concept"], "properties": {"id": "ドキュメントをファイルに保存機能", "name": "ドキュメントをファイルに保存機能"}}
+{"id": 855, "labels": ["Parameter"], "properties": {"id": "Save_FileName", "order": 0, "description": "保存するファイルパス名", "name": "FileName"}}
+{"id": 856, "labels": ["Parameter"], "properties": {"id": "Save_bAsCompactFormat", "order": 1, "description": "最小サイズになる形式で保存する時はTrue（開くのに計算を必要とします）", "name": "bAsCompactFormat"}}
+{"id": 857, "labels": ["Method"], "properties": {"id": "ExporAsSTL", "description": "ドキュメントをSTLとして保存する", "name": "ExporAsSTL"}}
+{"id": 858, "labels": ["ReturnValue"], "properties": {"id": "ExporAsSTL_ReturnValue", "description": "なし"}}
+{"id": 859, "labels": ["Concept"], "properties": {"id": "ドキュメントをSTLとして保存機能", "name": "ドキュメントをSTLとして保存機能"}}
+{"id": 860, "labels": ["Parameter"], "properties": {"id": "ExporAsSTL_FileName", "order": 0, "description": "保存するSTLファイルパス名", "name": "FileName"}}
+{"id": 861, "labels": ["Object"], "properties": {"id": "View", "name": "View"}}
+{"id": 862, "labels": ["Method"], "properties": {"id": "SetDirection", "description": "ビューの表示方向を設定する", "name": "SetDirection"}}
+{"id": 863, "labels": ["ReturnValue"], "properties": {"id": "SetDirection_ReturnValue", "description": "なし"}}
+{"id": 864, "labels": ["Concept"], "properties": {"id": "ビュー表示方向機能", "name": "ビュー表示方向機能"}}
+{"id": 865, "labels": ["Parameter"], "properties": {"id": "SetDirection_outDir", "order": 0, "description": "画面から外側に向く方向", "name": "outDir"}}
+{"id": 866, "labels": ["DataType"], "properties": {"id": "方向", "description": "〇 各軸方向は\"+X\",\"-X\",\"+Y\",\"-X\",\"+Z\",\"-Z\" で指定\n〇 \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を数値（変数も可）で指定", "name": "方向"}}
+{"id": 867, "labels": ["Parameter"], "properties": {"id": "SetDirection_upDir", "order": 1, "description": "画面の上方向", "name": "upDir"}}
+{"id": 868, "labels": ["Parameter"], "properties": {"id": "SetDirection_bFitToModel", "order": 2, "description": "表示方向にあわせて表示範囲を要素にフィットさせる時はTrue", "name": "bFitToModel"}}
+{"id": 869, "labels": ["Method"], "properties": {"id": "ExportToBitmap", "description": "ビューの表示内容をビットマップファイルとして出力する", "name": "ExportToBitmap"}}
+{"id": 870, "labels": ["ReturnValue"], "properties": {"id": "ExportToBitmap_ReturnValue", "description": "なし"}}
+{"id": 871, "labels": ["Concept"], "properties": {"id": "ビュー表示内容をビットマップファイルとして出力機能", "name": "ビュー表示内容をビットマップファイルとして出力機能"}}
+{"id": 872, "labels": ["Parameter"], "properties": {"id": "ExportToBitmap_FileName", "order": 0, "description": "ビットマップファイルのファイル名", "name": "FileName"}}
+{"id": 873, "labels": ["Parameter"], "properties": {"id": "ExportToBitmap_nBitapWidth", "order": 1, "description": "ビットマップファイルの横方向のピクセルサイズ（縦方向はビューの縦横比から取得）", "name": "nBitapWidth"}}
+{"id": 874, "labels": ["DataType"], "properties": {"id": "整数", "description": "通常の数値", "name": "整数"}}
+{"id": 875, "labels": ["Object"], "properties": {"id": "Part", "name": "Part"}}
+{"id": 876, "labels": ["Method"], "properties": {"id": "CreateSketchPlane", "description": "スケッチ平面の作成", "name": "CreateSketchPlane"}}
+{"id": 877, "labels": ["ReturnValue"], "properties": {"id": "CreateSketchPlane_ReturnValue", "description": "作成されたスケッチ平面要素の要素ID"}}
+{"id": 878, "labels": ["DataType"], "properties": {"id": "ID", "name": "ID"}}
+{"id": 879, "labels": ["Concept"], "properties": {"id": "スケッチ平面作成機能", "name": "スケッチ平面作成機能"}}
+{"id": 880, "labels": ["Entity"], "properties": {"id": "平面", "name": "平面"}}
+{"id": 881, "labels": ["Parameter"], "properties": {"id": "CreateSketchPlane_ElementName", "order": 0, "description": "作成するスケッチ平面名称（空文字可）", "name": "ElementName"}}
+{"id": 882, "labels": ["Parameter"], "properties": {"id": "CreateSketchPlane_ElementGroup", "order": 1, "description": "作成するスケッチ平面を要素グループに入れる場合は要素グループを指定（空文字可）", "name": "ElementGroup"}}
+{"id": 883, "labels": ["DataType"], "properties": {"id": "要素グループ", "description": "EVO.SHIPの要素グループ名\n要素グループの階層は\"/\"で区切る", "name": "要素グループ"}}
+{"id": 884, "labels": ["Parameter"], "properties": {"id": "CreateSketchPlane_PlaneDef", "order": 2, "description": "スケッチ平面を作成する平面を指定する", "name": "PlaneDef"}}
+{"id": 885, "labels": ["Parameter"], "properties": {"id": "CreateSketchPlane_PlaneOffset", "order": 3, "description": "平面からのオフセット距離を指定", "name": "PlaneOffset"}}
+{"id": 886, "labels": ["DataType"], "properties": {"id": "長さ", "description": "mm単位の数値、変数要素名,式文字列、\n例) \"100.0\" , \"L1\", \"L1 / 2.0\"", "name": "長さ"}}
+{"id": 887, "labels": ["Parameter"], "properties": {"id": "CreateSketchPlane_bRevPlane", "order": 4, "description": "スケッチ平面を反転するかどうかのフラグ(bool)", "name": "bRevPlane"}}
+{"id": 888, "labels": ["Method"], "properties": {"id": "CreateSketchLayer", "description": "スケッチレイヤーの作成", "name": "CreateSketchLayer"}}
+{"id": 889, "labels": ["ReturnValue"], "properties": {"id": "CreateSketchLayer_ReturnValue", "description": "作成されたスケッチレイヤー要素の要素ID"}}
+{"id": 890, "labels": ["Concept"], "properties": {"id": "スケッチレイヤー作成機能", "name": "スケッチレイヤー作成機能"}}
+{"id": 891, "labels": ["Parameter"], "properties": {"id": "CreateSketchLayer_SketchLayerName", "order": 0, "description": "作成するスケッチレイヤー名称（空文字可）", "name": "SketchLayerName"}}
+{"id": 892, "labels": ["Parameter"], "properties": {"id": "CreateSketchLayer_SketchPlane", "order": 1, "description": "レイヤーを作成するスケッチ要素", "name": "SketchPlane"}}
+{"id": 893, "labels": ["Method"], "properties": {"id": "CreateSketchLine", "description": "スケッチ直線作成", "name": "CreateSketchLine"}}
+{"id": 894, "labels": ["ReturnValue"], "properties": {"id": "CreateSketchLine_ReturnValue", "description": "作成されたスケッチ直線要素の要素ID"}}
+{"id": 895, "labels": ["Concept"], "properties": {"id": "スケッチ直線作成機能", "name": "スケッチ直線作成機能"}}
+{"id": 896, "labels": ["Entity"], "properties": {"id": "線", "name": "線"}}
+{"id": 897, "labels": ["Parameter"], "properties": {"id": "CreateSketchLine_SketchPlane", "order": 0, "description": "直線を作成するスケッチ要素", "name": "SketchPlane"}}
+{"id": 898, "labels": ["Parameter"], "properties": {"id": "CreateSketchLine_SketchLineName", "order": 1, "description": "作成するスケッチ直線名称（空文字可）", "name": "SketchLineName"}}
+{"id": 899, "labels": ["Parameter"], "properties": {"id": "CreateSketchLine_SketchLayer", "order": 2, "description": "直線を作成するスケッチレイヤー(空文字可）", "name": "SketchLayer"}}
+{"id": 900, "labels": ["Parameter"], "properties": {"id": "CreateSketchLine_StartPoint", "order": 3, "description": "始点", "name": "StartPoint"}}
+{"id": 901, "labels": ["DataType"], "properties": {"id": "点", "description": "\",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定\n例) \"100.0,50,0,0.0\" , \"FRM1,0.0,1000.0\"", "name": "点"}}
+{"id": 902, "labels": ["Parameter"], "properties": {"id": "CreateSketchLine_EndPoint", "order": 4, "description": "終点", "name": "EndPoint"}}
+{"id": 903, "labels": ["Parameter"], "properties": {"id": "CreateSketchLine_bUpdate", "order": 5, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 904, "labels": ["Method"], "properties": {"id": "CreateSketchArc", "description": "スケッチ円弧を中心点と始終点を指定して作成", "name": "CreateSketchArc"}}
+{"id": 905, "labels": ["ReturnValue"], "properties": {"id": "CreateSketchArc_ReturnValue", "description": "作成されたスケッチ円弧要素の要素ID"}}
+{"id": 906, "labels": ["Concept"], "properties": {"id": "スケッチ円弧を中心点と始終点を指定して作成機能", "name": "スケッチ円弧を中心点と始終点を指定して作成機能"}}
+{"id": 907, "labels": ["Parameter"], "properties": {"id": "CreateSketchArc_SketchPlane", "order": 0, "description": "円弧を作成するスケッチ要素", "name": "SketchPlane"}}
+{"id": 908, "labels": ["Parameter"], "properties": {"id": "CreateSketchArc_SketchArcName", "order": 1, "description": "作成するスケッチ円弧名称（空文字可）", "name": "SketchArcName"}}
+{"id": 909, "labels": ["Parameter"], "properties": {"id": "CreateSketchArc_SketchLayer", "order": 2, "description": "円弧を作成するスケッチレイヤー(空文字可）", "name": "SketchLayer"}}
+{"id": 910, "labels": ["Parameter"], "properties": {"id": "CreateSketchArc_CenterPoint", "order": 3, "description": "中心点", "name": "CenterPoint"}}
+{"id": 911, "labels": ["Parameter"], "properties": {"id": "CreateSketchArc_StartPoint", "order": 4, "description": "始点", "name": "StartPoint"}}
+{"id": 912, "labels": ["Parameter"], "properties": {"id": "CreateSketchArc_EndPoint", "order": 5, "description": "終点", "name": "EndPoint"}}
+{"id": 913, "labels": ["Parameter"], "properties": {"id": "CreateSketchArc_bCCW", "order": 6, "description": "円弧の回転方向Trueの場合は反時計周り", "name": "bCCW"}}
+{"id": 914, "labels": ["Parameter"], "properties": {"id": "CreateSketchArc_bUpdate", "order": 7, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 915, "labels": ["Method"], "properties": {"id": "CreateSketchArc3Pts", "description": "スケッチ円弧を周上の３点を指定して作成", "name": "CreateSketchArc3Pts"}}
+{"id": 916, "labels": ["ReturnValue"], "properties": {"id": "CreateSketchArc3Pts_ReturnValue", "description": "作成されたスケッチ円弧要素の要素ID"}}
+{"id": 917, "labels": ["Concept"], "properties": {"id": "スケッチ円弧を周上３点を指定して作成機能", "name": "スケッチ円弧を周上３点を指定して作成機能"}}
+{"id": 918, "labels": ["Parameter"], "properties": {"id": "CreateSketchArc3Pts_SketchPlane", "order": 0, "description": "円弧を作成するスケッチ要素", "name": "SketchPlane"}}
+{"id": 919, "labels": ["Parameter"], "properties": {"id": "CreateSketchArc3Pts_SketchArcName", "order": 1, "description": "作成するスケッチ円弧名称（空文字可）", "name": "SketchArcName"}}
+{"id": 920, "labels": ["Parameter"], "properties": {"id": "CreateSketchArc3Pts_SketchLayer", "order": 2, "description": "円弧を作成するスケッチレイヤー(空文字可）", "name": "SketchLayer"}}
+{"id": 921, "labels": ["Parameter"], "properties": {"id": "CreateSketchArc3Pts_StartPoint", "order": 3, "description": "始点", "name": "StartPoint"}}
+{"id": 922, "labels": ["Parameter"], "properties": {"id": "CreateSketchArc3Pts_MidPoint", "order": 4, "description": "通過点", "name": "MidPoint"}}
+{"id": 923, "labels": ["Parameter"], "properties": {"id": "CreateSketchArc3Pts_EndPoint", "order": 5, "description": "終点", "name": "EndPoint"}}
+{"id": 924, "labels": ["Parameter"], "properties": {"id": "CreateSketchArc3Pts_bUpdate", "order": 6, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 925, "labels": ["Method"], "properties": {"id": "CreateSketchCircle", "description": "スケッチ円を中心点を指定して作成", "name": "CreateSketchCircle"}}
+{"id": 926, "labels": ["ReturnValue"], "properties": {"id": "CreateSketchCircle_ReturnValue", "description": "作成されたスケッチ円要素の要素ID"}}
+{"id": 927, "labels": ["Concept"], "properties": {"id": "スケッチ円を中心点を指定して作成機能", "name": "スケッチ円を中心点を指定して作成機能"}}
+{"id": 928, "labels": ["Parameter"], "properties": {"id": "CreateSketchCircle_SketchPlane", "order": 0, "description": "円を作成するスケッチ要素", "name": "SketchPlane"}}
+{"id": 929, "labels": ["Parameter"], "properties": {"id": "CreateSketchCircle_SketchArcName", "order": 1, "description": "作成するスケッチ円名称（空文字可）", "name": "SketchArcName"}}
+{"id": 930, "labels": ["Parameter"], "properties": {"id": "CreateSketchCircle_SketchLayer", "order": 2, "description": "円を作成するスケッチレイヤー(空文字可）", "name": "SketchLayer"}}
+{"id": 931, "labels": ["Parameter"], "properties": {"id": "CreateSketchCircle_Centeroint", "order": 3, "description": "中心点", "name": "Centeroint"}}
+{"id": 932, "labels": ["Parameter"], "properties": {"id": "CreateSketchCircle_RadiusOrDiameter", "order": 4, "description": "半径または直径", "name": "RadiusOrDiameter"}}
+{"id": 933, "labels": ["Parameter"], "properties": {"id": "CreateSketchCircle_bDiameter", "order": 5, "description": "直径を指定する場合はTrue", "name": "bDiameter"}}
+{"id": 934, "labels": ["Parameter"], "properties": {"id": "CreateSketchCircle_bCCW", "order": 6, "description": "円の回転方向Trueの場合は反時計周り", "name": "bCCW"}}
+{"id": 935, "labels": ["Parameter"], "properties": {"id": "CreateSketchCircle_bUpdate", "order": 7, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 936, "labels": ["Method"], "properties": {"id": "CreateSketchEllipse", "description": "スケッチ楕円を中心点を指定して作成", "name": "CreateSketchEllipse"}}
+{"id": 937, "labels": ["ReturnValue"], "properties": {"id": "CreateSketchEllipse_ReturnValue", "description": "作成されたスケッチ楕円要素の要素ID"}}
+{"id": 938, "labels": ["Concept"], "properties": {"id": "スケッチ楕円を中心点を指定して作成機能", "name": "スケッチ楕円を中心点を指定して作成機能"}}
+{"id": 939, "labels": ["Parameter"], "properties": {"id": "CreateSketchEllipse_SketchPlane", "order": 0, "description": "楕円を作成するスケッチ要素", "name": "SketchPlane"}}
+{"id": 940, "labels": ["Parameter"], "properties": {"id": "CreateSketchEllipse_SketchArcName", "order": 1, "description": "作成するスケッチ楕円名称（空文字可）", "name": "SketchArcName"}}
+{"id": 941, "labels": ["Parameter"], "properties": {"id": "CreateSketchEllipse_SketchLayer", "order": 2, "description": "楕円を作成するスケッチレイヤー(空文字可）", "name": "SketchLayer"}}
+{"id": 942, "labels": ["Parameter"], "properties": {"id": "CreateSketchEllipse_Centeroint", "order": 3, "description": "中心点", "name": "Centeroint"}}
+{"id": 943, "labels": ["Parameter"], "properties": {"id": "CreateSketchEllipse_bCCW", "order": 4, "description": "楕円の回転方向Trueの場合は反時計周り", "name": "bCCW"}}
+{"id": 944, "labels": ["Parameter"], "properties": {"id": "CreateSketchEllipse_MajorDir", "order": 5, "description": "主軸方向を指定", "name": "MajorDir"}}
+{"id": 945, "labels": ["Parameter"], "properties": {"id": "CreateSketchEllipse_MajorRadius", "order": 6, "description": "主軸半径", "name": "MajorRadius"}}
+{"id": 946, "labels": ["Parameter"], "properties": {"id": "CreateSketchEllipse_MinorRadius", "order": 7, "description": "副軸半径", "name": "MinorRadius"}}
+{"id": 947, "labels": ["Parameter"], "properties": {"id": "CreateSketchEllipse_Range", "order": 8, "description": "(0-2pi)", "name": "Range"}}
+{"id": 948, "labels": ["DataType"], "properties": {"id": "範囲", "description": "上限、下限の数値をコンマで区切って指定\n例) \"0.0,1.0\" , \"L1,L2\", \"-1.0,1.0\"", "name": "範囲"}}
+{"id": 949, "labels": ["Method"], "properties": {"id": "CreateSketchNURBSCurve", "description": "スケッチＮＵＲＢＳ線を中心点を指定して作成", "name": "CreateSketchNURBSCurve"}}
+{"id": 950, "labels": ["ReturnValue"], "properties": {"id": "CreateSketchNURBSCurve_ReturnValue", "description": "作成されたスケッチＮＵＲＢＳ線要素の要素ID"}}
+{"id": 951, "labels": ["Concept"], "properties": {"id": "スケッチＮＵＲＢＳ線を中心点を指定して作成機能", "name": "スケッチＮＵＲＢＳ線を中心点を指定して作成機能"}}
+{"id": 952, "labels": ["Parameter"], "properties": {"id": "CreateSketchNURBSCurve_SketchPlane", "order": 0, "description": "ＮＵＲＢＳ線を作成するスケッチ要素", "name": "SketchPlane"}}
+{"id": 953, "labels": ["Parameter"], "properties": {"id": "CreateSketchNURBSCurve_SketchArcName", "order": 1, "description": "作成するスケッチＮＵＲＢＳ線名称（空文字可）", "name": "SketchArcName"}}
+{"id": 954, "labels": ["Parameter"], "properties": {"id": "CreateSketchNURBSCurve_SketchLayer", "order": 2, "description": "ＮＵＲＢＳ線を作成するスケッチレイヤー(空文字可）", "name": "SketchLayer"}}
+{"id": 955, "labels": ["Parameter"], "properties": {"id": "CreateSketchNURBSCurve_nDegree", "order": 3, "description": "ＮＵＲＢＳ線の次数", "name": "nDegree"}}
+{"id": 956, "labels": ["Parameter"], "properties": {"id": "CreateSketchNURBSCurve_bClose", "order": 4, "description": "閉じたＮＵＲＢＳ線の場合True", "name": "bClose"}}
+{"id": 957, "labels": ["Parameter"], "properties": {"id": "CreateSketchNURBSCurve_bPeriodic", "order": 5, "description": "周期ＮＵＲＢＳ線の場合True", "name": "bPeriodic"}}
+{"id": 958, "labels": ["Parameter"], "properties": {"id": "CreateSketchNURBSCurve_CtrlPoints", "order": 6, "description": "制御点", "name": "CtrlPoints"}}
+{"id": 959, "labels": ["Parameter"], "properties": {"id": "CreateSketchNURBSCurve_Weights", "order": 7, "description": "重み", "name": "Weights"}}
+{"id": 960, "labels": ["DataType"], "properties": {"id": "浮動小数点", "description": "通常の数値", "name": "浮動小数点"}}
+{"id": 961, "labels": ["Parameter"], "properties": {"id": "CreateSketchNURBSCurve_Knots", "order": 8, "description": "ノットベクトル", "name": "Knots"}}
+{"id": 962, "labels": ["Parameter"], "properties": {"id": "CreateSketchNURBSCurve_Range", "order": 9, "description": "トリム範囲", "name": "Range"}}
+{"id": 963, "labels": ["Parameter"], "properties": {"id": "CreateSketchNURBSCurve_bUpdate", "order": 10, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 964, "labels": ["Method"], "properties": {"id": "CreateElementsFromFile", "description": "ファイルをインポートして要素を作成", "name": "CreateElementsFromFile"}}
+{"id": 965, "labels": ["ReturnValue"], "properties": {"id": "CreateElementsFromFile_ReturnValue", "description": "作成された要素の要素IDの配列"}}
+{"id": 966, "labels": ["Concept"], "properties": {"id": "ファイルをインポートして要素を作成機能", "name": "ファイルをインポートして要素を作成機能"}}
+{"id": 967, "labels": ["Parameter"], "properties": {"id": "CreateElementsFromFile_FileName", "order": 0, "description": "ファイルパス（現状、Parasolid形式のみ）", "name": "FileName"}}
+{"id": 968, "labels": ["Method"], "properties": {"id": "CreateOffsetSheet", "description": "オフセットシートを作成", "name": "CreateOffsetSheet"}}
+{"id": 969, "labels": ["ReturnValue"], "properties": {"id": "CreateOffsetSheet_ReturnValue", "description": "作成されたオフセットシート要素の要素ID"}}
+{"id": 970, "labels": ["Concept"], "properties": {"id": "オフセットシートを作成機能", "name": "オフセットシートを作成機能"}}
+{"id": 971, "labels": ["Parameter"], "properties": {"id": "CreateOffsetSheet_SheetName", "order": 0, "description": "作成するシート要素名称（空文字可）", "name": "SheetName"}}
+{"id": 972, "labels": ["Parameter"], "properties": {"id": "CreateOffsetSheet_ElementGroup", "order": 1, "description": "作成するシート要素を要素グループに入れる場合は要素グループを指定（空文字可）", "name": "ElementGroup"}}
+{"id": 973, "labels": ["Parameter"], "properties": {"id": "CreateOffsetSheet_MaterialName", "order": 2, "description": "作成するシート要素の材質名称（空文字可）", "name": "MaterialName"}}
+{"id": 974, "labels": ["DataType"], "properties": {"id": "材料", "description": "EVO.SHIPに設定している材料の名称", "name": "材料"}}
+{"id": 975, "labels": ["Parameter"], "properties": {"id": "CreateOffsetSheet_SrcSurfaces", "order": 3, "description": "オフセットする元シート要素、フェイス要素の指定文字列配列", "name": "SrcSurfaces"}}
+{"id": 976, "labels": ["Parameter"], "properties": {"id": "CreateOffsetSheet_OffsetLength", "order": 4, "description": "オフセット距離", "name": "OffsetLength"}}
+{"id": 977, "labels": ["Parameter"], "properties": {"id": "CreateOffsetSheet_bOffsetBackwards", "order": 5, "description": "オフセット方向を反転", "name": "bOffsetBackwards"}}
+{"id": 978, "labels": ["Parameter"], "properties": {"id": "CreateOffsetSheet_bUpdate", "order": 6, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 979, "labels": ["Method"], "properties": {"id": "CreateLinearSweep", "description": "指定したソリッド要素に押し出し形状を付加する", "name": "CreateLinearSweep"}}
+{"id": 980, "labels": ["ReturnValue"], "properties": {"id": "CreateLinearSweep_ReturnValue", "description": "作成された押し出しフィーチャーのID"}}
+{"id": 981, "labels": ["Concept"], "properties": {"id": "指定したソリッド要素に押し出し形状を付加機能", "name": "指定したソリッド要素に押し出し形状を付加機能"}}
+{"id": 982, "labels": ["Entity"], "properties": {"id": "ソリッド", "name": "ソリッド"}}
+{"id": 983, "labels": ["Parameter"], "properties": {"id": "CreateLinearSweep_TargetSolidName", "order": 0, "description": "押し出しフィーチャーを作成する対象のソリッドを指定", "name": "TargetSolidName"}}
+{"id": 984, "labels": ["Parameter"], "properties": {"id": "CreateLinearSweep_OperationType", "order": 1, "description": "ソリッドオペレーションのタイプを指定する", "name": "OperationType"}}
+{"id": 985, "labels": ["DataType"], "properties": {"id": "オペレーションタイプ", "name": "オペレーションタイプ"}}
+{"id": 986, "labels": ["Parameter"], "properties": {"id": "CreateLinearSweep_bUpdate", "order": 2, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 987, "labels": ["Method"], "properties": {"id": "CreateLinearSweepSheet", "description": "プロファイル要素を押し出してシート要素を作成", "name": "CreateLinearSweepSheet"}}
+{"id": 988, "labels": ["ReturnValue"], "properties": {"id": "CreateLinearSweepSheet_ReturnValue", "description": "作成されたシート要素の要素ID"}}
+{"id": 989, "labels": ["Concept"], "properties": {"id": "プロファイル要素を押し出してシート要素を作成機能", "name": "プロファイル要素を押し出してシート要素を作成機能"}}
+{"id": 990, "labels": ["Parameter"], "properties": {"id": "CreateLinearSweepSheet_bUpdate", "order": 0, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 991, "labels": ["Method"], "properties": {"id": "SheetAlignNormal", "description": "シート要素の向き（表側、法線方向）を指定した方向に揃える", "name": "SheetAlignNormal"}}
+{"id": 992, "labels": ["ReturnValue"], "properties": {"id": "SheetAlignNormal_ReturnValue", "description": "なし"}}
+{"id": 993, "labels": ["Concept"], "properties": {"id": "シート要素向き（表側、法線方向）を指定した方向に揃える機能", "name": "シート要素向き（表側、法線方向）を指定した方向に揃える機能"}}
+{"id": 994, "labels": ["Parameter"], "properties": {"id": "SheetAlignNormal_SheetElement", "order": 0, "description": "方向を揃えるシート要素", "name": "SheetElement"}}
+{"id": 995, "labels": ["Parameter"], "properties": {"id": "SheetAlignNormal_dirX", "order": 1, "description": "方向ベクトルのX成分", "name": "dirX"}}
+{"id": 996, "labels": ["Parameter"], "properties": {"id": "SheetAlignNormal_dirY", "order": 2, "description": "方向ベクトルのY成分", "name": "dirY"}}
+{"id": 997, "labels": ["Parameter"], "properties": {"id": "SheetAlignNormal_dirZ", "order": 3, "description": "方向ベクトルのZ成分", "name": "dirZ"}}
+{"id": 998, "labels": ["Method"], "properties": {"id": "ReverseSheet", "description": "シート要素の向きを反転する", "name": "ReverseSheet"}}
+{"id": 999, "labels": ["ReturnValue"], "properties": {"id": "ReverseSheet_ReturnValue", "description": "シート反転フィーチャーの要素ID"}}
+{"id": 1000, "labels": ["Concept"], "properties": {"id": "シート要素向きを反転機能", "name": "シート要素向きを反転機能"}}
+{"id": 1001, "labels": ["Parameter"], "properties": {"id": "ReverseSheet_SheetElement", "order": 0, "description": "反転するシート要素", "name": "SheetElement"}}
+{"id": 1002, "labels": ["Method"], "properties": {"id": "BlankElement", "description": "指定要素を表示状態を設定する", "name": "BlankElement"}}
+{"id": 1003, "labels": ["ReturnValue"], "properties": {"id": "BlankElement_ReturnValue", "description": "なし"}}
+{"id": 1004, "labels": ["Concept"], "properties": {"id": "指定要素を表示状態機能", "name": "指定要素を表示状態機能"}}
+{"id": 1005, "labels": ["Parameter"], "properties": {"id": "BlankElement_Element", "order": 0, "description": "表示状態を指定する要素", "name": "Element"}}
+{"id": 1006, "labels": ["Parameter"], "properties": {"id": "BlankElement_bBlank", "order": 1, "description": "Trueの時は非表示にする。Falseの時は表示する。", "name": "bBlank"}}
+{"id": 1007, "labels": ["Method"], "properties": {"id": "TranslationCopy", "description": "指定要素を移動コピーする", "name": "TranslationCopy"}}
+{"id": 1008, "labels": ["ReturnValue"], "properties": {"id": "TranslationCopy_ReturnValue", "description": "コピーされた要素ID配列"}}
+{"id": 1009, "labels": ["Concept"], "properties": {"id": "指定要素を移動コピー機能", "name": "指定要素を移動コピー機能"}}
+{"id": 1010, "labels": ["Parameter"], "properties": {"id": "TranslationCopy_SrcElements", "order": 0, "description": "コピーする要素", "name": "SrcElements"}}
+{"id": 1011, "labels": ["Parameter"], "properties": {"id": "TranslationCopy_nCopy", "order": 1, "description": "コピーする数", "name": "nCopy"}}
+{"id": 1012, "labels": ["Parameter"], "properties": {"id": "TranslationCopy_direction", "order": 2, "description": "コピーする方向", "name": "direction"}}
+{"id": 1013, "labels": ["Parameter"], "properties": {"id": "TranslationCopy_distance", "order": 3, "description": "移動距離", "name": "distance"}}
+{"id": 1014, "labels": ["Parameter"], "properties": {"id": "TranslationCopy_ReferMethod", "order": 4, "description": "要素の関連づけ方法の指定", "name": "ReferMethod"}}
+{"id": 1015, "labels": ["DataType"], "properties": {"id": "関連設定", "description": "ボディ関連とする場合は\"B\"\nそれ以外（空白含む）はフィーチャー関連", "name": "関連設定"}}
+{"id": 1016, "labels": ["Method"], "properties": {"id": "MirrorCopy", "description": "指定要素をミラーコピーする", "name": "MirrorCopy"}}
+{"id": 1017, "labels": ["ReturnValue"], "properties": {"id": "MirrorCopy_ReturnValue", "description": "コピーされた要素ID配列"}}
+{"id": 1018, "labels": ["Concept"], "properties": {"id": "指定要素をミラーコピー機能", "name": "指定要素をミラーコピー機能"}}
+{"id": 1019, "labels": ["Parameter"], "properties": {"id": "MirrorCopy_SrcElements", "order": 0, "description": "コピーする要素", "name": "SrcElements"}}
+{"id": 1020, "labels": ["Parameter"], "properties": {"id": "MirrorCopy_ReferMethod", "order": 1, "description": "要素の関連づけ方法の指定", "name": "ReferMethod"}}
+{"id": 1021, "labels": ["Method"], "properties": {"id": "CreateSolid", "description": "空のソリッド要素を作成する", "name": "CreateSolid"}}
+{"id": 1022, "labels": ["ReturnValue"], "properties": {"id": "CreateSolid_ReturnValue", "description": "作成されたソリッドの要素ID"}}
+{"id": 1023, "labels": ["Concept"], "properties": {"id": "空ソリッド要素機能", "name": "空ソリッド要素機能"}}
+{"id": 1024, "labels": ["Parameter"], "properties": {"id": "CreateSolid_SolidName", "order": 0, "description": "作成するソリッド要素名称（空文字可）", "name": "SolidName"}}
+{"id": 1025, "labels": ["Parameter"], "properties": {"id": "CreateSolid_ElementGroup", "order": 1, "description": "作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）", "name": "ElementGroup"}}
+{"id": 1026, "labels": ["Parameter"], "properties": {"id": "CreateSolid_MaterialName", "order": 2, "description": "作成するソリッド要素の材質名称（空文字可）", "name": "MaterialName"}}
+{"id": 1027, "labels": ["Method"], "properties": {"id": "CreateThicken", "description": "指定したソリッド要素に指定要素厚みづけした形状を作成する", "name": "CreateThicken"}}
+{"id": 1028, "labels": ["ReturnValue"], "properties": {"id": "CreateThicken_ReturnValue", "description": "作成された厚みづけフィーチャーのID"}}
+{"id": 1029, "labels": ["Concept"], "properties": {"id": "指定したソリッド要素に指定要素厚みづけした形状機能", "name": "指定したソリッド要素に指定要素厚みづけした形状機能"}}
+{"id": 1030, "labels": ["Parameter"], "properties": {"id": "CreateThicken_ThickenFeatureName", "order": 0, "description": "作成する厚みづけフィーチャー要素名称（空文字可）", "name": "ThickenFeatureName"}}
+{"id": 1031, "labels": ["Parameter"], "properties": {"id": "CreateThicken_TargetSolidName", "order": 1, "description": "厚みづけフィーチャーを作成する対象のソリッドを指定", "name": "TargetSolidName"}}
+{"id": 1032, "labels": ["Parameter"], "properties": {"id": "CreateThicken_OperationType", "order": 2, "description": "ソリッドオペレーションのタイプを指定する", "name": "OperationType"}}
+{"id": 1033, "labels": ["Parameter"], "properties": {"id": "CreateThicken_Sheet", "order": 3, "description": "厚み付けをするシートやフェイス", "name": "Sheet"}}
+{"id": 1034, "labels": ["Parameter"], "properties": {"id": "CreateThicken_ThickenType", "order": 4, "description": "", "name": "ThickenType"}}
+{"id": 1035, "labels": ["DataType"], "properties": {"id": "厚み付けタイプ", "description": "\"+\" 内側\n\"-\" 外側\n\"B\" 両方向\n\"2\" ２方向\n\"\" （空文字）厚み付けしない", "name": "厚み付けタイプ"}}
+{"id": 1036, "labels": ["Parameter"], "properties": {"id": "CreateThicken_Thickeness1", "order": 5, "description": "板厚", "name": "Thickeness1"}}
+{"id": 1037, "labels": ["Parameter"], "properties": {"id": "CreateThicken_Thickeness2", "order": 6, "description": "板厚２（厚み付けタイプが２方向のときに使用）", "name": "Thickeness2"}}
+{"id": 1038, "labels": ["Parameter"], "properties": {"id": "CreateThicken_ThickenessOffset", "order": 7, "description": "厚みづけをするシート、フェイス要素のオフセット距離", "name": "ThickenessOffset"}}
+{"id": 1039, "labels": ["Parameter"], "properties": {"id": "CreateThicken_ReferMethod", "order": 8, "description": "要素の関連づけ方法の指定", "name": "ReferMethod"}}
+{"id": 1040, "labels": ["Parameter"], "properties": {"id": "CreateThicken_bUpdate", "order": 9, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 1041, "labels": ["Method"], "properties": {"id": "CreateOtherSolid", "description": "指定したソリッド要素に別のソリッド要素形状を付加する", "name": "CreateOtherSolid"}}
+{"id": 1042, "labels": ["ReturnValue"], "properties": {"id": "CreateOtherSolid_ReturnValue", "description": "作成された別ソリッドフィーチャーのID"}}
+{"id": 1043, "labels": ["Concept"], "properties": {"id": "指定したソリッド要素に別ソリッド要素形状を付加機能", "name": "指定したソリッド要素に別ソリッド要素形状を付加機能"}}
+{"id": 1044, "labels": ["Parameter"], "properties": {"id": "CreateOtherSolid_OtherSolidFeatureName", "order": 0, "description": "作成する別ソリッドフィーチャー要素名称（空文字可）", "name": "OtherSolidFeatureName"}}
+{"id": 1045, "labels": ["Parameter"], "properties": {"id": "CreateOtherSolid_TargetSolidName", "order": 1, "description": "別ソリッドフィーチャーを作成する対象のソリッドを指定", "name": "TargetSolidName"}}
+{"id": 1046, "labels": ["Parameter"], "properties": {"id": "CreateOtherSolid_OperationType", "order": 2, "description": "ソリッドオペレーションのタイプを指定する", "name": "OperationType"}}
+{"id": 1047, "labels": ["Parameter"], "properties": {"id": "CreateOtherSolid_SourceSolid", "order": 3, "description": "別ソリッドフィーチャーとするソリッド要素を指定する", "name": "SourceSolid"}}
+{"id": 1048, "labels": ["Parameter"], "properties": {"id": "CreateOtherSolid_ReferMethod", "order": 4, "description": "要素の関連づけ方法の指定", "name": "ReferMethod"}}
+{"id": 1049, "labels": ["Parameter"], "properties": {"id": "CreateOtherSolid_bUpdate", "order": 5, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 1050, "labels": ["Method"], "properties": {"id": "CreateBracket", "description": "船殻のブラケットソリッド要素を作成する", "name": "CreateBracket"}}
+{"id": 1051, "labels": ["ReturnValue"], "properties": {"id": "CreateBracket_ReturnValue", "description": "作成したソリッド要素のID"}}
+{"id": 1052, "labels": ["Concept"], "properties": {"id": "船殻ブラケットソリッド要素機能", "name": "船殻ブラケットソリッド要素機能"}}
+{"id": 1053, "labels": ["Entity"], "properties": {"id": "船殻", "name": "船殻"}}
+{"id": 1054, "labels": ["Parameter"], "properties": {"id": "CreateBracket_bUpdate", "order": 0, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 1055, "labels": ["Method"], "properties": {"id": "CreatePlate", "description": "船殻のプレートソリッド要素を作成する", "name": "CreatePlate"}}
+{"id": 1056, "labels": ["ReturnValue"], "properties": {"id": "CreatePlate_ReturnValue", "description": "作成したソリッド要素のID"}}
+{"id": 1057, "labels": ["Concept"], "properties": {"id": "船殻プレートソリッド要素機能", "name": "船殻プレートソリッド要素機能"}}
+{"id": 1058, "labels": ["Entity"], "properties": {"id": "プレート", "name": "プレート"}}
+{"id": 1059, "labels": ["Parameter"], "properties": {"id": "CreatePlate_PlateName", "order": 0, "description": "作成するプレートソリッド要素名称（空文字可）", "name": "PlateName"}}
+{"id": 1060, "labels": ["Parameter"], "properties": {"id": "CreatePlate_ElementGroup", "order": 1, "description": "作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）", "name": "ElementGroup"}}
+{"id": 1061, "labels": ["Parameter"], "properties": {"id": "CreatePlate_MaterialName", "order": 2, "description": "作成するソリッド要素の材質名称（空文字可）", "name": "MaterialName"}}
+{"id": 1062, "labels": ["Parameter"], "properties": {"id": "CreatePlate_Plane", "order": 3, "description": "プレートのる平面位置", "name": "Plane"}}
+{"id": 1063, "labels": ["Parameter"], "properties": {"id": "CreatePlate_PlaneOffset", "order": 4, "description": "平面のオフセット距離を指定", "name": "PlaneOffset"}}
+{"id": 1064, "labels": ["Parameter"], "properties": {"id": "CreatePlate_Thickness", "order": 5, "description": "板厚", "name": "Thickness"}}
+{"id": 1065, "labels": ["Parameter"], "properties": {"id": "CreatePlate_nMold", "order": 6, "description": "", "name": "nMold"}}
+{"id": 1066, "labels": ["DataType"], "properties": {"id": "モールド位置", "description": "\"+\" ＋側\n\"-\" ー側\n\"\" （空文字）センター", "name": "モールド位置"}}
+{"id": 1067, "labels": ["Parameter"], "properties": {"id": "CreatePlate_MoldOffset", "order": 7, "description": "モールド位置のオフセット距離", "name": "MoldOffset"}}
+{"id": 1068, "labels": ["Parameter"], "properties": {"id": "CreatePlate_BoundSolid", "order": 8, "description": "プレートソリッドの境界となるソリッド要素。", "name": "BoundSolid"}}
+{"id": 1069, "labels": ["Parameter"], "properties": {"id": "CreatePlate_Section1End1", "order": 9, "description": "プレートソリッドの平面上の方向１の境界位置の座標値１", "name": "Section1End1"}}
+{"id": 1070, "labels": ["Entity"], "properties": {"id": "座標", "name": "座標"}}
+{"id": 1071, "labels": ["Parameter"], "properties": {"id": "CreatePlate_Section1End2", "order": 10, "description": "プレートソリッドの平面上の方向１の境界位置の座標値２", "name": "Section1End2"}}
+{"id": 1072, "labels": ["Parameter"], "properties": {"id": "CreatePlate_Section2End1", "order": 11, "description": "プレートソリッドの平面上の方向２の境界位置の座標値１", "name": "Section2End1"}}
+{"id": 1073, "labels": ["Parameter"], "properties": {"id": "CreatePlate_Section2End2", "order": 12, "description": "プレートソリッドの平面上の方向２の境界位置の座標値２", "name": "Section2End2"}}
+{"id": 1074, "labels": ["Parameter"], "properties": {"id": "CreatePlate_bUpdate", "order": 13, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 1075, "labels": ["Method"], "properties": {"id": "CreateProfile", "description": "船殻の条材ソリッド要素を取付線指定で作成する", "name": "CreateProfile"}}
+{"id": 1076, "labels": ["ReturnValue"], "properties": {"id": "CreateProfile_ReturnValue", "description": "作成した条材ソリッド要素のID(配列 配列[0]Web要素 配列[1]フランジ要素"}}
+{"id": 1077, "labels": ["Concept"], "properties": {"id": "船殻条材ソリッド要素を取付線指定で作成機能", "name": "船殻条材ソリッド要素を取付線指定で作成機能"}}
+{"id": 1078, "labels": ["Parameter"], "properties": {"id": "CreateProfile_bUpdate", "order": 0, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 1079, "labels": ["Method"], "properties": {"id": "BodyDivideByElements", "description": "ボディを指定した要素で分割する", "name": "BodyDivideByElements"}}
+{"id": 1080, "labels": ["ReturnValue"], "properties": {"id": "BodyDivideByElements_ReturnValue", "description": "分割で作成されたボディ要素のID配列"}}
+{"id": 1081, "labels": ["Concept"], "properties": {"id": "ボディを指定した要素で分割機能", "name": "ボディを指定した要素で分割機能"}}
+{"id": 1082, "labels": ["Parameter"], "properties": {"id": "BodyDivideByElements_pDriveFeatureName", "order": 0, "description": "作成する分割フィーチャー要素名称（空文字可）", "name": "pDriveFeatureName"}}
+{"id": 1083, "labels": ["Parameter"], "properties": {"id": "BodyDivideByElements_pTargetBody", "order": 1, "description": "分割対象のボディ", "name": "pTargetBody"}}
+{"id": 1084, "labels": ["Parameter"], "properties": {"id": "BodyDivideByElements_pDivideElements", "order": 2, "description": "分割をする要素（シートボディ、フェイス、平面要素）", "name": "pDivideElements"}}
+{"id": 1085, "labels": ["Parameter"], "properties": {"id": "BodyDivideByElements_pAlignmentDirection", "order": 3, "description": "分割されたボディ要素の順番を整列させるのに使用する方向", "name": "pAlignmentDirection"}}
+{"id": 1086, "labels": ["Parameter"], "properties": {"id": "BodyDivideByElements_pWCS", "order": 4, "description": "方向を定義する座標系（通常は指定しない）", "name": "pWCS"}}
+{"id": 1087, "labels": ["Parameter"], "properties": {"id": "BodyDivideByElements_ReferMethod", "order": 5, "description": "要素の関連づけ方法の指定", "name": "ReferMethod"}}
+{"id": 1088, "labels": ["Parameter"], "properties": {"id": "BodyDivideByElements_bUpdate", "order": 6, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 1089, "labels": ["Method"], "properties": {"id": "BodySeparateBySubSolids", "description": "ボディを指定したソリッドで削除することで分割する（ボディの区分けコマンド）", "name": "BodySeparateBySubSolids"}}
+{"id": 1090, "labels": ["ReturnValue"], "properties": {"id": "BodySeparateBySubSolids_ReturnValue", "description": "分割で作成されたボディ要素のID配列"}}
+{"id": 1091, "labels": ["Concept"], "properties": {"id": "ボディを指定したソリッドで削除することで分割する（ボディ区分けコマンド）機能", "name": "ボディを指定したソリッドで削除することで分割する（ボディ区分けコマンド）機能"}}
+{"id": 1092, "labels": ["Parameter"], "properties": {"id": "BodySeparateBySubSolids_pSeparateFeatureName", "order": 0, "description": "作成する分割フィーチャー要素名称（空文字可）", "name": "pSeparateFeatureName"}}
+{"id": 1093, "labels": ["Parameter"], "properties": {"id": "BodySeparateBySubSolids_pTargetBody", "order": 1, "description": "分割対象のボディ", "name": "pTargetBody"}}
+{"id": 1094, "labels": ["Parameter"], "properties": {"id": "BodySeparateBySubSolids_pSubSolids", "order": 2, "description": "分割をするソリッド要素", "name": "pSubSolids"}}
+{"id": 1095, "labels": ["Parameter"], "properties": {"id": "BodySeparateBySubSolids_pAlignmentDirection", "order": 3, "description": "分割されたボディ要素の順番を整列させるのに使用する方向", "name": "pAlignmentDirection"}}
+{"id": 1096, "labels": ["Parameter"], "properties": {"id": "BodySeparateBySubSolids_ReferMethod", "order": 4, "description": "要素の関連づけ方法の指定", "name": "ReferMethod"}}
+{"id": 1097, "labels": ["Parameter"], "properties": {"id": "BodySeparateBySubSolids_bUpdate", "order": 5, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
+{"id": 1098, "labels": ["Method"], "properties": {"id": "BodyDivideByCurves", "description": "ボディを指定した線で分割する", "name": "BodyDivideByCurves"}}
+{"id": 1099, "labels": ["ReturnValue"], "properties": {"id": "BodyDivideByCurves_ReturnValue", "description": "分割で作成されたボディ要素のID配列"}}
+{"id": 1100, "labels": ["Concept"], "properties": {"id": "ボディを指定した線で分割機能", "name": "ボディを指定した線で分割機能"}}
+{"id": 1101, "labels": ["Parameter"], "properties": {"id": "BodyDivideByCurves_pDriveFeatureName", "order": 0, "description": "作成する分割フィーチャー要素名称（空文字可）", "name": "pDriveFeatureName"}}
+{"id": 1102, "labels": ["Parameter"], "properties": {"id": "BodyDivideByCurves_pTargetBody", "order": 1, "description": "分割対象のボディ", "name": "pTargetBody"}}
+{"id": 1103, "labels": ["Parameter"], "properties": {"id": "BodyDivideByCurves_pDivideCurves", "order": 2, "description": "分割をするスケッチ等の線要素", "name": "pDivideCurves"}}
+{"id": 1104, "labels": ["Parameter"], "properties": {"id": "BodyDivideByCurves_bNorProjection", "order": 3, "description": "線要素を要素に投影するかどうかのフラグ", "name": "bNorProjection"}}
+{"id": 1105, "labels": ["Parameter"], "properties": {"id": "BodyDivideByCurves_CorrectEndPointsTolerance", "order": 4, "description": "分割線が複数の場合の分割線同士のの判定トレランスを指定（通常は指定しない、空文字）", "name": "CorrectEndPointsTolerance"}}
+{"id": 1106, "labels": ["Parameter"], "properties": {"id": "BodyDivideByCurves_AlignmentDirection", "order": 5, "description": "分割されたボディ要素の順番を整列させるのに使用する方向", "name": "AlignmentDirection"}}
+{"id": 1107, "labels": ["Parameter"], "properties": {"id": "BodyDivideByCurves_ReferMethod", "order": 6, "description": "要素の関連づけ方法の指定", "name": "ReferMethod"}}
+{"id": 1108, "labels": ["Parameter"], "properties": {"id": "BodyDivideByCurves_bUpdate", "order": 7, "description": "更新フラグ（未実装、使用しない）", "name": "bUpdate"}}
