@@ -22,6 +22,7 @@
 - `main_0905.py`: CLIエントリポイント。
 - `main_helper_0905.py`: Neo4j/Chroma/LlamaIndex 連携のヘルパと設定クラス `Config`。
 - `doc_parser/`: ドキュメント解析・Neo4jインポーター等。
+- `help_preprocessor/`: EVOSHIP help preprocessing pipeline skeleton (Shift_JIS normalization, graph/vector loaders)
 - `graphrag_gpt/ingest0903.py`: No LLM の解析・取り込み処理。
 - `chroma_db_store/`: ChromaDB 永続化ディレクトリ。
 - `data/src/`: 解析対象ドキュメント（例: `api.txt`）。
