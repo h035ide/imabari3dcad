@@ -297,18 +297,18 @@ def _apply_type_enrichment(type_def: TypeDefinition, payload: Dict[str, object])
     if isinstance(description, str) and description.strip() and description.strip() != type_def.description:
         type_def.description = description.strip()
         updated = True
-        examples = payload.get("examples")
-        if isinstance(examples, list):
-            cleaned = [str(item).strip() for item in examples if str(item).strip()]
-            if type_def.name.startswith("点"):
-                normalised = _normalise_point_examples(cleaned)
-                if normalised:
-                    cleaned = normalised
-                else:
-                    cleaned = []
-            if cleaned and cleaned != type_def.examples:
-                type_def.examples = cleaned
-                updated = True
+    examples = payload.get("examples")
+    if isinstance(examples, list):
+        cleaned = [str(item).strip() for item in examples if str(item).strip()]
+        if type_def.name.startswith("点"):
+            normalised = _normalise_point_examples(cleaned)
+            if normalised:
+                cleaned = normalised
+            else:
+                cleaned = []
+        if cleaned and cleaned != type_def.examples:
+            type_def.examples = cleaned
+            updated = True
     return updated
 
 
