@@ -291,8 +291,14 @@ def create_help_langchain_system(
             database=config_dict.get("neo4j_database")
         )
     
-    # Create hybrid retriever
-    hybrid_retriever = HybridRetriever(retriever_config)
+    # Create enhanced hybrid retriever with optimizations
+    from .enhanced_retriever import create_enhanced_retrieval_system
+    
+    performance_mode = config_dict.get("performance_mode", "balanced")
+    retrieval_system = create_enhanced_retrieval_system(retriever_config, performance_mode)
+    
+    # Use adaptive retriever as the main hybrid retriever
+    hybrid_retriever = retrieval_system["adaptive"]
     
     # Create LangChain components
     rag_chain = HelpRAGChain(
@@ -310,5 +316,6 @@ def create_help_langchain_system(
         "rag_chain": rag_chain,
         "conversational_chain": conversational_chain,
         "langchain_retriever": HelpLangChainRetriever(hybrid_retriever),
+        "retrieval_system": retrieval_system,  # Full retrieval system with all variants
         "config": retriever_config
     }
