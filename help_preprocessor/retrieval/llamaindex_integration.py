@@ -75,7 +75,7 @@ class HelpQueryEngine:
     def _build_query_engine(self):
         """Build LlamaIndex query engine."""
         try:
-            from llama_index import QueryEngine, ServiceContext
+            from llama_index import ServiceContext
             from llama_index.llms import OpenAI
             from llama_index.response_synthesizers import get_response_synthesizer
             from llama_index.query_engine import RetrieverQueryEngine
