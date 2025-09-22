@@ -131,6 +131,16 @@ class HelpPreprocessorPipeline:
         chunks: list[dict] = []
         for section in self._iter_sections(root):
             chunks.extend(self.vector_generator.build_chunks(section))
+        
+        # Apply embeddings if OpenAI model is configured
+        if self.config.openai_model:
+            logging.info("Generating embeddings using model: %s", self.config.openai_model)
+            embedded_chunks = list(self.vector_generator.embed_chunks(
+                chunks, 
+                openai_model=self.config.openai_model
+            ))
+            chunks = embedded_chunks
+            
         logging.debug("Vector payload generated: %s chunks", len(chunks))
         return chunks
 

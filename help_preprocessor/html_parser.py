@@ -258,6 +258,16 @@ class HelpHTMLParser:
         return media
 
     @staticmethod
+    def _heading_level(tag: str) -> int:
+        """Extract heading level from tag name (h1->1, h2->2, etc.)."""
+        if tag and len(tag) >= 2 and tag[0].lower() == 'h':
+            try:
+                return int(tag[1])
+            except (ValueError, IndexError):
+                pass
+        return 1
+
+    @staticmethod
     def _slugify(text: str) -> str:
         slug = re.sub(r"[^a-zA-Z0-9]+", "-", text.lower()).strip("-")
         return slug or "section"

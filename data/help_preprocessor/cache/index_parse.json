@@ -1,0 +1,1345 @@
+{
+  "categories": {
+    "category_id": "root",
+    "name": "root",
+    "topics": [],
+    "children": [
+      {
+        "category_id": "item",
+        "name": "オンラインヘルプについて",
+        "topics": [
+          {
+            "topic_id": "about_help",
+            "title": "ヘルプの操作方法",
+            "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_help.html"
+          },
+          {
+            "topic_id": "about_help_convention",
+            "title": "ヘルプの表記",
+            "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_help_convention.html"
+          }
+        ],
+        "children": []
+      },
+      {
+        "category_id": "evo_ship",
+        "name": "Evo.Shipの基礎",
+        "topics": [
+          {
+            "topic_id": "basic_concept",
+            "title": "基礎概念",
+            "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\basic_concept.html"
+          }
+        ],
+        "children": [
+          {
+            "category_id": "evo_ship_2",
+            "name": "Evo.Shipの要素",
+            "topics": [
+              {
+                "topic_id": "about_datum",
+                "title": "データム",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_datum.html"
+              },
+              {
+                "topic_id": "about_sketch",
+                "title": "スケッチ",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_sketch.html"
+              },
+              {
+                "topic_id": "about_body",
+                "title": "ボディ",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_body.html"
+              },
+              {
+                "topic_id": "about_feature",
+                "title": "フィーチャー",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_feature.html"
+              },
+              {
+                "topic_id": "about_variable",
+                "title": "変数",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_variable.html"
+              },
+              {
+                "topic_id": "about_curve",
+                "title": "カーブ",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_curve.html"
+              },
+              {
+                "topic_id": "about_annotation",
+                "title": "アノーテーション",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_annotation.html"
+              },
+              {
+                "topic_id": "about_element_group",
+                "title": "要素グループ",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_element_group.html"
+              },
+              {
+                "topic_id": "about_motion_feature",
+                "title": "移動フィーチャー",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_motion_feature.html"
+              },
+              {
+                "topic_id": "about_pattern_feature",
+                "title": "パターンフィーチャー",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_pattern_feature.html"
+              },
+              {
+                "topic_id": "about_dwg_sheet",
+                "title": "図面シート",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_dwg_sheet.html"
+              },
+              {
+                "topic_id": "about_dwg_sheet_format",
+                "title": "シートフォーマット",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_dwg_sheet_format.html"
+              },
+              {
+                "topic_id": "about_dwg_view",
+                "title": "図面ビュー",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_dwg_view.html"
+              },
+              {
+                "topic_id": "about_relation",
+                "title": "要素の関連性",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_relation.html"
+              }
+            ],
+            "children": []
+          },
+          {
+            "category_id": "item_2",
+            "name": "ウィンドウ",
+            "topics": [
+              {
+                "topic_id": "about_window",
+                "title": "ウィンドウ",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_window.html"
+              },
+              {
+                "topic_id": "about_dwg_doc_window",
+                "title": "図面ドキュメントウィンドウ",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_dwg_doc_window.html"
+              },
+              {
+                "topic_id": "about_model_config_window",
+                "title": "モデル構成ウィンドウ",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_model_config_window.html"
+              },
+              {
+                "topic_id": "about_command_dialog",
+                "title": "コマンドダイアログ",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_command_dialog.html"
+              }
+            ],
+            "children": []
+          },
+          {
+            "category_id": "item_3",
+            "name": "基本操作",
+            "topics": [
+              {
+                "topic_id": "about_command",
+                "title": "コマンドの実行",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_command.html"
+              },
+              {
+                "topic_id": "about_context_menu",
+                "title": "コンテキストメニュー",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_context_menu.html"
+              },
+              {
+                "topic_id": "about_viewop",
+                "title": "表示操作",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_viewop.html"
+              },
+              {
+                "topic_id": "about_viewdir_symbol",
+                "title": "表示方向座標軸",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_viewdir_symbol.html"
+              },
+              {
+                "topic_id": "about_selection",
+                "title": "要素選択",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_selection.html"
+              },
+              {
+                "topic_id": "about_input_value",
+                "title": "数値入力",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_input_value.html"
+              },
+              {
+                "topic_id": "about_input_position",
+                "title": "位置入力",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_input_position.html"
+              },
+              {
+                "topic_id": "about_input_direction",
+                "title": "方向入力",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_input_direction.html"
+              },
+              {
+                "topic_id": "about_history",
+                "title": "操作履歴",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_history.html"
+              },
+              {
+                "topic_id": "about_edit_element",
+                "title": "要素の編集",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_edit_element.html"
+              },
+              {
+                "topic_id": "cmd_eval",
+                "title": "状態／更新",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_eval.html"
+              },
+              {
+                "topic_id": "about_manage_elements",
+                "title": "要素の管理",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_manage_elements.html"
+              },
+              {
+                "topic_id": "cmd_sketch_mode",
+                "title": "スケッチモード",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_mode.html"
+              },
+              {
+                "topic_id": "cmd_default",
+                "title": "選択コマンド",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_default.html"
+              },
+              {
+                "topic_id": "cmd_work_body",
+                "title": "ワークボディ",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_work_body.html"
+              },
+              {
+                "topic_id": "cmd_feature_op",
+                "title": "フィーチャーの操作",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_feature_op.html"
+              },
+              {
+                "topic_id": "cmd_work_datum_cs",
+                "title": "ワーク座標系",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_work_datum_cs.html"
+              },
+              {
+                "topic_id": "datum_display_symbol",
+                "title": "データムの表示シンボル",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\datum_display_symbol.html"
+              },
+              {
+                "topic_id": "create_element_group",
+                "title": "要素グループの作成",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\create_element_group.html"
+              },
+              {
+                "topic_id": "create_variable",
+                "title": "変数の作成,編集",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\create_variable.html"
+              },
+              {
+                "topic_id": "about_material",
+                "title": "材料の作成、編集",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_material.html"
+              },
+              {
+                "topic_id": "about_user_attrib",
+                "title": "要素のユーザー定義属性",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_user_attrib.html"
+              },
+              {
+                "topic_id": "about_udf",
+                "title": "ユーザー定義フィーチャー",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_udf.html"
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "category_id": "item_4",
+        "name": "船殻設計機能",
+        "topics": [
+          {
+            "topic_id": "about_ship_construction_design",
+            "title": "船殻設計の流れ",
+            "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_ship_construction_design.html"
+          },
+          {
+            "topic_id": "about_ship_part_management",
+            "title": "new    部材の管理",
+            "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_ship_part_management.html"
+          },
+          {
+            "topic_id": "about_ship_part_command",
+            "title": "部材コマンド",
+            "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_ship_part_command.html"
+          },
+          {
+            "topic_id": "about_ship_settings",
+            "title": "部材既定寸法設定ファイル",
+            "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_ship_settings.html"
+          },
+          {
+            "topic_id": "about_ship_part_dwg_settings",
+            "title": "new 部品図設定ファイル",
+            "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_ship_part_dwg_settings.html"
+          }
+        ],
+        "children": []
+      },
+      {
+        "category_id": "item_5",
+        "name": "コマンド",
+        "topics": [],
+        "children": [
+          {
+            "category_id": "item_6",
+            "name": "ファイル",
+            "topics": [
+              {
+                "topic_id": "cmd_new_doc",
+                "title": "新規作成",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_new_doc.html"
+              },
+              {
+                "topic_id": "cmd_open_doc",
+                "title": "開く",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_open_doc.html"
+              },
+              {
+                "topic_id": "cmd_close_doc",
+                "title": "閉じる",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_close_doc.html"
+              },
+              {
+                "topic_id": "cmd_save_doc",
+                "title": "上書き保存",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_save_doc.html"
+              },
+              {
+                "topic_id": "cmd_save_as_doc",
+                "title": "名前をつけて保存",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_save_as_doc.html"
+              },
+              {
+                "topic_id": "cmd_import",
+                "title": "インポート",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_import.html"
+              },
+              {
+                "topic_id": "cmd_export",
+                "title": "エクスポート",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_export.html"
+              },
+              {
+                "topic_id": "cmd_new_udf",
+                "title": "新規 ユーザー定義フィーチャー",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_new_udf.html"
+              },
+              {
+                "topic_id": "cmd_insert_udf",
+                "title": "挿入 ユーザー定義フィーチャー",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_insert_udf.html"
+              }
+            ],
+            "children": [
+              {
+                "category_id": "item_7",
+                "name": "ユーザー定義フィーチャーサンプル",
+                "topics": [
+                  {
+                    "topic_id": "sample_udf_ship_deck",
+                    "title": "例デッキ(ユーザー定義フィーチャー)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\sample_udf_ship_deck.html"
+                  }
+                ],
+                "children": []
+              }
+            ]
+          },
+          {
+            "category_id": "item_8",
+            "name": "編集",
+            "topics": [
+              {
+                "topic_id": "cmd_default_2",
+                "title": "選択",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_default_2.html"
+              },
+              {
+                "topic_id": "cmd_eval_2",
+                "title": "状態／更新",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_eval_2.html"
+              },
+              {
+                "topic_id": "UNDO/REDOcmd_undo_redo",
+                "title": "UNDO/REDOcmd_undo_redo",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\UNDO\\REDOcmd_undo_redo.html"
+              },
+              {
+                "topic_id": "cmd_sel_filter",
+                "title": "選択フィルター",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sel_filter.html"
+              },
+              {
+                "topic_id": "cmd_edit_color",
+                "title": "色設定",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_edit_color.html"
+              },
+              {
+                "topic_id": "cmd_autogroup_setting",
+                "title": "move    オートグループ設定",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_autogroup_setting.html"
+              },
+              {
+                "topic_id": "cmd_delete_history",
+                "title": "操作履歴の削除",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_delete_history.html"
+              }
+            ],
+            "children": [
+              {
+                "category_id": "item_9",
+                "name": "移動",
+                "topics": [
+                  {
+                    "topic_id": "cmd_move_translate",
+                    "title": "移動",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_move_translate.html"
+                  },
+                  {
+                    "topic_id": "cmd_move_rotate",
+                    "title": "回転",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_move_rotate.html"
+                  },
+                  {
+                    "topic_id": "cmd_move_transform",
+                    "title": "座標変換",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_move_transform.html"
+                  }
+                ],
+                "children": []
+              },
+              {
+                "category_id": "item_10",
+                "name": "パターンコピー",
+                "topics": [
+                  {
+                    "topic_id": "cmd_copy_translate",
+                    "title": "コピー移動",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_copy_translate.html"
+                  },
+                  {
+                    "topic_id": "cmd_copy_rotate",
+                    "title": "コピー回転",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_copy_rotate.html"
+                  },
+                  {
+                    "topic_id": "cmd_copy_mirror",
+                    "title": "コピーミラー",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_copy_mirror.html"
+                  },
+                  {
+                    "topic_id": "cmd_copy_transform",
+                    "title": "コピー座標変換",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_copy_transform.html"
+                  }
+                ],
+                "children": []
+              }
+            ]
+          },
+          {
+            "category_id": "item_11",
+            "name": "表示",
+            "topics": [
+              {
+                "topic_id": "cmd_display_type",
+                "title": "表示タイプ",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_display_type.html"
+              },
+              {
+                "topic_id": "cmd_display_section",
+                "title": "断面表示",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_display_section.html"
+              },
+              {
+                "topic_id": "cmd_display_parse",
+                "title": "パース",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_display_parse.html"
+              },
+              {
+                "topic_id": "cmd_camera",
+                "title": "カメラ",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_camera.html"
+              },
+              {
+                "topic_id": "cmd_display_dir",
+                "title": "表示方向",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_display_dir.html"
+              },
+              {
+                "topic_id": "cmd_display_dir_fix",
+                "title": "表示方向固定",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_display_dir_fix.html"
+              },
+              {
+                "topic_id": "cmd_display_div",
+                "title": "分割表示",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_display_div.html"
+              },
+              {
+                "topic_id": "cmd_display_filter",
+                "title": "表示フィルター",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_display_filter.html"
+              },
+              {
+                "topic_id": "cmd_display_background",
+                "title": "背景色設定",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_display_background.html"
+              },
+              {
+                "topic_id": "cmd_autogroup_setting_2",
+                "title": "move    オートグループ設定",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_autogroup_setting_2.html"
+              },
+              {
+                "topic_id": "cmd_display_windows",
+                "title": "ウィンドウ表示制御",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_display_windows.html"
+              }
+            ],
+            "children": []
+          },
+          {
+            "category_id": "item_12",
+            "name": "データム",
+            "topics": [
+              {
+                "topic_id": "cmd_datum_plane",
+                "title": "平面",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_datum_plane.html"
+              },
+              {
+                "topic_id": "cmd_datum_cs",
+                "title": "座標系",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_datum_cs.html"
+              },
+              {
+                "topic_id": "cmd_datum_point",
+                "title": "点",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_datum_point.html"
+              },
+              {
+                "topic_id": "cmd_datum_project_point",
+                "title": "投影点",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_datum_project_point.html"
+              },
+              {
+                "topic_id": "cmd_datum_axis",
+                "title": "軸",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_datum_axis.html"
+              }
+            ],
+            "children": []
+          },
+          {
+            "category_id": "item_13",
+            "name": "スケッチ",
+            "topics": [
+              {
+                "topic_id": "cmd_def_sketch",
+                "title": "スケッチ",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_def_sketch.html"
+              },
+              {
+                "topic_id": "cmd_def_3dsketch",
+                "title": "３Ｄスケッチ",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_def_3dsketch.html"
+              },
+              {
+                "topic_id": "cmd_sketch_default",
+                "title": "選択(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_default.html"
+              },
+              {
+                "topic_id": "cmd_sketch_snap",
+                "title": "ガイド、自動拘束",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_snap.html"
+              },
+              {
+                "topic_id": "cmd_sketch_group",
+                "title": "スケッチ要素のグループ化",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_group.html"
+              },
+              {
+                "topic_id": "cmd_sketch_layer",
+                "title": "スケッチレイヤー",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_layer.html"
+              },
+              {
+                "topic_id": "about_create_sketch_line",
+                "title": "線の作成(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\about_create_sketch_line.html"
+              },
+              {
+                "topic_id": "cmd_sketch_line",
+                "title": "直線(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_line.html"
+              },
+              {
+                "topic_id": "cmd_sketch_arc",
+                "title": "円弧(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_arc.html"
+              },
+              {
+                "topic_id": "cmd_sketch_3pt_arc",
+                "title": "３点円弧(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_3pt_arc.html"
+              },
+              {
+                "topic_id": "cmd_sketch_tan_arc",
+                "title": "接円弧(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_tan_arc.html"
+              },
+              {
+                "topic_id": "cmd_sketch_circle",
+                "title": "円(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_circle.html"
+              },
+              {
+                "topic_id": "cmd_sketch_3pt_circle",
+                "title": "３点円(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_3pt_circle.html"
+              },
+              {
+                "topic_id": "cmd_sketch_diameter_circle",
+                "title": "直径円(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_diameter_circle.html"
+              },
+              {
+                "topic_id": "cmd_sketch_rect",
+                "title": "四角形(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_rect.html"
+              },
+              {
+                "topic_id": "cmd_sketch_3pt_rect",
+                "title": "３点四角形(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_3pt_rect.html"
+              },
+              {
+                "topic_id": "cmd_sketch_spline",
+                "title": "スプライン(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_spline.html"
+              },
+              {
+                "topic_id": "cmd_sketch_spline_file",
+                "title": "スプライン（ファイル）(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_spline_file.html"
+              },
+              {
+                "topic_id": "cmd_sketch_ellipse",
+                "title": "楕円(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_ellipse.html"
+              },
+              {
+                "topic_id": "cmd_sketch_oval",
+                "title": "長円(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_oval.html"
+              },
+              {
+                "topic_id": "cmd_sketch_3pt_oval",
+                "title": "３点長円(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_3pt_oval.html"
+              },
+              {
+                "topic_id": "cmd_sketch_pt",
+                "title": "点(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_pt.html"
+              },
+              {
+                "topic_id": "cmd_sketch_div_pt",
+                "title": "分割点(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_div_pt.html"
+              },
+              {
+                "topic_id": "cmd_sketch_move_pt",
+                "title": "線上移動点(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_move_pt.html"
+              },
+              {
+                "topic_id": "cmd_sketch_coord_cross_pt",
+                "title": "交点（平面座標値）(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_coord_cross_pt.html"
+              },
+              {
+                "topic_id": "cmd_sketch_virtual_cross_pt",
+                "title": "仮想交点(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_virtual_cross_pt.html"
+              },
+              {
+                "topic_id": "cmd_sketch_dimension",
+                "title": "寸法(スケッチ)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_dimension.html"
+              }
+            ],
+            "children": [
+              {
+                "category_id": "item_14",
+                "name": "寸法詳細",
+                "topics": [
+                  {
+                    "topic_id": "cmd_sketch_dimension_2pt",
+                    "title": "寸法(２点、直線)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_dimension_2pt.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_dimension_dist",
+                    "title": "寸法(点-直線、平行線間)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_dimension_dist.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_dimension_angle",
+                    "title": "寸法(角度寸法)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_dimension_angle.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_dimension_arc",
+                    "title": "寸法(円、円弧)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_dimension_arc.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_dimension_pt_arc",
+                    "title": "寸法(点-円)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_dimension_pt_arc.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_dimension_line_arc",
+                    "title": "寸法(直線-円)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_dimension_line_arc.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_dimension_arc_arc",
+                    "title": "寸法(円-円)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_dimension_arc_arc.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_dimension_detail",
+                    "title": "寸法(詳細パラメータ)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_dimension_detail.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_constraint",
+                    "title": "拘束(スケッチ)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_constraint.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_del",
+                    "title": "要素、拘束の削除(スケッチ)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_del.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_detach_curve",
+                    "title": "カーブの分離(スケッチ)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_detach_curve.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_fillet",
+                    "title": "フィレット(スケッチ)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_fillet.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_offset",
+                    "title": "オフセット(スケッチ)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_offset.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_trim",
+                    "title": "トリム(スケッチ)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_trim.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_split",
+                    "title": "分割(スケッチ)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_split.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_convert",
+                    "title": "スケッチ変換",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_convert.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_cross_curve",
+                    "title": "交線(スケッチ)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_cross_curve.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_cross_point",
+                    "title": "交点(スケッチ)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_cross_point.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_plane_setting",
+                    "title": "スケッチ平面の設定",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_plane_setting.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_constraint_setting",
+                    "title": "自動拘束の設定",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_constraint_setting.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_geominfo",
+                    "title": "幾何情報(スケッチ)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_geominfo.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_geominfo_point",
+                    "title": "幾何情報(点)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_geominfo_point.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_geominfo_line",
+                    "title": "幾何情報(直線)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_geominfo_line.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_geominfo_arc",
+                    "title": "幾何情報(円,円弧)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_geominfo_arc.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_geominfo_ellipse",
+                    "title": "幾何情報(楕円,楕円弧)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_geominfo_ellipse.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_geominfo_spline",
+                    "title": "幾何情報(スプライン)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_geominfo_spline.html"
+                  },
+                  {
+                    "topic_id": "cmd_sketch_check_connection",
+                    "title": "カーブの結合判定(スケッチ)",
+                    "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sketch_check_connection.html"
+                  }
+                ],
+                "children": []
+              }
+            ]
+          },
+          {
+            "category_id": "item_15",
+            "name": "フィーチャー",
+            "topics": [
+              {
+                "topic_id": "cmd_solid_extrude",
+                "title": "押し出しフィーチャー",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_solid_extrude.html"
+              },
+              {
+                "topic_id": "cmd_solid_revolve",
+                "title": "回転フィーチャー",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_solid_revolve.html"
+              },
+              {
+                "topic_id": "cmd_solid_sweep",
+                "title": "スイープフィーチャー",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_solid_sweep.html"
+              },
+              {
+                "topic_id": "cmd_solid_loft",
+                "title": "ロフトフィーチャー",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_solid_loft.html"
+              },
+              {
+                "topic_id": "cmd_solid_solid",
+                "title": "ソリッドボディフィーチャー",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_solid_solid.html"
+              },
+              {
+                "topic_id": "cmd_solid_thicken",
+                "title": "厚み付けフィーチャー",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_solid_thicken.html"
+              },
+              {
+                "topic_id": "cmd_bounded_plate",
+                "title": "境界指定フィーチャー",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_bounded_plate.html"
+              },
+              {
+                "topic_id": "cmd_shell",
+                "title": "シェルフィーチャー",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_shell.html"
+              },
+              {
+                "topic_id": "cmd_offset_face",
+                "title": "オフセットフェイスフィーチャー",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_offset_face.html"
+              },
+              {
+                "topic_id": "cmd_cut",
+                "title": "カットフィーチャー",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_cut.html"
+              }
+            ],
+            "children": []
+          },
+          {
+            "category_id": "item_16",
+            "name": "ボディ",
+            "topics": [
+              {
+                "topic_id": "cmd_new_solid",
+                "title": "新規ソリッドボディ",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_new_solid.html"
+              },
+              {
+                "topic_id": "cmd_stitch_body",
+                "title": "スティッチボディ",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_stitch_body.html"
+              },
+              {
+                "topic_id": "cmd_div_body",
+                "title": "ソリッド分割",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_div_body.html"
+              },
+              {
+                "topic_id": "cmd_sep_body_by_curves",
+                "title": "ボディ分割(線)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sep_body_by_curves.html"
+              },
+              {
+                "topic_id": "cmd_sep_body",
+                "title": "ボディの区分け",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sep_body.html"
+              },
+              {
+                "topic_id": "cmd_body_sub_int_n_body",
+                "title": "ボディ削除,積(複数)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_body_sub_int_n_body.html"
+              }
+            ],
+            "children": []
+          },
+          {
+            "category_id": "item_17",
+            "name": "シート",
+            "topics": [
+              {
+                "topic_id": "cmd_sheet_plane",
+                "title": "平面サーフェイス",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sheet_plane.html"
+              },
+              {
+                "topic_id": "cmd_sheet_offset",
+                "title": "オフセットサーフェイス",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sheet_offset.html"
+              },
+              {
+                "topic_id": "cmd_sheet_extrude",
+                "title": "押し出しサーフェイス",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sheet_extrude.html"
+              },
+              {
+                "topic_id": "cmd_sheet_revolve",
+                "title": "回転サーフェイス",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sheet_revolve.html"
+              },
+              {
+                "topic_id": "cmd_sheet_sweep",
+                "title": "スイープサーフェイス",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sheet_sweep.html"
+              },
+              {
+                "topic_id": "cmd_sheet_loft",
+                "title": "ロフトサーフェイス",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sheet_loft.html"
+              },
+              {
+                "topic_id": "cmd_sheet_extend",
+                "title": "延長(サーフェイス )",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_sheet_extend.html"
+              }
+            ],
+            "children": []
+          },
+          {
+            "category_id": "item_18",
+            "name": "カーブ",
+            "topics": [
+              {
+                "topic_id": "cmd_curve_projection",
+                "title": "投影線(カーブ）",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_curve_projection.html"
+              },
+              {
+                "topic_id": "cmd_curve_cross",
+                "title": "交線(カーブ）",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_curve_cross.html"
+              },
+              {
+                "topic_id": "cmd_curve_spline_file",
+                "title": "スプライン（ファイル）(カーブ）",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_curve_spline_file.html"
+              }
+            ],
+            "children": []
+          },
+          {
+            "category_id": "item_19",
+            "name": "アノーテーション",
+            "topics": [
+              {
+                "topic_id": "cmd_annotation_note",
+                "title": "注記",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_annotation_note.html"
+              },
+              {
+                "topic_id": "cmd_annotation_defline_sym",
+                "title": "板逃記号",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_annotation_defline_sym.html"
+              }
+            ],
+            "children": []
+          },
+          {
+            "category_id": "item_20",
+            "name": "図面",
+            "topics": [
+              {
+                "topic_id": "cmd_dwg_sheet",
+                "title": "図面シート",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_dwg_sheet.html"
+              },
+              {
+                "topic_id": "cmd_dwg_view",
+                "title": "図面ビュー",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_dwg_view.html"
+              }
+            ],
+            "children": []
+          },
+          {
+            "category_id": "item_21",
+            "name": "ツール",
+            "topics": [
+              {
+                "topic_id": "cmd_analyze_curve",
+                "title": "曲率表示（カーブ）",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_analyze_curve.html"
+              },
+              {
+                "topic_id": "cmd_analyze_surface",
+                "title": "曲率表示（サーフェイス）",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_analyze_surface.html"
+              },
+              {
+                "topic_id": "cmd_geom_info",
+                "title": "幾何情報表示",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_geom_info.html"
+              },
+              {
+                "topic_id": "cmd_mass_prop",
+                "title": "質量特性",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_mass_prop.html"
+              }
+            ],
+            "children": []
+          },
+          {
+            "category_id": "item_22",
+            "name": "船殻設計",
+            "topics": [
+              {
+                "topic_id": "cmd_ship_read_surface",
+                "title": "船体曲面読込",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_ship_read_surface.html"
+              },
+              {
+                "topic_id": "cmd_ship_div_block",
+                "title": "ブロック分割",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_ship_div_block.html"
+              },
+              {
+                "topic_id": "cmd_ship_read_parts",
+                "title": "部品形状ファイルの読込",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_ship_read_parts.html"
+              },
+              {
+                "topic_id": "cmd_ship_plate",
+                "title": "プレート",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_ship_plate.html"
+              },
+              {
+                "topic_id": "cmd_ship_deck",
+                "title": "デッキ",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_ship_deck.html"
+              },
+              {
+                "topic_id": "cmd_ship_longi",
+                "title": "ロンジ",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_ship_longi.html"
+              },
+              {
+                "topic_id": "cmd_ship_slot",
+                "title": "スロット",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_ship_slot.html"
+              },
+              {
+                "topic_id": "cmd_ship_collar",
+                "title": "補強版",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_ship_collar.html"
+              },
+              {
+                "topic_id": "cmd_ship_stiffener",
+                "title": "スチフナ",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_ship_stiffener.html"
+              },
+              {
+                "topic_id": "cmd_ship_hole",
+                "title": "ホール",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_ship_hole.html"
+              },
+              {
+                "topic_id": "cmd_ship_bracket",
+                "title": "ブラケット",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_ship_bracket.html"
+              },
+              {
+                "topic_id": "cmd_ship_vars",
+                "title": "フレームスペース、ウォーターライン、バトックライン",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_ship_vars.html"
+              },
+              {
+                "topic_id": "cmd_ship_part_dwg",
+                "title": "mod\t部品図",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_ship_part_dwg.html"
+              },
+              {
+                "topic_id": "cmd_ship_baseline",
+                "title": "基準直線",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_ship_baseline.html"
+              },
+              {
+                "topic_id": "cmd_ship_import_block",
+                "title": "ブロックインポート",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_ship_import_block.html"
+              },
+              {
+                "topic_id": "cmd_ship_edit_plate_thickness",
+                "title": "板厚変更",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_ship_edit_plate_thickness.html"
+              },
+              {
+                "topic_id": "cmd_ship_expand_line_setting",
+                "title": "new  逆直線展開設定",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_ship_expand_line_setting.html"
+              },
+              {
+                "topic_id": "cmd_ship_plate_attr",
+                "title": "del\t板厚属性",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_ship_plate_attr.html"
+              }
+            ],
+            "children": []
+          },
+          {
+            "category_id": "item_23",
+            "name": "オプション",
+            "topics": [
+              {
+                "topic_id": "cmd_opt",
+                "title": "オプション",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt.html"
+              },
+              {
+                "topic_id": "cmd_opt_sys_view_dir",
+                "title": "ビュー方向定義(オプション)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt_sys_view_dir.html"
+              },
+              {
+                "topic_id": "cmd_opt_sys_def_sketch",
+                "title": "スケッチ座標定義(オプション)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt_sys_def_sketch.html"
+              },
+              {
+                "topic_id": "cmd_opt_sys_display_div",
+                "title": "分割表示(オプション)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt_sys_display_div.html"
+              },
+              {
+                "topic_id": "cmd_opt_sys_display",
+                "title": "表示(オプション)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt_sys_display.html"
+              },
+              {
+                "topic_id": "cmd_opt_sys_display_elm",
+                "title": "表示-要素(オプション)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt_sys_display_elm.html"
+              },
+              {
+                "topic_id": "cmd_opt_sys_mouse",
+                "title": "マウス操作(オプション)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt_sys_mouse.html"
+              },
+              {
+                "topic_id": "cmd_opt_auto_update",
+                "title": "自動更新(オプション)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt_auto_update.html"
+              },
+              {
+                "topic_id": "cmd_opt_doc_precision",
+                "title": "モデル精度(オプション)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt_doc_precision.html"
+              },
+              {
+                "topic_id": "cmd_opt_doc_unit",
+                "title": "単位(オプション)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt_doc_unit.html"
+              },
+              {
+                "topic_id": "cmd_opt_doc_font",
+                "title": "フォント(オプション)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt_doc_font.html"
+              },
+              {
+                "topic_id": "cmd_opt_doc_tool",
+                "title": "ツール(オプション)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt_doc_tool.html"
+              },
+              {
+                "topic_id": "cmd_opt_doc_select",
+                "title": "選択(オプション)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt_doc_select.html"
+              },
+              {
+                "topic_id": "cmd_opt_doc_work",
+                "title": "ワーク要素(オプション)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt_doc_work.html"
+              },
+              {
+                "topic_id": "cmd_opt_doc_material",
+                "title": "材料(オプション)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt_doc_material.html"
+              },
+              {
+                "topic_id": "cmd_opt_doc_sketch",
+                "title": "スケッチ(オプション)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt_doc_sketch.html"
+              },
+              {
+                "topic_id": "cmd_opt_doc_sketch_grid",
+                "title": "スケッチ-グリッド(オプション)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt_doc_sketch_grid.html"
+              },
+              {
+                "topic_id": "cmd_opt_doc_sketch_snap",
+                "title": "スケッチ-スナップ/自動拘束(オプション)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt_doc_sketch_snap.html"
+              },
+              {
+                "topic_id": "cmd_opt_doc_dimension",
+                "title": "寸法(オプション)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt_doc_dimension.html"
+              },
+              {
+                "topic_id": "cmd_opt_doc_view",
+                "title": "ビュー(オプション)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt_doc_view.html"
+              },
+              {
+                "topic_id": "cmd_opt_doc_display_precision",
+                "title": "表示精度(オプション)",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_opt_doc_display_precision.html"
+              }
+            ],
+            "children": []
+          },
+          {
+            "category_id": "item_24",
+            "name": "ユーザー設定",
+            "topics": [
+              {
+                "topic_id": "cmd_user_setting",
+                "title": "ユーザー設定",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_user_setting.html"
+              }
+            ],
+            "children": []
+          },
+          {
+            "category_id": "item_25",
+            "name": "ウィンドウ",
+            "topics": [
+              {
+                "topic_id": "cmd_window",
+                "title": "ウィンドウ表示コマンド",
+                "source_path": "C:\\Users\\user\\workfolders\\imabari3dcad\\evoship\\EVOSHIP_HELP_FILES\\cmd_window.html"
+              }
+            ],
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "diagnostics": {
+    "index_errors": [
+      "Line 8: Duplicate category identifier 'evo_ship', using 'evo_ship_2'.",
+      "Line 24: Duplicate category identifier 'item', using 'item_2'.",
+      "Line 30: Duplicate category identifier 'item', using 'item_3'.",
+      "Line 55: Duplicate category identifier 'item', using 'item_4'.",
+      "Line 62: Duplicate category identifier 'item', using 'item_5'.",
+      "Line 63: Duplicate category identifier 'item', using 'item_6'.",
+      "Line 73: Duplicate category identifier 'item', using 'item_7'.",
+      "Line 76: Duplicate category identifier 'item', using 'item_8'.",
+      "Line 77: Duplicate topic identifier 'cmd_default', using 'cmd_default_2'.",
+      "Line 78: Duplicate topic identifier 'cmd_eval', using 'cmd_eval_2'.",
+      "Line 79: Missing topic title, using 'UNDO/REDOcmd_undo_redo'.",
+      "Line 85: Duplicate category identifier 'item', using 'item_9'.",
+      "Line 90: Duplicate category identifier 'item', using 'item_10'.",
+      "Line 96: Duplicate category identifier 'item', using 'item_11'.",
+      "Line 106: Duplicate topic identifier 'cmd_autogroup_setting', using 'cmd_autogroup_setting_2'.",
+      "Line 109: Duplicate category identifier 'item', using 'item_12'.",
+      "Line 116: Duplicate category identifier 'item', using 'item_13'.",
+      "Line 145: Duplicate category identifier 'item', using 'item_14'.",
+      "Line 174: Duplicate category identifier 'item', using 'item_15'.",
+      "Line 186: Duplicate category identifier 'item', using 'item_16'.",
+      "Line 194: Duplicate category identifier 'item', using 'item_17'.",
+      "Line 203: Duplicate category identifier 'item', using 'item_18'.",
+      "Line 208: Duplicate category identifier 'item', using 'item_19'.",
+      "Line 212: Duplicate category identifier 'item', using 'item_20'.",
+      "Line 216: Duplicate category identifier 'item', using 'item_21'.",
+      "Line 222: Duplicate category identifier 'item', using 'item_22'.",
+      "Line 242: Duplicate category identifier 'item', using 'item_23'.",
+      "Line 265: Duplicate category identifier 'item', using 'item_24'.",
+      "Line 268: Duplicate category identifier 'item', using 'item_25'."
+    ],
+    "html_samples": [
+      {
+        "path": "evoship\\EVOSHIP_HELP_FILES\\about_annotation.html",
+        "encoding": "shift_jis",
+        "fallback": "False",
+        "bom": "False"
+      },
+      {
+        "path": "evoship\\EVOSHIP_HELP_FILES\\about_annotation_styles_list_dialog.html",
+        "encoding": "shift_jis",
+        "fallback": "False",
+        "bom": "False"
+      },
+      {
+        "path": "evoship\\EVOSHIP_HELP_FILES\\about_body.html",
+        "encoding": "shift_jis",
+        "fallback": "False",
+        "bom": "False"
+      }
+    ]
+  }
+}

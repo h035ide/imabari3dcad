@@ -9,7 +9,8 @@ from typing import Sequence
 
 from .config import HelpPreprocessorConfig, load_config_from_env
 from .html_parser import HelpHTMLParser
-from .pipeline import HelpPreprocessorPipeline`r`nfrom .storage.chroma_loader import HelpChromaLoader
+from .pipeline import HelpPreprocessorPipeline
+from .storage.chroma_loader import HelpChromaLoader
 from .storage.neo4j_loader import HelpNeo4jLoader
 
 
