@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import List, Optional, Dict, Any
 from pathlib import Path
 
-from .base import QueryContext, SearchResult
+from .base import QueryContext
 from .hybrid_retriever import HybridRetriever, HybridRetrieverConfig
 
 
@@ -15,7 +15,7 @@ class HelpLangChainRetriever:
     def __init__(self, hybrid_retriever: HybridRetriever):
         self.hybrid_retriever = hybrid_retriever
         
-    def get_relevant_documents(self, query: str, **kwargs) -> List["Document"]:
+    def get_relevant_documents(self, query: str, **kwargs) -> List[Any]:
         """LangChain-compatible retrieval method."""
         try:
             from langchain.schema import Document
@@ -49,7 +49,7 @@ class HelpLangChainRetriever:
             
         return documents
     
-    async def aget_relevant_documents(self, query: str, **kwargs) -> List["Document"]:
+    async def aget_relevant_documents(self, query: str, **kwargs) -> List[Any]:
         """Async version of get_relevant_documents."""
         # For now, just call sync version
         # Could be improved with actual async implementation
@@ -240,7 +240,7 @@ def create_help_langchain_system(
     # Create hybrid retriever config
     from .hybrid_retriever import (
         ChromaConfig, TFIDFConfig, BM25Config, WhooshConfig, 
-        ElasticsearchConfig, Neo4jConfig
+        Neo4jConfig
     )
     
     retriever_config = HybridRetrieverConfig(

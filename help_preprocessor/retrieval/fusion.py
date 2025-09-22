@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from typing import Dict, List
-import math
 from collections import defaultdict
 
 from .base import BaseResultFusion, SearchResult, QueryContext
