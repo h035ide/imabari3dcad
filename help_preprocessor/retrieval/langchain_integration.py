@@ -164,7 +164,6 @@ class HelpConversationalChain:
             from langchain.chains import ConversationalRetrievalChain
             from langchain.chat_models import ChatOpenAI
             from langchain.memory import ConversationBufferWindowMemory
-            from langchain.prompts import PromptTemplate
         except ImportError as exc:
             raise ImportError("LangChain package required. Install with: pip install langchain openai") from exc
             

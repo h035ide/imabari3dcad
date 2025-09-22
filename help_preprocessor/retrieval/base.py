@@ -25,7 +25,7 @@ class SearchResult:
             self.score = min(self.score, 10.0) / 10.0
 
 
-@dataclass 
+@dataclass
 class QueryContext:
     """Context information for search queries."""
     
@@ -34,6 +34,33 @@ class QueryContext:
     top_k: int = 5
     search_types: Optional[List[str]] = None  # ["dense", "sparse", "fulltext", "graph"]
     fusion_method: str = "reciprocal_rank"  # "reciprocal_rank", "weighted_sum", "borda_count"
+    
+    def __post_init__(self):
+        """Validate and normalize query context."""
+        # Basic validation
+        if not self.query or not self.query.strip():
+            raise ValueError("Query cannot be empty")
+        
+        # Normalize query
+        self.query = self.query.strip()
+        
+        # Validate top_k
+        if self.top_k <= 0:
+            raise ValueError("top_k must be positive")
+        elif self.top_k > 100:
+            self.top_k = 100  # Clamp to maximum
+        
+        # Validate search_types
+        if self.search_types:
+            valid_types = {"dense", "sparse", "fulltext", "graph"}
+            invalid_types = set(self.search_types) - valid_types
+            if invalid_types:
+                raise ValueError(f"Invalid search_types: {invalid_types}")
+        
+        # Validate fusion_method
+        valid_fusion = {"reciprocal_rank", "weighted_sum", "borda_count", "adaptive"}
+        if self.fusion_method not in valid_fusion:
+            self.fusion_method = "reciprocal_rank"  # Default fallback
 
 
 class BaseRetriever(ABC):

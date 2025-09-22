@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import pickle
+import re
+from collections import Counter
 from pathlib import Path
 from typing import List, Optional
 
@@ -112,8 +114,6 @@ class BM25Retriever(BaseRetriever):
             self._documents = pickle.load(f)
             
         # Preprocess documents
-        import re
-        from collections import Counter
         
         doc_texts = []
         doc_lengths = []
