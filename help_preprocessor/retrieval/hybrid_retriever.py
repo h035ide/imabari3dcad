@@ -126,32 +126,61 @@ class HybridRetriever(BaseRetriever):
         # Filter retrievers based on context
         active_retrievers = self._filter_retrievers(context)
         
-        # Execute searches in parallel (could be improved with actual threading)
-        results_by_source: Dict[str, List[SearchResult]] = {}
+        if not active_retrievers:
+            return []
         
-        for name, retriever in active_retrievers.items():
+        # Choose execution strategy based on number of retrievers
+        if len(active_retrievers) == 1:
+            # Single retriever - direct execution
+            name, retriever = next(iter(active_retrievers.items()))
             try:
-                # Create per-retriever context
-                retriever_context = QueryContext(
-                    query=context.query,
-                    filters=context.filters,
-                    top_k=min(context.top_k * 2, 20),  # Get more results for fusion
-                    search_types=context.search_types,
-                    fusion_method=context.fusion_method
-                )
-                
-                results = retriever.search(retriever_context)
-                if results:
-                    results_by_source[name] = results
-                    
+                results = retriever.search(context)
+                return results[:context.top_k]  # Limit results
             except Exception as exc:
                 import logging
-                logging.warning("Search failed for %s: %s", name, exc)
+                logging.warning("Single retriever search failed for %s: %s", name, exc)
+                return []
         
-        # Fuse results
-        if results_by_source:
-            return self.fusion_engine.fuse_results(results_by_source, context)
-        else:
+        # Multiple retrievers - use parallel execution
+        from .parallel_retriever import ParallelRetriever
+        
+        parallel_retriever = ParallelRetriever(
+            retrievers=active_retrievers,
+            max_workers=min(len(active_retrievers), 4),
+            timeout_seconds=30.0
+        )
+        
+        try:
+            # Create per-retriever context with more results for fusion
+            retriever_context = QueryContext(
+                query=context.query,
+                filters=context.filters,
+                top_k=min(context.top_k * 2, 20),  # Get more results for fusion
+                search_types=context.search_types,
+                fusion_method=context.fusion_method
+            )
+            
+            # Execute parallel search
+            all_results = parallel_retriever.search(retriever_context)
+            
+            if not all_results:
+                return []
+            
+            # Group results by source for fusion
+            results_by_source: Dict[str, List[SearchResult]] = {}
+            for result in all_results:
+                source = result.source
+                if source not in results_by_source:
+                    results_by_source[source] = []
+                results_by_source[source].append(result)
+            
+            # Fuse results
+            fused_results = self.fusion_engine.fuse_results(results_by_source, context)
+            return fused_results[:context.top_k]  # Limit to requested number
+            
+        except Exception as exc:
+            import logging
+            logging.warning("Parallel hybrid search failed: %s", exc)
             return []
     
     def _filter_retrievers(self, context: QueryContext) -> Dict[str, BaseRetriever]:

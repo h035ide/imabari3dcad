@@ -52,6 +52,13 @@ def build_parser() -> argparse.ArgumentParser:
         help="Result fusion method"
     )
     
+    parser.add_argument(
+        "--performance-mode",
+        choices=["speed", "balanced", "memory"],
+        default="balanced",
+        help="Performance optimization mode"
+    )
+    
     # Configuration
     parser.add_argument(
         "--config",
@@ -261,7 +268,8 @@ def main(argv=None):
         # Create system based on selection
         config_overrides = {
             "data_dir": str(args.data_dir),
-            "fusion_method": args.fusion_method
+            "fusion_method": args.fusion_method,
+            "performance_mode": args.performance_mode
         }
         
         if args.system == "langchain":
