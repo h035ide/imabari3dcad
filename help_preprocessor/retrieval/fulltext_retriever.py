@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import List, Optional, Dict, Any
+from typing import List
 
 from .base import BaseRetriever, QueryContext, SearchResult
 

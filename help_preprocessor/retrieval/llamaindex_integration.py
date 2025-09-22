@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List, Optional, Dict, Any, Sequence
+from typing import List, Optional, Dict, Any
 from pathlib import Path
 
-from .base import QueryContext, SearchResult
-from .hybrid_retriever import HybridRetriever, HybridRetrieverConfig
+from .base import QueryContext
+from .hybrid_retriever import HybridRetriever
 
 
 class HelpLlamaIndexRetriever:
@@ -15,7 +15,7 @@ class HelpLlamaIndexRetriever:
     def __init__(self, hybrid_retriever: HybridRetriever):
         self.hybrid_retriever = hybrid_retriever
         
-    def retrieve(self, query_str: str, **kwargs) -> List["NodeWithScore"]:
+    def retrieve(self, query_str: str, **kwargs) -> List[Any]:
         """LlamaIndex-compatible retrieval method."""
         try:
             from llama_index.schema import NodeWithScore, TextNode
