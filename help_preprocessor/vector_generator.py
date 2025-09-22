@@ -55,10 +55,37 @@ class HelpVectorGenerator:
             for chunk in chunks
         ]
 
-    def embed_chunks(self, chunks: Iterable[dict]) -> Iterable[dict]:  # pragma: no cover - placeholder
-        """Attach vector representations to chunk payloads."""
-
-        raise NotImplementedError("Embedding logic has not been implemented yet.")
+    def embed_chunks(self, chunks: Iterable[dict], *, openai_model: str | None = None) -> Iterable[dict]:
+        """Attach vector representations to chunk payloads using OpenAI API."""
+        
+        try:
+            import openai
+        except ImportError as exc:
+            raise ImportError("OpenAI package required for embedding. Install with: pip install openai") from exc
+        
+        if not openai_model:
+            raise ValueError("OpenAI model must be specified (e.g., 'text-embedding-3-small')")
+        
+        client = openai.Client()
+        
+        for chunk in chunks:
+            try:
+                response = client.embeddings.create(
+                    model=openai_model,
+                    input=chunk["text"]
+                )
+                chunk = dict(chunk)  # Create a copy to avoid mutation
+                chunk["embedding"] = response.data[0].embedding
+                yield chunk
+            except Exception as exc:
+                # Log error but continue processing other chunks
+                import logging
+                logging.warning(
+                    "Failed to embed chunk %s: %s", 
+                    chunk.get("id", "unknown"), 
+                    exc
+                )
+                yield chunk  # Return chunk without embedding
 
     # ------------------------------------------------------------------
     # Internal helpers
