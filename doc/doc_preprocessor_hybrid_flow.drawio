@@ -1,82 +1,71 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2">
   <diagram id="pipeline" name="doc_preprocessor_hybrid_activity_workflow">
-    <mxGraphModel dx="1572" dy="1124" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+    <mxGraphModel dx="1310" dy="937" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="TITLE" value="doc_preprocessor_hybrid 行為ベース ワークフロー" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" parent="1" vertex="1">
+        <mxCell id="TITLE" value="doc_preprocessor_hybrid 行為ベース ワークフロー" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" vertex="1" parent="1">
           <mxGeometry x="40" y="40" width="520" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="START" value="Start" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
-          <mxGeometry x="60" y="120" width="80" height="40" as="geometry" />
+        <mxCell id="START" value="Start" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="80" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="READ_API" value="API原文を読み込む(api.txt / api_arg.txt)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
-          <mxGeometry x="160" y="120" width="120" height="40" as="geometry" />
+        <mxCell id="READ_API" value="API原文を読み込む(api.txt / api_arg.txt)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="140" y="80" width="120" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="PARSE_TYPES" value="型定義を解析する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
-          <mxGeometry x="300" y="120" width="120" height="40" as="geometry" />
+        <mxCell id="PARSE_TYPES" value="型定義を解析する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="280" y="80" width="120" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="PARSE_API" value="API仕様を解析する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
-          <mxGeometry x="440" y="120" width="120" height="40" as="geometry" />
+        <mxCell id="PARSE_API" value="API仕様を解析する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="420" y="80" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="8I_Y2Kh2gggTvZHkUfJV-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="POSTPROC" target="LLM_DECISION">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="580" y="175" />
-              <mxPoint x="100" y="175" />
+              <mxPoint x="560" y="130" />
+              <mxPoint x="80" y="130" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="POSTPROC" value="正規化/拡張を適用&lt;div&gt;型の正規化/one_of&lt;/div&gt;&lt;div&gt;必須/配列/次元を付与&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
-          <mxGeometry x="580" y="120" width="120" height="40" as="geometry" />
+        <mxCell id="POSTPROC" value="正規化/拡張を適用&lt;div&gt;型の正規化/one_of&lt;/div&gt;&lt;div&gt;必須/配列/次元を付与&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="80" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="8I_Y2Kh2gggTvZHkUfJV-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="LLM_DECISION" target="CTX_BUILD">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="8I_Y2Kh2gggTvZHkUfJV-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="LLM_DECISION" target="WRITE_STRUCT">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="LLM_DECISION" value="LLM補強を有効？" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="30" y="140" width="100" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="LLM_DECISION" value="LLM補強を有効？" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
-          <mxGeometry x="50" y="195" width="100" height="50" as="geometry" />
+        <mxCell id="CTX_BUILD" value="原文抜粋/型文脈を&lt;div&gt;抽出&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="150" y="145" width="120" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="CTX_BUILD" value="原文抜粋/型文脈を&lt;div&gt;抽出&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="170" y="200" width="120" height="40" as="geometry" />
+        <mxCell id="ENRICH_TYPES" value="型定義を補強 (差分)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="300" y="145" width="120" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="ENRICH_TYPES" value="型定義を補強 (差分)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="320" y="200" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="8I_Y2Kh2gggTvZHkUfJV-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ENRICH_ENTRIES" target="WRITE_STRUCT">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="480" y="250" />
-              <mxPoint x="100" y="250" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ENRICH_ENTRIES" value="APIエントリを補強 (差分)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="480" y="200" width="120" height="40" as="geometry" />
+        <mxCell id="ENRICH_ENTRIES" value="APIエントリを補強 (差分)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="460" y="145" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="8I_Y2Kh2gggTvZHkUfJV-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="WRITE_STRUCT" target="END">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="WRITE_STRUCT" value="structured_api.json&lt;div&gt;を保存&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
-          <mxGeometry x="40" y="260" width="120" height="40" as="geometry" />
+        <mxCell id="WRITE_STRUCT" value="structured_api.json&lt;div&gt;を保存&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="40" y="205" width="120" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="END" value="End" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
-          <mxGeometry x="200" y="260" width="80" height="40" as="geometry" />
+        <mxCell id="END" value="End" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="200" y="205" width="80" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="e1" style="endArrow=block;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="START" target="READ_API" edge="1">
+        <mxCell id="e1" style="endArrow=block;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="START" target="READ_API">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="150" y="140" as="sourcePoint" />
-            <mxPoint x="160" y="121.66666666666674" as="targetPoint" />
+            <mxPoint x="130" y="100" as="sourcePoint" />
+            <mxPoint x="140" y="81.66666666666674" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e2" style="endArrow=block;html=1;" parent="1" source="LOAD_ARGS" edge="1">
+        <mxCell id="e2" style="endArrow=block;html=1;" parent="1" target="RUN_PIPELINE" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="420" y="125" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e4" style="endArrow=block;html=1;" parent="1" source="READ_API" target="PARSE_TYPES" edge="1">
+        <mxCell id="e4" style="endArrow=block;html=1;" edge="1" parent="1" source="READ_API" target="PARSE_TYPES">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="e5" style="endArrow=block;html=1;" parent="1" source="PARSE_TYPES" target="PARSE_API" edge="1">
@@ -90,6 +79,17 @@
         </mxCell>
         <mxCell id="e12" style="endArrow=block;html=1;" parent="1" source="ENRICH_TYPES" target="ENRICH_ENTRIES" edge="1">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3cnJW8OzbraPkvrjtHVB-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.337;entryY=0.037;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="LLM_DECISION" target="WRITE_STRUCT">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3cnJW8OzbraPkvrjtHVB-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=0.337;entryY=0.037;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ENRICH_ENTRIES" target="WRITE_STRUCT">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="460" y="190" />
+              <mxPoint x="80" y="190" />
+            </Array>
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
