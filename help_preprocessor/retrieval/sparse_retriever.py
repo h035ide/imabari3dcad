@@ -173,7 +173,6 @@ class BM25Retriever(BaseRetriever):
             return []
             
         # Tokenize query
-        import re
         query_tokens = re.findall(r'\w+', context.query.lower())
         
         # Calculate BM25 scores for all documents
