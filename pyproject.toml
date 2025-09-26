@@ -60,6 +60,10 @@ dev = [
     "flake8",
 ]
 
+[project.scripts]
+help-preprocess = "help_preprocessor.cli:main"
+help-search = "help_preprocessor.retrieval.cli:main"
+
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["*"]

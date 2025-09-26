@@ -60,3 +60,49 @@ Neo4j/Chroma を同時に実行するには `--store-neo4j --store-chroma` を�
 ### LLM 補強時のソース参照
 
 `--llm` 実行時には、ルールベースで切り出した `api.txt` / `api_arg.txt` の抜粋も併せてプロンプトへ送信するようになりました。これにより LLM は原文の文脈を参照しながら最小限の追記を行います。`api.txt` からは対象 API の近傍行、`api_arg.txt` からは関連する型定義を自動抽出します。
+
+---
+
+## クイックスタート (uv)
+
+```bash
+# 依存関係のインストール
+uv pip install -r requirements.txt
+
+# 設定だけ確認（出力は書き込まない）
+uv run python -m doc_preprocessor_hybrid.cli --api-doc data/src/api.txt --api-arg data/src/api_arg.txt --output-dir doc_preprocessor_hybrid/out --dry-run
+
+# ルールベースのみで実行
+uv run python -m doc_preprocessor_hybrid.cli --api-doc data/src/api.txt --api-arg data/src/api_arg.txt --output-dir doc_preprocessor_hybrid/out
+
+# LLM補強を有効化して実行（OPENAI_API_KEY が必要）
+uv run python -m doc_preprocessor_hybrid.cli --api-doc data/src/api.txt --api-arg data/src/api_arg.txt --output-dir doc_preprocessor_hybrid/out --llm
+
+# 生成済み成果物をNeo4j/Chromaへ保存（必要な環境変数を事前に設定）
+uv run python -m doc_preprocessor_hybrid.cli --store-neo4j
+uv run python -m doc_preprocessor_hybrid.cli --store-chroma
+```
+
+## CLIオプション（抜粋）
+- `--api-doc`, `--api-arg`: 入力ファイルパス
+- `--output-dir`: 成果物の出力ディレクトリ（既定: `doc_preprocessor_hybrid/out`）
+- `--llm`: LLM補強を有効化
+- `--model`: OpenAIモデルIDの上書き
+- `--store-neo4j`, `--store-chroma`: 外部ストレージへ保存
+- `--dry-run`: 実行計画のみ表示（ファイルは書き込まない）
+
+## 再実行ポリシー（idempotency）
+- `--llm` が未指定の場合:
+  - `structured_output_enriched.json` が存在すればそれを読み込み（最優先）、次に `structured_output.json` を読み込みます。
+  - いずれも無い場合のみ `api.txt` / `api_arg.txt` を再解析して `structured_api.json` を生成します。
+- `--llm` が指定された場合:
+  - 既存バンドルに対して補強を行い、差分だけを適用して `structured_api_enriched.json` を更新します（監査ログを返却）。
+
+## 成果物
+- `structured_api.json` / `structured_api_enriched.json`: 構造化API（`schemas.ApiBundle`に整合）
+- `graph_payload.json`: グラフ挿入用ノード/リレーション（`graph_builder.build_graph_payload`）
+- `vector_chunks.jsonl`: 検索用の要約チャンク（`rule_parser.generate_vector_chunks`）
+- 既定の出力先: `doc_preprocessor_hybrid/out`
+
+## 処理フロー図
+- `doc/doc_preprocessor_hybrid_flow.drawio`（行為ベースワークフロー）
