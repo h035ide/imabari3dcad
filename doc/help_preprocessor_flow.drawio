@@ -1,0 +1,324 @@
+<mxfile host="65bd71144e">
+    <diagram id="help_preprocessor_activity" name="help_preprocessor_activity_workflow">
+        <mxGraphModel dx="427" dy="415" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="TITLE" value="help_preprocessor 行為ベース ワークフロー" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="40" width="520" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="START" value="Start" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="100" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="CLI" value="CLI引数を解決 (cli.py)&#xa;source / index / --dry-run / --sample-limit / --log-level" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="140" y="100" width="320" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="DRY_DEC" value="DRY RUN？" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="480" y="105" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="DRY_SAMPLE" value="サンプル正規化を実行&#xa;HelpHTMLParser.read_normalized_html()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="640" y="80" width="300" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="DRY_LOG" value="診断ログ出力&#xa;(encoding/fallback/BOM, sample content)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="640" y="140" width="300" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="END_DRY" value="End" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="960" y="110" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="LOAD_CACHE" value="キャッシュ(index_parse.json)存在？" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="140" y="200" width="220" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="LOAD_CACHED" value="キャッシュを読み込み (categories/diagnostics)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="200" width="300" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="PARSE_INDEX" value="index.txtを解析&#xa;HelpIndexParser.parse() / iter_errors()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="260" width="300" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="HTML_DIAG" value="HTML診断を収集&#xa;_collect_html_diagnostics()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="700" y="260" width="260" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="CACHE_WRITE" value="キャッシュへ書き出し (index_parse.json)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="980" y="260" width="260" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="SECTIONS" value="HTML→セクション構築&#xa;HelpHTMLParser.parse_file() / collect_media()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="340" width="420" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GRAPH_BUILD" value="グラフ生成&#xa;HelpGraphBuilder.build_nodes()/build_relationships()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="820" y="340" width="300" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="VECTOR_GEN" value="ベクトルチャンク生成&#xa;HelpVectorGenerator.build_chunks() / embed_chunks()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="1140" y="340" width="360" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="NEO4J_DEC" value="Neo4jへ保存？ (credential有)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="820" y="420" width="240" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="CHROMA_DEC" value="Chromaへ保存？ (collection設定有)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="1140" y="420" width="260" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="NEO4J_STORE" value="Neo4jへアップサート&#xa;HelpNeo4jLoader.upsert()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                    <mxGeometry x="820" y="500" width="300" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="CHROMA_STORE" value="Chromaへアップサート&#xa;HelpChromaLoader.upsert()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                    <mxGeometry x="1140" y="500" width="300" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="END" value="End" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="1480" y="500" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" style="endArrow=block;html=1;" parent="1" source="START" target="CLI" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2" style="endArrow=block;html=1;" parent="1" source="CLI" target="DRY_DEC" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e3" style="endArrow=block;html=1;" parent="1" source="DRY_DEC" target="DRY_SAMPLE" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e4" style="endArrow=block;html=1;" parent="1" source="DRY_SAMPLE" target="DRY_LOG" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e5" style="endArrow=block;html=1;" parent="1" source="DRY_LOG" target="END_DRY" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e6" style="endArrow=block;html=1;strokeStyle=dashed;strokeColor=#999999;" parent="1" source="DRY_DEC" target="LOAD_CACHE" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e7" style="endArrow=block;html=1;" parent="1" source="LOAD_CACHE" target="LOAD_CACHED" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e8" style="endArrow=block;html=1;strokeStyle=dashed;strokeColor=#999999;" parent="1" source="LOAD_CACHE" target="PARSE_INDEX" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e9" style="endArrow=block;html=1;" parent="1" source="PARSE_INDEX" target="HTML_DIAG" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e10" style="endArrow=block;html=1;" parent="1" source="HTML_DIAG" target="CACHE_WRITE" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e11" style="endArrow=block;html=1;" parent="1" source="LOAD_CACHED" target="SECTIONS" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e12" style="endArrow=block;html=1;" parent="1" source="CACHE_WRITE" target="SECTIONS" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e13" style="endArrow=block;html=1;" parent="1" source="SECTIONS" target="GRAPH_BUILD" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e14" style="endArrow=block;html=1;" parent="1" source="SECTIONS" target="VECTOR_GEN" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e15" style="endArrow=block;html=1;" parent="1" source="GRAPH_BUILD" target="NEO4J_DEC" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e16" style="endArrow=block;html=1;" parent="1" source="VECTOR_GEN" target="CHROMA_DEC" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e17" style="endArrow=block;html=1;" parent="1" source="NEO4J_DEC" target="NEO4J_STORE" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e18" style="endArrow=block;html=1;" parent="1" source="CHROMA_DEC" target="CHROMA_STORE" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e19" style="endArrow=block;html=1;" parent="1" source="NEO4J_STORE" target="END" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e20" style="endArrow=block;html=1;" parent="1" source="CHROMA_STORE" target="END" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="help_retrieval_activity" name="help_preprocessor_retrieval_workflow">
+        <mxGraphModel dx="427" dy="415" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+            <root>
+                <mxCell id="r0"/>
+                <mxCell id="r1" parent="r0"/>
+                <mxCell id="R_TITLE" value="help_preprocessor 検索 行為ベース ワークフロー" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontStyle=1;fontSize=16;" parent="r1" vertex="1">
+                    <mxGeometry x="40" y="40" width="560" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_START" value="Start" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="r1" vertex="1">
+                    <mxGeometry x="40" y="100" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_CLI" value="CLI( retrieval/cli.py )&#xa;--system(langchain/llamaindex/hybrid)&#xa;--mode(search/rag/chat)&#xa;--query/--top-k/--search-types&#xa;--fusion-method/--performance-mode&#xa;--config/--data-dir/--interactive" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="r1" vertex="1">
+                    <mxGeometry x="140" y="90" width="420" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_INTERACTIVE_DEC" value="対話モード？" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="r1" vertex="1">
+                    <mxGeometry x="580" y="105" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_INTERACTIVE" value="interactive_chat() を開始" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="r1" vertex="1">
+                    <mxGeometry x="740" y="90" width="260" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_END_I" value="End" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="r1" vertex="1">
+                    <mxGeometry x="1020" y="100" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_VALIDATE_QUERY" value="クエリ検証&#xa;validation.validate_query() / safe_validate_and_create_context()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="r1" vertex="1">
+                    <mxGeometry x="140" y="210" width="420" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_SYSTEM_DEC" value="system 選択" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="r1" vertex="1">
+                    <mxGeometry x="580" y="220" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_SYS_LC" value="create_help_langchain_system()&#xa;HybridRetrieverConfig を生成&#xa;enhanced_retriever で最適化 (performance-mode)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="r1" vertex="1">
+                    <mxGeometry x="740" y="200" width="380" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_SYS_LI" value="create_help_llamaindex_system()&#xa;LangChain 構成を流用して QueryEngine/ChatEngine 構築" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="r1" vertex="1">
+                    <mxGeometry x="740" y="290" width="380" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_CFG_VALIDATE" value="設定・データ検証&#xa;validate_hybrid_config() / validate_data_files()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="r1" vertex="1">
+                    <mxGeometry x="1140" y="210" width="320" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_INIT" value="リトリーバ初期化 (HybridRetriever)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="r1" vertex="1">
+                    <mxGeometry x="140" y="300" width="260" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_DENSE" value="Dense: ChromaDenseRetriever&#xa;collection/persist/embedding_model" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="r1" vertex="1">
+                    <mxGeometry x="420" y="290" width="260" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_SPARSE" value="Sparse: TF-IDF / BM25" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="r1" vertex="1">
+                    <mxGeometry x="700" y="290" width="200" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_FULLTEXT" value="Full-text: Whoosh / Elasticsearch" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="r1" vertex="1">
+                    <mxGeometry x="920" y="290" width="240" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_GRAPH" value="Graph: Neo4jGraphRetriever / GraphPathRetriever" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="r1" vertex="1">
+                    <mxGeometry x="1180" y="290" width="300" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_MODE_DEC" value="mode選択 (search / rag / chat)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="r1" vertex="1">
+                    <mxGeometry x="140" y="380" width="240" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_QC" value="QueryContext 構築&#xa;query/top_k/search_types/fusion_method/filters" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="r1" vertex="1">
+                    <mxGeometry x="420" y="370" width="300" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_FILTER" value="search_typesで有効リトリーバを選別" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="r1" vertex="1">
+                    <mxGeometry x="740" y="370" width="240" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_PARALLEL" value="並列検索 (ParallelRetriever) または単独実行" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="r1" vertex="1">
+                    <mxGeometry x="1000" y="370" width="320" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_GROUP" value="ソース別に結果をグルーピング" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="r1" vertex="1">
+                    <mxGeometry x="1340" y="370" width="220" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_FUSION" value="結果統合(Fusion)&#xa;RRF / Weighted / Borda / Adaptive" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="r1" vertex="1">
+                    <mxGeometry x="1580" y="360" width="260" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_OUTPUT" value="出力整形 (json/text/detailed)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="r1" vertex="1">
+                    <mxGeometry x="1860" y="370" width="220" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_RAG" value="RAG (LangChain)&#xa;HelpRAGChain.query()&#xa;ChatOpenAI + RetrievalQA + カスタムプロンプト&#xa;answer + source_documents" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="r1" vertex="1">
+                    <mxGeometry x="420" y="450" width="420" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_CHAT" value="Chat (LangChain)&#xa;HelpConversationalChain.chat()&#xa;ConversationBufferWindowMemory&#xa;answer + source_documents" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="r1" vertex="1">
+                    <mxGeometry x="860" y="450" width="420" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_LI_QE" value="QueryEngine (LlamaIndex)&#xa;HelpQueryEngine.query()&#xa;answer + source_nodes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="r1" vertex="1">
+                    <mxGeometry x="1300" y="450" width="320" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_LI_CHAT" value="ChatEngine (LlamaIndex)&#xa;HelpChatEngine.chat()&#xa;answer + source_nodes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f0ff;strokeColor=#6c8ebf;" parent="r1" vertex="1">
+                    <mxGeometry x="1640" y="450" width="320" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="R_END" value="End" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="r1" vertex="1">
+                    <mxGeometry x="2000" y="470" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="re1" style="endArrow=block;html=1;" parent="r1" source="R_START" target="R_CLI" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re2" style="endArrow=block;html=1;" parent="r1" source="R_CLI" target="R_INTERACTIVE_DEC" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re3" style="endArrow=block;html=1;" parent="r1" source="R_INTERACTIVE_DEC" target="R_INTERACTIVE" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re4" style="endArrow=block;html=1;" parent="r1" source="R_INTERACTIVE" target="R_END_I" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re5" style="endArrow=block;html=1;strokeStyle=dashed;strokeColor=#999999;" parent="r1" source="R_INTERACTIVE_DEC" target="R_VALIDATE_QUERY" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re6" style="endArrow=block;html=1;" parent="r1" source="R_VALIDATE_QUERY" target="R_SYSTEM_DEC" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re7" style="endArrow=block;html=1;" parent="r1" source="R_SYSTEM_DEC" target="R_SYS_LC" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re8" style="endArrow=block;html=1;strokeStyle=dashed;strokeColor=#999999;" parent="r1" source="R_SYSTEM_DEC" target="R_SYS_LI" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re9" style="endArrow=block;html=1;" parent="r1" source="R_SYS_LC" target="R_CFG_VALIDATE" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re10" style="endArrow=block;html=1;" parent="r1" source="R_SYS_LI" target="R_CFG_VALIDATE" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re11" style="endArrow=block;html=1;" parent="r1" source="R_CFG_VALIDATE" target="R_INIT" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re12" style="endArrow=block;html=1;" parent="r1" source="R_INIT" target="R_DENSE" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re13" style="endArrow=block;html=1;" parent="r1" source="R_INIT" target="R_SPARSE" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re14" style="endArrow=block;html=1;" parent="r1" source="R_INIT" target="R_FULLTEXT" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re15" style="endArrow=block;html=1;" parent="r1" source="R_INIT" target="R_GRAPH" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re16" style="endArrow=block;html=1;strokeStyle=dashed;strokeColor=#999999;" parent="r1" source="R_DENSE" target="R_MODE_DEC" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re17" style="endArrow=block;html=1;strokeStyle=dashed;strokeColor=#999999;" parent="r1" source="R_SPARSE" target="R_MODE_DEC" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re18" style="endArrow=block;html=1;strokeStyle=dashed;strokeColor=#999999;" parent="r1" source="R_FULLTEXT" target="R_MODE_DEC" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re19" style="endArrow=block;html=1;strokeStyle=dashed;strokeColor=#999999;" parent="r1" source="R_GRAPH" target="R_MODE_DEC" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re20" style="endArrow=block;html=1;" parent="r1" source="R_MODE_DEC" target="R_QC" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re21" style="endArrow=block;html=1;" parent="r1" source="R_QC" target="R_FILTER" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re22" style="endArrow=block;html=1;" parent="r1" source="R_FILTER" target="R_PARALLEL" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re23" style="endArrow=block;html=1;" parent="r1" source="R_PARALLEL" target="R_GROUP" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re24" style="endArrow=block;html=1;" parent="r1" source="R_GROUP" target="R_FUSION" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re25" style="endArrow=block;html=1;" parent="r1" source="R_FUSION" target="R_OUTPUT" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re26" style="endArrow=block;html=1;strokeStyle=dashed;strokeColor=#999999;" parent="r1" source="R_MODE_DEC" target="R_RAG" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re27" style="endArrow=block;html=1;strokeStyle=dashed;strokeColor=#999999;" parent="r1" source="R_MODE_DEC" target="R_CHAT" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re28" style="endArrow=block;html=1;strokeStyle=dashed;strokeColor=#999999;" parent="r1" source="R_MODE_DEC" target="R_LI_QE" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re29" style="endArrow=block;html=1;strokeStyle=dashed;strokeColor=#999999;" parent="r1" source="R_MODE_DEC" target="R_LI_CHAT" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re30" style="endArrow=block;html=1;" parent="r1" source="R_OUTPUT" target="R_END" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re31" style="endArrow=block;html=1;" parent="r1" source="R_RAG" target="R_END" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re32" style="endArrow=block;html=1;" parent="r1" source="R_CHAT" target="R_END" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re33" style="endArrow=block;html=1;" parent="r1" source="R_LI_QE" target="R_END" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="re34" style="endArrow=block;html=1;" parent="r1" source="R_LI_CHAT" target="R_END" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

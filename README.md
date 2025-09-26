@@ -22,6 +22,7 @@
 - `main_0905.py`: CLIエントリポイント。
 - `main_helper_0905.py`: Neo4j/Chroma/LlamaIndex 連携のヘルパと設定クラス `Config`。
 - `doc_parser/`: ドキュメント解析・Neo4jインポーター等。
+- `help_preprocessor/`: EVOSHIP help preprocessing pipeline skeleton (Shift_JIS normalization, graph/vector loaders)
 - `graphrag_gpt/ingest0903.py`: No LLM の解析・取り込み処理。
 - `chroma_db_store/`: ChromaDB 永続化ディレクトリ。
 - `data/src/`: 解析対象ドキュメント（例: `api.txt`）。
@@ -172,3 +173,28 @@ python main_0905.py -f config
 ## 8. ライセンス
 
 プロジェクトルートのライセンス表記がある場合はそれに従います。未記載の場合は研究用途を想定しています。
+## help_preprocessor CLI
+
+EVOSHIP ? Shift_JIS ????????????????????????????
+
+1. `.env` ?????????????????:
+   - `HELP_SOURCE_ROOT`: `EVOSHIP_HELP_FILES` ??????
+   - `HELP_CACHE_DIR`: ????? JSON (`index_parse.json`) ???????????
+   - `HELP_OUTPUT_DIR`: ????????????????
+2. ??? `uv run help-preprocess --dry-run --sample-limit 5` ???????????????? index.txt ?????????????
+3. ?????????????????????????????????????????????????????? `HELP_CACHE_DIR` ?? `index_parse.json` ??????????
+
+## help_preprocessor Outputs
+
+The help preprocessor splits EVOSHIP HTML files into multi-heading sections. Each section becomes both a Neo4j node payload (via `help_preprocessor/storage/neo4j_loader.py`) and a vector chunk with metadata such as anchors, outbound links, and referenced media paths. To persist the data end-to-end:
+
+1. Configure the following environment variables (for example in `.env`):
+   - `HELP_SOURCE_ROOT` ? root of `EVOSHIP_HELP_FILES`
+   - `HELP_CACHE_DIR` ? directory for `index_parse.json` cache
+   - `HELP_OUTPUT_DIR` ? downstream artifacts (optional for dry-runs)
+   - `HELP_NEO4J_URI`, `HELP_NEO4J_USERNAME`, `HELP_NEO4J_PASSWORD`, `HELP_NEO4J_DATABASE` ? Neo4j connection
+   - `HELP_CHROMA_COLLECTION`, `HELP_CHROMA_PERSIST_DIR` ? Chroma collection name and persistence directory
+2. Run `uv run help-preprocess --dry-run` to verify decoding diagnostics, section counts, and to warm the cache.
+3. Execute `uv run help-preprocess` without `--dry-run` to write graph payloads to Neo4j and chunks to Chroma using the configured loaders.
+
+The loader tests in `tests/help_preprocessor/test_storage.py` describe the expected payload formats if you need to integrate with alternate backends.
