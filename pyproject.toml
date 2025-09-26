@@ -51,6 +51,7 @@ dependencies = [
     "black>=25.1.0",
     "whoosh>=2.7.4",
     "langchain-core>=0.3.75",
+    "langchain-experimental>=0.3.4",
 ]
 
 [project.optional-dependencies]

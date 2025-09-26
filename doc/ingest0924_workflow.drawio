@@ -1,0 +1,166 @@
+<mxfile host="app.diagrams.net" modified="2025-09-25T00:00:00.000Z" agent="AI" version="24.7.9" type="device">
+  <diagram id="ingest0924-workflow" name="ingest0924">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Start -->
+        <mxCell id="start" value="開始" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="60" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Read API Specs -->
+        <mxCell id="read_api" value="API仕様読込&#10;(data/src/api.txt, api_arg.txt)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="260" y="40" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="normalize_api" value="正規化&#10;_normalize_text" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="540" y="40" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="parse_api" value="仕様解析&#10;_parse_api_specs / _parse_data_type_descriptions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="780" y="40" width="320" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="triples_api" value="仕様トリプル生成&#10;extract_triples_from_specs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="40" width="260" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Read Script Examples -->
+        <mxCell id="read_scripts" value="スクリプト読込&#10;(data/src/*.py)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="260" y="160" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="chunk_scripts" value="チャンク分割&#10;_split_script_into_chunks" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="520" y="160" width="240" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="purpose_llm" value="目的抽出(LLM)&#10;_get_chunk_purpose (ChatOpenAI)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="800" y="160" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="calls_treesitter" value="メソッド呼出抽出&#10;_extract_method_calls_from_script (tree-sitter)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="160" width="380" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="triples_script" value="スクリプトトリプル生成&#10;extract_triples_from_script" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="160" width="300" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Read HTML Docs -->
+        <mxCell id="read_html" value="HTML読込&#10;(data/src/*.html)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="260" y="260" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="extract_text" value="本文抽出&#10;BeautifulSoup(lxml)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="520" y="260" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="llm_graph" value="LLMでグラフ抽出&#10;LLMGraphTransformer (Concept/EXPLAINS/RELATES_TO/...)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="780" y="250" width="480" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Integrate and Build GraphDocuments -->
+        <mxCell id="integrate" value="トリプル統合&#10;(仕様 + スクリプト + HTML)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="260" y="360" width="300" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="gdocs" value="GraphDocument生成&#10;_triples_to_graph_documents" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="600" y="360" width="300" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Neo4j Rebuild -->
+        <mxCell id="neo4j_reset" value="Neo4jリセット&#10;MATCH (n) DETACH DELETE n" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cfe2f3;strokeColor=#6fa8dc;" vertex="1" parent="1">
+          <mxGeometry x="940" y="360" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="neo4j_load" value="Neo4j投入&#10;add_graph_documents" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cfe2f3;strokeColor=#6fa8dc;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="360" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Chroma Build -->
+        <mxCell id="prepare_docs" value="Chroma用ドキュメント準備&#10;(API/Script/HTML をDocument化)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9ead3;strokeColor=#93c47d;" vertex="1" parent="1">
+          <mxGeometry x="260" y="460" width="360" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="embeddings" value="埋め込み生成&#10;OpenAIEmbeddings" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9ead3;strokeColor=#93c47d;" vertex="1" parent="1">
+          <mxGeometry x="660" y="460" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="chroma_build" value="ベクトルDB構築/永続化&#10;Chroma.from_documents(persist_directory)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9ead3;strokeColor=#93c47d;" vertex="1" parent="1">
+          <mxGeometry x="920" y="460" width="380" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- End -->
+        <mxCell id="end" value="完了" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1360" y="460" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Edges -->
+        <mxCell id="e_start_read_api" edge="1" source="start" target="read_api" style="endArrow=block;endFill=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_read_api_norm" edge="1" source="read_api" target="normalize_api" style="endArrow=block;endFill=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_norm_parse_api" edge="1" source="normalize_api" target="parse_api" style="endArrow=block;endFill=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_parse_api_triples_api" edge="1" source="parse_api" target="triples_api" style="endArrow=block;endFill=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_start_read_scripts" edge="1" source="start" target="read_scripts" style="endArrow=block;endFill=1;dashed=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_read_scripts_chunk" edge="1" source="read_scripts" target="chunk_scripts" style="endArrow=block;endFill=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_chunk_purpose" edge="1" source="chunk_scripts" target="purpose_llm" style="endArrow=block;endFill=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_purpose_calls" edge="1" source="purpose_llm" target="calls_treesitter" style="endArrow=block;endFill=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_calls_triples_script" edge="1" source="calls_treesitter" target="triples_script" style="endArrow=block;endFill=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_start_read_html" edge="1" source="start" target="read_html" style="endArrow=block;endFill=1;dashed=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_read_html_text" edge="1" source="read_html" target="extract_text" style="endArrow=block;endFill=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_text_llm_graph" edge="1" source="extract_text" target="llm_graph" style="endArrow=block;endFill=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Integration Paths -->
+        <mxCell id="e_triples_api_integrate" edge="1" source="triples_api" target="integrate" style="endArrow=block;endFill=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_triples_script_integrate" edge="1" source="triples_script" target="integrate" style="endArrow=block;endFill=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_llm_graph_integrate" edge="1" source="llm_graph" target="integrate" style="endArrow=block;endFill=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Build Graph, Neo4j, Chroma -->
+        <mxCell id="e_integrate_gdocs" edge="1" source="integrate" target="gdocs" style="endArrow=block;endFill=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_gdocs_reset" edge="1" source="gdocs" target="neo4j_reset" style="endArrow=block;endFill=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_reset_load" edge="1" source="neo4j_reset" target="neo4j_load" style="endArrow=block;endFill=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_integrate_prepare_docs" edge="1" source="integrate" target="prepare_docs" style="endArrow=block;endFill=1;dashed=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_prepare_docs_embeddings" edge="1" source="prepare_docs" target="embeddings" style="endArrow=block;endFill=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_embeddings_chroma" edge="1" source="embeddings" target="chroma_build" style="endArrow=block;endFill=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_chroma_end" edge="1" source="chroma_build" target="end" style="endArrow=block;endFill=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  </mxfile>
+
+
