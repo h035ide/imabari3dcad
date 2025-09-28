@@ -1,0 +1,957 @@
+<?xml version="1.0" encoding="utf-8"?>
+<apiTemplate>
+  <method name="Quit" section="Applicationオブジェクトのメソッド">
+    <title>EvoShipを終了する</title>
+    <return>返り値:なし</return>
+    <parameters/>
+  </method>
+  <method name="ShowMainWindow" section="Applicationオブジェクトのメソッド">
+    <title>EvoShipのメインウィンドウを表示する</title>
+    <return>返り値:なし</return>
+    <parameters>
+      <parameter name="bShow">bool: 表示する時はTrue</parameter>
+    <parameters/>
+  </method>
+  <method name="LoadPart" section="Applicationオブジェクトのメソッド">
+    <title>Partオブジェクトを読み込む</title>
+    <return>返り値:Partオブジェクト</return>
+    <parameters>
+      <parameter name="FileName">文字列：保存されているドキュメントのファイルパス名</parameter>
+      <parameter name="bForceEvaluation"> bool: 強制的に全要素を再計算して開くときはTrue　(通常はFalse）</parameter>
+    </parameters>
+  </method>
+  <method name="OpenDocument" section="Applicationオブジェクトのメソッド">
+    <title>Documentを開く</title>
+    <return>返り値:Documentオブジェクト</return>
+    <parameters>
+      <parameter name="FileName">文字列：保存されているドキュメントのファイルパス名</parameter>
+      <parameter name="bForceEvaluation">bool: 強制的に全要素を再計算して開くときはTrue　(通常はFalse）</parameter>
+    </parameters>
+  </method>
+  <method name="Create3DDocument" section="Applicationオブジェクトのメソッド">
+    <title>3DのDocumentを新規に作成する</title>
+    <return>返り値:Documentオブジェクト</return>
+    <parameters>
+    <parameters/>
+  </method>
+  <method name="GetActiveDocument" section="Applicationオブジェクトのメソッド">
+    <title>アクティブなDocumentオブジェクトを取得する</title>
+    <return>返り値:Documentオブジェクト</return>
+    <parameters>
+    <parameters/>
+  </method>
+  <method name="GetDocuments" section="Applicationオブジェクトのメソッド">
+    <title>開かれているDocumentオブジェクトを全て取得する</title>
+    <return>返り値:Documentオブジェクトの配列</return>
+    <parameters>
+    <parameters/>
+  </method>
+  <method name="Close" section="Documentオブジェクトのメソッド">
+    <title>ドキュメントを閉じる</title>
+    <return>返り値:なし</return>
+    <parameters>
+    <parameters/>
+  </method>
+  <method name="Save" section="Documentオブジェクトのメソッド">
+    <title>ドキュメントをファイルに保存する</title>
+    <return>返り値:なし</return>
+    <parameters>
+      <parameter name="FileName">文字列：保存するファイルパス名</parameter>
+      <parameter name="bAsCompactFormat">bool: 最小サイズになる形式で保存する時はTrue（開くのに計算を必要とします）</parameter>
+    </parameters>
+  </method>
+  <method name="GetPart" section="Documentオブジェクトのメソッド">
+    <title>Partオブジェクトの取得</title>
+    <return>返り値:Partオブジェクト</return>
+    <parameters>
+    <parameters/>
+  </method>
+  <method name="IsActive" section="Documentオブジェクトのメソッド">
+    <title>ドキュメントがアクティブ（カレント）かどうか</title>
+    <return>返り値:bool ドキュメントがActiveな時はTrue</return>
+    <parameters>
+    <parameters/>
+  </method>
+  <method name="Activate" section="Documentオブジェクトのメソッド">
+    <title>ドキュメントをアクティベイト（カレントに）する</title>
+    <return>返り値:なし</return>
+    <parameters>
+    <parameters/>
+  </method>
+  <method name="FitAllViews" section="Documentオブジェクトのメソッド">
+    <title>ドキュメントのビューを要素にフィットする</title>
+    <return>返り値:なし</return>
+    <parameters>
+    <parameters/>
+  </method>
+  <method name="GetViews" section="Documentオブジェクトのメソッド">
+    <title>ドキュメントのビューを取得する</title>
+    <return>返り値:Viewオブジェクトの配列</return>
+    <parameters>
+    <parameters/>
+  </method>
+  <method name="CreateSTLOption" section="Documentオブジェクトのメソッド">
+    <title>ドキュメントをSTLとして保存する際のパラメータオブジェクトの作成</title>
+    <return>返り値:STLパラメータオブジェクト</return>
+    <parameters>
+    <parameters/>
+  </method>
+  <parameterObject name="STLParameter" section="Documentオブジェクトのメソッド">
+    <title>STLパラメータオブジェクト</title>
+    <attributes>
+      <parameter name="ChordalTolerance">浮動小数点: メッシュ近似する際の弦の幅の許容トレランス (mm)</parameter>
+      <parameter name="NormalTolerance">浮動小数点: メッシュ近似した場合の法線方向ずれ角度 (Degree)</parameter>
+      <parameter name="SigDigits">整数: 頂点座標値の有効桁数</parameter>
+      <parameter name="MinMeshLength">浮動小数点: メッシュ辺の最小サイズ (mm)</parameter>
+      <parameter name="MaxMeshLength">浮動小数点: メッシュ辺の最大サイズ (mm)</parameter>
+      <parameter name="Elements">要素(配列): STL出力対象要素（未指定なら表示中要素すべて）</parameter>
+    </attributes>
+  </parameterObject>
+  <method name="ExporAsSTL" section="Documentオブジェクトのメソッド">
+    <title>ドキュメントをSTLとして保存する</title>
+    <return>返り値:なし</return>
+    <parameters>
+      <parameter name="FileName">文字列：保存するSTLファイルパス名</parameter>
+      <parameter name="pOpt">STLパラメータオブジェクト</parameter>
+    </parameters>
+  </method>
+  <method name="SetDirection" section="Viewオブジェクトのメソッド">
+    <title>ビューの表示方向を設定する</title>
+    <return>返り値:なし</return>
+    <parameters>
+      <parameter name="outDir">方向： 画面から外側に向く方向</parameter>
+      <parameter name="upDir">方向： 画面の上方向</parameter>
+      <parameter name="bFitToModel">bool：表示方向にあわせて表示範囲を要素にフィットさせる時はTrue</parameter>
+    </parameters>
+  </method>
+  <method name="ExportToBitmap" section="Viewオブジェクトのメソッド">
+    <title>ビューの表示内容をビットマップファイルとして出力する</title>
+    <return>返り値:なし</return>
+    <parameters>
+      <parameter name="FileName">文字列：ビットマップファイルのファイル名</parameter>
+      <parameter name="nBitapWidth">整数:ビットマップファイルの横方向のピクセルサイズ（縦方向はビューの縦横比から取得）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateVariable" section="Partオブジェクトのメソッド">
+    <title>変数要素の作成</title>
+    <return>返り値:作成された変数要素の要素ID</return>
+    <parameters>
+      <parameter name="VariableName">文字列：作成する変数名称（空文字不可）</parameter>
+      <parameter name="VariableValue">浮動小数点: 変数の値</parameter>
+      <parameter name="VariableUnit">変数単位：作成する変数の単位を指定</parameter>
+      <parameter name="VariableElementGroup">要素グループ：作成する変数要素を要素グループに入れる場合は要素グループを指定（空文字可）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateSketchPlane" section="Partオブジェクトのメソッド">
+    <title>スケッチ平面の作成</title>
+    <return>返り値:作成されたスケッチ平面要素の要素ID</return>
+    <parameters>
+      <parameter name="ElementName">文字列：作成するスケッチ平面名称（空文字可）</parameter>
+      <parameter name="ElementGroup">要素グループ：作成するスケッチ平面を要素グループに入れる場合は要素グループを指定（空文字可）</parameter>
+      <parameter name="PlaneDef">平面：スケッチ平面を作成する平面を指定する</parameter>
+      <parameter name="PlaneOffset">長さ：平面からのオフセット距離を指定</parameter>
+      <parameter name="bRevPlane">bool:スケッチ平面を反転するかどうかのフラグ(bool)</parameter>
+      <parameter name="bRevUV">bool:スケッチ平面のX,Y軸を交換するかどうかのフラグ(bool)</parameter>
+      <parameter name="bRevUDir">bool:スケッチ平面のX軸となる方向を反転するかどうかのフラグ(bool)</parameter>
+      <parameter name="StyleName">注記スタイル: スケッチ平面に適用する注記スタイル名称（空文字可）</parameter>
+      <parameter name="OriginPoint">点：スケッチ平面の原点を指定（空文字可）</parameter>
+      <parameter name="AxisDirection">方向：スケッチ平面の軸方向を指定（空文字可）</parameter>
+      <parameter name="bDefAxisIsX">bool：スケッチ平面のX実を指定する場合はTrue(bool)</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateSketchLayer" section="Partオブジェクトのメソッド">
+    <title>スケッチレイヤーの作成</title>
+    <return>返り値:作成されたスケッチレイヤー要素の要素ID</return>
+    <parameters>
+      <parameter name="SketchLayerName">文字列：作成するスケッチレイヤー名称（空文字可）</parameter>
+      <parameter name="SketchPlane">要素：レイヤーを作成するスケッチ要素</parameter>
+    </parameters>
+  </method>
+  <method name="CreateSketchLine" section="Partオブジェクトのメソッド">
+    <title>スケッチ直線作成</title>
+    <return>返り値:作成されたスケッチ直線要素の要素ID</return>
+    <parameters>
+      <parameter name="SketchPlane">要素：直線を作成するスケッチ要素</parameter>
+      <parameter name="SketchLineName">文字列：作成するスケッチ直線名称（空文字可）</parameter>
+      <parameter name="SketchLayer">要素：直線を作成するスケッチレイヤー(空文字可）</parameter>
+      <parameter name="StartPoint">点(2D)：始点</parameter>
+      <parameter name="EndPoint">点(2D)：終点</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateSketchArc" section="Partオブジェクトのメソッド">
+    <title>スケッチ円弧を中心点と始終点を指定して作成</title>
+    <return>返り値:作成されたスケッチ円弧要素の要素ID</return>
+    <parameters>
+      <parameter name="SketchPlane">要素：円弧を作成するスケッチ要素</parameter>
+      <parameter name="SketchArcName">文字列：作成するスケッチ円弧名称（空文字可）</parameter>
+      <parameter name="SketchLayer">要素：円弧を作成するスケッチレイヤー(空文字可）</parameter>
+      <parameter name="CenterPoint">点(2D)：中心点</parameter>
+      <parameter name="StartPoint">点(2D)：始点</parameter>
+      <parameter name="EndPoint">点(2D)：終点</parameter>
+      <parameter name="bCCW">bool： 円弧の回転方向Trueの場合は反時計周り</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateSketchArc3Pts" section="Partオブジェクトのメソッド">
+    <title>スケッチ円弧を周上の３点を指定して作成</title>
+    <return>返り値:作成されたスケッチ円弧要素の要素ID</return>
+    <parameters>
+      <parameter name="SketchPlane">要素：円弧を作成するスケッチ要素</parameter>
+      <parameter name="SketchArcName">文字列：作成するスケッチ円弧名称（空文字可）</parameter>
+      <parameter name="SketchLayer">要素：円弧を作成するスケッチレイヤー(空文字可）</parameter>
+      <parameter name="StartPoint">点(2D)：始点</parameter>
+      <parameter name="MidPoint">点(2D)：通過点</parameter>
+      <parameter name="EndPoint">点(2D)：終点</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateSketchCircle" section="Partオブジェクトのメソッド">
+    <title>スケッチ円を中心点を指定して作成</title>
+    <return>返り値:作成されたスケッチ円要素の要素ID</return>
+    <parameters>
+      <parameter name="SketchPlane">要素：円を作成するスケッチ要素</parameter>
+      <parameter name="SketchArcName">文字列：作成するスケッチ円名称（空文字可）</parameter>
+      <parameter name="SketchLayer">要素：円を作成するスケッチレイヤー(空文字可）</parameter>
+      <parameter name="Centeroint">点(2D)：中心点</parameter>
+      <parameter name="RadiusOrDiameter">長さ：半径または直径</parameter>
+      <parameter name="bDiameter">bool：直径を指定する場合はTrue</parameter>
+      <parameter name="bCCW">bool：円の回転方向Trueの場合は反時計周り</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateSketchEllipse" section="Partオブジェクトのメソッド">
+    <title>スケッチ楕円を中心点を指定して作成</title>
+    <return>返り値:作成されたスケッチ楕円要素の要素ID</return>
+    <parameters>
+      <parameter name="SketchPlane">要素：楕円を作成するスケッチ要素</parameter>
+      <parameter name="SketchArcName">文字列：作成するスケッチ楕円名称（空文字可）</parameter>
+      <parameter name="SketchLayer">要素：楕円を作成するスケッチレイヤー(空文字可）</parameter>
+      <parameter name="Centeroint">点(2D)：中心点</parameter>
+      <parameter name="bCCW">bool：楕円の回転方向Trueの場合は反時計周り</parameter>
+      <parameter name="MajorDir">方向(2D)：主軸方向を指定</parameter>
+      <parameter name="MajorRadius">長さ：主軸半径</parameter>
+      <parameter name="MinorRadius">長さ：副軸半径</parameter>
+      <parameter name="Range">範囲: (0-2pi)</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateSketchNURBSCurve" section="Partオブジェクトのメソッド">
+    <title>スケッチＮＵＲＢＳ線を中心点を指定して作成</title>
+    <return>返り値:作成されたスケッチＮＵＲＢＳ線要素の要素ID</return>
+    <parameters>
+      <parameter name="SketchPlane">要素：ＮＵＲＢＳ線を作成するスケッチ要素</parameter>
+      <parameter name="SketchArcName">文字列：作成するスケッチＮＵＲＢＳ線名称（空文字可）</parameter>
+      <parameter name="SketchLayer">要素：ＮＵＲＢＳ線を作成するスケッチレイヤー(空文字可）</parameter>
+      <parameter name="nDegree">整数：ＮＵＲＢＳ線の次数</parameter>
+      <parameter name="bClose">bool：閉じたＮＵＲＢＳ線の場合True</parameter>
+      <parameter name="bPeriodic">bool：周期ＮＵＲＢＳ線の場合True</parameter>
+      <parameter name="CtrlPoints">点(配列): 制御点</parameter>
+      <parameter name="Weights">浮動小数点(配列): 重み</parameter>
+      <parameter name="Knots">浮動小数点(配列): ノットベクトル</parameter>
+      <parameter name="Range">範囲: トリム範囲</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateElementsFromFile" section="Partオブジェクトのメソッド">
+    <title>ファイルをインポートして要素を作成</title>
+    <return>返り値:作成された要素の要素IDの配列</return>
+    <parameters>
+      <parameter name="FileName">文字列:ファイルパス（現状、Parasolid形式のみ）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateOffsetSheet" section="Partオブジェクトのメソッド">
+    <title>オフセットシートを作成</title>
+    <return>返り値:作成されたオフセットシート要素の要素ID</return>
+    <parameters>
+      <parameter name="SheetName">文字列：作成するシート要素名称（空文字可）</parameter>
+      <parameter name="ElementGroup">要素グループ：作成するシート要素を要素グループに入れる場合は要素グループを指定（空文字可）</parameter>
+      <parameter name="MaterialName">材料：作成するシート要素の材質名称（空文字可）</parameter>
+      <parameter name="SrcSurfaces">要素(配列):オフセットする元シート要素、フェイス要素の指定文字列配列</parameter>
+      <parameter name="OffsetLength">長さ：オフセット距離</parameter>
+      <parameter name="bOffsetBackwards">bool： オフセット方向を反転</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateLinearSweepParam" section="Partオブジェクトのメソッド">
+    <title>押し出しパラメータオブジェクトの作成</title>
+    <return>返り値:押し出しパラメータオブジェクト</return>
+    <parameters>
+    <parameters/>
+  </method>
+   <parameterObject name="LinearSweepParam" section="Partオブジェクトのメソッド">
+    <title>押し出しパラメータオブジェクト</title>
+    <attributes>
+      <parameter name="NAME">文字列：要素名（空文字可）</parameter>
+      <parameter name="ElementGroup">要素グループ：作成するシート要素を要素グループに入れる場合は要素グループを指定（空文字可）</parameter>
+      <parameter name="MaterialName">材料：作成するシート要素の材質名称（空文字可）</parameter>
+      <parameter name="Target1">要素(配列)：スイープするターゲット要素１（点、線、シート、ソリッド、あるいはソリッドフェイス）</parameter>
+      <parameter name="Target2">要素(配列)：スイープ方向が２方向の場合に使用。スイープするターゲット要素２</parameter>
+      <parameter name="Profile">要素(配列)：押し出しのプロファイル要素（スケッチ、線、シート）</parameter>
+      <parameter name="ProfileNormal">方向：プロファイルの平面法線方向。3D直線プロファイルの場合に指定</parameter>
+      <parameter name="ProfileOffset">長さ：プロファイル位置のオフセット距離</parameter>
+      <parameter name="DirectionType">スイープ方向</parameter>
+      <parameter name="DirectionParameter1">長さ：スイープ距離1（SweepTarget1を指定している場合は使用しない）</parameter>
+      <parameter name="DirectionParameter2">長さ：スイープ距離2（2方向時／SweepTarget2指定なしの場合に使用）</parameter>
+      <parameter name="SweepDirection">方向：スイープ方向を明示指定する場合に使用（未指定時はプロファイル法線）</parameter>
+      <parameter name="DraftAngle">角度：押し出し方向の勾配角度</parameter>
+      <parameter name="DraftAngle2Type">勾配２のタイプ：２方向に押し出す際の勾配の取り方</parameter>
+      <parameter name="DraftAngle2">角度：２方向目の勾配角度</parameter>
+      <parameter name="ThickenType">厚み付けタイプ</parameter>
+      <parameter name="Thickeness1">長さ：板厚</parameter>
+      <parameter name="Thickeness2">長さ：板厚２（厚み付けタイプが２方向の場合）</parameter>
+      <parameter name="ThickenessOffset">長さ：厚み付けのオフセット距離</parameter>
+      <parameter name="bRefByGeometricMethod">bool：Trueで幾何位置にもとづいて関連を設定</parameter>
+      <parameter name="bIntervalSwep">bool：区間内だけをスイープする</parameter>
+      <parameter name="ReferMethod">関連設定：要素の関連づけ方法の指定</parameter>
+    </attributes>
+  </parameterObject>
+  <method name="CreateLinearSweep" section="Partオブジェクトのメソッド">
+    <title>指定したソリッド要素に押し出し形状を付加する</title>
+    <return>返り値:作成された押し出しフィーチャーのID</return>
+    <parameters>
+      <parameter name="TargetSolidName">要素：押し出しフィーチャーを作成する対象のソリッドを指定</parameter>
+      <parameter name="OperationType">オペレーションタイプ: ソリッドオペレーションのタイプを指定する</parameter>
+      <parameter name="pParam">押し出しパラメータオブジェクト</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateLinearSweepSheet" section="Partオブジェクトのメソッド">
+    <title>プロファイル要素を押し出してシート要素を作成</title>
+    <return>返り値:作成されたシート要素の要素ID</return>
+    <parameters>
+      <parameter name="ParamObj">押し出しパラメータオブジェクト</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="SheetAlignNormal" section="Partオブジェクトのメソッド">
+    <title>シート要素の向き（表側、法線方向）を指定した方向に揃える</title>
+    <return>返り値:なし</return>
+    <parameters>
+      <parameter name="SheetElement">要素：方向を揃えるシート要素</parameter>
+      <parameter name="dirX">浮動小数点: 方向ベクトルのX成分</parameter>
+      <parameter name="dirY">浮動小数点: 方向ベクトルのY成分</parameter>
+      <parameter name="dirZ">浮動小数点: 方向ベクトルのZ成分</parameter>
+    </parameters>
+  </method>
+  <method name="ReverseSheet" section="Partオブジェクトのメソッド">
+    <title>シート要素の向きを反転する</title>
+    <return>返り値:シート反転フィーチャーの要素ID</return>
+    <parameters>
+    <parameters/>
+  </method>
+  <method name="BlankElement" section="Partオブジェクトのメソッド">
+    <title>指定要素を表示状態を設定する</title>
+    <return>返り値:なし</return>
+    <parameters>
+      <parameter name="Element">要素：表示状態を指定する要素</parameter>
+      <parameter name="bBlank">bool： Trueの時は非表示にする。Falseの時は表示する。</parameter>
+    </parameters>
+  </method>
+  <method name="TranslationCopy" section="Partオブジェクトのメソッド">
+    <title>指定要素を移動コピーする</title>
+    <return>返り値:コピーされた要素ID配列</return>
+    <parameters>
+      <parameter name="SrcElements">要素(配列)：コピーする要素</parameter>
+      <parameter name="nCopy">整数: コピーする数</parameter>
+      <parameter name="direction">方向：コピーする方向</parameter>
+      <parameter name="distance">長さ：移動距離</parameter>
+      <parameter name="ReferMethod">関連設定: 要素の関連づけ方法の指定</parameter>
+    </parameters>
+  </method>
+  <method name="MirrorCopy" section="Partオブジェクトのメソッド">
+    <title>指定要素をミラーコピーする</title>
+    <return>返り値:コピーされた要素ID配列</return>
+    <parameters>
+      <parameter name="SrcElements">要素(配列)：コピーする要素</parameter>
+      <parameter name="plane">平面：ミラーを作成する平面</parameter>
+      <parameter name="[in] BSTR plane"></parameter>
+      <parameter name="ReferMethod">関連設定: 要素の関連づけ方法の指定</parameter>
+    </parameters>
+  </method>
+  <method name="CreateSolid" section="Partオブジェクトのメソッド">
+    <title>空のソリッド要素を作成する</title>
+    <return>返り値:作成されたソリッドの要素ID</return>
+    <parameters>
+      <parameter name="SolidName">文字列：作成するソリッド要素名称（空文字可）</parameter>
+      <parameter name="ElementGroup">要素グループ：作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）</parameter>
+      <parameter name="MaterialName">材料：作成するソリッド要素の材質名称（空文字可）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateThicken" section="Partオブジェクトのメソッド">
+    <title>指定したソリッド要素に指定要素厚みづけした形状を作成する</title>
+    <return>返り値:作成された厚みづけフィーチャーのID</return>
+    <parameters>
+      <parameter name="ThickenFeatureName">文字列：作成する厚みづけフィーチャー要素名称（空文字可）</parameter>
+      <parameter name="TargetSolidName">要素：厚みづけフィーチャーを作成する対象のソリッドを指定</parameter>
+      <parameter name="OperationType">オペレーションタイプ: ソリッドオペレーションのタイプを指定する</parameter>
+      <parameter name="Sheet">要素(配列)：厚み付けをするシートやフェイス</parameter>
+      <parameter name="ThickenType">厚み付けタイプ:</parameter>
+      <parameter name="Thickeness1">長さ： 板厚</parameter>
+      <parameter name="Thickeness2">長さ： 板厚２（厚み付けタイプが２方向のときに使用）</parameter>
+      <parameter name="ThickenessOffset">長さ： 厚みづけをするシート、フェイス要素のオフセット距離</parameter>
+      <parameter name="ReferMethod">関連設定: 要素の関連づけ方法の指定</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateOtherSolid" section="Partオブジェクトのメソッド">
+    <title>指定したソリッド要素に別のソリッド要素形状を付加する</title>
+    <return>返り値:作成された別ソリッドフィーチャーのID</return>
+    <parameters>
+      <parameter name="OtherSolidFeatureName">文字列：作成する別ソリッドフィーチャー要素名称（空文字可）</parameter>
+      <parameter name="TargetSolidName">要素：別ソリッドフィーチャーを作成する対象のソリッドを指定</parameter>
+      <parameter name="OperationType">オペレーションタイプ: ソリッドオペレーションのタイプを指定する</parameter>
+      <parameter name="SourceSolid">要素：別ソリッドフィーチャーとするソリッド要素を指定する</parameter>
+      <parameter name="ReferMethod">関連設定: 要素の関連づけ方法の指定</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateBracketParam" section="Partオブジェクトのメソッド">
+    <title>船殻のブラケット要素のパラメータオブジェクトの作成</title>
+    <return>返り値:ブラケット要素のパラメータオブジェクト</return>
+    <parameters>
+    <parameters/>
+  </method>
+  <parameterObject name="BracketParam" section="Partオブジェクトのメソッド">
+    <title>ブラケット要素のパラメータオブジェクト</title>
+    <attributes>
+      <parameter name="DefinitionType">整数: ブラケットの作成方法指定 (0: 面指定, 1: 基準要素指定 など)</parameter>
+      <parameter name="BracketName">文字列：作成するブラケットソリッド要素名称（空文字可）</parameter>
+      <parameter name="ElementGroup">要素グループ：作成するソリッド要素を入れる場合に指定（空文字可）</parameter>
+      <parameter name="MaterialName">材料：作成するソリッド要素の材質名称（空文字可）</parameter>
+      <parameter name="BasePlane">面：面指定の場合の基準平面</parameter>
+      <parameter name="BasePlaneOffset">長さ：基準平面のオフセット距離</parameter>
+      <parameter name="BaseElement">要素：基準要素指定の場合の基準要素</parameter>
+      <parameter name="UseSideSheetForPlane">bool：三面指定の場合 True</parameter>
+      <parameter name="Thickness">長さ：板厚</parameter>
+      <parameter name="Mold">モールド位置</parameter>
+      <parameter name="MoldOffset">長さ：モールド位置のオフセット距離</parameter>
+      <parameter name="BracketType">形状タイプ：ブラケットの形状タイプ</parameter>
+      <parameter name="BracketParams">形状パラメータ：ブラケット形状タイプのパラメータ</parameter>
+      <parameter name="Scallop1Type">形状タイプ：ブラケットのスカラップ１タイプ</parameter>
+      <parameter name="Scallop1Params">形状パラメータ：スカラップ１タイプのパラメータ</parameter>
+      <parameter name="nScallop2Type">形状タイプ：三面ブラケット時のスカラップ２タイプ</parameter>
+      <parameter name="Scallop2Params">形状パラメータ：スカラップ２タイプのパラメータ</parameter>
+      <parameter name="Surfaces1">要素(配列)：ブラケット面１の要素群</parameter>
+      <parameter name="RevSf1">bool：面１の反対側に作成する場合 True</parameter>
+      <parameter name="Surfaces2">要素(配列)：面２の要素群</parameter>
+      <parameter name="RevSf2">bool：面２の反対側に作成する場合 True</parameter>
+      <parameter name="Surfaces3">要素(配列)：三面ブラケット時の面３要素群</parameter>
+      <parameter name="RevSf3">bool：面３の反対側に作成する場合 True</parameter>
+      <parameter name="FlangeType">形状タイプ：フランジ形状タイプ (0 でフランジなし)</parameter>
+      <parameter name="FlangeParams">形状パラメータ：フランジ形状タイプのパラメータ</parameter>
+      <parameter name="RevFlange">bool：フランジ向きを反転する場合 True</parameter>
+      <parameter name="FlangeAngle">角度：フランジ角度 (0° を直角とし、増減で指定)</parameter>
+      <parameter name="Sf1DimensionType">形状タイプ：面１方向の寸法タイプ</parameter>
+      <parameter name="Sf1DimensonParams">形状パラメータ：面１方向寸法タイプのパラメータ</parameter>
+      <parameter name="Sf1EndElements">要素(配列)：面１方向の端部要素</parameter>
+      <parameter name="Sf1BaseElements">要素(配列)：面１方向の基準要素</parameter>
+      <parameter name="Sf2DimensionType">形状タイプ：面２方向の寸法タイプ</parameter>
+      <parameter name="Sf2DimensonParams">形状パラメータ：面２方向寸法タイプのパラメータ</parameter>
+      <parameter name="Sf2EndElements">要素(配列)：面２方向端部要素</parameter>
+      <parameter name="Sf2BaseElements">要素(配列)：面２方向基準要素</parameter>
+      <parameter name="ScallopEnd1LowerType">形状タイプ：面１下側端部スカラップタイプ</parameter>
+      <parameter name="ScallopEnd1LowerParams">形状パラメータ：面１下側端部スカラップ</parameter>
+      <parameter name="ScallopEnd1UpperType">形状タイプ：面１上側端部スカラップタイプ</parameter>
+      <parameter name="ScallopEnd1UpperParams">形状パラメータ：面１上側端部スカラップ</parameter>
+      <parameter name="ScallopEnd2LowerType">形状タイプ：面２下側端部スカラップタイプ</parameter>
+      <parameter name="ScallopEnd2LowerParams">形状パラメータ：面２下側端部スカラップ</parameter>
+      <parameter name="ScallopEnd2UpperType">形状タイプ：面２上側端部スカラップタイプ</parameter>
+      <parameter name="ScallopEnd2UpperParams">形状パラメータ：面２上側端部スカラップ</parameter>
+      <parameter name="WCS">要素：ブラケットが使用する座標系（通常は指定しない）</parameter>
+      <parameter name="ReferMethod">関連設定：要素の関連づけ方法の指定</parameter>
+    </attributes>
+  </parameterObject>
+  <method name="CreateBracket" section="Partオブジェクトのメソッド">
+    <title>船殻のブラケットソリッド要素を作成する</title>
+    <return>返り値:作成したソリッド要素のID</return>
+    <parameters>
+      <parameter name="ParamObj">ブラケットパラメータオブジェクト</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreatePlate" section="Partオブジェクトのメソッド">
+    <title>船殻のプレートソリッド要素を作成する</title>
+    <return>返り値:作成したソリッド要素のID</return>
+    <parameters>
+      <parameter name="PlateName">文字列：作成するプレートソリッド要素名称（空文字可）</parameter>
+      <parameter name="ElementGroup">要素グループ：作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）</parameter>
+      <parameter name="MaterialName">材料：作成するソリッド要素の材質名称（空文字可）</parameter>
+      <parameter name="Plane">平面： プレートのる平面位置</parameter>
+      <parameter name="PlaneOffset">長さ： 平面のオフセット距離を指定</parameter>
+      <parameter name="Thickness">長さ： 板厚</parameter>
+      <parameter name="nMold">モールド位置:</parameter>
+      <parameter name="MoldOffset">長さ： モールド位置のオフセット距離</parameter>
+      <parameter name="BoundSolid">要素： プレートソリッドの境界となるソリッド要素。</parameter>
+      <parameter name="Section1End1">長さ： プレートソリッドの平面上の方向１の境界位置の座標値１</parameter>
+      <parameter name="Section1End2">長さ： プレートソリッドの平面上の方向１の境界位置の座標値２</parameter>
+      <parameter name="Section2End1">長さ： プレートソリッドの平面上の方向２の境界位置の座標値１</parameter>
+      <parameter name="Section2End2">長さ： プレートソリッドの平面上の方向２の境界位置の座標値２</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateProfileParam" section="Partオブジェクトのメソッド">
+    <title>船殻の条材ソリッド要素のパラメータオブジェクトの作成</title>
+    <return>返り値:条材要素のパラメータオブジェクト</return>
+    <parameters>
+    <parameters/>
+  </method>
+    <parameterObject name="ProfileParam" section="Partオブジェクトのメソッド">
+    <title>条材要素のパラメータオブジェクト</title>
+    <attributes>
+      <parameter name="DefinitionType">整数: 作成方法指定（0:取付線指定, 1:基準面, 2:取付線＋指定方向線, 3:元要素指定, 4:ホール指定, 5:２点, 6:ロンジ間, 7:基準線, 8:基準点と方向, 9:基準要素）</parameter>
+      <parameter name="ProfileName">文字列：作成する条材ソリッド要素名称（空文字可）</parameter>
+      <parameter name="ElementGroup">要素グループ：条材ソリッドを配置するグループ（空文字可）</parameter>
+      <parameter name="MaterialName">材料：条材ソリッドの材質名称（空文字可）</parameter>
+      <parameter name="FlangeName">文字列：ビルトアップ用フランジソリッド名称（空文字可）</parameter>
+      <parameter name="FlangeElementGroup">要素グループ：フランジソリッドを入れるグループ（空文字可）</parameter>
+      <parameter name="FlangeMaterialName">材料：フランジソリッドの材質名称（空文字可）</parameter>
+      <parameter name="ProfileType">形状タイプ：条材の形状タイプ</parameter>
+      <parameter name="ProfileParam">形状パラメータ：条材形状タイプのパラメータ</parameter>
+      <parameter name="FaceAngle">角度：フランジ角度指定（0°が直角で±指定）</parameter>
+      <parameter name="ConnectionTol">長さ：取付線の連続性判定トレランス（通常は空）</parameter>
+      <parameter name="Mold">モールド位置</parameter>
+      <parameter name="MoldOffset">長さ：モールド位置のオフセット距離</parameter>
+      <parameter name="ReverseDir">bool：取付方向を反転する場合 True</parameter>
+      <parameter name="ReverseAngle">bool：アングル方向を反転する場合 True</parameter>
+      <parameter name="BaseOnAttachLines">bool：取付線境界を基準にする場合 True</parameter>
+      <parameter name="CalcSnipOnlyAttachLines">bool：端部スニップ量を取付線のみで計算する場合 True</parameter>
+      <parameter name="NotProjectAttachLines">bool：取付線を取付面に投影しない場合 True</parameter>
+      <parameter name="ProjectionDir">方向：取付線投影方向（通常は空）</parameter>
+      <parameter name="AttachDirMethod">整数：取付方向設定（0: デフォルト, 1:基準平面内, 2:取付角度指定）</parameter>
+      <parameter name="AttachAngle">角度：取付角度指定</parameter>
+      <parameter name="AttachDirection">方向：条材取付方向を明示指定する場合</parameter>
+      <parameter name="DefAnglePositionAxisDir">方向：ねじれ角度の定義軸方向</parameter>
+      <parameter name="DefAngleBaseDir">方向：ねじれ角度の基準軸方向</parameter>
+      <parameter name="CCWDefAngle">bool：ねじれ角度を反時計回りに指定する場合 True</parameter>
+      <parameter name="DefPossitionAngles">位置と角度配列：ねじれ角度を位置と角度で指定</parameter>
+      <parameter name="DefPositionNormalAngles">位置と角度配列：取付面法線との差分でねじれ角度を指定</parameter>
+      <parameter name="End1Elements">要素(配列)：端部１の要素</parameter>
+      <parameter name="End1Type">形状タイプ：端部１の端部タイプ</parameter>
+      <parameter name="End1TypeParams">形状パラメータ：端部１端部タイプのパラメータ</parameter>
+      <parameter name="End2Elements">要素(配列)：端部２の要素</parameter>
+      <parameter name="End2Type">形状タイプ：端部２の端部タイプ</parameter>
+      <parameter name="End2TypeParams">形状パラメータ：端部２端部タイプのパラメータ</parameter>
+      <parameter name="End1ScallopType">形状タイプ：端部１スカラップタイプ</parameter>
+      <parameter name="End1ScallopTypeParams">形状パラメータ：端部１スカラップパラメータ</parameter>
+      <parameter name="End2ScallopType">形状タイプ：端部２スカラップタイプ</parameter>
+      <parameter name="End2ScallopTypeParams">形状パラメータ：端部２スカラップパラメータ</parameter>
+      <parameter name="AttachLines">要素(配列)：条材の取付線</parameter>
+      <parameter name="AttachSurface">要素(配列)：条材を取り付ける面（フェイス/シート）</parameter>
+      <parameter name="BasePlane">要素：基準面要素（平面、シート、フェイス）</parameter>
+      <parameter name="BasePlaneOffset">長さ：基準面のオフセット距離</parameter>
+      <parameter name="BaseSolid">要素：基準ソリッド</parameter>
+      <parameter name="PathCurves">要素(配列)：取付線（取付線＋指定方向線作成時）</parameter>
+      <parameter name="DirLines">要素(配列)：基準直線（取付線＋指定方向線作成時）</parameter>
+      <parameter name="OriginalProfile">要素：元の条材（元要素指定で使用）</parameter>
+      <parameter name="HoleFeature">要素：ホールフィーチャー（ホール指定で使用）</parameter>
+      <parameter name="LocationAtHole">整数：ホール位置 (0:上, 1:下, 2:左, 3:右)</parameter>
+      <parameter name="BasePoint1">点：基準点1（２点/基準点と方向で使用）</parameter>
+      <parameter name="BasePoint2">点：基準点2（２点で使用）</parameter>
+      <parameter name="BaseProfile1">要素：ロンジ１（ロンジ間で使用）</parameter>
+      <parameter name="BaseProfile2">要素：ロンジ２（ロンジ間で使用）</parameter>
+      <parameter name="BaseDirection1">方向：基準点と方向設定時の基準方向1</parameter>
+      <parameter name="BaseDirection2">方向：取付方向指定時の方向</parameter>
+      <parameter name="BaseLocation">整数：基準位置 (0:左下〜8:右上)</parameter>
+      <parameter name="ReferMethod">関連設定：要素の関連づけ方法の指定</parameter>
+    </attributes>
+  </parameterObject>
+  <method name="CreateProfile" section="Partオブジェクトのメソッド">
+    <title>船殻の条材ソリッド要素を取付線指定で作成する</title>
+    <return>返り値:作成した条材ソリッド要素のID(配列 配列[0]Web要素 配列[1]フランジ要素</return>
+    <parameters>
+      <parameter name="ParamObj">条材要素のパラメータオブジェクト</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="BodyDivideByElements" section="Partオブジェクトのメソッド">
+    <title>ボディを指定した要素で分割する</title>
+    <return>返り値:分割で作成されたボディ要素のID配列</return>
+    <parameters>
+      <parameter name="pDriveFeatureName">文字列：作成する分割フィーチャー要素名称（空文字可）</parameter>
+      <parameter name="pTargetBody">要素: 分割対象のボディ</parameter>
+      <parameter name="pDivideElements">要素(配列): 分割をする要素（シートボディ、フェイス、平面要素）</parameter>
+      <parameter name="pAlignmentDirection">方向： 分割されたボディ要素の順番を整列させるのに使用する方向</parameter>
+      <parameter name="pWCS">要素： 方向を定義する座標系（通常は指定しない）</parameter>
+      <parameter name="ReferMethod">関連設定: 要素の関連づけ方法の指定</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="BodySeparateBySubSolids" section="Partオブジェクトのメソッド">
+    <title>ボディを指定したソリッドで削除することで分割する（ボディの区分けコマンド）</title>
+    <return>返り値:分割で作成されたボディ要素のID配列</return>
+    <parameters>
+      <parameter name="pSeparateFeatureName">文字列：作成する分割フィーチャー要素名称（空文字可）</parameter>
+      <parameter name="pTargetBody">要素: 分割対象のボディ</parameter>
+      <parameter name="pSubSolids">要素(配列): 分割をするソリッド要素</parameter>
+      <parameter name="pAlignmentDirection">方向： 分割されたボディ要素の順番を整列させるのに使用する方向</parameter>
+      <parameter name="ReferMethod">関連設定: 要素の関連づけ方法の指定</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="BodyDivideByCurves" section="Partオブジェクトのメソッド">
+    <title>ボディを指定した線で分割する</title>
+    <return>返り値:分割で作成されたボディ要素のID配列</return>
+    <parameters>
+      <parameter name="pDriveFeatureName">文字列：作成する分割フィーチャー要素名称（空文字可）</parameter>
+      <parameter name="pTargetBody">要素: 分割対象のボディ</parameter>
+      <parameter name="pDivideCurves">要素(配列): 分割をするスケッチ等の線要素</parameter>
+      <parameter name="bNorProjection">bool： 線要素を要素に投影するかどうかのフラグ</parameter>
+      <parameter name="CorrectEndPointsTolerance">長さ： 分割線が複数の場合の分割線同士のの判定トレランスを指定（通常は指定しない、空文字）</parameter>
+      <parameter name="AlignmentDirection">方向： 分割されたボディ要素の順番を整列させるのに使用する方向</parameter>
+      <parameter name="ReferMethod">関連設定: 要素の関連づけ方法の指定</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="BodyDivideByPlanes" section="Partオブジェクトのメソッド">
+    <title>ボディを指定した平面で分割する</title>
+    <return>返り値:分割で作成されたボディ要素のID配列</return>
+    <parameters>
+      <parameter name="pDriveFeatureName">文字列：作成する分割フィーチャー要素名称（空文字可）</parameter>
+      <parameter name="TargetBody">要素: 分割対象のボディ</parameter>
+      <parameter name="plane">要素: 分割をする平面</parameter>
+      <parameter name="nPlaneCopy">整数: 分割をする平面を複数コピーして分割をする（通常は1)</parameter>
+      <parameter name="pAlignmentDirection">方向： 分割されたボディ要素の順番を整列させるのに使用する方向</parameter>
+      <parameter name="WCS">要素： 要素分割に使用する座標系を指定。通常は指定しない</parameter>
+      <parameter name="ReferMethod">関連設定: 要素の関連づけ方法の指定</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CutBody" section="Partオブジェクトのメソッド">
+    <title>ボディを指定した要素でカットする</title>
+    <return>返り値:作成されたカットフィーチャーのID</return>
+    <parameters>
+      <parameter name="FeatureName">文字列：作成するカットフィーチャー要素名称（空文字可）</parameter>
+      <parameter name="TargetBody">要素：カット対象のソリッド、シート</parameter>
+      <parameter name="CutElement">要素：カットする要素(平面、シート）</parameter>
+      <parameter name="ElementOffset">長さ： カットする要素のオフセット距離を指定</parameter>
+      <parameter name="bCutForward">関連設定: 要素の関連づけ方法の指定</parameter>
+      <parameter name="ReferMethod"></parameter>
+    </parameters>
+  </method>
+  <method name="CreateBoundedPlate" section="Partオブジェクトのメソッド">
+    <title>指定したソリッド要素に境界要素を指定した板形状を作成する</title>
+    <return>返り値:作成された境界要素指定フィーチャーのID</return>
+    <parameters>
+      <parameter name="FeatureName">文字列：作成する境界要素指定フィーチャー要素名称（空文字可）</parameter>
+      <parameter name="TargetSolid">要素：境界要素指定フィーチャーを作成する対象のソリッドを指定</parameter>
+      <parameter name="OperationType">オペレーションタイプ: ソリッドオペレーションのタイプを指定する</parameter>
+      <parameter name="Plane">平面： 板の定義平面位置</parameter>
+      <parameter name="PlaneOffset">長さ： 平面のオフセット距離を指定</parameter>
+      <parameter name="BoundObjects">要素(配列)：境界要素（シート、フェイス、スケッチ、平面、ソリッド）</parameter>
+      <parameter name="ThickenType">厚み付けタイプ:</parameter>
+      <parameter name="Thickness1">長さ： 板厚</parameter>
+      <parameter name="Thickness2">長さ： 板厚２（厚み付けタイプが２方向のときに使用）</parameter>
+      <parameter name="ThicknessOffset">長さ： 厚みづけをする板のオフセット距離</parameter>
+      <parameter name="RefByGeometricMethod">bool：Trueの時は幾何位置にもとづいて関連を設定する</parameter>
+      <parameter name="ReferMethod">関連設定: 要素の関連づけ方法の指定</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateBoundingBox" section="Partオブジェクトのメソッド">
+    <title>指定したソリッド要素に境界ボックス形状を作成する</title>
+    <return>返り値:作成された境界ボックス形状フィーチャーのID</return>
+    <parameters>
+      <parameter name="FeatureName">文字列：作成する境界ボックスフィーチャー要素名称（空文字可）</parameter>
+      <parameter name="TargetSolid">要素：境界ボックスフィーチャーを作成する対象のソリッドを指定</parameter>
+      <parameter name="OperationType">オペレーションタイプ: ソリッドオペレーションのタイプを指定する</parameter>
+      <parameter name="Bodies">要素(配列)：境界ボックスを計算するソリッド、シート要素</parameter>
+      <parameter name="bOptimalBox">bool：Trueを指定するとボックスを計算する座標系を最適なものにする。（そうでない場合は絶対座標系で計算する）</parameter>
+      <parameter name="ReferMethod">関連設定: 要素の関連づけ方法の指定</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="SetElementColor" section="Partオブジェクトのメソッド">
+    <title>指定要素の色を設定する</title>
+    <return/>
+    <parameters>
+      <parameter name="Element">要素：色を設定する要素</parameter>
+      <parameter name="RValue">整数: 赤色の値(0-255)</parameter>
+      <parameter name="GValue">整数: 緑色の値(0-255)</parameter>
+      <parameter name="BValue">整数: 青色の値(0-255)</parameter>
+      <parameter name="Transparency">浮動小数点: 透明度の指定(0.0不透明-1.0透明)</parameter>
+    </parameters>
+  </method>
+  <method name="CreateSweepParam" section="Partオブジェクトのメソッド">
+    <title>スイープパラメータオブジェクトの作成</title>
+    <return>返り値:スイープパラメータオブジェクト</return>
+    <parameters>
+    <parameters/>
+  </method>
+    <parameterObject name="SweepParam" section="Partオブジェクトのメソッド">
+    <title>スイープパラメータオブジェクト</title>
+    <attributes>
+      <parameter name="NAME">文字列：要素名（空文字可）</parameter>
+      <parameter name="ElementGroup">要素グループ：シート要素を配置する場合に指定（空文字可）</parameter>
+      <parameter name="MaterialName">材料：シート要素の材質名称（空文字可）</parameter>
+      <parameter name="ReferMethod">関連設定：要素の関連づけ方法の指定</parameter>
+      <parameter name="bRefByGeometricMethod">bool：Trueで幾何位置にもとづいて関連を設定</parameter>
+      <parameter name="ThickenType">厚み付けタイプ</parameter>
+      <parameter name="Thickeness1">長さ：板厚</parameter>
+      <parameter name="Thickeness2">長さ：板厚２（厚み付けタイプが２方向のとき）</parameter>
+      <parameter name="ThickenessOffset">長さ：厚みづけのオフセット距離</parameter>
+      <parameter name="Profile">要素(配列)：スイープのプロファイル要素（スケッチ、線）</parameter>
+      <parameter name="Path">要素(配列)：スイープのパス要素（スケッチ、線）</parameter>
+      <parameter name="ProfileNormal">方向：プロファイルの平面法線方向（3D直線プロファイルのときに指定）</parameter>
+      <parameter name="LockDirection">方向：プロファイルを回転させず固定する際の方向</parameter>
+      <parameter name="TwistLine">要素(配列)：ねじれを定義する直線</parameter>
+      <parameter name="TwistPosition">要素(配列)：ねじれを定義する位置（点）</parameter>
+      <parameter name="TwistAngle">角度(配列)：ねじれ定義点でのねじれ角度</parameter>
+      <parameter name="ParallelSweep">bool：パスに対して平行になるようスイープする場合 True</parameter>
+      <parameter name="MinimizeFace">bool：スイープ生成要素のフェイス数を最小化する場合 True</parameter>
+    </attributes>
+  </parameterObject>
+  <method name="CreateSweep" section="Partオブジェクトのメソッド">
+    <title>指定したソリッド要素にスイープ形状を付加する</title>
+    <return>返り値:作成されたスイープフィーチャーのID</return>
+    <parameters>
+      <parameter name="TargetSolidName">要素：スイープフィーチャーを作成する対象のソリッドを指定</parameter>
+      <parameter name="OperationType">オペレーションタイプ: ソリッドオペレーションのタイプを指定する</parameter>
+      <parameter name="pParam">スイープパラメータオブジェクト</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateSweepSheet" section="Partオブジェクトのメソッド">
+    <title>プロファイル要素をスイープしてシート要素を作成</title>
+    <return>返り値:作成されたシート要素の要素ID</return>
+    <parameters>
+      <parameter name="ParamObj">スイープパラメータオブジェクト</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateRotationalSweepParam" section="Partオブジェクトのメソッド">
+    <title>回転パラメータオブジェクトの作成</title>
+    <return>返り値:回転パラメータオブジェクト</return>
+    <parameters>
+    <parameters/>
+  </method>
+    <parameterObject name="RotationalSweepParam" section="Partオブジェクトのメソッド">
+    <title>回転パラメータオブジェクト</title>
+    <attributes>
+      <parameter name="NAME">文字列：要素名（空文字可）</parameter>
+      <parameter name="ElementGroup">要素グループ：シート要素を配置する場合に指定（空文字可）</parameter>
+      <parameter name="MaterialName">材料：シート要素の材質名称（空文字可）</parameter>
+      <parameter name="ReferMethod">関連設定：要素の関連づけ方法の指定</parameter>
+      <parameter name="bRefByGeometricMethod">bool：Trueで幾何位置にもとづいて関連を設定</parameter>
+      <parameter name="ThickenType">厚み付けタイプ</parameter>
+      <parameter name="Thickeness1">長さ：板厚</parameter>
+      <parameter name="Thickeness2">長さ：板厚２（厚み付けタイプが２方向の場合）</parameter>
+      <parameter name="ThickenessOffset">長さ：厚みづけのオフセット距離</parameter>
+      <parameter name="Profile">要素(配列)：回転のプロファイル要素（スケッチ、線）</parameter>
+      <parameter name="Axis">要素：回転軸要素（線）</parameter>
+      <parameter name="DirectionType">スイープ方向</parameter>
+      <parameter name="Angle">角度：回転角度</parameter>
+      <parameter name="Angle2">角度：２方向スイープ時のもう一方の回転角度</parameter>
+    </attributes>
+  </parameterObject>
+  <method name="CreateRotationalSweep" section="Partオブジェクトのメソッド">
+    <title>指定したソリッド要素に回転形状を付加する</title>
+    <return>返り値:作成された回転フィーチャーのID</return>
+    <parameters>
+      <parameter name="TargetSolidName">要素：回転フィーチャーを作成する対象のソリッドを指定</parameter>
+      <parameter name="OperationType">オペレーションタイプ: ソリッドオペレーションのタイプを指定する</parameter>
+      <parameter name="pParam">回転パラメータオブジェクト</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateRotationalSweepSheet" section="Partオブジェクトのメソッド">
+    <title>プロファイル要素を回転してシート要素を作成</title>
+    <return>返り値:作成されたシート要素の要素ID</return>
+    <parameters>
+      <parameter name="ParamObj">回転パラメータオブジェクト</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateLine" section="Partオブジェクトのメソッド">
+    <title>3Dの直線線要素を作成</title>
+    <return>返り値:線要素の要素ID</return>
+    <parameters>
+      <parameter name="StartPoint">点(3D)：始点</parameter>
+      <parameter name="EndPoint">点(3D)：終点</parameter>
+    </parameters>
+  </method>
+  <method name="CreateArc" section="Partオブジェクトのメソッド">
+    <title>3Dの円弧線要素を作成</title>
+    <return>返り値:線要素の要素ID</return>
+    <parameters>
+      <parameter name="CenterPoint">点(3D)：中心点</parameter>
+      <parameter name="Normal">方向：軸方向</parameter>
+      <parameter name="MajorDir">方向：主軸方向（パラメータ０の位置方向</parameter>
+      <parameter name="Radius">長さ：半径</parameter>
+      <parameter name="bClose">bool： Trueの時は円を作成する</parameter>
+      <parameter name="Range">範囲: (0-2pi)</parameter>
+    </parameters>
+  </method>
+  <method name="CreateEllipse" section="Partオブジェクトのメソッド">
+    <title>3Dの楕円線要素を作成</title>
+    <return>返り値:線要素の要素ID</return>
+    <parameters>
+      <parameter name="CenterPoint">点(3D)：中心点</parameter>
+      <parameter name="Normal">方向：軸方向</parameter>
+      <parameter name="MajorDir">方向：主軸方向（パラメータ０の位置方向</parameter>
+      <parameter name="MajorRadius">長さ：主軸半径</parameter>
+      <parameter name="MinorRadius">長さ：副軸半径</parameter>
+      <parameter name="bClose">bool： Trueの時は閉じたを作成する</parameter>
+      <parameter name="Range">範囲: (0-2pi)</parameter>
+    </parameters>
+  </method>
+  <method name="CreateNURBSCurve" section="Partオブジェクトのメソッド">
+    <title>3DのＮＵＲＢＳ線要素を作成</title>
+    <return>返り値:線要素の要素ID</return>
+    <parameters>
+      <parameter name="nDegree">整数：ＮＵＲＢＳ線の次数</parameter>
+      <parameter name="bClose">bool：閉じたＮＵＲＢＳ線の場合True</parameter>
+      <parameter name="bPeriodic">bool：周期ＮＵＲＢＳ線の場合True</parameter>
+      <parameter name="CtrlPoints">点(配列): 制御点</parameter>
+      <parameter name="Weights">浮動小数点(配列): 重み</parameter>
+      <parameter name="Knots">浮動小数点(配列): ノットベクトル</parameter>
+      <parameter name="Range">範囲: トリム範囲</parameter>
+    </parameters>
+  </method>
+  <method name="CreateLoftParam" section="Partオブジェクトのメソッド">
+    <title>ロフトパラメータオブジェクトの作成</title>
+    <return>返り値:ロフトパラメータオブジェクト</return>
+    <parameters>
+    </parameters>
+  </method>
+  <parameterObject name="LoftParam" section="Partオブジェクトのメソッド">
+    <title>ロフトパラメータオブジェクト</title>
+    <attributes>
+      <parameter name="NAME">文字列：要素名（空文字可）</parameter>
+      <parameter name="ElementGroup">要素グループ：シート要素を配置する場合に指定（空文字可）</parameter>
+      <parameter name="MaterialName">材料：シート要素の材質名称（空文字可）</parameter>
+      <parameter name="ReferMethod">関連設定：要素の関連づけ方法の指定</parameter>
+      <parameter name="Profile">要素(配列)：ロフトのプロファイル要素（スケッチ、線）</parameter>
+      <parameter name="Guide">要素(配列)：ロフトのガイド要素（スケッチ、線）</parameter>
+      <parameter name="Alignment">要素(配列)：プロファイルの整列要素（スケッチ、線）</parameter>
+      <parameter name="StartTangentType">整数：始点側の接続要素指定（0:なし, 1:平面, 2:G1連続, 3:G2連続）</parameter>
+      <parameter name="StartTangentElement">要素(配列)：始点側の接続要素</parameter>
+      <parameter name="StartTangentScale">浮動小数点：始点側の接続スケール</parameter>
+      <parameter name="EndTangentType">整数：終点側の接続要素指定（0:なし, 1:平面, 2:G1連続, 3:G2連続）</parameter>
+      <parameter name="EndTangentElement">要素(配列)：終点側の接続要素</parameter>
+      <parameter name="EndTangentScale">浮動小数点：終点側の接続スケール</parameter>
+      <parameter name="Close">bool：閉じたロフト形状を作成するとき True</parameter>
+      <parameter name="UseGuidesInProfiles">bool：プロファイル範囲内でガイド線を利用する場合 True</parameter>
+    </attributes>
+  </parameterObject>
+  <method name="CreateLoft" section="Partオブジェクトのメソッド">
+    <title>指定したソリッド要素にロフト形状を付加する</title>
+    <return>返り値:作成されたロフトフィーチャーのID</return>
+    <parameters>
+      <parameter name="TargetSolidName">要素：ロフトフィーチャーを作成する対象のソリッドを指定</parameter>
+      <parameter name="OperationType">オペレーションタイプ: ソリッドオペレーションのタイプを指定する</parameter>
+      <parameter name="pParam">ロフトパラメータオブジェクト</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateLoftSheet" section="Partオブジェクトのメソッド">
+    <title>ロフトシート要素を作成</title>
+    <return>返り値:作成されたシート要素の要素ID</return>
+    <parameters>
+      <parameter name="ParamObj">ロフトパラメータオブジェクト</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateSlotParam" section="Partオブジェクトのメソッド">
+    <title>船殻のスロットパラメータオブジェクトの作成</title>
+    <return>返り値:スロットパラメータオブジェクト</return>
+    <parameters>
+    <parameters/>
+  </method>
+  <parameterObject name="SlotParam" section="Partオブジェクトのメソッド">
+    <title>スロットパラメータオブジェクト</title>
+    <attributes>
+      <parameter name="SlotName">文字列：作成する条材ソリッド要素名称（空文字可）</parameter>
+      <parameter name="CollarName">文字列：作成するカラープレート要素名称（空文字可）</parameter>
+      <parameter name="CollarMaterial">材料：カラープレートの材質名称（空文字可）</parameter>
+      <parameter name="CollarElementGroup">要素グループ：カラープレート要素を配置するグループ（空文字可）</parameter>
+      <parameter name="Collar2Name">文字列：2つ目のカラープレート要素名称（空文字可）</parameter>
+      <parameter name="Collar2Material">材料：2つ目のカラープレート材質名称（空文字可）</parameter>
+      <parameter name="Collar2ElementGroup">要素グループ：2つ目のカラープレート要素のグループ（空文字可）</parameter>
+      <parameter name="ProfileType">形状タイプ：スロットの形状タイプ</parameter>
+      <parameter name="ProfileParam">形状パラメータ：スロット形状タイプのパラメータ</parameter>
+      <parameter name="AttachFace">要素：スロットを開けるフェイス要素</parameter>
+      <parameter name="ProfileSolid">要素：スロットを通すプロファイルソリッド要素</parameter>
+      <parameter name="ProfileFlangeSolid">要素：スロットを通すフランジソリッド要素</parameter>
+      <parameter name="ReverseDir">bool：スロットの向きを反転する場合 True</parameter>
+      <parameter name="ExtendToBoundary">bool：スロットを境界まで延長する場合 True</parameter>
+      <parameter name="MakeVevel">bool：スロットに開先形状を作成する場合 True</parameter>
+    </attributes>
+  </parameterObject>
+  <method name="CreateSlot" section="Partオブジェクトのメソッド">
+    <title>船殻のスロット要素、カラープレートを作成する</title>
+    <return>返り値:作成されたスロットフィーチャー、カラープレート１，カラープレート２の要素ID配列</return>
+    <parameters>
+      <parameter name="ParamObj">スロットパラメータオブジェクト</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateFacePlateParam" section="Partオブジェクトのメソッド">
+    <title>船殻のフェイスプレートパラメータオブジェクトの作成</title>
+    <return>返り値:フェイスプレートパラメータオブジェクト</return>
+    <parameters>
+    <parameters/>
+  </method>
+    <parameterObject name="FacePlateParam" section="Partオブジェクトのメソッド">
+    <title>フェイスプレートパラメータオブジェクト</title>
+    <attributes>
+      <parameter name="Name">文字列：作成するフェイスプレートソリッド要素名称（空文字可）</parameter>
+      <parameter name="ElementGroup">要素グループ：ソリッド要素を配置する場合は指定（空文字可）</parameter>
+      <parameter name="MaterialName">材料：ソリッド要素の材質名称（空文字可）</parameter>
+      <parameter name="DefinitionType">整数：定義方法（0:面指定, 1:元要素指定, 2:ブラケット要素指定, 3:取付線指定）</parameter>
+      <parameter name="ProfileType">形状タイプ：フェイスプレートの形状タイプ</parameter>
+      <parameter name="ProfileParam">形状パラメータ：フェイスプレート形状のパラメータ</parameter>
+      <parameter name="FaceAngle">角度：幅方向の角度指定（0°が直角で±指定）</parameter>
+      <parameter name="ReverseDirection">bool：幅方向を反転する場合 True</parameter>
+      <parameter name="End1Elements">要素(配列)：端部１の要素</parameter>
+      <parameter name="End1Type">形状タイプ：端部１の端部タイプ</parameter>
+      <parameter name="End1TypeParams">形状パラメータ：端部１端部タイプのパラメータ</parameter>
+      <parameter name="End2Elements">要素(配列)：端部２の要素</parameter>
+      <parameter name="End2Type">形状タイプ：端部２の端部タイプ</parameter>
+      <parameter name="End2TypeParams">形状パラメータ：端部２端部タイプのパラメータ</parameter>
+      <parameter name="BaseFaces">要素(配列)：面指定での基準面（フェイス）</parameter>
+      <parameter name="AttachFaces">要素(配列)：面指定／取付線指定での取付面（フェイス）</parameter>
+      <parameter name="OriginalFacePlate">要素：元要素指定で使用する既存フェイスプレート</parameter>
+      <parameter name="Bracket">要素：ブラケット指定で使用するブラケット要素</parameter>
+      <parameter name="BaseCurves">要素(配列)：取付線指定で使用する取付線（カーブ・エッジ）</parameter>
+      <parameter name="ProjectionDir">方向：取付線指定での投影方向</parameter>
+      <parameter name="NotProjectAttachLines">bool：取付線を面に投影しない場合 True</parameter>
+      <parameter name="ReverseAttachDirection">bool：取付方向を反転する場合 True</parameter>
+      <parameter name="BaseOwner">要素：面指定で作成する際の面の属するソリッド</parameter>
+    </attributes>
+  </parameterObject>
+  <method name="CreateFacePlate" section="Partオブジェクトのメソッド">
+    <title>船殻のフェイスプレート要素トを作成する</title>
+    <return>返り値:作成されたフェイスプレート要素ID</return>
+    <parameters>
+      <parameter name="ParamObj">フェイスプレートパラメータオブジェクト</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+    <method name="CreateOffsetDatumPlane" section="Partオブジェクトのメソッド">
+    <title>データム平面の作成（移動）</title>
+    <return>返り値:作成されたデータム平面の要素ID</return>
+    <parameters>
+      <parameter name="Name">文字列：作成するデータム平面要素名称（空文字可）</parameter>
+      <parameter name="ElementGroup">要素グループ：作成するデータム平面要素を入れる場合は指定（空文字可）</parameter>
+      <parameter name="Plane">平面：元になる平面を指定する</parameter>
+      <parameter name="OffsetDistance">長さ：元になる平面からのオフセット距離を指定</parameter>
+      <parameter name="ReferMethod">関連設定: 要素の関連づけ方法の指定（未実装、使用しない）</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+  <method name="CreateRotatedDatumPlane" section="Partオブジェクトのメソッド">
+    <title>データム平面の作成（回転）</title>
+    <return>返り値:作成されたデータム平面の要素ID</return>
+    <parameters>
+      <parameter name="Name">文字列：作成するデータム平面要素名称（空文字可）</parameter>
+      <parameter name="ElementGroup">要素グループ：作成するデータム平面要素を要素グループに入れる場合は要素グループを指定（空文字可）</parameter>
+      <parameter name="Plane">平面：元になる平面</parameter>
+      <parameter name="Axis">軸： 回転軸を指定する</parameter>
+      <parameter name="Angle">角度：回転角度</parameter>
+      <parameter name="ReferMethod">関連設定: 要素の関連づけ方法の指定（未実装、使用しない）</parameter>
+      <parameter name="bUpdate">bool：更新フラグ（未実装、使用しない）</parameter>
+    </parameters>
+  </method>
+</apiTemplate>
