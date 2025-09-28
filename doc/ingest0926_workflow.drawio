@@ -1,0 +1,402 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2" pages="3">
+  <diagram id="ingest0926-flow" name="ingest0926 行為ベースワークフロー">
+    <mxGraphModel dx="842" dy="512" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="start" value="開始\nmain()" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=center;verticalAlign=middle;" parent="1" vertex="1">
+          <mxGeometry x="60" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="read_api" value="API仕様読込\n_read_api_text (候補パス)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="260" y="40" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="normalize_api" value="正規化\n_normalize_text" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="520" y="40" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="read_api_arg" value="引数仕様読込\n_read_api_arg_text" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="760" y="40" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="parse_types" value="型説明解析\n_parse_data_type_descriptions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="1020" y="40" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="triples_api" value="仕様トリプル生成\nextract_triples_from_specs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="1320" y="40" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="read_scripts" value="スクリプト読込\n_read_script_files (data/*.py)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="260" y="160" width="240" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="chunk_scripts" value="チャンク分割\n_split_script_into_chunks" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="520" y="160" width="240" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="purpose_llm" value="チャンク目的抽出\n_get_chunk_purpose (ChatOpenAI)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="780" y="160" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="calls_treesitter" value="メソッド呼出抽出\n_extract_method_calls_from_script (tree-sitter)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="1060" y="160" width="320" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="triples_script" value="スクリプトトリプル生成\nextract_triples_from_script\n(HAS_CHUNK / CALLS / NEXT / IS_EXAMPLE_OF)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="1420" y="160" width="360" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="integrate" value="トリプル統合\n仕様 + スクリプト" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="260" y="300" width="300" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="save_extracted_json" value="トリプル統合JSON保存\n&#39;extracted_triples_YYYYMMDD_HHMMSS.json&#39;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="600" y="300" width="340" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="gdocs" value="GraphDocument生成\n_triples_to_graph_documents" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="980" y="300" width="320" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="save_neo4j_json" value="Neo4j投入前JSON保存\n&#39;neo4j_data.json&#39;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="1340" y="300" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="neo4j_reset" value="Neo4jリセット\nMATCH (n) DETACH DELETE n" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cfe2f3;strokeColor=#6fa8dc;" parent="1" vertex="1">
+          <mxGeometry x="1620" y="300" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="neo4j_load" value="Neo4j投入\nadd_graph_documents → count" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cfe2f3;strokeColor=#6fa8dc;" parent="1" vertex="1">
+          <mxGeometry x="1540" y="300" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="chroma_init" value="ChromaDB構築呼出\n_build_and_load_chroma(gdocs)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9ead3;strokeColor=#93c47d;" parent="1" vertex="1">
+          <mxGeometry x="260" y="420" width="320" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="chroma_dir" value="ディレクトリ初期化\nDATA/chroma_db を再生成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9ead3;strokeColor=#93c47d;" parent="1" vertex="1">
+          <mxGeometry x="620" y="420" width="300" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="chroma_docs" value="ノード→Document整形\npage_content + metadata" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9ead3;strokeColor=#93c47d;" parent="1" vertex="1">
+          <mxGeometry x="960" y="420" width="300" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="save_chroma_json" value="ベクトル化前JSON保存\n&#39;chroma_data.json&#39;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9ead3;strokeColor=#93c47d;" parent="1" vertex="1">
+          <mxGeometry x="1280" y="420" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="chroma_build" value="埋め込み生成 &amp; 永続化\nOpenAIEmbeddings → Chroma.from_documents\npersist_directory=DATA/chroma_db" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9ead3;strokeColor=#93c47d;" parent="1" vertex="1">
+          <mxGeometry x="1560" y="420" width="340" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="end" value="完了" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=center;verticalAlign=middle;" parent="1" vertex="1">
+          <mxGeometry x="1760" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="note_llm" value="LLM / tree-sitter\n- ChatOpenAIでチャンク目的要約\n- tree-sitter-pythonでメソッド呼出抽出" style="shape=note;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1720" y="160" width="260" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="note_json" value="JSON出力タイミング\n- extracted_triples_YYYYMMDD_HHMMSS.json: トリプル統合直後\n- neo4j_data.json: GraphDocument作成直後\n- chroma_data.json: ベクトル化前に保存" style="shape=note;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1580" y="40" width="320" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="e_start_read_api" style="endArrow=block;endFill=1;" parent="1" source="start" target="read_api" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_read_api_normalize" style="endArrow=block;endFill=1;" parent="1" source="read_api" target="normalize_api" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_normalize_read_arg" style="endArrow=block;endFill=1;" parent="1" source="normalize_api" target="read_api_arg" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_read_arg_parse_types" style="endArrow=block;endFill=1;" parent="1" source="read_api_arg" target="parse_types" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_parse_types_triples_api" style="endArrow=block;endFill=1;" parent="1" source="parse_types" target="triples_api" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_start_read_scripts" style="endArrow=block;endFill=1;dashed=1;" parent="1" source="start" target="read_scripts" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_read_scripts_chunk" style="endArrow=block;endFill=1;" parent="1" source="read_scripts" target="chunk_scripts" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_chunk_purpose" style="endArrow=block;endFill=1;" parent="1" source="chunk_scripts" target="purpose_llm" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_purpose_calls" style="endArrow=block;endFill=1;" parent="1" source="purpose_llm" target="calls_treesitter" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_calls_triples_script" style="endArrow=block;endFill=1;" parent="1" source="calls_treesitter" target="triples_script" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_triples_api_integrate" style="endArrow=block;endFill=1;" parent="1" source="triples_api" target="integrate" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_triples_script_integrate" style="endArrow=block;endFill=1;" parent="1" source="triples_script" target="integrate" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_integrate_gdocs" style="endArrow=block;endFill=1;" parent="1" source="integrate" target="save_extracted_json" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_save_extracted_gdocs" style="endArrow=block;endFill=1;" parent="1" source="save_extracted_json" target="gdocs" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_gdocs_savejson" style="endArrow=block;endFill=1;" parent="1" source="gdocs" target="save_neo4j_json" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_savejson_reset" style="endArrow=block;endFill=1;" parent="1" source="save_neo4j_json" target="neo4j_reset" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_reset_load" style="endArrow=block;endFill=1;" parent="1" source="neo4j_reset" target="neo4j_load" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_load_chroma" style="endArrow=block;endFill=1;" parent="1" source="neo4j_load" target="chroma_init" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_chroma_init_dir" style="endArrow=block;endFill=1;" parent="1" source="chroma_init" target="chroma_dir" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_chroma_dir_docs" style="endArrow=block;endFill=1;" parent="1" source="chroma_dir" target="chroma_docs" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_chroma_docs_json" style="endArrow=block;endFill=1;" parent="1" source="chroma_docs" target="save_chroma_json" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_chroma_json_build" style="endArrow=block;endFill=1;" parent="1" source="save_chroma_json" target="chroma_build" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_chroma_build_end" style="endArrow=block;endFill=1;" parent="1" source="chroma_build" target="end" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_gdocs_chroma_docs" style="endArrow=block;endFill=1;dashed=1;" parent="1" source="gdocs" target="chroma_docs" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="ingest0926-plan" name="ingest0926 データ保存計画">
+    <mxGraphModel dx="505" dy="307" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="plan_title" value="保存戦略" style="rectangle;whiteSpace=wrap;html=1;fontStyle=1;align=center;verticalAlign=middle;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="60" y="30" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="plan_triples" value="グラフ用途\n・Neo4j重視\n・トリプル精度改善\n・ノードID命名統一" style="rectangle;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="60" y="110" width="260" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="plan_structured" value="LLM/Chroma用途\n・structured_api / structured_scripts\n・sourceテキスト保持\n・JSON/Parquet or Data Lake" style="rectangle;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="360" y="110" width="300" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="plan_bridge" value="変換/同期\n・structured → triples 抽出器\n・CIで差分検知\n・バッチでNeo4j同期" style="rectangle;whiteSpace=wrap;html=1;fillColor=#d9ead3;strokeColor=#93c47d;" parent="1" vertex="1">
+          <mxGeometry x="700" y="110" width="260" height="140" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="ingest0926-revised" name="ingest0926 改訂ワークフロー">
+    <mxGraphModel dx="1572" dy="1124" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="start" target="DTFMRNeqIQfvZ0XPJwBe-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="start" value="開始\nmain()" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=center;verticalAlign=middle;" parent="1" vertex="1">
+          <mxGeometry x="40" y="90" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="api_parse" target="DTFMRNeqIQfvZ0XPJwBe-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="api_parse" value="構造化解析&lt;div&gt;(rule_parser)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="380" y="90" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="api_triples" target="api_triples_json">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="api_triples" value="仕様トリプル生成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="1460" y="90" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1" source="api_triples_json" target="triple_merge">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1820" y="135" />
+              <mxPoint x="1820" y="440" />
+              <mxPoint x="180" y="440" />
+              <mxPoint x="180" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="api_triples_json" value="api_spec_triples.json" style="shape=document;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="1640" y="90" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="script_read" value="data/*.py 読込" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="200" y="200" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="script_clean" value="コード整形" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="380" y="200" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="script_chunk" value="チャンク分割" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="560" y="200" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="script_llm" value="LLM要約" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="740" y="200" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="script_ts" value="tree-sitter解析" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="920" y="200" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="script_structured" target="script_triples">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#5C834B;" edge="1" parent="1" source="script_structured" target="DTFMRNeqIQfvZ0XPJwBe-28">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1260" y="270" />
+              <mxPoint x="180" y="270" />
+              <mxPoint x="180" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="script_structured" value="structured_scripts.json" style="shape=document;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="1100" y="200" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="script_triples" target="script_triples_json">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="script_triples" value="スクリプトトリプル生成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="1280" y="200" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1" source="script_triples_json" target="triple_merge">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1640" y="245" />
+              <mxPoint x="1640" y="440" />
+              <mxPoint x="180" y="440" />
+              <mxPoint x="180" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="script_triples_json" value="script_triples.json" style="shape=document;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="1460" y="200" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="chroma_docs" value="Chromaドキュメント整形" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9ead3;strokeColor=#93c47d;" parent="1" vertex="1">
+          <mxGeometry x="620" y="280" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="chroma_json" value="chroma_data.json" style="shape=document;whiteSpace=wrap;html=1;fillColor=#d9ead3;strokeColor=#93c47d;" parent="1" vertex="1">
+          <mxGeometry x="800" y="280" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-39" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="chroma_build" target="end">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="chroma_build" value="Chroma埋め込み生成/永続" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9ead3;strokeColor=#93c47d;" parent="1" vertex="1">
+          <mxGeometry x="980" y="280" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="triple_merge" target="combined_triples_json">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="triple_merge" value="トリプル統合" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="200" y="365" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="combined_triples_json" target="graphdoc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="combined_triples_json" value="extracted_triples_TIMESTAMP.json" style="shape=document;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="380" y="360" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="graphdoc" target="neo4j_reset">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="graphdoc" value="GraphDocument生成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cfe2f3;strokeColor=#6fa8dc;" parent="1" vertex="1">
+          <mxGeometry x="600" y="360" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="neo4j_reset" target="neo4j_load">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="neo4j_reset" value="Neo4jリセット" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cfe2f3;strokeColor=#6fa8dc;" parent="1" vertex="1">
+          <mxGeometry x="780" y="360" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-38" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="neo4j_load" target="end">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="neo4j_load" value="Neo4j投入" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cfe2f3;strokeColor=#6fa8dc;" parent="1" vertex="1">
+          <mxGeometry x="960" y="360" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="end" value="完了" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=center;verticalAlign=middle;" parent="1" vertex="1">
+          <mxGeometry x="1160" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="note" value="Structured JSON は Chroma へ直接利用&lt;div&gt;トリプルは Neo4j へ投入。両データは別系統で保全する。&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1500" y="450" width="320" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="e_start_script" style="endArrow=block;endFill=1;dashed=1;" parent="1" source="start" target="script_read" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_script_clean" style="endArrow=block;endFill=1;" parent="1" source="script_read" target="script_clean" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_script_chunk" style="endArrow=block;endFill=1;" parent="1" source="script_clean" target="script_chunk" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_script_llm" style="endArrow=block;endFill=1;" parent="1" source="script_chunk" target="script_llm" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_script_ts" style="endArrow=block;endFill=1;" parent="1" source="script_llm" target="script_ts" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_script_structured" style="endArrow=block;endFill=1;" parent="1" source="script_ts" target="script_structured" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_script_struct_store" style="endArrow=block;endFill=1;dashed=1;" parent="1" source="script_structured" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1260" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_chroma_docs" style="endArrow=block;endFill=1;" parent="1" source="chroma_docs" target="chroma_json" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_chroma_json" style="endArrow=block;endFill=1;" parent="1" source="chroma_json" target="chroma_build" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="DTFMRNeqIQfvZ0XPJwBe-1" target="api_parse">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-1" value="API原文を読み込む&lt;div&gt;(api.txt / api_arg.txt)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="200" y="90" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DTFMRNeqIQfvZ0XPJwBe-6" target="DTFMRNeqIQfvZ0XPJwBe-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-6" value="structured_api.json" style="shape=document;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="560" y="90" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DTFMRNeqIQfvZ0XPJwBe-8" target="DTFMRNeqIQfvZ0XPJwBe-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DTFMRNeqIQfvZ0XPJwBe-8" target="DTFMRNeqIQfvZ0XPJwBe-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-8" value="LLM活用？" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="740" y="90" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DTFMRNeqIQfvZ0XPJwBe-10" target="DTFMRNeqIQfvZ0XPJwBe-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-10" value="LLM出力強化&lt;div&gt;source.text をプロンプトに利用&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="920" y="90" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DTFMRNeqIQfvZ0XPJwBe-11" target="DTFMRNeqIQfvZ0XPJwBe-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#5C834B;" edge="1" parent="1" source="DTFMRNeqIQfvZ0XPJwBe-11" target="DTFMRNeqIQfvZ0XPJwBe-28">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1260" y="190" />
+              <mxPoint x="180" y="190" />
+              <mxPoint x="180" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-11" value="llm_enhanced_docs.json" style="shape=document;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="90" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DTFMRNeqIQfvZ0XPJwBe-14" target="api_triples">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-14" value="Neo4j前処理&lt;div&gt;(source削除)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="90" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DTFMRNeqIQfvZ0XPJwBe-28" target="DTFMRNeqIQfvZ0XPJwBe-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-28" value="ストラクチャ統合" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9ead3;strokeColor=#93c47d;" vertex="1" parent="1">
+          <mxGeometry x="200" y="280" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DTFMRNeqIQfvZ0XPJwBe-29" target="chroma_docs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTFMRNeqIQfvZ0XPJwBe-29" value="extracted_&lt;span style=&quot;font-weight: 700;&quot;&gt;structured&lt;/span&gt;_TIMESTAMP.json" style="shape=document;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="380" y="280" width="220" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
