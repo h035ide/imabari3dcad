@@ -104,7 +104,7 @@ v1.1.1 2025/07/28
 
 〇変数要素の作成
 　返り値:作成された変数要素の要素ID
-　CreateVariable
+　CreateVariable(
         VariableName, // 文字列：作成する変数名称（空文字不可）
         VariableValue,// 浮動小数点: 変数の値
         VariableUnit  // 変数単位：作成する変数の単位を指定
