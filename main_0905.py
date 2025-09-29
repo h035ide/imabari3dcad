@@ -17,12 +17,24 @@ if str(project_root) not in sys.path:
 # 環境変数を読み込み
 load_dotenv()
 
-# ロギング設定: LOG_LEVEL 環境変数で調整（未設定は INFO）
+# ロギング設定: LOG_LEVEL 環境変数で調整（未設定は DEBUG）
 _log_level_name = os.getenv("LOG_LEVEL", "INFO").upper()
-_log_level = getattr(logging, _log_level_name, logging.INFO)
+_log_level = getattr(logging, _log_level_name, logging.DEBUG)
+
+# ログファイルの設定
+_log_file = os.getenv("LOG_FILE", "cypher_template_demo.log")
+
+# ログフォーマット
+_log_format = "%(asctime)s %(levelname)s %(name)s: %(message)s"
+
+# ログ設定（コンソールとファイル両方に出力）
 logging.basicConfig(
     level=_log_level,
-    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+    format=_log_format,
+    handlers=[
+        logging.FileHandler(_log_file, encoding='utf-8'),  # ファイル出力
+        logging.StreamHandler()  # コンソール出力
+    ]
 )
 
 
@@ -276,72 +288,7 @@ def run_qa_system(config: Config):
             keyword=vec_kw,
         )
 
-        # フォールバック: グラフ応答が空の場合はNeo4jを直接検索
-        if not graph_response or str(graph_response).strip() in (
-            "",
-            "Empty Response",
-        ):
-            try:
-                print("  → グラフ結果が空のためNeo4jを直接照会...")
-                with GraphDatabase.driver(
-                    config.neo4j_uri,
-                    auth=(config.neo4j_user, config.neo4j_password),
-                ) as driver:
-                    with driver.session(
-                        database=config.neo4j_database
-                    ) as session:
-                        cypher = (
-                            "MATCH (f:Function) "
-                            "WHERE toLower(f.name) CONTAINS toLower($kw) "
-                            "OPTIONAL MATCH (p:Parameter) "
-                            "WHERE toLower(p.parent_function) = toLower(f.name) "
-                            "WITH f, collect(p) AS params "
-                            "RETURN f.name AS name, f.description AS description, "
-                            "[q IN params WHERE q.name IS NOT NULL | q] AS parameters, null AS return_value "
-                            "LIMIT 5"
-                        )
-                        # ベクトル用に抽出したキーワードをそのまま使用
-                        kw = vec_kw
-                        rows = list(session.run(cypher, kw=kw))
-                        if rows:
-                            parts = []
-                            for r in rows:
-                                nm = r.get("name")
-                                desc = r.get("description") or ""
-                                params = r.get("parameters") or []
-                                retv = r.get("return_value")
-
-                                def _fmt_param(p):
-                                    if isinstance(p, dict):
-                                        n = p.get("name")
-                                        d = p.get("description")
-                                        req = p.get("is_required") or p.get("required")
-                                        return f"- {n}: {d} (required={req})"
-                                    n = getattr(p, "name", None)
-                                    d = getattr(p, "description", None)
-                                    req = getattr(p, "is_required", None)
-                                    return f"- {n}: {d} (required={req})"
-
-                                param_lines = []
-                                try:
-                                    for p in params:
-                                        if p and (isinstance(p, dict) and p.get("name") or getattr(p, "name", None)):
-                                            param_lines.append(_fmt_param(p))
-                                except Exception:
-                                    param_lines = []
-
-                                section = [f"{nm}:", desc]
-                                if param_lines:
-                                    section.append("parameters:\n" + "\n".join(param_lines))
-                                if retv:
-                                    section.append(f"return_value: {retv}")
-                                parts.append("\n".join(section))
-                            graph_response = "\n\n".join(parts)
-                        else:
-                            graph_response = ""
-            except Exception:
-                # フォールバック失敗時はそのまま続行
-                pass
+        # フォールバック処理は無効化（LlamaIndexグラフ検索のみ使用）
 
         # ハイブリッド回答の統合（LangChainで生成）
         print("  → ハイブリッド回答を生成中...")
@@ -383,6 +330,19 @@ def main():
     parser.add_argument("--function", "-f", help="実行する機能")
     parser.add_argument("--question", "-q", help="QA用の質問（非対話）")
     parser.add_argument("--list", "-l", action="store_true", help="機能一覧表示")
+    parser.add_argument(
+        "--llamaindex-format",
+        dest="create_llamaindex_format",
+        action="store_true",
+        help="LlamaIndex形式データ生成を有効化",
+    )
+    parser.add_argument(
+        "--no-llamaindex-format",
+        dest="create_llamaindex_format",
+        action="store_false",
+        help="LlamaIndex形式データ生成を無効化",
+    )
+    parser.set_defaults(create_llamaindex_format=True)
     # クリア機能向け追加引数
     parser.add_argument(
         "--db",
@@ -409,6 +369,7 @@ def main():
 
     print(f"実行中: {args.function}")
     config = Config()
+    config.create_llamaindex_format = args.create_llamaindex_format
     if args.function == "nollm_doc":
         success = run_nollm_doc(config)
     elif args.function == "llm_doc":
@@ -423,6 +384,25 @@ def main():
             and run_vectorization(config)
             and run_llamaindex_vectorization(config)
         )
+    elif args.function == "llamaindex_pipeline":
+        print("🚀 LlamaIndex形式パイプライン実行中...")
+        success = (
+            run_llm_doc(config)
+            and run_vectorization(config)
+            and run_llamaindex_vectorization(config)
+        )
+        if success and args.question:
+            def _input(prompt: str = ""):
+                return args.question or ""
+            import builtins
+            _orig_input = builtins.input
+            try:
+                builtins.input = _input  # type: ignore
+                success = run_qa_system(config)
+            finally:
+                builtins.input = _orig_input  # type: ignore
+        elif success and not args.question:
+            print("ℹ️ QAを実行する場合は -q で質問を指定してください。")
     elif args.function == "qa":
         if args.question:
             # 非対話モード

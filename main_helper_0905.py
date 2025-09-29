@@ -3,6 +3,7 @@ from pathlib import Path
 import logging
 from typing import Optional, Any, Dict
 from neo4j import GraphDatabase
+from neo4j import Session
 import chromadb
 import numpy as np
 from dotenv import load_dotenv
@@ -41,6 +42,10 @@ class Config:
 
         # OpenAI設定（環境変数から読み込み）
         self.openai_api_key = os.getenv("OPENAI_API_KEY")
+
+        # LlamaIndex形式の生成を制御
+        flag_raw = os.getenv("CREATE_LLAMAINDEX_FORMAT", "true")
+        self.create_llamaindex_format = flag_raw.lower() in ("1", "true", "yes")
 
         # APIドキュメント設定（プロジェクトルート基準の絶対パス。環境変数で上書き可）
         default_api_dir = self.project_root / "data" / "src"
@@ -346,6 +351,196 @@ def build_vector_engine(
     return v_index.as_query_engine(llm=llm, similarity_top_k=similarity_top_k)
 
 
+def _has_llamaindex_entities(session: Session) -> bool:
+    """__Entity__ノードが存在するか確認"""
+    result = session.run("MATCH (e:__Entity__) RETURN count(e) AS c")
+    record = result.single()
+    return bool(record and record.get("c", 0))
+
+
+def _convert_existing_data_to_llamaindex(session: Session, config: Config) -> None:
+    """既存データをLlamaIndex形式に変換"""
+    from doc_parser.neo4j_importer import Neo4jImporter
+
+    importer = Neo4jImporter(
+        config.neo4j_uri,
+        config.neo4j_user,
+        config.neo4j_password,
+        database=config.neo4j_database,
+        create_llamaindex_format=True,
+    )
+
+    try:
+        importer._create_llamaindex_structures(session)
+
+        # 既存のLlamaIndex形式ノードを削除してから再生成（冪等性確保）
+        session.run("MATCH (n:__Entity__) DETACH DELETE n")
+        session.run("MATCH (n:__Node__) DETACH DELETE n")
+
+        # ObjectDefinitionごとのプロパティ情報を先に取得
+        object_properties_map = {}
+        object_property_rows = session.run(
+            """
+            MATCH (od:ObjectDefinition)
+            OPTIONAL MATCH (od)-[:HAS_PROPERTY]->(p:Parameter)
+            WITH od, collect({
+                name: p.name,
+                description: p.description,
+                type: p.type
+            }) AS props
+            RETURN od.name AS name,
+                   od.description AS description,
+                   od.category AS category,
+                   od.notes AS notes,
+                   props
+            """
+        ).data()
+        for row in object_property_rows:
+            obj_data = {
+                "name": row.get("name"),
+                "description": row.get("description") or "",
+                "category": row.get("category") or "",
+                "notes": row.get("notes") or "",
+                "properties": [
+                    {
+                        "name": prop.get("name"),
+                        "description": prop.get("description") or "",
+                        "type": prop.get("type") or "",
+                    }
+                    for prop in row.get("props") or []
+                    if prop.get("name")
+                ],
+            }
+            object_properties_map[obj_data["name"]] = obj_data
+            importer._create_llamaindex_object_definition(session, obj_data)
+
+        # TypeノードをLlamaIndex形式へ
+        type_records = session.run(
+            """
+            MATCH (t:Type)
+            RETURN t.name AS name,
+                   t.description AS description
+            """
+        ).data()
+        for record in type_records:
+            type_data = {
+                "name": record.get("name"),
+                "description": record.get("description") or "",
+            }
+            importer._create_llamaindex_type(session, type_data)
+
+        # FunctionノードをLlamaIndex形式へ
+        function_records = session.run(
+            """
+            MATCH (f:Function)
+            RETURN f.name AS name,
+                   f.description AS description,
+                   f.category AS category,
+                   f.implementation_status AS implementation_status,
+                   f.notes AS notes
+            """
+        ).data()
+        for record in function_records:
+            func_data = {
+                "name": record.get("name"),
+                "description": record.get("description") or "",
+                "category": record.get("category") or "",
+                "implementation_status": record.get("implementation_status") or "",
+                "notes": record.get("notes") or "",
+            }
+            combined_description = func_data["description"]
+            importer._create_llamaindex_function(session, func_data, combined_description)
+
+        # Parameter（Function用）をLlamaIndex形式へ
+        function_param_records = session.run(
+            """
+            MATCH (f:Function)-[:HAS_PARAMETER]->(p:Parameter)
+            RETURN f.name AS function_name,
+                   p.name AS name,
+                   p.description AS description,
+                   p.is_required AS is_required,
+                   p.type AS type,
+                   p.position AS position
+            """
+        ).data()
+        for record in function_param_records:
+            param_data = {
+                "name": record.get("name"),
+                "description": record.get("description") or "",
+                "is_required": record.get("is_required", False),
+                "type": record.get("type") or "",
+                "position": record.get("position", 0) or 0,
+            }
+            parent_function = record.get("function_name")
+            importer._create_llamaindex_parameter(session, parent_function, param_data)
+
+        # Parameter（ObjectDefinition用）をLlamaIndex形式へ
+        object_property_records = session.run(
+            """
+            MATCH (od:ObjectDefinition)-[:HAS_PROPERTY]->(p:Parameter)
+            RETURN od.name AS object_name,
+                   p.name AS name,
+                   p.description AS description,
+                   p.type AS type
+            """
+        ).data()
+        for record in object_property_records:
+            prop_data = {
+                "name": record.get("name"),
+                "description": record.get("description") or "",
+                "type": record.get("type") or "",
+            }
+            parent_object = record.get("object_name")
+            importer._create_llamaindex_object_property(session, parent_object, prop_data)
+
+        # Functionの戻り値を接続
+        return_records = session.run(
+            """
+            MATCH (f:Function)-[:RETURNS]->(target)
+            RETURN f.name AS function_name,
+                   target.name AS target_name,
+                   labels(target) AS labels
+            """
+        ).data()
+        for record in return_records:
+            function_name = record.get("function_name")
+            target_name = record.get("target_name")
+            labels = record.get("labels") or []
+            is_object_definition = "ObjectDefinition" in labels
+            importer._create_llamaindex_return_relationship(
+                session,
+                function_name,
+                target_name,
+                is_object_definition,
+            )
+
+        logger.info("既存データのLlamaIndex形式変換が完了しました。")
+    finally:
+        importer.close()
+
+
+def _ensure_llamaindex_data(config: Config) -> None:
+    """LlamaIndex形式データが存在しない場合に変換を実行"""
+    if not config.create_llamaindex_format:
+        logger.info("CREATE_LLAMAINDEX_FORMAT=false のため変換をスキップします。")
+        return
+
+    try:
+        with GraphDatabase.driver(
+            config.neo4j_uri,
+            auth=(config.neo4j_user, config.neo4j_password),
+        ) as driver:
+            with driver.session(database=config.neo4j_database) as session:
+                if _has_llamaindex_entities(session):
+                    logger.info("既にLlamaIndex形式のエンティティが存在します。変換は不要です。")
+                    return
+
+                logger.info("LlamaIndex形式のデータが見つからないため自動変換を実行します。")
+                _convert_existing_data_to_llamaindex(session, config)
+    except Exception as exc:
+        logger.warning(f"LlamaIndex形式への変換に失敗しました: {exc}", exc_info=True)
+
+
 def build_graph_engine(config: Config):
     """
     既存のNeo4jグラフからLlamaIndexのPropertyGraphQueryEngineを構築します。
@@ -361,6 +556,9 @@ def build_graph_engine(config: Config):
         raise ValueError(("config に neo4j_uri, neo4j_user, neo4j_password, neo4j_database が設定されていません。"))
 
     logger.info((f"既存のNeo4jグラフ '{db_name}' からPropertyGraphQueryEngineを構築しています..."))
+
+    # 事前にLlamaIndex形式データを整備
+    _ensure_llamaindex_data(config)
 
     # OpenAIのLLMと埋め込みモデルを初期化（グローバル設定を避ける）
     llm = OpenAI(**config.llamaindex_llm_config)
@@ -378,11 +576,24 @@ def build_graph_engine(config: Config):
         )
 
         # 既存のグラフ構造からインデックスをロード（llmとembed_modelを明示的に指定）
-        g_index = PropertyGraphIndex.from_existing(
-            property_graph_store=graph_store,
-            llm=llm,
-            embed_model=embed_model,
-        )
+        # 注意: from_existingはLlamaIndexが作成した特殊なラベル（__Entity__, __Node__等）を期待する
+        # 通常のNeo4jデータ（Function, Parameter等）には対応していない
+        try:
+            g_index = PropertyGraphIndex.from_existing(
+                property_graph_store=graph_store,
+                llm=llm,
+                embed_model=embed_model,
+            )
+        except Exception as e:
+            logger.warning(f"PropertyGraphIndex.from_existing failed: {e}")
+            logger.info("Creating new PropertyGraphIndex for existing Neo4j data...")
+            # 既存データから新しいインデックスを作成
+            g_index = PropertyGraphIndex.from_vector_store(
+                vector_store=None,  # ベクトルストアは使用しない
+                property_graph_store=graph_store,
+                llm=llm,
+                embed_model=embed_model,
+            )
 
         logger.info("PropertyGraphQueryEngineの構築が完了しました。")
         # スキーマ情報を明示的に提供してクエリエンジンを構築
@@ -471,6 +682,9 @@ def build_langchain_wrapped_engines(config: Config):
 
             # 空判定: None, 空文字, "Empty Response" 等
             as_str = str(response).strip() if response is not None else ""
+            # デバッグ用: レスポンスの詳細をログ出力
+            logger.debug(f"グラフ検索レスポンス: {repr(response)}")
+            logger.debug(f"グラフ検索レスポンス (文字列): {repr(as_str)}")
             is_empty = (not as_str) or (as_str in ("", "Empty Response"))
 
             if is_empty:
