@@ -118,7 +118,6 @@ def _refine_element_definition(type_def: TypeDefinition) -> None:
     )
 
 
-
 DEFAULT_POINT_EXAMPLES: Tuple[Tuple[str, ...], ...] = (
     ("100.0", "50.0", "0.0"),
     ("FRM1", "0.0", "1000.0"),
@@ -182,7 +181,6 @@ def _fallback_point_examples(components: int) -> List[str]:
         head = DEFAULT_POINT_EXAMPLES[0]
         values = [",".join(head[:components])]
     return _unique_preserve_order(values)
-
 
 
 def _apply_type_metadata(type_def: TypeDefinition) -> None:
