@@ -1,0 +1,239 @@
+<mxfile host="app.diagrams.net" modified="2025-01-02T05:30:00.000Z" agent="5.0" etag="abc123" version="24.7.17" type="device">
+  <diagram name="PropertyGraphQueryEngine Workflow" id="workflow">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- 開始 -->
+        <mxCell id="start" value="PropertyGraphQueryEngine開始" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="520" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- 初期化フェーズ -->
+        <mxCell id="init1" value="Neo4j接続確立" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="480" y="140" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="init2" value="APOCメタデータ取得&#xa;(ノードラベル・プロパティ)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="460" y="220" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="init3" value="APOCメタデータ取得&#xa;(リレーションシップ)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="460" y="320" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="init4" value="APOCメタデータ取得&#xa;(ノード間リレーションシップ)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="460" y="420" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- スキーマ構築フェーズ -->
+        <mxCell id="schema1" value="__Entity__制約作成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="680" y="140" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="schema2" value="__Node__制約作成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="680" y="200" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="schema3" value="entityベクトルインデックス作成&#xa;(__Entity__ノード用)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="680" y="280" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- クエリ実行フェーズ -->
+        <mxCell id="query1" value="ユーザークエリ受信" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="480" y="520" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="query2" value="クエリをベクトルに変換&#xa;(埋め込みモデル使用)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="460" y="600" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="query3" value="ベクトル検索実行&#xa;(entityインデックス使用)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="460" y="700" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- 問題の分岐点 -->
+        <mxCell id="problem" value="__Entity__ノードが存在しない" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="480" y="800" width="120" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- 結果処理 -->
+        <mxCell id="result1" value="ベクトル検索結果: 空" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="680" y="800" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="result2" value="__Entity__ノード検索&#xa;(IDベース)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="680" y="880" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="result3" value="結果: 空" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="680" y="980" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="final" value="Empty Response返却" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="520" y="1080" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- 実際のデータ構造 -->
+        <mxCell id="reality" value="実際のデータ構造:&#xa;Function, Parameter, Type&#xa;などのラベル" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="200" y="800" width="160" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- 期待するデータ構造 -->
+        <mxCell id="expected" value="期待するデータ構造:&#xa;__Entity__, __Node__&#xa;ラベル" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="200" y="920" width="160" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- 矢印 -->
+        <mxCell id="arrow1" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="start" target="init1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="600" y="120" as="sourcePoint" />
+            <mxPoint x="650" y="70" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow2" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="init1" target="init2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="600" y="180" as="sourcePoint" />
+            <mxPoint x="650" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow3" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="init2" target="init3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="600" y="280" as="sourcePoint" />
+            <mxPoint x="650" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow4" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="init3" target="init4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="600" y="380" as="sourcePoint" />
+            <mxPoint x="650" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow5" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="init1" target="schema1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="600" y="160" as="sourcePoint" />
+            <mxPoint x="650" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow6" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="schema1" target="schema2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="740" y="180" as="sourcePoint" />
+            <mxPoint x="740" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow7" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="schema2" target="schema3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="740" y="240" as="sourcePoint" />
+            <mxPoint x="740" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow8" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="init4" target="query1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="600" y="480" as="sourcePoint" />
+            <mxPoint x="600" y="520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow9" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="query1" target="query2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="600" y="560" as="sourcePoint" />
+            <mxPoint x="600" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow10" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="query2" target="query3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="600" y="660" as="sourcePoint" />
+            <mxPoint x="600" y="700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow11" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="query3" target="problem">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="600" y="760" as="sourcePoint" />
+            <mxPoint x="600" y="800" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow12" value="Yes" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="problem" target="result1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="600" y="840" as="sourcePoint" />
+            <mxPoint x="680" y="840" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow13" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="result1" target="result2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="740" y="840" as="sourcePoint" />
+            <mxPoint x="740" y="880" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow14" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="result2" target="result3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="740" y="940" as="sourcePoint" />
+            <mxPoint x="740" y="980" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow15" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="result3" target="final">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="680" y="1020" as="sourcePoint" />
+            <mxPoint x="640" y="1080" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- データ構造の比較 -->
+        <mxCell id="arrow16" value="実際のデータ" style="endArrow=classic;html=1;rounded=0;dashed=1;strokeColor=#82b366;" edge="1" parent="1" source="reality" target="problem">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="360" y="840" as="sourcePoint" />
+            <mxPoint x="480" y="840" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow17" value="期待するデータ" style="endArrow=classic;html=1;rounded=0;dashed=1;strokeColor=#d6b656;" edge="1" parent="1" source="expected" target="problem">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="360" y="960" as="sourcePoint" />
+            <mxPoint x="480" y="880" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- タイトル -->
+        <mxCell id="title" value="PropertyGraphQueryEngine 動作ワークフロー" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="10" width="360" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- 凡例 -->
+        <mxCell id="legend1" value="初期化フェーズ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="100" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend2" value="スキーマ構築" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="100" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend3" value="クエリ実行" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="120" width="100" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend4" value="問題発生" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="40" y="160" width="100" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend5" value="実際のデータ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="40" y="200" width="100" height="30" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+

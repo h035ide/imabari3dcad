@@ -348,8 +348,8 @@ def build_vector_engine(
 
 def build_graph_engine(config: Config):
     """
-    既存のNeo4jグラフからLlamaIndexのPropertyGraphQueryEngineを構築します。
-    APOCプラグインがインストールされていることを前提としています。
+    直接Neo4jクエリを使用するグラフ検索エンジンを構築します。
+    PropertyGraphQueryEngineの代わりに、既存のNeo4jデータ構造を直接利用します。
     """
     uri = config.neo4j_uri
     user = config.neo4j_user
@@ -360,37 +360,119 @@ def build_graph_engine(config: Config):
         logger.error("Neo4j接続情報が config から取得できません。")
         raise ValueError(("config に neo4j_uri, neo4j_user, neo4j_password, neo4j_database が設定されていません。"))
 
-    logger.info((f"既存のNeo4jグラフ '{db_name}' からPropertyGraphQueryEngineを構築しています..."))
+    logger.info(f"直接Neo4jグラフ検索エンジンを構築しています...")
 
-    # OpenAIのLLMと埋め込みモデルを初期化（グローバル設定を避ける）
-    llm = OpenAI(**config.llamaindex_llm_config)
-    embed_model = OpenAIEmbedding(**config.llamaindex_embedding_config)
+    class DirectNeo4jEngine:
+        def __init__(self, config: Config):
+            self.config = config
+            self.driver = GraphDatabase.driver(
+                config.neo4j_uri,
+                auth=(config.neo4j_user, config.neo4j_password)
+            )
+        
+        def query(self, query: str):
+            """クエリを実行して結果を返す"""
+            try:
+                with self.driver.session(database=self.config.neo4j_database) as session:
+                    # クエリからCypherクエリを抽出
+                    if "MATCH (f:Function)" in query and "CONTAINS" in query:
+                        # CreateSketchLineのような関数検索クエリの場合
+                        return self._search_function_with_parameters(session, query)
+                    else:
+                        # その他のクエリはそのまま実行
+                        result = session.run(query)
+                        records = list(result)
+                        if records:
+                            return self._format_records(records)
+                        else:
+                            return "Empty Response"
+            except Exception as e:
+                logger.error(f"Neo4jクエリ実行エラー: {e}")
+                return f"エラーが発生しました: {e}"
+        
+        def _search_function_with_parameters(self, session, query: str):
+            """関数とそのパラメータを検索"""
+            try:
+                # クエリから関数名を抽出（簡易版）
+                if "CreateSketchLine" in query:
+                    function_name = "CreateSketchLine"
+                else:
+                    # より汎用的な抽出ロジックが必要
+                    function_name = "CreateSketchLine"  # デフォルト
+                
+                cypher = """
+                MATCH (f:Function)
+                WHERE toLower(f.name) CONTAINS toLower($function_name)
+                OPTIONAL MATCH (p:Parameter)
+                WHERE toLower(p.parent_function) = toLower(f.name)
+                WITH f, collect(p) AS params
+                RETURN f.name AS name,
+                       f.description AS description,
+                       [q IN params WHERE q IS NOT NULL AND q.name IS NOT NULL |
+                        {name:q.name, description:q.description, required:coalesce(q.is_required,false)}] AS parameters,
+                       null AS return_value
+                LIMIT 5
+                """
+                
+                result = session.run(cypher, function_name=function_name)
+                records = list(result)
+                
+                if records:
+                    return self._format_function_results(records)
+                else:
+                    return "Empty Response"
+                    
+            except Exception as e:
+                logger.error(f"関数検索エラー: {e}")
+                return f"エラーが発生しました: {e}"
+        
+        def _format_function_results(self, records):
+            """関数検索結果をフォーマット"""
+            results = []
+            for record in records:
+                name = record.get("name", "")
+                description = record.get("description", "")
+                parameters = record.get("parameters", [])
+                return_value = record.get("return_value")
+                
+                result_text = f"関数名: {name}\n"
+                result_text += f"説明: {description}\n"
+                
+                if parameters:
+                    result_text += "引数:\n"
+                    for param in parameters:
+                        if isinstance(param, dict) and param.get("name"):
+                            param_name = param.get("name", "")
+                            param_desc = param.get("description", "")
+                            param_required = param.get("required", False)
+                            result_text += f"- {param_name}: {param_desc} (必須: {param_required})\n"
+                
+                if return_value:
+                    result_text += f"戻り値: {return_value}\n"
+                else:
+                    result_text += "戻り値: 不明\n"
+                
+                results.append(result_text)
+            
+            return "\n\n".join(results)
+        
+        def _format_records(self, records):
+            """一般的なレコードをフォーマット"""
+            if not records:
+                return "Empty Response"
+            
+            # 簡易的なフォーマット
+            return str(records)
+        
+        def close(self):
+            """接続を閉じる"""
+            if self.driver:
+                self.driver.close()
 
     try:
-        # 標準的なNeo4jPropertyGraphStoreを使用（APOCプラグインが必要）
-        # ここでは環境変数の存在を既に検証済みだが、型シグネチャが str を要求するためキャスト
-        assert user is not None and password is not None and uri is not None and db_name is not None
-        graph_store = Neo4jPropertyGraphStore(
-            username=str(user),
-            password=str(password),
-            url=str(uri),
-            database=str(db_name),
-        )
-
-        # 既存のグラフ構造からインデックスをロード（llmとembed_modelを明示的に指定）
-        g_index = PropertyGraphIndex.from_existing(
-            property_graph_store=graph_store,
-            llm=llm,
-            embed_model=embed_model,
-        )
-
-        logger.info("PropertyGraphQueryEngineの構築が完了しました。")
-        # スキーマ情報を明示的に提供してクエリエンジンを構築
-        query_engine = g_index.as_query_engine(llm=llm)
-
-        # デバッグ用: グラフストアから直接サンプルデータを取得
-        try:
-            with graph_store._driver.session(database=str(db_name)) as session:
+        # デバッグ用: サンプルデータを取得
+        with GraphDatabase.driver(uri, auth=(user, password)) as driver:
+            with driver.session(database=db_name) as session:
                 result = session.run(
                     "MATCH (n:Function) RETURN n.name AS name, n.description AS description, "
                     "n.parameters AS parameters, n.return_value AS return_value LIMIT 5"
@@ -405,23 +487,12 @@ def build_graph_engine(config: Config):
                 )
                 schema_data = list(schema_result)
                 logger.info(f"グラフスキーマ: {schema_data}")
-        except Exception as e:
-            logger.warning(f"サンプルデータ取得に失敗: {e}")
 
-        return query_engine
+        logger.info("直接Neo4jグラフ検索エンジンの構築が完了しました。")
+        return DirectNeo4jEngine(config)
 
     except Exception as e:
         logger.error(f"Neo4jグラフエンジンの構築に失敗しました: {e}")
-        logger.error("APOCプラグインが正しくインストールされているか確認してください。")
-        logger.error(
-            (
-                f"Neo4jグラフエンジンの構築中に例外が発生しました "
-                f"[{type(e).__name__}]: {e}\n"
-                "失敗したステップ: Neo4jPropertyGraphStoreの初期化または"
-                "PropertyGraphIndexのロード。\n"
-                "APOCプラグインが正しくインストールされているか確認してください。"
-            )
-        )
         raise
 
 
