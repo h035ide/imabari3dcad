@@ -85,7 +85,7 @@ class Config:
     def setup_llm_config(self):
         """LLM設定"""
         # 基本設定（環境変数で上書き可能）
-        self.llm_model = os.getenv("LLM_MODEL", "gpt-5-mini")
+        self.llm_model = os.getenv("LLM_MODEL", "gpt-5-nano")
         self.response_format = "text"  # "json_object"
         # only for standard models
         self.llm_temperature = 0  # or None

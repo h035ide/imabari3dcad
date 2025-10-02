@@ -82,9 +82,9 @@ class Neo4jImporter:
                     print("Creating LlamaIndex structures...")
                     self._create_llamaindex_structures(session)
 
-            print(f"✅ Data import completed successfully to database: {self.database}")
+            print(f"[OK] Data import completed successfully to database: {self.database}")
         except Exception as e:
-            print(f"❌ Data import failed: {e}")
+            print(f"[NG] Data import failed: {e}")
             raise
 
     def _import_type_definitions(self, session, type_definitions):
@@ -93,19 +93,27 @@ class Neo4jImporter:
             return
 
         print("Importing type definitions...")
+        processed_types = set()  # 重複処理を防ぐ
+        
         for type_data in type_definitions:
-            # 統一メソッドを使用してTypeノードを作成
-            self._ensure_type_node(
-                session,
-                type_data.get('name', ''),
-                type_data.get('description', '')
-            )
-
-            # LlamaIndex形式の作成
+            type_name = type_data.get('name', '')
+            if not type_name or type_name in processed_types:
+                continue  # 空の名前または既に処理済みの場合はスキップ
+                
+            processed_types.add(type_name)
+            
             if self.create_llamaindex_format:
+                # LlamaIndex形式の作成のみ（通常のTypeノード作成はスキップ）
                 self._create_llamaindex_type(session, type_data)
+            else:
+                # 通常のTypeノード作成のみ
+                self._ensure_type_node(
+                    session,
+                    type_name,
+                    type_data.get('description', '')
+                )
 
-        print(f"  - Imported {len(type_definitions)} type definitions")
+        print(f"  - Imported {len(processed_types)} unique type definitions")
 
     def _import_api_entries(self, session, api_entries):
         """APIエントリーのインポート"""
@@ -135,22 +143,61 @@ class Neo4jImporter:
 
     def _import_function(self, session, func_data):
         """関数のインポート"""
-        # 関数ノードの作成
-        combined_description = self._create_function_node(session, func_data)
-
-        # パラメータの処理
-        if func_data.get('params'):
-            self._create_function_parameters(session, func_data)
-
-        # 戻り値の処理
-        if func_data.get('returns'):
-            self._create_function_return(session, func_data)
-
-        # LlamaIndex形式のデータ生成
         if self.create_llamaindex_format:
+            # LlamaIndex形式の作成のみ（通常のFunctionノード作成はスキップ）
+            combined_description = self._build_function_description(func_data)
+            
+            # パラメータの処理
+            if func_data.get('params'):
+                self._create_function_parameters(session, func_data)
+
+            # 戻り値の処理
+            if func_data.get('returns'):
+                self._create_function_return(session, func_data)
+                
             self._create_llamaindex_function(session, func_data, combined_description)
+        else:
+            # 通常のFunctionノード作成のみ
+            combined_description = self._create_function_node(session, func_data)
+
+            # パラメータの処理
+            if func_data.get('params'):
+                self._create_function_parameters(session, func_data)
+
+            # 戻り値の処理
+            if func_data.get('returns'):
+                self._create_function_return(session, func_data)
 
         print(f"  - Imported function: {func_data['name']}")
+
+    def _build_function_description(self, func_data):
+        """関数の説明文を構築する（ノード作成なし）"""
+        # 説明に引数定義と戻り値情報を結合して格納
+        base_desc = func_data.get('description', '') or ''
+        parts = [base_desc.strip()]
+
+        params = func_data.get('params') or []
+        if params:
+            param_lines = ["引数:"]
+            for p in params:
+                pname = p.get('name', '')
+                ptype = p.get('type', '')
+                pdesc = (p.get('description', '') or '').strip()
+                required = p.get('is_required', False)
+                req_txt = '必須' if required else '任意'
+                line = f"- {pname} ({ptype}, {req_txt})"
+                if pdesc:
+                    line += f": {pdesc}"
+                param_lines.append(line)
+            parts.append("\n".join(param_lines))
+
+        returns = func_data.get('returns') or {}
+        rtype = returns.get('type')
+        if rtype:
+            parts.append(f"戻り値: {rtype}")
+
+        combined_description = "\n\n".join([s for s in parts if s])
+        return combined_description
 
     def _create_function_node(self, session, func_data):
         """関数ノードの作成"""
@@ -256,12 +303,18 @@ class Neo4jImporter:
 
     def _import_object_definition(self, session, obj_data):
         """オブジェクト定義のインポート"""
-        # オブジェクト定義ノードの作成
-        self._create_object_definition_node(session, obj_data)
+        if self.create_llamaindex_format:
+            # LlamaIndex形式の作成のみ（通常のObjectDefinitionノード作成はスキップ）
+            # プロパティの処理
+            if obj_data.get('properties'):
+                self._create_object_properties(session, obj_data)
+        else:
+            # 通常のObjectDefinitionノード作成のみ
+            self._create_object_definition_node(session, obj_data)
 
-        # プロパティの処理
-        if obj_data.get('properties'):
-            self._create_object_properties(session, obj_data)
+            # プロパティの処理
+            if obj_data.get('properties'):
+                self._create_object_properties(session, obj_data)
 
         print(f"  - Imported object definition: {obj_data['name']}")
 
@@ -301,43 +354,44 @@ class Neo4jImporter:
             MERGE (p:Parameter {name: $param_name,
                kind: 'function',
                parent_function: $parent_name})
-        ON CREATE SET p.description = $param_description
-        SET p.description = COALESCE($param_description, p.description)
-        MERGE (f)-[r:USES_PARAMETER]->(p)
-        SET r.parameter_description = $param_description,
-            r.is_required = $param_required,
-            r.position = $param_position
+            ON CREATE SET p.description = $param_description,
+                p.is_required = $param_required,
+                p.position = $param_position,
+                p.type = $param_type
+            SET p.description = COALESCE($param_description, p.description)
+            MERGE (f)-[r:USES_PARAMETER]->(p)
+            SET r.parameter_description = $param_description,
+                r.is_required = $param_required,
+                r.position = $param_position
 
             WITH p
-            // パラメータの型がObjectDefinitionとして定義されているかチェック
+            // パラメータの型を確保（ObjectDefinitionまたはType）
             OPTIONAL MATCH (od:ObjectDefinition {name: $param_type})
-            WITH p, od
-            // ObjectDefinitionが存在しない場合はTypeノードを確保
-            CALL {
-                WITH p
-                MATCH (od:ObjectDefinition {name: $param_type})
-                RETURN od as type_node
-                UNION
-                WITH p
-                WHERE NOT EXISTS((:ObjectDefinition {name: $param_type}))
-                MATCH (t:Type {name: $param_type})
-                RETURN t as type_node
-            }
+            OPTIONAL MATCH (t:Type {name: $param_type})
+            WITH p, COALESCE(od, t) as type_node
             MERGE (p)-[:HAS_TYPE]->(type_node)
             """
 
-            # まず統一メソッドでTypeノードを確保
+            # Typeノードが存在しない場合は作成
             self._ensure_type_node(session, param_data['type'])
 
-            session.run(
-                query,
-                parent_name=parent_name,
-                param_name=param_data['name'],
-                param_description=param_data.get('description', ''),
-                param_required=param_data.get('is_required', False),
-                param_position=param_data.get('position', 0),
-                param_type=param_data['type']
-            )
+            try:
+                result = session.run(
+                    query,
+                    parent_name=parent_name,
+                    param_name=param_data['name'],
+                    param_description=param_data.get('description', ''),
+                    param_required=param_data.get('is_required', False),
+                    param_position=param_data.get('position', 0),
+                    param_type=param_data['type']
+                )
+                # 結果を消費してエラーを確認
+                list(result)
+                print(f"    - Created parameter '{param_data['name']}' with type '{param_data['type']}' for function '{parent_name}'")
+            except Exception as e:
+                print(f"    - Error creating parameter '{param_data['name']}' for function '{parent_name}': {e}")
+                print(f"    - Query: {query}")
+                print(f"    - Params: parent_name={parent_name}, param_name={param_data['name']}, param_type={param_data['type']}")
         else:  # object
             # オブジェクトプロパティの型情報処理を改善
             query = """
@@ -345,10 +399,11 @@ class Neo4jImporter:
             MERGE (p:Parameter {name: $param_name,
                kind: 'object',
                parent_object: $parent_name})
-        ON CREATE SET p.description = $param_description
-        SET p.description = COALESCE($param_description, p.description)
-        MERGE (od)-[r:USES_PROPERTY_PARAMETER]->(p)
-        SET r.parameter_description = $param_description
+            ON CREATE SET p.description = $param_description,
+                p.type = $param_type
+            SET p.description = COALESCE($param_description, p.description)
+            MERGE (od)-[r:HAS_PROPERTY]->(p)
+            SET r.parameter_description = $param_description
 
             WITH p
             // 型情報の作成と関連付けを確実に行う
@@ -357,7 +412,7 @@ class Neo4jImporter:
             """
 
             try:
-                # まず統一メソッドでTypeノードを確保
+                # Typeノードが存在しない場合は作成
                 self._ensure_type_node(session, param_data['type'])
                 
                 session.run(
@@ -376,7 +431,7 @@ class Neo4jImporter:
                 # エラーが発生した場合でも、基本的なパラメータノードは作成する
                 print("    - Fallback: Creating basic parameter node")
                 try:
-                    # Typeノードを確保してからフォールバック
+                    # Typeノードが存在しない場合は作成
                     self._ensure_type_node(session, param_data['type'])
 
                     fallback_query = """
@@ -464,6 +519,27 @@ class Neo4jImporter:
         entity_id = self._build_function_entity_id(name)
         chunk_id = self._build_function_chunk_id(name)
 
+        # 既存のLlamaIndexエンティティを確認
+        existing_entity = session.run("""
+            MATCH (e:__Entity__:Function {id: $entity_id})
+            RETURN count(e) as count
+        """, entity_id=entity_id).single()['count'] > 0
+        
+        if existing_entity:
+            # 既存のエンティティがある場合は説明文を更新のみ
+            entity_props = {
+                'name': name,
+                'description': func_data.get('description', ''),
+                'category': func_data.get('category', ''),
+                'implementation_status': func_data.get('implementation_status', ''),
+                'notes': func_data.get('notes', ''),
+            }
+            session.run("""
+                MATCH (e:__Entity__:Function {id: $entity_id})
+                SET e += $properties
+            """, entity_id=entity_id, properties=entity_props)
+            return
+
         entity_props = {
             'name': name,
             'description': func_data.get('description', ''),
@@ -496,6 +572,29 @@ class Neo4jImporter:
         """LlamaIndex形式のParameterエンティティを作成"""
         param_name = param_data.get('name', '')
         entity_id = self._build_parameter_entity_id(parent_function, param_name)
+        
+        # 既存のLlamaIndexエンティティを確認
+        existing_entity = session.run("""
+            MATCH (e:__Entity__:Parameter {id: $entity_id})
+            RETURN count(e) as count
+        """, entity_id=entity_id).single()['count'] > 0
+        
+        if existing_entity:
+            # 既存のエンティティがある場合は説明文を更新のみ
+            entity_props = {
+                'name': param_name,
+                'description': param_data.get('description', ''),
+                'parent_function': parent_function,
+                'is_required': param_data.get('is_required', False),
+                'type': param_data.get('type', ''),
+                'position': param_data.get('position', 0),
+            }
+            session.run("""
+                MATCH (e:__Entity__:Parameter {id: $entity_id})
+                SET e += $properties
+            """, entity_id=entity_id, properties=entity_props)
+            return
+        
         entity_props = {
             'name': param_name,
             'description': param_data.get('description', ''),
@@ -602,6 +701,27 @@ class Neo4jImporter:
         """ObjectDefinitionノードのLlamaIndexエンティティ化"""
         name = obj_data['name']
         entity_id = self._build_object_entity_id(name)
+        
+        # 既存のLlamaIndexエンティティを確認
+        existing_entity = session.run("""
+            MATCH (e:__Entity__:ObjectDefinition {id: $entity_id})
+            RETURN count(e) as count
+        """, entity_id=entity_id).single()['count'] > 0
+        
+        if existing_entity:
+            # 既存のエンティティがある場合は説明文を更新のみ
+            entity_props = {
+                'name': name,
+                'description': obj_data.get('description', ''),
+                'category': obj_data.get('category', ''),
+                'notes': obj_data.get('notes', ''),
+            }
+            session.run("""
+                MATCH (e:__Entity__:ObjectDefinition {id: $entity_id})
+                SET e += $properties
+            """, entity_id=entity_id, properties=entity_props)
+            return
+        
         entity_props = {
             'name': name,
             'description': obj_data.get('description', ''),
@@ -629,37 +749,68 @@ class Neo4jImporter:
             print("警告: Type名が空のため、LlamaIndexエンティティ作成をスキップします")
             return
         entity_id = self._build_type_entity_id(name)
-        # 既存エンティティの存在チェック
-        existing_check = session.run("""
+        
+        # 既存のLlamaIndexエンティティを確認
+        existing_entity = session.run("""
             MATCH (e:__Entity__:Type {id: $entity_id})
             RETURN count(e) as count
-        """, entity_id=entity_id)
-
-        exists = existing_check.single()['count'] > 0
-        if exists:
-            # 既存エンティティがある場合は説明文のみ更新（空→有り）
+        """, entity_id=entity_id).single()['count'] > 0
+        
+        if existing_entity:
+            # 既存のLlamaIndexエンティティがある場合は説明文を更新のみ
             description = (type_data.get('description', '')
                           if isinstance(type_data, dict) else '')
-            if description:  # 説明文がある場合のみ更新
+            if description:
                 session.run("""
                     MATCH (e:__Entity__:Type {id: $entity_id})
-                    SET e.description = CASE
-                        WHEN (e.description IS NULL OR e.description = '')
-                        THEN $description
-                        ELSE e.description
+                    SET e.description = CASE 
+                        WHEN (e.description IS NULL OR e.description = '') 
+                        THEN $description 
+                        ELSE e.description 
                     END
                 """, entity_id=entity_id, description=description)
             return
-
-        # 新規作成
-        entity_props = {
-            'name': name,
-            'description': type_data.get('description', '')
-            if isinstance(type_data, dict)
-            else '',
-        }
-        self._merge_llamaindex_entity(session, 'Type', entity_id, entity_props)
-        self._map_node_to_entity(session, 'Type', {'name': name}, entity_id)
+        
+        # 既存のTypeノードを確認（最初の1つだけ）
+        existing_type = session.run("""
+            MATCH (t:Type {name: $name})
+            RETURN t, t.id as existing_id
+            LIMIT 1
+        """, name=name).single()
+        
+        if existing_type:
+            # 既存のTypeノードがある場合、idプロパティを更新
+            session.run("""
+                MATCH (t:Type {name: $name})
+                SET t.id = $entity_id
+            """, name=name, entity_id=entity_id)
+            
+            # LlamaIndexエンティティを作成
+            entity_props = {
+                'name': name,
+                'description': type_data.get('description', '')
+                if isinstance(type_data, dict)
+                else '',
+            }
+            self._merge_llamaindex_entity(session, 'Type', entity_id, entity_props)
+            self._map_node_to_entity(session, 'Type', {'name': name}, entity_id)
+        else:
+            # Typeノードが存在しない場合は新規作成
+            description = (type_data.get('description', '')
+                          if isinstance(type_data, dict) else '')
+            
+            # Typeノードを作成
+            session.run("""
+                CREATE (t:Type {name: $name, description: $description, id: $entity_id})
+            """, name=name, description=description, entity_id=entity_id)
+            
+            # LlamaIndexエンティティを作成
+            entity_props = {
+                'name': name,
+                'description': description,
+            }
+            self._merge_llamaindex_entity(session, 'Type', entity_id, entity_props)
+            self._map_node_to_entity(session, 'Type', {'name': name}, entity_id)
 
     def _merge_llamaindex_entity(self, session, label: str, entity_id: str, properties: Dict[str, Any]):
         """__Entity__ノードをマージする"""
@@ -686,23 +837,40 @@ class Neo4jImporter:
             作成/更新されたTypeノード
         """
         try:
-            query = """
-            MERGE (t:Type {name: $type_name})
-            ON CREATE SET t.description = $description
-            ON MATCH SET t.description = CASE 
-                WHEN (t.description IS NULL OR t.description = '') AND $description <> ''
-                THEN $description 
-                ELSE COALESCE(t.description, $description)
-            END
-            RETURN t
+            # まず既存ノードの存在確認
+            check_query = """
+            MATCH (t:Type {name: $type_name})
+            RETURN t, t.description as existing_description
             """
-            result = session.run(query, type_name=type_name, description=description)
+            result = session.run(check_query, type_name=type_name)
             record = result.single()
+            
             if record:
-                return record['t']
+                # 既存ノードがある場合、説明文を更新（空→有り）
+                existing_desc = record['existing_description']
+                if (not existing_desc or existing_desc == '') and description:
+                    update_query = """
+                    MATCH (t:Type {name: $type_name})
+                    SET t.description = $description
+                    RETURN t
+                    """
+                    result = session.run(update_query, type_name=type_name, description=description)
+                    return result.single()['t']
+                else:
+                    return record['t']
             else:
-                print(f"警告: Type '{type_name}' の作成に失敗しました")
-                return None
+                # 新規作成
+                create_query = """
+                CREATE (t:Type {name: $type_name, description: $description})
+                RETURN t
+                """
+                result = session.run(create_query, type_name=type_name, description=description)
+                record = result.single()
+                if record:
+                    return record['t']
+                else:
+                    print(f"警告: Type '{type_name}' の作成に失敗しました")
+                    return None
         except Exception as e:
             print(f"エラー: Type '{type_name}' の作成中にエラーが発生: {e}")
             return None

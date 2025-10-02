@@ -378,14 +378,14 @@ def main():
         success = run_vectorization(config)
     elif args.function == "full_pipeline":
         # 完全パイプライン: Neo4j → ChromaDB → LlamaIndex
-        print("🚀 完全パイプライン実行中...")
+        print("[START] 完全パイプライン実行中...")
         success = (
             run_llm_doc(config)
             and run_vectorization(config)
             and run_llamaindex_vectorization(config)
         )
     elif args.function == "llamaindex_pipeline":
-        print("🚀 LlamaIndex形式パイプライン実行中...")
+        print("[START] LlamaIndex形式パイプライン実行中...")
         success = (
             run_llm_doc(config)
             and run_vectorization(config)
@@ -432,9 +432,9 @@ def main():
         print(f"未知の機能: {args.function}")
         success = False
     if success:
-        print("✅ 完了")
+        print("[OK] 完了")
     else:
-        print("❌ エラー")
+        print("[NG] エラー")
         sys.exit(1)
 
 
