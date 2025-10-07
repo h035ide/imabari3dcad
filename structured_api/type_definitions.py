@@ -136,17 +136,19 @@ def _add_node(
     properties: Dict[str, Any],
 ) -> str:
     if node_id not in nodes:
+        # Normalize and avoid overwriting the unique key property "id" during SET
         normalized_props = {
             key: value
             for key, value in (
                 (k, _normalize_property(v)) for k, v in properties.items()
             )
-            if value is not None
+            if value is not None and key != "id"
         }
         nodes[node_id] = EntityNode(
+            id=node_id,
             name=str(name),
             label=label,
-            properties={"id": node_id, **normalized_props},
+            properties={**normalized_props},
         )
     return node_id
 
@@ -316,6 +318,39 @@ def build_graph_elements(
     return list(nodes.values()), relations
 
 
+def build_triples(
+    nodes: List[EntityNode],
+    relations: List[Relation],
+) -> List[Dict[str, Any]]:
+    """Convert nodes/relations to simple triples for external export.
+
+    Each triple dictionary contains stable identifiers and light metadata so that
+    downstream systems (including raw Neo4j importers) can reconstruct links
+    without needing LlamaIndex-specific classes.
+    """
+    node_by_id: Dict[str, EntityNode] = {n.id: n for n in nodes}
+    triples: List[Dict[str, Any]] = []
+    for rel in relations:
+        src = node_by_id.get(rel.source_id)
+        dst = node_by_id.get(rel.target_id)
+        if not src or not dst:
+            # Skip dangling relation if any
+            continue
+        triples.append(
+            {
+                "subject_id": src.id,
+                "subject_label": src.label,
+                "subject_name": src.name,
+                "predicate": rel.label,
+                "object_id": dst.id,
+                "object_label": dst.label,
+                "object_name": dst.name,
+                "edge_properties": rel.properties or {},
+            }
+        )
+    return triples
+
+
 def persist_to_chroma(
     documents: List[Document],
     *,
@@ -401,13 +436,34 @@ def parse_args(argv: List[str] | None = None) -> argparse.Namespace:
         default=os.getenv("TYPEDEF_LOG_LEVEL", "INFO"),
         choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
     )
+    parser.add_argument(
+        "--export-triples-json",
+        type=Path,
+        help="ノード/リレーションから導出したトリプルを JSON で保存する出力パス",
+    )
     return parser.parse_args(argv)
 
 
 def main(argv: List[str] | None = None) -> None:
     load_dotenv()
     args = parse_args(argv)
-    logging.basicConfig(level=getattr(logging, args.log_level.upper(), logging.INFO))
+
+    # ログファイルのパスを設定（structured_api ディレクトリ内）
+    log_dir = Path(__file__).parent
+    log_file = log_dir / "type_definitions.log"
+
+    # ログ設定：コンソールとファイル両方に出力
+    log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    logging.basicConfig(
+        level=getattr(logging, args.log_level.upper(), logging.INFO),
+        format=log_format,
+        handlers=[
+            logging.StreamHandler(),  # コンソール出力
+            logging.FileHandler(log_file, encoding="utf-8")  # ファイル出力
+        ]
+    )
+
+    LOGGER.info("ログファイルに保存中: %s", log_file)
 
     if not args.openai_api_key:
         raise RuntimeError("OPENAI_API_KEY が未設定です。環境変数または引数で指定してください。")
@@ -436,6 +492,16 @@ def main(argv: List[str] | None = None) -> None:
 
     LOGGER.info("Neo4j グラフ要素を構築中...")
     nodes, relations = build_graph_elements(definitions)
+    # 任意: トリプルJSONのエクスポート
+    if args.export_triples_json:
+        try:
+            triples = build_triples(nodes, relations)
+            args.export_triples_json.parent.mkdir(parents=True, exist_ok=True)
+            with args.export_triples_json.open("w", encoding="utf-8") as fp:
+                json.dump(triples, fp, ensure_ascii=False, indent=2)
+            LOGGER.info("トリプルを JSON に出力: %s", args.export_triples_json)
+        except Exception as exc:
+            LOGGER.error("トリプル JSON 出力に失敗: %s", exc)
     node_count, relation_count = persist_to_neo4j(
         nodes,
         relations,
@@ -451,4 +517,3 @@ def main(argv: List[str] | None = None) -> None:
 
 if __name__ == "__main__":
     main()
-
