@@ -1113,6 +1113,7 @@ dependencies = [
     { name = "llama-index-graph-stores-neo4j" },
     { name = "llama-index-llms-openai" },
     { name = "llama-index-readers-file" },
+    { name = "llama-index-readers-json" },
     { name = "llama-index-readers-llama-parse" },
     { name = "llama-index-vector-stores-chroma" },
     { name = "llama-index-workflows" },
@@ -1169,6 +1170,7 @@ requires-dist = [
     { name = "llama-index-graph-stores-neo4j", specifier = ">=0.4.6" },
     { name = "llama-index-llms-openai", specifier = ">=0.5.6,<0.6" },
     { name = "llama-index-readers-file", specifier = ">=0.4.11" },
+    { name = "llama-index-readers-json", specifier = ">=0.4.2" },
     { name = "llama-index-readers-llama-parse", specifier = ">=0.4.0" },
     { name = "llama-index-vector-stores-chroma", specifier = ">=0.4.2" },
     { name = "llama-index-workflows", specifier = ">=1.2.0" },
@@ -1896,6 +1898,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/01/d9/c67ad2b9cba8dacf1d4a55fe5432357b6eceaecfb096a0de5c1cbd959b98/llama_index_readers_file-0.5.4.tar.gz", hash = "sha256:5e766f32597622e66529464101914548ad683770a0a5d2bdc9ee84eb3a110332", size = 32565, upload_time = "2025-09-08T20:39:40.287Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/ea/e3/76d72a7281b9c88d488908731c9034e1ee1a2cad5aa1dead76b051eca989/llama_index_readers_file-0.5.4-py3-none-any.whl", hash = "sha256:135be5ddda66c5b35883911918b2d99f67a2ab010d180af5630c872ea9509d45", size = 51827, upload_time = "2025-09-08T20:39:39.408Z" },
+]
+
+[[package]]
+name = "llama-index-readers-json"
+version = "0.4.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "llama-index-core" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/2f/fb/3c01781f1683453a5607ddebd535348f9d90940d50648d5304d6ca6a2c53/llama_index_readers_json-0.4.2.tar.gz", hash = "sha256:820c294d49df3f5699840c99d704eca0da56e7676dd32e7fe7d253e9149430d4", size = 5028, upload_time = "2025-10-07T03:58:56.726Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7f/cb/381405e479e4a6a4a5ead1c9b7970d20bd25912f8995b117a916bcd1c252/llama_index_readers_json-0.4.2-py3-none-any.whl", hash = "sha256:4e8e10ca9e028e0d97128a32c94ffaf13c1270c68e43716269fea09c18308931", size = 4761, upload_time = "2025-10-07T03:58:56.004Z" },
 ]
 
 [[package]]

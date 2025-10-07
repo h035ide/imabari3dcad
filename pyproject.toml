@@ -54,6 +54,7 @@ dependencies = [
     "langchain-experimental>=0.3.4",
     "fastapi>=0.118.0",
     "uvicorn>=0.35.0",
+    "llama-index-readers-json>=0.4.2",
 ]
 
 [project.optional-dependencies]
