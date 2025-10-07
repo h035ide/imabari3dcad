@@ -358,8 +358,11 @@
     {
       "name": "要素グループ",
       "canonical_type": "string",
-      "description": "EVO.SHIPの要素グループ名。階層は\"/\"で区切る。",
-      "examples": ["A", "A/B", "A/B/C"],
+      "description": "EVO.SHIPの要素グループ名。階層は「/」で区切る。",
+      "examples": [
+        { "value": "A",      "explanation": "単一のグループ名" },
+        { "value": "A/B",    "explanation": "2階層のグループ" }
+      ],
       "source": {
         "text": "■要素グループ\n  EVO.SHIPの要素グループ名\n 要素グループの階層は\"/\"で区切る"
       }
@@ -367,9 +370,10 @@
     {
       "name": "注記スタイル",
       "canonical_type": "string",
-      "description": "EVO.SHIPに設定している注記スタイルの名称",
+      "description": "EVO.SHIPに設定している注記スタイルの名称。",
       "examples": [
-        "EVO.SHIPの設定で選択した注記スタイル名が入る。例: \"注記スタイル\": \"<EVO.SHIPで設定されたスタイル名>\""
+        { "value": "<NoteStyleName>",                  "explanation": "ユーザが設定した注記スタイル名" },
+        { "value": "<EVO.SHIPで設定されたスタイル名>", "explanation": "EVO.SHIPの設定で選択された名称" }
       ],
       "source": {
         "text": "■注記スタイル\n EVO.SHIPに設定している注記スタイルの名称"
@@ -379,6 +383,9 @@
       "name": "材料",
       "canonical_type": "string",
       "description": "EVO.SHIPに設定されている材料の名称。",
+      "examples": [
+        { "value": "<MaterialName>", "explanation": "EVO.SHIPで設定された材料名" }
+      ],
       "source": {
         "text": "■材料\n   EVO.SHIPに設定している材料の名称"
       }
@@ -388,11 +395,11 @@
       "canonical_type": "string",
       "description": "スイープ方向を示すコード（方向の種類を指定）。",
       "examples": [
-        "{'value': 'N', 'meaning': '順方向'}",
-        "{'value': 'R', 'meaning': '反対方向'}",
-        "{'value': 'B', 'meaning': '両方向'}",
-        "{'value': '2', 'meaning': '２方向'}",
-        "{'value': 'T', 'meaning': '貫通'}"
+        { "value": "N", "meaning": "順方向" },
+        { "value": "R", "meaning": "反対方向" },
+        { "value": "B", "meaning": "両方向" },
+        { "value": "2", "meaning": "２方向" },
+        { "value": "T", "meaning": "貫通" }
       ],
       "source": {
         "text": "■スイープ方向\n \"N\"  順方向\n  \"R\" 反対方向\n  \"B\" 両方向\n  \"2\"  ２方向\n  \"T\"   貫通"
@@ -403,11 +410,11 @@
       "canonical_type": "string",
       "description": "厚み付けの方向を指定する文字列。",
       "examples": [
-        "{'value': '+', 'explanation': '内側'}",
-        "{'value': '-', 'explanation': '外側'}",
-        "{'value': 'B', 'explanation': '両方向'}",
-        "{'value': '2', 'explanation': '２方向'}",
-        "{'value': '', 'explanation': '厚み付けしない（空文字）'}"
+        { "value": "+", "explanation": "内側" },
+        { "value": "-", "explanation": "外側" },
+        { "value": "B", "explanation": "両方向" },
+        { "value": "2", "explanation": "２方向" },
+        { "value": "",  "explanation": "厚み付けしない（空文字）" }
       ],
       "source": {
         "text": "■厚み付けタイプ\n \"+\" 内側\n \"-\" 外側\n  \"B\" 両方向\n  \"2\"  ２方向\n  \"\" （空文字）厚み付けしない"
@@ -416,13 +423,12 @@
     {
       "name": "モールド位置",
       "canonical_type": "string",
-      "description": "Mold position mapping: \"+\" = ＋側, \"-\" = ー側, \"\" (empty string) = センター",
+      "description": "モールド位置の指定。「+」= ＋側、「-」= ー側、空文字 = センター。",
       "examples": [
-        "{'value': '+', 'meaning': '＋側'}",
-        "{'value': '-', 'meaning': 'ー側'}",
-        "{'value': '', 'meaning': 'センター'}"
+        { "value": "+", "meaning": "＋側" },
+        { "value": "-", "meaning": "ー側" },
+        { "value": "",  "meaning": "センター（空文字）" }
       ],
-      "py_type": "str",
       "source": {
         "text": "■モールド位置\n \"+\" ＋側\n \"-\" ー側\n  \"\" （空文字）センター"
       }
@@ -430,11 +436,11 @@
     {
       "name": "オペレーションタイプ （ボディ）",
       "canonical_type": "string",
-      "description": "3つの演算子: \"+\" = 和、\"-\" = 削除、\"*\" = 積。",
+      "description": "ボディ演算の種類。「+」= 和、「-」= 削除、「*」= 積。",
       "examples": [
-        "{'symbol': '+', 'meaning': '和'}",
-        "{'symbol': '-', 'meaning': '削除'}",
-        "{'symbol': '*', 'meaning': '積'}"
+        { "symbol": "+", "meaning": "和" },
+        { "symbol": "-", "meaning": "削除" },
+        { "symbol": "*", "meaning": "積" }
       ],
       "source": {
         "text": "■オペレーションタイプ （ボディ）\n \"+\" 和\n \"-\" 削除\n \"*\"  積"
@@ -443,10 +449,10 @@
     {
       "name": "関連設定",
       "canonical_type": "string",
-      "description": "値が \"B\" の場合はボディ関連。その他（空白を含む）はフィーチャー関連。",
+      "description": "関連の種類を指定。値が「B」の場合はボディ関連。それ以外（空白を含む）はフィーチャー関連。",
       "examples": [
-        "\"B\" → ボディ関連",
-        "空白（''）またはそれ以外の値 → フィーチャー関連"
+        { "value": "B", "meaning": "ボディ関連" },
+        { "value": "",  "meaning": "フィーチャー関連（空白）" }
       ],
       "source": {
         "text": "■関連設定\n ボディ関連とする場合は\"B\"\n  それ以外（空白含む）はフィーチャー関連"
@@ -455,24 +461,28 @@
     {
       "name": "形状タイプ",
       "canonical_type": "string",
-      "description": "EVO.SHIPの部材既定寸法設定ファイルで使用される形状番号。詳細はヘルプ（EVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイル）を参照。",
+      "description": "EVO.SHIPの部材既定寸法設定ファイルで使用される形状番号（文字列）。詳細はヘルプ「EVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイル」を参照。",
       "examples": [
-        "\"1007\" 平鋼",
-        "\"1003\" 不等辺不等厚山形鋼",
-        "\"1101\" 条材端部Sタイプ",
-        "\"1120\" 条材端部スカラップA1タイプ",
-        "\"1503\" ブラケット2-Bタイプ"
+        { "value": "1007", "explanation": "平鋼" },
+        { "value": "1003", "explanation": "不等辺不等厚山形鋼" },
+        { "value": "1101", "explanation": "条材端部Sタイプ" },
+        { "value": "1120", "explanation": "条材端部スカラップA1タイプ" },
+        { "value": "1503", "explanation": "ブラケット2-Bタイプ" }
       ],
       "source": {
-        "text": "■形状タイプ\n EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号 (ヘルプのEVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイルの項を\n 参照)\n 例）\"1007\" 平鋼、\"1003\" 不等辺不等厚山形鋼\n      \"1101\" 条材端部Sタイプ 、\"1120\" 条材端部スカラップA1タイプ\n   \"1503\"  ブラケット2-Bタイプ"
+        "text": "■形状タイプ\n EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号 (ヘルプのEVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイルの項を参照)\n 例）\"1007\" 平鋼、\"1003\" 不等辺不等厚山形鋼\n     \"1101\" 条材端部Sタイプ 、\"1120\" 条材端部スカラップA1タイプ\n     \"1503\" ブラケット2-Bタイプ"
       }
     },
     {
       "name": "形状パラメータ",
-      "canonical_type": "string",
-      "description": "各形状タイプの寸法値を文字列配列で設定",
+      "canonical_type": "string[]",
+      "description": "各形状タイプの寸法値を文字列配列で設定する。配列の要素数と並び順は対応する「形状タイプ」に依存し、数値表記の桁や末尾の小数点など原文のフォーマットを保持するため文字列として扱う。",
       "examples": [
-        "不当辺山形鋼(1002)の形状タイプの場合: [\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]"
+        {
+          "value": ["150.", "90.", "9.0000000000000018", "12.", "6."],
+          "shape_type": "1002",
+          "explanation": "不等辺山形鋼(1002)の寸法列"
+        }
       ],
       "source": {
         "text": "■形状パラメータ\n  各形状タイプの寸法値を文字列配列で設定\n  例) 不当辺山形鋼(1002)の形状タイプの場合 [\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]"
@@ -481,23 +491,75 @@
     {
       "name": "要素",
       "canonical_type": "string",
-      "description": "モデル内の要素を参照する識別子を受け取ります。受け取り可能な形式は：要素ID（\"ID@...\"）、要素名／要素グループのパス、単一要素を指すラベル、または複数要素を表す文字列配列（板厚面指定やフェイス指定など）。",
-      "examples": [
-        "ID@d8baafc30be94411a6ab9d6173c1d1dd",
-        "G1/G2/A",
-        "['PLS', 'False', 'False', '0.0', '0.0', '-1.0', 'ID@d8baafc30be94411a6ab9d6173c1d1dd']",
-        "ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8"
+      "description": "モデル内の要素を参照する識別子。次のいずれかの形式を受け付ける：①要素ID（\"ID@...\"）、②要素名/要素グループのパス、③板厚面指定の配列（PLS配列）、④フェイス指定のCSV文字列。座標成分は数値または変数で混在可（式は不可）。",
+      "variants": [
+        {
+          "id": "element_id",
+          "description": "ユニークIDで指定（例: ID@<32桁hex>）",
+          "value_kind": "string",
+          "pattern": "^ID@[0-9a-fA-F]{32}$"
+        },
+        {
+          "id": "element_path",
+          "description": "要素名/要素グループを「/」区切りで指定（重名の場合は不定）",
+          "value_kind": "string",
+          "pattern": "^[^/]+(?:/[^/]+)*$"
+        },
+        {
+          "id": "plate_surface_array",
+          "description": "板ソリッド要素の板厚面（条材はウェブ）を配列で指定",
+          "value_kind": "string[]",
+          "constraints": {
+            "length": 7,
+            "schema": [
+              "PLS",
+              "True|False",
+              "False",
+              "num|var",
+              "num|var",
+              "num|var",
+              "ID@[0-9a-fA-F]{32}"
+            ],
+            "notes": "2番目は内部穴削除フラグ、3番目は固定で\"False\"。4–6番目は外側方向ベクトル(x,y,z)。"
+          }
+        },
+        {
+          "id": "face_points_csv",
+          "description": "ソリッド/シート要素のフェイスをCSVで指定：ID, F, (x1,y1,z1), (x2,y2,z2), ...",
+          "value_kind": "string",
+          "constraints": {
+            "prefix": "ID@<hex>,F,",
+            "coords": "以降は3要素の座標タプルを1つ以上（数値/変数、混在可）",
+            "triplet_multiple": true
+          }
+        }
       ],
-      "one_of": [
-        "element_id",
-        "element_group",
-        "element_reference",
-        "element_array"
+      "examples": [
+        {
+          "value": "ID@d8baafc30be94411a6ab9d6173c1d1dd",
+          "variant": "element_id",
+          "explanation": "ユニークIDで要素を直接指定"
+        },
+        {
+          "value": "G1/G2/A",
+          "variant": "element_path",
+          "explanation": "グループ/名前で指定（重名があると不定）"
+        },
+        {
+          "value": ["PLS", "False", "False", "0.0", "0.0", "-1.0", "ID@d8baafc30be94411a6ab9d6173c1d1dd"],
+          "variant": "plate_surface_array",
+          "explanation": "ID要素の(0,0,-1)側の板厚面を指定"
+        },
+        {
+          "value": "ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8",
+          "variant": "face_points_csv",
+          "explanation": "2点の座標でフェイスを指定（(x,y,z)を複数個）"
+        }
       ],
       "source": {
         "text": "■要素\n (複数要素の場合は文字列の配列とする)\n  EVO.SHIPの各要素を指定する\n\n 〇IDで指定\n    EVO.SHIPの要素はユニークなIDを必ずもつのでそのID文字列を\"ID@\"をプレフィックスとして指定\n  例）\"ID@d8baafc30be94411a6ab9d6173c1d1dd\" (d8baafc30be94411a6ab9d6173c1d1ddというIDをもつ要素)\n\n 〇要素名で指定\n  EVO.SHIPの要素名称は重複を許すので、複数見つかった際にどれになるかは不定\n  要素名称はEVO.SHIPの要素グループを指定するのこともできる\n  例）G1という要素グループ配下のG2という要素グループ配下のAという名前の要素の指定\n    G1/G2/A\n\n  〇板ソリッド要素の板厚面を指定（条材ソリッドの場合はウェブ部分）\n  必ず文字列配列で指定\n  配列の最初の要素は\"PLS\"という固定文字列\n  次の配列要素（２番目）は\"True\"か\"False\"で,\"True\"の場合はFace内部穴を削除する\n    次の配列要素（３番目）は常に\"False\" (システムで利用します）\n  その次から３っつの要素（４番目、５番目、６番目）で板厚面のどちら側かを\n  指定するために外側方向（おおよそ）をベクトル指定する\n  最後の要素でソリッド要素を指定する\n    例）[\"PLS\",\"False\",\"False\",\"0.0\",\"0.0\",\"-1.0\",\"ID@d8baafc30be94411a6ab9d6173c1d1dd\"]\n        d8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつソリッド要素（板材)の(0,0,-1)方向を向いている側の面の指定\n\n  〇ソリッドやシート要素のフェイスを指定\n  \",\" コンマで区切られた文字列で指定\n  最初のカラムでソリッドやシート要素のＩＤを指定、次のカラムは固定文字\"F\"、その次のカラムからフェイス上の点の座標値を指定（複数フェイス指定可能）\n  例 \"ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8\"\n      d8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつ要素でそのFace上の座標値が(-10,0.5,2.3)と(-11.0,0.0,4.8)\n   である２つのフェイスを指定"
       }
-    }
+    }    
   ],
   "api_entries": [
     {
