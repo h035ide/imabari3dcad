@@ -310,12 +310,13 @@ def _add_node(
             )
             if value is not None and key != "id"
         }
+        display_name = str(name)
         node = EntityNode(
-            name=str(name),
+            name=node_id,
             label=label,
             properties={**normalized_props},
         )
-        setattr(node, "id", node_id)
+        node.properties.setdefault("display_name", display_name)
         nodes[node_id] = node
     return node_id
 
