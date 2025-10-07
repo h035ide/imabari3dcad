@@ -16,19 +16,109 @@ from llama_index.core import Document, StorageContext, VectorStoreIndex
 from llama_index.core.graph_stores.types import EntityNode, Relation
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.graph_stores.neo4j import Neo4jPropertyGraphStore
+from llama_index.readers.json import JSONReader
 from llama_index.vector_stores.chroma import ChromaVectorStore
 
+try:
+    from llama_index.core.indices.property_graph import PropertyGraphIndex  # type: ignore[attr-defined]
+except ImportError:  # pragma: no cover - fallback to legacy import path
+    try:
+        from llama_index.indices.property_graph import PropertyGraphIndex  # type: ignore[attr-defined]
+    except ImportError:  # pragma: no cover - optional dependency
+        PropertyGraphIndex = None  # type: ignore[assignment]
+
+try:
+    from llama_index.core.schema import GraphDocument
+except ImportError:  # pragma: no cover - fallback to legacy import path
+    try:
+        from llama_index.schema import GraphDocument  # type: ignore[attr-defined]
+    except ImportError:  # pragma: no cover - optional dependency
+        GraphDocument = None  # type: ignore[assignment]
+
+try:
+    from llama_index.extractors.simple_path import LLMPath, SimpleLLMPathExtractor  # type: ignore[attr-defined]
+except ImportError:  # pragma: no cover - optional dependency path differs across versions
+    try:
+        from llama_index.extractors.relationships.simple_path import (  # type: ignore[attr-defined]
+            LLMPath,
+            SimpleLLMPathExtractor,
+        )
+    except ImportError:  # pragma: no cover
+        LLMPath = None
+        SimpleLLMPathExtractor = None
 
 LOGGER = logging.getLogger(__name__)
 
+DEFAULT_JQ_SCHEMA = ".type_definitions[]"
 
-def load_type_definitions(json_path: Path) -> List[Dict[str, Any]]:
-    with json_path.open("r", encoding="utf-8") as fp:
+
+def _legacy_load_type_definitions(json_path: Path) -> List[Dict[str, Any]]:
+    with json_path.open('r', encoding='utf-8') as fp:
         payload = json.load(fp)
-    definitions = payload.get("type_definitions", [])
+    definitions = payload.get('type_definitions', [])
     if not isinstance(definitions, list):
         raise ValueError("type_definitions キーがリストではありません")
     return definitions
+
+
+def load_type_definitions(
+    json_path: Path,
+    *,
+    jq_schema: str = DEFAULT_JQ_SCHEMA,
+) -> Tuple[List[Dict[str, Any]], List[Document]]:
+    if jq_schema.strip() == "":
+        LOGGER.debug("Empty jq_schema provided; falling back to legacy loader")
+        definitions = _legacy_load_type_definitions(json_path)
+        return definitions, []
+
+    reader = JSONReader(jq_schema=jq_schema, text_content=True)
+    try:
+        raw_documents = reader.load_data(json_path)
+    except Exception as exc:  # pragma: no cover - runtime dependency on jq
+        LOGGER.warning(
+            "JSONReader load failed for %s (schema=%s): %s -- falling back to legacy loader",
+            json_path,
+            jq_schema,
+            exc,
+        )
+        definitions = _legacy_load_type_definitions(json_path)
+        return definitions, []
+
+    definitions: List[Dict[str, Any]] = []
+    for doc in raw_documents:
+        payload: Dict[str, Any] | None = None
+        text_payload = doc.text or ""
+        candidate: Any
+        if text_payload:
+            try:
+                candidate = json.loads(text_payload)
+            except json.JSONDecodeError as exc:
+                LOGGER.debug("Failed to decode JSONReader payload: %s", exc)
+                candidate = None
+        else:
+            candidate = doc.metadata.get('json_dict') if isinstance(doc.metadata, dict) else None
+        if isinstance(candidate, dict):
+            payload = candidate
+        if payload is None:
+            LOGGER.debug("Skipping non-dict payload from JSONReader: %s", doc.metadata)
+            continue
+        source = payload.get('source')
+        if not isinstance(source, dict):
+            source = {'path': str(json_path)}
+        else:
+            source.setdefault('path', str(json_path))
+        payload['source'] = source
+        definitions.append(payload)
+
+    if not definitions:
+        LOGGER.warning("JSONReader produced no usable type definitions for %s; using legacy loader", json_path)
+        definitions = _legacy_load_type_definitions(json_path)
+        return definitions, raw_documents
+
+    return definitions, raw_documents
+
+
+
 
 
 def _normalize_property(value: Any) -> Any:
@@ -58,10 +148,14 @@ def _format_examples(examples: Iterable[Any]) -> str:
     return "\n".join(formatted)
 
 
-def build_documents(definitions: List[Dict[str, Any]]) -> List[Document]:
+def build_documents(
+    definitions: List[Dict[str, Any]],
+    *,
+    source_documents: List[Document] | None = None,
+) -> List[Document]:
     documents: List[Document] = []
-    for typedef in definitions:
-        name = typedef.get("name", "不明")
+    for idx, typedef in enumerate(definitions):
+        name = typedef.get("name", "未知")
         canonical = typedef.get("canonical_type")
         description = typedef.get("description", "")
         alias = typedef.get("alias") or []
@@ -112,20 +206,76 @@ def build_documents(definitions: List[Dict[str, Any]]) -> List[Document]:
         if examples:
             lines.append("例:\n" + _format_examples(examples))
         if source and isinstance(source, dict):
-            text = source.get("text")
-            if text:
-                lines.append("原文:\n" + text)
+            text_value = source.get("text")
+            if text_value:
+                lines.append("原文:\n" + text_value)
 
-        metadata = {
+        base_metadata = {
             "type": "type_definition",
             "name": name,
             "canonical_type": canonical or "",
             "source_path": source.get("path") if isinstance(source, dict) else "",
         }
+        if source_documents and idx < len(source_documents):
+            base_metadata = {**source_documents[idx].metadata, **base_metadata}
 
         content = "\n".join(lines)
-        documents.append(Document(text=content, metadata=metadata))
+        document = Document(text=content, metadata=base_metadata)
+        try:
+            document.excluded_embed_metadata_keys = ["source_path"]
+            document.excluded_llm_metadata_keys = ["source_path"]
+        except AttributeError:  # pragma: no cover - older LlamaIndex versions
+            pass
+        documents.append(document)
     return documents
+
+
+
+def _create_llm_path_extractor(*, llm_model: str | None, temperature: float) -> Any | None:
+    if SimpleLLMPathExtractor is None or LLMPath is None:
+        return None
+
+    llm = None
+    extractor_kwargs: Dict[str, Any] = {}
+    if llm_model:
+        try:
+            from llama_index.llms.openai import OpenAI as _OpenAILLM  # local import to avoid hard dependency
+        except ImportError:  # pragma: no cover - optional dependency
+            _OpenAILLM = None  # type: ignore[assignment]
+        if _OpenAILLM is not None:
+            llm = _OpenAILLM(model=llm_model, temperature=temperature)
+        else:
+            LOGGER.warning("llama_index.llms.openai.OpenAI not available; SimpleLLMPathExtractor will use default LLM")
+    elif temperature:
+        extractor_kwargs["llm_kwargs"] = {"temperature": temperature}
+
+    try:
+        llm_paths = [
+            LLMPath(path=["name"], description="Extract the canonical type name if missing"),
+            LLMPath(path=["alias", "*"], description="List alternative labels"),
+            LLMPath(path=["variants", "*", "id"], description="Enumerate variant identifiers"),
+            LLMPath(path=["one_of", "*", "id"], description="Enumerate one_of identifiers"),
+            LLMPath(path=["examples", "*", "value"], description="Surface canonical example values"),
+        ]
+    except Exception as exc:  # pragma: no cover - handle signature drift
+        LOGGER.debug("Failed to construct LLMPath definitions: %s", exc)
+        return None
+
+    try:
+        if llm is not None:
+            return SimpleLLMPathExtractor(llm_paths=llm_paths, llm=llm, **extractor_kwargs)
+        return SimpleLLMPathExtractor(llm_paths=llm_paths, **extractor_kwargs)
+    except TypeError as exc:
+        LOGGER.debug("SimpleLLMPathExtractor signature mismatch: %s", exc)
+        try:
+            return SimpleLLMPathExtractor(llm_paths=llm_paths, llm=llm)
+        except Exception as inner_exc:  # pragma: no cover - optional dependency mismatch
+            LOGGER.warning("Unable to instantiate SimpleLLMPathExtractor: %s", inner_exc)
+            return None
+    except Exception as exc:  # pragma: no cover - e.g., missing API keys
+        LOGGER.warning("Unable to instantiate SimpleLLMPathExtractor: %s", exc)
+        return None
+
 
 
 def _add_node(
@@ -180,10 +330,40 @@ def _add_relation(
 
 
 def build_graph_elements(
-    definitions: List[Dict[str, Any]]
+    definitions: List[Dict[str, Any]],
+    *,
+    documents: List[Document] | None = None,
+    use_llm_extractor: bool = False,
+    llm_model: str | None = None,
+    llm_temperature: float = 0.0,
 ) -> Tuple[List[EntityNode], List[Relation]]:
     nodes: Dict[str, EntityNode] = {}
     relations: List[Relation] = []
+
+    llm_enrichments: Dict[str, Any] = {}
+    if use_llm_extractor and SimpleLLMPathExtractor and LLMPath and documents:
+        extractor = _create_llm_path_extractor(llm_model=llm_model, temperature=llm_temperature)
+        if extractor is not None:
+            try:
+                extraction_results = extractor.extract(documents)
+            except AttributeError:  # pragma: no cover - different extractor API versions
+                extraction_results = extractor(documents)  # type: ignore[misc]
+            except Exception as exc:  # pragma: no cover - runtime dependency on LLMs
+                LOGGER.warning("SimpleLLMPathExtractor failed: %s", exc)
+                extraction_results = []
+            if extraction_results:
+                for doc, result in zip(documents, extraction_results):
+                    doc_name = doc.metadata.get("name") if isinstance(doc.metadata, dict) else None
+                    if not doc_name:
+                        doc_name = doc.metadata.get("id") if isinstance(doc.metadata, dict) else None
+                    if hasattr(result, "to_dict"):
+                        payload = result.to_dict()
+                    else:
+                        payload = result
+                    if doc_name and isinstance(payload, dict):
+                        llm_enrichments[str(doc_name)] = payload
+    elif use_llm_extractor:
+        LOGGER.info("SimpleLLMPathExtractor requested but unavailable; continuing without LLM assistance")
 
     for typedef in definitions:
         name = typedef.get("name", "")
@@ -205,6 +385,9 @@ def build_graph_elements(
             "source_path": source.get("path"),
             "source_text": source.get("text"),
         }
+        llm_payload = llm_enrichments.get(name)
+        if llm_payload:
+            base_properties["llm_extractions"] = llm_payload
         _add_node(
             nodes,
             node_id,
@@ -317,6 +500,7 @@ def build_graph_elements(
             )
 
     return list(nodes.values()), relations
+
 
 
 def build_triples(
@@ -446,7 +630,9 @@ def persist_to_neo4j(
     username: str,
     password: str,
     database: str | None,
-) -> Tuple[int, int]:
+    build_property_graph_index: bool = False,
+    graph_documents: List[GraphDocument] | None = None,
+) -> Tuple[int, int, bool]:
     store = Neo4jPropertyGraphStore(
         url=uri,
         username=username,
@@ -457,7 +643,45 @@ def persist_to_neo4j(
         store.upsert_nodes(nodes)
     if relations:
         store.upsert_relations(relations)
-    return len(nodes), len(relations)
+
+    built_index = False
+    if build_property_graph_index:
+        if PropertyGraphIndex is None or GraphDocument is None:
+            LOGGER.warning("PropertyGraphIndex API not available; skipped index creation")
+        else:
+            storage_context = StorageContext.from_defaults(graph_store=store)
+            if graph_documents:
+                prepared_graph_documents = graph_documents
+            else:
+                prepared_graph_documents = [
+                    GraphDocument(
+                        nodes=list(nodes),
+                        relationships=list(relations),
+                        metadata={"source": "type_definitions"},
+                        text="Type definitions property graph",
+                    )
+                ]
+            try:
+                PropertyGraphIndex.from_graph_documents(
+                    prepared_graph_documents,
+                    storage_context=storage_context,
+                    show_progress=False,
+                )
+                built_index = True
+            except TypeError:
+                # Older versions may not support show_progress argument
+                try:
+                    PropertyGraphIndex.from_graph_documents(
+                        prepared_graph_documents,
+                        storage_context=storage_context,
+                    )
+                    built_index = True
+                except Exception as exc:  # pragma: no cover - runtime dependency on neo4j
+                    LOGGER.warning("Failed to build PropertyGraphIndex: %s", exc)
+            except Exception as exc:  # pragma: no cover - runtime dependency on neo4j
+                LOGGER.warning("Failed to build PropertyGraphIndex: %s", exc)
+    return len(nodes), len(relations), built_index
+
 
 
 def parse_args(argv: List[str] | None = None) -> argparse.Namespace:
@@ -466,6 +690,11 @@ def parse_args(argv: List[str] | None = None) -> argparse.Namespace:
         description="structured_api/type_definitions.json を LlamaIndex に取り込み、Neo4j と Chroma に格納します。",
     )
     parser.add_argument("--json-path", type=Path, default=default_json)
+    parser.add_argument(
+        "--json-reader-schema",
+        default=os.getenv("TYPEDEF_JSON_JQ_SCHEMA", DEFAULT_JQ_SCHEMA),
+        help="jq schema passed to LlamaIndex JSONReader when loading type definitions",
+    )
     parser.add_argument(
         "--chroma-persist-dir",
         type=Path,
@@ -478,6 +707,27 @@ def parse_args(argv: List[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--embedding-model",
         default=os.getenv("TYPEDEF_EMBED_MODEL", "text-embedding-3-small"),
+    )
+    parser.add_argument(
+        "--use-llm-extractor",
+        action="store_true",
+        help="Enable SimpleLLMPathExtractor-assisted graph construction",
+    )
+    parser.add_argument(
+        "--llm-model",
+        default=os.getenv("TYPEDEF_LLM_MODEL"),
+        help="Override the LLM model used by SimpleLLMPathExtractor (defaults to global Settings)",
+    )
+    parser.add_argument(
+        "--llm-temperature",
+        type=float,
+        default=float(os.getenv("TYPEDEF_LLM_TEMPERATURE", "0.0")),
+        help="Sampling temperature supplied to the LLM extractor",
+    )
+    parser.add_argument(
+        "--create-property-graph-index",
+        action="store_true",
+        help="Build and persist a PropertyGraphIndex on top of Neo4j after upserting nodes/relations",
     )
     parser.add_argument("--openai-api-key", default=os.getenv("OPENAI_API_KEY"))
     parser.add_argument("--neo4j-uri", default=os.getenv("NEO4J_URI"))
@@ -538,58 +788,141 @@ def main(argv: List[str] | None = None) -> None:
     if not args.neo4j_uri or not args.neo4j_user or not args.neo4j_password:
         raise RuntimeError("Neo4j 接続情報が不足しています。NEO4J_URI / USER / PASSWORD を確認してください。")
 
-    LOGGER.info("type_definitions を読み込み中: %s", args.json_path)
-    definitions = load_type_definitions(args.json_path)
-    LOGGER.info("型定義件数: %d", len(definitions))
+    LOGGER.info("type_definitions ��ǂݍ��ݒ�: %s", args.json_path)
 
-    LOGGER.info("Chroma 用ドキュメントを生成中...")
-    documents = build_documents(definitions)
+    definitions, reader_documents = load_type_definitions(
+
+        args.json_path,
+
+        jq_schema=args.json_reader_schema,
+
+    )
+
+    LOGGER.info("�^��`����: %d", len(definitions))
+
+
+
+    LOGGER.info("Chroma �p�h�L�������g�𐶐���...")
+
+    documents = build_documents(definitions, source_documents=reader_documents or None)
+
     chroma_count = persist_to_chroma(
+
         documents,
+
         persist_dir=args.chroma_persist_dir,
+
         collection_name=args.chroma_collection,
+
         embedding_model=args.embedding_model,
+
         openai_api_key=args.openai_api_key,
-    )
-    LOGGER.info(
-        "Chroma へ %d 件のドキュメントを保存 (ディレクトリ=%s, コレクション=%s)",
-        chroma_count,
-        args.chroma_persist_dir,
-        args.chroma_collection,
+
     )
 
-    LOGGER.info("Neo4j グラフ要素を構築中...")
-    nodes, relations = build_graph_elements(definitions)
-    # 任意: トリプルJSONのエクスポート
-    if args.export_triples_json:
-        try:
-            args.export_triples_json.parent.mkdir(parents=True, exist_ok=True)
-            if args.export_triples_json_format == "extracted":
-                payload = format_triples_extracted(
-                    nodes, relations, sources_name=args.export_triples_sources_name
-                )
-            else:
-                payload = build_triples(nodes, relations)
-            with args.export_triples_json.open("w", encoding="utf-8") as fp:
-                json.dump(payload, fp, ensure_ascii=False, indent=2)
-            LOGGER.info(
-                "トリプルを JSON(%s) に出力: %s",
-                args.export_triples_json_format,
-                args.export_triples_json,
-            )
-        except Exception as exc:
-            LOGGER.error("トリプル JSON 出力に失敗: %s", exc)
-    node_count, relation_count = persist_to_neo4j(
-        nodes,
-        relations,
-        uri=args.neo4j_uri,
-        username=args.neo4j_user,
-        password=args.neo4j_password,
-        database=args.neo4j_database,
-    )
     LOGGER.info(
-        "Neo4j へノード %d 件、リレーション %d 件を upsert", node_count, relation_count
+
+        "Chroma �� %d ���̃h�L�������g��ۑ� (�f�B���N�g��=%s, �R���N�V����=%s)",
+
+        chroma_count,
+
+        args.chroma_persist_dir,
+
+        args.chroma_collection,
+
     )
+
+
+
+    LOGGER.info("Neo4j �O���t�v�f���\�z��...")
+
+    nodes, relations = build_graph_elements(
+
+        definitions,
+
+        documents=documents,
+
+        use_llm_extractor=args.use_llm_extractor,
+
+        llm_model=args.llm_model,
+
+        llm_temperature=args.llm_temperature,
+
+    )
+
+    # �C��: �g���v��JSON�̃G�N�X�|�[�g
+
+    if args.export_triples_json:
+
+        try:
+
+            args.export_triples_json.parent.mkdir(parents=True, exist_ok=True)
+
+            if args.export_triples_json_format == "extracted":
+
+                payload = format_triples_extracted(
+
+                    nodes, relations, sources_name=args.export_triples_sources_name
+
+                )
+
+            else:
+
+                payload = build_triples(nodes, relations)
+
+            with args.export_triples_json.open("w", encoding="utf-8") as fp:
+
+                json.dump(payload, fp, ensure_ascii=False, indent=2)
+
+            LOGGER.info(
+
+                "�g���v���� JSON(%s) �ɏo��: %s",
+
+                args.export_triples_json_format,
+
+                args.export_triples_json,
+
+            )
+
+        except Exception as exc:
+
+            LOGGER.error("�g���v�� JSON �o�͂Ɏ��s: %s", exc)
+
+    node_count, relation_count, built_index = persist_to_neo4j(
+
+        nodes,
+
+        relations,
+
+        uri=args.neo4j_uri,
+
+        username=args.neo4j_user,
+
+        password=args.neo4j_password,
+
+        database=args.neo4j_database,
+
+        build_property_graph_index=args.create_property_graph_index,
+
+    )
+
+    LOGGER.info(
+
+        "Neo4j �փm�[�h %d ���A�����[�V���� %d ���� upsert", node_count, relation_count
+
+    )
+
+    if args.create_property_graph_index:
+
+        if built_index:
+
+            LOGGER.info("PropertyGraphIndex ��構築しました")
+
+        else:
+
+            LOGGER.info("PropertyGraphIndex 構築はスキップされました")
+
+
 
 
 if __name__ == "__main__":
