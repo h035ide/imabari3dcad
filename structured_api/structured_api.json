@@ -18,100 +18,120 @@
     },
     {
       "name": "整数",
-      "description": "通常の数値",
       "canonical_type": "integer",
+      "description": "通常の数値",
       "source": {
         "text": "■整数\n  通常の数値"
       }
     },
     {
       "name": "bool",
+      "canonical_type": "bool",
       "description": "通常の真偽値",
       "examples": ["True", "False"],
-      "canonical_type": "bool",
       "source": {
         "text": "■bool\n  通常の真偽値 True False"
       }
     },
     {
       "name": "長さ",
-      "description": "mm単位の数値、変数要素名、または式を表す文字列。",
-      "examples": ["100.0", "L1", "L1 / 2.0"],
       "canonical_type": "string",
-      "one_of": ["millimeter_literal", "variable_reference", "expression"],
+      "description": "mm単位の数値、変数要素名、または式を表す文字列。",
+      "one_of": [
+        {"id": "millimeter_literal", "description": "mm の数値"},
+        {"id": "variable_reference", "description": "変数要素名"},
+        {"id": "expression", "description": "四則演算などの式"}
+      ],
+      "examples": [
+        {"value": "100.0", "variant": "millimeter_literal", "explanation": "100mm の固定寸法"},
+        {"value": "L1", "variant": "variable_reference", "explanation": "変数要素L1 を参照"},
+        {"value": "L1 / 2.0", "variant": "expression", "explanation": "L1 を半分にした式"}
+      ],
       "source": {
         "text": "■長さ\n  mm単位の数値、変数要素名,式文字列、\n 例) \"100.0\" , \"L1\", \"L1 / 2.0\""
       }
     },
     {
       "name": "角度",
-      "description": "度(°)単位の数値、変数要素名、または式を表す文字列。",
-      "examples": ["30.0", "Angle1", "Angle1 * 0.2"],
       "canonical_type": "string",
-      "one_of": ["degree_literal", "variable_reference", "expression"],
+      "description": "度(°)単位の数値、変数要素名、または式を表す文字列。",
+      "one_of": [
+        {"id": "degree_literal", "description": "度単位の数値リテラル"},
+        {"id": "variable_reference", "description": "角度変数を参照"},
+        {"id": "expression", "description": "式で角度を計算"}
+      ],
+      "examples": [
+        {"value": "30.0", "variant": "degree_literal", "explanation": "30度を直接指定"},
+        {"value": "Angle1", "variant": "variable_reference", "explanation": "既存角度 Angle1 を参照"},
+        {"value": "Angle1 * 0.2", "variant": "expression", "explanation": "Angle1 の20%を利用"}
+      ],
       "source": {
         "text": "■角度\n  度(°)単位の数値、変数要素名,式文字列、\n 例) \"30.0\" , \"Angle1\" , \"Angle1 * 0.2\""
       }
     },
     {
       "name": "数値",
-      "description": "数値、変数要素名、または式を表す文字列。",
-      "examples": ["3", "N1", "N1*5"],
       "canonical_type": "string",
-      "one_of": ["numeric_literal", "variable_reference", "expression"],
+      "description": "数値、変数要素名、または式を表す文字列。",
+      "one_of": [
+        {"id": "numeric_literal", "description": "数値リテラル"},
+        {"id": "variable_reference", "description": "既存の数値変数"},
+        {"id": "expression", "description": "式で数値を指定"}
+      ],
+      "examples": [
+        {"value": "3", "variant": "numeric_literal", "explanation": "数値3を直接指定"},
+        {"value": "N1", "variant": "variable_reference", "explanation": "数値変数 N1 を参照"},
+        {"value": "N1*5", "variant": "expression", "explanation": "N1 を5倍する式"}
+      ],
       "source": {
         "text": "■数値\n  数値、変数要素名,式文字列、\n 例)  \"3\", \"N1\", \"N1*5\""
       }
     },
     {
       "name": "範囲",
-      "description": "上限、下限の数値をコンマで区切って指定",
-      "examples": ["0.0,1.0", "L1,L2", "-1.0,1.0"],
       "canonical_type": "string",
-      "one_of": ["comma_delimited_range", "variable_reference", "expression"],
+      "description": "上限、下限の数値をコンマで区切って指定",
+      "one_of": [
+        {"id": "comma_delimited_range", "description": "数値リテラルを上下限で指定"},
+        {"id": "variable_reference", "description": "変数名で上下限を指定"}
+      ],
+      "examples": [
+        {"value": "0.0,1.0", "variant": "comma_delimited_range", "explanation": "下限0.0, 上限1.0"},
+        {"value": "L1,L2", "variant": "variable_reference", "explanation": "変数L1, L2で範囲を指定"},
+        {"value": "-1.0,1.0", "variant": "comma_delimited_range", "explanation": "下限-1.0, 上限1.0"}
+      ],
       "source": {
         "text": "■範囲\n  上限、下限の数値をコンマで区切って指定\n 例)  \"0.0,1.0\" ,  \"L1,L2\", \"-1.0,1.0\""
       }
     },
     {
       "name": "点",
-      "description": "モデル座標系の点を表す値。各成分（X, Y, Z（3Dの場合））をコンマで区切って指定します。各成分は数値リテラル、変数参照、または式を使用できます。",
-      "examples": ["100.0,50,0,0.0", "FRM1,0.0,1000.0"],
       "canonical_type": "string",
-      "one_of": ["cartesian_point", "variable_reference", "expression"],
-      "source": {
-        "text": "■点\n   \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定\n  例) \"100.0,50,0,0.0\" , \"FRM1,0.0,1000.0\""
-      }
-    },
-    {
-      "name": "点(2D)",
-      "description": "モデル座標系の点を表す値を指定します。数値リテラルのほか、変数参照や式を利用できます（2D 座標）。",
-      "examples": [
-        "\",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定",
-        "\"100.0,50,0,0.0\"",
-        "\"FRM1,0.0,1000.0\""
+      "alias": ["点(2D)", "点(3D)"],
+      "description": "モデル座標系の点を表す値。2DはX,Y、3DはX,Y,Z を\",\" コンマで区切って区切って長さや変数で指定。",
+      "variants": [
+        {"id":"2d", "description": "X,Y"},
+        {"id":"3d", "description": "X,Y,Z"}
       ],
-      "canonical_type": "string",
-      "one_of": ["cartesian_2d", "variable_reference", "expression"],
-      "source": {
-        "text": "■点\n   \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定\n  例) \"100.0,50,0,0.0\" , \"FRM1,0.0,1000.0\""
-      }
-    },
-    {
-      "name": "点(3D)",
-      "description": "モデル座標系の点を指定します。3DではX,Y,Zの各コンポーネントをコンマで区切って与え、各コンポーネントは数値リテラル、変数参照、または式で指定できます。",
-      "examples": ["\"100.0,50,0,0.0\"", "\"FRM1,0.0,1000.0\""],
-      "canonical_type": "string",
-      "one_of": ["cartesian_3d", "variable_reference", "expression"],
+      "one_of": [
+        {"id": "cartesian", "description": "数値リテラルで座標を指定"},
+        {"id": "variable", "description": "変数で座標を指定"}
+      ],
+      "examples": [
+        {"value":"100.0,50.0","variant":"2d","form":"cartesian","explanation":"2Dの数値例"},
+        {"value":"REF1,0.0","variant":"2d","form":"variable","explanation":"変数REF1を用いた2D座標指定"},
+        {"value":"100.0,50.0,0.0","variant":"3d","form":"cartesian","explanation":"3Dの数値例"},
+        {"value":"REF1,0.0,1000.0","variant":"3d","form":"variable","explanation":"変数REF1を用いた3D座標指定"}
+      ],
       "source": {
         "text": "■点\n   \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定\n  例) \"100.0,50,0,0.0\" , \"FRM1,0.0,1000.0\""
       }
     },
     {
       "name": "方向",
+      "canonical_type": "string",
       "description": "各軸方向は\"+X\",\"-X\",\"+Y\",\"-X\",\"+Z\",\"-Z\"で指定。コンマで区切ってX,Y,Z（3Dの場合）各成分を数値（変数も可）で指定。",
       "examples": ["+X", "-Z", "数値,数値,数値", "変数,変数,変数"],
-      "canonical_type": "string",
       "py_type": "str",
       "source": {
         "text": "■方向\n   〇 各軸方向は\"+X\",\"-X\",\"+Y\",\"-X\",\"+Z\",\"-Z\" で指定\n   〇 \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を数値（変数も可）で指定"
@@ -119,40 +139,41 @@
     },
     {
       "name": "平面",
+      "canonical_type": "string",
       "description": "コンマで区切られた文字列で指定。最初のカラムは必ず「PL」。次のカラムが「O」の場合、その次のカラムにオフセット距離（長さ）を指定。以降は「X」=グローバルYZ平面、「Y」=グローバルZX平面、「Z」=グローバルXY平面。「F」はボディのフェイス指定（要素の項参照）。",
       "examples": [
         "\"PL,Z\" グローバルＸＹ平面",
         "\"PL,O,500.0,X\" グローバルＹＺ平面をＸ方向に500移動させた平面"
       ],
-      "canonical_type": "string",
       "source": {
         "text": "■平面\n  \",\" コンマで区切られた文字列で指定。最初のカラムは必ず\"PL\"\n  次のカラムが\"O\"の場合はその次のカラムにオフセット距離（長さ）を指定\n  以降は\n 〇 \"X\" グローバルＹＺ平面 , \"Y\" グローバルＺＸ平面 , \"Z\" グローバルＸＹ平面\n 〇 \"F\" の場合はボディのフェイスを指定 （要素の項参照）\n\n 例）\"PL,Z\" グローバルＸＹ平面\n    \"PL,O,500.0,X\" グローバルＹＺ平面をＸ方向に500移動させた平面"
       }
     },
     {
       "name": "変数単位",
+      "canonical_type": "string",
       "description": "変数の単位を示す文字列（長さ・角度・数値のいずれかを表す）",
       "examples": [
         "長さ: \"mm\",\"cm\",\"m\",\"in\",\"ft\",\"pt\"",
         "角度: \"deg\",\"rad\"",
         "数値: \"\" (空文字) または \"num\""
       ],
-      "canonical_type": "string",
       "source": {
         "text": "■変数単位\n 長さ \"mm\",\"cm\",\"m\",\"in\",\"ft\",\"pt\"のいずれか\n 角度 \"deg\",\"rad\"のいずれか\n 数値 \"\"(空白),\"num\"のいずれか"
       }
     },
     {
       "name": "要素グループ",
+      "canonical_type": "string",
       "description": "EVO.SHIPの要素グループ名。階層は\"/\"で区切る。",
       "examples": ["A", "A/B", "A/B/C"],
-      "canonical_type": "string",
       "source": {
         "text": "■要素グループ\n  EVO.SHIPの要素グループ名\n 要素グループの階層は\"/\"で区切る"
       }
     },
     {
       "name": "注記スタイル",
+      "canonical_type": "string",
       "description": "EVO.SHIPに設定している注記スタイルの名称",
       "examples": [
         "EVO.SHIPの設定で選択した注記スタイル名が入る。例: \"注記スタイル\": \"<EVO.SHIPで設定されたスタイル名>\""
@@ -163,14 +184,15 @@
     },
     {
       "name": "材料",
-      "description": "EVO.SHIPに設定されている材料の名称。",
       "canonical_type": "string",
+      "description": "EVO.SHIPに設定されている材料の名称。",
       "source": {
         "text": "■材料\n   EVO.SHIPに設定している材料の名称"
       }
     },
     {
       "name": "スイープ方向",
+      "canonical_type": "string",
       "description": "スイープ方向を示すコード（方向の種類を指定）。",
       "examples": [
         "{'value': 'N', 'meaning': '順方向'}",
@@ -179,13 +201,13 @@
         "{'value': '2', 'meaning': '２方向'}",
         "{'value': 'T', 'meaning': '貫通'}"
       ],
-      "canonical_type": "string",
       "source": {
         "text": "■スイープ方向\n \"N\"  順方向\n  \"R\" 反対方向\n  \"B\" 両方向\n  \"2\"  ２方向\n  \"T\"   貫通"
       }
     },
     {
       "name": "厚み付けタイプ",
+      "canonical_type": "string",
       "description": "厚み付けの方向を指定する文字列。",
       "examples": [
         "{'value': '+', 'explanation': '内側'}",
@@ -194,20 +216,19 @@
         "{'value': '2', 'explanation': '２方向'}",
         "{'value': '', 'explanation': '厚み付けしない（空文字）'}"
       ],
-      "canonical_type": "string",
       "source": {
         "text": "■厚み付けタイプ\n \"+\" 内側\n \"-\" 外側\n  \"B\" 両方向\n  \"2\"  ２方向\n  \"\" （空文字）厚み付けしない"
       }
     },
     {
       "name": "モールド位置",
+      "canonical_type": "string",
       "description": "Mold position mapping: \"+\" = ＋側, \"-\" = ー側, \"\" (empty string) = センター",
       "examples": [
         "{'value': '+', 'meaning': '＋側'}",
         "{'value': '-', 'meaning': 'ー側'}",
         "{'value': '', 'meaning': 'センター'}"
       ],
-      "canonical_type": "string",
       "py_type": "str",
       "source": {
         "text": "■モールド位置\n \"+\" ＋側\n \"-\" ー側\n  \"\" （空文字）センター"
@@ -215,31 +236,32 @@
     },
     {
       "name": "オペレーションタイプ （ボディ）",
+      "canonical_type": "string",
       "description": "3つの演算子: \"+\" = 和、\"-\" = 削除、\"*\" = 積。",
       "examples": [
         "{'symbol': '+', 'meaning': '和'}",
         "{'symbol': '-', 'meaning': '削除'}",
         "{'symbol': '*', 'meaning': '積'}"
       ],
-      "canonical_type": "string",
       "source": {
         "text": "■オペレーションタイプ （ボディ）\n \"+\" 和\n \"-\" 削除\n \"*\"  積"
       }
     },
     {
       "name": "関連設定",
+      "canonical_type": "string",
       "description": "値が \"B\" の場合はボディ関連。その他（空白を含む）はフィーチャー関連。",
       "examples": [
         "\"B\" → ボディ関連",
         "空白（''）またはそれ以外の値 → フィーチャー関連"
       ],
-      "canonical_type": "string",
       "source": {
         "text": "■関連設定\n ボディ関連とする場合は\"B\"\n  それ以外（空白含む）はフィーチャー関連"
       }
     },
     {
       "name": "形状タイプ",
+      "canonical_type": "string",
       "description": "EVO.SHIPの部材既定寸法設定ファイルで使用される形状番号。詳細はヘルプ（EVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイル）を参照。",
       "examples": [
         "\"1007\" 平鋼",
@@ -248,24 +270,24 @@
         "\"1120\" 条材端部スカラップA1タイプ",
         "\"1503\" ブラケット2-Bタイプ"
       ],
-      "canonical_type": "string",
       "source": {
         "text": "■形状タイプ\n EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号 (ヘルプのEVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイルの項を\n 参照)\n 例）\"1007\" 平鋼、\"1003\" 不等辺不等厚山形鋼\n      \"1101\" 条材端部Sタイプ 、\"1120\" 条材端部スカラップA1タイプ\n   \"1503\"  ブラケット2-Bタイプ"
       }
     },
     {
       "name": "形状パラメータ",
+      "canonical_type": "string",
       "description": "各形状タイプの寸法値を文字列配列で設定",
       "examples": [
         "不当辺山形鋼(1002)の形状タイプの場合: [\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]"
       ],
-      "canonical_type": "string",
       "source": {
         "text": "■形状パラメータ\n  各形状タイプの寸法値を文字列配列で設定\n  例) 不当辺山形鋼(1002)の形状タイプの場合 [\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]"
       }
     },
     {
       "name": "要素",
+      "canonical_type": "string",
       "description": "モデル内の要素を参照する識別子を受け取ります。受け取り可能な形式は：要素ID（\"ID@...\"）、要素名／要素グループのパス、単一要素を指すラベル、または複数要素を表す文字列配列（板厚面指定やフェイス指定など）。",
       "examples": [
         "ID@d8baafc30be94411a6ab9d6173c1d1dd",
@@ -273,7 +295,6 @@
         "['PLS', 'False', 'False', '0.0', '0.0', '-1.0', 'ID@d8baafc30be94411a6ab9d6173c1d1dd']",
         "ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8"
       ],
-      "canonical_type": "string",
       "one_of": [
         "element_id",
         "element_group",
