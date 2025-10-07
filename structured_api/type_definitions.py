@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import datetime
 import logging
 import os
 from pathlib import Path
@@ -351,6 +352,62 @@ def build_triples(
     return triples
 
 
+def format_triples_extracted(
+    nodes: List[EntityNode],
+    relations: List[Relation],
+    *,
+    sources_name: str,
+) -> Dict[str, Any]:
+    """Produce JSON compatible with the provided extracted_triples schema.
+
+    Structure:
+    {
+      "timestamp": ISO8601,
+      "sources": {
+        <sources_name>: {
+          "triples": [ {source, source_type, label, target, target_type} ... ],
+          "node_properties": { <name>: {type, properties} }
+        }
+      }
+    }
+    """
+    node_by_id: Dict[str, EntityNode] = {n.id: n for n in nodes}
+    # Build triples array
+    triples: List[Dict[str, Any]] = []
+    for rel in relations:
+        src = node_by_id.get(rel.source_id)
+        dst = node_by_id.get(rel.target_id)
+        if not src or not dst:
+            continue
+        triples.append(
+            {
+                "source": src.name,
+                "source_type": src.label,
+                "label": rel.label,
+                "target": dst.name,
+                "target_type": dst.label,
+            }
+        )
+
+    # Build node_properties map keyed by node name
+    node_properties: Dict[str, Any] = {}
+    for n in nodes:
+        node_properties[n.name] = {
+            "type": n.label,
+            "properties": {**(n.properties or {}), "name": n.name},
+        }
+
+    return {
+        "timestamp": datetime.datetime.now().isoformat(),
+        "sources": {
+            sources_name: {
+                "triples": triples,
+                "node_properties": node_properties,
+            }
+        },
+    }
+
+
 def persist_to_chroma(
     documents: List[Document],
     *,
@@ -441,6 +498,17 @@ def parse_args(argv: List[str] | None = None) -> argparse.Namespace:
         type=Path,
         help="ノード/リレーションから導出したトリプルを JSON で保存する出力パス",
     )
+    parser.add_argument(
+        "--export-triples-json-format",
+        choices=["simple", "extracted"],
+        default="simple",
+        help="トリプルJSONの出力形式（simple: フラット三項, extracted: 提示スキーマ）",
+    )
+    parser.add_argument(
+        "--export-triples-sources-name",
+        default="type_definitions",
+        help="extracted 形式の sources 配下で使用する名前",
+    )
     return parser.parse_args(argv)
 
 
@@ -495,11 +563,20 @@ def main(argv: List[str] | None = None) -> None:
     # 任意: トリプルJSONのエクスポート
     if args.export_triples_json:
         try:
-            triples = build_triples(nodes, relations)
             args.export_triples_json.parent.mkdir(parents=True, exist_ok=True)
+            if args.export_triples_json_format == "extracted":
+                payload = format_triples_extracted(
+                    nodes, relations, sources_name=args.export_triples_sources_name
+                )
+            else:
+                payload = build_triples(nodes, relations)
             with args.export_triples_json.open("w", encoding="utf-8") as fp:
-                json.dump(triples, fp, ensure_ascii=False, indent=2)
-            LOGGER.info("トリプルを JSON に出力: %s", args.export_triples_json)
+                json.dump(payload, fp, ensure_ascii=False, indent=2)
+            LOGGER.info(
+                "トリプルを JSON(%s) に出力: %s",
+                args.export_triples_json_format,
+                args.export_triples_json,
+            )
         except Exception as exc:
             LOGGER.error("トリプル JSON 出力に失敗: %s", exc)
     node_count, relation_count = persist_to_neo4j(
