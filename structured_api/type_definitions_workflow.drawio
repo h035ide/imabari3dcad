@@ -1,0 +1,91 @@
+<mxfile host="app.diagrams.net" modified="2025-10-07T08:00:00Z" agent="GPT-5 Codex" version="24.7.1" type="device">
+  <diagram id="workflow" name="type_definitions">
+    <mxGraphModel dx="1280" dy="720" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="start" value="Start" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="loadEnv" value="環境変数読み込み&#10;引数解析&#10;(.env と CLI をロード)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="60" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="validate" value="APIキー / Neo4j情報を検証&#10;必須設定が揃わなければ停止" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="60" width="220" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="loadDefs" value="load_type_definitions()&#10;JSONReaderで型定義を取得し整形" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="720" y="60" width="240" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="buildDocs" value="build_documents()&#10;検索用ドキュメントテキストを生成" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="720" y="190" width="240" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="persistChroma" value="persist_to_chroma()&#10;埋め込み計算し Chroma に永続化" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="720" y="320" width="240" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="buildGraph" value="build_graph_elements()&#10;型定義からノード・リレーションを生成" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="720" y="450" width="240" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="exportDecision" value="トリプルJSON出力?&#10;要求があればエクスポート" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="450" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="exportTriples" value="build_triples() / format_triples_extracted()&#10;外部連携向けに JSON 保存" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="590" width="260" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="persistNeo4j" value="persist_to_neo4j()&#10;Neo4j にノード/エッジを upsert" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="720" y="590" width="240" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="indexDecision" value="PropertyGraphIndex 作成?&#10;オプション指定時のみ" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="720" y="720" width="240" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="indexBuild" value="PropertyGraphIndex.from_graph_documents()&#10;クエリ用プロパティグラフ index を構築" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="720" y="860" width="260" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="end" value="End" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="870" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="edge1" edge="1" source="start" target="loadEnv" style="endArrow=block;html=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge2" edge="1" source="loadEnv" target="validate" style="endArrow=block;html=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge3" edge="1" source="validate" target="loadDefs" style="endArrow=block;html=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge4" edge="1" source="loadDefs" target="buildDocs" style="endArrow=block;html=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge5" edge="1" source="buildDocs" target="persistChroma" style="endArrow=block;html=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge6" edge="1" source="persistChroma" target="buildGraph" style="endArrow=block;html=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge7" edge="1" source="buildGraph" target="exportDecision" style="endArrow=block;html=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge8" value="Yes" edge="1" source="exportDecision" target="exportTriples" style="endArrow=block;html=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge9" value="No" edge="1" source="exportDecision" target="persistNeo4j" style="endArrow=block;html=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge10" edge="1" source="exportTriples" target="persistNeo4j" style="endArrow=block;html=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge11" edge="1" source="persistNeo4j" target="indexDecision" style="endArrow=block;html=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge12" value="Yes" edge="1" source="indexDecision" target="indexBuild" style="endArrow=block;html=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge13" value="No" edge="1" source="indexDecision" target="end" style="endArrow=block;html=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge14" edge="1" source="indexBuild" target="end" style="endArrow=block;html=1;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
