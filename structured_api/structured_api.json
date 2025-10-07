@@ -47,60 +47,40 @@
       "name": "角度",
       "description": "度(°)単位の数値、変数要素名、または式を表す文字列。",
       "examples": ["30.0", "Angle1", "Angle1 * 0.2"],
-      "canonical_type": "angle",
-      "py_type": "str",
+      "canonical_type": "string",
       "one_of": ["degree_literal", "variable_reference", "expression"],
       "source": {
-        "path": "data\\src\\api_arg.txt",
-        "start_line": 22,
-        "end_line": 24,
-        "text": "■角度\n  度(°)単位の数値、変数要素名,式文字列、\n 例) \"30.0\" , \"Angle1\" , \"Angle1 * 0.2\"",
-        "checksum": "77078a0f933ec94b4773dac5bff2cfe7b353909b"
+        "text": "■角度\n  度(°)単位の数値、変数要素名,式文字列、\n 例) \"30.0\" , \"Angle1\" , \"Angle1 * 0.2\""
       }
     },
     {
       "name": "数値",
       "description": "数値、変数要素名、または式を表す文字列。",
       "examples": ["3", "N1", "N1*5"],
-      "canonical_type": "number",
-      "py_type": "str",
+      "canonical_type": "string",
       "one_of": ["numeric_literal", "variable_reference", "expression"],
       "source": {
-        "path": "data\\src\\api_arg.txt",
-        "start_line": 26,
-        "end_line": 28,
-        "text": "■数値\n  数値、変数要素名,式文字列、\n 例)  \"3\", \"N1\", \"N1*5\"",
-        "checksum": "c4ff04063c2de8da73132a2750882613766107c8"
+        "text": "■数値\n  数値、変数要素名,式文字列、\n 例)  \"3\", \"N1\", \"N1*5\""
       }
     },
     {
       "name": "範囲",
       "description": "上限、下限の数値をコンマで区切って指定",
       "examples": ["0.0,1.0", "L1,L2", "-1.0,1.0"],
-      "canonical_type": "range",
-      "py_type": "str",
+      "canonical_type": "string",
       "one_of": ["comma_delimited_range", "variable_reference", "expression"],
       "source": {
-        "path": "data\\src\\api_arg.txt",
-        "start_line": 30,
-        "end_line": 32,
-        "text": "■範囲\n  上限、下限の数値をコンマで区切って指定\n 例)  \"0.0,1.0\" ,  \"L1,L2\", \"-1.0,1.0\"",
-        "checksum": "0d9ea1e5a2e9ef9582a890043af1b2b7e52a14ba"
+        "text": "■範囲\n  上限、下限の数値をコンマで区切って指定\n 例)  \"0.0,1.0\" ,  \"L1,L2\", \"-1.0,1.0\""
       }
     },
     {
       "name": "点",
       "description": "モデル座標系の点を表す値。各成分（X, Y, Z（3Dの場合））をコンマで区切って指定します。各成分は数値リテラル、変数参照、または式を使用できます。",
       "examples": ["100.0,50,0,0.0", "FRM1,0.0,1000.0"],
-      "canonical_type": "point",
-      "py_type": "str",
+      "canonical_type": "string",
       "one_of": ["cartesian_point", "variable_reference", "expression"],
       "source": {
-        "path": "data\\src\\api_arg.txt",
-        "start_line": 34,
-        "end_line": 36,
-        "text": "■点\n   \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定\n  例) \"100.0,50,0,0.0\" , \"FRM1,0.0,1000.0\"",
-        "checksum": "62bff97d59d76892f25e0495255215f3471df3b9"
+        "text": "■点\n   \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定\n  例) \"100.0,50,0,0.0\" , \"FRM1,0.0,1000.0\""
       }
     },
     {
@@ -111,44 +91,30 @@
         "\"100.0,50,0,0.0\"",
         "\"FRM1,0.0,1000.0\""
       ],
-      "canonical_type": "point",
-      "py_type": "str",
+      "canonical_type": "string",
       "one_of": ["cartesian_2d", "variable_reference", "expression"],
       "source": {
-        "path": "data\\src\\api_arg.txt",
-        "start_line": 34,
-        "end_line": 36,
-        "text": "■点\n   \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定\n  例) \"100.0,50,0,0.0\" , \"FRM1,0.0,1000.0\"",
-        "checksum": "62bff97d59d76892f25e0495255215f3471df3b9"
+        "text": "■点\n   \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定\n  例) \"100.0,50,0,0.0\" , \"FRM1,0.0,1000.0\""
       }
     },
     {
       "name": "点(3D)",
       "description": "モデル座標系の点を指定します。3DではX,Y,Zの各コンポーネントをコンマで区切って与え、各コンポーネントは数値リテラル、変数参照、または式で指定できます。",
       "examples": ["\"100.0,50,0,0.0\"", "\"FRM1,0.0,1000.0\""],
-      "canonical_type": "point",
-      "py_type": "str",
+      "canonical_type": "string",
       "one_of": ["cartesian_3d", "variable_reference", "expression"],
       "source": {
-        "path": "data\\src\\api_arg.txt",
-        "start_line": 34,
-        "end_line": 36,
-        "text": "■点\n   \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定\n  例) \"100.0,50,0,0.0\" , \"FRM1,0.0,1000.0\"",
-        "checksum": "62bff97d59d76892f25e0495255215f3471df3b9"
+        "text": "■点\n   \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定\n  例) \"100.0,50,0,0.0\" , \"FRM1,0.0,1000.0\""
       }
     },
     {
       "name": "方向",
       "description": "各軸方向は\"+X\",\"-X\",\"+Y\",\"-X\",\"+Z\",\"-Z\"で指定。コンマで区切ってX,Y,Z（3Dの場合）各成分を数値（変数も可）で指定。",
       "examples": ["+X", "-Z", "数値,数値,数値", "変数,変数,変数"],
-      "canonical_type": "direction",
+      "canonical_type": "string",
       "py_type": "str",
       "source": {
-        "path": "data\\src\\api_arg.txt",
-        "start_line": 38,
-        "end_line": 40,
-        "text": "■方向\n   〇 各軸方向は\"+X\",\"-X\",\"+Y\",\"-X\",\"+Z\",\"-Z\" で指定\n   〇 \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を数値（変数も可）で指定",
-        "checksum": "eb8ff0e75382cab625b7fcf05d4d3012a5a490cd"
+        "text": "■方向\n   〇 各軸方向は\"+X\",\"-X\",\"+Y\",\"-X\",\"+Z\",\"-Z\" で指定\n   〇 \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を数値（変数も可）で指定"
       }
     },
     {
@@ -158,14 +124,9 @@
         "\"PL,Z\" グローバルＸＹ平面",
         "\"PL,O,500.0,X\" グローバルＹＺ平面をＸ方向に500移動させた平面"
       ],
-      "canonical_type": "plane",
-      "py_type": "str",
+      "canonical_type": "string",
       "source": {
-        "path": "data\\src\\api_arg.txt",
-        "start_line": 42,
-        "end_line": 50,
-        "text": "■平面\n  \",\" コンマで区切られた文字列で指定。最初のカラムは必ず\"PL\"\n  次のカラムが\"O\"の場合はその次のカラムにオフセット距離（長さ）を指定\n  以降は\n 〇 \"X\" グローバルＹＺ平面 , \"Y\" グローバルＺＸ平面 , \"Z\" グローバルＸＹ平面\n 〇 \"F\" の場合はボディのフェイスを指定 （要素の項参照）\n\n 例）\"PL,Z\" グローバルＸＹ平面\n    \"PL,O,500.0,X\" グローバルＹＺ平面をＸ方向に500移動させた平面",
-        "checksum": "7b034b5a1a5479ec4ef5c25c6fc97dcc68a5fedb"
+        "text": "■平面\n  \",\" コンマで区切られた文字列で指定。最初のカラムは必ず\"PL\"\n  次のカラムが\"O\"の場合はその次のカラムにオフセット距離（長さ）を指定\n  以降は\n 〇 \"X\" グローバルＹＺ平面 , \"Y\" グローバルＺＸ平面 , \"Z\" グローバルＸＹ平面\n 〇 \"F\" の場合はボディのフェイスを指定 （要素の項参照）\n\n 例）\"PL,Z\" グローバルＸＹ平面\n    \"PL,O,500.0,X\" グローバルＹＺ平面をＸ方向に500移動させた平面"
       }
     },
     {
@@ -176,28 +137,18 @@
         "角度: \"deg\",\"rad\"",
         "数値: \"\" (空文字) または \"num\""
       ],
-      "canonical_type": "unit",
-      "py_type": "str",
+      "canonical_type": "string",
       "source": {
-        "path": "data\\src\\api_arg.txt",
-        "start_line": 52,
-        "end_line": 55,
-        "text": "■変数単位\n 長さ \"mm\",\"cm\",\"m\",\"in\",\"ft\",\"pt\"のいずれか\n 角度 \"deg\",\"rad\"のいずれか\n 数値 \"\"(空白),\"num\"のいずれか",
-        "checksum": "c10321af38ccf3283d9052422925c640ea6b3780"
+        "text": "■変数単位\n 長さ \"mm\",\"cm\",\"m\",\"in\",\"ft\",\"pt\"のいずれか\n 角度 \"deg\",\"rad\"のいずれか\n 数値 \"\"(空白),\"num\"のいずれか"
       }
     },
     {
       "name": "要素グループ",
       "description": "EVO.SHIPの要素グループ名。階層は\"/\"で区切る。",
       "examples": ["A", "A/B", "A/B/C"],
-      "canonical_type": "element_group",
-      "py_type": "str",
+      "canonical_type": "string",
       "source": {
-        "path": "data\\src\\api_arg.txt",
-        "start_line": 57,
-        "end_line": 59,
-        "text": "■要素グループ\n  EVO.SHIPの要素グループ名\n 要素グループの階層は\"/\"で区切る",
-        "checksum": "bc06bc6089bb71f0f06f7c84a6fd75da6a2cacca"
+        "text": "■要素グループ\n  EVO.SHIPの要素グループ名\n 要素グループの階層は\"/\"で区切る"
       }
     },
     {
@@ -207,24 +158,15 @@
         "EVO.SHIPの設定で選択した注記スタイル名が入る。例: \"注記スタイル\": \"<EVO.SHIPで設定されたスタイル名>\""
       ],
       "source": {
-        "path": "data\\src\\api_arg.txt",
-        "start_line": 61,
-        "end_line": 62,
-        "text": "■注記スタイル\n EVO.SHIPに設定している注記スタイルの名称",
-        "checksum": "ec95e604426f4c4fbffc314cd20393a98c131b6a"
+        "text": "■注記スタイル\n EVO.SHIPに設定している注記スタイルの名称"
       }
     },
     {
       "name": "材料",
       "description": "EVO.SHIPに設定されている材料の名称。",
-      "canonical_type": "material",
-      "py_type": "str",
+      "canonical_type": "string",
       "source": {
-        "path": "data\\src\\api_arg.txt",
-        "start_line": 64,
-        "end_line": 65,
-        "text": "■材料\n   EVO.SHIPに設定している材料の名称",
-        "checksum": "2ec34fa9ba7c11e409e12672d60c3d1b42840f77"
+        "text": "■材料\n   EVO.SHIPに設定している材料の名称"
       }
     },
     {
@@ -237,14 +179,9 @@
         "{'value': '2', 'meaning': '２方向'}",
         "{'value': 'T', 'meaning': '貫通'}"
       ],
-      "canonical_type": "direction",
-      "py_type": "str",
+      "canonical_type": "string",
       "source": {
-        "path": "data\\src\\api_arg.txt",
-        "start_line": 67,
-        "end_line": 72,
-        "text": "■スイープ方向\n \"N\"  順方向\n  \"R\" 反対方向\n  \"B\" 両方向\n  \"2\"  ２方向\n  \"T\"   貫通",
-        "checksum": "c4b5b95fcb7d069e0357c327e90f1da8841cead5"
+        "text": "■スイープ方向\n \"N\"  順方向\n  \"R\" 反対方向\n  \"B\" 両方向\n  \"2\"  ２方向\n  \"T\"   貫通"
       }
     },
     {
@@ -257,14 +194,9 @@
         "{'value': '2', 'explanation': '２方向'}",
         "{'value': '', 'explanation': '厚み付けしない（空文字）'}"
       ],
-      "canonical_type": "thicken_type",
-      "py_type": "str",
+      "canonical_type": "string",
       "source": {
-        "path": "data\\src\\api_arg.txt",
-        "start_line": 74,
-        "end_line": 79,
-        "text": "■厚み付けタイプ\n \"+\" 内側\n \"-\" 外側\n  \"B\" 両方向\n  \"2\"  ２方向\n  \"\" （空文字）厚み付けしない",
-        "checksum": "791736a488099da9d1def9b35f2bab2ea56aa1dc"
+        "text": "■厚み付けタイプ\n \"+\" 内側\n \"-\" 外側\n  \"B\" 両方向\n  \"2\"  ２方向\n  \"\" （空文字）厚み付けしない"
       }
     },
     {
@@ -275,14 +207,10 @@
         "{'value': '-', 'meaning': 'ー側'}",
         "{'value': '', 'meaning': 'センター'}"
       ],
-      "canonical_type": "mold_position",
+      "canonical_type": "string",
       "py_type": "str",
       "source": {
-        "path": "data\\src\\api_arg.txt",
-        "start_line": 81,
-        "end_line": 84,
-        "text": "■モールド位置\n \"+\" ＋側\n \"-\" ー側\n  \"\" （空文字）センター",
-        "checksum": "8546298e37b98a0400e9d099428357700ceb2c81"
+        "text": "■モールド位置\n \"+\" ＋側\n \"-\" ー側\n  \"\" （空文字）センター"
       }
     },
     {
@@ -293,14 +221,9 @@
         "{'symbol': '-', 'meaning': '削除'}",
         "{'symbol': '*', 'meaning': '積'}"
       ],
-      "canonical_type": "operation_body",
-      "py_type": "str",
+      "canonical_type": "string",
       "source": {
-        "path": "data\\src\\api_arg.txt",
-        "start_line": 86,
-        "end_line": 89,
-        "text": "■オペレーションタイプ （ボディ）\n \"+\" 和\n \"-\" 削除\n \"*\"  積",
-        "checksum": "44ce3a3f67ab23dc23ba0b558f36d39ed64ee762"
+        "text": "■オペレーションタイプ （ボディ）\n \"+\" 和\n \"-\" 削除\n \"*\"  積"
       }
     },
     {
@@ -310,14 +233,9 @@
         "\"B\" → ボディ関連",
         "空白（''）またはそれ以外の値 → フィーチャー関連"
       ],
-      "canonical_type": "relationship",
-      "py_type": "str",
+      "canonical_type": "string",
       "source": {
-        "path": "data\\src\\api_arg.txt",
-        "start_line": 92,
-        "end_line": 94,
-        "text": "■関連設定\n ボディ関連とする場合は\"B\"\n  それ以外（空白含む）はフィーチャー関連",
-        "checksum": "c22c8ab68b77e259e32b5c2f05b46b1d7040ede1"
+        "text": "■関連設定\n ボディ関連とする場合は\"B\"\n  それ以外（空白含む）はフィーチャー関連"
       }
     },
     {
@@ -330,14 +248,9 @@
         "\"1120\" 条材端部スカラップA1タイプ",
         "\"1503\" ブラケット2-Bタイプ"
       ],
-      "canonical_type": "shape_type",
-      "py_type": "str",
+      "canonical_type": "string",
       "source": {
-        "path": "data\\src\\api_arg.txt",
-        "start_line": 96,
-        "end_line": 101,
-        "text": "■形状タイプ\n EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号 (ヘルプのEVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイルの項を\n 参照)\n 例）\"1007\" 平鋼、\"1003\" 不等辺不等厚山形鋼\n      \"1101\" 条材端部Sタイプ 、\"1120\" 条材端部スカラップA1タイプ\n   \"1503\"  ブラケット2-Bタイプ",
-        "checksum": "657d295f7cac3f4a04e70026318faf5e2e0d277e"
+        "text": "■形状タイプ\n EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号 (ヘルプのEVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイルの項を\n 参照)\n 例）\"1007\" 平鋼、\"1003\" 不等辺不等厚山形鋼\n      \"1101\" 条材端部Sタイプ 、\"1120\" 条材端部スカラップA1タイプ\n   \"1503\"  ブラケット2-Bタイプ"
       }
     },
     {
@@ -346,14 +259,9 @@
       "examples": [
         "不当辺山形鋼(1002)の形状タイプの場合: [\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]"
       ],
-      "canonical_type": "shape_parameter",
-      "py_type": "str",
+      "canonical_type": "string",
       "source": {
-        "path": "data\\src\\api_arg.txt",
-        "start_line": 103,
-        "end_line": 105,
-        "text": "■形状パラメータ\n  各形状タイプの寸法値を文字列配列で設定\n  例) 不当辺山形鋼(1002)の形状タイプの場合 [\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]",
-        "checksum": "a926b7ed1f5aedcd2e2a3b837e07ecb61059573d"
+        "text": "■形状パラメータ\n  各形状タイプの寸法値を文字列配列で設定\n  例) 不当辺山形鋼(1002)の形状タイプの場合 [\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]"
       }
     },
     {
@@ -365,8 +273,7 @@
         "['PLS', 'False', 'False', '0.0', '0.0', '-1.0', 'ID@d8baafc30be94411a6ab9d6173c1d1dd']",
         "ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8"
       ],
-      "canonical_type": "element",
-      "py_type": "str",
+      "canonical_type": "string",
       "one_of": [
         "element_id",
         "element_group",
@@ -374,11 +281,7 @@
         "element_array"
       ],
       "source": {
-        "path": "data\\src\\api_arg.txt",
-        "start_line": 107,
-        "end_line": 137,
-        "text": "■要素\n (複数要素の場合は文字列の配列とする)\n  EVO.SHIPの各要素を指定する\n\n 〇IDで指定\n    EVO.SHIPの要素はユニークなIDを必ずもつのでそのID文字列を\"ID@\"をプレフィックスとして指定\n  例）\"ID@d8baafc30be94411a6ab9d6173c1d1dd\" (d8baafc30be94411a6ab9d6173c1d1ddというIDをもつ要素)\n\n 〇要素名で指定\n  EVO.SHIPの要素名称は重複を許すので、複数見つかった際にどれになるかは不定\n  要素名称はEVO.SHIPの要素グループを指定するのこともできる\n  例）G1という要素グループ配下のG2という要素グループ配下のAという名前の要素の指定\n    G1/G2/A\n\n  〇板ソリッド要素の板厚面を指定（条材ソリッドの場合はウェブ部分）\n  必ず文字列配列で指定\n  配列の最初の要素は\"PLS\"という固定文字列\n  次の配列要素（２番目）は\"True\"か\"False\"で,\"True\"の場合はFace内部穴を削除する\n    次の配列要素（３番目）は常に\"False\" (システムで利用します）\n  その次から３っつの要素（４番目、５番目、６番目）で板厚面のどちら側かを\n  指定するために外側方向（おおよそ）をベクトル指定する\n  最後の要素でソリッド要素を指定する\n    例）[\"PLS\",\"False\",\"False\",\"0.0\",\"0.0\",\"-1.0\",\"ID@d8baafc30be94411a6ab9d6173c1d1dd\"]\n        d8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつソリッド要素（板材)の(0,0,-1)方向を向いている側の面の指定\n\n  〇ソリッドやシート要素のフェイスを指定\n  \",\" コンマで区切られた文字列で指定\n  最初のカラムでソリッドやシート要素のＩＤを指定、次のカラムは固定文字\"F\"、その次のカラムからフェイス上の点の座標値を指定（複数フェイス指定可能）\n  例 \"ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8\"\n      d8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつ要素でそのFace上の座標値が(-10,0.5,2.3)と(-11.0,0.0,4.8)\n   である２つのフェイスを指定",
-        "checksum": "358d6f3d4e390b30aa76b70b3ff59109a86553be"
+        "text": "■要素\n (複数要素の場合は文字列の配列とする)\n  EVO.SHIPの各要素を指定する\n\n 〇IDで指定\n    EVO.SHIPの要素はユニークなIDを必ずもつのでそのID文字列を\"ID@\"をプレフィックスとして指定\n  例）\"ID@d8baafc30be94411a6ab9d6173c1d1dd\" (d8baafc30be94411a6ab9d6173c1d1ddというIDをもつ要素)\n\n 〇要素名で指定\n  EVO.SHIPの要素名称は重複を許すので、複数見つかった際にどれになるかは不定\n  要素名称はEVO.SHIPの要素グループを指定するのこともできる\n  例）G1という要素グループ配下のG2という要素グループ配下のAという名前の要素の指定\n    G1/G2/A\n\n  〇板ソリッド要素の板厚面を指定（条材ソリッドの場合はウェブ部分）\n  必ず文字列配列で指定\n  配列の最初の要素は\"PLS\"という固定文字列\n  次の配列要素（２番目）は\"True\"か\"False\"で,\"True\"の場合はFace内部穴を削除する\n    次の配列要素（３番目）は常に\"False\" (システムで利用します）\n  その次から３っつの要素（４番目、５番目、６番目）で板厚面のどちら側かを\n  指定するために外側方向（おおよそ）をベクトル指定する\n  最後の要素でソリッド要素を指定する\n    例）[\"PLS\",\"False\",\"False\",\"0.0\",\"0.0\",\"-1.0\",\"ID@d8baafc30be94411a6ab9d6173c1d1dd\"]\n        d8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつソリッド要素（板材)の(0,0,-1)方向を向いている側の面の指定\n\n  〇ソリッドやシート要素のフェイスを指定\n  \",\" コンマで区切られた文字列で指定\n  最初のカラムでソリッドやシート要素のＩＤを指定、次のカラムは固定文字\"F\"、その次のカラムからフェイス上の点の座標値を指定（複数フェイス指定可能）\n  例 \"ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8\"\n      d8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつ要素でそのFace上の座標値が(-10,0.5,2.3)と(-11.0,0.0,4.8)\n   である２つのフェイスを指定"
       }
     }
   ],
