@@ -251,6 +251,14 @@ def build_graph_elements(
             )
         )
 
+    def is_regex_pattern(text: str) -> bool:
+        """正規表現パターンかどうかを判定"""
+        if not isinstance(text, str):
+            return False
+        # 正規表現の特徴的な文字列を含むかチェック
+        regex_indicators = ["^", "$", "[", "]", "{", "}", "(", ")", "|", "+", "*", "?"]
+        return any(indicator in text for indicator in regex_indicators)
+
     for index, td in enumerate(definitions):
         name = (td.get("name") or td.get("type_name") or "").strip()
         if not name:
@@ -361,6 +369,20 @@ def build_graph_elements(
                     if alias_match:
                         add_rel(alias_match, "ALIAS_OF_VARIANT", variant_uid)
 
+                # Patternノードの処理
+                pattern = metadata.get("pattern") if metadata else None
+                if pattern:
+                    pattern_str = _to_str(pattern)
+                    if pattern_str:
+                        pattern_uid = f"pattern::{variant_uid}"
+                        add_node(
+                            "Pattern",
+                            pattern_uid,
+                            pattern=pattern_str,
+                            pattern_type="regex" if is_regex_pattern(pattern_str) else "literal",
+                        )
+                        add_rel(variant_uid, "HAS_PATTERN", pattern_uid)
+
                 if value_kind:
                     value_kind_str = _to_str(value_kind)
                     if canonical_meta.get(value_kind_str):
@@ -388,6 +410,23 @@ def build_graph_elements(
                     )
                     add_rel(variant_uid, "HAS_CONSTRAINT", constraint_uid)
 
+                    # ConstraintPropertyノードの処理（個別プロパティ）
+                    for prop_key, prop_value in constraints.items():
+                        if prop_key not in {"kind", "notes", "length", "schema"}:
+                            prop_uid = f"{constraint_uid}::property::{prop_key}"
+                            add_node(
+                                "ConstraintProperty",
+                                prop_uid,
+                                property_name=_to_str(prop_key),
+                                property_value=_to_str(prop_value),
+                                property_type=(
+                                    "string" if isinstance(prop_value, str)
+                                    else "boolean" if isinstance(prop_value, bool)
+                                    else "other"
+                                ),
+                            )
+                            add_rel(constraint_uid, "HAS_PROPERTY", prop_uid)
+
                     schema_items = constraints.get("schema")
                     if isinstance(schema_items, list):
                         for s_idx, raw_item in enumerate(schema_items):
@@ -400,15 +439,37 @@ def build_graph_elements(
                             )
                             add_rel(constraint_uid, "HAS_SCHEMA_ITEM", schema_uid)
 
-                            if isinstance(raw_item, str) and "|" in raw_item:
-                                for enum_chunk in [chunk.strip() for chunk in raw_item.split("|") if chunk.strip()]:
-                                    enum_uid = f"{schema_uid}::enum::{enum_chunk}"
+                            if isinstance(raw_item, str):
+                                # 正規表現パターンの処理
+                                if is_regex_pattern(raw_item):
+                                    regex_uid = f"{schema_uid}::regex"
                                     add_node(
-                                        "EnumerationValue",
-                                        enum_uid,
-                                        value=enum_chunk,
+                                        "RegexPattern",
+                                        regex_uid,
+                                        pattern=raw_item,
+                                        description=f"Schema item {s_idx} regex pattern",
                                     )
-                                    add_rel(schema_uid, "ALLOWS_VALUE", enum_uid)
+                                    add_rel(schema_uid, "HAS_REGEX_PATTERN", regex_uid)
+                                # 列挙値の処理（|で区切られた値）
+                                elif "|" in raw_item:
+                                    for enum_chunk in [chunk.strip() for chunk in raw_item.split("|") if chunk.strip()]:
+                                        enum_uid = f"{schema_uid}::enum::{enum_chunk}"
+                                        add_node(
+                                            "EnumerationValue",
+                                            enum_uid,
+                                            value=enum_chunk,
+                                        )
+                                        add_rel(schema_uid, "ALLOWS_VALUE", enum_uid)
+                                # 単一の固定値
+                                else:
+                                    literal_uid = f"{schema_uid}::literal"
+                                    add_node(
+                                        "LiteralValue",
+                                        literal_uid,
+                                        value=raw_item,
+                                        value_type="string",
+                                    )
+                                    add_rel(schema_uid, "HAS_LITERAL_VALUE", literal_uid)
 
         examples = td.get("examples") or []
         if isinstance(examples, list):
@@ -503,6 +564,10 @@ def persist_to_neo4j(
             "CREATE CONSTRAINT IF NOT EXISTS FOR (n:Example) REQUIRE n.uid IS UNIQUE",
             "CREATE CONSTRAINT IF NOT EXISTS FOR (n:Alias) REQUIRE n.uid IS UNIQUE",
             "CREATE CONSTRAINT IF NOT EXISTS FOR (n:Source) REQUIRE n.uid IS UNIQUE",
+            "CREATE CONSTRAINT IF NOT EXISTS FOR (n:Pattern) REQUIRE n.uid IS UNIQUE",
+            "CREATE CONSTRAINT IF NOT EXISTS FOR (n:ConstraintProperty) REQUIRE n.uid IS UNIQUE",
+            "CREATE CONSTRAINT IF NOT EXISTS FOR (n:RegexPattern) REQUIRE n.uid IS UNIQUE",
+            "CREATE CONSTRAINT IF NOT EXISTS FOR (n:LiteralValue) REQUIRE n.uid IS UNIQUE",
         ]
         for query in constraint_queries:
             sess.run(query)
@@ -517,7 +582,7 @@ def persist_to_neo4j(
                 tag=MANAGED_TAG,
             )
 
-        entity_labels = {"TypeDefinition", "CanonicalType", "Variant"}
+        entity_labels = {"TypeDefinition", "CanonicalType", "Variant", "Pattern", "ConstraintProperty", "RegexPattern"}
 
         node_count = 0
         for node in nodes:
