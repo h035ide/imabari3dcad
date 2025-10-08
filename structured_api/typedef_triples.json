@@ -1,0 +1,2452 @@
+{
+  "nodes": [
+    {
+      "label": "TypeDefinition",
+      "uid": "type::文字列",
+      "props": {
+        "raw_name": "文字列",
+        "canonical_type": "string",
+        "description": "通常の文字列",
+        "raw_json": "{\"name\":\"文字列\",\"canonical_type\":\"string\",\"description\":\"通常の文字列\",\"source\":{\"text\":\"■文字列\\n    通常の文字列\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "CanonicalType",
+      "uid": "canonical::string",
+      "props": {
+        "value": "string",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::文字列::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■文字列\n    通常の文字列",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::浮動小数点",
+      "props": {
+        "raw_name": "浮動小数点",
+        "canonical_type": "float",
+        "description": "通常の数値",
+        "raw_json": "{\"name\":\"浮動小数点\",\"canonical_type\":\"float\",\"description\":\"通常の数値\",\"source\":{\"text\":\"■浮動小数点\\n  通常の数値\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "CanonicalType",
+      "uid": "canonical::float",
+      "props": {
+        "value": "float",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::浮動小数点::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■浮動小数点\n  通常の数値",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::整数",
+      "props": {
+        "raw_name": "整数",
+        "canonical_type": "integer",
+        "description": "通常の数値",
+        "raw_json": "{\"name\":\"整数\",\"canonical_type\":\"integer\",\"description\":\"通常の数値\",\"source\":{\"text\":\"■整数\\n  通常の数値\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "CanonicalType",
+      "uid": "canonical::integer",
+      "props": {
+        "value": "integer",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::整数::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■整数\n  通常の数値",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::bool",
+      "props": {
+        "raw_name": "bool",
+        "canonical_type": "bool",
+        "description": "通常の真偽値",
+        "raw_json": "{\"name\":\"bool\",\"canonical_type\":\"bool\",\"description\":\"通常の真偽値\",\"examples\":[\"True\",\"False\"],\"source\":{\"text\":\"■bool\\n  通常の真偽値 True False\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "CanonicalType",
+      "uid": "canonical::bool",
+      "props": {
+        "value": "bool",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::bool::True",
+      "props": {
+        "value": "True",
+        "value_json": "True",
+        "explanation": "",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::bool::False",
+      "props": {
+        "value": "False",
+        "value_json": "False",
+        "explanation": "",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::bool::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■bool\n  通常の真偽値 True False",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::長さ",
+      "props": {
+        "raw_name": "長さ",
+        "canonical_type": "string",
+        "description": "mm単位の数値、変数要素名、または式を表す文字列。",
+        "raw_json": "{\"name\":\"長さ\",\"canonical_type\":\"string\",\"description\":\"mm単位の数値、変数要素名、または式を表す文字列。\",\"one_of\":[{\"id\":\"millimeter_literal\",\"description\":\"mm の数値\"},{\"id\":\"variable_reference\",\"description\":\"変数要素名\"},{\"id\":\"expression\",\"description\":\"四則演算などの式\"}],\"examples\":[{\"value\":\"100.0\",\"variant\":\"millimeter_literal\",\"explanation\":\"100mm の固定寸法\"},{\"value\":\"L1\",\"variant\":\"variable_reference\",\"explanation\":\"変数要素L1 を参照\"},{\"value\":\"L1 / 2.0\",\"variant\":\"expression\",\"explanation\":\"L1 を半分にした式\"}],\"source\":{\"text\":\"■長さ\\n  mm単位の数値、変数要素名,式文字列、\\n 例) \\\"100.0\\\" , \\\"L1\\\", \\\"L1 / 2.0\\\"\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::長さ::millimeter_literal",
+      "props": {
+        "id": "millimeter_literal",
+        "kind": "one_of",
+        "description": "mm の数値",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::長さ::variable_reference",
+      "props": {
+        "id": "variable_reference",
+        "kind": "one_of",
+        "description": "変数要素名",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::長さ::expression",
+      "props": {
+        "id": "expression",
+        "kind": "one_of",
+        "description": "四則演算などの式",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::長さ::100.0",
+      "props": {
+        "value": "100.0",
+        "value_json": "100.0",
+        "explanation": "100mm の固定寸法",
+        "variant": "millimeter_literal",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::長さ::L1",
+      "props": {
+        "value": "L1",
+        "value_json": "L1",
+        "explanation": "変数要素L1 を参照",
+        "variant": "variable_reference",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::長さ::L1 / 2.0",
+      "props": {
+        "value": "L1 / 2.0",
+        "value_json": "L1 / 2.0",
+        "explanation": "L1 を半分にした式",
+        "variant": "expression",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::長さ::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■長さ\n  mm単位の数値、変数要素名,式文字列、\n 例) \"100.0\" , \"L1\", \"L1 / 2.0\"",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::角度",
+      "props": {
+        "raw_name": "角度",
+        "canonical_type": "string",
+        "description": "度(°)単位の数値、変数要素名、または式を表す文字列。",
+        "raw_json": "{\"name\":\"角度\",\"canonical_type\":\"string\",\"description\":\"度(°)単位の数値、変数要素名、または式を表す文字列。\",\"one_of\":[{\"id\":\"degree_literal\",\"description\":\"度単位の数値リテラル\"},{\"id\":\"variable_reference\",\"description\":\"角度変数を参照\"},{\"id\":\"expression\",\"description\":\"式で角度を計算\"}],\"examples\":[{\"value\":\"30.0\",\"variant\":\"degree_literal\",\"explanation\":\"30度を直接指定\"},{\"value\":\"Angle1\",\"variant\":\"variable_reference\",\"explanation\":\"既存角度 Angle1 を参照\"},{\"value\":\"Angle1 * 0.2\",\"variant\":\"expression\",\"explanation\":\"Angle1 の20%を利用\"}],\"source\":{\"text\":\"■角度\\n  度(°)単位の数値、変数要素名,式文字列、\\n 例) \\\"30.0\\\" , \\\"Angle1\\\" , \\\"Angle1 * 0.2\\\"\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::角度::degree_literal",
+      "props": {
+        "id": "degree_literal",
+        "kind": "one_of",
+        "description": "度単位の数値リテラル",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::角度::variable_reference",
+      "props": {
+        "id": "variable_reference",
+        "kind": "one_of",
+        "description": "角度変数を参照",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::角度::expression",
+      "props": {
+        "id": "expression",
+        "kind": "one_of",
+        "description": "式で角度を計算",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::角度::30.0",
+      "props": {
+        "value": "30.0",
+        "value_json": "30.0",
+        "explanation": "30度を直接指定",
+        "variant": "degree_literal",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::角度::Angle1",
+      "props": {
+        "value": "Angle1",
+        "value_json": "Angle1",
+        "explanation": "既存角度 Angle1 を参照",
+        "variant": "variable_reference",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::角度::Angle1 * 0.2",
+      "props": {
+        "value": "Angle1 * 0.2",
+        "value_json": "Angle1 * 0.2",
+        "explanation": "Angle1 の20%を利用",
+        "variant": "expression",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::角度::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■角度\n  度(°)単位の数値、変数要素名,式文字列、\n 例) \"30.0\" , \"Angle1\" , \"Angle1 * 0.2\"",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::数値",
+      "props": {
+        "raw_name": "数値",
+        "canonical_type": "string",
+        "description": "数値、変数要素名、または式を表す文字列。",
+        "raw_json": "{\"name\":\"数値\",\"canonical_type\":\"string\",\"description\":\"数値、変数要素名、または式を表す文字列。\",\"one_of\":[{\"id\":\"numeric_literal\",\"description\":\"数値リテラル\"},{\"id\":\"variable_reference\",\"description\":\"既存の数値変数\"},{\"id\":\"expression\",\"description\":\"式で数値を指定\"}],\"examples\":[{\"value\":\"3\",\"variant\":\"numeric_literal\",\"explanation\":\"数値3を直接指定\"},{\"value\":\"N1\",\"variant\":\"variable_reference\",\"explanation\":\"数値変数 N1 を参照\"},{\"value\":\"N1*5\",\"variant\":\"expression\",\"explanation\":\"N1 を5倍する式\"}],\"source\":{\"text\":\"■数値\\n  数値、変数要素名,式文字列、\\n 例)  \\\"3\\\", \\\"N1\\\", \\\"N1*5\\\"\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::数値::numeric_literal",
+      "props": {
+        "id": "numeric_literal",
+        "kind": "one_of",
+        "description": "数値リテラル",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::数値::variable_reference",
+      "props": {
+        "id": "variable_reference",
+        "kind": "one_of",
+        "description": "既存の数値変数",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::数値::expression",
+      "props": {
+        "id": "expression",
+        "kind": "one_of",
+        "description": "式で数値を指定",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::数値::3",
+      "props": {
+        "value": "3",
+        "value_json": "3",
+        "explanation": "数値3を直接指定",
+        "variant": "numeric_literal",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::数値::N1",
+      "props": {
+        "value": "N1",
+        "value_json": "N1",
+        "explanation": "数値変数 N1 を参照",
+        "variant": "variable_reference",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::数値::N1*5",
+      "props": {
+        "value": "N1*5",
+        "value_json": "N1*5",
+        "explanation": "N1 を5倍する式",
+        "variant": "expression",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::数値::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■数値\n  数値、変数要素名,式文字列、\n 例)  \"3\", \"N1\", \"N1*5\"",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::範囲",
+      "props": {
+        "raw_name": "範囲",
+        "canonical_type": "string",
+        "description": "上限、下限の数値をコンマで区切って指定",
+        "raw_json": "{\"name\":\"範囲\",\"canonical_type\":\"string\",\"description\":\"上限、下限の数値をコンマで区切って指定\",\"one_of\":[{\"id\":\"comma_delimited_range\",\"description\":\"数値リテラルを上下限で指定\"},{\"id\":\"variable_reference\",\"description\":\"変数名で上下限を指定\"}],\"examples\":[{\"value\":\"0.0,1.0\",\"variant\":\"comma_delimited_range\",\"explanation\":\"下限0.0, 上限1.0\"},{\"value\":\"L1,L2\",\"variant\":\"variable_reference\",\"explanation\":\"変数L1, L2で範囲を指定\"},{\"value\":\"-1.0,1.0\",\"variant\":\"comma_delimited_range\",\"explanation\":\"下限-1.0, 上限1.0\"}],\"source\":{\"text\":\"■範囲\\n  上限、下限の数値をコンマで区切って指定\\n 例)  \\\"0.0,1.0\\\" ,  \\\"L1,L2\\\", \\\"-1.0,1.0\\\"\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::範囲::comma_delimited_range",
+      "props": {
+        "id": "comma_delimited_range",
+        "kind": "one_of",
+        "description": "数値リテラルを上下限で指定",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::範囲::variable_reference",
+      "props": {
+        "id": "variable_reference",
+        "kind": "one_of",
+        "description": "変数名で上下限を指定",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::範囲::0.0,1.0",
+      "props": {
+        "value": "0.0,1.0",
+        "value_json": "0.0,1.0",
+        "explanation": "下限0.0, 上限1.0",
+        "variant": "comma_delimited_range",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::範囲::L1,L2",
+      "props": {
+        "value": "L1,L2",
+        "value_json": "L1,L2",
+        "explanation": "変数L1, L2で範囲を指定",
+        "variant": "variable_reference",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::範囲::-1.0,1.0",
+      "props": {
+        "value": "-1.0,1.0",
+        "value_json": "-1.0,1.0",
+        "explanation": "下限-1.0, 上限1.0",
+        "variant": "comma_delimited_range",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::範囲::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■範囲\n  上限、下限の数値をコンマで区切って指定\n 例)  \"0.0,1.0\" ,  \"L1,L2\", \"-1.0,1.0\"",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::点",
+      "props": {
+        "raw_name": "点",
+        "canonical_type": "string",
+        "description": "モデル座標系の点を表す値。2DはX,Y、3DはX,Y,Z を\",\" コンマで区切って区切って長さや変数で指定。",
+        "raw_json": "{\"name\":\"点\",\"canonical_type\":\"string\",\"alias\":[\"点(2D)\",\"点(3D)\"],\"description\":\"モデル座標系の点を表す値。2DはX,Y、3DはX,Y,Z を\\\",\\\" コンマで区切って区切って長さや変数で指定。\",\"variants\":[{\"id\":\"2d\",\"description\":\"X,Y\"},{\"id\":\"3d\",\"description\":\"X,Y,Z\"}],\"examples\":[{\"value\":\"100.0,50.0\",\"variant\":\"2d\",\"explanation\":\"2Dの数値例\"},{\"value\":\"REF1,0.0\",\"variant\":\"2d\",\"explanation\":\"変数REF1を用いた2D座標指定\"},{\"value\":\"100.0,50.0,0.0\",\"variant\":\"3d\",\"explanation\":\"3Dの数値例\"},{\"value\":\"REF1,0.0,1000.0\",\"variant\":\"3d\",\"explanation\":\"変数REF1を用いた3D座標指定\"}],\"source\":{\"text\":\"■点\\n   \\\",\\\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定\\n  例) \\\"100.0,50,0,0.0\\\" , \\\"FRM1,0.0,1000.0\\\"\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::点::2d",
+      "props": {
+        "id": "2d",
+        "kind": "variants",
+        "description": "X,Y",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::点::3d",
+      "props": {
+        "id": "3d",
+        "kind": "variants",
+        "description": "X,Y,Z",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::点::100.0,50.0",
+      "props": {
+        "value": "100.0,50.0",
+        "value_json": "100.0,50.0",
+        "explanation": "2Dの数値例",
+        "variant": "2d",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::点::REF1,0.0",
+      "props": {
+        "value": "REF1,0.0",
+        "value_json": "REF1,0.0",
+        "explanation": "変数REF1を用いた2D座標指定",
+        "variant": "2d",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::点::100.0,50.0,0.0",
+      "props": {
+        "value": "100.0,50.0,0.0",
+        "value_json": "100.0,50.0,0.0",
+        "explanation": "3Dの数値例",
+        "variant": "3d",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::点::REF1,0.0,1000.0",
+      "props": {
+        "value": "REF1,0.0,1000.0",
+        "value_json": "REF1,0.0,1000.0",
+        "explanation": "変数REF1を用いた3D座標指定",
+        "variant": "3d",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::点::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■点\n   \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定\n  例) \"100.0,50,0,0.0\" , \"FRM1,0.0,1000.0\"",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::方向",
+      "props": {
+        "raw_name": "方向",
+        "canonical_type": "string",
+        "description": "各軸方向は\"+X\",\"-X\",\"+Y\",\"-Y\",\"+Z\",\"-Z\"で指定。コンマで区切ってX,Y,Z（3Dの場合）各成分を数値（変数も可）で指定。各成分は数値・変数を許容。",
+        "raw_json": "{\"name\":\"方向\",\"canonical_type\":\"string\",\"description\":\"各軸方向は\\\"+X\\\",\\\"-X\\\",\\\"+Y\\\",\\\"-Y\\\",\\\"+Z\\\",\\\"-Z\\\"で指定。コンマで区切ってX,Y,Z（3Dの場合）各成分を数値（変数も可）で指定。各成分は数値・変数を許容。\",\"variants\":[{\"id\":\"axis\",\"description\":\"軸名で指定（+X など）\"},{\"id\":\"vector2\",\"description\":\"2Dベクトルで指定（x,y）\"},{\"id\":\"vector3\",\"description\":\"3Dベクトルで指定（x,y,z）\"}],\"examples\":[{\"value\":\"+X\",\"variant\":\"axis\",\"explanation\":\"X正方向を指す軸名\"},{\"value\":\"-X\",\"variant\":\"axis\",\"explanation\":\"X負方向を指す軸名\"},{\"value\":\"+Y\",\"variant\":\"axis\",\"explanation\":\"Y正方向を指す軸名\"},{\"value\":\"-Y\",\"variant\":\"axis\",\"explanation\":\"Y負方向を指す軸名\"},{\"value\":\"+Z\",\"variant\":\"axis\",\"explanation\":\"Z正方向を指す軸名\"},{\"value\":\"-Z\",\"variant\":\"axis\",\"explanation\":\"Z負方向を指す軸名\"},{\"value\":\"1.0,0.0\",\"variant\":\"vector2\",\"explanation\":\"2Dの数値ベクトル\"},{\"value\":\"DX,DY\",\"variant\":\"vector2\",\"explanation\":\"2Dの変数ベクトル\"},{\"value\":\"DX,0.0\",\"variant\":\"vector2\",\"explanation\":\"2Dの混在（数値+変数）\"},{\"value\":\"0,0,1\",\"variant\":\"vector3\",\"explanation\":\"3Dの数値ベクトル（Z正方向）\"},{\"value\":\"VX,VY,VZ\",\"variant\":\"vector3\",\"explanation\":\"3Dの変数ベクトル\"},{\"value\":\"VX,0.0,1.0\",\"variant\":\"vector3\",\"explanation\":\"3Dの混在（数値+変数）\"}],\"source\":{\"text\":\"■方向\\n   〇 各軸方向は\\\"+X\\\",\\\"-X\\\",\\\"+Y\\\",\\\"-X\\\",\\\"+Z\\\",\\\"-Z\\\" で指定\\n   〇 \\\",\\\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を数値（変数も可）で指定\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::方向::axis",
+      "props": {
+        "id": "axis",
+        "kind": "variants",
+        "description": "軸名で指定（+X など）",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::方向::vector2",
+      "props": {
+        "id": "vector2",
+        "kind": "variants",
+        "description": "2Dベクトルで指定（x,y）",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::方向::vector3",
+      "props": {
+        "id": "vector3",
+        "kind": "variants",
+        "description": "3Dベクトルで指定（x,y,z）",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::方向::+X",
+      "props": {
+        "value": "+X",
+        "value_json": "+X",
+        "explanation": "X正方向を指す軸名",
+        "variant": "axis",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::方向::-X",
+      "props": {
+        "value": "-X",
+        "value_json": "-X",
+        "explanation": "X負方向を指す軸名",
+        "variant": "axis",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::方向::+Y",
+      "props": {
+        "value": "+Y",
+        "value_json": "+Y",
+        "explanation": "Y正方向を指す軸名",
+        "variant": "axis",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::方向::-Y",
+      "props": {
+        "value": "-Y",
+        "value_json": "-Y",
+        "explanation": "Y負方向を指す軸名",
+        "variant": "axis",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::方向::+Z",
+      "props": {
+        "value": "+Z",
+        "value_json": "+Z",
+        "explanation": "Z正方向を指す軸名",
+        "variant": "axis",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::方向::-Z",
+      "props": {
+        "value": "-Z",
+        "value_json": "-Z",
+        "explanation": "Z負方向を指す軸名",
+        "variant": "axis",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::方向::1.0,0.0",
+      "props": {
+        "value": "1.0,0.0",
+        "value_json": "1.0,0.0",
+        "explanation": "2Dの数値ベクトル",
+        "variant": "vector2",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::方向::DX,DY",
+      "props": {
+        "value": "DX,DY",
+        "value_json": "DX,DY",
+        "explanation": "2Dの変数ベクトル",
+        "variant": "vector2",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::方向::DX,0.0",
+      "props": {
+        "value": "DX,0.0",
+        "value_json": "DX,0.0",
+        "explanation": "2Dの混在（数値+変数）",
+        "variant": "vector2",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::方向::0,0,1",
+      "props": {
+        "value": "0,0,1",
+        "value_json": "0,0,1",
+        "explanation": "3Dの数値ベクトル（Z正方向）",
+        "variant": "vector3",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::方向::VX,VY,VZ",
+      "props": {
+        "value": "VX,VY,VZ",
+        "value_json": "VX,VY,VZ",
+        "explanation": "3Dの変数ベクトル",
+        "variant": "vector3",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::方向::VX,0.0,1.0",
+      "props": {
+        "value": "VX,0.0,1.0",
+        "value_json": "VX,0.0,1.0",
+        "explanation": "3Dの混在（数値+変数）",
+        "variant": "vector3",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::方向::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■方向\n   〇 各軸方向は\"+X\",\"-X\",\"+Y\",\"-X\",\"+Z\",\"-Z\" で指定\n   〇 \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を数値（変数も可）で指定",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::平面",
+      "props": {
+        "raw_name": "平面",
+        "canonical_type": "string",
+        "description": "先頭は必ず\"PL\"。グローバル基準面の場合は \"PL,軸\"（軸はX|Y|Z）で指定する。オフセット距離(長さ)を付ける場合は \"PL,O,オフセット,軸\" を指定。軸の意味は X=グローバルYZ面, Y=グローバルZX面, Z=グローバルXY面。ボディのフェイス基準は \"PL,O,F,フェイス参照\" を用いる。",
+        "raw_json": "{\"name\":\"平面\",\"canonical_type\":\"string\",\"description\":\"先頭は必ず\\\"PL\\\"。グローバル基準面の場合は \\\"PL,軸\\\"（軸はX|Y|Z）で指定する。オフセット距離(長さ)を付ける場合は \\\"PL,O,オフセット,軸\\\" を指定。軸の意味は X=グローバルYZ面, Y=グローバルZX面, Z=グローバルXY面。ボディのフェイス基準は \\\"PL,O,F,フェイス参照\\\" を用いる。\",\"variants\":[{\"id\":\"global_axis\",\"description\":\"グローバル基準面（軸= X|Y|Z、任意でオフセット指定）\"},{\"id\":\"face_ref\",\"description\":\"ボディのフェイス参照で平面を指定（フェイスIDなど）\"}],\"examples\":[{\"value\":\"PL,Z\",\"variant\":\"global_axis\",\"explanation\":\"グローバルXY平面（Z法線）\"},{\"value\":\"PL,X\",\"variant\":\"global_axis\",\"explanation\":\"グローバルYZ平面（X法線）\"},{\"value\":\"PL,O,500.0,X\",\"variant\":\"global_axis\",\"explanation\":\"YZ面を+X方向へ500.0移動（数値オフセット）\"},{\"value\":\"PL,O,OFST,Y\",\"variant\":\"global_axis\",\"explanation\":\"ZX面を+Y方向へOFSTだけ移動（変数オフセット）\"},{\"value\":\"PL,O,F,ID@A1B2C3\",\"variant\":\"face_ref\",\"explanation\":\"フェイスID参照で平面を指定\"},{\"value\":\"PL,O,F,FRM1_FACE_TOP\",\"variant\":\"face_ref\",\"explanation\":\"名前参照でフェイス指定\"}],\"source\":{\"text\":\"■平面\\n  \\\",\\\" コンマで区切られた文字列で指定。最初のカラムは必ず\\\"PL\\\"\\n  次のカラムが\\\"O\\\"の場合はその次のカラムにオフセット距離（長さ）を指定\\n  以降は\\n 〇 \\\"X\\\" グローバルＹＺ平面 , \\\"Y\\\" グローバルＺＸ平面 , \\\"Z\\\" グローバルＸＹ平面\\n 〇 \\\"F\\\" の場合はボディのフェイスを指定 （要素の項参照）\\n\\n 例）\\\"PL,Z\\\" グローバルＸＹ平面\\n    \\\"PL,O,500.0,X\\\" グローバルＹＺ平面をＸ方向に500移動させた平面\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::平面::global_axis",
+      "props": {
+        "id": "global_axis",
+        "kind": "variants",
+        "description": "グローバル基準面（軸= X|Y|Z、任意でオフセット指定）",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::平面::face_ref",
+      "props": {
+        "id": "face_ref",
+        "kind": "variants",
+        "description": "ボディのフェイス参照で平面を指定（フェイスIDなど）",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::平面::PL,Z",
+      "props": {
+        "value": "PL,Z",
+        "value_json": "PL,Z",
+        "explanation": "グローバルXY平面（Z法線）",
+        "variant": "global_axis",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::平面::PL,X",
+      "props": {
+        "value": "PL,X",
+        "value_json": "PL,X",
+        "explanation": "グローバルYZ平面（X法線）",
+        "variant": "global_axis",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::平面::PL,O,500.0,X",
+      "props": {
+        "value": "PL,O,500.0,X",
+        "value_json": "PL,O,500.0,X",
+        "explanation": "YZ面を+X方向へ500.0移動（数値オフセット）",
+        "variant": "global_axis",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::平面::PL,O,OFST,Y",
+      "props": {
+        "value": "PL,O,OFST,Y",
+        "value_json": "PL,O,OFST,Y",
+        "explanation": "ZX面を+Y方向へOFSTだけ移動（変数オフセット）",
+        "variant": "global_axis",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::平面::PL,O,F,ID@A1B2C3",
+      "props": {
+        "value": "PL,O,F,ID@A1B2C3",
+        "value_json": "PL,O,F,ID@A1B2C3",
+        "explanation": "フェイスID参照で平面を指定",
+        "variant": "face_ref",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::平面::PL,O,F,FRM1_FACE_TOP",
+      "props": {
+        "value": "PL,O,F,FRM1_FACE_TOP",
+        "value_json": "PL,O,F,FRM1_FACE_TOP",
+        "explanation": "名前参照でフェイス指定",
+        "variant": "face_ref",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::平面::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■平面\n  \",\" コンマで区切られた文字列で指定。最初のカラムは必ず\"PL\"\n  次のカラムが\"O\"の場合はその次のカラムにオフセット距離（長さ）を指定\n  以降は\n 〇 \"X\" グローバルＹＺ平面 , \"Y\" グローバルＺＸ平面 , \"Z\" グローバルＸＹ平面\n 〇 \"F\" の場合はボディのフェイスを指定 （要素の項参照）\n\n 例）\"PL,Z\" グローバルＸＹ平面\n    \"PL,O,500.0,X\" グローバルＹＺ平面をＸ方向に500移動させた平面",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::変数単位",
+      "props": {
+        "raw_name": "変数単位",
+        "canonical_type": "string",
+        "description": "変数が表す量の単位を示す文字列。長さ・角度・数値（無次元）のいずれかを指定する。数値は空文字（\"\"）または\"num\"で表す。",
+        "raw_json": "{\"name\":\"変数単位\",\"canonical_type\":\"string\",\"description\":\"変数が表す量の単位を示す文字列。長さ・角度・数値（無次元）のいずれかを指定する。数値は空文字（\\\"\\\"）または\\\"num\\\"で表す。\",\"variants\":[{\"id\":\"length\",\"description\":\"長さの単位（mm, cm, m, in, ft, pt）\"},{\"id\":\"angle\",\"description\":\"角度の単位（deg, rad）\"},{\"id\":\"number\",\"description\":\"無次元（空文字 \\\"\\\" または \\\"num\\\"）\"}],\"examples\":[{\"value\":\"mm\",\"variant\":\"length\",\"explanation\":\"長さ（ミリメートル）\"},{\"value\":\"m\",\"variant\":\"length\",\"explanation\":\"長さ（メートル）\"},{\"value\":\"in\",\"variant\":\"length\",\"explanation\":\"長さ（インチ）\"},{\"value\":\"deg\",\"variant\":\"angle\",\"explanation\":\"角度（度）\"},{\"value\":\"rad\",\"variant\":\"angle\",\"explanation\":\"角度（ラジアン）\"},{\"value\":\"\",\"variant\":\"number\",\"explanation\":\"無次元（空文字）\"},{\"value\":\"num\",\"variant\":\"number\",\"explanation\":\"無次元（数値）\"}],\"source\":{\"text\":\"■変数単位\\n 長さ \\\"mm\\\",\\\"cm\\\",\\\"m\\\",\\\"in\\\",\\\"ft\\\",\\\"pt\\\"のいずれか\\n 角度 \\\"deg\\\",\\\"rad\\\"のいずれか\\n 数値 \\\"\\\"(空白),\\\"num\\\"のいずれか\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::変数単位::length",
+      "props": {
+        "id": "length",
+        "kind": "variants",
+        "description": "長さの単位（mm, cm, m, in, ft, pt）",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::変数単位::angle",
+      "props": {
+        "id": "angle",
+        "kind": "variants",
+        "description": "角度の単位（deg, rad）",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::変数単位::number",
+      "props": {
+        "id": "number",
+        "kind": "variants",
+        "description": "無次元（空文字 \"\" または \"num\"）",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::変数単位::mm",
+      "props": {
+        "value": "mm",
+        "value_json": "mm",
+        "explanation": "長さ（ミリメートル）",
+        "variant": "length",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::変数単位::m",
+      "props": {
+        "value": "m",
+        "value_json": "m",
+        "explanation": "長さ（メートル）",
+        "variant": "length",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::変数単位::in",
+      "props": {
+        "value": "in",
+        "value_json": "in",
+        "explanation": "長さ（インチ）",
+        "variant": "length",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::変数単位::deg",
+      "props": {
+        "value": "deg",
+        "value_json": "deg",
+        "explanation": "角度（度）",
+        "variant": "angle",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::変数単位::rad",
+      "props": {
+        "value": "rad",
+        "value_json": "rad",
+        "explanation": "角度（ラジアン）",
+        "variant": "angle",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::変数単位::",
+      "props": {
+        "value": "",
+        "value_json": "",
+        "explanation": "無次元（空文字）",
+        "variant": "number",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::変数単位::num",
+      "props": {
+        "value": "num",
+        "value_json": "num",
+        "explanation": "無次元（数値）",
+        "variant": "number",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::変数単位::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■変数単位\n 長さ \"mm\",\"cm\",\"m\",\"in\",\"ft\",\"pt\"のいずれか\n 角度 \"deg\",\"rad\"のいずれか\n 数値 \"\"(空白),\"num\"のいずれか",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::要素グループ",
+      "props": {
+        "raw_name": "要素グループ",
+        "canonical_type": "string",
+        "description": "EVO.SHIPの要素グループ名。階層は「/」で区切る。",
+        "raw_json": "{\"name\":\"要素グループ\",\"canonical_type\":\"string\",\"description\":\"EVO.SHIPの要素グループ名。階層は「/」で区切る。\",\"examples\":[{\"value\":\"A\",\"explanation\":\"単一のグループ名\"},{\"value\":\"A/B\",\"explanation\":\"2階層のグループ\"}],\"source\":{\"text\":\"■要素グループ\\n  EVO.SHIPの要素グループ名\\n 要素グループの階層は\\\"/\\\"で区切る\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::要素グループ::A",
+      "props": {
+        "value": "A",
+        "value_json": "A",
+        "explanation": "単一のグループ名",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::要素グループ::A/B",
+      "props": {
+        "value": "A/B",
+        "value_json": "A/B",
+        "explanation": "2階層のグループ",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::要素グループ::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■要素グループ\n  EVO.SHIPの要素グループ名\n 要素グループの階層は\"/\"で区切る",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::注記スタイル",
+      "props": {
+        "raw_name": "注記スタイル",
+        "canonical_type": "string",
+        "description": "EVO.SHIPに設定している注記スタイルの名称。",
+        "raw_json": "{\"name\":\"注記スタイル\",\"canonical_type\":\"string\",\"description\":\"EVO.SHIPに設定している注記スタイルの名称。\",\"examples\":[{\"value\":\"<NoteStyleName>\",\"explanation\":\"ユーザが設定した注記スタイル名\"},{\"value\":\"<EVO.SHIPで設定されたスタイル名>\",\"explanation\":\"EVO.SHIPの設定で選択された名称\"}],\"source\":{\"text\":\"■注記スタイル\\n EVO.SHIPに設定している注記スタイルの名称\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::注記スタイル::<NoteStyleName>",
+      "props": {
+        "value": "<NoteStyleName>",
+        "value_json": "<NoteStyleName>",
+        "explanation": "ユーザが設定した注記スタイル名",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::注記スタイル::<EVO.SHIPで設定されたスタイル名>",
+      "props": {
+        "value": "<EVO.SHIPで設定されたスタイル名>",
+        "value_json": "<EVO.SHIPで設定されたスタイル名>",
+        "explanation": "EVO.SHIPの設定で選択された名称",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::注記スタイル::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■注記スタイル\n EVO.SHIPに設定している注記スタイルの名称",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::材料",
+      "props": {
+        "raw_name": "材料",
+        "canonical_type": "string",
+        "description": "EVO.SHIPに設定されている材料の名称。",
+        "raw_json": "{\"name\":\"材料\",\"canonical_type\":\"string\",\"description\":\"EVO.SHIPに設定されている材料の名称。\",\"examples\":[{\"value\":\"<MaterialName>\",\"explanation\":\"EVO.SHIPで設定された材料名\"}],\"source\":{\"text\":\"■材料\\n   EVO.SHIPに設定している材料の名称\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::材料::<MaterialName>",
+      "props": {
+        "value": "<MaterialName>",
+        "value_json": "<MaterialName>",
+        "explanation": "EVO.SHIPで設定された材料名",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::材料::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■材料\n   EVO.SHIPに設定している材料の名称",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::スイープ方向",
+      "props": {
+        "raw_name": "スイープ方向",
+        "canonical_type": "string",
+        "description": "スイープ方向を示すコード（方向の種類を指定）。",
+        "raw_json": "{\"name\":\"スイープ方向\",\"canonical_type\":\"string\",\"description\":\"スイープ方向を示すコード（方向の種類を指定）。\",\"examples\":[{\"value\":\"N\",\"meaning\":\"順方向\"},{\"value\":\"R\",\"meaning\":\"反対方向\"},{\"value\":\"B\",\"meaning\":\"両方向\"},{\"value\":\"2\",\"meaning\":\"２方向\"},{\"value\":\"T\",\"meaning\":\"貫通\"}],\"source\":{\"text\":\"■スイープ方向\\n \\\"N\\\"  順方向\\n  \\\"R\\\" 反対方向\\n  \\\"B\\\" 両方向\\n  \\\"2\\\"  ２方向\\n  \\\"T\\\"   貫通\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::スイープ方向::N",
+      "props": {
+        "value": "N",
+        "value_json": "N",
+        "explanation": "",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::スイープ方向::R",
+      "props": {
+        "value": "R",
+        "value_json": "R",
+        "explanation": "",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::スイープ方向::B",
+      "props": {
+        "value": "B",
+        "value_json": "B",
+        "explanation": "",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::スイープ方向::2",
+      "props": {
+        "value": "2",
+        "value_json": "2",
+        "explanation": "",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::スイープ方向::T",
+      "props": {
+        "value": "T",
+        "value_json": "T",
+        "explanation": "",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::スイープ方向::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■スイープ方向\n \"N\"  順方向\n  \"R\" 反対方向\n  \"B\" 両方向\n  \"2\"  ２方向\n  \"T\"   貫通",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::厚み付けタイプ",
+      "props": {
+        "raw_name": "厚み付けタイプ",
+        "canonical_type": "string",
+        "description": "厚み付けの方向を指定する文字列。",
+        "raw_json": "{\"name\":\"厚み付けタイプ\",\"canonical_type\":\"string\",\"description\":\"厚み付けの方向を指定する文字列。\",\"examples\":[{\"value\":\"+\",\"explanation\":\"内側\"},{\"value\":\"-\",\"explanation\":\"外側\"},{\"value\":\"B\",\"explanation\":\"両方向\"},{\"value\":\"2\",\"explanation\":\"２方向\"},{\"value\":\"\",\"explanation\":\"厚み付けしない（空文字）\"}],\"source\":{\"text\":\"■厚み付けタイプ\\n \\\"+\\\" 内側\\n \\\"-\\\" 外側\\n  \\\"B\\\" 両方向\\n  \\\"2\\\"  ２方向\\n  \\\"\\\" （空文字）厚み付けしない\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::厚み付けタイプ::+",
+      "props": {
+        "value": "+",
+        "value_json": "+",
+        "explanation": "内側",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::厚み付けタイプ::-",
+      "props": {
+        "value": "-",
+        "value_json": "-",
+        "explanation": "外側",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::厚み付けタイプ::B",
+      "props": {
+        "value": "B",
+        "value_json": "B",
+        "explanation": "両方向",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::厚み付けタイプ::2",
+      "props": {
+        "value": "2",
+        "value_json": "2",
+        "explanation": "２方向",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::厚み付けタイプ::",
+      "props": {
+        "value": "",
+        "value_json": "",
+        "explanation": "厚み付けしない（空文字）",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::厚み付けタイプ::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■厚み付けタイプ\n \"+\" 内側\n \"-\" 外側\n  \"B\" 両方向\n  \"2\"  ２方向\n  \"\" （空文字）厚み付けしない",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::モールド位置",
+      "props": {
+        "raw_name": "モールド位置",
+        "canonical_type": "string",
+        "description": "モールド位置の指定。「+」= ＋側、「-」= ー側、空文字 = センター。",
+        "raw_json": "{\"name\":\"モールド位置\",\"canonical_type\":\"string\",\"description\":\"モールド位置の指定。「+」= ＋側、「-」= ー側、空文字 = センター。\",\"examples\":[{\"value\":\"+\",\"meaning\":\"＋側\"},{\"value\":\"-\",\"meaning\":\"ー側\"},{\"value\":\"\",\"meaning\":\"センター（空文字）\"}],\"source\":{\"text\":\"■モールド位置\\n \\\"+\\\" ＋側\\n \\\"-\\\" ー側\\n  \\\"\\\" （空文字）センター\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::モールド位置::+",
+      "props": {
+        "value": "+",
+        "value_json": "+",
+        "explanation": "",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::モールド位置::-",
+      "props": {
+        "value": "-",
+        "value_json": "-",
+        "explanation": "",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::モールド位置::",
+      "props": {
+        "value": "",
+        "value_json": "",
+        "explanation": "",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::モールド位置::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■モールド位置\n \"+\" ＋側\n \"-\" ー側\n  \"\" （空文字）センター",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::オペレーションタイプ （ボディ）",
+      "props": {
+        "raw_name": "オペレーションタイプ （ボディ）",
+        "canonical_type": "string",
+        "description": "ボディ演算の種類。「+」= 和、「-」= 削除、「*」= 積。",
+        "raw_json": "{\"name\":\"オペレーションタイプ （ボディ）\",\"canonical_type\":\"string\",\"description\":\"ボディ演算の種類。「+」= 和、「-」= 削除、「*」= 積。\",\"examples\":[{\"symbol\":\"+\",\"meaning\":\"和\"},{\"symbol\":\"-\",\"meaning\":\"削除\"},{\"symbol\":\"*\",\"meaning\":\"積\"}],\"source\":{\"text\":\"■オペレーションタイプ （ボディ）\\n \\\"+\\\" 和\\n \\\"-\\\" 削除\\n \\\"*\\\"  積\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::オペレーションタイプ （ボディ）::",
+      "props": {
+        "value": "",
+        "value_json": "",
+        "explanation": "",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::オペレーションタイプ （ボディ）::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■オペレーションタイプ （ボディ）\n \"+\" 和\n \"-\" 削除\n \"*\"  積",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::関連設定",
+      "props": {
+        "raw_name": "関連設定",
+        "canonical_type": "string",
+        "description": "関連の種類を指定。値が「B」の場合はボディ関連。それ以外（空白を含む）はフィーチャー関連。",
+        "raw_json": "{\"name\":\"関連設定\",\"canonical_type\":\"string\",\"description\":\"関連の種類を指定。値が「B」の場合はボディ関連。それ以外（空白を含む）はフィーチャー関連。\",\"examples\":[{\"value\":\"B\",\"meaning\":\"ボディ関連\"},{\"value\":\"\",\"meaning\":\"フィーチャー関連（空白）\"}],\"source\":{\"text\":\"■関連設定\\n ボディ関連とする場合は\\\"B\\\"\\n  それ以外（空白含む）はフィーチャー関連\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::関連設定::B",
+      "props": {
+        "value": "B",
+        "value_json": "B",
+        "explanation": "",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::関連設定::",
+      "props": {
+        "value": "",
+        "value_json": "",
+        "explanation": "",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::関連設定::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■関連設定\n ボディ関連とする場合は\"B\"\n  それ以外（空白含む）はフィーチャー関連",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::形状タイプ",
+      "props": {
+        "raw_name": "形状タイプ",
+        "canonical_type": "string",
+        "description": "EVO.SHIPの部材既定寸法設定ファイルで使用される形状番号（文字列）。詳細はヘルプ「EVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイル」を参照。",
+        "raw_json": "{\"name\":\"形状タイプ\",\"canonical_type\":\"string\",\"description\":\"EVO.SHIPの部材既定寸法設定ファイルで使用される形状番号（文字列）。詳細はヘルプ「EVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイル」を参照。\",\"examples\":[{\"value\":\"1007\",\"explanation\":\"平鋼\"},{\"value\":\"1003\",\"explanation\":\"不等辺不等厚山形鋼\"},{\"value\":\"1101\",\"explanation\":\"条材端部Sタイプ\"},{\"value\":\"1120\",\"explanation\":\"条材端部スカラップA1タイプ\"},{\"value\":\"1503\",\"explanation\":\"ブラケット2-Bタイプ\"}],\"source\":{\"text\":\"■形状タイプ\\n EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号 (ヘルプのEVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイルの項を参照)\\n 例）\\\"1007\\\" 平鋼、\\\"1003\\\" 不等辺不等厚山形鋼\\n     \\\"1101\\\" 条材端部Sタイプ 、\\\"1120\\\" 条材端部スカラップA1タイプ\\n     \\\"1503\\\" ブラケット2-Bタイプ\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::形状タイプ::1007",
+      "props": {
+        "value": "1007",
+        "value_json": "1007",
+        "explanation": "平鋼",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::形状タイプ::1003",
+      "props": {
+        "value": "1003",
+        "value_json": "1003",
+        "explanation": "不等辺不等厚山形鋼",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::形状タイプ::1101",
+      "props": {
+        "value": "1101",
+        "value_json": "1101",
+        "explanation": "条材端部Sタイプ",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::形状タイプ::1120",
+      "props": {
+        "value": "1120",
+        "value_json": "1120",
+        "explanation": "条材端部スカラップA1タイプ",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::形状タイプ::1503",
+      "props": {
+        "value": "1503",
+        "value_json": "1503",
+        "explanation": "ブラケット2-Bタイプ",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::形状タイプ::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■形状タイプ\n EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号 (ヘルプのEVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイルの項を参照)\n 例）\"1007\" 平鋼、\"1003\" 不等辺不等厚山形鋼\n     \"1101\" 条材端部Sタイプ 、\"1120\" 条材端部スカラップA1タイプ\n     \"1503\" ブラケット2-Bタイプ",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::形状パラメータ",
+      "props": {
+        "raw_name": "形状パラメータ",
+        "canonical_type": "string[]",
+        "description": "各形状タイプの寸法値を文字列配列で設定する。配列の要素数と並び順は対応する「形状タイプ」に依存し、数値表記の桁や末尾の小数点など原文のフォーマットを保持するため文字列として扱う。",
+        "raw_json": "{\"name\":\"形状パラメータ\",\"canonical_type\":\"string[]\",\"description\":\"各形状タイプの寸法値を文字列配列で設定する。配列の要素数と並び順は対応する「形状タイプ」に依存し、数値表記の桁や末尾の小数点など原文のフォーマットを保持するため文字列として扱う。\",\"examples\":[{\"value\":[\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"],\"shape_type\":\"1002\",\"explanation\":\"不等辺山形鋼(1002)の寸法列\"}],\"source\":{\"text\":\"■形状パラメータ\\n  各形状タイプの寸法値を文字列配列で設定\\n  例) 不当辺山形鋼(1002)の形状タイプの場合 [\\\"150.\\\",\\\"90.\\\",\\\"9.0000000000000018\\\",\\\"12.\\\",\\\"6.\\\"]\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "CanonicalType",
+      "uid": "canonical::string[]",
+      "props": {
+        "value": "string[]",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::形状パラメータ::[\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]",
+      "props": {
+        "value": "[\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]",
+        "value_json": "[\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]",
+        "explanation": "不等辺山形鋼(1002)の寸法列",
+        "variant": "",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::形状パラメータ::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■形状パラメータ\n  各形状タイプの寸法値を文字列配列で設定\n  例) 不当辺山形鋼(1002)の形状タイプの場合 [\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "TypeDefinition",
+      "uid": "type::要素",
+      "props": {
+        "raw_name": "要素",
+        "canonical_type": "string",
+        "description": "モデル内の要素を参照する識別子。次のいずれかの形式を受け付ける：要素ID（\"ID@...\"）、要素名/要素グループのパス、板厚面指定の配列（PLS配列）、フェイス指定のCSV文字列。座標成分は数値または変数で混在可。",
+        "raw_json": "{\"name\":\"要素\",\"canonical_type\":\"string\",\"description\":\"モデル内の要素を参照する識別子。次のいずれかの形式を受け付ける：要素ID（\\\"ID@...\\\"）、要素名/要素グループのパス、板厚面指定の配列（PLS配列）、フェイス指定のCSV文字列。座標成分は数値または変数で混在可。\",\"variants\":[{\"id\":\"element_id\",\"description\":\"ユニークIDで指定（例: ID@<32桁hex>）\",\"value_kind\":\"string\",\"pattern\":\"^ID@[0-9a-fA-F]{32}$\"},{\"id\":\"element_path\",\"description\":\"要素名/要素グループを「/」区切りで指定（重名の場合は不定）\",\"value_kind\":\"string\",\"pattern\":\"^[^/]+(?:/[^/]+)*$\"},{\"id\":\"plate_surface_array\",\"description\":\"板ソリッド要素の板厚面（条材はウェブ）を配列で指定\",\"value_kind\":\"string[]\",\"constraints\":{\"length\":7,\"schema\":[\"PLS\",\"True|False\",\"False\",\"num|var\",\"num|var\",\"num|var\",\"ID@[0-9a-fA-F]{32}\"],\"notes\":\"2番目は内部穴削除フラグ、3番目は固定で\\\"False\\\"。4–6番目は外側方向ベクトル(x,y,z)。\"}},{\"id\":\"face_points_csv\",\"description\":\"ソリッド/シート要素のフェイスをCSVで指定：ID, F, (x1,y1,z1), (x2,y2,z2), ...\",\"value_kind\":\"string\",\"constraints\":{\"prefix\":\"ID@<hex>,F,\",\"coords\":\"以降は3要素の座標タプルを1つ以上（数値/変数、混在可）\",\"triplet_multiple\":true}}],\"examples\":[{\"value\":\"ID@d8baafc30be94411a6ab9d6173c1d1dd\",\"variant\":\"element_id\",\"explanation\":\"ユニークIDで要素を直接指定\"},{\"value\":\"G1/G2/A\",\"variant\":\"element_path\",\"explanation\":\"グループ/名前で指定（重名があると不定）\"},{\"value\":[\"PLS\",\"False\",\"False\",\"0.0\",\"0.0\",\"-1.0\",\"ID@d8baafc30be94411a6ab9d6173c1d1dd\"],\"variant\":\"plate_surface_array\",\"explanation\":\"ID要素の(0,0,-1)側の板厚面を指定\"},{\"value\":\"ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8\",\"variant\":\"face_points_csv\",\"explanation\":\"2点の座標でフェイスを指定（(x,y,z)を複数個）\"}],\"source\":{\"text\":\"■要素\\n (複数要素の場合は文字列の配列とする)\\n  EVO.SHIPの各要素を指定する\\n\\n 〇IDで指定\\n    EVO.SHIPの要素はユニークなIDを必ずもつのでそのID文字列を\\\"ID@\\\"をプレフィックスとして指定\\n  例）\\\"ID@d8baafc30be94411a6ab9d6173c1d1dd\\\" (d8baafc30be94411a6ab9d6173c1d1ddというIDをもつ要素)\\n\\n 〇要素名で指定\\n  EVO.SHIPの要素名称は重複を許すので、複数見つかった際にどれになるかは不定\\n  要素名称はEVO.SHIPの要素グループを指定するのこともできる\\n  例）G1という要素グループ配下のG2という要素グループ配下のAという名前の要素の指定\\n    G1/G2/A\\n\\n  〇板ソリッド要素の板厚面を指定（条材ソリッドの場合はウェブ部分）\\n  必ず文字列配列で指定\\n  配列の最初の要素は\\\"PLS\\\"という固定文字列\\n  次の配列要素（２番目）は\\\"True\\\"か\\\"False\\\"で,\\\"True\\\"の場合はFace内部穴を削除する\\n    次の配列要素（３番目）は常に\\\"False\\\" (システムで利用します）\\n  その次から３っつの要素（４番目、５番目、６番目）で板厚面のどちら側かを\\n  指定するために外側方向（おおよそ）をベクトル指定する\\n  最後の要素でソリッド要素を指定する\\n    例）[\\\"PLS\\\",\\\"False\\\",\\\"False\\\",\\\"0.0\\\",\\\"0.0\\\",\\\"-1.0\\\",\\\"ID@d8baafc30be94411a6ab9d6173c1d1dd\\\"]\\n        d8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつソリッド要素（板材)の(0,0,-1)方向を向いている側の面の指定\\n\\n  〇ソリッドやシート要素のフェイスを指定\\n  \\\",\\\" コンマで区切られた文字列で指定\\n  最初のカラムでソリッドやシート要素のＩＤを指定、次のカラムは固定文字\\\"F\\\"、その次のカラムからフェイス上の点の座標値を指定（複数フェイス指定可能）\\n  例 \\\"ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8\\\"\\n      d8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつ要素でそのFace上の座標値が(-10,0.5,2.3)と(-11.0,0.0,4.8)\\n   である２つのフェイスを指定\",\"path\":\"C:\\\\Users\\\\akiro\\\\workfolder\\\\imabari3dcad\\\\structured_api\\\\type_definitions.json\"}}",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::要素::element_id",
+      "props": {
+        "id": "element_id",
+        "kind": "variants",
+        "description": "ユニークIDで指定（例: ID@<32桁hex>）",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::要素::element_path",
+      "props": {
+        "id": "element_path",
+        "kind": "variants",
+        "description": "要素名/要素グループを「/」区切りで指定（重名の場合は不定）",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::要素::plate_surface_array",
+      "props": {
+        "id": "plate_surface_array",
+        "kind": "variants",
+        "description": "板ソリッド要素の板厚面（条材はウェブ）を配列で指定",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Variant",
+      "uid": "variant::要素::face_points_csv",
+      "props": {
+        "id": "face_points_csv",
+        "kind": "variants",
+        "description": "ソリッド/シート要素のフェイスをCSVで指定：ID, F, (x1,y1,z1), (x2,y2,z2), ...",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::要素::ID@d8baafc30be94411a6ab9d6173c1d1dd",
+      "props": {
+        "value": "ID@d8baafc30be94411a6ab9d6173c1d1dd",
+        "value_json": "ID@d8baafc30be94411a6ab9d6173c1d1dd",
+        "explanation": "ユニークIDで要素を直接指定",
+        "variant": "element_id",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::要素::G1/G2/A",
+      "props": {
+        "value": "G1/G2/A",
+        "value_json": "G1/G2/A",
+        "explanation": "グループ/名前で指定（重名があると不定）",
+        "variant": "element_path",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::要素::[\"PLS\",\"False\",\"False\",\"0.0\",\"0.0\",\"-1.0\",\"ID@d8baafc30be94411a6ab9d6173c1d1dd\"]",
+      "props": {
+        "value": "[\"PLS\",\"False\",\"False\",\"0.0\",\"0.0\",\"-1.0\",\"ID@d8baafc30be94411a6ab9d6173c1d1dd\"]",
+        "value_json": "[\"PLS\",\"False\",\"False\",\"0.0\",\"0.0\",\"-1.0\",\"ID@d8baafc30be94411a6ab9d6173c1d1dd\"]",
+        "explanation": "ID要素の(0,0,-1)側の板厚面を指定",
+        "variant": "plate_surface_array",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Example",
+      "uid": "example::要素::ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8",
+      "props": {
+        "value": "ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8",
+        "value_json": "ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8",
+        "explanation": "2点の座標でフェイスを指定（(x,y,z)を複数個）",
+        "variant": "face_points_csv",
+        "project": "imabari3dcad"
+      }
+    },
+    {
+      "label": "Source",
+      "uid": "source::要素::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {
+        "text": "■要素\n (複数要素の場合は文字列の配列とする)\n  EVO.SHIPの各要素を指定する\n\n 〇IDで指定\n    EVO.SHIPの要素はユニークなIDを必ずもつのでそのID文字列を\"ID@\"をプレフィックスとして指定\n  例）\"ID@d8baafc30be94411a6ab9d6173c1d1dd\" (d8baafc30be94411a6ab9d6173c1d1ddというIDをもつ要素)\n\n 〇要素名で指定\n  EVO.SHIPの要素名称は重複を許すので、複数見つかった際にどれになるかは不定\n  要素名称はEVO.SHIPの要素グループを指定するのこともできる\n  例）G1という要素グループ配下のG2という要素グループ配下のAという名前の要素の指定\n    G1/G2/A\n\n  〇板ソリッド要素の板厚面を指定（条材ソリッドの場合はウェブ部分）\n  必ず文字列配列で指定\n  配列の最初の要素は\"PLS\"という固定文字列\n  次の配列要素（２番目）は\"True\"か\"False\"で,\"True\"の場合はFace内部穴を削除する\n    次の配列要素（３番目）は常に\"False\" (システムで利用します）\n  その次から３っつの要素（４番目、５番目、６番目）で板厚面のどちら側かを\n  指定するために外側方向（おおよそ）をベクトル指定する\n  最後の要素でソリッド要素を指定する\n    例）[\"PLS\",\"False\",\"False\",\"0.0\",\"0.0\",\"-1.0\",\"ID@d8baafc30be94411a6ab9d6173c1d1dd\"]\n        d8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつソリッド要素（板材)の(0,0,-1)方向を向いている側の面の指定\n\n  〇ソリッドやシート要素のフェイスを指定\n  \",\" コンマで区切られた文字列で指定\n  最初のカラムでソリッドやシート要素のＩＤを指定、次のカラムは固定文字\"F\"、その次のカラムからフェイス上の点の座標値を指定（複数フェイス指定可能）\n  例 \"ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8\"\n      d8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつ要素でそのFace上の座標値が(-10,0.5,2.3)と(-11.0,0.0,4.8)\n   である２つのフェイスを指定",
+        "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+        "project": "imabari3dcad"
+      }
+    }
+  ],
+  "relations": [
+    {
+      "src_uid": "type::文字列",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {}
+    },
+    {
+      "src_uid": "type::文字列",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::文字列::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::浮動小数点",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::float",
+      "props": {}
+    },
+    {
+      "src_uid": "type::浮動小数点",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::浮動小数点::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::整数",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::integer",
+      "props": {}
+    },
+    {
+      "src_uid": "type::整数",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::整数::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::bool",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::bool",
+      "props": {}
+    },
+    {
+      "src_uid": "type::bool",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::bool::True",
+      "props": {}
+    },
+    {
+      "src_uid": "type::bool",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::bool::False",
+      "props": {}
+    },
+    {
+      "src_uid": "type::bool",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::bool::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::長さ",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {}
+    },
+    {
+      "src_uid": "type::長さ",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::長さ::millimeter_literal",
+      "props": {}
+    },
+    {
+      "src_uid": "type::長さ",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::長さ::variable_reference",
+      "props": {}
+    },
+    {
+      "src_uid": "type::長さ",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::長さ::expression",
+      "props": {}
+    },
+    {
+      "src_uid": "type::長さ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::長さ::100.0",
+      "props": {}
+    },
+    {
+      "src_uid": "type::長さ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::長さ::L1",
+      "props": {}
+    },
+    {
+      "src_uid": "type::長さ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::長さ::L1 / 2.0",
+      "props": {}
+    },
+    {
+      "src_uid": "type::長さ",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::長さ::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::角度",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {}
+    },
+    {
+      "src_uid": "type::角度",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::角度::degree_literal",
+      "props": {}
+    },
+    {
+      "src_uid": "type::角度",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::角度::variable_reference",
+      "props": {}
+    },
+    {
+      "src_uid": "type::角度",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::角度::expression",
+      "props": {}
+    },
+    {
+      "src_uid": "type::角度",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::角度::30.0",
+      "props": {}
+    },
+    {
+      "src_uid": "type::角度",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::角度::Angle1",
+      "props": {}
+    },
+    {
+      "src_uid": "type::角度",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::角度::Angle1 * 0.2",
+      "props": {}
+    },
+    {
+      "src_uid": "type::角度",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::角度::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::数値",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {}
+    },
+    {
+      "src_uid": "type::数値",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::数値::numeric_literal",
+      "props": {}
+    },
+    {
+      "src_uid": "type::数値",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::数値::variable_reference",
+      "props": {}
+    },
+    {
+      "src_uid": "type::数値",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::数値::expression",
+      "props": {}
+    },
+    {
+      "src_uid": "type::数値",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::数値::3",
+      "props": {}
+    },
+    {
+      "src_uid": "type::数値",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::数値::N1",
+      "props": {}
+    },
+    {
+      "src_uid": "type::数値",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::数値::N1*5",
+      "props": {}
+    },
+    {
+      "src_uid": "type::数値",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::数値::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::範囲",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {}
+    },
+    {
+      "src_uid": "type::範囲",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::範囲::comma_delimited_range",
+      "props": {}
+    },
+    {
+      "src_uid": "type::範囲",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::範囲::variable_reference",
+      "props": {}
+    },
+    {
+      "src_uid": "type::範囲",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::範囲::0.0,1.0",
+      "props": {}
+    },
+    {
+      "src_uid": "type::範囲",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::範囲::L1,L2",
+      "props": {}
+    },
+    {
+      "src_uid": "type::範囲",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::範囲::-1.0,1.0",
+      "props": {}
+    },
+    {
+      "src_uid": "type::範囲",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::範囲::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::点",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {}
+    },
+    {
+      "src_uid": "type::点",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::点::2d",
+      "props": {}
+    },
+    {
+      "src_uid": "type::点",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::点::3d",
+      "props": {}
+    },
+    {
+      "src_uid": "type::点",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::点::100.0,50.0",
+      "props": {}
+    },
+    {
+      "src_uid": "type::点",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::点::REF1,0.0",
+      "props": {}
+    },
+    {
+      "src_uid": "type::点",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::点::100.0,50.0,0.0",
+      "props": {}
+    },
+    {
+      "src_uid": "type::点",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::点::REF1,0.0,1000.0",
+      "props": {}
+    },
+    {
+      "src_uid": "type::点",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::点::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {}
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::方向::axis",
+      "props": {}
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::方向::vector2",
+      "props": {}
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::方向::vector3",
+      "props": {}
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::+X",
+      "props": {}
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::-X",
+      "props": {}
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::+Y",
+      "props": {}
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::-Y",
+      "props": {}
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::+Z",
+      "props": {}
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::-Z",
+      "props": {}
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::1.0,0.0",
+      "props": {}
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::DX,DY",
+      "props": {}
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::DX,0.0",
+      "props": {}
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::0,0,1",
+      "props": {}
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::VX,VY,VZ",
+      "props": {}
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::VX,0.0,1.0",
+      "props": {}
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::方向::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::平面",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {}
+    },
+    {
+      "src_uid": "type::平面",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::平面::global_axis",
+      "props": {}
+    },
+    {
+      "src_uid": "type::平面",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::平面::face_ref",
+      "props": {}
+    },
+    {
+      "src_uid": "type::平面",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::平面::PL,Z",
+      "props": {}
+    },
+    {
+      "src_uid": "type::平面",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::平面::PL,X",
+      "props": {}
+    },
+    {
+      "src_uid": "type::平面",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::平面::PL,O,500.0,X",
+      "props": {}
+    },
+    {
+      "src_uid": "type::平面",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::平面::PL,O,OFST,Y",
+      "props": {}
+    },
+    {
+      "src_uid": "type::平面",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::平面::PL,O,F,ID@A1B2C3",
+      "props": {}
+    },
+    {
+      "src_uid": "type::平面",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::平面::PL,O,F,FRM1_FACE_TOP",
+      "props": {}
+    },
+    {
+      "src_uid": "type::平面",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::平面::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::変数単位",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {}
+    },
+    {
+      "src_uid": "type::変数単位",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::変数単位::length",
+      "props": {}
+    },
+    {
+      "src_uid": "type::変数単位",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::変数単位::angle",
+      "props": {}
+    },
+    {
+      "src_uid": "type::変数単位",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::変数単位::number",
+      "props": {}
+    },
+    {
+      "src_uid": "type::変数単位",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::変数単位::mm",
+      "props": {}
+    },
+    {
+      "src_uid": "type::変数単位",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::変数単位::m",
+      "props": {}
+    },
+    {
+      "src_uid": "type::変数単位",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::変数単位::in",
+      "props": {}
+    },
+    {
+      "src_uid": "type::変数単位",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::変数単位::deg",
+      "props": {}
+    },
+    {
+      "src_uid": "type::変数単位",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::変数単位::rad",
+      "props": {}
+    },
+    {
+      "src_uid": "type::変数単位",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::変数単位::",
+      "props": {}
+    },
+    {
+      "src_uid": "type::変数単位",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::変数単位::num",
+      "props": {}
+    },
+    {
+      "src_uid": "type::変数単位",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::変数単位::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::要素グループ",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {}
+    },
+    {
+      "src_uid": "type::要素グループ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::要素グループ::A",
+      "props": {}
+    },
+    {
+      "src_uid": "type::要素グループ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::要素グループ::A/B",
+      "props": {}
+    },
+    {
+      "src_uid": "type::要素グループ",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::要素グループ::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::注記スタイル",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {}
+    },
+    {
+      "src_uid": "type::注記スタイル",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::注記スタイル::<NoteStyleName>",
+      "props": {}
+    },
+    {
+      "src_uid": "type::注記スタイル",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::注記スタイル::<EVO.SHIPで設定されたスタイル名>",
+      "props": {}
+    },
+    {
+      "src_uid": "type::注記スタイル",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::注記スタイル::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::材料",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {}
+    },
+    {
+      "src_uid": "type::材料",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::材料::<MaterialName>",
+      "props": {}
+    },
+    {
+      "src_uid": "type::材料",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::材料::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::スイープ方向",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {}
+    },
+    {
+      "src_uid": "type::スイープ方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::スイープ方向::N",
+      "props": {}
+    },
+    {
+      "src_uid": "type::スイープ方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::スイープ方向::R",
+      "props": {}
+    },
+    {
+      "src_uid": "type::スイープ方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::スイープ方向::B",
+      "props": {}
+    },
+    {
+      "src_uid": "type::スイープ方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::スイープ方向::2",
+      "props": {}
+    },
+    {
+      "src_uid": "type::スイープ方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::スイープ方向::T",
+      "props": {}
+    },
+    {
+      "src_uid": "type::スイープ方向",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::スイープ方向::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::厚み付けタイプ",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {}
+    },
+    {
+      "src_uid": "type::厚み付けタイプ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::厚み付けタイプ::+",
+      "props": {}
+    },
+    {
+      "src_uid": "type::厚み付けタイプ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::厚み付けタイプ::-",
+      "props": {}
+    },
+    {
+      "src_uid": "type::厚み付けタイプ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::厚み付けタイプ::B",
+      "props": {}
+    },
+    {
+      "src_uid": "type::厚み付けタイプ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::厚み付けタイプ::2",
+      "props": {}
+    },
+    {
+      "src_uid": "type::厚み付けタイプ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::厚み付けタイプ::",
+      "props": {}
+    },
+    {
+      "src_uid": "type::厚み付けタイプ",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::厚み付けタイプ::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::モールド位置",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {}
+    },
+    {
+      "src_uid": "type::モールド位置",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::モールド位置::+",
+      "props": {}
+    },
+    {
+      "src_uid": "type::モールド位置",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::モールド位置::-",
+      "props": {}
+    },
+    {
+      "src_uid": "type::モールド位置",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::モールド位置::",
+      "props": {}
+    },
+    {
+      "src_uid": "type::モールド位置",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::モールド位置::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::オペレーションタイプ （ボディ）",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {}
+    },
+    {
+      "src_uid": "type::オペレーションタイプ （ボディ）",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::オペレーションタイプ （ボディ）::",
+      "props": {}
+    },
+    {
+      "src_uid": "type::オペレーションタイプ （ボディ）",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::オペレーションタイプ （ボディ）::",
+      "props": {}
+    },
+    {
+      "src_uid": "type::オペレーションタイプ （ボディ）",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::オペレーションタイプ （ボディ）::",
+      "props": {}
+    },
+    {
+      "src_uid": "type::オペレーションタイプ （ボディ）",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::オペレーションタイプ （ボディ）::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::関連設定",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {}
+    },
+    {
+      "src_uid": "type::関連設定",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::関連設定::B",
+      "props": {}
+    },
+    {
+      "src_uid": "type::関連設定",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::関連設定::",
+      "props": {}
+    },
+    {
+      "src_uid": "type::関連設定",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::関連設定::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::形状タイプ",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {}
+    },
+    {
+      "src_uid": "type::形状タイプ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::形状タイプ::1007",
+      "props": {}
+    },
+    {
+      "src_uid": "type::形状タイプ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::形状タイプ::1003",
+      "props": {}
+    },
+    {
+      "src_uid": "type::形状タイプ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::形状タイプ::1101",
+      "props": {}
+    },
+    {
+      "src_uid": "type::形状タイプ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::形状タイプ::1120",
+      "props": {}
+    },
+    {
+      "src_uid": "type::形状タイプ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::形状タイプ::1503",
+      "props": {}
+    },
+    {
+      "src_uid": "type::形状タイプ",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::形状タイプ::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::形状パラメータ",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::string[]",
+      "props": {}
+    },
+    {
+      "src_uid": "type::形状パラメータ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::形状パラメータ::[\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]",
+      "props": {}
+    },
+    {
+      "src_uid": "type::形状パラメータ",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::形状パラメータ::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    },
+    {
+      "src_uid": "type::要素",
+      "rel_type": "HAS_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {}
+    },
+    {
+      "src_uid": "type::要素",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::要素::element_id",
+      "props": {}
+    },
+    {
+      "src_uid": "type::要素",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::要素::element_path",
+      "props": {}
+    },
+    {
+      "src_uid": "type::要素",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::要素::plate_surface_array",
+      "props": {}
+    },
+    {
+      "src_uid": "type::要素",
+      "rel_type": "HAS_VARIANT",
+      "dst_uid": "variant::要素::face_points_csv",
+      "props": {}
+    },
+    {
+      "src_uid": "type::要素",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::要素::ID@d8baafc30be94411a6ab9d6173c1d1dd",
+      "props": {}
+    },
+    {
+      "src_uid": "type::要素",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::要素::G1/G2/A",
+      "props": {}
+    },
+    {
+      "src_uid": "type::要素",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::要素::[\"PLS\",\"False\",\"False\",\"0.0\",\"0.0\",\"-1.0\",\"ID@d8baafc30be94411a6ab9d6173c1d1dd\"]",
+      "props": {}
+    },
+    {
+      "src_uid": "type::要素",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::要素::ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8",
+      "props": {}
+    },
+    {
+      "src_uid": "type::要素",
+      "rel_type": "FROM_SOURCE",
+      "dst_uid": "source::要素::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "props": {}
+    }
+  ]
+}
