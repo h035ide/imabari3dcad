@@ -505,12 +505,17 @@ def persist_to_neo4j(
 
         node_count = 0
         for node in nodes:
-            extra_label = ":__Entity__" if add_entity_label else ""
+            label_clause = f":{node.label}"
             sess.run(
-                f"MERGE (n:{node.label}{extra_label} {{uid:$uid}}) SET n += $props",
+                f"MERGE (n{label_clause} {{uid:$uid}}) SET n += $props",
                 uid=node.uid,
                 props=node.props,
             )
+            if add_entity_label:
+                sess.run(
+                    f"MATCH (n{label_clause} {{uid:$uid}}) SET n:__Entity__",
+                    uid=node.uid,
+                )
             node_count += 1
 
         rel_count = 0
