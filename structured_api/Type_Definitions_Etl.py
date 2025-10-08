@@ -27,6 +27,7 @@ import copy
 import json
 import logging
 import sys
+import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -602,28 +603,14 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
         default=None,
         help="canonical_type に付随する Python 型メタ情報の JSON (任意)",
     )
-    parser.add_argument(
-        "--neo4j-uri",
-        type=str,
-        default=None,
-        help="Neo4j URI (bolt://...) または neo4j://",
-    )
-    parser.add_argument(
-        "--neo4j-user",
-        type=str,
-        default=None,
-        help="Neo4j ユーザ名",
-    )
-    parser.add_argument(
-        "--neo4j-password",
-        type=str,
-        default=None,
-        help="Neo4j パスワード",
-    )
+    parser.add_argument("--openai-api-key", default=os.getenv("OPENAI_API_KEY"))
+    parser.add_argument("--neo4j-uri", default=os.getenv("NEO4J_URI"))
+    parser.add_argument("--neo4j-user", default=os.getenv("NEO4J_USERNAME"))
+    parser.add_argument("--neo4j-password", default=os.getenv("NEO4J_PASSWORD"))
     parser.add_argument(
         "--database",
         type=str,
-        default=None,
+        default="demo",
         help="データベース名 (Neo4j 5.x 以上で複数 DB を利用する場合)",
     )
     parser.add_argument(
