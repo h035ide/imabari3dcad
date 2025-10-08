@@ -1,75 +1,38 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-A-style ETL (決め打ち) で JSON の type_definitions を Neo4j のプロパティグラフへ投入するスクリプト。
+type_definitions.json を Neo4j のグラフへ投入し、GraphRAG/LlamaIndex で利活用しやすい
+構造へ正規化する ETL スクリプト。
 
-特徴:
-- LLM/JSONReader に依存せず、JSON を素直に読み込み → ノード/リレーションを明示マッピング
-- 取り込み先は Neo4j（bolt/neo4j/s）を想定（ローカル/クラウドどちらでも可）
-- 取り込み内容をデバッグしやすいように --dry-run / --export-triples-json を用意
-- （任意）--create-property-graph-index で LlamaIndex から GraphStore に接続できるか簡易検証
-- **二重ラベル対応**: 既定で各ノードに `__Entity__` ラベルも付与（--no-entity-label で無効化可）
+主な特徴:
+- JSON を読み込み、型定義・Python 型メタ情報・バリアント制約を複数ノードへ分解
+- CanonicalType を Python の型情報と結び付け、型体系の知識グラフ化を支援
+- Variant の value_kind や制約スキーマ、列挙値をノード化し LLM が参照しやすく整理
+- Source, Alias, Example などの補助情報を保持し、GraphRAG で根拠提示を可能に
+- --dry-run / --export-triples-json で投入内容を検証、--wipe で既存データを安全に削除
 
-使い方（例）:
+利用例:
     uv run --with neo4j ./type_definitions_etl.py \
-      --json-path ./data/type_definitions.json \
+      --json-path ./type_definitions.json \
       --neo4j-uri bolt://localhost:7687 \
       --neo4j-user neo4j \
       --neo4j-password password \
-      --database neo4j \
-      --project imabari3dcad \
-      --export-triples-json ./data/typedef_triples.json
-
-初回は --dry-run で件数だけ確認してから投入するのが安全です。
-
-想定する JSON 形式:
-{
-  "type_definitions": [
-    {
-      "name": "要素",
-      "canonical_type": "string",
-      "description": "...",            # 任意
-      "one_of": [ ... ],                # 任意（list[str|dict]）
-      "variants": [ ... ],              # 任意（list[str|dict]）
-      "examples": [ ... ],              # 任意（list[str|dict]）
-      "source": {                       # 任意
-        "text": "...",
-        "path": "..."
-      }
-    },
-    ...
-  ]
-}
-
-投入するノード種別と関係:
-- (:TypeDefinition {uid, raw_name, canonical_type, description, project, raw_json})
-- (:CanonicalType {uid, value, project})
-- (:Variant {uid, id, kind, description, project})
-- (:Example {uid, value, value_json, explanation, variant, project})
-- (:Source {uid, text, path, project})
-
-- (:TypeDefinition)-[:HAS_CANONICAL_TYPE]->(:CanonicalType)
-- (:TypeDefinition)-[:HAS_VARIANT]->(:Variant)
-- (:TypeDefinition)-[:HAS_EXAMPLE]->(:Example)
-- (:TypeDefinition)-[:FROM_SOURCE]->(:Source)
-
-安全のため、すべてのノードに project プロパティを付与します。--wipe-project を使うと
-その project に属するノード/リレーションのみを削除できます（危険操作）。
+      --database neo4j
 """
 
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 import logging
 import sys
-import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
+
 from dotenv import load_dotenv
 
-# ---- ロギング ----
 LOGGER = logging.getLogger("typedef_etl")
 handler = logging.StreamHandler(sys.stdout)
 formatter = logging.Formatter("[%(levelname)s] %(message)s")
@@ -77,8 +40,57 @@ handler.setFormatter(formatter)
 LOGGER.addHandler(handler)
 LOGGER.setLevel(logging.INFO)
 
+MANAGED_TAG = "type_definitions_etl"
 
-# ---- データモデル ----
+DEFAULT_CANONICAL_META: Dict[str, Dict[str, Any]] = {
+    "string": {
+        "description": "テキスト値を表す基本的な文字列型。",
+        "python_type": {
+            "module": "builtins",
+            "name": "str",
+            "qualname": "str",
+            "description": "Python の Unicode 文字列型。",
+        },
+    },
+    "float": {
+        "description": "浮動小数点値 (double precision)。",
+        "python_type": {
+            "module": "builtins",
+            "name": "float",
+            "qualname": "float",
+            "description": "倍精度の浮動小数点数。",
+        },
+    },
+    "integer": {
+        "description": "符号付き整数値。",
+        "python_type": {
+            "module": "builtins",
+            "name": "int",
+            "qualname": "int",
+            "description": "任意精度整数。",
+        },
+    },
+    "bool": {
+        "description": "真偽値 (True / False)。",
+        "python_type": {
+            "module": "builtins",
+            "name": "bool",
+            "qualname": "bool",
+            "description": "真偽値型。",
+        },
+    },
+    "string[]": {
+        "description": "文字列を要素とする配列/シーケンス。",
+        "python_type": {
+            "module": "typing",
+            "name": "Sequence",
+            "qualname": "typing.Sequence[str]",
+            "description": "文字列を要素とするシーケンス型。",
+        },
+    },
+}
+
+
 @dataclass(frozen=True)
 class Node:
     label: str
@@ -94,11 +106,7 @@ class Relation:
     props: Dict[str, Any] | None = None
 
 
-# ---- ユーティリティ ----
-
-
 def _to_str(value: Any) -> str:
-    """人間可読な文字列化（例: list/dict は JSON 文字列）。"""
     if value is None:
         return ""
     if isinstance(value, (str, int, float, bool)):
@@ -109,20 +117,32 @@ def _to_str(value: Any) -> str:
         return str(value)
 
 
-def _slug(fragment: Any) -> str:
-    """uid 生成のための簡易 slug（ファイルパスや日本語もそのまま許容）。"""
+def _safe_json(value: Any) -> str:
+    try:
+        return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+    except Exception:
+        return _to_str(value)
+
+
+def _normalize_uid(fragment: Any) -> str:
     s = _to_str(fragment)
-    # uid 用に危険な改行やタブだけ潰す
-    return s.replace("", " ").replace("", " ").replace("	", " ")
+    sanitized = (
+        s.replace("\r", " ")
+        .replace("\n", " ")
+        .replace("\t", " ")
+        .strip()
+    )
+    if not sanitized:
+        return "__empty__"
+    return " ".join(sanitized.split())
 
 
-# ---- JSON ロード & 正規化 ----
+def _build_text(description: str, source_text: str) -> str:
+    parts = [part.strip() for part in (description, source_text) if part]
+    return "\n\n".join(parts)
 
 
 def load_type_definitions(json_path: Path) -> List[Dict[str, Any]]:
-    """JSON を素直に読み、type_definitions 配列を返す。
-    各定義に source.path が無ければ json_path を補完する。
-    """
     with json_path.open("r", encoding="utf-8") as fp:
         payload = json.load(fp)
 
@@ -143,139 +163,298 @@ def load_type_definitions(json_path: Path) -> List[Dict[str, Any]]:
     return defs
 
 
-# ---- ノード/リレーション構築 ----
+def load_canonical_meta(path: Optional[Path]) -> Dict[str, Dict[str, Any]]:
+    meta: Dict[str, Dict[str, Any]] = copy.deepcopy(DEFAULT_CANONICAL_META)
+    if not path:
+        return meta
+    if not path.exists():
+        LOGGER.warning("canonical meta ファイルが見つかりません: %s", path)
+        return meta
+
+    with path.open("r", encoding="utf-8") as fp:
+        user_meta = json.load(fp)
+
+    if not isinstance(user_meta, dict):
+        raise ValueError("canonical meta ファイルは JSON object である必要があります")
+
+    for key, value in user_meta.items():
+        if not isinstance(value, dict):
+            continue
+        base = meta.get(key, {})
+        merged = copy.deepcopy(base)
+        merged.update(value)
+        meta[key] = merged
+    return meta
+
+
+def _ensure_canonical_type(
+    *,
+    canonical: str,
+    meta: Dict[str, Dict[str, Any]],
+    add_node,
+    add_rel,
+) -> None:
+    if not canonical:
+        return
+    c_uid = f"canonical::{canonical}"
+    meta_entry = meta.get(canonical, {})
+    add_node(
+        "CanonicalType",
+        c_uid,
+        name=canonical,
+        description=_to_str(meta_entry.get("description", "")),
+    )
+    python_meta = meta_entry.get("python_type")
+    if isinstance(python_meta, dict) and python_meta.get("name"):
+        py_module = python_meta.get("module", "builtins")
+        py_name = python_meta.get("name", "")
+        py_qual = python_meta.get("qualname") or (
+            f"{py_module}.{py_name}" if py_module and py_name else py_name
+        )
+        py_uid = (
+            f"python_type::{py_module}::{py_name}"
+            if py_module
+            else f"python_type::{py_name}"
+        )
+        add_node(
+            "PythonType",
+            py_uid,
+            module=py_module,
+            name=py_name,
+            qualname=py_qual,
+            description=_to_str(python_meta.get("description", "")),
+        )
+        add_rel(c_uid, "MAPS_TO_PYTHON_TYPE", py_uid)
 
 
 def build_graph_elements(
-    definitions: List[Dict[str, Any]], *, project: str
+    definitions: List[Dict[str, Any]], *, canonical_meta: Dict[str, Dict[str, Any]]
 ) -> Tuple[List[Node], List[Relation]]:
     nodes_map: Dict[str, Node] = {}
     rels: List[Relation] = []
 
     def add_node(label: str, uid: str, **props: Any) -> None:
-        uid_s = _slug(uid)
-        props_with_proj = {k: v for k, v in props.items()}
-        props_with_proj["project"] = project
-        node = Node(label=label, uid=uid_s, props=props_with_proj)
-        # 既存なら上書き（同一 uid の集約）
+        uid_s = _normalize_uid(uid)
+        clean_props = {k: v for k, v in props.items() if v is not None}
+        clean_props["managed_tag"] = MANAGED_TAG
+        node = Node(label=label, uid=uid_s, props=clean_props)
         nodes_map[uid_s] = node
 
     def add_rel(src_uid: str, rel_type: str, dst_uid: str, **props: Any) -> None:
+        rel_props = {k: v for k, v in props.items() if v is not None}
+        rel_props.setdefault("managed_tag", MANAGED_TAG)
         rels.append(
             Relation(
-                src_uid=_slug(src_uid),
+                src_uid=_normalize_uid(src_uid),
                 rel_type=rel_type,
-                dst_uid=_slug(dst_uid),
-                props=props or None,
+                dst_uid=_normalize_uid(dst_uid),
+                props=rel_props or None,
             )
         )
 
-    for td in definitions:
-        name = td.get("name") or td.get("type_name")
+    for index, td in enumerate(definitions):
+        name = (td.get("name") or td.get("type_name") or "").strip()
         if not name:
             LOGGER.warning("name の無い型定義をスキップ: %s", td)
             continue
 
-        canonical = td.get("canonical_type", "")
-        description = td.get("description", td.get("desc", ""))
-        raw_json = json.dumps(td, ensure_ascii=False, separators=(",", ":"))
+        canonical = (td.get("canonical_type") or "").strip()
+        description = td.get("description") or td.get("desc") or ""
+        source = td.get("source") or {}
+        source_text = source.get("text", "")
+        source_path = source.get("path", "")
+        raw_json = _safe_json(td)
+        primary_text = _build_text(_to_str(description), _to_str(source_text))
 
-        t_uid = f"type::{name}"
+        td_uid = f"type::{name}"
         add_node(
             "TypeDefinition",
-            t_uid,
-            raw_name=name,
-            canonical_type=_to_str(canonical),
+            td_uid,
+            name=name,
             description=_to_str(description),
+            text=primary_text,
             raw_json=raw_json,
+            position=index,
         )
 
-        # CanonicalType
         if canonical:
-            c_uid = f"canonical::{canonical}"
-            add_node("CanonicalType", c_uid, value=_to_str(canonical))
-            add_rel(t_uid, "HAS_CANONICAL_TYPE", c_uid)
+            _ensure_canonical_type(
+                canonical=canonical,
+                meta=canonical_meta,
+                add_node=add_node,
+                add_rel=add_rel,
+            )
+            add_rel(td_uid, "HAS_TYPE", f"canonical::{canonical}")
 
-        # Variants: one_of / variants の両方に対応
-        for kind_key in ("one_of", "variants"):
-            for v in td.get(kind_key, []) or []:
-                if isinstance(v, dict):
-                    vid = (
-                        v.get("id")
-                        or v.get("variant")
-                        or v.get("value")
-                        or v.get("name")
-                        or _to_str(v)
+        aliases = td.get("alias") or td.get("aliases") or []
+        if isinstance(aliases, (str, int, float)):
+            aliases = [aliases]
+        if isinstance(aliases, list):
+            for alias_idx, alias_value in enumerate(aliases):
+                alias_str = _to_str(alias_value).strip()
+                if not alias_str:
+                    continue
+                alias_uid = f"alias::{name}::{alias_str}"
+                add_node(
+                    "Alias",
+                    alias_uid,
+                    name=alias_str,
+                    origin="type_definition",
+                    position=alias_idx,
+                )
+                add_rel(td_uid, "HAS_ALIAS", alias_uid)
+
+        for origin_key in ("one_of", "variants"):
+            variant_entries = td.get(origin_key) or []
+            if not isinstance(variant_entries, list):
+                continue
+            for v_idx, entry in enumerate(variant_entries):
+                if isinstance(entry, dict):
+                    identifier = (
+                        entry.get("id")
+                        or entry.get("variant")
+                        or entry.get("value")
+                        or entry.get("name")
+                        or _to_str(entry)
                     )
-                    vdesc = v.get("description", v.get("desc", ""))
+                    description_v = entry.get("description") or entry.get("desc") or ""
+                    value_kind = entry.get("value_kind")
+                    constraints = entry.get("constraints") if isinstance(entry.get("constraints"), dict) else None
+                    metadata = {
+                        k: v
+                        for k, v in entry.items()
+                        if k not in {"id", "description", "desc"}
+                    }
                 else:
-                    vid = _to_str(v)
-                    vdesc = ""
-                v_uid = f"variant::{name}::{vid}"
+                    identifier = _to_str(entry)
+                    description_v = ""
+                    value_kind = None
+                    constraints = None
+                    metadata = {"literal": identifier}
+
+                identifier_str = _to_str(identifier)
+                if not identifier_str:
+                    identifier_str = f"variant_{v_idx}"
+                variant_uid = f"variant::{name}::{identifier_str}"
                 add_node(
                     "Variant",
-                    v_uid,
-                    id=_to_str(vid),
-                    kind=kind_key,
-                    description=_to_str(vdesc),
+                    variant_uid,
+                    identifier=identifier_str,
+                    origin=origin_key,
+                    description=_to_str(description_v),
+                    position=v_idx,
+                    metadata_json=_safe_json(metadata) if metadata else None,
                 )
-                add_rel(t_uid, "HAS_VARIANT", v_uid)
+                add_rel(td_uid, "HAS_VARIANT", variant_uid)
 
-        # Examples: 文字列 or dict(value, explanation, variant)
-        for ex in td.get("examples", []) or []:
-            if isinstance(ex, dict):
-                val = ex.get("value")
-                explanation = ex.get("explanation", "")
-                vref = ex.get("variant", "")
-            else:
-                val = ex
-                explanation = ""
-                vref = ""
-            e_uid = f"example::{name}::{_slug(val)}"
+                if value_kind:
+                    value_kind_str = _to_str(value_kind)
+                    value_kind_uid = f"value_kind::{value_kind_str}"
+                    add_node("ValueKind", value_kind_uid, name=value_kind_str)
+                    add_rel(variant_uid, "USES_VALUE_KIND", value_kind_uid)
+                    if canonical_meta.get(value_kind_str):
+                        _ensure_canonical_type(
+                            canonical=value_kind_str,
+                            meta=canonical_meta,
+                            add_node=add_node,
+                            add_rel=add_rel,
+                        )
+                        add_rel(
+                            variant_uid,
+                            "CONSTRAINED_BY_CANONICAL_TYPE",
+                            f"canonical::{value_kind_str}",
+                        )
+
+                if constraints:
+                    constraint_uid = f"constraint::{variant_uid}"
+                    add_node(
+                        "Constraint",
+                        constraint_uid,
+                        kind=_to_str(constraints.get("kind", "structured")),
+                        notes=_to_str(constraints.get("notes", "")),
+                        length=constraints.get("length"),
+                        raw_json=_safe_json(constraints),
+                    )
+                    add_rel(variant_uid, "HAS_CONSTRAINT", constraint_uid)
+
+                    schema_items = constraints.get("schema")
+                    if isinstance(schema_items, list):
+                        for s_idx, raw_item in enumerate(schema_items):
+                            schema_uid = f"{constraint_uid}::schema::{s_idx}"
+                            add_node(
+                                "ConstraintSchemaItem",
+                                schema_uid,
+                                index=s_idx,
+                                value=_to_str(raw_item),
+                            )
+                            add_rel(constraint_uid, "HAS_SCHEMA_ITEM", schema_uid)
+
+                            if isinstance(raw_item, str) and "|" in raw_item:
+                                for enum_chunk in [chunk.strip() for chunk in raw_item.split("|") if chunk.strip()]:
+                                    enum_uid = f"{schema_uid}::enum::{enum_chunk}"
+                                    add_node(
+                                        "EnumerationValue",
+                                        enum_uid,
+                                        value=enum_chunk,
+                                    )
+                                    add_rel(schema_uid, "ALLOWS_VALUE", enum_uid)
+
+        examples = td.get("examples") or []
+        if isinstance(examples, list):
+            for ex_idx, ex in enumerate(examples):
+                if isinstance(ex, dict):
+                    val = ex.get("value")
+                    explanation = ex.get("explanation", "")
+                    variant_ref = ex.get("variant")
+                    metadata = {
+                        k: v
+                        for k, v in ex.items()
+                        if k not in {"value", "explanation", "variant"}
+                    }
+                else:
+                    val = ex
+                    explanation = ""
+                    variant_ref = None
+                    metadata = {}
+
+                ex_uid = f"example::{name}::{ex_idx}"
+                add_node(
+                    "Example",
+                    ex_uid,
+                    value=_to_str(val),
+                    value_json=_safe_json(val),
+                    explanation=_to_str(explanation),
+                    position=ex_idx,
+                    metadata_json=_safe_json(metadata) if metadata else None,
+                )
+                add_rel(td_uid, "HAS_EXAMPLE", ex_uid)
+
+                if variant_ref:
+                    variant_ref_uid = f"variant::{name}::{_to_str(variant_ref)}"
+                    add_rel(ex_uid, "ILLUSTRATES_VARIANT", variant_ref_uid)
+
+        if source_text or source_path:
+            source_uid = f"source::{name}::{_normalize_uid(source_path or 'inline')}"
             add_node(
-                "Example",
-                e_uid,
-                value=_to_str(val),
-                value_json=_to_str(val),
-                explanation=_to_str(explanation),
-                variant=_to_str(vref),
+                "Source",
+                source_uid,
+                text=_to_str(source_text),
+                path=_to_str(source_path),
             )
-            add_rel(t_uid, "HAS_EXAMPLE", e_uid)
-
-        # Source
-        src = td.get("source") or {}
-        if src:
-            s_text = src.get("text", "")
-            s_path = src.get("path", "")
-            s_uid = f"source::{name}::{_slug(s_path) or 'inline'}"
-            add_node("Source", s_uid, text=_to_str(s_text), path=_to_str(s_path))
-            add_rel(t_uid, "FROM_SOURCE", s_uid)
+            add_rel(td_uid, "CITED_FROM", source_uid)
 
     return list(nodes_map.values()), rels
 
 
-# ---- URI 正規化 ----
-
-
 def normalize_neo4j_uri(uri: str) -> str:
-    """bolt/neo4j スキームを強制。例えば "localhost:7687" → "bolt://localhost:7687"。
-    Windows でコピペ時の全角/空白も掃除します。
-    """
     if not uri:
         return uri
-    u = str(uri).strip().replace("　", " ")  # 全角空白除去
-    # 余計な引用符を除去
-    if (u.startswith('"') and u.endswith('"')) or (
-        u.startswith("'") and u.endswith("'")
-    ):
+    u = str(uri).strip().replace("　", " ")
+    if (u.startswith('"') and u.endswith('"')) or (u.startswith("'") and u.endswith("'")):
         u = u[1:-1]
     if "://" not in u:
-        # スキームが無ければ bolt:// を付与
         u = f"bolt://{u}"
     return u
-
-
-# ---- Neo4j への保存 ----
 
 
 def persist_to_neo4j(
@@ -286,94 +465,88 @@ def persist_to_neo4j(
     database: Optional[str],
     nodes: List[Node],
     relations: List[Relation],
-    project: str,
-    wipe_project: bool = False,
+    wipe: bool = False,
     add_entity_label: bool = True,
 ) -> Tuple[int, int]:
-    """Neo4j にノード/リレーションを投入。戻り値は (作成/更新ノード数, 関係数)。"""
     from neo4j import GraphDatabase
 
     driver = GraphDatabase.driver(uri, auth=(username, password))
 
-    with driver.session(database=database) as sess:
-        # インデックス/制約（uid をユニーク）
+    session_kwargs: Dict[str, Any] = {}
+    if database:
+        session_kwargs["database"] = database
+
+    with driver.session(**session_kwargs) as sess:
         constraint_queries = [
-            "CREATE CONSTRAINT IF NOT EXISTS FOR (t:TypeDefinition) REQUIRE t.uid IS UNIQUE",
-            "CREATE CONSTRAINT IF NOT EXISTS FOR (c:CanonicalType) REQUIRE c.uid IS UNIQUE",
-            "CREATE CONSTRAINT IF NOT EXISTS FOR (v:Variant) REQUIRE v.uid IS UNIQUE",
-            "CREATE CONSTRAINT IF NOT EXISTS FOR (e:Example) REQUIRE e.uid IS UNIQUE",
-            "CREATE CONSTRAINT IF NOT EXISTS FOR (s:Source) REQUIRE s.uid IS UNIQUE",
+            "CREATE CONSTRAINT IF NOT EXISTS FOR (n:TypeDefinition) REQUIRE n.uid IS UNIQUE",
+            "CREATE CONSTRAINT IF NOT EXISTS FOR (n:CanonicalType) REQUIRE n.uid IS UNIQUE",
+            "CREATE CONSTRAINT IF NOT EXISTS FOR (n:PythonType) REQUIRE n.uid IS UNIQUE",
+            "CREATE CONSTRAINT IF NOT EXISTS FOR (n:Variant) REQUIRE n.uid IS UNIQUE",
+            "CREATE CONSTRAINT IF NOT EXISTS FOR (n:ValueKind) REQUIRE n.uid IS UNIQUE",
+            "CREATE CONSTRAINT IF NOT EXISTS FOR (n:Constraint) REQUIRE n.uid IS UNIQUE",
+            "CREATE CONSTRAINT IF NOT EXISTS FOR (n:ConstraintSchemaItem) REQUIRE n.uid IS UNIQUE",
+            "CREATE CONSTRAINT IF NOT EXISTS FOR (n:EnumerationValue) REQUIRE n.uid IS UNIQUE",
+            "CREATE CONSTRAINT IF NOT EXISTS FOR (n:Example) REQUIRE n.uid IS UNIQUE",
+            "CREATE CONSTRAINT IF NOT EXISTS FOR (n:Alias) REQUIRE n.uid IS UNIQUE",
+            "CREATE CONSTRAINT IF NOT EXISTS FOR (n:Source) REQUIRE n.uid IS UNIQUE",
         ]
         for query in constraint_queries:
             sess.run(query)
 
-        # 既存プロジェクトに __Entity__ を後付け（必要なら）
-        if add_entity_label:
-            try:
-                res = sess.run(
-                    """
-                    MATCH (n) WHERE n.project = $project AND NOT n:__Entity__
-                    SET n:__Entity__
-                    RETURN count(n) AS affected
-                    """,
-                    project=project,
-                ).single()
-                LOGGER.debug(
-                    "__Entity__ 追加済みノード: %s", res["affected"] if res else 0
-                )
-            except Exception as e:
-                LOGGER.debug("__Entity__ 追加クエリをスキップ: %s", e)
-
-        if wipe_project:
-            LOGGER.warning(
-                "--wipe-project により project=%s のデータを削除します", project
-            )
-            # 関係を含めて該当ノードを一括削除
+        if wipe:
+            LOGGER.warning("--wipe により過去のノード/リレーションを削除します")
             sess.run(
                 """
-                MATCH (n)
-                WHERE n.project = $project
+                MATCH (n {managed_tag: $tag})
                 DETACH DELETE n
                 """,
-                project=project,
+                tag=MANAGED_TAG,
             )
 
-        # ノード投入（MERGE uid, SET props）
         node_count = 0
-        for n in nodes:
-            extra = ":__Entity__" if add_entity_label else ""
-            query = f"MERGE (n:{n.label}{extra} {{uid:$uid}}) SET n += $props RETURN n"
-            sess.run(query, uid=n.uid, props=n.props)
+        for node in nodes:
+            extra_label = ":__Entity__" if add_entity_label else ""
+            sess.run(
+                f"MERGE (n:{node.label}{extra_label} {{uid:$uid}}) SET n += $props",
+                uid=node.uid,
+                props=node.props,
+            )
             node_count += 1
 
-        # リレーション投入
         rel_count = 0
-        for r in relations:
-            query = (
-                "MATCH (a {uid:$src_uid, project:$project}), (b {uid:$dst_uid, project:$project})"
-                "MERGE (a)-[rel:%s]->(b) SET rel += $props RETURN rel" % r.rel_type
-            )
+        for rel in relations:
             sess.run(
-                query,
-                src_uid=r.src_uid,
-                dst_uid=r.dst_uid,
-                props=r.props or {},
-                project=project,
+                (
+                    "MATCH (a {uid:$src_uid}), (b {uid:$dst_uid}) "
+                    f"MERGE (a)-[r:{rel.rel_type}]->(b) SET r += $props"
+                ),
+                src_uid=rel.src_uid,
+                dst_uid=rel.dst_uid,
+                props=rel.props or {"managed_tag": MANAGED_TAG},
             )
             rel_count += 1
 
+        if add_entity_label:
+            sess.run(
+                """
+                MATCH (n {managed_tag: $tag})
+                WHERE n:TypeDefinition OR n:CanonicalType OR n:PythonType OR n:Variant
+                SET n:__Entity__
+                """,
+                tag=MANAGED_TAG,
+            )
+
     driver.close()
     return node_count, rel_count
-
-
-# ---- トリプル JSON のエクスポート（デバッグ用） ----
 
 
 def export_triples_json(
     path: Path, nodes: List[Node], relations: List[Relation]
 ) -> None:
     payload = {
-        "nodes": [{"label": n.label, "uid": n.uid, "props": n.props} for n in nodes],
+        "nodes": [
+            {"label": n.label, "uid": n.uid, "props": n.props} for n in nodes
+        ],
         "relations": [
             {
                 "src_uid": r.src_uid,
@@ -389,105 +562,98 @@ def export_triples_json(
         json.dump(payload, fp, ensure_ascii=False, indent=2)
 
 
-# ---- LlamaIndex の簡易疎通（任意） ----
-
-
 def try_build_property_graph_index(
     uri: str, username: str, password: str, database: Optional[str]
 ) -> None:
-    """LlamaIndex の Neo4jGraphStore に接続できるかの簡易検証（失敗しても処理続行）。"""
     try:
         from llama_index.graph_stores.neo4j import Neo4jGraphStore
 
-        store = None
+        kwargs: Dict[str, Any] = {
+            "uri": uri,
+            "username": username,
+            "password": password,
+        }
+        if database:
+            kwargs["database"] = database
         try:
-            store = Neo4jGraphStore(
-                uri=uri, username=username, password=password, database=database
-            )
+            Neo4jGraphStore(**kwargs)
         except TypeError:
-            # 一部のバージョンは url 引数
-            store = Neo4jGraphStore(
-                url=uri, username=username, password=password, database=database
-            )
-        LOGGER.info("LlamaIndex Neo4jGraphStore に接続できました: %s", type(store))
-    except Exception as e:
-        LOGGER.warning("LlamaIndex の GraphStore 接続はスキップ/失敗しました: %s", e)
-
-
-# ---- CLI ----
-
-# 既存ノードに後付けで __Entity__ ラベルを付ける一括操作（任意で使用）
-ADD_ENTITY_LABEL_CYPHER = """
-    MATCH (n) WHERE n.project = $project AND NOT n:__Entity__
-    SET n:__Entity__
-    RETURN count(n) AS affected
-    """
+            kwargs.pop("uri", None)
+            kwargs["url"] = uri
+            Neo4jGraphStore(**kwargs)
+        LOGGER.info("LlamaIndex Neo4jGraphStore への接続検証に成功しました")
+    except Exception as exc:
+        LOGGER.warning("LlamaIndex GraphStore 接続検証はスキップ/失敗しました: %s", exc)
 
 
 def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
-    p = argparse.ArgumentParser(description="type_definitions.json を Neo4j に ETL")
-    p.add_argument(
+    parser = argparse.ArgumentParser(
+        description="type_definitions.json を Neo4j に投入しグラフを整備"
+    )
+    parser.add_argument(
         "--json-path",
         type=Path,
         default=Path(__file__).with_name("type_definitions.json"),
         help="入力 JSON (type_definitions.json)",
     )
-    p.add_argument(
+    parser.add_argument(
+        "--canonical-meta-path",
+        type=Path,
+        default=None,
+        help="canonical_type に付随する Python 型メタ情報の JSON (任意)",
+    )
+    parser.add_argument(
         "--neo4j-uri",
         type=str,
-        default=os.getenv("NEO4J_URI"),
+        default=None,
         help="Neo4j URI (bolt://...) または neo4j://",
     )
-    p.add_argument(
+    parser.add_argument(
         "--neo4j-user",
         type=str,
-        default=os.getenv("NEO4J_USERNAME"),
+        default=None,
         help="Neo4j ユーザ名",
     )
-    p.add_argument(
+    parser.add_argument(
         "--neo4j-password",
         type=str,
-        default=os.getenv("NEO4J_PASSWORD"),
+        default=None,
         help="Neo4j パスワード",
     )
-    p.add_argument(
+    parser.add_argument(
         "--database",
         type=str,
-        default="demo",
-        help="データベース名（未指定でデフォルト DB）",
+        default=None,
+        help="データベース名 (Neo4j 5.x 以上で複数 DB を利用する場合)",
     )
-    p.add_argument(
-        "--project",
-        type=str,
-        default="type_definitions",
-        help="project ラベル用の論理名（削除等のスコープに使う）",
-    )
-    p.add_argument(
-        "--wipe-project",
-        action="store_true",
-        help="project に属する既存データを削除してから投入（危険）",
-    )
-    p.add_argument(
+    parser.add_argument(
         "--export-triples-json",
         type=Path,
         default=None,
         help="投入前にトリプルを JSON に書き出し",
     )
-    p.add_argument(
-        "--dry-run", action="store_true", help="Neo4j には書き込まず件数だけ確認"
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Neo4j には書き込まず件数のみ確認",
     )
-    p.add_argument(
+    parser.add_argument(
+        "--wipe",
+        action="store_true",
+        help="この ETL が管理する既存ノード/リレーションを削除してから投入",
+    )
+    parser.add_argument(
         "--create-property-graph-index",
         action="store_true",
-        help="LlamaIndex GraphStore への疎通確認を行う",
+        help="LlamaIndex Neo4jGraphStore への疎通確認を行う",
     )
-    p.add_argument(
+    parser.add_argument(
         "--no-entity-label",
         action="store_true",
-        help="ノードに __Entity__ ラベルを付けない（デフォルトは付与）",
+        help="ノードに __Entity__ ラベルを付与しない",
     )
-    p.add_argument("--verbose", action="store_true")
-    return p.parse_args(argv)
+    parser.add_argument("--verbose", action="store_true")
+    return parser.parse_args(argv)
 
 
 def main(argv: Optional[List[str]] = None) -> int:
@@ -500,7 +666,8 @@ def main(argv: Optional[List[str]] = None) -> int:
     definitions = load_type_definitions(args.json_path)
     LOGGER.info("定義の件数: %d", len(definitions))
 
-    nodes, rels = build_graph_elements(definitions, project=args.project)
+    canonical_meta = load_canonical_meta(args.canonical_meta_path)
+    nodes, rels = build_graph_elements(definitions, canonical_meta=canonical_meta)
     add_entity_label = not args.no_entity_label
     LOGGER.info("生成ノード: %d, リレーション: %d", len(nodes), len(rels))
 
@@ -516,9 +683,7 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     neo4j_uri = normalize_neo4j_uri(args.neo4j_uri or "")
     if not neo4j_uri:
-        LOGGER.error(
-            "Neo4j URI が指定されていません (--neo4j-uri か NEO4J_URI を設定してください)"
-        )
+        LOGGER.error("Neo4j URI が指定されていません (--neo4j-uri を設定してください)")
         return 3
 
     if args.dry_run:
@@ -526,20 +691,19 @@ def main(argv: Optional[List[str]] = None) -> int:
     else:
         n_count, r_count = persist_to_neo4j(
             uri=neo4j_uri,
-            username=args.neo4j_user,
-            password=args.neo4j_password,
+            username=args.neo4j_user or "neo4j",
+            password=args.neo4j_password or "neo4j",
             database=args.database,
             nodes=nodes,
             relations=rels,
-            project=args.project,
-            wipe_project=args.wipe_project,
+            wipe=args.wipe,
             add_entity_label=add_entity_label,
         )
         LOGGER.info("Neo4j へ投入完了: ノード %d, リレーション %d", n_count, r_count)
 
     if args.create_property_graph_index:
         try_build_property_graph_index(
-            neo4j_uri, args.neo4j_user, args.neo4j_password, args.database
+            neo4j_uri, args.neo4j_user or "neo4j", args.neo4j_password or "neo4j", args.database
         )
 
     LOGGER.info("完了")
