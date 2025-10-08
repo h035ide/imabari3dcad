@@ -157,8 +157,9 @@ def load_type_definitions(json_path: Path) -> List[Dict[str, Any]]:
         if not isinstance(td, dict):
             continue
         src = td.get("source") if isinstance(td.get("source"), dict) else {}
-        if "path" not in src:
-            src["path"] = str(json_path)
+        if "path" in src:
+            src = copy.deepcopy(src)
+            src.pop("path", None)
         td["source"] = src
         defs.append(td)
     return defs
@@ -199,33 +200,26 @@ def _ensure_canonical_type(
         return
     c_uid = f"canonical::{canonical}"
     meta_entry = meta.get(canonical, {})
-    add_node(
-        "CanonicalType",
-        c_uid,
-        name=canonical,
-        description=_to_str(meta_entry.get("description", "")),
-    )
-    python_meta = meta_entry.get("python_type")
+    python_meta = meta_entry.get("python_type") if isinstance(meta_entry, dict) else None
+    py_module = py_name = py_qual = py_description = None
     if isinstance(python_meta, dict) and python_meta.get("name"):
         py_module = python_meta.get("module", "builtins")
         py_name = python_meta.get("name", "")
         py_qual = python_meta.get("qualname") or (
             f"{py_module}.{py_name}" if py_module and py_name else py_name
         )
-        py_uid = (
-            f"python_type::{py_module}::{py_name}"
-            if py_module
-            else f"python_type::{py_name}"
-        )
-        add_node(
-            "PythonType",
-            py_uid,
-            module=py_module,
-            name=py_name,
-            qualname=py_qual,
-            description=_to_str(python_meta.get("description", "")),
-        )
-        add_rel(c_uid, "MAPS_TO_PYTHON_TYPE", py_uid)
+        py_description = _to_str(python_meta.get("description", ""))
+
+    add_node(
+        "CanonicalType",
+        c_uid,
+        name=canonical,
+        description=_to_str(meta_entry.get("description", "")),
+        python_module=_to_str(py_module) if py_module else None,
+        python_name=_to_str(py_name) if py_name else None,
+        python_qualname=_to_str(py_qual) if py_qual else None,
+        python_description=py_description,
+    )
 
 
 def build_graph_elements(
@@ -234,12 +228,16 @@ def build_graph_elements(
     nodes_map: Dict[str, Node] = {}
     rels: List[Relation] = []
 
+    collection_uid = "type_definitions::collection"
+
     def add_node(label: str, uid: str, **props: Any) -> None:
         uid_s = _normalize_uid(uid)
         clean_props = {k: v for k, v in props.items() if v is not None}
         clean_props["managed_tag"] = MANAGED_TAG
         node = Node(label=label, uid=uid_s, props=clean_props)
         nodes_map[uid_s] = node
+
+    add_node("TypeDefinitions", collection_uid, name="type_definitions")
 
     def add_rel(src_uid: str, rel_type: str, dst_uid: str, **props: Any) -> None:
         rel_props = {k: v for k, v in props.items() if v is not None}
@@ -263,7 +261,7 @@ def build_graph_elements(
         description = td.get("description") or td.get("desc") or ""
         source = td.get("source") or {}
         source_text = source.get("text", "")
-        source_path = source.get("path", "")
+        source_path = source.get("path")
         raw_json = _safe_json(td)
         primary_text = _build_text(_to_str(description), _to_str(source_text))
 
@@ -277,6 +275,7 @@ def build_graph_elements(
             raw_json=raw_json,
             position=index,
         )
+        add_rel(collection_uid, "HAS_TYPE_DEFINITION", td_uid)
 
         if canonical:
             _ensure_canonical_type(
@@ -305,6 +304,7 @@ def build_graph_elements(
                 )
                 add_rel(td_uid, "HAS_ALIAS", alias_uid)
 
+        origin_rel_map = {"one_of": "HAS_ONE_OF", "variants": "HAS_VARIANTS"}
         for origin_key in ("one_of", "variants"):
             variant_entries = td.get(origin_key) or []
             if not isinstance(variant_entries, list):
@@ -346,7 +346,8 @@ def build_graph_elements(
                     position=v_idx,
                     metadata_json=_safe_json(metadata) if metadata else None,
                 )
-                add_rel(td_uid, "HAS_VARIANT", variant_uid)
+                rel_type = origin_rel_map.get(origin_key, "HAS_VARIANT")
+                add_rel(td_uid, rel_type, variant_uid, list_origin=origin_key)
 
                 if value_kind:
                     value_kind_str = _to_str(value_kind)
@@ -436,11 +437,15 @@ def build_graph_elements(
 
         if source_text or source_path:
             source_uid = f"source::{name}::{_normalize_uid(source_path or 'inline')}"
+            source_props = {
+                "text": _to_str(source_text),
+            }
+            if source_path:
+                source_props["path"] = _to_str(source_path)
             add_node(
                 "Source",
                 source_uid,
-                text=_to_str(source_text),
-                path=_to_str(source_path),
+                **source_props,
             )
             add_rel(td_uid, "CITED_FROM", source_uid)
 
@@ -481,7 +486,6 @@ def persist_to_neo4j(
         constraint_queries = [
             "CREATE CONSTRAINT IF NOT EXISTS FOR (n:TypeDefinition) REQUIRE n.uid IS UNIQUE",
             "CREATE CONSTRAINT IF NOT EXISTS FOR (n:CanonicalType) REQUIRE n.uid IS UNIQUE",
-            "CREATE CONSTRAINT IF NOT EXISTS FOR (n:PythonType) REQUIRE n.uid IS UNIQUE",
             "CREATE CONSTRAINT IF NOT EXISTS FOR (n:Variant) REQUIRE n.uid IS UNIQUE",
             "CREATE CONSTRAINT IF NOT EXISTS FOR (n:ValueKind) REQUIRE n.uid IS UNIQUE",
             "CREATE CONSTRAINT IF NOT EXISTS FOR (n:Constraint) REQUIRE n.uid IS UNIQUE",
@@ -504,7 +508,7 @@ def persist_to_neo4j(
                 tag=MANAGED_TAG,
             )
 
-        entity_labels = {"TypeDefinition", "CanonicalType", "PythonType", "Variant"}
+        entity_labels = {"TypeDefinition", "CanonicalType", "Variant"}
 
         node_count = 0
         for node in nodes:
