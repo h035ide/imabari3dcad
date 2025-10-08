@@ -2,7 +2,7 @@
   "nodes": [
     {
       "label": "TypeDefinition",
-      "uid": "type::文字列",
+      "uid": "   t   y   p   e   :   :   文   字   列   ",
       "props": {
         "raw_name": "文字列",
         "canonical_type": "string",
@@ -13,7 +13,7 @@
     },
     {
       "label": "CanonicalType",
-      "uid": "canonical::string",
+      "uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   ",
       "props": {
         "value": "string",
         "project": "imabari3dcad"
@@ -21,7 +21,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::文字列::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   文   字   列   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■文字列\n    通常の文字列",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -30,7 +30,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::浮動小数点",
+      "uid": "   t   y   p   e   :   :   浮   動   小   数   点   ",
       "props": {
         "raw_name": "浮動小数点",
         "canonical_type": "float",
@@ -41,7 +41,7 @@
     },
     {
       "label": "CanonicalType",
-      "uid": "canonical::float",
+      "uid": "   c   a   n   o   n   i   c   a   l   :   :   f   l   o   a   t   ",
       "props": {
         "value": "float",
         "project": "imabari3dcad"
@@ -49,7 +49,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::浮動小数点::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   浮   動   小   数   点   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■浮動小数点\n  通常の数値",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -58,7 +58,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::整数",
+      "uid": "   t   y   p   e   :   :   整   数   ",
       "props": {
         "raw_name": "整数",
         "canonical_type": "integer",
@@ -69,7 +69,7 @@
     },
     {
       "label": "CanonicalType",
-      "uid": "canonical::integer",
+      "uid": "   c   a   n   o   n   i   c   a   l   :   :   i   n   t   e   g   e   r   ",
       "props": {
         "value": "integer",
         "project": "imabari3dcad"
@@ -77,7 +77,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::整数::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   整   数   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■整数\n  通常の数値",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -86,7 +86,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::bool",
+      "uid": "   t   y   p   e   :   :   b   o   o   l   ",
       "props": {
         "raw_name": "bool",
         "canonical_type": "bool",
@@ -97,7 +97,7 @@
     },
     {
       "label": "CanonicalType",
-      "uid": "canonical::bool",
+      "uid": "   c   a   n   o   n   i   c   a   l   :   :   b   o   o   l   ",
       "props": {
         "value": "bool",
         "project": "imabari3dcad"
@@ -105,7 +105,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::bool::True",
+      "uid": "   e   x   a   m   p   l   e   :   :   b   o   o   l   :   :               T               r               u               e               ",
       "props": {
         "value": "True",
         "value_json": "True",
@@ -116,7 +116,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::bool::False",
+      "uid": "   e   x   a   m   p   l   e   :   :   b   o   o   l   :   :               F               a               l               s               e               ",
       "props": {
         "value": "False",
         "value_json": "False",
@@ -127,7 +127,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::bool::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   b   o   o   l   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■bool\n  通常の真偽値 True False",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -136,7 +136,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::長さ",
+      "uid": "   t   y   p   e   :   :   長   さ   ",
       "props": {
         "raw_name": "長さ",
         "canonical_type": "string",
@@ -147,7 +147,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::長さ::millimeter_literal",
+      "uid": "   v   a   r   i   a   n   t   :   :   長   さ   :   :   m   i   l   l   i   m   e   t   e   r   _   l   i   t   e   r   a   l   ",
       "props": {
         "id": "millimeter_literal",
         "kind": "one_of",
@@ -157,7 +157,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::長さ::variable_reference",
+      "uid": "   v   a   r   i   a   n   t   :   :   長   さ   :   :   v   a   r   i   a   b   l   e   _   r   e   f   e   r   e   n   c   e   ",
       "props": {
         "id": "variable_reference",
         "kind": "one_of",
@@ -167,7 +167,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::長さ::expression",
+      "uid": "   v   a   r   i   a   n   t   :   :   長   さ   :   :   e   x   p   r   e   s   s   i   o   n   ",
       "props": {
         "id": "expression",
         "kind": "one_of",
@@ -177,7 +177,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::長さ::100.0",
+      "uid": "   e   x   a   m   p   l   e   :   :   長   さ   :   :               1               0               0               .               0               ",
       "props": {
         "value": "100.0",
         "value_json": "100.0",
@@ -188,7 +188,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::長さ::L1",
+      "uid": "   e   x   a   m   p   l   e   :   :   長   さ   :   :               L               1               ",
       "props": {
         "value": "L1",
         "value_json": "L1",
@@ -199,7 +199,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::長さ::L1 / 2.0",
+      "uid": "   e   x   a   m   p   l   e   :   :   長   さ   :   :               L               1                               /                               2               .               0               ",
       "props": {
         "value": "L1 / 2.0",
         "value_json": "L1 / 2.0",
@@ -210,7 +210,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::長さ::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   長   さ   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■長さ\n  mm単位の数値、変数要素名,式文字列、\n 例) \"100.0\" , \"L1\", \"L1 / 2.0\"",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -219,7 +219,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::角度",
+      "uid": "   t   y   p   e   :   :   角   度   ",
       "props": {
         "raw_name": "角度",
         "canonical_type": "string",
@@ -230,7 +230,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::角度::degree_literal",
+      "uid": "   v   a   r   i   a   n   t   :   :   角   度   :   :   d   e   g   r   e   e   _   l   i   t   e   r   a   l   ",
       "props": {
         "id": "degree_literal",
         "kind": "one_of",
@@ -240,7 +240,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::角度::variable_reference",
+      "uid": "   v   a   r   i   a   n   t   :   :   角   度   :   :   v   a   r   i   a   b   l   e   _   r   e   f   e   r   e   n   c   e   ",
       "props": {
         "id": "variable_reference",
         "kind": "one_of",
@@ -250,7 +250,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::角度::expression",
+      "uid": "   v   a   r   i   a   n   t   :   :   角   度   :   :   e   x   p   r   e   s   s   i   o   n   ",
       "props": {
         "id": "expression",
         "kind": "one_of",
@@ -260,7 +260,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::角度::30.0",
+      "uid": "   e   x   a   m   p   l   e   :   :   角   度   :   :               3               0               .               0               ",
       "props": {
         "value": "30.0",
         "value_json": "30.0",
@@ -271,7 +271,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::角度::Angle1",
+      "uid": "   e   x   a   m   p   l   e   :   :   角   度   :   :               A               n               g               l               e               1               ",
       "props": {
         "value": "Angle1",
         "value_json": "Angle1",
@@ -282,7 +282,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::角度::Angle1 * 0.2",
+      "uid": "   e   x   a   m   p   l   e   :   :   角   度   :   :               A               n               g               l               e               1                               *                               0               .               2               ",
       "props": {
         "value": "Angle1 * 0.2",
         "value_json": "Angle1 * 0.2",
@@ -293,7 +293,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::角度::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   角   度   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■角度\n  度(°)単位の数値、変数要素名,式文字列、\n 例) \"30.0\" , \"Angle1\" , \"Angle1 * 0.2\"",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -302,7 +302,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::数値",
+      "uid": "   t   y   p   e   :   :   数   値   ",
       "props": {
         "raw_name": "数値",
         "canonical_type": "string",
@@ -313,7 +313,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::数値::numeric_literal",
+      "uid": "   v   a   r   i   a   n   t   :   :   数   値   :   :   n   u   m   e   r   i   c   _   l   i   t   e   r   a   l   ",
       "props": {
         "id": "numeric_literal",
         "kind": "one_of",
@@ -323,7 +323,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::数値::variable_reference",
+      "uid": "   v   a   r   i   a   n   t   :   :   数   値   :   :   v   a   r   i   a   b   l   e   _   r   e   f   e   r   e   n   c   e   ",
       "props": {
         "id": "variable_reference",
         "kind": "one_of",
@@ -333,7 +333,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::数値::expression",
+      "uid": "   v   a   r   i   a   n   t   :   :   数   値   :   :   e   x   p   r   e   s   s   i   o   n   ",
       "props": {
         "id": "expression",
         "kind": "one_of",
@@ -343,7 +343,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::数値::3",
+      "uid": "   e   x   a   m   p   l   e   :   :   数   値   :   :               3               ",
       "props": {
         "value": "3",
         "value_json": "3",
@@ -354,7 +354,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::数値::N1",
+      "uid": "   e   x   a   m   p   l   e   :   :   数   値   :   :               N               1               ",
       "props": {
         "value": "N1",
         "value_json": "N1",
@@ -365,7 +365,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::数値::N1*5",
+      "uid": "   e   x   a   m   p   l   e   :   :   数   値   :   :               N               1               *               5               ",
       "props": {
         "value": "N1*5",
         "value_json": "N1*5",
@@ -376,7 +376,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::数値::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   数   値   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■数値\n  数値、変数要素名,式文字列、\n 例)  \"3\", \"N1\", \"N1*5\"",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -385,7 +385,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::範囲",
+      "uid": "   t   y   p   e   :   :   範   囲   ",
       "props": {
         "raw_name": "範囲",
         "canonical_type": "string",
@@ -396,7 +396,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::範囲::comma_delimited_range",
+      "uid": "   v   a   r   i   a   n   t   :   :   範   囲   :   :   c   o   m   m   a   _   d   e   l   i   m   i   t   e   d   _   r   a   n   g   e   ",
       "props": {
         "id": "comma_delimited_range",
         "kind": "one_of",
@@ -406,7 +406,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::範囲::variable_reference",
+      "uid": "   v   a   r   i   a   n   t   :   :   範   囲   :   :   v   a   r   i   a   b   l   e   _   r   e   f   e   r   e   n   c   e   ",
       "props": {
         "id": "variable_reference",
         "kind": "one_of",
@@ -416,7 +416,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::範囲::0.0,1.0",
+      "uid": "   e   x   a   m   p   l   e   :   :   範   囲   :   :               0               .               0               ,               1               .               0               ",
       "props": {
         "value": "0.0,1.0",
         "value_json": "0.0,1.0",
@@ -427,7 +427,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::範囲::L1,L2",
+      "uid": "   e   x   a   m   p   l   e   :   :   範   囲   :   :               L               1               ,               L               2               ",
       "props": {
         "value": "L1,L2",
         "value_json": "L1,L2",
@@ -438,7 +438,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::範囲::-1.0,1.0",
+      "uid": "   e   x   a   m   p   l   e   :   :   範   囲   :   :               -               1               .               0               ,               1               .               0               ",
       "props": {
         "value": "-1.0,1.0",
         "value_json": "-1.0,1.0",
@@ -449,7 +449,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::範囲::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   範   囲   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■範囲\n  上限、下限の数値をコンマで区切って指定\n 例)  \"0.0,1.0\" ,  \"L1,L2\", \"-1.0,1.0\"",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -458,7 +458,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::点",
+      "uid": "   t   y   p   e   :   :   点   ",
       "props": {
         "raw_name": "点",
         "canonical_type": "string",
@@ -469,7 +469,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::点::2d",
+      "uid": "   v   a   r   i   a   n   t   :   :   点   :   :   2   d   ",
       "props": {
         "id": "2d",
         "kind": "variants",
@@ -479,7 +479,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::点::3d",
+      "uid": "   v   a   r   i   a   n   t   :   :   点   :   :   3   d   ",
       "props": {
         "id": "3d",
         "kind": "variants",
@@ -489,7 +489,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::点::100.0,50.0",
+      "uid": "   e   x   a   m   p   l   e   :   :   点   :   :               1               0               0               .               0               ,               5               0               .               0               ",
       "props": {
         "value": "100.0,50.0",
         "value_json": "100.0,50.0",
@@ -500,7 +500,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::点::REF1,0.0",
+      "uid": "   e   x   a   m   p   l   e   :   :   点   :   :               R               E               F               1               ,               0               .               0               ",
       "props": {
         "value": "REF1,0.0",
         "value_json": "REF1,0.0",
@@ -511,7 +511,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::点::100.0,50.0,0.0",
+      "uid": "   e   x   a   m   p   l   e   :   :   点   :   :               1               0               0               .               0               ,               5               0               .               0               ,               0               .               0               ",
       "props": {
         "value": "100.0,50.0,0.0",
         "value_json": "100.0,50.0,0.0",
@@ -522,7 +522,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::点::REF1,0.0,1000.0",
+      "uid": "   e   x   a   m   p   l   e   :   :   点   :   :               R               E               F               1               ,               0               .               0               ,               1               0               0               0               .               0               ",
       "props": {
         "value": "REF1,0.0,1000.0",
         "value_json": "REF1,0.0,1000.0",
@@ -533,7 +533,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::点::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   点   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■点\n   \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定\n  例) \"100.0,50,0,0.0\" , \"FRM1,0.0,1000.0\"",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -542,7 +542,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::方向",
+      "uid": "   t   y   p   e   :   :   方   向   ",
       "props": {
         "raw_name": "方向",
         "canonical_type": "string",
@@ -553,7 +553,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::方向::axis",
+      "uid": "   v   a   r   i   a   n   t   :   :   方   向   :   :   a   x   i   s   ",
       "props": {
         "id": "axis",
         "kind": "variants",
@@ -563,7 +563,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::方向::vector2",
+      "uid": "   v   a   r   i   a   n   t   :   :   方   向   :   :   v   e   c   t   o   r   2   ",
       "props": {
         "id": "vector2",
         "kind": "variants",
@@ -573,7 +573,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::方向::vector3",
+      "uid": "   v   a   r   i   a   n   t   :   :   方   向   :   :   v   e   c   t   o   r   3   ",
       "props": {
         "id": "vector3",
         "kind": "variants",
@@ -583,7 +583,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::方向::+X",
+      "uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               +               X               ",
       "props": {
         "value": "+X",
         "value_json": "+X",
@@ -594,7 +594,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::方向::-X",
+      "uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               -               X               ",
       "props": {
         "value": "-X",
         "value_json": "-X",
@@ -605,7 +605,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::方向::+Y",
+      "uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               +               Y               ",
       "props": {
         "value": "+Y",
         "value_json": "+Y",
@@ -616,7 +616,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::方向::-Y",
+      "uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               -               Y               ",
       "props": {
         "value": "-Y",
         "value_json": "-Y",
@@ -627,7 +627,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::方向::+Z",
+      "uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               +               Z               ",
       "props": {
         "value": "+Z",
         "value_json": "+Z",
@@ -638,7 +638,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::方向::-Z",
+      "uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               -               Z               ",
       "props": {
         "value": "-Z",
         "value_json": "-Z",
@@ -649,7 +649,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::方向::1.0,0.0",
+      "uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               1               .               0               ,               0               .               0               ",
       "props": {
         "value": "1.0,0.0",
         "value_json": "1.0,0.0",
@@ -660,7 +660,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::方向::DX,DY",
+      "uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               D               X               ,               D               Y               ",
       "props": {
         "value": "DX,DY",
         "value_json": "DX,DY",
@@ -671,7 +671,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::方向::DX,0.0",
+      "uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               D               X               ,               0               .               0               ",
       "props": {
         "value": "DX,0.0",
         "value_json": "DX,0.0",
@@ -682,7 +682,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::方向::0,0,1",
+      "uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               0               ,               0               ,               1               ",
       "props": {
         "value": "0,0,1",
         "value_json": "0,0,1",
@@ -693,7 +693,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::方向::VX,VY,VZ",
+      "uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               V               X               ,               V               Y               ,               V               Z               ",
       "props": {
         "value": "VX,VY,VZ",
         "value_json": "VX,VY,VZ",
@@ -704,7 +704,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::方向::VX,0.0,1.0",
+      "uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               V               X               ,               0               .               0               ,               1               .               0               ",
       "props": {
         "value": "VX,0.0,1.0",
         "value_json": "VX,0.0,1.0",
@@ -715,7 +715,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::方向::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   方   向   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■方向\n   〇 各軸方向は\"+X\",\"-X\",\"+Y\",\"-X\",\"+Z\",\"-Z\" で指定\n   〇 \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を数値（変数も可）で指定",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -724,7 +724,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::平面",
+      "uid": "   t   y   p   e   :   :   平   面   ",
       "props": {
         "raw_name": "平面",
         "canonical_type": "string",
@@ -735,7 +735,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::平面::global_axis",
+      "uid": "   v   a   r   i   a   n   t   :   :   平   面   :   :   g   l   o   b   a   l   _   a   x   i   s   ",
       "props": {
         "id": "global_axis",
         "kind": "variants",
@@ -745,7 +745,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::平面::face_ref",
+      "uid": "   v   a   r   i   a   n   t   :   :   平   面   :   :   f   a   c   e   _   r   e   f   ",
       "props": {
         "id": "face_ref",
         "kind": "variants",
@@ -755,7 +755,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::平面::PL,Z",
+      "uid": "   e   x   a   m   p   l   e   :   :   平   面   :   :               P               L               ,               Z               ",
       "props": {
         "value": "PL,Z",
         "value_json": "PL,Z",
@@ -766,7 +766,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::平面::PL,X",
+      "uid": "   e   x   a   m   p   l   e   :   :   平   面   :   :               P               L               ,               X               ",
       "props": {
         "value": "PL,X",
         "value_json": "PL,X",
@@ -777,7 +777,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::平面::PL,O,500.0,X",
+      "uid": "   e   x   a   m   p   l   e   :   :   平   面   :   :               P               L               ,               O               ,               5               0               0               .               0               ,               X               ",
       "props": {
         "value": "PL,O,500.0,X",
         "value_json": "PL,O,500.0,X",
@@ -788,7 +788,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::平面::PL,O,OFST,Y",
+      "uid": "   e   x   a   m   p   l   e   :   :   平   面   :   :               P               L               ,               O               ,               O               F               S               T               ,               Y               ",
       "props": {
         "value": "PL,O,OFST,Y",
         "value_json": "PL,O,OFST,Y",
@@ -799,7 +799,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::平面::PL,O,F,ID@A1B2C3",
+      "uid": "   e   x   a   m   p   l   e   :   :   平   面   :   :               P               L               ,               O               ,               F               ,               I               D               @               A               1               B               2               C               3               ",
       "props": {
         "value": "PL,O,F,ID@A1B2C3",
         "value_json": "PL,O,F,ID@A1B2C3",
@@ -810,7 +810,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::平面::PL,O,F,FRM1_FACE_TOP",
+      "uid": "   e   x   a   m   p   l   e   :   :   平   面   :   :               P               L               ,               O               ,               F               ,               F               R               M               1               _               F               A               C               E               _               T               O               P               ",
       "props": {
         "value": "PL,O,F,FRM1_FACE_TOP",
         "value_json": "PL,O,F,FRM1_FACE_TOP",
@@ -821,7 +821,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::平面::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   平   面   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■平面\n  \",\" コンマで区切られた文字列で指定。最初のカラムは必ず\"PL\"\n  次のカラムが\"O\"の場合はその次のカラムにオフセット距離（長さ）を指定\n  以降は\n 〇 \"X\" グローバルＹＺ平面 , \"Y\" グローバルＺＸ平面 , \"Z\" グローバルＸＹ平面\n 〇 \"F\" の場合はボディのフェイスを指定 （要素の項参照）\n\n 例）\"PL,Z\" グローバルＸＹ平面\n    \"PL,O,500.0,X\" グローバルＹＺ平面をＸ方向に500移動させた平面",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -830,7 +830,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::変数単位",
+      "uid": "   t   y   p   e   :   :   変   数   単   位   ",
       "props": {
         "raw_name": "変数単位",
         "canonical_type": "string",
@@ -841,7 +841,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::変数単位::length",
+      "uid": "   v   a   r   i   a   n   t   :   :   変   数   単   位   :   :   l   e   n   g   t   h   ",
       "props": {
         "id": "length",
         "kind": "variants",
@@ -851,7 +851,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::変数単位::angle",
+      "uid": "   v   a   r   i   a   n   t   :   :   変   数   単   位   :   :   a   n   g   l   e   ",
       "props": {
         "id": "angle",
         "kind": "variants",
@@ -861,7 +861,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::変数単位::number",
+      "uid": "   v   a   r   i   a   n   t   :   :   変   数   単   位   :   :   n   u   m   b   e   r   ",
       "props": {
         "id": "number",
         "kind": "variants",
@@ -871,7 +871,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::変数単位::mm",
+      "uid": "   e   x   a   m   p   l   e   :   :   変   数   単   位   :   :               m               m               ",
       "props": {
         "value": "mm",
         "value_json": "mm",
@@ -882,7 +882,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::変数単位::m",
+      "uid": "   e   x   a   m   p   l   e   :   :   変   数   単   位   :   :               m               ",
       "props": {
         "value": "m",
         "value_json": "m",
@@ -893,7 +893,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::変数単位::in",
+      "uid": "   e   x   a   m   p   l   e   :   :   変   数   単   位   :   :               i               n               ",
       "props": {
         "value": "in",
         "value_json": "in",
@@ -904,7 +904,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::変数単位::deg",
+      "uid": "   e   x   a   m   p   l   e   :   :   変   数   単   位   :   :               d               e               g               ",
       "props": {
         "value": "deg",
         "value_json": "deg",
@@ -915,7 +915,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::変数単位::rad",
+      "uid": "   e   x   a   m   p   l   e   :   :   変   数   単   位   :   :               r               a               d               ",
       "props": {
         "value": "rad",
         "value_json": "rad",
@@ -926,7 +926,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::変数単位::",
+      "uid": "   e   x   a   m   p   l   e   :   :   変   数   単   位   :   :               ",
       "props": {
         "value": "",
         "value_json": "",
@@ -937,7 +937,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::変数単位::num",
+      "uid": "   e   x   a   m   p   l   e   :   :   変   数   単   位   :   :               n               u               m               ",
       "props": {
         "value": "num",
         "value_json": "num",
@@ -948,7 +948,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::変数単位::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   変   数   単   位   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■変数単位\n 長さ \"mm\",\"cm\",\"m\",\"in\",\"ft\",\"pt\"のいずれか\n 角度 \"deg\",\"rad\"のいずれか\n 数値 \"\"(空白),\"num\"のいずれか",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -957,7 +957,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::要素グループ",
+      "uid": "   t   y   p   e   :   :   要   素   グ   ル   ー   プ   ",
       "props": {
         "raw_name": "要素グループ",
         "canonical_type": "string",
@@ -968,7 +968,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::要素グループ::A",
+      "uid": "   e   x   a   m   p   l   e   :   :   要   素   グ   ル   ー   プ   :   :               A               ",
       "props": {
         "value": "A",
         "value_json": "A",
@@ -979,7 +979,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::要素グループ::A/B",
+      "uid": "   e   x   a   m   p   l   e   :   :   要   素   グ   ル   ー   プ   :   :               A               /               B               ",
       "props": {
         "value": "A/B",
         "value_json": "A/B",
@@ -990,7 +990,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::要素グループ::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   要   素   グ   ル   ー   プ   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■要素グループ\n  EVO.SHIPの要素グループ名\n 要素グループの階層は\"/\"で区切る",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -999,7 +999,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::注記スタイル",
+      "uid": "   t   y   p   e   :   :   注   記   ス   タ   イ   ル   ",
       "props": {
         "raw_name": "注記スタイル",
         "canonical_type": "string",
@@ -1010,7 +1010,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::注記スタイル::<NoteStyleName>",
+      "uid": "   e   x   a   m   p   l   e   :   :   注   記   ス   タ   イ   ル   :   :               <               N               o               t               e               S               t               y               l               e               N               a               m               e               >               ",
       "props": {
         "value": "<NoteStyleName>",
         "value_json": "<NoteStyleName>",
@@ -1021,7 +1021,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::注記スタイル::<EVO.SHIPで設定されたスタイル名>",
+      "uid": "   e   x   a   m   p   l   e   :   :   注   記   ス   タ   イ   ル   :   :               <               E               V               O               .               S               H               I               P               で               設               定               さ               れ               た               ス               タ               イ               ル               名               >               ",
       "props": {
         "value": "<EVO.SHIPで設定されたスタイル名>",
         "value_json": "<EVO.SHIPで設定されたスタイル名>",
@@ -1032,7 +1032,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::注記スタイル::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   注   記   ス   タ   イ   ル   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■注記スタイル\n EVO.SHIPに設定している注記スタイルの名称",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -1041,7 +1041,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::材料",
+      "uid": "   t   y   p   e   :   :   材   料   ",
       "props": {
         "raw_name": "材料",
         "canonical_type": "string",
@@ -1052,7 +1052,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::材料::<MaterialName>",
+      "uid": "   e   x   a   m   p   l   e   :   :   材   料   :   :               <               M               a               t               e               r               i               a               l               N               a               m               e               >               ",
       "props": {
         "value": "<MaterialName>",
         "value_json": "<MaterialName>",
@@ -1063,7 +1063,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::材料::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   材   料   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■材料\n   EVO.SHIPに設定している材料の名称",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -1072,7 +1072,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::スイープ方向",
+      "uid": "   t   y   p   e   :   :   ス   イ   ー   プ   方   向   ",
       "props": {
         "raw_name": "スイープ方向",
         "canonical_type": "string",
@@ -1083,7 +1083,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::スイープ方向::N",
+      "uid": "   e   x   a   m   p   l   e   :   :   ス   イ   ー   プ   方   向   :   :               N               ",
       "props": {
         "value": "N",
         "value_json": "N",
@@ -1094,7 +1094,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::スイープ方向::R",
+      "uid": "   e   x   a   m   p   l   e   :   :   ス   イ   ー   プ   方   向   :   :               R               ",
       "props": {
         "value": "R",
         "value_json": "R",
@@ -1105,7 +1105,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::スイープ方向::B",
+      "uid": "   e   x   a   m   p   l   e   :   :   ス   イ   ー   プ   方   向   :   :               B               ",
       "props": {
         "value": "B",
         "value_json": "B",
@@ -1116,7 +1116,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::スイープ方向::2",
+      "uid": "   e   x   a   m   p   l   e   :   :   ス   イ   ー   プ   方   向   :   :               2               ",
       "props": {
         "value": "2",
         "value_json": "2",
@@ -1127,7 +1127,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::スイープ方向::T",
+      "uid": "   e   x   a   m   p   l   e   :   :   ス   イ   ー   プ   方   向   :   :               T               ",
       "props": {
         "value": "T",
         "value_json": "T",
@@ -1138,7 +1138,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::スイープ方向::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   ス   イ   ー   プ   方   向   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■スイープ方向\n \"N\"  順方向\n  \"R\" 反対方向\n  \"B\" 両方向\n  \"2\"  ２方向\n  \"T\"   貫通",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -1147,7 +1147,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::厚み付けタイプ",
+      "uid": "   t   y   p   e   :   :   厚   み   付   け   タ   イ   プ   ",
       "props": {
         "raw_name": "厚み付けタイプ",
         "canonical_type": "string",
@@ -1158,7 +1158,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::厚み付けタイプ::+",
+      "uid": "   e   x   a   m   p   l   e   :   :   厚   み   付   け   タ   イ   プ   :   :               +               ",
       "props": {
         "value": "+",
         "value_json": "+",
@@ -1169,7 +1169,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::厚み付けタイプ::-",
+      "uid": "   e   x   a   m   p   l   e   :   :   厚   み   付   け   タ   イ   プ   :   :               -               ",
       "props": {
         "value": "-",
         "value_json": "-",
@@ -1180,7 +1180,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::厚み付けタイプ::B",
+      "uid": "   e   x   a   m   p   l   e   :   :   厚   み   付   け   タ   イ   プ   :   :               B               ",
       "props": {
         "value": "B",
         "value_json": "B",
@@ -1191,7 +1191,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::厚み付けタイプ::2",
+      "uid": "   e   x   a   m   p   l   e   :   :   厚   み   付   け   タ   イ   プ   :   :               2               ",
       "props": {
         "value": "2",
         "value_json": "2",
@@ -1202,7 +1202,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::厚み付けタイプ::",
+      "uid": "   e   x   a   m   p   l   e   :   :   厚   み   付   け   タ   イ   プ   :   :               ",
       "props": {
         "value": "",
         "value_json": "",
@@ -1213,7 +1213,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::厚み付けタイプ::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   厚   み   付   け   タ   イ   プ   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■厚み付けタイプ\n \"+\" 内側\n \"-\" 外側\n  \"B\" 両方向\n  \"2\"  ２方向\n  \"\" （空文字）厚み付けしない",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -1222,7 +1222,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::モールド位置",
+      "uid": "   t   y   p   e   :   :   モ   ー   ル   ド   位   置   ",
       "props": {
         "raw_name": "モールド位置",
         "canonical_type": "string",
@@ -1233,7 +1233,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::モールド位置::+",
+      "uid": "   e   x   a   m   p   l   e   :   :   モ   ー   ル   ド   位   置   :   :               +               ",
       "props": {
         "value": "+",
         "value_json": "+",
@@ -1244,7 +1244,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::モールド位置::-",
+      "uid": "   e   x   a   m   p   l   e   :   :   モ   ー   ル   ド   位   置   :   :               -               ",
       "props": {
         "value": "-",
         "value_json": "-",
@@ -1255,7 +1255,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::モールド位置::",
+      "uid": "   e   x   a   m   p   l   e   :   :   モ   ー   ル   ド   位   置   :   :               ",
       "props": {
         "value": "",
         "value_json": "",
@@ -1266,7 +1266,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::モールド位置::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   モ   ー   ル   ド   位   置   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■モールド位置\n \"+\" ＋側\n \"-\" ー側\n  \"\" （空文字）センター",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -1275,7 +1275,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::オペレーションタイプ （ボディ）",
+      "uid": "   t   y   p   e   :   :   オ   ペ   レ   ー   シ   ョ   ン   タ   イ   プ       （   ボ   デ   ィ   ）   ",
       "props": {
         "raw_name": "オペレーションタイプ （ボディ）",
         "canonical_type": "string",
@@ -1286,7 +1286,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::オペレーションタイプ （ボディ）::",
+      "uid": "   e   x   a   m   p   l   e   :   :   オ   ペ   レ   ー   シ   ョ   ン   タ   イ   プ       （   ボ   デ   ィ   ）   :   :               ",
       "props": {
         "value": "",
         "value_json": "",
@@ -1297,7 +1297,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::オペレーションタイプ （ボディ）::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   オ   ペ   レ   ー   シ   ョ   ン   タ   イ   プ       （   ボ   デ   ィ   ）   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■オペレーションタイプ （ボディ）\n \"+\" 和\n \"-\" 削除\n \"*\"  積",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -1306,7 +1306,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::関連設定",
+      "uid": "   t   y   p   e   :   :   関   連   設   定   ",
       "props": {
         "raw_name": "関連設定",
         "canonical_type": "string",
@@ -1317,7 +1317,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::関連設定::B",
+      "uid": "   e   x   a   m   p   l   e   :   :   関   連   設   定   :   :               B               ",
       "props": {
         "value": "B",
         "value_json": "B",
@@ -1328,7 +1328,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::関連設定::",
+      "uid": "   e   x   a   m   p   l   e   :   :   関   連   設   定   :   :               ",
       "props": {
         "value": "",
         "value_json": "",
@@ -1339,7 +1339,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::関連設定::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   関   連   設   定   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■関連設定\n ボディ関連とする場合は\"B\"\n  それ以外（空白含む）はフィーチャー関連",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -1348,7 +1348,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::形状タイプ",
+      "uid": "   t   y   p   e   :   :   形   状   タ   イ   プ   ",
       "props": {
         "raw_name": "形状タイプ",
         "canonical_type": "string",
@@ -1359,7 +1359,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::形状タイプ::1007",
+      "uid": "   e   x   a   m   p   l   e   :   :   形   状   タ   イ   プ   :   :               1               0               0               7               ",
       "props": {
         "value": "1007",
         "value_json": "1007",
@@ -1370,7 +1370,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::形状タイプ::1003",
+      "uid": "   e   x   a   m   p   l   e   :   :   形   状   タ   イ   プ   :   :               1               0               0               3               ",
       "props": {
         "value": "1003",
         "value_json": "1003",
@@ -1381,7 +1381,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::形状タイプ::1101",
+      "uid": "   e   x   a   m   p   l   e   :   :   形   状   タ   イ   プ   :   :               1               1               0               1               ",
       "props": {
         "value": "1101",
         "value_json": "1101",
@@ -1392,7 +1392,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::形状タイプ::1120",
+      "uid": "   e   x   a   m   p   l   e   :   :   形   状   タ   イ   プ   :   :               1               1               2               0               ",
       "props": {
         "value": "1120",
         "value_json": "1120",
@@ -1403,7 +1403,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::形状タイプ::1503",
+      "uid": "   e   x   a   m   p   l   e   :   :   形   状   タ   イ   プ   :   :               1               5               0               3               ",
       "props": {
         "value": "1503",
         "value_json": "1503",
@@ -1414,7 +1414,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::形状タイプ::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   形   状   タ   イ   プ   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■形状タイプ\n EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号 (ヘルプのEVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイルの項を参照)\n 例）\"1007\" 平鋼、\"1003\" 不等辺不等厚山形鋼\n     \"1101\" 条材端部Sタイプ 、\"1120\" 条材端部スカラップA1タイプ\n     \"1503\" ブラケット2-Bタイプ",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -1423,7 +1423,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::形状パラメータ",
+      "uid": "   t   y   p   e   :   :   形   状   パ   ラ   メ   ー   タ   ",
       "props": {
         "raw_name": "形状パラメータ",
         "canonical_type": "string[]",
@@ -1434,7 +1434,7 @@
     },
     {
       "label": "CanonicalType",
-      "uid": "canonical::string[]",
+      "uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   [   ]   ",
       "props": {
         "value": "string[]",
         "project": "imabari3dcad"
@@ -1442,7 +1442,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::形状パラメータ::[\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]",
+      "uid": "   e   x   a   m   p   l   e   :   :   形   状   パ   ラ   メ   ー   タ   :   :               [               \"               1               5               0               .               \"               ,               \"               9               0               .               \"               ,               \"               9               .               0               0               0               0               0               0               0               0               0               0               0               0               0               0               1               8               \"               ,               \"               1               2               .               \"               ,               \"               6               .               \"               ]               ",
       "props": {
         "value": "[\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]",
         "value_json": "[\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]",
@@ -1453,7 +1453,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::形状パラメータ::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   形   状   パ   ラ   メ   ー   タ   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■形状パラメータ\n  各形状タイプの寸法値を文字列配列で設定\n  例) 不当辺山形鋼(1002)の形状タイプの場合 [\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -1462,7 +1462,7 @@
     },
     {
       "label": "TypeDefinition",
-      "uid": "type::要素",
+      "uid": "   t   y   p   e   :   :   要   素   ",
       "props": {
         "raw_name": "要素",
         "canonical_type": "string",
@@ -1473,7 +1473,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::要素::element_id",
+      "uid": "   v   a   r   i   a   n   t   :   :   要   素   :   :   e   l   e   m   e   n   t   _   i   d   ",
       "props": {
         "id": "element_id",
         "kind": "variants",
@@ -1483,7 +1483,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::要素::element_path",
+      "uid": "   v   a   r   i   a   n   t   :   :   要   素   :   :   e   l   e   m   e   n   t   _   p   a   t   h   ",
       "props": {
         "id": "element_path",
         "kind": "variants",
@@ -1493,7 +1493,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::要素::plate_surface_array",
+      "uid": "   v   a   r   i   a   n   t   :   :   要   素   :   :   p   l   a   t   e   _   s   u   r   f   a   c   e   _   a   r   r   a   y   ",
       "props": {
         "id": "plate_surface_array",
         "kind": "variants",
@@ -1503,7 +1503,7 @@
     },
     {
       "label": "Variant",
-      "uid": "variant::要素::face_points_csv",
+      "uid": "   v   a   r   i   a   n   t   :   :   要   素   :   :   f   a   c   e   _   p   o   i   n   t   s   _   c   s   v   ",
       "props": {
         "id": "face_points_csv",
         "kind": "variants",
@@ -1513,7 +1513,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::要素::ID@d8baafc30be94411a6ab9d6173c1d1dd",
+      "uid": "   e   x   a   m   p   l   e   :   :   要   素   :   :               I               D               @               d               8               b               a               a               f               c               3               0               b               e               9               4               4               1               1               a               6               a               b               9               d               6               1               7               3               c               1               d               1               d               d               ",
       "props": {
         "value": "ID@d8baafc30be94411a6ab9d6173c1d1dd",
         "value_json": "ID@d8baafc30be94411a6ab9d6173c1d1dd",
@@ -1524,7 +1524,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::要素::G1/G2/A",
+      "uid": "   e   x   a   m   p   l   e   :   :   要   素   :   :               G               1               /               G               2               /               A               ",
       "props": {
         "value": "G1/G2/A",
         "value_json": "G1/G2/A",
@@ -1535,7 +1535,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::要素::[\"PLS\",\"False\",\"False\",\"0.0\",\"0.0\",\"-1.0\",\"ID@d8baafc30be94411a6ab9d6173c1d1dd\"]",
+      "uid": "   e   x   a   m   p   l   e   :   :   要   素   :   :               [               \"               P               L               S               \"               ,               \"               F               a               l               s               e               \"               ,               \"               F               a               l               s               e               \"               ,               \"               0               .               0               \"               ,               \"               0               .               0               \"               ,               \"               -               1               .               0               \"               ,               \"               I               D               @               d               8               b               a               a               f               c               3               0               b               e               9               4               4               1               1               a               6               a               b               9               d               6               1               7               3               c               1               d               1               d               d               \"               ]               ",
       "props": {
         "value": "[\"PLS\",\"False\",\"False\",\"0.0\",\"0.0\",\"-1.0\",\"ID@d8baafc30be94411a6ab9d6173c1d1dd\"]",
         "value_json": "[\"PLS\",\"False\",\"False\",\"0.0\",\"0.0\",\"-1.0\",\"ID@d8baafc30be94411a6ab9d6173c1d1dd\"]",
@@ -1546,7 +1546,7 @@
     },
     {
       "label": "Example",
-      "uid": "example::要素::ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8",
+      "uid": "   e   x   a   m   p   l   e   :   :   要   素   :   :               I               D               @               d               8               b               a               a               f               c               3               0               b               e               9               4               4               1               1               a               6               a               b               9               d               6               1               7               3               c               1               d               1               d               d               ,               F               ,               -               1               0               ,               0               .               5               ,               2               .               3               ,               -               1               1               .               0               ,               0               .               0               ,               4               .               8               ",
       "props": {
         "value": "ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8",
         "value_json": "ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8",
@@ -1557,7 +1557,7 @@
     },
     {
       "label": "Source",
-      "uid": "source::要素::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "uid": "   s   o   u   r   c   e   :   :   要   素   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {
         "text": "■要素\n (複数要素の場合は文字列の配列とする)\n  EVO.SHIPの各要素を指定する\n\n 〇IDで指定\n    EVO.SHIPの要素はユニークなIDを必ずもつのでそのID文字列を\"ID@\"をプレフィックスとして指定\n  例）\"ID@d8baafc30be94411a6ab9d6173c1d1dd\" (d8baafc30be94411a6ab9d6173c1d1ddというIDをもつ要素)\n\n 〇要素名で指定\n  EVO.SHIPの要素名称は重複を許すので、複数見つかった際にどれになるかは不定\n  要素名称はEVO.SHIPの要素グループを指定するのこともできる\n  例）G1という要素グループ配下のG2という要素グループ配下のAという名前の要素の指定\n    G1/G2/A\n\n  〇板ソリッド要素の板厚面を指定（条材ソリッドの場合はウェブ部分）\n  必ず文字列配列で指定\n  配列の最初の要素は\"PLS\"という固定文字列\n  次の配列要素（２番目）は\"True\"か\"False\"で,\"True\"の場合はFace内部穴を削除する\n    次の配列要素（３番目）は常に\"False\" (システムで利用します）\n  その次から３っつの要素（４番目、５番目、６番目）で板厚面のどちら側かを\n  指定するために外側方向（おおよそ）をベクトル指定する\n  最後の要素でソリッド要素を指定する\n    例）[\"PLS\",\"False\",\"False\",\"0.0\",\"0.0\",\"-1.0\",\"ID@d8baafc30be94411a6ab9d6173c1d1dd\"]\n        d8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつソリッド要素（板材)の(0,0,-1)方向を向いている側の面の指定\n\n  〇ソリッドやシート要素のフェイスを指定\n  \",\" コンマで区切られた文字列で指定\n  最初のカラムでソリッドやシート要素のＩＤを指定、次のカラムは固定文字\"F\"、その次のカラムからフェイス上の点の座標値を指定（複数フェイス指定可能）\n  例 \"ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8\"\n      d8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつ要素でそのFace上の座標値が(-10,0.5,2.3)と(-11.0,0.0,4.8)\n   である２つのフェイスを指定",
         "path": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
@@ -1567,885 +1567,885 @@
   ],
   "relations": [
     {
-      "src_uid": "type::文字列",
+      "src_uid": "   t   y   p   e   :   :   文   字   列   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   ",
       "props": {}
     },
     {
-      "src_uid": "type::文字列",
+      "src_uid": "   t   y   p   e   :   :   文   字   列   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::文字列::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   文   字   列   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::浮動小数点",
+      "src_uid": "   t   y   p   e   :   :   浮   動   小   数   点   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::float",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   f   l   o   a   t   ",
       "props": {}
     },
     {
-      "src_uid": "type::浮動小数点",
+      "src_uid": "   t   y   p   e   :   :   浮   動   小   数   点   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::浮動小数点::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   浮   動   小   数   点   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::整数",
+      "src_uid": "   t   y   p   e   :   :   整   数   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::integer",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   i   n   t   e   g   e   r   ",
       "props": {}
     },
     {
-      "src_uid": "type::整数",
+      "src_uid": "   t   y   p   e   :   :   整   数   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::整数::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   整   数   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::bool",
+      "src_uid": "   t   y   p   e   :   :   b   o   o   l   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::bool",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   b   o   o   l   ",
       "props": {}
     },
     {
-      "src_uid": "type::bool",
+      "src_uid": "   t   y   p   e   :   :   b   o   o   l   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::bool::True",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   b   o   o   l   :   :               T               r               u               e               ",
       "props": {}
     },
     {
-      "src_uid": "type::bool",
+      "src_uid": "   t   y   p   e   :   :   b   o   o   l   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::bool::False",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   b   o   o   l   :   :               F               a               l               s               e               ",
       "props": {}
     },
     {
-      "src_uid": "type::bool",
+      "src_uid": "   t   y   p   e   :   :   b   o   o   l   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::bool::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   b   o   o   l   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::長さ",
+      "src_uid": "   t   y   p   e   :   :   長   さ   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   ",
       "props": {}
     },
     {
-      "src_uid": "type::長さ",
+      "src_uid": "   t   y   p   e   :   :   長   さ   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::長さ::millimeter_literal",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   長   さ   :   :   m   i   l   l   i   m   e   t   e   r   _   l   i   t   e   r   a   l   ",
       "props": {}
     },
     {
-      "src_uid": "type::長さ",
+      "src_uid": "   t   y   p   e   :   :   長   さ   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::長さ::variable_reference",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   長   さ   :   :   v   a   r   i   a   b   l   e   _   r   e   f   e   r   e   n   c   e   ",
       "props": {}
     },
     {
-      "src_uid": "type::長さ",
+      "src_uid": "   t   y   p   e   :   :   長   さ   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::長さ::expression",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   長   さ   :   :   e   x   p   r   e   s   s   i   o   n   ",
       "props": {}
     },
     {
-      "src_uid": "type::長さ",
+      "src_uid": "   t   y   p   e   :   :   長   さ   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::長さ::100.0",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   長   さ   :   :               1               0               0               .               0               ",
       "props": {}
     },
     {
-      "src_uid": "type::長さ",
+      "src_uid": "   t   y   p   e   :   :   長   さ   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::長さ::L1",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   長   さ   :   :               L               1               ",
       "props": {}
     },
     {
-      "src_uid": "type::長さ",
+      "src_uid": "   t   y   p   e   :   :   長   さ   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::長さ::L1 / 2.0",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   長   さ   :   :               L               1                               /                               2               .               0               ",
       "props": {}
     },
     {
-      "src_uid": "type::長さ",
+      "src_uid": "   t   y   p   e   :   :   長   さ   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::長さ::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   長   さ   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::角度",
+      "src_uid": "   t   y   p   e   :   :   角   度   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   ",
       "props": {}
     },
     {
-      "src_uid": "type::角度",
+      "src_uid": "   t   y   p   e   :   :   角   度   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::角度::degree_literal",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   角   度   :   :   d   e   g   r   e   e   _   l   i   t   e   r   a   l   ",
       "props": {}
     },
     {
-      "src_uid": "type::角度",
+      "src_uid": "   t   y   p   e   :   :   角   度   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::角度::variable_reference",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   角   度   :   :   v   a   r   i   a   b   l   e   _   r   e   f   e   r   e   n   c   e   ",
       "props": {}
     },
     {
-      "src_uid": "type::角度",
+      "src_uid": "   t   y   p   e   :   :   角   度   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::角度::expression",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   角   度   :   :   e   x   p   r   e   s   s   i   o   n   ",
       "props": {}
     },
     {
-      "src_uid": "type::角度",
+      "src_uid": "   t   y   p   e   :   :   角   度   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::角度::30.0",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   角   度   :   :               3               0               .               0               ",
       "props": {}
     },
     {
-      "src_uid": "type::角度",
+      "src_uid": "   t   y   p   e   :   :   角   度   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::角度::Angle1",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   角   度   :   :               A               n               g               l               e               1               ",
       "props": {}
     },
     {
-      "src_uid": "type::角度",
+      "src_uid": "   t   y   p   e   :   :   角   度   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::角度::Angle1 * 0.2",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   角   度   :   :               A               n               g               l               e               1                               *                               0               .               2               ",
       "props": {}
     },
     {
-      "src_uid": "type::角度",
+      "src_uid": "   t   y   p   e   :   :   角   度   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::角度::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   角   度   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::数値",
+      "src_uid": "   t   y   p   e   :   :   数   値   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   ",
       "props": {}
     },
     {
-      "src_uid": "type::数値",
+      "src_uid": "   t   y   p   e   :   :   数   値   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::数値::numeric_literal",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   数   値   :   :   n   u   m   e   r   i   c   _   l   i   t   e   r   a   l   ",
       "props": {}
     },
     {
-      "src_uid": "type::数値",
+      "src_uid": "   t   y   p   e   :   :   数   値   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::数値::variable_reference",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   数   値   :   :   v   a   r   i   a   b   l   e   _   r   e   f   e   r   e   n   c   e   ",
       "props": {}
     },
     {
-      "src_uid": "type::数値",
+      "src_uid": "   t   y   p   e   :   :   数   値   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::数値::expression",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   数   値   :   :   e   x   p   r   e   s   s   i   o   n   ",
       "props": {}
     },
     {
-      "src_uid": "type::数値",
+      "src_uid": "   t   y   p   e   :   :   数   値   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::数値::3",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   数   値   :   :               3               ",
       "props": {}
     },
     {
-      "src_uid": "type::数値",
+      "src_uid": "   t   y   p   e   :   :   数   値   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::数値::N1",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   数   値   :   :               N               1               ",
       "props": {}
     },
     {
-      "src_uid": "type::数値",
+      "src_uid": "   t   y   p   e   :   :   数   値   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::数値::N1*5",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   数   値   :   :               N               1               *               5               ",
       "props": {}
     },
     {
-      "src_uid": "type::数値",
+      "src_uid": "   t   y   p   e   :   :   数   値   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::数値::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   数   値   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::範囲",
+      "src_uid": "   t   y   p   e   :   :   範   囲   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   ",
       "props": {}
     },
     {
-      "src_uid": "type::範囲",
+      "src_uid": "   t   y   p   e   :   :   範   囲   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::範囲::comma_delimited_range",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   範   囲   :   :   c   o   m   m   a   _   d   e   l   i   m   i   t   e   d   _   r   a   n   g   e   ",
       "props": {}
     },
     {
-      "src_uid": "type::範囲",
+      "src_uid": "   t   y   p   e   :   :   範   囲   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::範囲::variable_reference",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   範   囲   :   :   v   a   r   i   a   b   l   e   _   r   e   f   e   r   e   n   c   e   ",
       "props": {}
     },
     {
-      "src_uid": "type::範囲",
+      "src_uid": "   t   y   p   e   :   :   範   囲   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::範囲::0.0,1.0",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   範   囲   :   :               0               .               0               ,               1               .               0               ",
       "props": {}
     },
     {
-      "src_uid": "type::範囲",
+      "src_uid": "   t   y   p   e   :   :   範   囲   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::範囲::L1,L2",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   範   囲   :   :               L               1               ,               L               2               ",
       "props": {}
     },
     {
-      "src_uid": "type::範囲",
+      "src_uid": "   t   y   p   e   :   :   範   囲   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::範囲::-1.0,1.0",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   範   囲   :   :               -               1               .               0               ,               1               .               0               ",
       "props": {}
     },
     {
-      "src_uid": "type::範囲",
+      "src_uid": "   t   y   p   e   :   :   範   囲   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::範囲::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   範   囲   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::点",
+      "src_uid": "   t   y   p   e   :   :   点   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   ",
       "props": {}
     },
     {
-      "src_uid": "type::点",
+      "src_uid": "   t   y   p   e   :   :   点   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::点::2d",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   点   :   :   2   d   ",
       "props": {}
     },
     {
-      "src_uid": "type::点",
+      "src_uid": "   t   y   p   e   :   :   点   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::点::3d",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   点   :   :   3   d   ",
       "props": {}
     },
     {
-      "src_uid": "type::点",
+      "src_uid": "   t   y   p   e   :   :   点   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::点::100.0,50.0",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   点   :   :               1               0               0               .               0               ,               5               0               .               0               ",
       "props": {}
     },
     {
-      "src_uid": "type::点",
+      "src_uid": "   t   y   p   e   :   :   点   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::点::REF1,0.0",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   点   :   :               R               E               F               1               ,               0               .               0               ",
       "props": {}
     },
     {
-      "src_uid": "type::点",
+      "src_uid": "   t   y   p   e   :   :   点   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::点::100.0,50.0,0.0",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   点   :   :               1               0               0               .               0               ,               5               0               .               0               ,               0               .               0               ",
       "props": {}
     },
     {
-      "src_uid": "type::点",
+      "src_uid": "   t   y   p   e   :   :   点   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::点::REF1,0.0,1000.0",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   点   :   :               R               E               F               1               ,               0               .               0               ,               1               0               0               0               .               0               ",
       "props": {}
     },
     {
-      "src_uid": "type::点",
+      "src_uid": "   t   y   p   e   :   :   点   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::点::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   点   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::方向",
+      "src_uid": "   t   y   p   e   :   :   方   向   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   ",
       "props": {}
     },
     {
-      "src_uid": "type::方向",
+      "src_uid": "   t   y   p   e   :   :   方   向   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::方向::axis",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   方   向   :   :   a   x   i   s   ",
       "props": {}
     },
     {
-      "src_uid": "type::方向",
+      "src_uid": "   t   y   p   e   :   :   方   向   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::方向::vector2",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   方   向   :   :   v   e   c   t   o   r   2   ",
       "props": {}
     },
     {
-      "src_uid": "type::方向",
+      "src_uid": "   t   y   p   e   :   :   方   向   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::方向::vector3",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   方   向   :   :   v   e   c   t   o   r   3   ",
       "props": {}
     },
     {
-      "src_uid": "type::方向",
+      "src_uid": "   t   y   p   e   :   :   方   向   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::方向::+X",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               +               X               ",
       "props": {}
     },
     {
-      "src_uid": "type::方向",
+      "src_uid": "   t   y   p   e   :   :   方   向   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::方向::-X",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               -               X               ",
       "props": {}
     },
     {
-      "src_uid": "type::方向",
+      "src_uid": "   t   y   p   e   :   :   方   向   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::方向::+Y",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               +               Y               ",
       "props": {}
     },
     {
-      "src_uid": "type::方向",
+      "src_uid": "   t   y   p   e   :   :   方   向   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::方向::-Y",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               -               Y               ",
       "props": {}
     },
     {
-      "src_uid": "type::方向",
+      "src_uid": "   t   y   p   e   :   :   方   向   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::方向::+Z",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               +               Z               ",
       "props": {}
     },
     {
-      "src_uid": "type::方向",
+      "src_uid": "   t   y   p   e   :   :   方   向   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::方向::-Z",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               -               Z               ",
       "props": {}
     },
     {
-      "src_uid": "type::方向",
+      "src_uid": "   t   y   p   e   :   :   方   向   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::方向::1.0,0.0",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               1               .               0               ,               0               .               0               ",
       "props": {}
     },
     {
-      "src_uid": "type::方向",
+      "src_uid": "   t   y   p   e   :   :   方   向   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::方向::DX,DY",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               D               X               ,               D               Y               ",
       "props": {}
     },
     {
-      "src_uid": "type::方向",
+      "src_uid": "   t   y   p   e   :   :   方   向   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::方向::DX,0.0",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               D               X               ,               0               .               0               ",
       "props": {}
     },
     {
-      "src_uid": "type::方向",
+      "src_uid": "   t   y   p   e   :   :   方   向   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::方向::0,0,1",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               0               ,               0               ,               1               ",
       "props": {}
     },
     {
-      "src_uid": "type::方向",
+      "src_uid": "   t   y   p   e   :   :   方   向   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::方向::VX,VY,VZ",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               V               X               ,               V               Y               ,               V               Z               ",
       "props": {}
     },
     {
-      "src_uid": "type::方向",
+      "src_uid": "   t   y   p   e   :   :   方   向   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::方向::VX,0.0,1.0",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   方   向   :   :               V               X               ,               0               .               0               ,               1               .               0               ",
       "props": {}
     },
     {
-      "src_uid": "type::方向",
+      "src_uid": "   t   y   p   e   :   :   方   向   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::方向::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   方   向   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::平面",
+      "src_uid": "   t   y   p   e   :   :   平   面   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   ",
       "props": {}
     },
     {
-      "src_uid": "type::平面",
+      "src_uid": "   t   y   p   e   :   :   平   面   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::平面::global_axis",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   平   面   :   :   g   l   o   b   a   l   _   a   x   i   s   ",
       "props": {}
     },
     {
-      "src_uid": "type::平面",
+      "src_uid": "   t   y   p   e   :   :   平   面   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::平面::face_ref",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   平   面   :   :   f   a   c   e   _   r   e   f   ",
       "props": {}
     },
     {
-      "src_uid": "type::平面",
+      "src_uid": "   t   y   p   e   :   :   平   面   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::平面::PL,Z",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   平   面   :   :               P               L               ,               Z               ",
       "props": {}
     },
     {
-      "src_uid": "type::平面",
+      "src_uid": "   t   y   p   e   :   :   平   面   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::平面::PL,X",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   平   面   :   :               P               L               ,               X               ",
       "props": {}
     },
     {
-      "src_uid": "type::平面",
+      "src_uid": "   t   y   p   e   :   :   平   面   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::平面::PL,O,500.0,X",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   平   面   :   :               P               L               ,               O               ,               5               0               0               .               0               ,               X               ",
       "props": {}
     },
     {
-      "src_uid": "type::平面",
+      "src_uid": "   t   y   p   e   :   :   平   面   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::平面::PL,O,OFST,Y",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   平   面   :   :               P               L               ,               O               ,               O               F               S               T               ,               Y               ",
       "props": {}
     },
     {
-      "src_uid": "type::平面",
+      "src_uid": "   t   y   p   e   :   :   平   面   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::平面::PL,O,F,ID@A1B2C3",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   平   面   :   :               P               L               ,               O               ,               F               ,               I               D               @               A               1               B               2               C               3               ",
       "props": {}
     },
     {
-      "src_uid": "type::平面",
+      "src_uid": "   t   y   p   e   :   :   平   面   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::平面::PL,O,F,FRM1_FACE_TOP",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   平   面   :   :               P               L               ,               O               ,               F               ,               F               R               M               1               _               F               A               C               E               _               T               O               P               ",
       "props": {}
     },
     {
-      "src_uid": "type::平面",
+      "src_uid": "   t   y   p   e   :   :   平   面   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::平面::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   平   面   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::変数単位",
+      "src_uid": "   t   y   p   e   :   :   変   数   単   位   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   ",
       "props": {}
     },
     {
-      "src_uid": "type::変数単位",
+      "src_uid": "   t   y   p   e   :   :   変   数   単   位   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::変数単位::length",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   変   数   単   位   :   :   l   e   n   g   t   h   ",
       "props": {}
     },
     {
-      "src_uid": "type::変数単位",
+      "src_uid": "   t   y   p   e   :   :   変   数   単   位   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::変数単位::angle",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   変   数   単   位   :   :   a   n   g   l   e   ",
       "props": {}
     },
     {
-      "src_uid": "type::変数単位",
+      "src_uid": "   t   y   p   e   :   :   変   数   単   位   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::変数単位::number",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   変   数   単   位   :   :   n   u   m   b   e   r   ",
       "props": {}
     },
     {
-      "src_uid": "type::変数単位",
+      "src_uid": "   t   y   p   e   :   :   変   数   単   位   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::変数単位::mm",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   変   数   単   位   :   :               m               m               ",
       "props": {}
     },
     {
-      "src_uid": "type::変数単位",
+      "src_uid": "   t   y   p   e   :   :   変   数   単   位   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::変数単位::m",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   変   数   単   位   :   :               m               ",
       "props": {}
     },
     {
-      "src_uid": "type::変数単位",
+      "src_uid": "   t   y   p   e   :   :   変   数   単   位   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::変数単位::in",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   変   数   単   位   :   :               i               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::変数単位",
+      "src_uid": "   t   y   p   e   :   :   変   数   単   位   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::変数単位::deg",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   変   数   単   位   :   :               d               e               g               ",
       "props": {}
     },
     {
-      "src_uid": "type::変数単位",
+      "src_uid": "   t   y   p   e   :   :   変   数   単   位   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::変数単位::rad",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   変   数   単   位   :   :               r               a               d               ",
       "props": {}
     },
     {
-      "src_uid": "type::変数単位",
+      "src_uid": "   t   y   p   e   :   :   変   数   単   位   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::変数単位::",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   変   数   単   位   :   :               ",
       "props": {}
     },
     {
-      "src_uid": "type::変数単位",
+      "src_uid": "   t   y   p   e   :   :   変   数   単   位   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::変数単位::num",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   変   数   単   位   :   :               n               u               m               ",
       "props": {}
     },
     {
-      "src_uid": "type::変数単位",
+      "src_uid": "   t   y   p   e   :   :   変   数   単   位   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::変数単位::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   変   数   単   位   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::要素グループ",
+      "src_uid": "   t   y   p   e   :   :   要   素   グ   ル   ー   プ   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   ",
       "props": {}
     },
     {
-      "src_uid": "type::要素グループ",
+      "src_uid": "   t   y   p   e   :   :   要   素   グ   ル   ー   プ   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::要素グループ::A",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   要   素   グ   ル   ー   プ   :   :               A               ",
       "props": {}
     },
     {
-      "src_uid": "type::要素グループ",
+      "src_uid": "   t   y   p   e   :   :   要   素   グ   ル   ー   プ   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::要素グループ::A/B",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   要   素   グ   ル   ー   プ   :   :               A               /               B               ",
       "props": {}
     },
     {
-      "src_uid": "type::要素グループ",
+      "src_uid": "   t   y   p   e   :   :   要   素   グ   ル   ー   プ   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::要素グループ::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   要   素   グ   ル   ー   プ   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::注記スタイル",
+      "src_uid": "   t   y   p   e   :   :   注   記   ス   タ   イ   ル   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   ",
       "props": {}
     },
     {
-      "src_uid": "type::注記スタイル",
+      "src_uid": "   t   y   p   e   :   :   注   記   ス   タ   イ   ル   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::注記スタイル::<NoteStyleName>",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   注   記   ス   タ   イ   ル   :   :               <               N               o               t               e               S               t               y               l               e               N               a               m               e               >               ",
       "props": {}
     },
     {
-      "src_uid": "type::注記スタイル",
+      "src_uid": "   t   y   p   e   :   :   注   記   ス   タ   イ   ル   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::注記スタイル::<EVO.SHIPで設定されたスタイル名>",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   注   記   ス   タ   イ   ル   :   :               <               E               V               O               .               S               H               I               P               で               設               定               さ               れ               た               ス               タ               イ               ル               名               >               ",
       "props": {}
     },
     {
-      "src_uid": "type::注記スタイル",
+      "src_uid": "   t   y   p   e   :   :   注   記   ス   タ   イ   ル   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::注記スタイル::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   注   記   ス   タ   イ   ル   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::材料",
+      "src_uid": "   t   y   p   e   :   :   材   料   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   ",
       "props": {}
     },
     {
-      "src_uid": "type::材料",
+      "src_uid": "   t   y   p   e   :   :   材   料   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::材料::<MaterialName>",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   材   料   :   :               <               M               a               t               e               r               i               a               l               N               a               m               e               >               ",
       "props": {}
     },
     {
-      "src_uid": "type::材料",
+      "src_uid": "   t   y   p   e   :   :   材   料   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::材料::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   材   料   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::スイープ方向",
+      "src_uid": "   t   y   p   e   :   :   ス   イ   ー   プ   方   向   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   ",
       "props": {}
     },
     {
-      "src_uid": "type::スイープ方向",
+      "src_uid": "   t   y   p   e   :   :   ス   イ   ー   プ   方   向   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::スイープ方向::N",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   ス   イ   ー   プ   方   向   :   :               N               ",
       "props": {}
     },
     {
-      "src_uid": "type::スイープ方向",
+      "src_uid": "   t   y   p   e   :   :   ス   イ   ー   プ   方   向   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::スイープ方向::R",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   ス   イ   ー   プ   方   向   :   :               R               ",
       "props": {}
     },
     {
-      "src_uid": "type::スイープ方向",
+      "src_uid": "   t   y   p   e   :   :   ス   イ   ー   プ   方   向   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::スイープ方向::B",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   ス   イ   ー   プ   方   向   :   :               B               ",
       "props": {}
     },
     {
-      "src_uid": "type::スイープ方向",
+      "src_uid": "   t   y   p   e   :   :   ス   イ   ー   プ   方   向   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::スイープ方向::2",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   ス   イ   ー   プ   方   向   :   :               2               ",
       "props": {}
     },
     {
-      "src_uid": "type::スイープ方向",
+      "src_uid": "   t   y   p   e   :   :   ス   イ   ー   プ   方   向   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::スイープ方向::T",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   ス   イ   ー   プ   方   向   :   :               T               ",
       "props": {}
     },
     {
-      "src_uid": "type::スイープ方向",
+      "src_uid": "   t   y   p   e   :   :   ス   イ   ー   プ   方   向   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::スイープ方向::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   ス   イ   ー   プ   方   向   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::厚み付けタイプ",
+      "src_uid": "   t   y   p   e   :   :   厚   み   付   け   タ   イ   プ   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   ",
       "props": {}
     },
     {
-      "src_uid": "type::厚み付けタイプ",
+      "src_uid": "   t   y   p   e   :   :   厚   み   付   け   タ   イ   プ   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::厚み付けタイプ::+",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   厚   み   付   け   タ   イ   プ   :   :               +               ",
       "props": {}
     },
     {
-      "src_uid": "type::厚み付けタイプ",
+      "src_uid": "   t   y   p   e   :   :   厚   み   付   け   タ   イ   プ   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::厚み付けタイプ::-",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   厚   み   付   け   タ   イ   プ   :   :               -               ",
       "props": {}
     },
     {
-      "src_uid": "type::厚み付けタイプ",
+      "src_uid": "   t   y   p   e   :   :   厚   み   付   け   タ   イ   プ   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::厚み付けタイプ::B",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   厚   み   付   け   タ   イ   プ   :   :               B               ",
       "props": {}
     },
     {
-      "src_uid": "type::厚み付けタイプ",
+      "src_uid": "   t   y   p   e   :   :   厚   み   付   け   タ   イ   プ   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::厚み付けタイプ::2",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   厚   み   付   け   タ   イ   プ   :   :               2               ",
       "props": {}
     },
     {
-      "src_uid": "type::厚み付けタイプ",
+      "src_uid": "   t   y   p   e   :   :   厚   み   付   け   タ   イ   プ   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::厚み付けタイプ::",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   厚   み   付   け   タ   イ   プ   :   :               ",
       "props": {}
     },
     {
-      "src_uid": "type::厚み付けタイプ",
+      "src_uid": "   t   y   p   e   :   :   厚   み   付   け   タ   イ   プ   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::厚み付けタイプ::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   厚   み   付   け   タ   イ   プ   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::モールド位置",
+      "src_uid": "   t   y   p   e   :   :   モ   ー   ル   ド   位   置   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   ",
       "props": {}
     },
     {
-      "src_uid": "type::モールド位置",
+      "src_uid": "   t   y   p   e   :   :   モ   ー   ル   ド   位   置   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::モールド位置::+",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   モ   ー   ル   ド   位   置   :   :               +               ",
       "props": {}
     },
     {
-      "src_uid": "type::モールド位置",
+      "src_uid": "   t   y   p   e   :   :   モ   ー   ル   ド   位   置   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::モールド位置::-",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   モ   ー   ル   ド   位   置   :   :               -               ",
       "props": {}
     },
     {
-      "src_uid": "type::モールド位置",
+      "src_uid": "   t   y   p   e   :   :   モ   ー   ル   ド   位   置   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::モールド位置::",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   モ   ー   ル   ド   位   置   :   :               ",
       "props": {}
     },
     {
-      "src_uid": "type::モールド位置",
+      "src_uid": "   t   y   p   e   :   :   モ   ー   ル   ド   位   置   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::モールド位置::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   モ   ー   ル   ド   位   置   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::オペレーションタイプ （ボディ）",
+      "src_uid": "   t   y   p   e   :   :   オ   ペ   レ   ー   シ   ョ   ン   タ   イ   プ       （   ボ   デ   ィ   ）   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   ",
       "props": {}
     },
     {
-      "src_uid": "type::オペレーションタイプ （ボディ）",
+      "src_uid": "   t   y   p   e   :   :   オ   ペ   レ   ー   シ   ョ   ン   タ   イ   プ       （   ボ   デ   ィ   ）   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::オペレーションタイプ （ボディ）::",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   オ   ペ   レ   ー   シ   ョ   ン   タ   イ   プ       （   ボ   デ   ィ   ）   :   :               ",
       "props": {}
     },
     {
-      "src_uid": "type::オペレーションタイプ （ボディ）",
+      "src_uid": "   t   y   p   e   :   :   オ   ペ   レ   ー   シ   ョ   ン   タ   イ   プ       （   ボ   デ   ィ   ）   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::オペレーションタイプ （ボディ）::",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   オ   ペ   レ   ー   シ   ョ   ン   タ   イ   プ       （   ボ   デ   ィ   ）   :   :               ",
       "props": {}
     },
     {
-      "src_uid": "type::オペレーションタイプ （ボディ）",
+      "src_uid": "   t   y   p   e   :   :   オ   ペ   レ   ー   シ   ョ   ン   タ   イ   プ       （   ボ   デ   ィ   ）   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::オペレーションタイプ （ボディ）::",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   オ   ペ   レ   ー   シ   ョ   ン   タ   イ   プ       （   ボ   デ   ィ   ）   :   :               ",
       "props": {}
     },
     {
-      "src_uid": "type::オペレーションタイプ （ボディ）",
+      "src_uid": "   t   y   p   e   :   :   オ   ペ   レ   ー   シ   ョ   ン   タ   イ   プ       （   ボ   デ   ィ   ）   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::オペレーションタイプ （ボディ）::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   オ   ペ   レ   ー   シ   ョ   ン   タ   イ   プ       （   ボ   デ   ィ   ）   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::関連設定",
+      "src_uid": "   t   y   p   e   :   :   関   連   設   定   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   ",
       "props": {}
     },
     {
-      "src_uid": "type::関連設定",
+      "src_uid": "   t   y   p   e   :   :   関   連   設   定   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::関連設定::B",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   関   連   設   定   :   :               B               ",
       "props": {}
     },
     {
-      "src_uid": "type::関連設定",
+      "src_uid": "   t   y   p   e   :   :   関   連   設   定   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::関連設定::",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   関   連   設   定   :   :               ",
       "props": {}
     },
     {
-      "src_uid": "type::関連設定",
+      "src_uid": "   t   y   p   e   :   :   関   連   設   定   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::関連設定::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   関   連   設   定   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::形状タイプ",
+      "src_uid": "   t   y   p   e   :   :   形   状   タ   イ   プ   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   ",
       "props": {}
     },
     {
-      "src_uid": "type::形状タイプ",
+      "src_uid": "   t   y   p   e   :   :   形   状   タ   イ   プ   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::形状タイプ::1007",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   形   状   タ   イ   プ   :   :               1               0               0               7               ",
       "props": {}
     },
     {
-      "src_uid": "type::形状タイプ",
+      "src_uid": "   t   y   p   e   :   :   形   状   タ   イ   プ   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::形状タイプ::1003",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   形   状   タ   イ   プ   :   :               1               0               0               3               ",
       "props": {}
     },
     {
-      "src_uid": "type::形状タイプ",
+      "src_uid": "   t   y   p   e   :   :   形   状   タ   イ   プ   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::形状タイプ::1101",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   形   状   タ   イ   プ   :   :               1               1               0               1               ",
       "props": {}
     },
     {
-      "src_uid": "type::形状タイプ",
+      "src_uid": "   t   y   p   e   :   :   形   状   タ   イ   プ   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::形状タイプ::1120",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   形   状   タ   イ   プ   :   :               1               1               2               0               ",
       "props": {}
     },
     {
-      "src_uid": "type::形状タイプ",
+      "src_uid": "   t   y   p   e   :   :   形   状   タ   イ   プ   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::形状タイプ::1503",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   形   状   タ   イ   プ   :   :               1               5               0               3               ",
       "props": {}
     },
     {
-      "src_uid": "type::形状タイプ",
+      "src_uid": "   t   y   p   e   :   :   形   状   タ   イ   プ   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::形状タイプ::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   形   状   タ   イ   プ   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::形状パラメータ",
+      "src_uid": "   t   y   p   e   :   :   形   状   パ   ラ   メ   ー   タ   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::string[]",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   [   ]   ",
       "props": {}
     },
     {
-      "src_uid": "type::形状パラメータ",
+      "src_uid": "   t   y   p   e   :   :   形   状   パ   ラ   メ   ー   タ   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::形状パラメータ::[\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   形   状   パ   ラ   メ   ー   タ   :   :               [               \"               1               5               0               .               \"               ,               \"               9               0               .               \"               ,               \"               9               .               0               0               0               0               0               0               0               0               0               0               0               0               0               0               1               8               \"               ,               \"               1               2               .               \"               ,               \"               6               .               \"               ]               ",
       "props": {}
     },
     {
-      "src_uid": "type::形状パラメータ",
+      "src_uid": "   t   y   p   e   :   :   形   状   パ   ラ   メ   ー   タ   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::形状パラメータ::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   形   状   パ   ラ   メ   ー   タ   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     },
     {
-      "src_uid": "type::要素",
+      "src_uid": "   t   y   p   e   :   :   要   素   ",
       "rel_type": "HAS_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
+      "dst_uid": "   c   a   n   o   n   i   c   a   l   :   :   s   t   r   i   n   g   ",
       "props": {}
     },
     {
-      "src_uid": "type::要素",
+      "src_uid": "   t   y   p   e   :   :   要   素   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::要素::element_id",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   要   素   :   :   e   l   e   m   e   n   t   _   i   d   ",
       "props": {}
     },
     {
-      "src_uid": "type::要素",
+      "src_uid": "   t   y   p   e   :   :   要   素   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::要素::element_path",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   要   素   :   :   e   l   e   m   e   n   t   _   p   a   t   h   ",
       "props": {}
     },
     {
-      "src_uid": "type::要素",
+      "src_uid": "   t   y   p   e   :   :   要   素   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::要素::plate_surface_array",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   要   素   :   :   p   l   a   t   e   _   s   u   r   f   a   c   e   _   a   r   r   a   y   ",
       "props": {}
     },
     {
-      "src_uid": "type::要素",
+      "src_uid": "   t   y   p   e   :   :   要   素   ",
       "rel_type": "HAS_VARIANT",
-      "dst_uid": "variant::要素::face_points_csv",
+      "dst_uid": "   v   a   r   i   a   n   t   :   :   要   素   :   :   f   a   c   e   _   p   o   i   n   t   s   _   c   s   v   ",
       "props": {}
     },
     {
-      "src_uid": "type::要素",
+      "src_uid": "   t   y   p   e   :   :   要   素   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::要素::ID@d8baafc30be94411a6ab9d6173c1d1dd",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   要   素   :   :               I               D               @               d               8               b               a               a               f               c               3               0               b               e               9               4               4               1               1               a               6               a               b               9               d               6               1               7               3               c               1               d               1               d               d               ",
       "props": {}
     },
     {
-      "src_uid": "type::要素",
+      "src_uid": "   t   y   p   e   :   :   要   素   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::要素::G1/G2/A",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   要   素   :   :               G               1               /               G               2               /               A               ",
       "props": {}
     },
     {
-      "src_uid": "type::要素",
+      "src_uid": "   t   y   p   e   :   :   要   素   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::要素::[\"PLS\",\"False\",\"False\",\"0.0\",\"0.0\",\"-1.0\",\"ID@d8baafc30be94411a6ab9d6173c1d1dd\"]",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   要   素   :   :               [               \"               P               L               S               \"               ,               \"               F               a               l               s               e               \"               ,               \"               F               a               l               s               e               \"               ,               \"               0               .               0               \"               ,               \"               0               .               0               \"               ,               \"               -               1               .               0               \"               ,               \"               I               D               @               d               8               b               a               a               f               c               3               0               b               e               9               4               4               1               1               a               6               a               b               9               d               6               1               7               3               c               1               d               1               d               d               \"               ]               ",
       "props": {}
     },
     {
-      "src_uid": "type::要素",
+      "src_uid": "   t   y   p   e   :   :   要   素   ",
       "rel_type": "HAS_EXAMPLE",
-      "dst_uid": "example::要素::ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8",
+      "dst_uid": "   e   x   a   m   p   l   e   :   :   要   素   :   :               I               D               @               d               8               b               a               a               f               c               3               0               b               e               9               4               4               1               1               a               6               a               b               9               d               6               1               7               3               c               1               d               1               d               d               ,               F               ,               -               1               0               ,               0               .               5               ,               2               .               3               ,               -               1               1               .               0               ,               0               .               0               ,               4               .               8               ",
       "props": {}
     },
     {
-      "src_uid": "type::要素",
+      "src_uid": "   t   y   p   e   :   :   要   素   ",
       "rel_type": "FROM_SOURCE",
-      "dst_uid": "source::要素::C:\\Users\\akiro\\workfolder\\imabari3dcad\\structured_api\\type_definitions.json",
+      "dst_uid": "   s   o   u   r   c   e   :   :   要   素   :   :               C               :               \\               U               s               e               r               s               \\               a               k               i               r               o               \\               w               o               r               k               f               o               l               d               e               r               \\               i               m               a               b               a               r               i               3               d               c               a               d               \\               s               t               r               u               c               t               u               r               e               d               _               a               p               i               \\               t               y               p               e               _               d               e               f               i               n               i               t               i               o               n               s               .               j               s               o               n               ",
       "props": {}
     }
   ]
