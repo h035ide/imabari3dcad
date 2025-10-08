@@ -504,17 +504,18 @@ def persist_to_neo4j(
                 tag=MANAGED_TAG,
             )
 
+        entity_labels = {"TypeDefinition", "CanonicalType", "PythonType", "Variant"}
+
         node_count = 0
         for node in nodes:
-            label_clause = f":{node.label}"
             sess.run(
-                f"MERGE (n{label_clause} {{uid:$uid}}) SET n += $props",
+                f"MERGE (n:{node.label} {{uid:$uid}}) SET n += $props",
                 uid=node.uid,
                 props=node.props,
             )
-            if add_entity_label:
+            if add_entity_label and node.label in entity_labels:
                 sess.run(
-                    f"MATCH (n{label_clause} {{uid:$uid}}) SET n:__Entity__",
+                    f"MATCH (n:{node.label} {{uid:$uid}}) SET n:__Entity__",
                     uid=node.uid,
                 )
             node_count += 1
@@ -531,16 +532,6 @@ def persist_to_neo4j(
                 props=rel.props or {"managed_tag": MANAGED_TAG},
             )
             rel_count += 1
-
-        if add_entity_label:
-            sess.run(
-                """
-                MATCH (n {managed_tag: $tag})
-                WHERE n:TypeDefinition OR n:CanonicalType OR n:PythonType OR n:Variant
-                SET n:__Entity__
-                """,
-                tag=MANAGED_TAG,
-            )
 
     driver.close()
     return node_count, rel_count
@@ -592,6 +583,45 @@ def try_build_property_graph_index(
         LOGGER.warning("LlamaIndex GraphStore 接続検証はスキップ/失敗しました: %s", exc)
 
 
+def clear_database_contents(
+    *,
+    uri: str,
+    username: str,
+    password: str,
+    database: str,
+    force: bool,
+) -> bool:
+    if not force:
+        LOGGER.warning("--clear-force が指定されていないためデータベースのクリアをスキップします")
+        return False
+
+    from neo4j import GraphDatabase
+
+    LOGGER.warning("データベース '%s' を完全にクリアします", database)
+    driver = GraphDatabase.driver(uri, auth=(username, password))
+    try:
+        try:
+            with driver.session(database="system") as system_session:
+                result = system_session.run("SHOW DATABASES")
+                db_names = {record["name"] for record in result}
+                if database not in db_names:
+                    LOGGER.info("データベース '%s' が存在しないため作成します", database)
+                    system_session.run(f"CREATE DATABASE `{database}`")
+        except Exception as exc:
+            LOGGER.debug("データベース存在確認でエラーが発生しましたが処理を継続します: %s", exc)
+
+        with driver.session(database=database) as session:
+            session.run("MATCH ()-[r]-() DELETE r")
+            session.run("MATCH (n) DELETE n")
+            LOGGER.info("データベース '%s' のクリアが完了しました", database)
+        return True
+    except Exception as exc:
+        LOGGER.error("データベースクリア中にエラー: %s", exc)
+        return False
+    finally:
+        driver.close()
+
+
 def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="type_definitions.json を Neo4j に投入しグラフを整備"
@@ -609,14 +639,45 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
         help="canonical_type に付随する Python 型メタ情報の JSON (任意)",
     )
     parser.add_argument("--openai-api-key", default=os.getenv("OPENAI_API_KEY"))
-    parser.add_argument("--neo4j-uri", default=os.getenv("NEO4J_URI"))
-    parser.add_argument("--neo4j-user", default=os.getenv("NEO4J_USERNAME"))
-    parser.add_argument("--neo4j-password", default=os.getenv("NEO4J_PASSWORD"))
+    parser.add_argument(
+        "--neo4j-uri",
+        type=str,
+        default=os.getenv("NEO4J_URI"),
+        help="Neo4j URI (bolt://...) または neo4j://",
+    )
+    parser.add_argument(
+        "--neo4j-user",
+        type=str,
+        default=os.getenv("NEO4J_USERNAME") or os.getenv("NEO4J_USER"),
+        help="Neo4j ユーザ名",
+    )
+    parser.add_argument(
+        "--neo4j-password",
+        type=str,
+        default=os.getenv("NEO4J_PASSWORD"),
+        help="Neo4j パスワード",
+    )
     parser.add_argument(
         "--database",
         type=str,
-        default="demo",
+        default=os.getenv("NEO4J_DATABASE", "demo"),
         help="データベース名 (Neo4j 5.x 以上で複数 DB を利用する場合)",
+    )
+    parser.add_argument(
+        "--clear-before",
+        action="store_true",
+        help="投入前に対象データベースを完全にクリア",
+    )
+    parser.add_argument(
+        "--clear-force",
+        action="store_true",
+        help="クリア処理を強制実行（確認なし）",
+    )
+    parser.add_argument(
+        "--clear-db",
+        type=str,
+        default=None,
+        help="クリア対象のデータベース名。未指定時は --database を利用",
     )
     parser.add_argument(
         "--export-triples-json",
@@ -677,6 +738,20 @@ def main(argv: Optional[List[str]] = None) -> int:
     if not neo4j_uri:
         LOGGER.error("Neo4j URI が指定されていません (--neo4j-uri を設定してください)")
         return 3
+
+    if args.clear_before:
+        if args.dry_run:
+            LOGGER.warning("--dry-run 中のためデータベースクリアはスキップします")
+        else:
+            cleared = clear_database_contents(
+                uri=neo4j_uri,
+                username=args.neo4j_user or "neo4j",
+                password=args.neo4j_password or "neo4j",
+                database=args.clear_db or args.database,
+                force=args.clear_force,
+            )
+            if not cleared:
+                LOGGER.warning("データベースのクリアは実行されませんでした")
 
     if args.dry_run:
         LOGGER.info("--dry-run のため Neo4j への書き込みはスキップします")
