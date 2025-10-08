@@ -289,20 +289,21 @@ def build_graph_elements(
         aliases = td.get("alias") or td.get("aliases") or []
         if isinstance(aliases, (str, int, float)):
             aliases = [aliases]
+        alias_list: List[Tuple[str, Dict[str, Any]]] = []
         if isinstance(aliases, list):
             for alias_idx, alias_value in enumerate(aliases):
                 alias_str = _to_str(alias_value).strip()
                 if not alias_str:
                     continue
                 alias_uid = f"alias::{name}::{alias_str}"
-                add_node(
-                    "Alias",
-                    alias_uid,
-                    name=alias_str,
-                    origin="type_definition",
-                    position=alias_idx,
-                )
+                props = {
+                    "name": alias_str,
+                    "origin": "type_definition",
+                    "position": alias_idx,
+                }
+                add_node("Alias", alias_uid, **props)
                 add_rel(td_uid, "HAS_ALIAS", alias_uid)
+                alias_list.append((alias_uid, props))
 
         origin_rel_map = {"one_of": "HAS_ONE_OF", "variants": "HAS_VARIANTS"}
         for origin_key in ("one_of", "variants"):
@@ -337,23 +338,31 @@ def build_graph_elements(
                 if not identifier_str:
                     identifier_str = f"variant_{v_idx}"
                 variant_uid = f"variant::{name}::{identifier_str}"
-                add_node(
-                    "Variant",
-                    variant_uid,
-                    identifier=identifier_str,
-                    origin=origin_key,
-                    description=_to_str(description_v),
-                    position=v_idx,
-                    metadata_json=_safe_json(metadata) if metadata else None,
-                )
+                variant_props: Dict[str, Any] = {
+                    "identifier": identifier_str,
+                    "origin": origin_key,
+                    "description": _to_str(description_v),
+                    "position": v_idx,
+                }
+                if metadata:
+                    variant_props["metadata_json"] = _safe_json(metadata)
+                add_node("Variant", variant_uid, **variant_props)
                 rel_type = origin_rel_map.get(origin_key, "HAS_VARIANT")
                 add_rel(td_uid, rel_type, variant_uid, list_origin=origin_key)
+                if alias_list:
+                    alias_match = next(
+                        (
+                            alias_uid
+                            for alias_uid, alias_props in alias_list
+                            if alias_props.get("position") == v_idx
+                        ),
+                        None,
+                    )
+                    if alias_match:
+                        add_rel(alias_match, "ALIAS_OF_VARIANT", variant_uid)
 
                 if value_kind:
                     value_kind_str = _to_str(value_kind)
-                    value_kind_uid = f"value_kind::{value_kind_str}"
-                    add_node("ValueKind", value_kind_uid, name=value_kind_str)
-                    add_rel(variant_uid, "USES_VALUE_KIND", value_kind_uid)
                     if canonical_meta.get(value_kind_str):
                         _ensure_canonical_type(
                             canonical=value_kind_str,
