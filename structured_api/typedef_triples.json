@@ -1595,14 +1595,6 @@
       }
     },
     {
-      "label": "ValueKind",
-      "uid": "value_kind::string",
-      "props": {
-        "name": "string",
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
       "label": "Variant",
       "uid": "variant::要素::element_path",
       "props": {
@@ -1623,14 +1615,6 @@
         "description": "板ソリッド要素の板厚面（条材はウェブ）を配列で指定",
         "position": 2,
         "metadata_json": "{\"value_kind\":\"string[]\",\"constraints\":{\"length\":7,\"schema\":[\"PLS\",\"True|False\",\"False\",\"num|var\",\"num|var\",\"num|var\",\"ID@[0-9a-fA-F]{32}\"],\"notes\":\"2番目は内部穴削除フラグ、3番目は固定で\\\"False\\\"。4–6番目は外側方向ベクトル(x,y,z)。\"}}",
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "label": "ValueKind",
-      "uid": "value_kind::string[]",
-      "props": {
-        "name": "string[]",
         "managed_tag": "type_definitions_etl"
       }
     },
@@ -2389,11 +2373,27 @@
       }
     },
     {
+      "src_uid": "alias::点::点(2D)",
+      "rel_type": "ALIAS_OF_VARIANT",
+      "dst_uid": "variant::点::2d",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "type::点",
       "rel_type": "HAS_VARIANTS",
       "dst_uid": "variant::点::3d",
       "props": {
         "list_origin": "variants",
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "alias::点::点(3D)",
+      "rel_type": "ALIAS_OF_VARIANT",
+      "dst_uid": "variant::点::3d",
+      "props": {
         "managed_tag": "type_definitions_etl"
       }
     },
@@ -3512,14 +3512,6 @@
     },
     {
       "src_uid": "variant::要素::element_id",
-      "rel_type": "USES_VALUE_KIND",
-      "dst_uid": "value_kind::string",
-      "props": {
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "src_uid": "variant::要素::element_id",
       "rel_type": "CONSTRAINED_BY_CANONICAL_TYPE",
       "dst_uid": "canonical::string",
       "props": {
@@ -3537,14 +3529,6 @@
     },
     {
       "src_uid": "variant::要素::element_path",
-      "rel_type": "USES_VALUE_KIND",
-      "dst_uid": "value_kind::string",
-      "props": {
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "src_uid": "variant::要素::element_path",
       "rel_type": "CONSTRAINED_BY_CANONICAL_TYPE",
       "dst_uid": "canonical::string",
       "props": {
@@ -3557,14 +3541,6 @@
       "dst_uid": "variant::要素::plate_surface_array",
       "props": {
         "list_origin": "variants",
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "src_uid": "variant::要素::plate_surface_array",
-      "rel_type": "USES_VALUE_KIND",
-      "dst_uid": "value_kind::string[]",
-      "props": {
         "managed_tag": "type_definitions_etl"
       }
     },
@@ -3710,14 +3686,6 @@
       "dst_uid": "variant::要素::face_points_csv",
       "props": {
         "list_origin": "variants",
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "src_uid": "variant::要素::face_points_csv",
-      "rel_type": "USES_VALUE_KIND",
-      "dst_uid": "value_kind::string",
-      "props": {
         "managed_tag": "type_definitions_etl"
       }
     },
