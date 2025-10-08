@@ -8,17 +8,17 @@ A-style ETL (決め打ち) で JSON の type_definitions を Neo4j のプロパ�
 - 取り込み先は Neo4j（bolt/neo4j/s）を想定（ローカル/クラウドどちらでも可）
 - 取り込み内容をデバッグしやすいように --dry-run / --export-triples-json を用意
 - （任意）--create-property-graph-index で LlamaIndex から GraphStore に接続できるか簡易検証
+- **二重ラベル対応**: 既定で各ノードに `__Entity__` ラベルも付与（--no-entity-label で無効化可）
 
 使い方（例）:
-    python type_definitions_etl.py \
+    uv run --with neo4j ./type_definitions_etl.py \
       --json-path ./data/type_definitions.json \
       --neo4j-uri bolt://localhost:7687 \
       --neo4j-user neo4j \
       --neo4j-password password \
       --database neo4j \
       --project imabari3dcad \
-      --export-triples-json ./data/typedef_triples.json \
-      --create-property-graph-index
+      --export-triples-json ./data/typedef_triples.json
 
 初回は --dry-run で件数だけ確認してから投入するのが安全です。
 
@@ -113,7 +113,7 @@ def _slug(fragment: Any) -> str:
     """uid 生成のための簡易 slug（ファイルパスや日本語もそのまま許容）。"""
     s = _to_str(fragment)
     # uid 用に危険な改行やタブだけ潰す
-    return s.replace("\n", " ").replace("\r", " ").replace("\t", " ")
+    return s.replace("", " ").replace("", " ").replace("	", " ")
 
 
 # ---- JSON ロード & 正規化 ----
@@ -253,6 +253,7 @@ def build_graph_elements(
 
     return list(nodes_map.values()), rels
 
+
 # ---- URI 正規化 ----
 
 
@@ -264,7 +265,9 @@ def normalize_neo4j_uri(uri: str) -> str:
         return uri
     u = str(uri).strip().replace("　", " ")  # 全角空白除去
     # 余計な引用符を除去
-    if (u.startswith("\"") and u.endswith("\"")) or (u.startswith("'") and u.endswith("'")):
+    if (u.startswith('"') and u.endswith('"')) or (
+        u.startswith("'") and u.endswith("'")
+    ):
         u = u[1:-1]
     if "://" not in u:
         # スキームが無ければ bolt:// を付与
@@ -285,14 +288,12 @@ def persist_to_neo4j(
     relations: List[Relation],
     project: str,
     wipe_project: bool = False,
+    add_entity_label: bool = True,
 ) -> Tuple[int, int]:
     """Neo4j にノード/リレーションを投入。戻り値は (作成/更新ノード数, 関係数)。"""
     from neo4j import GraphDatabase
 
     driver = GraphDatabase.driver(uri, auth=(username, password))
-
-    def run(tx, query: str, **params: Any):
-        return tx.run(query, **params)
 
     with driver.session(database=database) as sess:
         # インデックス/制約（uid をユニーク）
@@ -305,6 +306,23 @@ def persist_to_neo4j(
         ]
         for query in constraint_queries:
             sess.run(query)
+
+        # 既存プロジェクトに __Entity__ を後付け（必要なら）
+        if add_entity_label:
+            try:
+                res = sess.run(
+                    """
+                    MATCH (n) WHERE n.project = $project AND NOT n:__Entity__
+                    SET n:__Entity__
+                    RETURN count(n) AS affected
+                    """,
+                    project=project,
+                ).single()
+                LOGGER.debug(
+                    "__Entity__ 追加済みノード: %s", res["affected"] if res else 0
+                )
+            except Exception as e:
+                LOGGER.debug("__Entity__ 追加クエリをスキップ: %s", e)
 
         if wipe_project:
             LOGGER.warning(
@@ -323,7 +341,8 @@ def persist_to_neo4j(
         # ノード投入（MERGE uid, SET props）
         node_count = 0
         for n in nodes:
-            query = f"MERGE (n:{n.label} {{uid:$uid}}) SET n += $props RETURN n"
+            extra = ":__Entity__" if add_entity_label else ""
+            query = f"MERGE (n:{n.label}{extra} {{uid:$uid}}) SET n += $props RETURN n"
             sess.run(query, uid=n.uid, props=n.props)
             node_count += 1
 
@@ -331,7 +350,7 @@ def persist_to_neo4j(
         rel_count = 0
         for r in relations:
             query = (
-                "MATCH (a {uid:$src_uid, project:$project}), (b {uid:$dst_uid, project:$project})\n"
+                "MATCH (a {uid:$src_uid, project:$project}), (b {uid:$dst_uid, project:$project})"
                 "MERGE (a)-[rel:%s]->(b) SET rel += $props RETURN rel" % r.rel_type
             )
             sess.run(
@@ -390,14 +409,19 @@ def try_build_property_graph_index(
             store = Neo4jGraphStore(
                 url=uri, username=username, password=password, database=database
             )
-        # 軽いクエリ
-        # 注意: LlamaIndex の API は頻繁に変わるため、ここでは疎通だけ確認
         LOGGER.info("LlamaIndex Neo4jGraphStore に接続できました: %s", type(store))
     except Exception as e:
         LOGGER.warning("LlamaIndex の GraphStore 接続はスキップ/失敗しました: %s", e)
 
 
 # ---- CLI ----
+
+# 既存ノードに後付けで __Entity__ ラベルを付ける一括操作（任意で使用）
+ADD_ENTITY_LABEL_CYPHER = """
+    MATCH (n) WHERE n.project = $project AND NOT n:__Entity__
+    SET n:__Entity__
+    RETURN count(n) AS affected
+    """
 
 
 def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
@@ -414,8 +438,18 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
         default=os.getenv("NEO4J_URI"),
         help="Neo4j URI (bolt://...) または neo4j://",
     )
-    p.add_argument("--neo4j-user", type=str, default=os.getenv("NEO4J_USERNAME"), help="Neo4j ユーザ名")
-    p.add_argument("--neo4j-password", type=str, default=os.getenv("NEO4J_PASSWORD"), help="Neo4j パスワード")
+    p.add_argument(
+        "--neo4j-user",
+        type=str,
+        default=os.getenv("NEO4J_USERNAME"),
+        help="Neo4j ユーザ名",
+    )
+    p.add_argument(
+        "--neo4j-password",
+        type=str,
+        default=os.getenv("NEO4J_PASSWORD"),
+        help="Neo4j パスワード",
+    )
     p.add_argument(
         "--database",
         type=str,
@@ -447,6 +481,11 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
         action="store_true",
         help="LlamaIndex GraphStore への疎通確認を行う",
     )
+    p.add_argument(
+        "--no-entity-label",
+        action="store_true",
+        help="ノードに __Entity__ ラベルを付けない（デフォルトは付与）",
+    )
     p.add_argument("--verbose", action="store_true")
     return p.parse_args(argv)
 
@@ -462,6 +501,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     LOGGER.info("定義の件数: %d", len(definitions))
 
     nodes, rels = build_graph_elements(definitions, project=args.project)
+    add_entity_label = not args.no_entity_label
     LOGGER.info("生成ノード: %d, リレーション: %d", len(nodes), len(rels))
 
     if len(nodes) == 0:
@@ -476,7 +516,9 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     neo4j_uri = normalize_neo4j_uri(args.neo4j_uri or "")
     if not neo4j_uri:
-        LOGGER.error("Neo4j URI が指定されていません (--neo4j-uri か NEO4J_URI を設定してください)")
+        LOGGER.error(
+            "Neo4j URI が指定されていません (--neo4j-uri か NEO4J_URI を設定してください)"
+        )
         return 3
 
     if args.dry_run:
@@ -491,6 +533,7 @@ def main(argv: Optional[List[str]] = None) -> int:
             relations=rels,
             project=args.project,
             wipe_project=args.wipe_project,
+            add_entity_label=add_entity_label,
         )
         LOGGER.info("Neo4j へ投入完了: ノード %d, リレーション %d", n_count, r_count)
 
