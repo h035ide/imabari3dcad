@@ -1595,6 +1595,15 @@
       }
     },
     {
+      "label": "Pattern",
+      "uid": "pattern::variant::要素::element_id",
+      "props": {
+        "pattern": "^ID@[0-9a-fA-F]{32}$",
+        "pattern_type": "regex",
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "label": "Variant",
       "uid": "variant::要素::element_path",
       "props": {
@@ -1603,6 +1612,15 @@
         "description": "要素名/要素グループを「/」区切りで指定（重名の場合は不定）",
         "position": 1,
         "metadata_json": "{\"value_kind\":\"string\",\"pattern\":\"^[^/]+(?:/[^/]+)*$\"}",
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "label": "Pattern",
+      "uid": "pattern::variant::要素::element_path",
+      "props": {
+        "pattern": "^[^/]+(?:/[^/]+)*$",
+        "pattern_type": "regex",
         "managed_tag": "type_definitions_etl"
       }
     },
@@ -1639,6 +1657,15 @@
       }
     },
     {
+      "label": "LiteralValue",
+      "uid": "constraint::variant::要素::plate_surface_array::schema::0::literal",
+      "props": {
+        "value": "PLS",
+        "value_type": "string",
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "label": "ConstraintSchemaItem",
       "uid": "constraint::variant::要素::plate_surface_array::schema::1",
       "props": {
@@ -1648,18 +1675,11 @@
       }
     },
     {
-      "label": "EnumerationValue",
-      "uid": "constraint::variant::要素::plate_surface_array::schema::1::enum::True",
+      "label": "RegexPattern",
+      "uid": "constraint::variant::要素::plate_surface_array::schema::1::regex",
       "props": {
-        "value": "True",
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "label": "EnumerationValue",
-      "uid": "constraint::variant::要素::plate_surface_array::schema::1::enum::False",
-      "props": {
-        "value": "False",
+        "pattern": "True|False",
+        "description": "Schema item 1 regex pattern",
         "managed_tag": "type_definitions_etl"
       }
     },
@@ -1673,6 +1693,15 @@
       }
     },
     {
+      "label": "LiteralValue",
+      "uid": "constraint::variant::要素::plate_surface_array::schema::2::literal",
+      "props": {
+        "value": "False",
+        "value_type": "string",
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "label": "ConstraintSchemaItem",
       "uid": "constraint::variant::要素::plate_surface_array::schema::3",
       "props": {
@@ -1682,18 +1711,11 @@
       }
     },
     {
-      "label": "EnumerationValue",
-      "uid": "constraint::variant::要素::plate_surface_array::schema::3::enum::num",
+      "label": "RegexPattern",
+      "uid": "constraint::variant::要素::plate_surface_array::schema::3::regex",
       "props": {
-        "value": "num",
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "label": "EnumerationValue",
-      "uid": "constraint::variant::要素::plate_surface_array::schema::3::enum::var",
-      "props": {
-        "value": "var",
+        "pattern": "num|var",
+        "description": "Schema item 3 regex pattern",
         "managed_tag": "type_definitions_etl"
       }
     },
@@ -1707,18 +1729,11 @@
       }
     },
     {
-      "label": "EnumerationValue",
-      "uid": "constraint::variant::要素::plate_surface_array::schema::4::enum::num",
+      "label": "RegexPattern",
+      "uid": "constraint::variant::要素::plate_surface_array::schema::4::regex",
       "props": {
-        "value": "num",
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "label": "EnumerationValue",
-      "uid": "constraint::variant::要素::plate_surface_array::schema::4::enum::var",
-      "props": {
-        "value": "var",
+        "pattern": "num|var",
+        "description": "Schema item 4 regex pattern",
         "managed_tag": "type_definitions_etl"
       }
     },
@@ -1732,18 +1747,11 @@
       }
     },
     {
-      "label": "EnumerationValue",
-      "uid": "constraint::variant::要素::plate_surface_array::schema::5::enum::num",
+      "label": "RegexPattern",
+      "uid": "constraint::variant::要素::plate_surface_array::schema::5::regex",
       "props": {
-        "value": "num",
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "label": "EnumerationValue",
-      "uid": "constraint::variant::要素::plate_surface_array::schema::5::enum::var",
-      "props": {
-        "value": "var",
+        "pattern": "num|var",
+        "description": "Schema item 5 regex pattern",
         "managed_tag": "type_definitions_etl"
       }
     },
@@ -1753,6 +1761,15 @@
       "props": {
         "index": 6,
         "value": "ID@[0-9a-fA-F]{32}",
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "label": "RegexPattern",
+      "uid": "constraint::variant::要素::plate_surface_array::schema::6::regex",
+      "props": {
+        "pattern": "ID@[0-9a-fA-F]{32}",
+        "description": "Schema item 6 regex pattern",
         "managed_tag": "type_definitions_etl"
       }
     },
@@ -1775,6 +1792,36 @@
         "kind": "structured",
         "notes": "",
         "raw_json": "{\"prefix\":\"ID@<hex>,F,\",\"coords\":\"以降は3要素の座標タプルを1つ以上（数値/変数、混在可）\",\"triplet_multiple\":true}",
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "label": "ConstraintProperty",
+      "uid": "constraint::variant::要素::face_points_csv::property::prefix",
+      "props": {
+        "property_name": "prefix",
+        "property_value": "ID@<hex>,F,",
+        "property_type": "string",
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "label": "ConstraintProperty",
+      "uid": "constraint::variant::要素::face_points_csv::property::coords",
+      "props": {
+        "property_name": "coords",
+        "property_value": "以降は3要素の座標タプルを1つ以上（数値/変数、混在可）",
+        "property_type": "string",
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "label": "ConstraintProperty",
+      "uid": "constraint::variant::要素::face_points_csv::property::triplet_multiple",
+      "props": {
+        "property_name": "triplet_multiple",
+        "property_value": "True",
+        "property_type": "boolean",
         "managed_tag": "type_definitions_etl"
       }
     },
@@ -3512,6 +3559,14 @@
     },
     {
       "src_uid": "variant::要素::element_id",
+      "rel_type": "HAS_PATTERN",
+      "dst_uid": "pattern::variant::要素::element_id",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "variant::要素::element_id",
       "rel_type": "CONSTRAINED_BY_CANONICAL_TYPE",
       "dst_uid": "canonical::string",
       "props": {
@@ -3524,6 +3579,14 @@
       "dst_uid": "variant::要素::element_path",
       "props": {
         "list_origin": "variants",
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "variant::要素::element_path",
+      "rel_type": "HAS_PATTERN",
+      "dst_uid": "pattern::variant::要素::element_path",
+      "props": {
         "managed_tag": "type_definitions_etl"
       }
     },
@@ -3569,6 +3632,14 @@
       }
     },
     {
+      "src_uid": "constraint::variant::要素::plate_surface_array::schema::0",
+      "rel_type": "HAS_LITERAL_VALUE",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::0::literal",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "constraint::variant::要素::plate_surface_array",
       "rel_type": "HAS_SCHEMA_ITEM",
       "dst_uid": "constraint::variant::要素::plate_surface_array::schema::1",
@@ -3578,16 +3649,8 @@
     },
     {
       "src_uid": "constraint::variant::要素::plate_surface_array::schema::1",
-      "rel_type": "ALLOWS_VALUE",
-      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::1::enum::True",
-      "props": {
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "src_uid": "constraint::variant::要素::plate_surface_array::schema::1",
-      "rel_type": "ALLOWS_VALUE",
-      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::1::enum::False",
+      "rel_type": "HAS_REGEX_PATTERN",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::1::regex",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -3596,6 +3659,14 @@
       "src_uid": "constraint::variant::要素::plate_surface_array",
       "rel_type": "HAS_SCHEMA_ITEM",
       "dst_uid": "constraint::variant::要素::plate_surface_array::schema::2",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::plate_surface_array::schema::2",
+      "rel_type": "HAS_LITERAL_VALUE",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::2::literal",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -3610,16 +3681,8 @@
     },
     {
       "src_uid": "constraint::variant::要素::plate_surface_array::schema::3",
-      "rel_type": "ALLOWS_VALUE",
-      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::3::enum::num",
-      "props": {
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "src_uid": "constraint::variant::要素::plate_surface_array::schema::3",
-      "rel_type": "ALLOWS_VALUE",
-      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::3::enum::var",
+      "rel_type": "HAS_REGEX_PATTERN",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::3::regex",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -3634,16 +3697,8 @@
     },
     {
       "src_uid": "constraint::variant::要素::plate_surface_array::schema::4",
-      "rel_type": "ALLOWS_VALUE",
-      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::4::enum::num",
-      "props": {
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "src_uid": "constraint::variant::要素::plate_surface_array::schema::4",
-      "rel_type": "ALLOWS_VALUE",
-      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::4::enum::var",
+      "rel_type": "HAS_REGEX_PATTERN",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::4::regex",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -3658,16 +3713,8 @@
     },
     {
       "src_uid": "constraint::variant::要素::plate_surface_array::schema::5",
-      "rel_type": "ALLOWS_VALUE",
-      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::5::enum::num",
-      "props": {
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "src_uid": "constraint::variant::要素::plate_surface_array::schema::5",
-      "rel_type": "ALLOWS_VALUE",
-      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::5::enum::var",
+      "rel_type": "HAS_REGEX_PATTERN",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::5::regex",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -3676,6 +3723,14 @@
       "src_uid": "constraint::variant::要素::plate_surface_array",
       "rel_type": "HAS_SCHEMA_ITEM",
       "dst_uid": "constraint::variant::要素::plate_surface_array::schema::6",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::plate_surface_array::schema::6",
+      "rel_type": "HAS_REGEX_PATTERN",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::6::regex",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -3701,6 +3756,30 @@
       "src_uid": "variant::要素::face_points_csv",
       "rel_type": "HAS_CONSTRAINT",
       "dst_uid": "constraint::variant::要素::face_points_csv",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::face_points_csv",
+      "rel_type": "HAS_PROPERTY",
+      "dst_uid": "constraint::variant::要素::face_points_csv::property::prefix",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::face_points_csv",
+      "rel_type": "HAS_PROPERTY",
+      "dst_uid": "constraint::variant::要素::face_points_csv::property::coords",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::face_points_csv",
+      "rel_type": "HAS_PROPERTY",
+      "dst_uid": "constraint::variant::要素::face_points_csv::property::triplet_multiple",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
