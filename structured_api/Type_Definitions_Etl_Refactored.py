@@ -429,6 +429,7 @@ class TypeDefinitionProcessor:
                     entry, name, v_idx, origin_key, td
                 )
                 nodes.extend(variant_nodes)
+                relations.extend(variant_relations)
 
                 # バリアントからTypeDefinitionへのリレーションを追加
                 if variant_nodes:
