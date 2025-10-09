@@ -17,6 +17,7 @@ import argparse
 import copy
 import json
 import logging
+import logging.handlers
 import sys
 import os
 from dataclasses import dataclass
@@ -26,11 +27,35 @@ from typing import Any, Dict, List, Optional, Tuple
 from dotenv import load_dotenv
 
 LOGGER = logging.getLogger("typedef_etl")
-handler = logging.StreamHandler(sys.stdout)
-formatter = logging.Formatter("[%(levelname)s] %(message)s")
-handler.setFormatter(formatter)
-LOGGER.addHandler(handler)
-LOGGER.setLevel(logging.INFO)
+
+# ログファイルのパスを設定
+log_file_path = Path(__file__).parent / "type_definitions_etl.log"
+
+# StreamHandler（コンソール出力用）
+console_handler = logging.StreamHandler(sys.stdout)
+console_formatter = logging.Formatter("[%(levelname)s] %(message)s")
+console_handler.setFormatter(console_formatter)
+console_handler.setLevel(logging.INFO)  # コンソールはINFO以上を表示
+LOGGER.addHandler(console_handler)
+
+# RotatingFileHandler（ファイル出力用、ローテーション機能付き）
+file_handler = logging.handlers.RotatingFileHandler(
+    log_file_path,
+    maxBytes=10*1024*1024,  # 10MB
+    backupCount=5,  # 最大5つのバックアップファイルを保持
+    mode='a',
+    encoding='utf-8'
+)
+file_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+file_handler.setFormatter(file_formatter)
+file_handler.setLevel(logging.DEBUG)  # ファイルはDEBUG以上を保存
+LOGGER.addHandler(file_handler)
+
+LOGGER.setLevel(logging.DEBUG)  # ルートロガーのレベル
+
+# ログファイル保存開始を記録
+LOGGER.debug(f"ログ設定完了 - ファイル: {log_file_path}, コンソール: INFO以上, ファイル: DEBUG以上")
+LOGGER.info(f"ログファイルに保存中: {log_file_path}")
 
 MANAGED_TAG = "type_definitions_etl"
 
@@ -101,9 +126,14 @@ class Relation:
 class GraphBuilderConfig:
     """グラフ構築の設定を管理するクラス"""
 
-    def __init__(self, canonical_meta: Dict[str, Dict[str, Any]]):
+    def __init__(self, canonical_meta: Dict[str, Dict[str, Any]], debug: bool = False):
         self.canonical_meta = canonical_meta
         self.managed_tag = MANAGED_TAG
+        self.debug = debug
+        self.node_count = 0
+        self.relation_count = 0
+        self.created_nodes: Dict[str, Node] = {}
+        self.created_relations: List[Relation] = []
 
 
 class NodeBuilder:
@@ -140,14 +170,31 @@ class NodeBuilder:
         uid_s = self._normalize_uid(uid)
         clean_props = {k: v for k, v in props.items() if v is not None}
         clean_props["managed_tag"] = self.config.managed_tag
-        return Node(label=label, uid=uid_s, props=clean_props)
+
+        if self.config.debug:
+            self.config.node_count += 1
+            LOGGER.debug(f"[Node #{self.config.node_count}] Created {label}: {uid_s}")
+            if self.config.debug and len(clean_props) > 1:  # managed_tag以外のプロパティがある場合
+                for key, value in clean_props.items():
+                    if key != "managed_tag":
+                        value_str = str(value)[:100] + "..." if len(str(value)) > 100 else str(value)
+                        LOGGER.debug(f"  {key}: {value_str}")
+
+        node = Node(label=label, uid=uid_s, props=clean_props)
+
+        # デバッグ用にノードを記録
+        if self.config.debug:
+            self.config.created_nodes[uid_s] = node
+
+        return node
 
 
 class RelationBuilder:
     """リレーション作成の共通処理を提供するクラス"""
 
-    def __init__(self, config: GraphBuilderConfig):
+    def __init__(self, config: GraphBuilderConfig, node_builder: NodeBuilder):
         self.config = config
+        self.node_builder = node_builder
 
     def create_relation(
         self, src_uid: str, rel_type: str, dst_uid: str, **props: Any
@@ -155,12 +202,44 @@ class RelationBuilder:
         """リレーションを作成する"""
         rel_props = {k: v for k, v in props.items() if v is not None}
         rel_props.setdefault("managed_tag", self.config.managed_tag)
-        return Relation(
-            src_uid=src_uid,
+
+        normalized_src = self.node_builder._normalize_uid(src_uid)
+        normalized_dst = self.node_builder._normalize_uid(dst_uid)
+
+        if self.config.debug:
+            self.config.relation_count += 1
+            LOGGER.debug(
+                f"[Relation #{self.config.relation_count}] Created {rel_type}: "
+                f"{normalized_src} -> {normalized_dst}"
+            )
+            if rel_props and len(rel_props) > 1:  # managed_tag以外のプロパティがある場合
+                for key, value in rel_props.items():
+                    if key != "managed_tag":
+                        value_str = str(value)[:100] + "..." if len(str(value)) > 100 else str(value)
+                        LOGGER.debug(f"  {key}: {value_str}")
+
+            # リレーションの妥当性を検証
+            if normalized_src not in self.config.created_nodes:
+                LOGGER.warning(
+                    f"Warning: Source node '{normalized_src}' not found for relation {rel_type}"
+                )
+            if normalized_dst not in self.config.created_nodes:
+                LOGGER.warning(
+                    f"Warning: Destination node '{normalized_dst}' not found for relation {rel_type}"
+                )
+
+        relation = Relation(
+            src_uid=normalized_src,
             rel_type=rel_type,
-            dst_uid=dst_uid,
+            dst_uid=normalized_dst,
             props=rel_props or None,
         )
+
+        # デバッグ用にリレーションを記録
+        if self.config.debug:
+            self.config.created_relations.append(relation)
+
+        return relation
 
 
 class MetadataProcessor:
@@ -214,13 +293,17 @@ class TypeDefinitionProcessor:
 
         # 各種サブノードを処理
         nodes.extend(self._process_canonical_type(td, name))
-        nodes.extend(self._process_aliases(td, name))
+        alias_nodes, alias_relations = self._process_aliases(td, name)
+        nodes.extend(alias_nodes)
+        relations.extend(alias_relations)
 
         variant_nodes, variant_relations = self._process_variants(td, name)
         nodes.extend(variant_nodes)
         relations.extend(variant_relations)
 
-        nodes.extend(self._process_examples(td, name))
+        example_nodes, example_relations = self._process_examples(td, name)
+        nodes.extend(example_nodes)
+        relations.extend(example_relations)
         nodes.extend(self._process_source(td, name))
 
         return nodes, relations
@@ -294,9 +377,10 @@ class TypeDefinitionProcessor:
 
         return nodes
 
-    def _process_aliases(self, td: Dict[str, Any], name: str) -> List[Node]:
+    def _process_aliases(self, td: Dict[str, Any], name: str) -> Tuple[List[Node], List[Relation]]:
         """エイリアスを処理する"""
         nodes = []
+        relations = []
         aliases = td.get("alias") or td.get("aliases") or []
         if isinstance(aliases, (str, int, float)):
             aliases = [aliases]
@@ -317,7 +401,14 @@ class TypeDefinitionProcessor:
                 )
                 nodes.append(node)
 
-        return nodes
+                # TypeDefinitionからAliasへのリレーション
+                td_uid = f"type::{name}"
+                relation = self.relation_builder.create_relation(
+                    td_uid, "HAS_ALIAS", alias_uid
+                )
+                relations.append(relation)
+
+        return nodes, relations
 
     def _process_variants(
         self, td: Dict[str, Any], name: str
@@ -335,7 +426,7 @@ class TypeDefinitionProcessor:
 
             for v_idx, entry in enumerate(variant_entries):
                 variant_nodes, variant_relations = self._process_single_variant(
-                    entry, name, v_idx, origin_key
+                    entry, name, v_idx, origin_key, td
                 )
                 nodes.extend(variant_nodes)
 
@@ -353,7 +444,7 @@ class TypeDefinitionProcessor:
         return nodes, relations
 
     def _process_single_variant(
-        self, entry: Any, name: str, v_idx: int, origin_key: str
+        self, entry: Any, name: str, v_idx: int, origin_key: str, td: Dict[str, Any]
     ) -> Tuple[List[Node], List[Relation]]:
         """単一のバリアントを処理する"""
         nodes = []
@@ -400,6 +491,21 @@ class TypeDefinitionProcessor:
 
         node = self.node_builder.create_node("Variant", variant_uid, **variant_props)
         nodes.append(node)
+
+        # エイリアスとのリレーション処理（変更前と同様）
+        aliases = td.get("alias") or td.get("aliases") or []
+        if isinstance(aliases, (str, int, float)):
+            aliases = [aliases]
+
+        if isinstance(aliases, list) and v_idx < len(aliases):
+            alias_value = aliases[v_idx]
+            alias_str = self.node_builder._to_str(alias_value).strip()
+            if alias_str:
+                alias_uid = f"alias::{name}::{alias_str}"
+                alias_relation = self.relation_builder.create_relation(
+                    alias_uid, "ALIAS_OF_VARIANT", variant_uid
+                )
+                relations.append(alias_relation)
 
         # パターンノードの処理
         if metadata and metadata.get("pattern"):
@@ -599,17 +705,21 @@ class TypeDefinitionProcessor:
 
         return nodes, relations
 
-    def _process_examples(self, td: Dict[str, Any], name: str) -> List[Node]:
+    def _process_examples(
+        self, td: Dict[str, Any], name: str
+    ) -> Tuple[List[Node], List[Relation]]:
         """例を処理する"""
         nodes = []
+        relations = []
         examples = td.get("examples") or []
+        td_uid = f"type::{name}"
 
         if isinstance(examples, list):
             for ex_idx, ex in enumerate(examples):
                 if isinstance(ex, dict):
                     val = ex.get("value")
                     explanation = ex.get("explanation", "")
-                    # variant_ref = ex.get("variant")  # 現在は未使用
+                    variant_ref = ex.get("variant")
                     metadata = {
                         k: v
                         for k, v in ex.items()
@@ -618,7 +728,7 @@ class TypeDefinitionProcessor:
                 else:
                     val = ex
                     explanation = ""
-                    # variant_ref = None  # 現在は未使用
+                    variant_ref = None
                     metadata = {}
 
                 ex_uid = f"example::{name}::{ex_idx}"
@@ -635,7 +745,21 @@ class TypeDefinitionProcessor:
                 )
                 nodes.append(node)
 
-        return nodes
+                # TypeDefinitionからExampleへのリレーション
+                relation = self.relation_builder.create_relation(
+                    td_uid, "HAS_EXAMPLE", ex_uid
+                )
+                relations.append(relation)
+
+                # ExampleからVariantへのリレーション（variant_refが存在する場合）
+                if variant_ref:
+                    variant_ref_uid = f"variant::{name}::{self.node_builder._to_str(variant_ref)}"
+                    variant_relation = self.relation_builder.create_relation(
+                        ex_uid, "ILLUSTRATES_VARIANT", variant_ref_uid
+                    )
+                    relations.append(variant_relation)
+
+        return nodes, relations
 
     def _process_source(self, td: Dict[str, Any], name: str) -> List[Node]:
         """ソースを処理する"""
@@ -661,10 +785,10 @@ class TypeDefinitionProcessor:
 class GraphBuilder:
     """グラフ構築の主要責任を持つクラス"""
 
-    def __init__(self, canonical_meta: Dict[str, Dict[str, Any]]):
-        self.config = GraphBuilderConfig(canonical_meta)
+    def __init__(self, canonical_meta: Dict[str, Dict[str, Any]], debug: bool = False):
+        self.config = GraphBuilderConfig(canonical_meta, debug)
         self.node_builder = NodeBuilder(self.config)
-        self.relation_builder = RelationBuilder(self.config)
+        self.relation_builder = RelationBuilder(self.config, self.node_builder)
         self.type_processor = TypeDefinitionProcessor(
             self.node_builder, self.relation_builder, self.config
         )
@@ -673,6 +797,7 @@ class GraphBuilder:
         self, definitions: List[Dict[str, Any]]
     ) -> Tuple[List[Node], List[Relation]]:
         """グラフ要素を構築する"""
+        LOGGER.debug(f"GraphBuilder.build_graph_elements開始: {len(definitions)}件の定義を処理")
         nodes_map: Dict[str, Node] = {}
         relations: List[Relation] = []
 
@@ -683,6 +808,10 @@ class GraphBuilder:
         nodes_map[collection_uid] = collection_node
 
         for index, td in enumerate(definitions):
+            if self.config.debug:
+                name = (td.get("name") or td.get("type_name") or "").strip()
+                LOGGER.debug(f"Processing type definition #{index + 1}: {name}")
+
             td_nodes, td_relations = self.type_processor.process_type_definition(
                 td, index
             )
@@ -696,7 +825,37 @@ class GraphBuilder:
             additional_relations = self._create_additional_relations(td, td_nodes)
             relations.extend(additional_relations)
 
-        return list(nodes_map.values()), relations
+        final_nodes = list(nodes_map.values())
+        LOGGER.debug(
+            f"GraphBuilder.build_graph_elements完了: ノード{len(final_nodes)}件, "
+            f"リレーション{len(relations)}件"
+        )
+
+        if self.config.debug:
+            LOGGER.debug(
+                f"デバッグ統計: ノード作成数={self.config.node_count}, "
+                f"リレーション作成数={self.config.relation_count}"
+            )
+
+            # リレーションタイプ別の統計
+            rel_type_counts = {}
+            for rel in relations:
+                rel_type_counts[rel.rel_type] = rel_type_counts.get(rel.rel_type, 0) + 1
+
+            LOGGER.debug("リレーションタイプ別統計:")
+            for rel_type, count in sorted(rel_type_counts.items()):
+                LOGGER.debug(f"  {rel_type}: {count}件")
+
+            # ノードラベル別の統計
+            node_label_counts = {}
+            for node in final_nodes:
+                node_label_counts[node.label] = node_label_counts.get(node.label, 0) + 1
+
+            LOGGER.debug("ノードラベル別統計:")
+            for label, count in sorted(node_label_counts.items()):
+                LOGGER.debug(f"  {label}: {count}件")
+
+        return final_nodes, relations
 
     def _create_additional_relations(
         self, td: Dict[str, Any], nodes: List[Node]
@@ -718,47 +877,7 @@ class GraphBuilder:
                 )
             )
 
-        # エイリアスからバリアントへのリレーション
-        aliases = td.get("alias") or td.get("aliases") or []
-        if isinstance(aliases, (str, int, float)):
-            aliases = [aliases]
-
-        if isinstance(aliases, list):
-            for alias_idx, alias_value in enumerate(aliases):
-                alias_str = self.node_builder._to_str(alias_value).strip()
-                if not alias_str:
-                    continue
-
-                alias_uid = f"alias::{name}::{alias_str}"
-
-                # バリアントへのリレーション
-                for origin_key in ("one_of", "variants"):
-                    variant_entries = td.get(origin_key) or []
-                    if isinstance(variant_entries, list) and alias_idx < len(
-                        variant_entries
-                    ):
-                        entry = variant_entries[alias_idx]
-                        if isinstance(entry, dict):
-                            identifier = (
-                                entry.get("id")
-                                or entry.get("variant")
-                                or entry.get("value")
-                                or entry.get("name")
-                                or self.node_builder._to_str(entry)
-                            )
-                        else:
-                            identifier = self.node_builder._to_str(entry)
-
-                        identifier_str = self.node_builder._to_str(identifier)
-                        if not identifier_str:
-                            identifier_str = f"variant_{alias_idx}"
-
-                        variant_uid = f"variant::{name}::{identifier_str}"
-                        relations.append(
-                            self.relation_builder.create_relation(
-                                alias_uid, "ALIAS_OF_VARIANT", variant_uid
-                            )
-                        )
+        # エイリアスからバリアントへのリレーションは _process_single_variant で処理済み
 
         # バリアントからカノニカル型へのリレーション
         for origin_key in ("one_of", "variants"):
@@ -790,22 +909,7 @@ class GraphBuilder:
                                 )
                             )
 
-        # 例からバリアントへのリレーション
-        examples = td.get("examples") or []
-        if isinstance(examples, list):
-            for ex_idx, ex in enumerate(examples):
-                if isinstance(ex, dict):
-                    variant_ref = ex.get("variant")
-                    if variant_ref:
-                        variant_ref_uid = (
-                            f"variant::{name}::{self.node_builder._to_str(variant_ref)}"
-                        )
-                        ex_uid = f"example::{name}::{ex_idx}"
-                        relations.append(
-                            self.relation_builder.create_relation(
-                                ex_uid, "ILLUSTRATES_VARIANT", variant_ref_uid
-                            )
-                        )
+        # 例からバリアントへのリレーションは _process_examples で処理済み
 
         # ソースへのリレーション
         source = td.get("source") or {}
@@ -822,6 +926,7 @@ class GraphBuilder:
 
 # 既存の関数群は残す（Neo4j操作、メイン処理など）
 def load_type_definitions(json_path: Path) -> List[Dict[str, Any]]:
+    LOGGER.debug(f"型定義JSONファイルを読み込み開始: {json_path}")
     with json_path.open("r", encoding="utf-8") as fp:
         payload = json.load(fp)
 
@@ -840,6 +945,8 @@ def load_type_definitions(json_path: Path) -> List[Dict[str, Any]]:
             src.pop("path", None)
         td["source"] = src
         defs.append(td)
+
+    LOGGER.debug(f"型定義読み込み完了: {len(defs)}件")
     return defs
 
 
@@ -1074,7 +1181,7 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
         default=None,
         help="canonical_type に付随する Python 型メタ情報の JSON (任意)",
     )
-    parser.add_argument("--openai-api-key", default=os.getenv("OPENAI_API_KEY"))
+    # parser.add_argument("--openai-api-key", default=os.getenv("OPENAI_API_KEY"))
     parser.add_argument(
         "--neo4j-uri",
         type=str,
@@ -1142,14 +1249,21 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
         help="ノードに __Entity__ ラベルを付与しない",
     )
     parser.add_argument("--verbose", action="store_true")
+    parser.add_argument(
+        "--debug-graph",
+        action="store_true",
+        help="ノードとリレーションの作成を詳細にログ出力",
+    )
     return parser.parse_args(argv)
 
 
 def main(argv: Optional[List[str]] = None) -> int:
+    LOGGER.debug("main関数開始")
     load_dotenv()
     args = parse_args(argv)
     if args.verbose:
         LOGGER.setLevel(logging.DEBUG)
+        LOGGER.debug("verboseモードが有効になりました")
 
     LOGGER.info("JSON を読み込み: %s", args.json_path)
     definitions = load_type_definitions(args.json_path)
@@ -1158,8 +1272,12 @@ def main(argv: Optional[List[str]] = None) -> int:
     canonical_meta = load_canonical_meta(args.canonical_meta_path)
 
     # リファクタリング版のGraphBuilderを使用
-    graph_builder = GraphBuilder(canonical_meta)
+    LOGGER.debug("GraphBuilderを初期化中")
+    debug_mode = args.debug_graph or args.verbose
+    graph_builder = GraphBuilder(canonical_meta, debug=debug_mode)
+    LOGGER.debug("グラフ要素の構築開始")
     nodes, rels = graph_builder.build_graph_elements(definitions)
+    LOGGER.debug("グラフ要素の構築完了")
 
     add_entity_label = not args.no_entity_label
     LOGGER.info("生成ノード: %d, リレーション: %d", len(nodes), len(rels))

@@ -1961,6 +1961,22 @@
     },
     {
       "src_uid": "type::bool",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::bool::0",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::bool",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::bool::1",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::bool",
       "rel_type": "HAS_TYPE",
       "dst_uid": "canonical::bool",
       "props": {
@@ -2012,8 +2028,8 @@
     },
     {
       "src_uid": "type::長さ",
-      "rel_type": "HAS_TYPE",
-      "dst_uid": "canonical::string",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::長さ::0",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2027,6 +2043,14 @@
       }
     },
     {
+      "src_uid": "type::長さ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::長さ::1",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::長さ::1",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::長さ::variable_reference",
@@ -2035,9 +2059,25 @@
       }
     },
     {
+      "src_uid": "type::長さ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::長さ::2",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::長さ::2",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::長さ::expression",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::長さ",
+      "rel_type": "HAS_TYPE",
+      "dst_uid": "canonical::string",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2087,8 +2127,8 @@
     },
     {
       "src_uid": "type::角度",
-      "rel_type": "HAS_TYPE",
-      "dst_uid": "canonical::string",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::角度::0",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2102,6 +2142,14 @@
       }
     },
     {
+      "src_uid": "type::角度",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::角度::1",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::角度::1",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::角度::variable_reference",
@@ -2110,9 +2158,25 @@
       }
     },
     {
+      "src_uid": "type::角度",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::角度::2",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::角度::2",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::角度::expression",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::角度",
+      "rel_type": "HAS_TYPE",
+      "dst_uid": "canonical::string",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2162,8 +2226,8 @@
     },
     {
       "src_uid": "type::数値",
-      "rel_type": "HAS_TYPE",
-      "dst_uid": "canonical::string",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::数値::0",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2177,6 +2241,14 @@
       }
     },
     {
+      "src_uid": "type::数値",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::数値::1",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::数値::1",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::数値::variable_reference",
@@ -2185,9 +2257,25 @@
       }
     },
     {
+      "src_uid": "type::数値",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::数値::2",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::数値::2",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::数値::expression",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::数値",
+      "rel_type": "HAS_TYPE",
+      "dst_uid": "canonical::string",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2228,8 +2316,8 @@
     },
     {
       "src_uid": "type::範囲",
-      "rel_type": "HAS_TYPE",
-      "dst_uid": "canonical::string",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::範囲::0",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2243,6 +2331,14 @@
       }
     },
     {
+      "src_uid": "type::範囲",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::範囲::1",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::範囲::1",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::範囲::variable_reference",
@@ -2251,9 +2347,25 @@
       }
     },
     {
+      "src_uid": "type::範囲",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::範囲::2",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::範囲::2",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::範囲::comma_delimited_range",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::範囲",
+      "rel_type": "HAS_TYPE",
+      "dst_uid": "canonical::string",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2276,6 +2388,22 @@
     },
     {
       "src_uid": "type::点",
+      "rel_type": "HAS_ALIAS",
+      "dst_uid": "alias::点::点(2D)",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::点",
+      "rel_type": "HAS_ALIAS",
+      "dst_uid": "alias::点::点(3D)",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::点",
       "rel_type": "HAS_VARIANTS",
       "dst_uid": "variant::点::2d",
       "props": {
@@ -2294,24 +2422,8 @@
     },
     {
       "src_uid": "type::点",
-      "rel_type": "HAS_TYPE",
-      "dst_uid": "canonical::string",
-      "props": {
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "src_uid": "alias::点::点(2D)",
-      "rel_type": "ALIAS_OF_VARIANT",
-      "dst_uid": "variant::点::2d",
-      "props": {
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "src_uid": "alias::点::点(3D)",
-      "rel_type": "ALIAS_OF_VARIANT",
-      "dst_uid": "variant::点::3d",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::点::0",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2325,9 +2437,25 @@
       }
     },
     {
+      "src_uid": "type::点",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::点::1",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::点::1",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::点::2d",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::点",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::点::2",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2341,9 +2469,25 @@
       }
     },
     {
+      "src_uid": "type::点",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::点::3",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::点::3",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::点::3d",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::点",
+      "rel_type": "HAS_TYPE",
+      "dst_uid": "canonical::string",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2393,8 +2537,8 @@
     },
     {
       "src_uid": "type::方向",
-      "rel_type": "HAS_TYPE",
-      "dst_uid": "canonical::string",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::0",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2408,9 +2552,25 @@
       }
     },
     {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::1",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::方向::1",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::方向::axis",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::2",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2424,9 +2584,25 @@
       }
     },
     {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::3",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::方向::3",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::方向::axis",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::4",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2440,9 +2616,25 @@
       }
     },
     {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::5",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::方向::5",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::方向::axis",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::6",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2456,9 +2648,25 @@
       }
     },
     {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::7",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::方向::7",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::方向::vector2",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::8",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2472,9 +2680,25 @@
       }
     },
     {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::9",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::方向::9",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::方向::vector3",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::10",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2488,9 +2712,25 @@
       }
     },
     {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::方向::11",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::方向::11",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::方向::vector3",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::方向",
+      "rel_type": "HAS_TYPE",
+      "dst_uid": "canonical::string",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2531,8 +2771,8 @@
     },
     {
       "src_uid": "type::平面",
-      "rel_type": "HAS_TYPE",
-      "dst_uid": "canonical::string",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::平面::0",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2546,9 +2786,25 @@
       }
     },
     {
+      "src_uid": "type::平面",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::平面::1",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::平面::1",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::平面::global_axis",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::平面",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::平面::2",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2562,9 +2818,25 @@
       }
     },
     {
+      "src_uid": "type::平面",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::平面::3",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::平面::3",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::平面::global_axis",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::平面",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::平面::4",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2578,9 +2850,25 @@
       }
     },
     {
+      "src_uid": "type::平面",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::平面::5",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::平面::5",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::平面::face_ref",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::平面",
+      "rel_type": "HAS_TYPE",
+      "dst_uid": "canonical::string",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2630,8 +2918,8 @@
     },
     {
       "src_uid": "type::変数単位",
-      "rel_type": "HAS_TYPE",
-      "dst_uid": "canonical::string",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::変数単位::0",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2645,9 +2933,25 @@
       }
     },
     {
+      "src_uid": "type::変数単位",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::変数単位::1",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::変数単位::1",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::変数単位::length",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::変数単位",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::変数単位::2",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2661,9 +2965,25 @@
       }
     },
     {
+      "src_uid": "type::変数単位",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::変数単位::3",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::変数単位::3",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::変数単位::angle",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::変数単位",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::変数単位::4",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2677,6 +2997,14 @@
       }
     },
     {
+      "src_uid": "type::変数単位",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::変数単位::5",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::変数単位::5",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::変数単位::number",
@@ -2685,9 +3013,25 @@
       }
     },
     {
+      "src_uid": "type::変数単位",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::変数単位::6",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "example::変数単位::6",
       "rel_type": "ILLUSTRATES_VARIANT",
       "dst_uid": "variant::変数単位::number",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::変数単位",
+      "rel_type": "HAS_TYPE",
+      "dst_uid": "canonical::string",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2704,6 +3048,22 @@
       "src_uid": "type_definitions::collection",
       "rel_type": "HAS_TYPE_DEFINITION",
       "dst_uid": "type::要素グループ",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::要素グループ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::要素グループ::0",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::要素グループ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::要素グループ::1",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2734,6 +3094,22 @@
     },
     {
       "src_uid": "type::注記スタイル",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::注記スタイル::0",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::注記スタイル",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::注記スタイル::1",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::注記スタイル",
       "rel_type": "HAS_TYPE",
       "dst_uid": "canonical::string",
       "props": {
@@ -2752,6 +3128,14 @@
       "src_uid": "type_definitions::collection",
       "rel_type": "HAS_TYPE_DEFINITION",
       "dst_uid": "type::材料",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::材料",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::材料::0",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2782,6 +3166,46 @@
     },
     {
       "src_uid": "type::スイープ方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::スイープ方向::0",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::スイープ方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::スイープ方向::1",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::スイープ方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::スイープ方向::2",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::スイープ方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::スイープ方向::3",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::スイープ方向",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::スイープ方向::4",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::スイープ方向",
       "rel_type": "HAS_TYPE",
       "dst_uid": "canonical::string",
       "props": {
@@ -2800,6 +3224,46 @@
       "src_uid": "type_definitions::collection",
       "rel_type": "HAS_TYPE_DEFINITION",
       "dst_uid": "type::厚み付けタイプ",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::厚み付けタイプ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::厚み付けタイプ::0",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::厚み付けタイプ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::厚み付けタイプ::1",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::厚み付けタイプ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::厚み付けタイプ::2",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::厚み付けタイプ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::厚み付けタイプ::3",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::厚み付けタイプ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::厚み付けタイプ::4",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2830,6 +3294,30 @@
     },
     {
       "src_uid": "type::モールド位置",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::モールド位置::0",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::モールド位置",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::モールド位置::1",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::モールド位置",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::モールド位置::2",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::モールド位置",
       "rel_type": "HAS_TYPE",
       "dst_uid": "canonical::string",
       "props": {
@@ -2848,6 +3336,30 @@
       "src_uid": "type_definitions::collection",
       "rel_type": "HAS_TYPE_DEFINITION",
       "dst_uid": "type::オペレーションタイプ （ボディ）",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::オペレーションタイプ （ボディ）",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::オペレーションタイプ （ボディ）::0",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::オペレーションタイプ （ボディ）",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::オペレーションタイプ （ボディ）::1",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::オペレーションタイプ （ボディ）",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::オペレーションタイプ （ボディ）::2",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2878,6 +3390,22 @@
     },
     {
       "src_uid": "type::関連設定",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::関連設定::0",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::関連設定",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::関連設定::1",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::関連設定",
       "rel_type": "HAS_TYPE",
       "dst_uid": "canonical::string",
       "props": {
@@ -2902,6 +3430,46 @@
     },
     {
       "src_uid": "type::形状タイプ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::形状タイプ::0",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::形状タイプ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::形状タイプ::1",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::形状タイプ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::形状タイプ::2",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::形状タイプ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::形状タイプ::3",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::形状タイプ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::形状タイプ::4",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::形状タイプ",
       "rel_type": "HAS_TYPE",
       "dst_uid": "canonical::string",
       "props": {
@@ -2920,6 +3488,14 @@
       "src_uid": "type_definitions::collection",
       "rel_type": "HAS_TYPE_DEFINITION",
       "dst_uid": "type::形状パラメータ",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::形状パラメータ",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::形状パラメータ::0",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
@@ -2986,6 +3562,70 @@
     },
     {
       "src_uid": "type::要素",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::要素::0",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "example::要素::0",
+      "rel_type": "ILLUSTRATES_VARIANT",
+      "dst_uid": "variant::要素::element_id",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::要素",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::要素::1",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "example::要素::1",
+      "rel_type": "ILLUSTRATES_VARIANT",
+      "dst_uid": "variant::要素::element_path",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::要素",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::要素::2",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "example::要素::2",
+      "rel_type": "ILLUSTRATES_VARIANT",
+      "dst_uid": "variant::要素::plate_surface_array",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::要素",
+      "rel_type": "HAS_EXAMPLE",
+      "dst_uid": "example::要素::3",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "example::要素::3",
+      "rel_type": "ILLUSTRATES_VARIANT",
+      "dst_uid": "variant::要素::face_points_csv",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "type::要素",
       "rel_type": "HAS_TYPE",
       "dst_uid": "canonical::string",
       "props": {
@@ -3020,38 +3660,6 @@
       "src_uid": "variant::要素::face_points_csv",
       "rel_type": "CONSTRAINED_BY_CANONICAL_TYPE",
       "dst_uid": "canonical::string",
-      "props": {
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "src_uid": "example::要素::0",
-      "rel_type": "ILLUSTRATES_VARIANT",
-      "dst_uid": "variant::要素::element_id",
-      "props": {
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "src_uid": "example::要素::1",
-      "rel_type": "ILLUSTRATES_VARIANT",
-      "dst_uid": "variant::要素::element_path",
-      "props": {
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "src_uid": "example::要素::2",
-      "rel_type": "ILLUSTRATES_VARIANT",
-      "dst_uid": "variant::要素::plate_surface_array",
-      "props": {
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "src_uid": "example::要素::3",
-      "rel_type": "ILLUSTRATES_VARIANT",
-      "dst_uid": "variant::要素::face_points_csv",
       "props": {
         "managed_tag": "type_definitions_etl"
       }
