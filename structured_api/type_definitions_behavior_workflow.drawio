@@ -11,18 +11,34 @@
         </mxCell>
 
         <!-- 初期化フェーズ -->
-        <mxCell id="init" value="初期化フェーズ&#10;・環境変数読み込み&#10;・引数解析&#10;・ログ設定&#10;・GraphBuilder初期化" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
-          <mxGeometry x="240" y="20" width="200" height="120" as="geometry" />
+        <mxCell id="load_env" value="環境変数読み込み&#10;引数解析" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="240" y="20" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="setup_logging" value="ログ設定&#10;ファイル・コンソール出力" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="240" y="120" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="init_graph_builder" value="GraphBuilder初期化&#10;設定・ビルダー作成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="240" y="220" width="160" height="80" as="geometry" />
         </mxCell>
 
         <!-- データ読み込み -->
-        <mxCell id="load_data" value="データ読み込み&#10;・type_definitions.json読み込み&#10;・canonical_meta読み込み&#10;・データ検証" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
-          <mxGeometry x="480" y="20" width="200" height="120" as="geometry" />
+        <mxCell id="load_json" value="type_definitions.json&#10;読み込み" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="440" y="20" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="load_canonical" value="canonical_meta&#10;読み込み" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="440" y="120" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="validate_data" value="データ検証&#10;形式・必須項目確認" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="440" y="220" width="160" height="80" as="geometry" />
         </mxCell>
 
         <!-- メインコレクションノード作成 -->
-        <mxCell id="create_collection" value="TypeDefinitionsコレクション&#10;ノード作成&#10;UID: type_definitions::collection" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry x="720" y="20" width="200" height="120" as="geometry" />
+        <mxCell id="create_collection" value="TypeDefinitions&#10;コレクションノード作成&#10;UID: type_definitions::collection" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="640" y="20" width="160" height="80" as="geometry" />
         </mxCell>
 
         <!-- 型定義処理ループ開始 -->
@@ -31,58 +47,134 @@
         </mxCell>
 
         <!-- TypeDefinitionノード作成 -->
-        <mxCell id="create_type_def" value="TypeDefinitionノード作成&#10;・UID: type::{name}&#10;・プロパティ設定&#10;・コレクションとのリレーション作成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry x="80" y="200" width="200" height="120" as="geometry" />
+        <mxCell id="create_type_def" value="TypeDefinition&#10;ノード作成&#10;UID: type::{name}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="80" y="320" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="set_type_props" value="TypeDefinition&#10;プロパティ設定&#10;name, description, text" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="240" y="320" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="create_type_relation" value="HAS_TYPE_DEFINITION&#10;リレーション作成&#10;collection → type" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="400" y="320" width="140" height="80" as="geometry" />
         </mxCell>
 
         <!-- カノニカル型処理 -->
-        <mxCell id="process_canonical" value="カノニカル型処理&#10;・CanonicalTypeノード作成&#10;・Python型メタデータ設定&#10;・HAS_TYPEリレーション作成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
-          <mxGeometry x="320" y="200" width="200" height="120" as="geometry" />
+        <mxCell id="create_canonical" value="CanonicalType&#10;ノード作成&#10;UID: canonical::{type}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="560" y="320" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="set_canonical_props" value="CanonicalType&#10;プロパティ設定&#10;Python型メタデータ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="720" y="320" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="create_has_type" value="HAS_TYPE&#10;リレーション作成&#10;type → canonical" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="880" y="320" width="140" height="80" as="geometry" />
         </mxCell>
 
         <!-- エイリアス処理 -->
-        <mxCell id="process_aliases" value="エイリアス処理&#10;・Aliasノード作成&#10;・HAS_ALIASリレーション作成&#10;・エイリアス配列の反復処理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="560" y="200" width="200" height="120" as="geometry" />
+        <mxCell id="create_alias_nodes" value="Alias&#10;ノード作成&#10;UID: alias::{name}::{alias}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="80" y="420" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="set_alias_props" value="Alias&#10;プロパティ設定&#10;name, origin, position" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="240" y="420" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="create_has_alias" value="HAS_ALIAS&#10;リレーション作成&#10;type → alias" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="400" y="420" width="140" height="80" as="geometry" />
         </mxCell>
 
         <!-- バリアント処理 -->
-        <mxCell id="process_variants" value="バリアント処理&#10;・one_of/variants配列処理&#10;・Variantノード作成&#10;・HAS_ONE_OF/HAS_VARIANTSリレーション" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
-          <mxGeometry x="800" y="200" width="200" height="120" as="geometry" />
+        <mxCell id="create_variant_nodes" value="Variant&#10;ノード作成&#10;UID: variant::{name}::{id}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="420" width="140" height="80" as="geometry" />
         </mxCell>
 
-        <!-- 詳細バリアント処理 -->
-        <mxCell id="detail_variant" value="詳細バリアント処理&#10;・パターン処理&#10;・制約処理&#10;・メタデータ処理&#10;・エイリアス連携" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
-          <mxGeometry x="1040" y="200" width="200" height="120" as="geometry" />
+        <mxCell id="set_variant_props" value="Variant&#10;プロパティ設定&#10;identifier, origin, position" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="720" y="420" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="create_variant_relations" value="HAS_ONE_OF/HAS_VARIANTS&#10;リレーション作成&#10;type → variant" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="880" y="420" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- エイリアス-バリアント連携 -->
+        <mxCell id="create_alias_variant" value="ALIAS_OF_VARIANT&#10;リレーション作成&#10;alias → variant" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="560" y="520" width="140" height="80" as="geometry" />
         </mxCell>
 
         <!-- パターン処理詳細 -->
-        <mxCell id="pattern_detail" value="パターン処理詳細&#10;・Patternノード作成&#10;・正規表現判定&#10;・HAS_PATTERNリレーション&#10;・RegexPattern/LiteralValue作成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
-          <mxGeometry x="80" y="360" width="200" height="140" as="geometry" />
+        <mxCell id="create_pattern" value="Pattern&#10;ノード作成&#10;UID: pattern::{variant_uid}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="80" y="520" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="check_regex" value="正規表現判定&#10;パターンタイプ決定" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="240" y="520" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="create_has_pattern" value="HAS_PATTERN&#10;リレーション作成&#10;variant → pattern" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="400" y="520" width="140" height="80" as="geometry" />
         </mxCell>
 
         <!-- 制約処理詳細 -->
-        <mxCell id="constraint_detail" value="制約処理詳細&#10;・Constraintノード作成&#10;・ConstraintPropertyノード作成&#10;・HAS_CONSTRAINTリレーション&#10;・HAS_PROPERTYリレーション" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="320" y="360" width="200" height="140" as="geometry" />
+        <mxCell id="create_constraint" value="Constraint&#10;ノード作成&#10;UID: constraint::{variant_uid}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="720" y="520" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="create_constraint_props" value="ConstraintProperty&#10;ノード作成&#10;各プロパティ個別作成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="880" y="520" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="create_has_constraint" value="HAS_CONSTRAINT&#10;リレーション作成&#10;variant → constraint" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="520" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="create_has_property" value="HAS_PROPERTY&#10;リレーション作成&#10;constraint → property" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="520" width="140" height="80" as="geometry" />
         </mxCell>
 
         <!-- スキーマアイテム処理 -->
-        <mxCell id="schema_detail" value="スキーマアイテム処理&#10;・ConstraintSchemaItemノード作成&#10;・HAS_SCHEMA_ITEMリレーション&#10;・列挙値処理&#10;・リテラル値処理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
-          <mxGeometry x="560" y="360" width="200" height="140" as="geometry" />
+        <mxCell id="create_schema_item" value="ConstraintSchemaItem&#10;ノード作成&#10;UID: {constraint_uid}::schema::{idx}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="80" y="620" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="create_has_schema" value="HAS_SCHEMA_ITEM&#10;リレーション作成&#10;constraint → schema_item" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="240" y="620" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="process_enum_values" value="EnumerationValue&#10;ノード作成&#10;|で区切られた値処理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="400" y="620" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="create_literal_values" value="LiteralValue&#10;ノード作成&#10;単一固定値処理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="620" width="140" height="80" as="geometry" />
         </mxCell>
 
         <!-- 例処理 -->
-        <mxCell id="process_examples" value="例処理&#10;・Exampleノード作成&#10;・HAS_EXAMPLEリレーション&#10;・ILLUSTRATES_VARIANTリレーション&#10;・バリアント参照処理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
-          <mxGeometry x="800" y="360" width="200" height="140" as="geometry" />
+        <mxCell id="create_example" value="Example&#10;ノード作成&#10;UID: example::{name}::{idx}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="720" y="620" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="create_has_example" value="HAS_EXAMPLE&#10;リレーション作成&#10;type → example" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="880" y="620" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="create_illustrates" value="ILLUSTRATES_VARIANT&#10;リレーション作成&#10;example → variant" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="620" width="140" height="80" as="geometry" />
         </mxCell>
 
         <!-- ソース処理 -->
-        <mxCell id="process_source" value="ソース処理&#10;・Sourceノード作成&#10;・CITED_FROMリレーション&#10;・テキスト/パス情報設定" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
-          <mxGeometry x="1040" y="360" width="200" height="140" as="geometry" />
+        <mxCell id="create_source" value="Source&#10;ノード作成&#10;UID: source::{name}::{path}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="620" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="create_cited_from" value="CITED_FROM&#10;リレーション作成&#10;type → source" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="1360" y="620" width="140" height="80" as="geometry" />
         </mxCell>
 
         <!-- 追加リレーション作成 -->
-        <mxCell id="additional_relations" value="追加リレーション作成&#10;・CONSTRAINED_BY_CANONICAL_TYPE&#10;・value_kind処理&#10;・バリアント-カノニカル型連携" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry x="320" y="540" width="200" height="120" as="geometry" />
+        <mxCell id="create_constrained_by" value="CONSTRAINED_BY_CANONICAL_TYPE&#10;リレーション作成&#10;variant → canonical (value_kind)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="80" y="720" width="140" height="80" as="geometry" />
         </mxCell>
 
         <!-- ループ継続判定 -->
@@ -101,13 +193,29 @@
         </mxCell>
 
         <!-- Neo4j永続化 -->
-        <mxCell id="persist_neo4j" value="Neo4j永続化&#10;・制約作成&#10;・ノードupsert&#10;・リレーションupsert&#10;・__Entity__ラベル付与" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="560" y="700" width="200" height="120" as="geometry" />
+        <mxCell id="create_constraints" value="Neo4j制約作成&#10;UNIQUE制約設定" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="240" y="720" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="upsert_nodes" value="ノードupsert&#10;MERGE操作実行" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="400" y="720" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="upsert_relations" value="リレーションupsert&#10;MERGE操作実行" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="560" y="720" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="add_entity_labels" value="__Entity__ラベル付与&#10;エンティティノード識別" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="720" y="720" width="140" height="80" as="geometry" />
         </mxCell>
 
         <!-- PropertyGraphIndex作成 -->
-        <mxCell id="create_index" value="PropertyGraphIndex作成&#10;・LlamaIndex連携確認&#10;・クエリ用インデックス構築&#10;・GraphRAG準備" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
-          <mxGeometry x="800" y="700" width="200" height="120" as="geometry" />
+        <mxCell id="verify_llamaindex" value="LlamaIndex連携確認&#10;Neo4jGraphStore接続" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="880" y="720" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="build_index" value="PropertyGraphIndex構築&#10;クエリ用インデックス作成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="720" width="140" height="80" as="geometry" />
         </mxCell>
 
         <!-- 完了 -->
@@ -116,100 +224,209 @@
         </mxCell>
 
         <!-- エラーハンドリング -->
-        <mxCell id="error_handling" value="エラーハンドリング&#10;・ログ出力&#10;・例外処理&#10;・データ検証" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
-          <mxGeometry x="80" y="700" width="200" height="120" as="geometry" />
+        <mxCell id="log_errors" value="エラーログ出力&#10;例外・警告記録" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="80" y="820" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="validate_relations" value="リレーション妥当性検証&#10;ノード存在確認" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="240" y="820" width="140" height="80" as="geometry" />
         </mxCell>
 
         <!-- デバッグ情報出力 -->
-        <mxCell id="debug_output" value="デバッグ情報出力&#10;・ノード作成統計&#10;・リレーション統計&#10;・ラベル別統計&#10;・詳細ログ出力" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry x="320" y="700" width="200" height="120" as="geometry" />
+        <mxCell id="node_stats" value="ノード作成統計&#10;作成数・重複チェック" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="400" y="820" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="relation_stats" value="リレーション統計&#10;タイプ別作成数" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="560" y="820" width="140" height="80" as="geometry" />
         </mxCell>
 
         <!-- フロー接続 -->
-        <mxCell id="edge1" edge="1" source="start" target="init" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge1" edge="1" source="start" target="load_env" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge2" edge="1" source="init" target="load_data" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge2" edge="1" source="load_env" target="setup_logging" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge3" edge="1" source="load_data" target="create_collection" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge3" edge="1" source="setup_logging" target="init_graph_builder" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge4" edge="1" source="create_collection" target="loop_start" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge4" edge="1" source="init_graph_builder" target="load_json" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge5" edge="1" source="loop_start" target="create_type_def" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge5" edge="1" source="load_json" target="load_canonical" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge6" edge="1" source="create_type_def" target="process_canonical" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge6" edge="1" source="load_canonical" target="validate_data" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge7" edge="1" source="process_canonical" target="process_aliases" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge7" edge="1" source="validate_data" target="create_collection" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge8" edge="1" source="process_aliases" target="process_variants" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge8" edge="1" source="create_collection" target="loop_start" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge9" edge="1" source="process_variants" target="detail_variant" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge9" edge="1" source="loop_start" target="create_type_def" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge10" edge="1" source="detail_variant" target="pattern_detail" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge10" edge="1" source="create_type_def" target="set_type_props" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge11" edge="1" source="detail_variant" target="constraint_detail" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge11" edge="1" source="set_type_props" target="create_type_relation" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge12" edge="1" source="constraint_detail" target="schema_detail" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge12" edge="1" source="create_type_relation" target="create_canonical" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge13" edge="1" source="detail_variant" target="process_examples" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge13" edge="1" source="create_canonical" target="set_canonical_props" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge14" edge="1" source="detail_variant" target="process_source" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge14" edge="1" source="set_canonical_props" target="create_has_type" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge15" edge="1" source="process_examples" target="additional_relations" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <!-- エイリアス処理フロー -->
+        <mxCell id="edge15" edge="1" source="create_has_type" target="create_alias_nodes" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge16" edge="1" source="process_source" target="additional_relations" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge16" edge="1" source="create_alias_nodes" target="set_alias_props" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge17" edge="1" source="additional_relations" target="loop_continue" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge17" edge="1" source="set_alias_props" target="create_has_alias" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge18" value="はい" edge="1" source="loop_continue" target="create_type_def" style="endArrow=block;html=1;strokeWidth=2;curved=1;" parent="1">
+
+        <!-- バリアント処理フロー -->
+        <mxCell id="edge18" edge="1" source="create_has_alias" target="create_variant_nodes" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge19" edge="1" source="create_variant_nodes" target="set_variant_props" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge20" edge="1" source="set_variant_props" target="create_variant_relations" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge21" edge="1" source="create_variant_relations" target="create_alias_variant" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- パターン処理フロー -->
+        <mxCell id="edge22" edge="1" source="create_alias_variant" target="create_pattern" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge23" edge="1" source="create_pattern" target="check_regex" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge24" edge="1" source="check_regex" target="create_has_pattern" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 制約処理フロー -->
+        <mxCell id="edge25" edge="1" source="create_has_pattern" target="create_constraint" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge26" edge="1" source="create_constraint" target="create_constraint_props" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge27" edge="1" source="create_constraint_props" target="create_has_constraint" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge28" edge="1" source="create_has_constraint" target="create_has_property" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- スキーマアイテム処理フロー -->
+        <mxCell id="edge29" edge="1" source="create_has_property" target="create_schema_item" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge30" edge="1" source="create_schema_item" target="create_has_schema" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge31" edge="1" source="create_has_schema" target="process_enum_values" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge32" edge="1" source="process_enum_values" target="create_literal_values" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 例処理フロー -->
+        <mxCell id="edge33" edge="1" source="create_literal_values" target="create_example" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge34" edge="1" source="create_example" target="create_has_example" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge35" edge="1" source="create_has_example" target="create_illustrates" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ソース処理フロー -->
+        <mxCell id="edge36" edge="1" source="create_illustrates" target="create_source" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge37" edge="1" source="create_source" target="create_cited_from" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ループ継続フロー -->
+        <mxCell id="edge38" edge="1" source="create_cited_from" target="loop_continue" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge39" value="はい" edge="1" source="loop_continue" target="create_type_def" style="endArrow=block;html=1;strokeWidth=2;curved=1;" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="560" y="590" as="sourcePoint" />
-            <mxPoint x="180" y="200" as="targetPoint" />
+            <mxPoint x="150" y="320" as="targetPoint" />
             <Array as="points">
               <mxPoint x="560" y="590" />
-              <mxPoint x="180" y="590" />
-              <mxPoint x="180" y="200" />
+              <mxPoint x="150" y="590" />
+              <mxPoint x="150" y="320" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge19" value="いいえ" edge="1" source="loop_continue" target="export_decision" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge40" value="いいえ" edge="1" source="loop_continue" target="export_decision" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge20" value="はい" edge="1" source="export_decision" target="export_triples" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge41" value="はい" edge="1" source="export_decision" target="export_triples" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge21" value="いいえ" edge="1" source="export_decision" target="persist_neo4j" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge42" value="いいえ" edge="1" source="export_decision" target="create_constrained_by" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge22" edge="1" source="export_triples" target="persist_neo4j" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge43" edge="1" source="export_triples" target="create_constrained_by" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge23" edge="1" source="persist_neo4j" target="create_index" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <!-- Neo4j永続化フロー -->
+        <mxCell id="edge44" edge="1" source="create_constrained_by" target="create_constraints" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge24" edge="1" source="create_index" target="end" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+        <mxCell id="edge45" edge="1" source="create_constraints" target="upsert_nodes" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge25" edge="1" source="error_handling" target="debug_output" style="endArrow=block;html=1;strokeWidth=2;strokeColor=#d6b656;" parent="1">
+        <mxCell id="edge46" edge="1" source="upsert_nodes" target="upsert_relations" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge26" edge="1" source="debug_output" target="persist_neo4j" style="endArrow=block;html=1;strokeWidth=2;strokeColor=#d6b656;" parent="1">
+        <mxCell id="edge47" edge="1" source="upsert_relations" target="add_entity_labels" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- PropertyGraphIndex作成フロー -->
+        <mxCell id="edge48" edge="1" source="add_entity_labels" target="verify_llamaindex" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge49" edge="1" source="verify_llamaindex" target="build_index" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge50" edge="1" source="build_index" target="end" style="endArrow=block;html=1;strokeWidth=2;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- エラーハンドリングフロー -->
+        <mxCell id="edge51" edge="1" source="log_errors" target="validate_relations" style="endArrow=block;html=1;strokeWidth=2;strokeColor=#d6b656;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge52" edge="1" source="validate_relations" target="node_stats" style="endArrow=block;html=1;strokeWidth=2;strokeColor=#d6b656;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge53" edge="1" source="node_stats" target="relation_stats" style="endArrow=block;html=1;strokeWidth=2;strokeColor=#d6b656;" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge54" edge="1" source="relation_stats" target="create_constraints" style="endArrow=block;html=1;strokeWidth=2;strokeColor=#d6b656;" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
