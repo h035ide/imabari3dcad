@@ -566,41 +566,40 @@
       "entry_type": "function",
       "name": "Quit",
       "description": "EvoShipを終了する",
-      "pseudo_code": "Quit()"
+      "pseudo_code": "Quit()",
       "returns": {
         "type": "void",
-        "description": "なし",
+        "description": "なし"
       },
       "source": {
-        "text": "〇EvoShipを終了する\n 返り値:なし\n  Quit()",
+        "text": "〇EvoShipを終了する\n 返り値:なし\n  Quit()"
       }
     },
     {
       "entry_type": "function",
       "name": "ShowMainWindow",
-      "description": "EvoShipのメインウィンドウを表示"
-      "pseudo_code": "ShowMainWindow(bShow)"
-      "category": "Applicationオブジェクト",
+      "description": "EvoShipのメインウィンドウを表示",
+      "pseudo_code": "ShowMainWindow(bShow)",
       "params": [
         {
           "name": "bShow",
           "type": "bool",
-          "description": "表示の有効/無効を切り替えるフラグです。",
+          "description": "表示の有効/無効を切り替えるフラグ",
           "case": {
-            "true": "表示を有効にする場合は True を設定します。",
-            "false": "表示を無効にする場合は False を設定します。"
+            "true": "表示を有効にする場合は True を設定",
+            "false": "表示を無効にする場合は False を設定"
           },
           "metadata": {
             "position": 0
           }
         }
-      ]
+      ],
       "returns": {
         "type": "void",
-        "description": "なし",
+        "description": "なし"
       },
       "source": {
-        "text": "〇EvoShipのメインウィンドウを表示する\n 返り値:なし\n  ShowMainWindow(\n   bShow ) // bool: 表示する時はTrue",
+        "text": "〇EvoShipのメインウィンドウを表示する\n 返り値:なし\n  ShowMainWindow(\n   bShow ) // bool: 表示する時はTrue"
       }
     },
     {
@@ -626,24 +625,12 @@
           }
         }
       ],
-      "properties": [],
       "returns": {
         "type": "不明",
-        "description": "Partオブジェクト",
-        "is_array": false,
-        "raw_type": null
+        "description": "Partオブジェクト"
       },
-      "notes": null,
-      "implementation_status": "implemented",
-      "object_name": "Applicationオブジェクト",
-      "title_jp": "Partオブジェクトを読み込む",
-      "raw_return": "Partオブジェクト",
       "source": {
-        "path": "data\\src\\api.txt",
-        "start_line": 15,
-        "end_line": 19,
-        "text": "〇Partオブジェクトを読み込む\n 返り値:Partオブジェクト\n  LoadPart(\n   FileName, // 文字列：保存されているドキュメントのファイルパス名\n   bForceEvaluation ) // bool: 強制的に全要素を再計算して開くときはTrue (通常はFalse）",
-        "checksum": "857d54d0c30ccf492ac64ccdbfc676c4ed124148"
+        "text": "〇Partオブジェクトを読み込む\n 返り値:Partオブジェクト\n  LoadPart(\n   FileName, // 文字列：保存されているドキュメントのファイルパス名\n   bForceEvaluation ) // bool: 強制的に全要素を再計算して開くときはTrue (通常はFalse）"
       }
     },
     {
@@ -682,11 +669,7 @@
       "title_jp": "Documentを開く",
       "raw_return": "Documentオブジェクト",
       "source": {
-        "path": "data\\src\\api.txt",
-        "start_line": 21,
-        "end_line": 25,
-        "text": "〇Documentを開く\n 返り値:Documentオブジェクト\n  OpenDocument(\n   FileName, // 文字列：保存されているドキュメントのファイルパス名\n   bForceEvaluation ) // bool: 強制的に全要素を再計算して開くときはTrue (通常はFalse）",
-        "checksum": "a2132546873460d7595db0486c8f5357619524b5"
+        "text": "〇Documentを開く\n 返り値:Documentオブジェクト\n  OpenDocument(\n   FileName, // 文字列：保存されているドキュメントのファイルパス名\n   bForceEvaluation ) // bool: 強制的に全要素を再計算して開くときはTrue (通常はFalse）"
       }
     },
     {
@@ -708,11 +691,7 @@
       "title_jp": "3DのDocumentを新規に作成する",
       "raw_return": "Documentオブジェクト",
       "source": {
-        "path": "data\\src\\api.txt",
-        "start_line": 27,
-        "end_line": 29,
-        "text": "〇3DのDocumentを新規に作成する\n 返り値:Documentオブジェクト\n Create3DDocument()",
-        "checksum": "1b682c59be5c7f768c4f0e31913d0627e4dd169f"
+        "text": "〇3DのDocumentを新規に作成する\n 返り値:Documentオブジェクト\n Create3DDocument()"
       }
     },
     {
@@ -734,11 +713,7 @@
       "title_jp": "アクティブなDocumentオブジェクトを取得する",
       "raw_return": "Documentオブジェクト",
       "source": {
-        "path": "data\\src\\api.txt",
-        "start_line": 31,
-        "end_line": 33,
-        "text": "〇アクティブなDocumentオブジェクトを取得する\n 返り値:Documentオブジェクト\n GetActiveDocument()",
-        "checksum": "cb3a778313c962fcaf5be880e224805aefd3779e"
+        "text": "〇アクティブなDocumentオブジェクトを取得する\n 返り値:Documentオブジェクト\n GetActiveDocument()"
       }
     },
     {
@@ -751,8 +726,6 @@
       "returns": {
         "type": "不明",
         "description": "Documentオブジェクトの配列",
-        "is_array": true,
-        "raw_type": null
       },
       "notes": null,
       "implementation_status": "implemented",
@@ -760,11 +733,7 @@
       "title_jp": "開かれているDocumentオブジェクトを全て取得する",
       "raw_return": "Documentオブジェクトの配列",
       "source": {
-        "path": "data\\src\\api.txt",
-        "start_line": 35,
-        "end_line": 37,
-        "text": "〇開かれているDocumentオブジェクトを全て取得する\n 返り値:Documentオブジェクトの配列\n GetDocuments()",
-        "checksum": "aa4752c61f06e297753d99edd4c171e0aa9c2433"
+        "text": "〇開かれているDocumentオブジェクトを全て取得する\n 返り値:Documentオブジェクトの配列\n GetDocuments()"
       }
     },
     {
@@ -786,11 +755,7 @@
       "title_jp": "ドキュメントを閉じる",
       "raw_return": "なし",
       "source": {
-        "path": "data\\src\\api.txt",
-        "start_line": 40,
-        "end_line": 42,
         "text": "〇ドキュメントを閉じる\n 返り値:なし\n  Close()",
-        "checksum": "2b04f01a4802301f9df1b2896bff73e9d24c5892"
       }
     },
     {
@@ -829,11 +794,7 @@
       "title_jp": "ドキュメントをファイルに保存する",
       "raw_return": "なし",
       "source": {
-        "path": "data\\src\\api.txt",
-        "start_line": 44,
-        "end_line": 48,
-        "text": "〇ドキュメントをファイルに保存する\n 返り値:なし\n Save(\n    FileName, // 文字列：保存するファイルパス名\n  bAsCompactFormat ) // bool: 最小サイズになる形式で保存する時はTrue（開くのに計算を必要とします）",
-        "checksum": "a6a29c939e671c1e5eeb60279f0d4227ed43b4ff"
+        "text": "〇ドキュメントをファイルに保存する\n 返り値:なし\n Save(\n    FileName, // 文字列：保存するファイルパス名\n  bAsCompactFormat ) // bool: 最小サイズになる形式で保存する時はTrue（開くのに計算を必要とします）"
       }
     },
     {
