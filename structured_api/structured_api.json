@@ -578,18 +578,23 @@
     {
       "entry_type": "function",
       "name": "ShowMainWindow",
-      "description": "EvoShipのメインウィンドウを表示する",
+      "description": "EvoShipのメインウィンドウを表示"
+      "pseudo_code": "ShowMainWindow(bShow)"
       "category": "Applicationオブジェクト",
       "params": [
         {
           "name": "bShow",
           "type": "bool",
-          "description": "表示する時はTrue",
+          "description": "表示の有効/無効を切り替えるフラグです。",
+          "case": {
+            "true": "表示を有効にする場合は True を設定します。",
+            "false": "表示を無効にする場合は False を設定します。"
+          },
           "metadata": {
             "position": 0
           }
         }
-      ],
+      ]
       "returns": {
         "type": "void",
         "description": "なし",
