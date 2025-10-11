@@ -566,7 +566,7 @@
       "entry_type": "function",
       "name": "Quit",
       "description": "EvoShipを終了する",
-      "category": "Applicationオブジェクト",
+      "pseudo_code": "Quit()"
       "returns": {
         "type": "void",
         "description": "なし",
@@ -590,24 +590,12 @@
           }
         }
       ],
-      "properties": [],
       "returns": {
         "type": "void",
         "description": "なし",
-        "is_array": false,
-        "raw_type": null
       },
-      "notes": null,
-      "implementation_status": "implemented",
-      "object_name": "Applicationオブジェクト",
-      "title_jp": "EvoShipのメインウィンドウを表示する",
-      "raw_return": "なし",
       "source": {
-        "path": "data\\src\\api.txt",
-        "start_line": 10,
-        "end_line": 13,
         "text": "〇EvoShipのメインウィンドウを表示する\n 返り値:なし\n  ShowMainWindow(\n   bShow ) // bool: 表示する時はTrue",
-        "checksum": "e20882305633014d190100ba3397d635d483b703"
       }
     },
     {
