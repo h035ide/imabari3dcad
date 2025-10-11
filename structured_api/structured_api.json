@@ -567,25 +567,12 @@
       "name": "Quit",
       "description": "EvoShipを終了する",
       "category": "Applicationオブジェクト",
-      "params": [],
-      "properties": [],
       "returns": {
         "type": "void",
         "description": "なし",
-        "is_array": false,
-        "raw_type": null
       },
-      "notes": null,
-      "implementation_status": "implemented",
-      "object_name": "Applicationオブジェクト",
-      "title_jp": "EvoShipを終了する",
-      "raw_return": "なし",
       "source": {
-        "path": "data\\src\\api.txt",
-        "start_line": 6,
-        "end_line": 8,
         "text": "〇EvoShipを終了する\n 返り値:なし\n  Quit()",
-        "checksum": "cab941c0f3e83bf23f63a648c09c5b5ea355bd9e"
       }
     },
     {
