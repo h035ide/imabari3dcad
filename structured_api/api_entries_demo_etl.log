@@ -1,0 +1,653 @@
+2025-10-12 13:13:20,533 - api_entries_etl - DEBUG - ログ設定完了 - ファイル: C:\Users\user\workfolders\imabari3dcad\structured_api\api_entries_demo_etl.log, コンソール: INFO以上, ファイル: DEBUG以上
+2025-10-12 13:13:20,533 - api_entries_etl - INFO - ログファイルに保存中: C:\Users\user\workfolders\imabari3dcad\structured_api\api_entries_demo_etl.log
+2025-10-12 13:13:20,533 - api_entries_etl - DEBUG - main関数開始
+2025-10-12 13:13:20,562 - api_entries_etl - INFO - JSON を読み込み: C:\Users\user\workfolders\imabari3dcad\structured_api\data\api_entries_demo.json
+2025-10-12 13:13:20,567 - api_entries_etl - DEBUG - APIエントリJSONファイルを読み込み開始: C:\Users\user\workfolders\imabari3dcad\structured_api\data\api_entries_demo.json
+2025-10-12 13:13:20,567 - api_entries_etl - DEBUG - APIエントリ読み込み完了: 3件
+2025-10-12 13:13:20,567 - api_entries_etl - INFO - エントリ件数: 3
+2025-10-12 13:13:20,569 - api_entries_etl - DEBUG - GraphBuilder.build_graph_elements開始: 3件のエントリ
+2025-10-12 13:13:20,569 - api_entries_etl - DEBUG - [Node #1] Created ApiEntryCollection: api_entries::collection
+2025-10-12 13:13:20,569 - api_entries_etl - DEBUG -   name: api_entries
+2025-10-12 13:13:20,569 - api_entries_etl - DEBUG - Processing API entry #1
+2025-10-12 13:13:20,569 - api_entries_etl - DEBUG - [Node #2] Created APIEntry: api_entry::Quit
+2025-10-12 13:13:20,569 - api_entries_etl - DEBUG -   name: Quit
+2025-10-12 13:13:20,569 - api_entries_etl - DEBUG -   category: Applicationオブジェクト
+2025-10-12 13:13:20,569 - api_entries_etl - DEBUG -   entry_type: function
+2025-10-12 13:13:20,569 - api_entries_etl - DEBUG -   description: EvoShipを終了する
+2025-10-12 13:13:20,569 - api_entries_etl - DEBUG -   pseudo_code: Quit()
+2025-10-12 13:13:20,569 - api_entries_etl - DEBUG -   text: EvoShipを終了する
+
+〇EvoShipを終了する
+ 返り値:なし
+  Quit()
+2025-10-12 13:13:20,569 - api_entries_etl - DEBUG -   raw_json: {"category":"Applicationオブジェクト","entry_type":"function","name":"Quit","description":"EvoShipを終了する","pseudo_code":"Qui...
+2025-10-12 13:13:20,569 - api_entries_etl - DEBUG -   position: 0
+2025-10-12 13:13:20,569 - api_entries_etl - DEBUG - [Relation #1] Created HAS_ENTRY: api_entries::collection -> api_entry::Quit
+2025-10-12 13:13:20,573 - api_entries_etl - DEBUG - [Node #3] Created Category: category::Applicationオブジェクト
+2025-10-12 13:13:20,573 - api_entries_etl - DEBUG -   name: Applicationオブジェクト
+2025-10-12 13:13:20,574 - api_entries_etl - DEBUG - [Relation #2] Created IN_CATEGORY: api_entry::Quit -> category::Applicationオブジェクト
+2025-10-12 13:13:20,574 - api_entries_etl - DEBUG - [Node #4] Created EntryType: entry_type::function
+2025-10-12 13:13:20,574 - api_entries_etl - DEBUG -   name: function
+2025-10-12 13:13:20,574 - api_entries_etl - DEBUG - [Relation #3] Created HAS_ENTRY_TYPE: api_entry::Quit -> entry_type::function
+2025-10-12 13:13:20,574 - api_entries_etl - DEBUG - [Node #5] Created ReturnValue: return::Quit
+2025-10-12 13:13:20,574 - api_entries_etl - DEBUG -   return_type: void
+2025-10-12 13:13:20,574 - api_entries_etl - DEBUG -   description: なし
+2025-10-12 13:13:20,574 - api_entries_etl - DEBUG -   raw_json: {"type":"void","description":"なし"}
+2025-10-12 13:13:20,576 - api_entries_etl - DEBUG - [Relation #4] Created HAS_RETURN: api_entry::Quit -> return::Quit
+2025-10-12 13:13:20,577 - api_entries_etl - DEBUG - [Node #6] Created Source: source::Quit::inline
+2025-10-12 13:13:20,578 - api_entries_etl - DEBUG -   text: 〇EvoShipを終了する
+ 返り値:なし
+  Quit()
+2025-10-12 13:13:20,578 - api_entries_etl - DEBUG - [Relation #5] Created CITED_FROM: api_entry::Quit -> source::Quit::inline
+2025-10-12 13:13:20,579 - api_entries_etl - DEBUG - Processing API entry #2
+2025-10-12 13:13:20,579 - api_entries_etl - DEBUG - [Node #7] Created APIEntry: api_entry::ShowMainWindow
+2025-10-12 13:13:20,579 - api_entries_etl - DEBUG -   name: ShowMainWindow
+2025-10-12 13:13:20,581 - api_entries_etl - DEBUG -   category: Applicationオブジェクト
+2025-10-12 13:13:20,581 - api_entries_etl - DEBUG -   entry_type: function
+2025-10-12 13:13:20,581 - api_entries_etl - DEBUG -   description: EvoShipのメインウィンドウを表示
+2025-10-12 13:13:20,581 - api_entries_etl - DEBUG -   pseudo_code: ShowMainWindow(bShow)
+2025-10-12 13:13:20,581 - api_entries_etl - DEBUG -   text: EvoShipのメインウィンドウを表示
+
+〇EvoShipのメインウィンドウを表示する
+ 返り値:なし
+  ShowMainWindow(
+   bShow ) // bool: 表示する時はTrue
+2025-10-12 13:13:20,584 - api_entries_etl - DEBUG -   raw_json: {"category":"Applicationオブジェクト","entry_type":"function","name":"ShowMainWindow","description":"EvoShipのメインウィンドウを表示","...
+2025-10-12 13:13:20,584 - api_entries_etl - DEBUG -   position: 1
+2025-10-12 13:13:20,584 - api_entries_etl - DEBUG - [Relation #6] Created HAS_ENTRY: api_entries::collection -> api_entry::ShowMainWindow
+2025-10-12 13:13:20,584 - api_entries_etl - DEBUG - [Node #8] Created Category: category::Applicationオブジェクト
+2025-10-12 13:13:20,584 - api_entries_etl - DEBUG -   name: Applicationオブジェクト
+2025-10-12 13:13:20,588 - api_entries_etl - DEBUG - [Relation #7] Created IN_CATEGORY: api_entry::ShowMainWindow -> category::Applicationオブジェクト
+2025-10-12 13:13:20,588 - api_entries_etl - DEBUG - [Node #9] Created EntryType: entry_type::function
+2025-10-12 13:13:20,588 - api_entries_etl - DEBUG -   name: function
+2025-10-12 13:13:20,588 - api_entries_etl - DEBUG - [Relation #8] Created HAS_ENTRY_TYPE: api_entry::ShowMainWindow -> entry_type::function
+2025-10-12 13:13:20,590 - api_entries_etl - DEBUG - [Node #10] Created Parameter: param::ShowMainWindow::bShow
+2025-10-12 13:13:20,590 - api_entries_etl - DEBUG -   name: bShow
+2025-10-12 13:13:20,590 - api_entries_etl - DEBUG -   param_type: bool
+2025-10-12 13:13:20,590 - api_entries_etl - DEBUG -   position: 0
+2025-10-12 13:13:20,591 - api_entries_etl - DEBUG -   description: 表示の有効/無効を切り替えるフラグ
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG -   raw_json: {"name":"bShow","type":"bool","position":0,"description":"表示の有効/無効を切り替えるフラグ","case":{"true":"表示を有効にする場合は True を設定","f...
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG - [Relation #9] Created HAS_PARAMETER: api_entry::ShowMainWindow -> param::ShowMainWindow::bShow
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG - [Node #11] Created ParameterCase: param::ShowMainWindow::bShow::case::true
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG -   name: true
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG -   description: 表示を有効にする場合は True を設定
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG - [Relation #10] Created HAS_CASE_OPTION: param::ShowMainWindow::bShow -> param::ShowMainWindow::bShow::case::true
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG - [Node #12] Created ParameterCase: param::ShowMainWindow::bShow::case::false
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG -   name: false
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG -   description: 表示を無効にする場合は False を設定
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG - [Relation #11] Created HAS_CASE_OPTION: param::ShowMainWindow::bShow -> param::ShowMainWindow::bShow::case::false
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG - [Node #13] Created ReturnValue: return::ShowMainWindow
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG -   return_type: void
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG -   description: なし
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG -   raw_json: {"type":"void","description":"なし"}
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG - [Relation #12] Created HAS_RETURN: api_entry::ShowMainWindow -> return::ShowMainWindow
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG - [Node #14] Created Source: source::ShowMainWindow::inline
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG -   text: 〇EvoShipのメインウィンドウを表示する
+ 返り値:なし
+  ShowMainWindow(
+   bShow ) // bool: 表示する時はTrue
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG - [Relation #13] Created CITED_FROM: api_entry::ShowMainWindow -> source::ShowMainWindow::inline
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG - Processing API entry #3
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG - [Node #15] Created APIEntry: api_entry::LoadPart
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG -   name: LoadPart
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG -   category: Applicationオブジェクト
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG -   entry_type: function
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG -   description: Partオブジェクトを読み込む
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG -   pseudo_code: LoadPart(FileName, bForceEvaluation)
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG -   text: Partオブジェクトを読み込む
+
+〇Partオブジェクトを読み込む
+ 返り値:Partオブジェクト
+  LoadPart(
+   FileName, // 文字列：保存されているドキュメントのファイルパス名
+   bForceEval...
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG -   raw_json: {"category":"Applicationオブジェクト","entry_type":"function","name":"LoadPart","description":"Partオブジェクトを読み込む","pseudo_cod...
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG -   position: 2
+2025-10-12 13:13:20,592 - api_entries_etl - DEBUG - [Relation #14] Created HAS_ENTRY: api_entries::collection -> api_entry::LoadPart
+2025-10-12 13:13:20,600 - api_entries_etl - DEBUG - [Node #16] Created Category: category::Applicationオブジェクト
+2025-10-12 13:13:20,600 - api_entries_etl - DEBUG -   name: Applicationオブジェクト
+2025-10-12 13:13:20,600 - api_entries_etl - DEBUG - [Relation #15] Created IN_CATEGORY: api_entry::LoadPart -> category::Applicationオブジェクト
+2025-10-12 13:13:20,600 - api_entries_etl - DEBUG - [Node #17] Created EntryType: entry_type::function
+2025-10-12 13:13:20,602 - api_entries_etl - DEBUG -   name: function
+2025-10-12 13:13:20,602 - api_entries_etl - DEBUG - [Relation #16] Created HAS_ENTRY_TYPE: api_entry::LoadPart -> entry_type::function
+2025-10-12 13:13:20,603 - api_entries_etl - DEBUG - [Node #18] Created Parameter: param::LoadPart::FileName
+2025-10-12 13:13:20,603 - api_entries_etl - DEBUG -   name: FileName
+2025-10-12 13:13:20,603 - api_entries_etl - DEBUG -   param_type: 文字列
+2025-10-12 13:13:20,603 - api_entries_etl - DEBUG -   position: 0
+2025-10-12 13:13:20,603 - api_entries_etl - DEBUG -   description: 保存されているドキュメントのファイルパス名
+2025-10-12 13:13:20,603 - api_entries_etl - DEBUG -   raw_json: {"name":"FileName","type":"文字列","position":0,"description":"保存されているドキュメントのファイルパス名"}
+2025-10-12 13:13:20,603 - api_entries_etl - DEBUG - [Relation #17] Created HAS_PARAMETER: api_entry::LoadPart -> param::LoadPart::FileName
+2025-10-12 13:13:20,605 - api_entries_etl - DEBUG - [Node #19] Created Parameter: param::LoadPart::bForceEvaluation
+2025-10-12 13:13:20,605 - api_entries_etl - DEBUG -   name: bForceEvaluation
+2025-10-12 13:13:20,605 - api_entries_etl - DEBUG -   param_type: bool
+2025-10-12 13:13:20,605 - api_entries_etl - DEBUG -   position: 1
+2025-10-12 13:13:20,605 - api_entries_etl - DEBUG -   description: 強制的に全要素を再計算して開くかどうかのフラグ
+2025-10-12 13:13:20,605 - api_entries_etl - DEBUG -   raw_json: {"name":"bForceEvaluation","type":"bool","position":1,"description":"強制的に全要素を再計算して開くかどうかのフラグ","case":{"true":"強制的に全要素...
+2025-10-12 13:13:20,607 - api_entries_etl - DEBUG - [Relation #18] Created HAS_PARAMETER: api_entry::LoadPart -> param::LoadPart::bForceEvaluation
+2025-10-12 13:13:20,607 - api_entries_etl - DEBUG - [Node #20] Created ParameterCase: param::LoadPart::bForceEvaluation::case::true
+2025-10-12 13:13:20,607 - api_entries_etl - DEBUG -   name: true
+2025-10-12 13:13:20,607 - api_entries_etl - DEBUG -   description: 強制的に全要素を再計算して開くときはTrue
+2025-10-12 13:13:20,608 - api_entries_etl - DEBUG - [Relation #19] Created HAS_CASE_OPTION: param::LoadPart::bForceEvaluation -> param::LoadPart::bForceEvaluation::case::true
+2025-10-12 13:13:20,608 - api_entries_etl - DEBUG - [Node #21] Created ParameterCase: param::LoadPart::bForceEvaluation::case::false
+2025-10-12 13:13:20,608 - api_entries_etl - DEBUG -   name: false
+2025-10-12 13:13:20,608 - api_entries_etl - DEBUG -   description: 通常はFalse
+2025-10-12 13:13:20,608 - api_entries_etl - DEBUG - [Relation #20] Created HAS_CASE_OPTION: param::LoadPart::bForceEvaluation -> param::LoadPart::bForceEvaluation::case::false
+2025-10-12 13:13:20,611 - api_entries_etl - DEBUG - [Node #22] Created ReturnValue: return::LoadPart
+2025-10-12 13:13:20,611 - api_entries_etl - DEBUG -   return_type: 不明
+2025-10-12 13:13:20,611 - api_entries_etl - DEBUG -   description: Partオブジェクト
+2025-10-12 13:13:20,611 - api_entries_etl - DEBUG -   raw_json: {"type":"不明","description":"Partオブジェクト"}
+2025-10-12 13:13:20,613 - api_entries_etl - DEBUG - [Relation #21] Created HAS_RETURN: api_entry::LoadPart -> return::LoadPart
+2025-10-12 13:13:20,613 - api_entries_etl - DEBUG - [Node #23] Created Source: source::LoadPart::inline
+2025-10-12 13:13:20,613 - api_entries_etl - DEBUG -   text: 〇Partオブジェクトを読み込む
+ 返り値:Partオブジェクト
+  LoadPart(
+   FileName, // 文字列：保存されているドキュメントのファイルパス名
+   bForceEvaluation ) // bool:...
+2025-10-12 13:13:20,615 - api_entries_etl - DEBUG - [Relation #22] Created CITED_FROM: api_entry::LoadPart -> source::LoadPart::inline
+2025-10-12 13:13:20,615 - api_entries_etl - DEBUG - GraphBuilder.build_graph_elements完了: ノード19件, リレーション22件
+2025-10-12 13:13:20,615 - api_entries_etl - DEBUG - デバッグ統計: ノード作成数=23, リレーション作成数=22
+2025-10-12 13:13:20,616 - api_entries_etl - INFO - 生成ノード: 19, リレーション: 22
+2025-10-12 13:13:29,433 - api_entries_etl - WARNING - --wipe により過去のノード/リレーションを削除します
+2025-10-12 13:13:40,842 - api_entries_etl - INFO - Neo4j へ投入完了: ノード 19, リレーション 22
+2025-10-12 13:13:40,842 - api_entries_etl - INFO - 完了
+2025-10-12 13:21:48,084 - api_entries_etl - DEBUG - ログ設定完了 - ファイル: C:\Users\user\workfolders\imabari3dcad\structured_api\api_entries_demo_etl.log, コンソール: INFO以上, ファイル: DEBUG以上
+2025-10-12 13:21:48,084 - api_entries_etl - INFO - ログファイルに保存中: C:\Users\user\workfolders\imabari3dcad\structured_api\api_entries_demo_etl.log
+2025-10-12 13:21:48,084 - api_entries_etl - DEBUG - main関数開始
+2025-10-12 13:21:48,090 - api_entries_etl - INFO - JSON を読み込み: C:\Users\user\workfolders\imabari3dcad\structured_api\data\api_entries_demo.json
+2025-10-12 13:21:48,090 - api_entries_etl - DEBUG - APIエントリJSONファイルを読み込み開始: C:\Users\user\workfolders\imabari3dcad\structured_api\data\api_entries_demo.json
+2025-10-12 13:21:48,090 - api_entries_etl - DEBUG - APIエントリ読み込み完了: 3件
+2025-10-12 13:21:48,090 - api_entries_etl - INFO - エントリ件数: 3
+2025-10-12 13:21:48,090 - api_entries_etl - DEBUG - GraphBuilder.build_graph_elements開始: 3件のエントリ
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG - [Node #1] Created ApiEntryCollection: api_entries::collection
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG -   name: api_entries
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG - Processing API entry #1
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG - [Node #2] Created APIEntry: api_entry::Quit
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG -   name: Quit
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG -   category: Applicationオブジェクト
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG -   entry_type: function
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG -   description: EvoShipを終了する
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG -   pseudo_code: Quit()
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG -   text: EvoShipを終了する
+
+〇EvoShipを終了する
+ 返り値:なし
+  Quit()
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG -   raw_json: {"category":"Applicationオブジェクト","entry_type":"function","name":"Quit","description":"EvoShipを終了する","pseudo_code":"Qui...
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG -   position: 0
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG - [Relation #1] Created HAS_ENTRY: api_entries::collection -> api_entry::Quit
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG - [Node #3] Created Category: category::Applicationオブジェクト
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG -   name: Applicationオブジェクト
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG - [Relation #2] Created IN_CATEGORY: api_entry::Quit -> category::Applicationオブジェクト
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG - [Node #4] Created EntryType: entry_type::function
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG -   name: function
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG - [Relation #3] Created HAS_ENTRY_TYPE: api_entry::Quit -> entry_type::function
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG - [Node #5] Created ReturnValue: return::Quit
+2025-10-12 13:21:48,097 - api_entries_etl - DEBUG -   return_type: void
+2025-10-12 13:21:48,101 - api_entries_etl - DEBUG -   description: なし
+2025-10-12 13:21:48,103 - api_entries_etl - DEBUG -   raw_json: {"type":"void","description":"なし"}
+2025-10-12 13:21:48,103 - api_entries_etl - DEBUG - [Relation #4] Created HAS_RETURN: api_entry::Quit -> return::Quit
+2025-10-12 13:21:48,103 - api_entries_etl - DEBUG - [Node #6] Created PseudoCode: pseudo_code::Quit
+2025-10-12 13:21:48,103 - api_entries_etl - DEBUG -   code: Quit()
+2025-10-12 13:21:48,103 - api_entries_etl - DEBUG -   callee: Quit
+2025-10-12 13:21:48,103 - api_entries_etl - DEBUG -   argument_count: 0
+2025-10-12 13:21:48,103 - api_entries_etl - DEBUG - [Relation #5] Created HAS_PSEUDO_CODE: api_entry::Quit -> pseudo_code::Quit
+2025-10-12 13:21:48,103 - api_entries_etl - DEBUG - [Node #7] Created Source: source::Quit::inline
+2025-10-12 13:21:48,103 - api_entries_etl - DEBUG -   text: 〇EvoShipを終了する
+ 返り値:なし
+  Quit()
+2025-10-12 13:21:48,103 - api_entries_etl - DEBUG - [Relation #6] Created CITED_FROM: api_entry::Quit -> source::Quit::inline
+2025-10-12 13:21:48,103 - api_entries_etl - DEBUG - Processing API entry #2
+2025-10-12 13:21:48,106 - api_entries_etl - DEBUG - [Node #8] Created APIEntry: api_entry::ShowMainWindow
+2025-10-12 13:21:48,106 - api_entries_etl - DEBUG -   name: ShowMainWindow
+2025-10-12 13:21:48,106 - api_entries_etl - DEBUG -   category: Applicationオブジェクト
+2025-10-12 13:21:48,106 - api_entries_etl - DEBUG -   entry_type: function
+2025-10-12 13:21:48,106 - api_entries_etl - DEBUG -   description: EvoShipのメインウィンドウを表示
+2025-10-12 13:21:48,106 - api_entries_etl - DEBUG -   pseudo_code: ShowMainWindow(bShow)
+2025-10-12 13:21:48,106 - api_entries_etl - DEBUG -   text: EvoShipのメインウィンドウを表示
+
+〇EvoShipのメインウィンドウを表示する
+ 返り値:なし
+  ShowMainWindow(
+   bShow ) // bool: 表示する時はTrue
+2025-10-12 13:21:48,106 - api_entries_etl - DEBUG -   raw_json: {"category":"Applicationオブジェクト","entry_type":"function","name":"ShowMainWindow","description":"EvoShipのメインウィンドウを表示","...
+2025-10-12 13:21:48,106 - api_entries_etl - DEBUG -   position: 1
+2025-10-12 13:21:48,108 - api_entries_etl - DEBUG - [Relation #7] Created HAS_ENTRY: api_entries::collection -> api_entry::ShowMainWindow
+2025-10-12 13:21:48,108 - api_entries_etl - DEBUG - [Node #9] Created Category: category::Applicationオブジェクト
+2025-10-12 13:21:48,108 - api_entries_etl - DEBUG -   name: Applicationオブジェクト
+2025-10-12 13:21:48,109 - api_entries_etl - DEBUG - [Relation #8] Created IN_CATEGORY: api_entry::ShowMainWindow -> category::Applicationオブジェクト
+2025-10-12 13:21:48,109 - api_entries_etl - DEBUG - [Node #10] Created EntryType: entry_type::function
+2025-10-12 13:21:48,109 - api_entries_etl - DEBUG -   name: function
+2025-10-12 13:21:48,110 - api_entries_etl - DEBUG - [Relation #9] Created HAS_ENTRY_TYPE: api_entry::ShowMainWindow -> entry_type::function
+2025-10-12 13:21:48,111 - api_entries_etl - DEBUG - [Node #11] Created Parameter: param::ShowMainWindow::bShow
+2025-10-12 13:21:48,111 - api_entries_etl - DEBUG -   name: bShow
+2025-10-12 13:21:48,111 - api_entries_etl - DEBUG -   param_type: bool
+2025-10-12 13:21:48,111 - api_entries_etl - DEBUG -   position: 0
+2025-10-12 13:21:48,111 - api_entries_etl - DEBUG -   description: 表示の有効/無効を切り替えるフラグ
+2025-10-12 13:21:48,113 - api_entries_etl - DEBUG -   raw_json: {"name":"bShow","type":"bool","position":0,"description":"表示の有効/無効を切り替えるフラグ","case":{"true":"表示を有効にする場合は True を設定","f...
+2025-10-12 13:21:48,113 - api_entries_etl - DEBUG - [Relation #10] Created HAS_PARAMETER: api_entry::ShowMainWindow -> param::ShowMainWindow::bShow
+2025-10-12 13:21:48,113 - api_entries_etl - DEBUG - [Node #12] Created ParameterCase: param::ShowMainWindow::bShow::case::true
+2025-10-12 13:21:48,113 - api_entries_etl - DEBUG -   name: true
+2025-10-12 13:21:48,113 - api_entries_etl - DEBUG -   description: 表示を有効にする場合は True を設定
+2025-10-12 13:21:48,113 - api_entries_etl - DEBUG - [Relation #11] Created HAS_CASE_OPTION: param::ShowMainWindow::bShow -> param::ShowMainWindow::bShow::case::true
+2025-10-12 13:21:48,113 - api_entries_etl - DEBUG - [Node #13] Created ParameterCase: param::ShowMainWindow::bShow::case::false
+2025-10-12 13:21:48,114 - api_entries_etl - DEBUG -   name: false
+2025-10-12 13:21:48,114 - api_entries_etl - DEBUG -   description: 表示を無効にする場合は False を設定
+2025-10-12 13:21:48,114 - api_entries_etl - DEBUG - [Relation #12] Created HAS_CASE_OPTION: param::ShowMainWindow::bShow -> param::ShowMainWindow::bShow::case::false
+2025-10-12 13:21:48,114 - api_entries_etl - DEBUG - [Node #14] Created ReturnValue: return::ShowMainWindow
+2025-10-12 13:21:48,114 - api_entries_etl - DEBUG -   return_type: void
+2025-10-12 13:21:48,114 - api_entries_etl - DEBUG -   description: なし
+2025-10-12 13:21:48,114 - api_entries_etl - DEBUG -   raw_json: {"type":"void","description":"なし"}
+2025-10-12 13:21:48,114 - api_entries_etl - DEBUG - [Relation #13] Created HAS_RETURN: api_entry::ShowMainWindow -> return::ShowMainWindow
+2025-10-12 13:21:48,114 - api_entries_etl - DEBUG - [Node #15] Created PseudoCode: pseudo_code::ShowMainWindow
+2025-10-12 13:21:48,114 - api_entries_etl - DEBUG -   code: ShowMainWindow(bShow)
+2025-10-12 13:21:48,114 - api_entries_etl - DEBUG -   callee: ShowMainWindow
+2025-10-12 13:21:48,114 - api_entries_etl - DEBUG -   argument_count: 1
+2025-10-12 13:21:48,114 - api_entries_etl - DEBUG -   arguments_json: ["bShow"]
+2025-10-12 13:21:48,114 - api_entries_etl - DEBUG - [Relation #14] Created HAS_PSEUDO_CODE: api_entry::ShowMainWindow -> pseudo_code::ShowMainWindow
+2025-10-12 13:21:48,117 - api_entries_etl - DEBUG - [Node #16] Created PseudoCodeArgument: pseudo_code::ShowMainWindow::arg::0
+2025-10-12 13:21:48,117 - api_entries_etl - DEBUG -   text: bShow
+2025-10-12 13:21:48,117 - api_entries_etl - DEBUG -   position: 0
+2025-10-12 13:21:48,117 - api_entries_etl - DEBUG -   normalized_text: bshow
+2025-10-12 13:21:48,120 - api_entries_etl - DEBUG - [Relation #15] Created HAS_ARGUMENT: pseudo_code::ShowMainWindow -> pseudo_code::ShowMainWindow::arg::0
+2025-10-12 13:21:48,120 - api_entries_etl - DEBUG - [Relation #16] Created ARGUMENT_MATCHES_PARAMETER: pseudo_code::ShowMainWindow::arg::0 -> param::ShowMainWindow::bShow
+2025-10-12 13:21:48,120 - api_entries_etl - DEBUG - [Node #17] Created Source: source::ShowMainWindow::inline
+2025-10-12 13:21:48,120 - api_entries_etl - DEBUG -   text: 〇EvoShipのメインウィンドウを表示する
+ 返り値:なし
+  ShowMainWindow(
+   bShow ) // bool: 表示する時はTrue
+2025-10-12 13:21:48,120 - api_entries_etl - DEBUG - [Relation #17] Created CITED_FROM: api_entry::ShowMainWindow -> source::ShowMainWindow::inline
+2025-10-12 13:21:48,122 - api_entries_etl - DEBUG - Processing API entry #3
+2025-10-12 13:21:48,122 - api_entries_etl - DEBUG - [Node #18] Created APIEntry: api_entry::LoadPart
+2025-10-12 13:21:48,122 - api_entries_etl - DEBUG -   name: LoadPart
+2025-10-12 13:21:48,122 - api_entries_etl - DEBUG -   category: Applicationオブジェクト
+2025-10-12 13:21:48,125 - api_entries_etl - DEBUG -   entry_type: function
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG -   description: Partオブジェクトを読み込む
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG -   pseudo_code: LoadPart(FileName, bForceEvaluation)
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG -   text: Partオブジェクトを読み込む
+
+〇Partオブジェクトを読み込む
+ 返り値:Partオブジェクト
+  LoadPart(
+   FileName, // 文字列：保存されているドキュメントのファイルパス名
+   bForceEval...
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG -   raw_json: {"category":"Applicationオブジェクト","entry_type":"function","name":"LoadPart","description":"Partオブジェクトを読み込む","pseudo_cod...
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG -   position: 2
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG - [Relation #18] Created HAS_ENTRY: api_entries::collection -> api_entry::LoadPart
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG - [Node #19] Created Category: category::Applicationオブジェクト
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG -   name: Applicationオブジェクト
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG - [Relation #19] Created IN_CATEGORY: api_entry::LoadPart -> category::Applicationオブジェクト
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG - [Node #20] Created EntryType: entry_type::function
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG -   name: function
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG - [Relation #20] Created HAS_ENTRY_TYPE: api_entry::LoadPart -> entry_type::function
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG - [Node #21] Created Parameter: param::LoadPart::FileName
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG -   name: FileName
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG -   param_type: 文字列
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG -   position: 0
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG -   description: 保存されているドキュメントのファイルパス名
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG -   raw_json: {"name":"FileName","type":"文字列","position":0,"description":"保存されているドキュメントのファイルパス名"}
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG - [Relation #21] Created HAS_PARAMETER: api_entry::LoadPart -> param::LoadPart::FileName
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG - [Node #22] Created Parameter: param::LoadPart::bForceEvaluation
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG -   name: bForceEvaluation
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG -   param_type: bool
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG -   position: 1
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG -   description: 強制的に全要素を再計算して開くかどうかのフラグ
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG -   raw_json: {"name":"bForceEvaluation","type":"bool","position":1,"description":"強制的に全要素を再計算して開くかどうかのフラグ","case":{"true":"強制的に全要素...
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG - [Relation #22] Created HAS_PARAMETER: api_entry::LoadPart -> param::LoadPart::bForceEvaluation
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG - [Node #23] Created ParameterCase: param::LoadPart::bForceEvaluation::case::true
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG -   name: true
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG -   description: 強制的に全要素を再計算して開くときはTrue
+2025-10-12 13:21:48,127 - api_entries_etl - DEBUG - [Relation #23] Created HAS_CASE_OPTION: param::LoadPart::bForceEvaluation -> param::LoadPart::bForceEvaluation::case::true
+2025-10-12 13:21:48,132 - api_entries_etl - DEBUG - [Node #24] Created ParameterCase: param::LoadPart::bForceEvaluation::case::false
+2025-10-12 13:21:48,132 - api_entries_etl - DEBUG -   name: false
+2025-10-12 13:21:48,132 - api_entries_etl - DEBUG -   description: 通常はFalse
+2025-10-12 13:21:48,132 - api_entries_etl - DEBUG - [Relation #24] Created HAS_CASE_OPTION: param::LoadPart::bForceEvaluation -> param::LoadPart::bForceEvaluation::case::false
+2025-10-12 13:21:48,132 - api_entries_etl - DEBUG - [Node #25] Created ReturnValue: return::LoadPart
+2025-10-12 13:21:48,132 - api_entries_etl - DEBUG -   return_type: 不明
+2025-10-12 13:21:48,132 - api_entries_etl - DEBUG -   description: Partオブジェクト
+2025-10-12 13:21:48,132 - api_entries_etl - DEBUG -   raw_json: {"type":"不明","description":"Partオブジェクト"}
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG - [Relation #25] Created HAS_RETURN: api_entry::LoadPart -> return::LoadPart
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG - [Node #26] Created PseudoCode: pseudo_code::LoadPart
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG -   code: LoadPart(FileName, bForceEvaluation)
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG -   callee: LoadPart
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG -   argument_count: 2
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG -   arguments_json: ["FileName","bForceEvaluation"]
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG - [Relation #26] Created HAS_PSEUDO_CODE: api_entry::LoadPart -> pseudo_code::LoadPart
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG - [Node #27] Created PseudoCodeArgument: pseudo_code::LoadPart::arg::0
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG -   text: FileName
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG -   position: 0
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG -   normalized_text: filename
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG - [Relation #27] Created HAS_ARGUMENT: pseudo_code::LoadPart -> pseudo_code::LoadPart::arg::0
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG - [Relation #28] Created ARGUMENT_MATCHES_PARAMETER: pseudo_code::LoadPart::arg::0 -> param::LoadPart::FileName
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG - [Node #28] Created PseudoCodeArgument: pseudo_code::LoadPart::arg::1
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG -   text: bForceEvaluation
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG -   position: 1
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG -   normalized_text: bforceevaluation
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG - [Relation #29] Created HAS_ARGUMENT: pseudo_code::LoadPart -> pseudo_code::LoadPart::arg::1
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG - [Relation #30] Created ARGUMENT_MATCHES_PARAMETER: pseudo_code::LoadPart::arg::1 -> param::LoadPart::bForceEvaluation
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG - [Node #29] Created Source: source::LoadPart::inline
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG -   text: 〇Partオブジェクトを読み込む
+ 返り値:Partオブジェクト
+  LoadPart(
+   FileName, // 文字列：保存されているドキュメントのファイルパス名
+   bForceEvaluation ) // bool:...
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG - [Relation #31] Created CITED_FROM: api_entry::LoadPart -> source::LoadPart::inline
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG - GraphBuilder.build_graph_elements完了: ノード25件, リレーション31件
+2025-10-12 13:21:48,134 - api_entries_etl - DEBUG - デバッグ統計: ノード作成数=29, リレーション作成数=31
+2025-10-12 13:21:48,134 - api_entries_etl - INFO - 生成ノード: 25, リレーション: 31
+2025-10-12 13:21:49,153 - api_entries_etl - WARNING - --wipe により過去のノード/リレーションを削除します
+2025-10-12 13:21:53,034 - api_entries_etl - INFO - Neo4j へ投入完了: ノード 25, リレーション 31
+2025-10-12 13:21:53,034 - api_entries_etl - INFO - 完了
+2025-10-12 13:41:47,795 - api_entries_etl - DEBUG - ログ設定完了 - ファイル: C:\Users\user\workfolders\imabari3dcad\structured_api\api_entries_demo_etl.log, コンソール: INFO以上, ファイル: DEBUG以上
+2025-10-12 13:41:47,795 - api_entries_etl - INFO - ログファイルに保存中: C:\Users\user\workfolders\imabari3dcad\structured_api\api_entries_demo_etl.log
+2025-10-12 13:41:47,810 - api_entries_etl - DEBUG - main関数開始
+2025-10-12 13:41:47,835 - api_entries_etl - INFO - JSON を読み込み: C:\Users\user\workfolders\imabari3dcad\structured_api\data\api_entries_demo.json
+2025-10-12 13:41:47,835 - api_entries_etl - DEBUG - APIエントリJSONファイルを読み込み開始: C:\Users\user\workfolders\imabari3dcad\structured_api\data\api_entries_demo.json
+2025-10-12 13:41:47,835 - api_entries_etl - DEBUG - APIエントリ読み込み完了: 5件
+2025-10-12 13:41:47,837 - api_entries_etl - INFO - エントリ件数: 5
+2025-10-12 13:41:47,837 - api_entries_etl - DEBUG - GraphBuilder.build_graph_elements開始: 5件のエントリ
+2025-10-12 13:41:47,837 - api_entries_etl - DEBUG - [Node #1] Created ApiEntryCollection: api_entries::collection
+2025-10-12 13:41:47,837 - api_entries_etl - DEBUG -   name: api_entries
+2025-10-12 13:41:47,839 - api_entries_etl - DEBUG - Processing API entry #1
+2025-10-12 13:41:47,839 - api_entries_etl - DEBUG - [Node #2] Created APIEntry: api_entry::Quit
+2025-10-12 13:41:47,839 - api_entries_etl - DEBUG -   name: Quit
+2025-10-12 13:41:47,840 - api_entries_etl - DEBUG -   category: Applicationオブジェクト
+2025-10-12 13:41:47,840 - api_entries_etl - DEBUG -   entry_type: function
+2025-10-12 13:41:47,840 - api_entries_etl - DEBUG -   description: EvoShipを終了する
+2025-10-12 13:41:47,840 - api_entries_etl - DEBUG -   pseudo_code: Quit()
+2025-10-12 13:41:47,840 - api_entries_etl - DEBUG -   text: EvoShipを終了する
+
+〇EvoShipを終了する
+ 返り値:なし
+  Quit()
+2025-10-12 13:41:47,840 - api_entries_etl - DEBUG -   raw_json: {"category":"Applicationオブジェクト","entry_type":"function","name":"Quit","description":"EvoShipを終了する","pseudo_code":"Qui...
+2025-10-12 13:41:47,840 - api_entries_etl - DEBUG -   position: 0
+2025-10-12 13:41:47,840 - api_entries_etl - DEBUG - [Relation #1] Created HAS_ENTRY: api_entries::collection -> api_entry::Quit
+2025-10-12 13:41:47,840 - api_entries_etl - DEBUG - [Node #3] Created Category: category::Applicationオブジェクト
+2025-10-12 13:41:47,840 - api_entries_etl - DEBUG -   name: Applicationオブジェクト
+2025-10-12 13:41:47,840 - api_entries_etl - DEBUG - [Relation #2] Created IN_CATEGORY: api_entry::Quit -> category::Applicationオブジェクト
+2025-10-12 13:41:47,840 - api_entries_etl - DEBUG - [Node #4] Created EntryType: entry_type::function
+2025-10-12 13:41:47,840 - api_entries_etl - DEBUG -   name: function
+2025-10-12 13:41:47,844 - api_entries_etl - DEBUG - [Relation #3] Created HAS_ENTRY_TYPE: api_entry::Quit -> entry_type::function
+2025-10-12 13:41:47,844 - api_entries_etl - DEBUG - [Node #5] Created ReturnValue: return::Quit
+2025-10-12 13:41:47,845 - api_entries_etl - DEBUG -   return_type: void
+2025-10-12 13:41:47,846 - api_entries_etl - DEBUG -   description: なし
+2025-10-12 13:41:47,846 - api_entries_etl - DEBUG -   raw_json: {"type":"void","description":"なし"}
+2025-10-12 13:41:47,846 - api_entries_etl - DEBUG - [Relation #4] Created HAS_RETURN: api_entry::Quit -> return::Quit
+2025-10-12 13:41:47,846 - api_entries_etl - DEBUG - [Node #6] Created PseudoCode: pseudo_code::Quit
+2025-10-12 13:41:47,846 - api_entries_etl - DEBUG -   code: Quit()
+2025-10-12 13:41:47,846 - api_entries_etl - DEBUG -   callee: Quit
+2025-10-12 13:41:47,846 - api_entries_etl - DEBUG -   argument_count: 0
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG - [Relation #5] Created HAS_PSEUDO_CODE: api_entry::Quit -> pseudo_code::Quit
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG - [Node #7] Created Source: source::Quit::inline
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG -   text: 〇EvoShipを終了する
+ 返り値:なし
+  Quit()
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG - [Relation #6] Created CITED_FROM: api_entry::Quit -> source::Quit::inline
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG - Processing API entry #2
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG - [Node #8] Created APIEntry: api_entry::ShowMainWindow
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG -   name: ShowMainWindow
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG -   category: Applicationオブジェクト
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG -   entry_type: function
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG -   description: EvoShipのメインウィンドウを表示
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG -   pseudo_code: ShowMainWindow(bShow)
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG -   text: EvoShipのメインウィンドウを表示
+
+〇EvoShipのメインウィンドウを表示する
+ 返り値:なし
+  ShowMainWindow(
+   bShow ) // bool: 表示する時はTrue
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG -   raw_json: {"category":"Applicationオブジェクト","entry_type":"function","name":"ShowMainWindow","description":"EvoShipのメインウィンドウを表示","...
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG -   position: 1
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG - [Relation #7] Created HAS_ENTRY: api_entries::collection -> api_entry::ShowMainWindow
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG - [Node #9] Created Category: category::Applicationオブジェクト
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG -   name: Applicationオブジェクト
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG - [Relation #8] Created IN_CATEGORY: api_entry::ShowMainWindow -> category::Applicationオブジェクト
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG - [Node #10] Created EntryType: entry_type::function
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG -   name: function
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG - [Relation #9] Created HAS_ENTRY_TYPE: api_entry::ShowMainWindow -> entry_type::function
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG - [Node #11] Created Parameter: param::ShowMainWindow::bShow
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG -   name: bShow
+2025-10-12 13:41:47,848 - api_entries_etl - DEBUG -   param_type: bool
+2025-10-12 13:41:47,851 - api_entries_etl - DEBUG -   position: 0
+2025-10-12 13:41:47,851 - api_entries_etl - DEBUG -   description: 表示の有効/無効を切り替えるフラグ
+2025-10-12 13:41:47,851 - api_entries_etl - DEBUG -   raw_json: {"name":"bShow","type":"bool","position":0,"description":"表示の有効/無効を切り替えるフラグ","case":{"true":"表示を有効にする場合は True を設定","f...
+2025-10-12 13:41:47,851 - api_entries_etl - DEBUG - [Relation #10] Created HAS_PARAMETER: api_entry::ShowMainWindow -> param::ShowMainWindow::bShow
+2025-10-12 13:41:47,851 - api_entries_etl - DEBUG - [Node #12] Created ParameterCase: param::ShowMainWindow::bShow::case::true
+2025-10-12 13:41:47,851 - api_entries_etl - DEBUG -   name: true
+2025-10-12 13:41:47,854 - api_entries_etl - DEBUG -   description: 表示を有効にする場合は True を設定
+2025-10-12 13:41:47,854 - api_entries_etl - DEBUG - [Relation #11] Created HAS_CASE_OPTION: param::ShowMainWindow::bShow -> param::ShowMainWindow::bShow::case::true
+2025-10-12 13:41:47,854 - api_entries_etl - DEBUG - [Node #13] Created ParameterCase: param::ShowMainWindow::bShow::case::false
+2025-10-12 13:41:47,856 - api_entries_etl - DEBUG -   name: false
+2025-10-12 13:41:47,856 - api_entries_etl - DEBUG -   description: 表示を無効にする場合は False を設定
+2025-10-12 13:41:47,856 - api_entries_etl - DEBUG - [Relation #12] Created HAS_CASE_OPTION: param::ShowMainWindow::bShow -> param::ShowMainWindow::bShow::case::false
+2025-10-12 13:41:47,856 - api_entries_etl - DEBUG - [Node #14] Created ReturnValue: return::ShowMainWindow
+2025-10-12 13:41:47,856 - api_entries_etl - DEBUG -   return_type: void
+2025-10-12 13:41:47,856 - api_entries_etl - DEBUG -   description: なし
+2025-10-12 13:41:47,856 - api_entries_etl - DEBUG -   raw_json: {"type":"void","description":"なし"}
+2025-10-12 13:41:47,856 - api_entries_etl - DEBUG - [Relation #13] Created HAS_RETURN: api_entry::ShowMainWindow -> return::ShowMainWindow
+2025-10-12 13:41:47,856 - api_entries_etl - DEBUG - [Node #15] Created PseudoCode: pseudo_code::ShowMainWindow
+2025-10-12 13:41:47,856 - api_entries_etl - DEBUG -   code: ShowMainWindow(bShow)
+2025-10-12 13:41:47,859 - api_entries_etl - DEBUG -   callee: ShowMainWindow
+2025-10-12 13:41:47,859 - api_entries_etl - DEBUG -   argument_count: 1
+2025-10-12 13:41:47,859 - api_entries_etl - DEBUG -   arguments_json: ["bShow"]
+2025-10-12 13:41:47,859 - api_entries_etl - DEBUG - [Relation #14] Created HAS_PSEUDO_CODE: api_entry::ShowMainWindow -> pseudo_code::ShowMainWindow
+2025-10-12 13:41:47,859 - api_entries_etl - DEBUG - [Node #16] Created PseudoCodeArgument: pseudo_code::ShowMainWindow::arg::0
+2025-10-12 13:41:47,859 - api_entries_etl - DEBUG -   text: bShow
+2025-10-12 13:41:47,860 - api_entries_etl - DEBUG -   position: 0
+2025-10-12 13:41:47,860 - api_entries_etl - DEBUG -   normalized_text: bshow
+2025-10-12 13:41:47,860 - api_entries_etl - DEBUG - [Relation #15] Created HAS_ARGUMENT: pseudo_code::ShowMainWindow -> pseudo_code::ShowMainWindow::arg::0
+2025-10-12 13:41:47,860 - api_entries_etl - DEBUG - [Relation #16] Created ARGUMENT_MATCHES_PARAMETER: pseudo_code::ShowMainWindow::arg::0 -> param::ShowMainWindow::bShow
+2025-10-12 13:41:47,860 - api_entries_etl - DEBUG - [Node #17] Created Source: source::ShowMainWindow::inline
+2025-10-12 13:41:47,860 - api_entries_etl - DEBUG -   text: 〇EvoShipのメインウィンドウを表示する
+ 返り値:なし
+  ShowMainWindow(
+   bShow ) // bool: 表示する時はTrue
+2025-10-12 13:41:47,860 - api_entries_etl - DEBUG - [Relation #17] Created CITED_FROM: api_entry::ShowMainWindow -> source::ShowMainWindow::inline
+2025-10-12 13:41:47,862 - api_entries_etl - DEBUG - Processing API entry #3
+2025-10-12 13:41:47,862 - api_entries_etl - DEBUG - [Node #18] Created APIEntry: api_entry::LoadPart
+2025-10-12 13:41:47,862 - api_entries_etl - DEBUG -   name: LoadPart
+2025-10-12 13:41:47,862 - api_entries_etl - DEBUG -   category: Applicationオブジェクト
+2025-10-12 13:41:47,862 - api_entries_etl - DEBUG -   entry_type: function
+2025-10-12 13:41:47,862 - api_entries_etl - DEBUG -   description: Partオブジェクトを読み込む
+2025-10-12 13:41:47,862 - api_entries_etl - DEBUG -   pseudo_code: LoadPart(FileName, bForceEvaluation)
+2025-10-12 13:41:47,862 - api_entries_etl - DEBUG -   text: Partオブジェクトを読み込む
+
+〇Partオブジェクトを読み込む
+ 返り値:Partオブジェクト
+  LoadPart(
+   FileName, // 文字列：保存されているドキュメントのファイルパス名
+   bForceEval...
+2025-10-12 13:41:47,862 - api_entries_etl - DEBUG -   raw_json: {"category":"Applicationオブジェクト","entry_type":"function","name":"LoadPart","description":"Partオブジェクトを読み込む","pseudo_cod...
+2025-10-12 13:41:47,862 - api_entries_etl - DEBUG -   position: 2
+2025-10-12 13:41:47,862 - api_entries_etl - DEBUG - [Relation #18] Created HAS_ENTRY: api_entries::collection -> api_entry::LoadPart
+2025-10-12 13:41:47,865 - api_entries_etl - DEBUG - [Node #19] Created Category: category::Applicationオブジェクト
+2025-10-12 13:41:47,865 - api_entries_etl - DEBUG -   name: Applicationオブジェクト
+2025-10-12 13:41:47,865 - api_entries_etl - DEBUG - [Relation #19] Created IN_CATEGORY: api_entry::LoadPart -> category::Applicationオブジェクト
+2025-10-12 13:41:47,865 - api_entries_etl - DEBUG - [Node #20] Created EntryType: entry_type::function
+2025-10-12 13:41:47,865 - api_entries_etl - DEBUG -   name: function
+2025-10-12 13:41:47,865 - api_entries_etl - DEBUG - [Relation #20] Created HAS_ENTRY_TYPE: api_entry::LoadPart -> entry_type::function
+2025-10-12 13:41:47,865 - api_entries_etl - DEBUG - [Node #21] Created Parameter: param::LoadPart::FileName
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG -   name: FileName
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG -   param_type: 文字列
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG -   position: 0
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG -   description: 保存されているドキュメントのファイルパス名
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG -   raw_json: {"name":"FileName","type":"文字列","position":0,"description":"保存されているドキュメントのファイルパス名"}
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG - [Relation #21] Created HAS_PARAMETER: api_entry::LoadPart -> param::LoadPart::FileName
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG - [Node #22] Created Parameter: param::LoadPart::bForceEvaluation
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG -   name: bForceEvaluation
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG -   param_type: bool
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG -   position: 1
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG -   description: 強制的に全要素を再計算して開くかどうかのフラグ
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG -   raw_json: {"name":"bForceEvaluation","type":"bool","position":1,"description":"強制的に全要素を再計算して開くかどうかのフラグ","case":{"true":"強制的に全要素...
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG - [Relation #22] Created HAS_PARAMETER: api_entry::LoadPart -> param::LoadPart::bForceEvaluation
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG - [Node #23] Created ParameterCase: param::LoadPart::bForceEvaluation::case::true
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG -   name: true
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG -   description: 強制的に全要素を再計算して開くときはTrue
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG - [Relation #23] Created HAS_CASE_OPTION: param::LoadPart::bForceEvaluation -> param::LoadPart::bForceEvaluation::case::true
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG - [Node #24] Created ParameterCase: param::LoadPart::bForceEvaluation::case::false
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG -   name: false
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG -   description: 通常はFalse
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG - [Relation #24] Created HAS_CASE_OPTION: param::LoadPart::bForceEvaluation -> param::LoadPart::bForceEvaluation::case::false
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG - [Node #25] Created ReturnValue: return::LoadPart
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG -   return_type: 不明
+2025-10-12 13:41:47,867 - api_entries_etl - DEBUG -   description: Partオブジェクト
+2025-10-12 13:41:47,872 - api_entries_etl - DEBUG -   raw_json: {"type":"不明","description":"Partオブジェクト"}
+2025-10-12 13:41:47,872 - api_entries_etl - DEBUG - [Relation #25] Created HAS_RETURN: api_entry::LoadPart -> return::LoadPart
+2025-10-12 13:41:47,872 - api_entries_etl - DEBUG - [Node #26] Created PseudoCode: pseudo_code::LoadPart
+2025-10-12 13:41:47,872 - api_entries_etl - DEBUG -   code: LoadPart(FileName, bForceEvaluation)
+2025-10-12 13:41:47,872 - api_entries_etl - DEBUG -   callee: LoadPart
+2025-10-12 13:41:47,872 - api_entries_etl - DEBUG -   argument_count: 2
+2025-10-12 13:41:47,872 - api_entries_etl - DEBUG -   arguments_json: ["FileName","bForceEvaluation"]
+2025-10-12 13:41:47,872 - api_entries_etl - DEBUG - [Relation #26] Created HAS_PSEUDO_CODE: api_entry::LoadPart -> pseudo_code::LoadPart
+2025-10-12 13:41:47,872 - api_entries_etl - DEBUG - [Node #27] Created PseudoCodeArgument: pseudo_code::LoadPart::arg::0
+2025-10-12 13:41:47,875 - api_entries_etl - DEBUG -   text: FileName
+2025-10-12 13:41:47,875 - api_entries_etl - DEBUG -   position: 0
+2025-10-12 13:41:47,877 - api_entries_etl - DEBUG -   normalized_text: filename
+2025-10-12 13:41:47,877 - api_entries_etl - DEBUG - [Relation #27] Created HAS_ARGUMENT: pseudo_code::LoadPart -> pseudo_code::LoadPart::arg::0
+2025-10-12 13:41:47,877 - api_entries_etl - DEBUG - [Relation #28] Created ARGUMENT_MATCHES_PARAMETER: pseudo_code::LoadPart::arg::0 -> param::LoadPart::FileName
+2025-10-12 13:41:47,877 - api_entries_etl - DEBUG - [Node #28] Created PseudoCodeArgument: pseudo_code::LoadPart::arg::1
+2025-10-12 13:41:47,879 - api_entries_etl - DEBUG -   text: bForceEvaluation
+2025-10-12 13:41:47,879 - api_entries_etl - DEBUG -   position: 1
+2025-10-12 13:41:47,879 - api_entries_etl - DEBUG -   normalized_text: bforceevaluation
+2025-10-12 13:41:47,879 - api_entries_etl - DEBUG - [Relation #29] Created HAS_ARGUMENT: pseudo_code::LoadPart -> pseudo_code::LoadPart::arg::1
+2025-10-12 13:41:47,881 - api_entries_etl - DEBUG - [Relation #30] Created ARGUMENT_MATCHES_PARAMETER: pseudo_code::LoadPart::arg::1 -> param::LoadPart::bForceEvaluation
+2025-10-12 13:41:47,881 - api_entries_etl - DEBUG - [Node #29] Created Source: source::LoadPart::inline
+2025-10-12 13:41:47,881 - api_entries_etl - DEBUG -   text: 〇Partオブジェクトを読み込む
+ 返り値:Partオブジェクト
+  LoadPart(
+   FileName, // 文字列：保存されているドキュメントのファイルパス名
+   bForceEvaluation ) // bool:...
+2025-10-12 13:41:47,883 - api_entries_etl - DEBUG - [Relation #31] Created CITED_FROM: api_entry::LoadPart -> source::LoadPart::inline
+2025-10-12 13:41:47,883 - api_entries_etl - DEBUG - Processing API entry #4
+2025-10-12 13:41:47,883 - api_entries_etl - DEBUG - [Node #30] Created APIEntry: api_entry::CreateSTLOption
+2025-10-12 13:41:47,883 - api_entries_etl - DEBUG -   name: CreateSTLOption
+2025-10-12 13:41:47,883 - api_entries_etl - DEBUG -   category: Documentオブジェクト
+2025-10-12 13:41:47,883 - api_entries_etl - DEBUG -   entry_type: function
+2025-10-12 13:41:47,884 - api_entries_etl - DEBUG -   description: ドキュメントをSTLとして保存する際のパラメータオブジェクトの作成
+2025-10-12 13:41:47,884 - api_entries_etl - DEBUG -   pseudo_code: CreateSTLOption()
+2025-10-12 13:41:47,884 - api_entries_etl - DEBUG -   text: ドキュメントをSTLとして保存する際のパラメータオブジェクトの作成
+
+〇ドキュメントをSTLとして保存する際のパラメータオブジェクトの作成
+ 返り値:STLパラメータオブジェクト
+ CreateSTLOption()
+2025-10-12 13:41:47,884 - api_entries_etl - DEBUG -   raw_json: {"category":"Documentオブジェクト","entry_type":"function","name":"CreateSTLOption","description":"ドキュメントをSTLとして保存する際のパラメータ...
+2025-10-12 13:41:47,884 - api_entries_etl - DEBUG -   position: 3
+2025-10-12 13:41:47,884 - api_entries_etl - DEBUG - [Relation #32] Created HAS_ENTRY: api_entries::collection -> api_entry::CreateSTLOption
+2025-10-12 13:41:47,884 - api_entries_etl - DEBUG - [Node #31] Created Category: category::Documentオブジェクト
+2025-10-12 13:41:47,884 - api_entries_etl - DEBUG -   name: Documentオブジェクト
+2025-10-12 13:41:47,884 - api_entries_etl - DEBUG - [Relation #33] Created IN_CATEGORY: api_entry::CreateSTLOption -> category::Documentオブジェクト
+2025-10-12 13:41:47,884 - api_entries_etl - DEBUG - [Node #32] Created EntryType: entry_type::function
+2025-10-12 13:41:47,884 - api_entries_etl - DEBUG -   name: function
+2025-10-12 13:41:47,884 - api_entries_etl - DEBUG - [Relation #34] Created HAS_ENTRY_TYPE: api_entry::CreateSTLOption -> entry_type::function
+2025-10-12 13:41:47,884 - api_entries_etl - DEBUG - [Node #33] Created ReturnValue: return::CreateSTLOption
+2025-10-12 13:41:47,884 - api_entries_etl - DEBUG -   return_type: 不明
+2025-10-12 13:41:47,884 - api_entries_etl - DEBUG -   description: STLパラメータオブジェクト
+2025-10-12 13:41:47,884 - api_entries_etl - DEBUG -   raw_json: {"type":"不明","description":"STLパラメータオブジェクト"}
+2025-10-12 13:41:47,884 - api_entries_etl - DEBUG - [Relation #35] Created HAS_RETURN: api_entry::CreateSTLOption -> return::CreateSTLOption
+2025-10-12 13:41:47,884 - api_entries_etl - DEBUG - [Node #34] Created PseudoCode: pseudo_code::CreateSTLOption
+2025-10-12 13:41:47,884 - api_entries_etl - DEBUG -   code: CreateSTLOption()
+2025-10-12 13:41:47,884 - api_entries_etl - DEBUG -   callee: CreateSTLOption
+2025-10-12 13:41:47,887 - api_entries_etl - DEBUG -   argument_count: 0
+2025-10-12 13:41:47,887 - api_entries_etl - DEBUG - [Relation #36] Created HAS_PSEUDO_CODE: api_entry::CreateSTLOption -> pseudo_code::CreateSTLOption
+2025-10-12 13:41:47,887 - api_entries_etl - DEBUG - [Node #35] Created Source: source::CreateSTLOption::inline
+2025-10-12 13:41:47,887 - api_entries_etl - DEBUG -   text: 〇ドキュメントをSTLとして保存する際のパラメータオブジェクトの作成
+ 返り値:STLパラメータオブジェクト
+ CreateSTLOption()
+2025-10-12 13:41:47,887 - api_entries_etl - DEBUG - [Relation #37] Created CITED_FROM: api_entry::CreateSTLOption -> source::CreateSTLOption::inline
+2025-10-12 13:41:47,887 - api_entries_etl - DEBUG - Processing API entry #5
+2025-10-12 13:41:47,887 - api_entries_etl - DEBUG - [Node #36] Created APIEntry: api_entry::STLパラメータオブジェクト
+2025-10-12 13:41:47,887 - api_entries_etl - DEBUG -   name: STLパラメータオブジェクト
+2025-10-12 13:41:47,887 - api_entries_etl - DEBUG -   category: STLパラメータオブジェクト
+2025-10-12 13:41:47,887 - api_entries_etl - DEBUG -   entry_type: object
+2025-10-12 13:41:47,890 - api_entries_etl - DEBUG -   description: STLファイル出力時の設定パラメータを格納するオブジェクト
+2025-10-12 13:41:47,890 - api_entries_etl - DEBUG -   text: STLファイル出力時の設定パラメータを格納するオブジェクト
+
+〇STLパラメータオブジェクト
+2025-10-12 13:41:47,890 - api_entries_etl - DEBUG -   raw_json: {"category":"STLパラメータオブジェクト","entry_type":"object","name":"STLパラメータオブジェクト","description":"STLファイル出力時の設定パラメータを格納するオブジェ...
+2025-10-12 13:41:47,890 - api_entries_etl - DEBUG -   position: 4
+2025-10-12 13:41:47,890 - api_entries_etl - DEBUG - [Relation #38] Created HAS_ENTRY: api_entries::collection -> api_entry::STLパラメータオブジェクト
+2025-10-12 13:41:47,890 - api_entries_etl - DEBUG - [Node #37] Created Category: category::STLパラメータオブジェクト
+2025-10-12 13:41:47,890 - api_entries_etl - DEBUG -   name: STLパラメータオブジェクト
+2025-10-12 13:41:47,890 - api_entries_etl - DEBUG - [Relation #39] Created IN_CATEGORY: api_entry::STLパラメータオブジェクト -> category::STLパラメータオブジェクト
+2025-10-12 13:41:47,890 - api_entries_etl - DEBUG - [Node #38] Created EntryType: entry_type::object
+2025-10-12 13:41:47,890 - api_entries_etl - DEBUG -   name: object
+2025-10-12 13:41:47,892 - api_entries_etl - DEBUG - [Relation #40] Created HAS_ENTRY_TYPE: api_entry::STLパラメータオブジェクト -> entry_type::object
+2025-10-12 13:41:47,892 - api_entries_etl - DEBUG - [Node #39] Created Property: property::STLパラメータオブジェクト::ChordalTolerance
+2025-10-12 13:41:47,892 - api_entries_etl - DEBUG -   name: ChordalTolerance
+2025-10-12 13:41:47,892 - api_entries_etl - DEBUG -   property_type: 浮動小数点
+2025-10-12 13:41:47,892 - api_entries_etl - DEBUG -   unit: mm
+2025-10-12 13:41:47,892 - api_entries_etl - DEBUG -   description: メッシュ近似する際の弦の幅の許容トレランスを指定
+2025-10-12 13:41:47,892 - api_entries_etl - DEBUG -   raw_json: {"name":"ChordalTolerance","type":"浮動小数点","unit":"mm","description":"メッシュ近似する際の弦の幅の許容トレランスを指定","source":{"text":"Chor...
+2025-10-12 13:41:47,892 - api_entries_etl - DEBUG -   position: 0
+2025-10-12 13:41:47,892 - api_entries_etl - DEBUG - [Relation #41] Created HAS_PROPERTY: api_entry::STLパラメータオブジェクト -> property::STLパラメータオブジェクト::ChordalTolerance
+2025-10-12 13:41:47,892 - api_entries_etl - DEBUG - [Node #40] Created Source: source::STLパラメータオブジェクト::property::ChordalTolerance
+2025-10-12 13:41:47,892 - api_entries_etl - DEBUG -   text: ChordalTolerance　// 浮動小数点:メッシュ近似する際の弦の幅の許容トレランスを指定 (mm)
+2025-10-12 13:41:47,894 - api_entries_etl - DEBUG - [Relation #42] Created CITED_FROM: property::STLパラメータオブジェクト::ChordalTolerance -> source::STLパラメータオブジェクト::property::ChordalTolerance
+2025-10-12 13:41:47,894 - api_entries_etl - DEBUG - [Node #41] Created Property: property::STLパラメータオブジェクト::NormalTolerance
+2025-10-12 13:41:47,894 - api_entries_etl - DEBUG -   name: NormalTolerance
+2025-10-12 13:41:47,894 - api_entries_etl - DEBUG -   property_type: 浮動小数点
+2025-10-12 13:41:47,894 - api_entries_etl - DEBUG -   unit: Degree
+2025-10-12 13:41:47,894 - api_entries_etl - DEBUG -   description: メッシュ近似した場合のポリゴンの面と局面との法線方向のずれ角度の許容値
+2025-10-12 13:41:47,894 - api_entries_etl - DEBUG -   raw_json: {"name":"NormalTolerance","type":"浮動小数点","unit":"Degree","description":"メッシュ近似した場合のポリゴンの面と局面との法線方向のずれ角度の許容値","source"...
+2025-10-12 13:41:47,894 - api_entries_etl - DEBUG -   position: 1
+2025-10-12 13:41:47,896 - api_entries_etl - DEBUG - [Relation #43] Created HAS_PROPERTY: api_entry::STLパラメータオブジェクト -> property::STLパラメータオブジェクト::NormalTolerance
+2025-10-12 13:41:47,896 - api_entries_etl - DEBUG - [Node #42] Created Source: source::STLパラメータオブジェクト::property::NormalTolerance
+2025-10-12 13:41:47,896 - api_entries_etl - DEBUG -   text: NormalTolerance　// 浮動小数点:メッシュ近似した場合のポリゴンの面と局面との法線方向のずれ角度の許容値（Degree)
+2025-10-12 13:41:47,896 - api_entries_etl - DEBUG - [Relation #44] Created CITED_FROM: property::STLパラメータオブジェクト::NormalTolerance -> source::STLパラメータオブジェクト::property::NormalTolerance
+2025-10-12 13:41:47,896 - api_entries_etl - DEBUG - [Node #43] Created Property: property::STLパラメータオブジェクト::SigDigits
+2025-10-12 13:41:47,896 - api_entries_etl - DEBUG -   name: SigDigits
+2025-10-12 13:41:47,896 - api_entries_etl - DEBUG -   property_type: 整数
+2025-10-12 13:41:47,896 - api_entries_etl - DEBUG -   description: 頂点座標値の有効桁数
+2025-10-12 13:41:47,896 - api_entries_etl - DEBUG -   raw_json: {"name":"SigDigits","type":"整数","description":"頂点座標値の有効桁数","source":{"text":"SigDigits　// 整数:頂点座標値の有効桁数"}}
+2025-10-12 13:41:47,896 - api_entries_etl - DEBUG -   position: 2
+2025-10-12 13:41:47,896 - api_entries_etl - DEBUG - [Relation #45] Created HAS_PROPERTY: api_entry::STLパラメータオブジェクト -> property::STLパラメータオブジェクト::SigDigits
+2025-10-12 13:41:47,896 - api_entries_etl - DEBUG - [Node #44] Created Source: source::STLパラメータオブジェクト::property::SigDigits
+2025-10-12 13:41:47,898 - api_entries_etl - DEBUG -   text: SigDigits　// 整数:頂点座標値の有効桁数
+2025-10-12 13:41:47,898 - api_entries_etl - DEBUG - [Relation #46] Created CITED_FROM: property::STLパラメータオブジェクト::SigDigits -> source::STLパラメータオブジェクト::property::SigDigits
+2025-10-12 13:41:47,898 - api_entries_etl - DEBUG - [Node #45] Created Property: property::STLパラメータオブジェクト::MinMeshLength
+2025-10-12 13:41:47,898 - api_entries_etl - DEBUG -   name: MinMeshLength
+2025-10-12 13:41:47,898 - api_entries_etl - DEBUG -   property_type: 浮動小数点
+2025-10-12 13:41:47,898 - api_entries_etl - DEBUG -   unit: mm
+2025-10-12 13:41:47,898 - api_entries_etl - DEBUG -   default_value: 0.0
+2025-10-12 13:41:47,898 - api_entries_etl - DEBUG -   default_json: "0.0"
+2025-10-12 13:41:47,898 - api_entries_etl - DEBUG -   description: メッシュの辺の最小サイズを指定する場合は指定
+2025-10-12 13:41:47,899 - api_entries_etl - DEBUG -   raw_json: {"name":"MinMeshLength","type":"浮動小数点","unit":"mm","default":"0.0","description":"メッシュの辺の最小サイズを指定する場合は指定","source":{"...
+2025-10-12 13:41:47,899 - api_entries_etl - DEBUG -   position: 3
+2025-10-12 13:41:47,899 - api_entries_etl - DEBUG - [Relation #47] Created HAS_PROPERTY: api_entry::STLパラメータオブジェクト -> property::STLパラメータオブジェクト::MinMeshLength
+2025-10-12 13:41:47,899 - api_entries_etl - DEBUG - [Node #46] Created Source: source::STLパラメータオブジェクト::property::MinMeshLength
+2025-10-12 13:41:47,899 - api_entries_etl - DEBUG -   text: MinMeshLength　// 浮動小数点:メッシュの辺の最小サイズを指定する場合は指定(mm)（指定しない場合は０）
+2025-10-12 13:41:47,899 - api_entries_etl - DEBUG - [Relation #48] Created CITED_FROM: property::STLパラメータオブジェクト::MinMeshLength -> source::STLパラメータオブジェクト::property::MinMeshLength
+2025-10-12 13:41:47,899 - api_entries_etl - DEBUG - [Node #47] Created Property: property::STLパラメータオブジェクト::MaxMeshLength
+2025-10-12 13:41:47,899 - api_entries_etl - DEBUG -   name: MaxMeshLength
+2025-10-12 13:41:47,900 - api_entries_etl - DEBUG -   property_type: 浮動小数点
+2025-10-12 13:41:47,900 - api_entries_etl - DEBUG -   unit: mm
+2025-10-12 13:41:47,900 - api_entries_etl - DEBUG -   default_value: 0.0
+2025-10-12 13:41:47,900 - api_entries_etl - DEBUG -   default_json: "0.0"
+2025-10-12 13:41:47,900 - api_entries_etl - DEBUG -   description: メッシュの辺の最大サイズを指定する場合は指定
+2025-10-12 13:41:47,900 - api_entries_etl - DEBUG -   raw_json: {"name":"MaxMeshLength","type":"浮動小数点","unit":"mm","default":"0.0","description":"メッシュの辺の最大サイズを指定する場合は指定","source":{"...
+2025-10-12 13:41:47,900 - api_entries_etl - DEBUG -   position: 4
+2025-10-12 13:41:47,900 - api_entries_etl - DEBUG - [Relation #49] Created HAS_PROPERTY: api_entry::STLパラメータオブジェクト -> property::STLパラメータオブジェクト::MaxMeshLength
+2025-10-12 13:41:47,900 - api_entries_etl - DEBUG - [Node #48] Created Source: source::STLパラメータオブジェクト::property::MaxMeshLength
+2025-10-12 13:41:47,900 - api_entries_etl - DEBUG -   text: MaxMeshLength　// 浮動小数点:メッシュの辺の最大サイズを指定する場合は指定(mm)（指定しない場合は０）
+2025-10-12 13:41:47,900 - api_entries_etl - DEBUG - [Relation #50] Created CITED_FROM: property::STLパラメータオブジェクト::MaxMeshLength -> source::STLパラメータオブジェクト::property::MaxMeshLength
+2025-10-12 13:41:47,902 - api_entries_etl - DEBUG - [Node #49] Created Property: property::STLパラメータオブジェクト::Elements
+2025-10-12 13:41:47,902 - api_entries_etl - DEBUG -   name: Elements
+2025-10-12 13:41:47,902 - api_entries_etl - DEBUG -   property_type: 要素(配列)
+2025-10-12 13:41:47,902 - api_entries_etl - DEBUG -   default_value: 表示されている全ての要素を出力
+2025-10-12 13:41:47,902 - api_entries_etl - DEBUG -   default_json: "表示されている全ての要素を出力"
+2025-10-12 13:41:47,902 - api_entries_etl - DEBUG -   description: STL出力する要素を指定
+2025-10-12 13:41:47,902 - api_entries_etl - DEBUG -   raw_json: {"name":"Elements","type":"要素(配列)","default":"表示されている全ての要素を出力","description":"STL出力する要素を指定","source":{"text":"Element...
+2025-10-12 13:41:47,902 - api_entries_etl - DEBUG -   position: 5
+2025-10-12 13:41:47,902 - api_entries_etl - DEBUG - [Relation #51] Created HAS_PROPERTY: api_entry::STLパラメータオブジェクト -> property::STLパラメータオブジェクト::Elements
+2025-10-12 13:41:47,902 - api_entries_etl - DEBUG - [Node #50] Created Source: source::STLパラメータオブジェクト::property::Elements
+2025-10-12 13:41:47,902 - api_entries_etl - DEBUG -   text: Elements　 // 要素(配列)：STL出力する要素を指定（指定しない場合は表示されている全ての要素を出力します）
+2025-10-12 13:41:47,902 - api_entries_etl - DEBUG - [Relation #52] Created CITED_FROM: property::STLパラメータオブジェクト::Elements -> source::STLパラメータオブジェクト::property::Elements
+2025-10-12 13:41:47,902 - api_entries_etl - DEBUG - [Node #51] Created Source: source::STLパラメータオブジェクト::inline
+2025-10-12 13:41:47,903 - api_entries_etl - DEBUG -   text: 〇STLパラメータオブジェクト
+2025-10-12 13:41:47,903 - api_entries_etl - DEBUG - [Relation #53] Created CITED_FROM: api_entry::STLパラメータオブジェクト -> source::STLパラメータオブジェクト::inline
+2025-10-12 13:41:47,903 - api_entries_etl - DEBUG - GraphBuilder.build_graph_elements完了: ノード46件, リレーション53件
+2025-10-12 13:41:47,904 - api_entries_etl - DEBUG - デバッグ統計: ノード作成数=51, リレーション作成数=53
+2025-10-12 13:41:47,904 - api_entries_etl - INFO - 生成ノード: 46, リレーション: 53
+2025-10-12 13:41:54,050 - api_entries_etl - WARNING - --wipe により過去のノード/リレーションを削除します
+2025-10-12 13:41:57,159 - api_entries_etl - INFO - Neo4j へ投入完了: ノード 46, リレーション 53
+2025-10-12 13:41:57,161 - api_entries_etl - INFO - 完了
