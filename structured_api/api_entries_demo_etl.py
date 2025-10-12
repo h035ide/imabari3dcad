@@ -14,7 +14,7 @@ import re
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
+from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 from dotenv import load_dotenv
 
@@ -325,179 +325,211 @@ class MetadataProcessor:
         return "\n\n".join(parts)
 
 
-class ApiEntryProcessor:
-    def __init__(
-        self,
-        node_builder: NodeBuilder,
-        relation_builder: RelationBuilder,
-        config: GraphBuilderConfig,
-    ):
-        self.node_builder = node_builder
-        self.relation_builder = relation_builder
+class NodeFactory:
+    def __init__(self, config: GraphBuilderConfig) -> None:
         self.config = config
-        self.metadata_processor = MetadataProcessor()
 
-    def process_entry(self, entry: Dict[str, Any], index: int) -> Tuple[List[Node], List[Relation]]:
-        nodes: List[Node] = []
-        relations: List[Relation] = []
+    def normalize_uid(self, fragment: Any) -> str:
+        text = _stringify(fragment)
+        sanitized = text.replace("\r", " ").replace("\n", " ").replace("\t", " ").strip()
+        if not sanitized:
+            return "__empty__"
+        return " ".join(sanitized.split())
 
-        name = (entry.get("name") or "").strip()
-        if not name:
-            LOGGER.warning("Skipping API entry without name: %s", entry)
-            return nodes, relations
+    def create_node(self, label: str, uid: str, **props: Any) -> Node:
+        normalized_uid = self.normalize_uid(uid)
+        clean_props = {k: v for k, v in props.items() if v is not None}
+        clean_props["managed_tag"] = self.config.managed_tag
 
-        category = (entry.get("category") or "").strip()
-        entry_type = (entry.get("entry_type") or "").strip()
-        description = self.node_builder._to_str(entry.get("description"))
-        pseudo_code = self.node_builder._to_str(entry.get("pseudo_code"))
+        if self.config.debug:
+            self.config.node_count += 1
+            LOGGER.debug("[Node #%s] Created %s: %s", self.config.node_count, label, normalized_uid)
+            for key, value in clean_props.items():
+                if key == "managed_tag":
+                    continue
+                value_str = str(value)
+                if len(value_str) > 120:
+                    value_str = value_str[:117] + "..."
+                LOGGER.debug("  %s: %s", key, value_str)
 
-        source_dict = entry.get("source") if isinstance(entry.get("source"), dict) else {}
-        source_text = self.node_builder._to_str(source_dict.get("text"))
-        source_path = self.node_builder._to_str(source_dict.get("path")) if source_dict.get("path") else None
+        node = Node(label=label, uid=normalized_uid, props=clean_props)
 
-        raw_json = self.node_builder._safe_json(entry)
-        primary_text = self.metadata_processor.build_text(description, source_text)
+        if self.config.debug:
+            self.config.created_nodes[normalized_uid] = node
 
-        entry_uid = f"api_entry::{name}"
-        entry_node = self.node_builder.create_node(
+        return node
+
+
+class RelationFactory:
+    def __init__(self, config: GraphBuilderConfig, node_factory: NodeFactory) -> None:
+        self.config = config
+        self.node_factory = node_factory
+
+    def create_relation(self, src_uid: str, rel_type: str, dst_uid: str, **props: Any) -> Relation:
+        rel_props = {k: v for k, v in props.items() if v is not None}
+        rel_props.setdefault("managed_tag", self.config.managed_tag)
+
+        normalized_src = self.node_factory.normalize_uid(src_uid)
+        normalized_dst = self.node_factory.normalize_uid(dst_uid)
+
+        if self.config.debug:
+            self.config.relation_count += 1
+            LOGGER.debug(
+                "[Relation #%s] Created %s: %s -> %s",
+                self.config.relation_count,
+                rel_type,
+                normalized_src,
+                normalized_dst,
+            )
+            if normalized_src not in self.config.created_nodes:
+                LOGGER.warning("Source node '%s' not found when creating relation", normalized_src)
+            if normalized_dst not in self.config.created_nodes:
+                LOGGER.warning("Destination node '%s' not found when creating relation", normalized_dst)
+
+        relation = Relation(
+            src_uid=normalized_src,
+            rel_type=rel_type,
+            dst_uid=normalized_dst,
+            props=rel_props or None,
+        )
+
+        if self.config.debug:
+            self.config.created_relations.append(relation)
+
+        return relation
+
+
+class ApiEntryTransformer:
+    def __init__(self, node_factory: NodeFactory, relation_factory: RelationFactory):
+        self.node_factory = node_factory
+        self.relation_factory = relation_factory
+
+    def to_graph_element(self, record: ApiEntryRecord) -> GraphElement:
+        element = GraphElement()
+
+        entry_uid = f"api_entry::{record.name}"
+        entry_node = self.node_factory.create_node(
             "APIEntry",
             entry_uid,
-            name=name,
-            category=category or None,
-            entry_type=entry_type or None,
-            description=description or None,
-            pseudo_code=pseudo_code or None,
-            text=primary_text or None,
-            raw_json=raw_json,
-            position=index,
+            name=record.name,
+            category=record.category,
+            entry_type=record.entry_type,
+            description=record.description,
+            pseudo_code=record.pseudo_code,
+            text=record.primary_text() or None,
+            raw_json=_safe_json(record.raw),
+            position=record.index,
         )
-        nodes.append(entry_node)
+        element.nodes.append(entry_node)
 
         collection_uid = "api_entries::collection"
-        relations.append(
-            self.relation_builder.create_relation(collection_uid, "HAS_ENTRY", entry_uid)
+        element.relations.append(
+            self.relation_factory.create_relation(collection_uid, "HAS_ENTRY", entry_uid)
         )
 
-        if category:
-            category_uid = f"category::{category}"
-            category_node = self.node_builder.create_node("Category", category_uid, name=category)
-            nodes.append(category_node)
-            relations.append(
-                self.relation_builder.create_relation(entry_uid, "IN_CATEGORY", category_uid)
+        if record.category:
+            category_uid = f"category::{record.category}"
+            category_node = self.node_factory.create_node(
+                "Category", category_uid, name=record.category
+            )
+            element.nodes.append(category_node)
+            element.relations.append(
+                self.relation_factory.create_relation(entry_uid, "IN_CATEGORY", category_uid)
             )
 
-        if entry_type:
-            entry_type_uid = f"entry_type::{entry_type}"
-            type_node = self.node_builder.create_node(
-                "EntryType",
-                entry_type_uid,
-                name=entry_type,
+        if record.entry_type:
+            entry_type_uid = f"entry_type::{record.entry_type}"
+            type_node = self.node_factory.create_node(
+                "EntryType", entry_type_uid, name=record.entry_type
             )
-            nodes.append(type_node)
-            relations.append(
-                self.relation_builder.create_relation(entry_uid, "HAS_ENTRY_TYPE", entry_type_uid)
+            element.nodes.append(type_node)
+            element.relations.append(
+                self.relation_factory.create_relation(entry_uid, "HAS_ENTRY_TYPE", entry_type_uid)
             )
 
-        params = entry.get("params") if isinstance(entry.get("params"), list) else []
-        param_uid_lookup: Dict[str, str] = {}
-        for param_index, param in enumerate(params):
-            if not isinstance(param, dict):
-                continue
-            param_name = (self.node_builder._to_str(param.get("name")) or f"param_{param_index}").strip()
-            param_uid = f"param::{name}::{param_name or param_index}"
-            param_node = self.node_builder.create_node(
+        param_lookup: Dict[str, str] = {}
+        for param in record.parameters:
+            param_uid = f"param::{record.name}::{param.name}"
+            param_node = self.node_factory.create_node(
                 "Parameter",
                 param_uid,
-                name=param_name or None,
-                param_type=self.node_builder._to_str(param.get("type")) or None,
-                position=param.get("position", param_index),
-                description=self.node_builder._to_str(param.get("description")) or None,
-                raw_json=self.node_builder._safe_json(param),
+                name=param.name or None,
+                param_type=param.param_type,
+                position=param.position,
+                description=param.description,
+                raw_json=_safe_json(param.raw),
             )
-            nodes.append(param_node)
-            relations.append(
-                self.relation_builder.create_relation(entry_uid, "HAS_PARAMETER", param_uid)
+            element.nodes.append(param_node)
+            element.relations.append(
+                self.relation_factory.create_relation(entry_uid, "HAS_PARAMETER", param_uid)
             )
 
-            if param_name:
-                param_uid_lookup[param_name.lower()] = param_uid
+            if param.name:
+                param_lookup[param.name.lower()] = param_uid
 
-            case_dict = param.get("case") if isinstance(param.get("case"), dict) else {}
-            for case_key, case_desc in case_dict.items():
-                case_uid = f"{param_uid}::case::{case_key}"
-                case_node = self.node_builder.create_node(
+            for case in param.cases:
+                case_uid = f"{param_uid}::case::{case.name}"
+                case_node = self.node_factory.create_node(
                     "ParameterCase",
                     case_uid,
-                    name=self.node_builder._to_str(case_key),
-                    description=self.node_builder._to_str(case_desc) or None,
+                    name=case.name,
+                    description=case.description,
                 )
-                nodes.append(case_node)
-                relations.append(
-                    self.relation_builder.create_relation(param_uid, "HAS_CASE_OPTION", case_uid)
+                element.nodes.append(case_node)
+                element.relations.append(
+                    self.relation_factory.create_relation(param_uid, "HAS_CASE_OPTION", case_uid)
                 )
 
-        returns = entry.get("returns") if isinstance(entry.get("returns"), dict) else None
-        if returns:
-            return_uid = f"return::{name}"
-            return_node = self.node_builder.create_node(
+        if record.returns:
+            return_uid = f"return::{record.name}"
+            return_node = self.node_factory.create_node(
                 "ReturnValue",
                 return_uid,
-                return_type=self.node_builder._to_str(returns.get("type")) or None,
-                description=self.node_builder._to_str(returns.get("description")) or None,
-                raw_json=self.node_builder._safe_json(returns),
+                return_type=record.returns.return_type,
+                description=record.returns.description,
+                raw_json=_safe_json(record.returns.raw),
             )
-            nodes.append(return_node)
-            relations.append(
-                self.relation_builder.create_relation(entry_uid, "HAS_RETURN", return_uid)
+            element.nodes.append(return_node)
+            element.relations.append(
+                self.relation_factory.create_relation(entry_uid, "HAS_RETURN", return_uid)
             )
 
-        pseudo_nodes, pseudo_relations = self._process_pseudo_code(
-            pseudo_code,
-            name,
-            entry_uid,
-            param_uid_lookup,
-        )
-        nodes.extend(pseudo_nodes)
-        relations.extend(pseudo_relations)
+        pseudo_element = self._build_pseudo_code(record, entry_uid, param_lookup)
+        element.extend(pseudo_element)
 
-        property_nodes, property_relations = self._process_properties(entry, name, entry_uid, entry_type)
-        nodes.extend(property_nodes)
-        relations.extend(property_relations)
+        property_element = self._build_properties(record, entry_uid)
+        element.extend(property_element)
 
-        if source_text or source_path:
-            source_uid_fragment = source_path or "inline"
-            source_uid = f"source::{name}::{self.node_builder._normalize_uid(source_uid_fragment)}"
-            source_node = self.node_builder.create_node(
+        if not record.source.is_empty():
+            source_uid_fragment = record.source.path or "inline"
+            source_uid = (
+                f"source::{record.name}::{self.node_factory.normalize_uid(source_uid_fragment)}"
+            )
+            source_node = self.node_factory.create_node(
                 "Source",
                 source_uid,
-                text=source_text or None,
-                path=source_path,
+                text=record.source.text,
+                path=record.source.path,
             )
-            nodes.append(source_node)
-            relations.append(
-                self.relation_builder.create_relation(entry_uid, "CITED_FROM", source_uid)
+            element.nodes.append(source_node)
+            element.relations.append(
+                self.relation_factory.create_relation(entry_uid, "CITED_FROM", source_uid)
             )
 
-        return nodes, relations
+        return element
 
-    def _process_pseudo_code(
+    def _build_pseudo_code(
         self,
-        pseudo_code: str,
-        entry_name: str,
+        record: ApiEntryRecord,
         entry_uid: str,
-        param_uid_lookup: Dict[str, str],
-    ) -> Tuple[List[Node], List[Relation]]:
-        nodes: List[Node] = []
-        relations: List[Relation] = []
-
-        if not pseudo_code:
-            return nodes, relations
-
-        pseudo_clean = pseudo_code.strip()
+        param_lookup: Dict[str, str],
+    ) -> GraphElement:
+        element = GraphElement()
+        pseudo_clean = (record.pseudo_code or "").strip()
         if not pseudo_clean:
-            return nodes, relations
+            return element
 
-        callee = None
+        callee: Optional[str] = None
         args_list: List[str] = []
         match = re.match(r"^\s*([A-Za-z_][\w]*)\s*\((.*)\)\s*$", pseudo_clean)
         if match:
@@ -508,180 +540,144 @@ class ApiEntryProcessor:
         else:
             callee = pseudo_clean
 
-        pseudo_uid = f"pseudo_code::{entry_name}"
-        pseudo_node = self.node_builder.create_node(
+        pseudo_uid = f"pseudo_code::{record.name}"
+        pseudo_node = self.node_factory.create_node(
             "PseudoCode",
             pseudo_uid,
             code=pseudo_clean,
             callee=callee,
             argument_count=len(args_list),
-            arguments_json=self.node_builder._safe_json(args_list) if args_list else None,
+            arguments_json=_safe_json(args_list) if args_list else None,
         )
-        nodes.append(pseudo_node)
-        relations.append(
-            self.relation_builder.create_relation(entry_uid, "HAS_PSEUDO_CODE", pseudo_uid)
+        element.nodes.append(pseudo_node)
+        element.relations.append(
+            self.relation_factory.create_relation(entry_uid, "HAS_PSEUDO_CODE", pseudo_uid)
         )
 
         for index, argument in enumerate(args_list):
             arg_uid = f"{pseudo_uid}::arg::{index}"
             normalized_arg = argument.lower()
-            arg_node = self.node_builder.create_node(
+            arg_node = self.node_factory.create_node(
                 "PseudoCodeArgument",
                 arg_uid,
                 text=argument,
                 position=index,
                 normalized_text=normalized_arg,
             )
-            nodes.append(arg_node)
-            relations.append(
-                self.relation_builder.create_relation(pseudo_uid, "HAS_ARGUMENT", arg_uid)
+            element.nodes.append(arg_node)
+            element.relations.append(
+                self.relation_factory.create_relation(pseudo_uid, "HAS_ARGUMENT", arg_uid)
             )
 
-            matched_param_uid = param_uid_lookup.get(normalized_arg)
+            matched_param_uid = param_lookup.get(normalized_arg)
             if matched_param_uid:
-                relations.append(
-                    self.relation_builder.create_relation(
+                element.relations.append(
+                    self.relation_factory.create_relation(
                         arg_uid,
                         "ARGUMENT_MATCHES_PARAMETER",
                         matched_param_uid,
                     )
                 )
 
-        return nodes, relations
+        return element
 
-    def _process_properties(
-        self,
-        entry: Dict[str, Any],
-        entry_name: str,
-        entry_uid: str,
-        entry_type: str,
-    ) -> Tuple[List[Node], List[Relation]]:
-        nodes: List[Node] = []
-        relations: List[Relation] = []
-
-        properties = entry.get("properties") if isinstance(entry.get("properties"), list) else []
+    def _build_properties(self, record: ApiEntryRecord, entry_uid: str) -> GraphElement:
+        element = GraphElement()
         property_uid_map: Dict[int, str] = {}
-        for prop_index, prop in enumerate(properties):
-            if not isinstance(prop, dict):
-                continue
 
-            prop_name_raw = self.node_builder._to_str(prop.get("name"))
-            prop_name = prop_name_raw.strip() if prop_name_raw else ""
-            prop_uid_fragment = prop_name or f"property_{prop_index}"
-            prop_uid = f"property::{entry_name}::{prop_uid_fragment}"
-
-            property_node = self.node_builder.create_node(
+        for prop_index, prop in enumerate(record.properties):
+            prop_uid = f"property::{record.name}::{prop.name}"
+            property_node = self.node_factory.create_node(
                 "Property",
                 prop_uid,
-                name=prop_name or None,
-                property_type=self.node_builder._to_str(prop.get("type")) or None,
-                unit=self.node_builder._to_str(prop.get("unit")) or None,
-                default_value=self.node_builder._to_str(prop.get("default")) or None,
-                default_json=self.node_builder._safe_json(prop.get("default"))
-                if prop.get("default") is not None
+                name=prop.name or None,
+                property_type=prop.property_type,
+                unit=prop.unit,
+                default_value=_stringify(prop.default)
+                if prop.default is not None
                 else None,
-                description=self.node_builder._to_str(prop.get("description")) or None,
-                raw_json=self.node_builder._safe_json(prop),
+                default_json=_safe_json(prop.default)
+                if prop.default is not None
+                else None,
+                description=prop.description,
+                raw_json=_safe_json(prop.raw),
                 position=prop_index,
             )
-            nodes.append(property_node)
+            element.nodes.append(property_node)
             property_uid_map[prop_index] = property_node.uid
-            relations.append(
-                self.relation_builder.create_relation(entry_uid, "HAS_PROPERTY", property_node.uid)
+            element.relations.append(
+                self.relation_factory.create_relation(entry_uid, "HAS_PROPERTY", property_node.uid)
             )
 
-            source_dict = prop.get("source") if isinstance(prop.get("source"), dict) else {}
-            source_text = self.node_builder._to_str(source_dict.get("text"))
-            source_path = self.node_builder._to_str(source_dict.get("path")) if source_dict.get("path") else None
-            if source_text or source_path:
-                source_uid_fragment = source_path or prop_uid_fragment or "inline"
+            if not prop.source.is_empty():
+                source_uid_fragment = prop.source.path or prop.name or f"property_{prop_index}"
                 source_uid = (
-                    f"source::{entry_name}::property::{self.node_builder._normalize_uid(source_uid_fragment)}"
+                    f"source::{record.name}::property::{self.node_factory.normalize_uid(source_uid_fragment)}"
                 )
-                source_node = self.node_builder.create_node(
+                source_node = self.node_factory.create_node(
                     "Source",
                     source_uid,
-                    text=source_text or None,
-                    path=source_path,
+                    text=prop.source.text,
+                    path=prop.source.path,
                 )
-                nodes.append(source_node)
-                relations.append(
-                    self.relation_builder.create_relation(property_node.uid, "CITED_FROM", source_uid)
+                element.nodes.append(source_node)
+                element.relations.append(
+                    self.relation_factory.create_relation(property_node.uid, "CITED_FROM", source_uid)
                 )
 
-        if (entry_type or "").lower() == "object":
-            for prop_index, prop in enumerate(properties):
-                option_entries = prop.get("options")
-                if not isinstance(option_entries, list):
-                    continue
-
+        if (record.entry_type or "").lower() == "object":
+            for prop_index, prop in enumerate(record.properties):
                 property_uid = property_uid_map.get(prop_index)
                 if not property_uid:
                     continue
-
-                for opt_idx, opt in enumerate(option_entries):
-                    if not isinstance(opt, dict):
-                        continue
-                    opt_name_raw = self.node_builder._to_str(opt.get("name"))
-                    opt_name = opt_name_raw.strip() if opt_name_raw else ""
-                    opt_uid_fragment = opt_name or f"option_{opt_idx}"
-                    option_uid = (
-                        f"{property_uid}::option::{opt_uid_fragment}"
-                    )
-                    option_node = self.node_builder.create_node(
+                for opt_index, option in enumerate(prop.options):
+                    option_uid = f"{property_uid}::option::{option.name or f'option_{opt_index}'}"
+                    option_node = self.node_factory.create_node(
                         "PropertyOption",
                         option_uid,
-                        name=opt_name or None,
-                        description=self.node_builder._to_str(opt.get("description")) or None,
-                        value=self.node_builder._to_str(opt.get("value")) or None,
-                        position=opt_idx,
-                        raw_json=self.node_builder._safe_json(opt),
+                        name=option.name,
+                        description=option.description,
+                        value=option.value,
+                        position=opt_index,
+                        raw_json=_safe_json(option.raw),
                     )
-                    nodes.append(option_node)
-                    relations.append(
-                        self.relation_builder.create_relation(
-                            property_uid,
-                            "HAS_OPTION",
-                            option_uid,
-                        )
+                    element.nodes.append(option_node)
+                    element.relations.append(
+                        self.relation_factory.create_relation(property_uid, "HAS_OPTION", option_uid)
                     )
 
-        return nodes, relations
+        return element
 
 
 class GraphBuilder:
     def __init__(self, debug: bool = False):
         self.config = GraphBuilderConfig(debug)
-        self.node_builder = NodeBuilder(self.config)
-        self.relation_builder = RelationBuilder(self.config, self.node_builder)
-        self.entry_processor = ApiEntryProcessor(
-            self.node_builder,
-            self.relation_builder,
-            self.config,
-        )
+        self.node_factory = NodeFactory(self.config)
+        self.relation_factory = RelationFactory(self.config, self.node_factory)
+        self.transformer = ApiEntryTransformer(self.node_factory, self.relation_factory)
 
-    def build_graph_elements(self, entries: List[Dict[str, Any]]) -> Tuple[List[Node], List[Relation]]:
-        LOGGER.debug("GraphBuilder.build_graph_elements開始: %s件のエントリ", len(entries))
+    def build_graph_elements(
+        self, records: Sequence[ApiEntryRecord]
+    ) -> Tuple[List[Node], List[Relation]]:
+        LOGGER.debug("GraphBuilder.build_graph_elements開始: %s件のエントリ", len(records))
         nodes_map: Dict[str, Node] = {}
         relations: List[Relation] = []
 
         collection_uid = "api_entries::collection"
-        collection_node = self.node_builder.create_node(
+        collection_node = self.node_factory.create_node(
             "ApiEntryCollection",
             collection_uid,
             name="api_entries",
         )
         nodes_map[collection_uid] = collection_node
 
-        for index, entry in enumerate(entries):
+        for record in records:
             if self.config.debug:
-                LOGGER.debug("Processing API entry #%s", index + 1)
-            entry_nodes, entry_relations = self.entry_processor.process_entry(entry, index)
-
-            for node in entry_nodes:
+                LOGGER.debug("Processing API entry #%s: %s", record.index + 1, record.name)
+            element = self.transformer.to_graph_element(record)
+            for node in element.nodes:
                 nodes_map[node.uid] = node
-
-            relations.extend(entry_relations)
+            relations.extend(element.relations)
 
         final_nodes = list(nodes_map.values())
 
@@ -701,21 +697,25 @@ class GraphBuilder:
         return final_nodes, relations
 
 
-def load_api_entries(json_path: Path) -> List[Dict[str, Any]]:
+def load_api_entries(json_path: Path) -> List[ApiEntryRecord]:
     LOGGER.debug("APIエントリJSONファイルを読み込み開始: %s", json_path)
     with json_path.open("r", encoding="utf-8") as fp:
         payload = json.load(fp)
 
-    if not isinstance(payload, dict) or not isinstance(payload.get("api_entries"), list):
+    entries_raw = payload.get("api_entries") if isinstance(payload, dict) else None
+    if not isinstance(entries_raw, list):
         raise ValueError("JSON のトップレベルに 'api_entries' (list) が必要です")
 
-    entries: List[Dict[str, Any]] = []
-    for item in payload["api_entries"]:
-        if isinstance(item, dict):
-            entries.append(item)
+    records: List[ApiEntryRecord] = []
+    for index, raw_entry in enumerate(entries_raw):
+        record = ApiEntryRecord.from_raw(raw_entry, index)
+        if record:
+            records.append(record)
+        else:
+            LOGGER.warning("Skipping invalid API entry at index %s: %s", index, raw_entry)
 
-    LOGGER.debug("APIエントリ読み込み完了: %s件", len(entries))
-    return entries
+    LOGGER.debug("APIエントリ読み込み完了: %s件", len(records))
+    return records
 
 
 def normalize_neo4j_uri(uri: str) -> str:
@@ -914,12 +914,12 @@ def main(argv: Optional[List[str]] = None) -> int:
         LOGGER.debug("verboseモードが有効になりました")
 
     LOGGER.info("JSON を読み込み: %s", args.json_path)
-    entries = load_api_entries(args.json_path)
-    LOGGER.info("エントリ件数: %s", len(entries))
+    records = load_api_entries(args.json_path)
+    LOGGER.info("エントリ件数: %s", len(records))
 
     debug_mode = args.debug_graph or args.verbose
     graph_builder = GraphBuilder(debug=debug_mode)
-    nodes, relations = graph_builder.build_graph_elements(entries)
+    nodes, relations = graph_builder.build_graph_elements(records)
     LOGGER.info("生成ノード: %s, リレーション: %s", len(nodes), len(relations))
 
     if not nodes:
