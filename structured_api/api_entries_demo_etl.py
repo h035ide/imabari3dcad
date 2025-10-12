@@ -400,9 +400,15 @@ class RelationFactory:
 
 
 class ApiEntryTransformer:
-    def __init__(self, node_factory: NodeFactory, relation_factory: RelationFactory):
+    def __init__(
+        self,
+        node_factory: NodeFactory,
+        relation_factory: RelationFactory,
+        entry_index: Dict[str, ApiEntryRecord],
+    ):
         self.node_factory = node_factory
         self.relation_factory = relation_factory
+        self.entry_index = entry_index
 
     def to_graph_element(self, record: ApiEntryRecord) -> GraphElement:
         element = GraphElement()
@@ -480,19 +486,8 @@ class ApiEntryTransformer:
                     self.relation_factory.create_relation(param_uid, "HAS_CASE_OPTION", case_uid)
                 )
 
-        if record.returns:
-            return_uid = f"return::{record.name}"
-            return_node = self.node_factory.create_node(
-                "ReturnValue",
-                return_uid,
-                return_type=record.returns.return_type,
-                description=record.returns.description,
-                raw_json=_safe_json(record.returns.raw),
-            )
-            element.nodes.append(return_node)
-            element.relations.append(
-                self.relation_factory.create_relation(entry_uid, "HAS_RETURN", return_uid)
-            )
+        return_element = self._build_return(record, entry_uid)
+        element.extend(return_element)
 
         pseudo_element = self._build_pseudo_code(record, entry_uid, param_lookup)
         element.extend(pseudo_element)
@@ -581,6 +576,49 @@ class ApiEntryTransformer:
 
         return element
 
+    def _build_return(self, record: ApiEntryRecord, entry_uid: str) -> GraphElement:
+        element = GraphElement()
+        if not record.returns:
+            return element
+
+        return_uid = f"return::{record.name}"
+        return_node = self.node_factory.create_node(
+            "ReturnValue",
+            return_uid,
+            return_type=record.returns.return_type,
+            description=record.returns.description,
+            raw_json=_safe_json(record.returns.raw),
+        )
+        element.nodes.append(return_node)
+        element.relations.append(
+            self.relation_factory.create_relation(entry_uid, "HAS_RETURN", return_uid)
+        )
+
+        target_uid = self._resolve_return_target(record)
+        if target_uid:
+            element.relations.append(
+                self.relation_factory.create_relation(
+                    return_uid,
+                    "RETURNS_ENTRY",
+                    target_uid,
+                )
+            )
+
+        return element
+
+    def _resolve_return_target(self, record: ApiEntryRecord) -> Optional[str]:
+        candidates = [record.returns.return_type, record.returns.description if record.returns else None]
+        for candidate in candidates:
+            if not candidate:
+                continue
+            key = candidate.strip().lower()
+            if not key:
+                continue
+            target = self.entry_index.get(key)
+            if target:
+                return f"api_entry::{target.name}"
+        return None
+
     def _build_properties(self, record: ApiEntryRecord, entry_uid: str) -> GraphElement:
         element = GraphElement()
         property_uid_map: Dict[int, str] = {}
@@ -654,7 +692,7 @@ class GraphBuilder:
         self.config = GraphBuilderConfig(debug)
         self.node_factory = NodeFactory(self.config)
         self.relation_factory = RelationFactory(self.config, self.node_factory)
-        self.transformer = ApiEntryTransformer(self.node_factory, self.relation_factory)
+        self.transformer: Optional[ApiEntryTransformer] = None
 
     def build_graph_elements(
         self, records: Sequence[ApiEntryRecord]
@@ -670,6 +708,17 @@ class GraphBuilder:
             name="api_entries",
         )
         nodes_map[collection_uid] = collection_node
+
+        entry_index = {
+            record.name.strip().lower(): record
+            for record in records
+            if record.name.strip()
+        }
+        self.transformer = ApiEntryTransformer(
+            self.node_factory,
+            self.relation_factory,
+            entry_index,
+        )
 
         for record in records:
             if self.config.debug:
