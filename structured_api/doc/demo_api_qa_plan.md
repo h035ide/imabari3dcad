@@ -1,9 +1,10 @@
 # Demo API QA 実装計画
 
 ## 目的
-- `structured_api/demo_api_qa.py` に、demo データベース向けの高度な QA システムを実装する。
-- LangChain と LlamaIndex を併用し、密ベクトル・疎ベクトル・全文検索・グラフ検索を統合したハイブリッド検索を実現する。
-- ベクトル検索とグラフ検索の結果を比較・統合し、信頼度の高い回答を日本語で提示できるようにする。
+- `structured_api/demo_qa` 配下に、demo データベース向けの高度な QA システムを実装する。
+- LangChain と LlamaIndex を併用しつつ、retriever やユーティリティは `structured_api` 内で再実装する。
+- 密ベクトル・疎ベクトル・全文検索・グラフ検索を統合したハイブリッド検索を実現し、比較・統合結果を日本語で提示できるようにする。
+- 開発中は常にリファクタリングを検討し、読みやすく簡潔なコードを維持する。整形には `uv run black "<ファイル名>"` を使用する。
 
 ## 全体アーキテクチャ
 - CLI エントリ (`structured_api/demo_qa/cli.py` ※元の `demo_api_qa.py` から分離)
@@ -13,10 +14,10 @@
   - `ChatOpenAI` を用いたクエリ正規化と多様なクエリ生成（元文／キーワード重視／パラフレーズ）。
   - 既存 `ParameterExtractionTool` による意図・パラメータ抽出でルーティングを支援。
 - 検索レイヤ (`structured_api/demo_qa/retrievers/` 以下)
-  - **密ベクトル**: `code_generator.llamaindex_integration.build_vector_engine()` を利用。
-  - **疎ベクトル**: `help_preprocessor.retrieval.sparse_retriever` (TF-IDF/BM25)。
-  - **全文検索**: `help_preprocessor.retrieval.fulltext_retriever.WhooshRetriever`。
-  - **グラフ検索**: `build_graph_engine()` または `GraphCypherQAChain`。
+  - **密ベクトル**: LlamaIndex / LangChain API を用いながらも、`structured_api/demo_qa/retrievers/dense.py` で初期化と検索を再実装する。
+  - **疎ベクトル**: TF-IDF/BM25 を `structured_api/demo_qa/retrievers/sparse.py` に実装。
+  - **全文検索**: Whoosh ラッパーを `structured_api/demo_qa/retrievers/fulltext.py` に実装。
+  - **グラフ検索**: Neo4j アクセスを `structured_api/demo_qa/retrievers/graph.py` に実装し、必要に応じて LangChain/LlamaIndex のクラスを内部で利用。
 - スコア統合・リランキング (`structured_api/demo_qa/fusion.py`)
   - 各検索結果を正規化スコア化し、ソース種別・一致度を記録。
   - `code_generator.rerank_feature.reranker.ReRanker` でクロスエンコーダーによる再評価。
@@ -29,17 +30,17 @@
 ## ディレクトリ構成とファイル分割（新規）
 - `structured_api/demo_qa/`
   - `__init__.py`
-  - `cli.py` : CLI エントリポイント。`demo_api_qa.py` から移動。
-  - `config.py` : 実行時設定のロードとバリデーション。
-  - `query_preprocessor.py` : クエリ生成・正規化・意図抽出ロジック。
-  - `fusion.py` : 検索結果統合、スコア正規化、リランキング制御。
-  - `response_builder.py` : 回答テキストと参照情報の整形。
+  - `cli.py` : CLI エントリポイント。`demo_api_qa.py` から移動し、薄いラッパー構成で保守。
+  - `config.py` : 実行時設定のロードとバリデーション。`.env` と YAML をマージするロジックを明確化。
+  - `query_preprocessor.py` : クエリ生成・正規化・意図抽出ロジック。LLM 依存部分は極力関数に分割しテスト容易化。
+  - `fusion.py` : 検索結果統合、スコア正規化、リランキング制御。ステップごとにユーティリティ関数を用意しリファクタリングしやすくする。
+  - `response_builder.py` : 回答テキストと参照情報の整形。フォーマット処理を関数化し再利用性を確保。
   - `retrievers/`
     - `__init__.py`
-    - `dense.py` : LlamaIndex / LangChain ベクトル検索ラッパー。
-    - `sparse.py` : TF-IDF / BM25 ラッパー。
-    - `fulltext.py` : Whoosh ラッパー。
-    - `graph.py` : Neo4j / グラフ検索ラッパー。
+    - `dense.py` : LlamaIndex / LangChain ベクトル検索の自前実装。
+    - `sparse.py` : scikit-learn などを用いた TF-IDF / BM25 の自前実装。
+    - `fulltext.py` : Whoosh を `structured_api` 内でセットアップするラッパー。
+    - `graph.py` : Neo4j / グラフ検索の自前実装（Cypher 生成とクエリ実行）。
   - `debug.py` : デバッグ補助（ステップごとのログ整形、結果ダンプ）。
 - ルートに残す `structured_api/demo_api_qa.py` は CLI 起動用 thin wrapper（`from .demo_qa import cli`）として最小化し、構造を `structured_api` 内で完結。
 
@@ -80,6 +81,7 @@
   - Whoosh インデックスを使用した全文検索。
 - `build_graph_qa(...)`
   - LlamaIndex Graph QueryEngine と LangChain `GraphCypherQAChain` のラッパーを用意。
+  - さらに LlamaIndex の `QueryFusionRetriever` を活用する案を検討し、ベクトル／グラフ／疎検索の結果を LlamaIndex の内部で統合できるか評価する。
 - `run_hybrid_search(queries, configs)`
   - 各検索モードを並列実行し、結果を共通フォーマットに変換。
 - `rerank_and_merge(results)`
@@ -97,9 +99,10 @@
   - 既定は `chroma_db_store/demo` 配下に新規コレクション（例: `demo_api_entries`）を作成。
   - CLI オプション `--chroma-dir`/`--chroma-collection` で切替可能。
 - 疎ベクトル／全文
+  - 元データは `structured_api/data/structured_api.json` を使用。
   - `data/sparse_index/` および `data/whoosh_index/` は未生成のため、専用スクリプトを用意し `demo` コレクション向けに事前ビルドする。
-  - インデックス生成手順（案）
-    1. demo データ向けドキュメントを抽出する ETL を実行または再利用。
+  - インデックス生成手順
+    1. `structured_api/data/structured_api.json` から必要フィールド（API 説明、擬似コードなど）を抽出。
     2. `structured_api/demo_qa/tools/build_sparse_index.py`（新規）で TF-IDF/BM25 を構築し `data/sparse_index/demo/` に保存。
     3. `structured_api/demo_qa/tools/build_whoosh_index.py`（新規）で Whoosh インデックスを `data/whoosh_index/demo/` に作成。
   - CLI 起動時、インデックスが存在しなければ警告し、生成コマンドを提示する。
@@ -111,13 +114,15 @@
 4. ハイブリッド検索オーケストレーション（並列実行・スコア正規化）。
 5. リランキングと結果統合、比較ロジックの実装。
 6. CLI 入力・出力整形、詳細表示オプションの実装。
-7. 単体・統合テスト、README 追記（必要に応じて）。
+7. コードレビューの度にリファクタリングポイントを洗い出し、読みやすさを改善。
+8. 単体・統合テスト、README 追記（必要に応じて）。
 
 ## 検証計画
 - **ベースライン検証**: 各検索モードが単独で動作し、結果が返ることを手動テスト。
-- **統合検証**: `--mode auto` で複数クエリを実行し、スコア統合・比較・リランキングの挙動を確認。
-- **フォールバック検証**: クロスエンコーダー未導入環境で LLM リランキングに自動切替されることを確認。
+-- **統合検証**: `--mode auto` で複数クエリを実行し、スコア統合・比較・リランキングの挙動を確認。
+-- **フォールバック検証**: クロスエンコーダー未導入環境で LLM リランキングに自動切替されることを確認。
 - **データ切替検証**: Neo4j/Chroma のデモ用設定を変更し、CLI オプションで上書きできるかをテスト。
+- **コード品質検証**: 主要ファイルに対して `uv run black "<ファイル名>"` を実行し、書式／インデントが揃っているか確認。
 
 ## 追加検討事項
 - 大規模データ対応: 並列検索のタイムアウト設定、結果件数の制限。
