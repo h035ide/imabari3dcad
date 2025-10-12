@@ -1,0 +1,76 @@
+{
+    "api_entries": [
+        {
+          "category": "Applicationオブジェクト",
+          "entry_type": "function",
+          "name": "Quit",
+          "description": "EvoShipを終了する",
+          "pseudo_code": "Quit()",
+          "returns": {
+            "type": "void",
+            "description": "なし"
+          },
+          "source": {
+            "text": "〇EvoShipを終了する\n 返り値:なし\n  Quit()"
+          }
+        },
+        {
+          "category": "Applicationオブジェクト",
+          "entry_type": "function",
+          "name": "ShowMainWindow",
+          "description": "EvoShipのメインウィンドウを表示",
+          "pseudo_code": "ShowMainWindow(bShow)",
+          "params": [
+            {
+              "name": "bShow",
+              "type": "bool",
+              "position": 0,
+              "description": "表示の有効/無効を切り替えるフラグ",
+              "case": {
+                "true": "表示を有効にする場合は True を設定",
+                "false": "表示を無効にする場合は False を設定"
+              }
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": "なし"
+          },
+          "source": {
+            "text": "〇EvoShipのメインウィンドウを表示する\n 返り値:なし\n  ShowMainWindow(\n   bShow ) // bool: 表示する時はTrue"
+          }
+        },
+        {
+          "category": "Applicationオブジェクト",
+          "entry_type": "function",
+          "name": "LoadPart",
+          "description": "Partオブジェクトを読み込む",
+          "pseudo_code": "LoadPart(FileName, bForceEvaluation)",
+          "params": [
+            {
+              "name": "FileName",
+              "type": "文字列",
+              "position": 0,
+              "description": "保存されているドキュメントのファイルパス名"
+            },
+            {
+              "name": "bForceEvaluation",
+              "type": "bool",
+              "position": 1,
+              "description": "強制的に全要素を再計算して開くかどうかのフラグ",
+              "case": {
+                "true": "強制的に全要素を再計算して開くときはTrue",
+                "false": "通常はFalse"
+              }
+            }
+          ],
+          "returns": {
+            "type": "不明",
+            "description": "Partオブジェクト"
+          },
+          "source": {
+            "text": "〇Partオブジェクトを読み込む\n 返り値:Partオブジェクト\n  LoadPart(\n   FileName, // 文字列：保存されているドキュメントのファイルパス名\n   bForceEvaluation ) // bool: 強制的に全要素を再計算して開くときはTrue (通常はFalse）"
+          }
+        }
+    ]
+}
