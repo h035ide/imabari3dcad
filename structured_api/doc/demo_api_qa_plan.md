@@ -22,6 +22,12 @@
   - 各検索結果を正規化スコア化し、ソース種別・一致度を記録。
   - `code_generator.rerank_feature.reranker.ReRanker` でクロスエンコーダーによる再評価。
   - グラフ裏付けの有無をボーナスとして反映。
+- 入口統合レイヤ B (`structured_api/demo_qa/pipeline/layer_b.py`)
+  - Recall 強化フェーズ。 `QueryFusionRetriever` を中心に、ベクトル / BM25 / Whoosh / Neo4j フルテキスト検索 / LLM シノニム展開を統合して「スロット候補（名前・型・カテゴリ等）」を生成。
+  - 生成されるスロット候補の構造は `{name_candidates: [...], type_candidates: [...], category_candidates: [...], score: ...}` を想定。
+- 確定取得レイヤ A (`structured_api/demo_qa/pipeline/layer_a.py`)
+  - Precision 確保フェーズ。B レイヤーの候補をもとにスロット抽出（軽量辞書＋正規表現）を行い、Cypher テンプレート `T1〜T6` を選択して Neo4j に問い合わせる。
+  - フォールバック順序（T2 → T3 → T6）の制御や直接 Cypher への段階的切替（関数名 → パラメータ名 → 型名 → ステータス）を実装。
 - 回答生成 (`structured_api/demo_qa/response_builder.py`)
   - 上位候補をクラスタリングし、メタ情報（パラメータ・擬似コードなど）を集約。
   - ベクトル・グラフ結果の整合性チェック、差異があれば両方提示。
@@ -41,6 +47,10 @@
     - `sparse.py` : scikit-learn などを用いた TF-IDF / BM25 の自前実装。
     - `fulltext.py` : Whoosh を `structured_api` 内でセットアップするラッパー。
     - `graph.py` : Neo4j / グラフ検索の自前実装（Cypher 生成とクエリ実行）。
+  - `pipeline/`
+    - `__init__.py`
+    - `layer_b.py` : 入口統合（Recall）ロジック。QueryFusionRetriever を組み込み、スロット候補を生成。
+    - `layer_a.py` : 確定取得（Precision）ロジック。スロット抽出と Cypher テンプレート選択、フォールバック制御を担当。
   - `debug.py` : デバッグ補助（ステップごとのログ整形、結果ダンプ）。
 - ルートに残す `structured_api/demo_api_qa.py` は CLI 起動用 thin wrapper（`from .demo_qa import cli`）として最小化し、構造を `structured_api` 内で完結。
 
@@ -81,7 +91,17 @@
   - Whoosh インデックスを使用した全文検索。
 - `build_graph_qa(...)`
   - LlamaIndex Graph QueryEngine と LangChain `GraphCypherQAChain` のラッパーを用意。
-  - さらに LlamaIndex の `QueryFusionRetriever` を活用する案を検討し、ベクトル／グラフ／疎検索の結果を LlamaIndex の内部で統合できるか評価する。
+- `run_layer_b_pipeline(...)`
+  - QueryFusionRetriever を中心とした入口統合（Recall）処理。生成クエリごとに retriever を実行し、スロット候補を構造化して返却。
+- `run_layer_a_pipeline(...)`
+  - layer_b のスロット候補を受け取り、スロット抽出→テンプレート選択→Cypher 実行→結果整形を行う。
+  - テンプレート適用順序（T1〜T6）の優先度とフォールバックルールを明記し、最終的な候補の精度を高める。
+- `run_hybrid_search(queries, configs)`
+  - レイヤーB/Aを統合するオーケストレーション関数として扱い、従来のハイブリッド検索ロジックを段階的に整理。
+- `rerank_and_merge(results)`
+  - クロスエンコーダーを用いたリランキングとクラスタリング。
+- `compare_vector_graph(merged_results)`
+  - ベクトル／グラフ候補の一致度をスコア化し、矛盾時に警告メッセージ生成。
 - `run_hybrid_search(queries, configs)`
   - 各検索モードを並列実行し、結果を共通フォーマットに変換。
 - `rerank_and_merge(results)`
