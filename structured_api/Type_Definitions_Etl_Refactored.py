@@ -1180,6 +1180,7 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
         default=None,
         help="canonical_type に付随する Python 型メタ情報の JSON (任意)",
     )
+    # TODO: If OpenAI API integration is added, re-enable the following argument:
     # parser.add_argument("--openai-api-key", default=os.getenv("OPENAI_API_KEY"))
     parser.add_argument(
         "--neo4j-uri",
