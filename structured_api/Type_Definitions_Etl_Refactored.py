@@ -339,15 +339,13 @@ class TypeDefinitionProcessor:
 
         return node, [relation]
 
-    def _process_canonical_type(self, td: Dict[str, Any], name: str) -> List[Node]:
-        """カノニカル型を処理する"""
-        nodes = []
-        canonical = (td.get("canonical_type") or "").strip()
-        if not canonical:
-            return nodes
+    def _build_canonical_type_node(self, canonical: str) -> Optional[Node]:
+        canonical_str = self.node_builder._to_str(canonical).strip()
+        if not canonical_str:
+            return None
 
-        canonical_uid = f"canonical::{canonical}"
-        meta_entry = self.config.canonical_meta.get(canonical, {})
+        canonical_uid = f"canonical::{canonical_str}"
+        meta_entry = self.config.canonical_meta.get(canonical_str, {})
         python_meta = (
             meta_entry.get("python_type") if isinstance(meta_entry, dict) else None
         )
@@ -363,17 +361,27 @@ class TypeDefinitionProcessor:
                 python_meta.get("description", "")
             )
 
-        node = self.node_builder.create_node(
+        return self.node_builder.create_node(
             "CanonicalType",
             canonical_uid,
-            name=canonical,
+            name=canonical_str,
             description=self.node_builder._to_str(meta_entry.get("description", "")),
             python_module=self.node_builder._to_str(py_module) if py_module else None,
             python_name=self.node_builder._to_str(py_name) if py_name else None,
             python_qualname=self.node_builder._to_str(py_qual) if py_qual else None,
             python_description=py_description,
         )
-        nodes.append(node)
+
+    def _process_canonical_type(self, td: Dict[str, Any], name: str) -> List[Node]:
+        """カノニカル型を処理する"""
+        nodes = []
+        canonical = (td.get("canonical_type") or "").strip()
+        if not canonical:
+            return nodes
+
+        node = self._build_canonical_type_node(canonical)
+        if node:
+            nodes.append(node)
 
         return nodes
 
@@ -460,6 +468,7 @@ class TypeDefinitionProcessor:
                 or self.node_builder._to_str(entry)
             )
             description_v = entry.get("description") or entry.get("desc") or ""
+            value_kind = entry.get("value_kind")
             constraints = (
                 entry.get("constraints")
                 if isinstance(entry.get("constraints"), dict)
@@ -471,6 +480,7 @@ class TypeDefinitionProcessor:
         else:
             identifier = self.node_builder._to_str(entry)
             description_v = ""
+            value_kind = None
             constraints = None
             metadata = {"literal": identifier}
 
@@ -521,6 +531,18 @@ class TypeDefinitionProcessor:
             )
             nodes.extend(constraint_nodes)
             relations.extend(constraint_relations)
+
+        canonical_key = self.node_builder._to_str(value_kind).strip() if value_kind is not None else ""
+        if canonical_key and self.config.canonical_meta.get(canonical_key):
+            canonical_node = self._build_canonical_type_node(canonical_key)
+            if canonical_node:
+                nodes.append(canonical_node)
+            canonical_relation = self.relation_builder.create_relation(
+                variant_uid,
+                "CONSTRAINED_BY_CANONICAL_TYPE",
+                f"canonical::{canonical_key}",
+            )
+            relations.append(canonical_relation)
 
         return nodes, relations
 
@@ -878,36 +900,6 @@ class GraphBuilder:
 
         # エイリアスからバリアントへのリレーションは _process_single_variant で処理済み
 
-        # バリアントからカノニカル型へのリレーション
-        for origin_key in ("one_of", "variants"):
-            variant_entries = td.get(origin_key) or []
-            if isinstance(variant_entries, list):
-                for v_idx, entry in enumerate(variant_entries):
-                    if isinstance(entry, dict):
-                        value_kind = entry.get("value_kind")
-                        if value_kind and self.config.canonical_meta.get(
-                            self.node_builder._to_str(value_kind)
-                        ):
-                            identifier = (
-                                entry.get("id")
-                                or entry.get("variant")
-                                or entry.get("value")
-                                or entry.get("name")
-                                or self.node_builder._to_str(entry)
-                            )
-                            identifier_str = self.node_builder._to_str(identifier)
-                            if not identifier_str:
-                                identifier_str = f"variant_{v_idx}"
-
-                            variant_uid = f"variant::{name}::{identifier_str}"
-                            relations.append(
-                                self.relation_builder.create_relation(
-                                    variant_uid,
-                                    "CONSTRAINED_BY_CANONICAL_TYPE",
-                                    f"canonical::{value_kind}",
-                                )
-                            )
-
         # 例からバリアントへのリレーションは _process_examples で処理済み
 
         # ソースへのリレーション
@@ -1171,7 +1163,7 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
     parser.add_argument(
         "--json-path",
         type=Path,
-        default=Path(__file__).with_name("type_definitions.json"),
+        default=Path(__file__).parent / "data" / "type_definitions.json",
         help="入力 JSON (type_definitions.json)",
     )
     parser.add_argument(

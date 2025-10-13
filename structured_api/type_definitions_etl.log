@@ -6876,3 +6876,1469 @@
 2025-10-09 14:43:02,947 - typedef_etl - INFO - 生成ノード: 176, リレーション: 244
 2025-10-09 14:43:08,744 - typedef_etl - INFO - Neo4j へ投入完了: ノード 176, リレーション 244
 2025-10-09 14:43:08,745 - typedef_etl - INFO - 完了
+2025-10-14 03:01:50,840 - typedef_etl - DEBUG - ログ設定完了 - ファイル: C:\Users\user\workfolders\imabari3dcad\structured_api\type_definitions_etl.log, コンソール: INFO以上, ファイル: DEBUG以上
+2025-10-14 03:01:50,840 - typedef_etl - INFO - ログファイルに保存中: C:\Users\user\workfolders\imabari3dcad\structured_api\type_definitions_etl.log
+2025-10-14 03:01:50,840 - typedef_etl - DEBUG - main関数開始
+2025-10-14 03:01:50,849 - typedef_etl - INFO - JSON を読み込み: C:\Users\user\workfolders\imabari3dcad\structured_api\type_definitions.json
+2025-10-14 03:01:50,849 - typedef_etl - DEBUG - 型定義JSONファイルを読み込み開始: C:\Users\user\workfolders\imabari3dcad\structured_api\type_definitions.json
+2025-10-14 03:02:53,540 - typedef_etl - DEBUG - ログ設定完了 - ファイル: C:\Users\user\workfolders\imabari3dcad\structured_api\type_definitions_etl.log, コンソール: INFO以上, ファイル: DEBUG以上
+2025-10-14 03:02:53,540 - typedef_etl - INFO - ログファイルに保存中: C:\Users\user\workfolders\imabari3dcad\structured_api\type_definitions_etl.log
+2025-10-14 03:02:53,540 - typedef_etl - DEBUG - main関数開始
+2025-10-14 03:02:53,548 - typedef_etl - INFO - JSON を読み込み: C:\Users\user\workfolders\imabari3dcad\structured_api\type_definitions.json
+2025-10-14 03:02:53,548 - typedef_etl - DEBUG - 型定義JSONファイルを読み込み開始: C:\Users\user\workfolders\imabari3dcad\structured_api\type_definitions.json
+2025-10-14 03:03:08,976 - typedef_etl - DEBUG - ログ設定完了 - ファイル: C:\Users\user\workfolders\imabari3dcad\structured_api\type_definitions_etl.log, コンソール: INFO以上, ファイル: DEBUG以上
+2025-10-14 03:03:08,976 - typedef_etl - INFO - ログファイルに保存中: C:\Users\user\workfolders\imabari3dcad\structured_api\type_definitions_etl.log
+2025-10-14 03:03:08,978 - typedef_etl - DEBUG - main関数開始
+2025-10-14 03:04:38,640 - typedef_etl - DEBUG - ログ設定完了 - ファイル: C:\Users\user\workfolders\imabari3dcad\structured_api\type_definitions_etl.log, コンソール: INFO以上, ファイル: DEBUG以上
+2025-10-14 03:04:38,640 - typedef_etl - INFO - ログファイルに保存中: C:\Users\user\workfolders\imabari3dcad\structured_api\type_definitions_etl.log
+2025-10-14 03:04:38,640 - typedef_etl - DEBUG - main関数開始
+2025-10-14 03:04:46,372 - typedef_etl - DEBUG - ログ設定完了 - ファイル: C:\Users\user\workfolders\imabari3dcad\structured_api\type_definitions_etl.log, コンソール: INFO以上, ファイル: DEBUG以上
+2025-10-14 03:04:46,372 - typedef_etl - INFO - ログファイルに保存中: C:\Users\user\workfolders\imabari3dcad\structured_api\type_definitions_etl.log
+2025-10-14 03:04:46,372 - typedef_etl - DEBUG - main関数開始
+2025-10-14 03:04:46,372 - typedef_etl - INFO - JSON を読み込み: C:\Users\user\workfolders\imabari3dcad\structured_api\data\type_definitions.json
+2025-10-14 03:04:46,378 - typedef_etl - DEBUG - 型定義JSONファイルを読み込み開始: C:\Users\user\workfolders\imabari3dcad\structured_api\data\type_definitions.json
+2025-10-14 03:04:46,378 - typedef_etl - DEBUG - 型定義読み込み完了: 23件
+2025-10-14 03:04:46,379 - typedef_etl - INFO - 定義の件数: 23
+2025-10-14 03:04:46,379 - typedef_etl - DEBUG - GraphBuilderを初期化中
+2025-10-14 03:04:46,379 - typedef_etl - DEBUG - グラフ要素の構築開始
+2025-10-14 03:04:46,379 - typedef_etl - DEBUG - GraphBuilder.build_graph_elements開始: 23件の定義を処理
+2025-10-14 03:04:46,379 - typedef_etl - DEBUG - [Node #1] Created TypeDefinitions: type_definitions::collection
+2025-10-14 03:04:46,379 - typedef_etl - DEBUG -   name: type_definitions
+2025-10-14 03:04:46,380 - typedef_etl - DEBUG - Processing type definition #1: 文字列
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - [Node #2] Created TypeDefinition: type::文字列
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   name: 文字列
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   description: 通常の文字列
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   text: 通常の文字列
+
+■文字列
+    通常の文字列
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   raw_json: {"name":"文字列","canonical_type":"string","description":"通常の文字列","source":{"text":"■文字列\n    通常の文字列"}}
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - [Relation #1] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::文字列
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - [Node #3] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - [Node #4] Created Source: source::文字列::inline
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   text: ■文字列
+    通常の文字列
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - [Relation #2] Created HAS_TYPE: type::文字列 -> canonical::string
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - [Relation #3] Created CITED_FROM: type::文字列 -> source::文字列::inline
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - Processing type definition #2: 浮動小数点
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - [Node #5] Created TypeDefinition: type::浮動小数点
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   name: 浮動小数点
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   description: 通常の数値
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   text: 通常の数値
+
+■浮動小数点
+  通常の数値
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   raw_json: {"name":"浮動小数点","canonical_type":"float","description":"通常の数値","source":{"text":"■浮動小数点\n  通常の数値"}}
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - [Relation #4] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::浮動小数点
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - [Node #6] Created CanonicalType: canonical::float
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   name: float
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   description: 浮動小数点値 (double precision)。
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   python_name: float
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   python_qualname: float
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   python_description: 倍精度の浮動小数点数。
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - [Node #7] Created Source: source::浮動小数点::inline
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   text: ■浮動小数点
+  通常の数値
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - [Relation #5] Created HAS_TYPE: type::浮動小数点 -> canonical::float
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - [Relation #6] Created CITED_FROM: type::浮動小数点 -> source::浮動小数点::inline
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - Processing type definition #3: 整数
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - [Node #8] Created TypeDefinition: type::整数
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   name: 整数
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   description: 通常の数値
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   text: 通常の数値
+
+■整数
+  通常の数値
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   raw_json: {"name":"整数","canonical_type":"integer","description":"通常の数値","source":{"text":"■整数\n  通常の数値"}}
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - [Relation #7] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::整数
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - [Node #9] Created CanonicalType: canonical::integer
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   name: integer
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   description: 符号付き整数値。
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   python_name: int
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   python_qualname: int
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   python_description: 任意精度整数。
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - [Node #10] Created Source: source::整数::inline
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG -   text: ■整数
+  通常の数値
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - [Relation #8] Created HAS_TYPE: type::整数 -> canonical::integer
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - [Relation #9] Created CITED_FROM: type::整数 -> source::整数::inline
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - Processing type definition #4: bool
+2025-10-14 03:04:46,399 - typedef_etl - DEBUG - [Node #11] Created TypeDefinition: type::bool
+2025-10-14 03:04:46,407 - typedef_etl - DEBUG -   name: bool
+2025-10-14 03:04:46,407 - typedef_etl - DEBUG -   description: 通常の真偽値
+2025-10-14 03:04:46,407 - typedef_etl - DEBUG -   text: 通常の真偽値
+
+■bool
+  通常の真偽値 True False
+2025-10-14 03:04:46,407 - typedef_etl - DEBUG -   raw_json: {"name":"bool","canonical_type":"bool","description":"通常の真偽値","examples":["True","False"],"source":{...
+2025-10-14 03:04:46,407 - typedef_etl - DEBUG -   position: 3
+2025-10-14 03:04:46,407 - typedef_etl - DEBUG - [Relation #10] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::bool
+2025-10-14 03:04:46,407 - typedef_etl - DEBUG - [Node #12] Created CanonicalType: canonical::bool
+2025-10-14 03:04:46,408 - typedef_etl - DEBUG -   name: bool
+2025-10-14 03:04:46,408 - typedef_etl - DEBUG -   description: 真偽値 (True / False)。
+2025-10-14 03:04:46,408 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,409 - typedef_etl - DEBUG -   python_name: bool
+2025-10-14 03:04:46,409 - typedef_etl - DEBUG -   python_qualname: bool
+2025-10-14 03:04:46,409 - typedef_etl - DEBUG -   python_description: 真偽値型。
+2025-10-14 03:04:46,409 - typedef_etl - DEBUG - [Node #13] Created Example: example::bool::0
+2025-10-14 03:04:46,409 - typedef_etl - DEBUG -   value: True
+2025-10-14 03:04:46,409 - typedef_etl - DEBUG -   value_json: "True"
+2025-10-14 03:04:46,410 - typedef_etl - DEBUG -   explanation: 
+2025-10-14 03:04:46,410 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,410 - typedef_etl - DEBUG - [Relation #11] Created HAS_EXAMPLE: type::bool -> example::bool::0
+2025-10-14 03:04:46,410 - typedef_etl - DEBUG - [Node #14] Created Example: example::bool::1
+2025-10-14 03:04:46,410 - typedef_etl - DEBUG -   value: False
+2025-10-14 03:04:46,411 - typedef_etl - DEBUG -   value_json: "False"
+2025-10-14 03:04:46,411 - typedef_etl - DEBUG -   explanation: 
+2025-10-14 03:04:46,411 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,411 - typedef_etl - DEBUG - [Relation #12] Created HAS_EXAMPLE: type::bool -> example::bool::1
+2025-10-14 03:04:46,411 - typedef_etl - DEBUG - [Node #15] Created Source: source::bool::inline
+2025-10-14 03:04:46,412 - typedef_etl - DEBUG -   text: ■bool
+  通常の真偽値 True False
+2025-10-14 03:04:46,412 - typedef_etl - DEBUG - [Relation #13] Created HAS_TYPE: type::bool -> canonical::bool
+2025-10-14 03:04:46,412 - typedef_etl - DEBUG - [Relation #14] Created CITED_FROM: type::bool -> source::bool::inline
+2025-10-14 03:04:46,412 - typedef_etl - DEBUG - Processing type definition #5: 長さ
+2025-10-14 03:04:46,412 - typedef_etl - DEBUG - [Node #16] Created TypeDefinition: type::長さ
+2025-10-14 03:04:46,412 - typedef_etl - DEBUG -   name: 長さ
+2025-10-14 03:04:46,412 - typedef_etl - DEBUG -   description: mm単位の数値、変数要素名、または式を表す文字列。
+2025-10-14 03:04:46,412 - typedef_etl - DEBUG -   text: mm単位の数値、変数要素名、または式を表す文字列。
+
+■長さ
+  mm単位の数値、変数要素名,式文字列、
+ 例) "100.0" , "L1", "L1 / 2.0"
+2025-10-14 03:04:46,412 - typedef_etl - DEBUG -   raw_json: {"name":"長さ","canonical_type":"string","description":"mm単位の数値、変数要素名、または式を表す文字列。","one_of":[{"id":"mi...
+2025-10-14 03:04:46,413 - typedef_etl - DEBUG -   position: 4
+2025-10-14 03:04:46,413 - typedef_etl - DEBUG - [Relation #15] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::長さ
+2025-10-14 03:04:46,413 - typedef_etl - DEBUG - [Node #17] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,413 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,413 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,413 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,413 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,413 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,413 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,413 - typedef_etl - DEBUG - [Node #18] Created Variant: variant::長さ::millimeter_literal
+2025-10-14 03:04:46,414 - typedef_etl - DEBUG -   identifier: millimeter_literal
+2025-10-14 03:04:46,414 - typedef_etl - DEBUG -   origin: one_of
+2025-10-14 03:04:46,414 - typedef_etl - DEBUG -   description: mm の数値
+2025-10-14 03:04:46,414 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,414 - typedef_etl - DEBUG - [Relation #16] Created HAS_ONE_OF: type::長さ -> variant::長さ::millimeter_literal
+2025-10-14 03:04:46,414 - typedef_etl - DEBUG -   list_origin: one_of
+2025-10-14 03:04:46,414 - typedef_etl - DEBUG - [Node #19] Created Variant: variant::長さ::variable_reference
+2025-10-14 03:04:46,414 - typedef_etl - DEBUG -   identifier: variable_reference
+2025-10-14 03:04:46,414 - typedef_etl - DEBUG -   origin: one_of
+2025-10-14 03:04:46,415 - typedef_etl - DEBUG -   description: 変数要素名
+2025-10-14 03:04:46,415 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,415 - typedef_etl - DEBUG - [Relation #17] Created HAS_ONE_OF: type::長さ -> variant::長さ::variable_reference
+2025-10-14 03:04:46,415 - typedef_etl - DEBUG -   list_origin: one_of
+2025-10-14 03:04:46,415 - typedef_etl - DEBUG - [Node #20] Created Variant: variant::長さ::expression
+2025-10-14 03:04:46,415 - typedef_etl - DEBUG -   identifier: expression
+2025-10-14 03:04:46,415 - typedef_etl - DEBUG -   origin: one_of
+2025-10-14 03:04:46,415 - typedef_etl - DEBUG -   description: 四則演算などの式
+2025-10-14 03:04:46,415 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,416 - typedef_etl - DEBUG - [Relation #18] Created HAS_ONE_OF: type::長さ -> variant::長さ::expression
+2025-10-14 03:04:46,416 - typedef_etl - DEBUG -   list_origin: one_of
+2025-10-14 03:04:46,416 - typedef_etl - DEBUG - [Node #21] Created Example: example::長さ::0
+2025-10-14 03:04:46,416 - typedef_etl - DEBUG -   value: 100.0
+2025-10-14 03:04:46,416 - typedef_etl - DEBUG -   value_json: "100.0"
+2025-10-14 03:04:46,416 - typedef_etl - DEBUG -   explanation: 100mm の固定寸法
+2025-10-14 03:04:46,416 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,416 - typedef_etl - DEBUG - [Relation #19] Created HAS_EXAMPLE: type::長さ -> example::長さ::0
+2025-10-14 03:04:46,416 - typedef_etl - DEBUG - [Relation #20] Created ILLUSTRATES_VARIANT: example::長さ::0 -> variant::長さ::millimeter_literal
+2025-10-14 03:04:46,416 - typedef_etl - DEBUG - [Node #22] Created Example: example::長さ::1
+2025-10-14 03:04:46,417 - typedef_etl - DEBUG -   value: L1
+2025-10-14 03:04:46,417 - typedef_etl - DEBUG -   value_json: "L1"
+2025-10-14 03:04:46,417 - typedef_etl - DEBUG -   explanation: 変数要素L1 を参照
+2025-10-14 03:04:46,417 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,417 - typedef_etl - DEBUG - [Relation #21] Created HAS_EXAMPLE: type::長さ -> example::長さ::1
+2025-10-14 03:04:46,417 - typedef_etl - DEBUG - [Relation #22] Created ILLUSTRATES_VARIANT: example::長さ::1 -> variant::長さ::variable_reference
+2025-10-14 03:04:46,417 - typedef_etl - DEBUG - [Node #23] Created Example: example::長さ::2
+2025-10-14 03:04:46,417 - typedef_etl - DEBUG -   value: L1 / 2.0
+2025-10-14 03:04:46,417 - typedef_etl - DEBUG -   value_json: "L1 / 2.0"
+2025-10-14 03:04:46,417 - typedef_etl - DEBUG -   explanation: L1 を半分にした式
+2025-10-14 03:04:46,417 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,417 - typedef_etl - DEBUG - [Relation #23] Created HAS_EXAMPLE: type::長さ -> example::長さ::2
+2025-10-14 03:04:46,417 - typedef_etl - DEBUG - [Relation #24] Created ILLUSTRATES_VARIANT: example::長さ::2 -> variant::長さ::expression
+2025-10-14 03:04:46,417 - typedef_etl - DEBUG - [Node #24] Created Source: source::長さ::inline
+2025-10-14 03:04:46,418 - typedef_etl - DEBUG -   text: ■長さ
+  mm単位の数値、変数要素名,式文字列、
+ 例) "100.0" , "L1", "L1 / 2.0"
+2025-10-14 03:04:46,418 - typedef_etl - DEBUG - [Relation #25] Created HAS_TYPE: type::長さ -> canonical::string
+2025-10-14 03:04:46,418 - typedef_etl - DEBUG - [Relation #26] Created CITED_FROM: type::長さ -> source::長さ::inline
+2025-10-14 03:04:46,418 - typedef_etl - DEBUG - Processing type definition #6: 角度
+2025-10-14 03:04:46,418 - typedef_etl - DEBUG - [Node #25] Created TypeDefinition: type::角度
+2025-10-14 03:04:46,418 - typedef_etl - DEBUG -   name: 角度
+2025-10-14 03:04:46,418 - typedef_etl - DEBUG -   description: 度(°)単位の数値、変数要素名、または式を表す文字列。
+2025-10-14 03:04:46,418 - typedef_etl - DEBUG -   text: 度(°)単位の数値、変数要素名、または式を表す文字列。
+
+■角度
+  度(°)単位の数値、変数要素名,式文字列、
+ 例) "30.0" , "Angle1" , "Angle1 * 0.2"
+2025-10-14 03:04:46,419 - typedef_etl - DEBUG -   raw_json: {"name":"角度","canonical_type":"string","description":"度(°)単位の数値、変数要素名、または式を表す文字列。","one_of":[{"id":"...
+2025-10-14 03:04:46,419 - typedef_etl - DEBUG -   position: 5
+2025-10-14 03:04:46,419 - typedef_etl - DEBUG - [Relation #27] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::角度
+2025-10-14 03:04:46,419 - typedef_etl - DEBUG - [Node #26] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,419 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,419 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,419 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,419 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,419 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,419 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,420 - typedef_etl - DEBUG - [Node #27] Created Variant: variant::角度::degree_literal
+2025-10-14 03:04:46,420 - typedef_etl - DEBUG -   identifier: degree_literal
+2025-10-14 03:04:46,420 - typedef_etl - DEBUG -   origin: one_of
+2025-10-14 03:04:46,420 - typedef_etl - DEBUG -   description: 度単位の数値リテラル
+2025-10-14 03:04:46,420 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,420 - typedef_etl - DEBUG - [Relation #28] Created HAS_ONE_OF: type::角度 -> variant::角度::degree_literal
+2025-10-14 03:04:46,420 - typedef_etl - DEBUG -   list_origin: one_of
+2025-10-14 03:04:46,420 - typedef_etl - DEBUG - [Node #28] Created Variant: variant::角度::variable_reference
+2025-10-14 03:04:46,420 - typedef_etl - DEBUG -   identifier: variable_reference
+2025-10-14 03:04:46,421 - typedef_etl - DEBUG -   origin: one_of
+2025-10-14 03:04:46,421 - typedef_etl - DEBUG -   description: 角度変数を参照
+2025-10-14 03:04:46,421 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,421 - typedef_etl - DEBUG - [Relation #29] Created HAS_ONE_OF: type::角度 -> variant::角度::variable_reference
+2025-10-14 03:04:46,421 - typedef_etl - DEBUG -   list_origin: one_of
+2025-10-14 03:04:46,421 - typedef_etl - DEBUG - [Node #29] Created Variant: variant::角度::expression
+2025-10-14 03:04:46,421 - typedef_etl - DEBUG -   identifier: expression
+2025-10-14 03:04:46,421 - typedef_etl - DEBUG -   origin: one_of
+2025-10-14 03:04:46,421 - typedef_etl - DEBUG -   description: 式で角度を計算
+2025-10-14 03:04:46,422 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,422 - typedef_etl - DEBUG - [Relation #30] Created HAS_ONE_OF: type::角度 -> variant::角度::expression
+2025-10-14 03:04:46,422 - typedef_etl - DEBUG -   list_origin: one_of
+2025-10-14 03:04:46,422 - typedef_etl - DEBUG - [Node #30] Created Example: example::角度::0
+2025-10-14 03:04:46,422 - typedef_etl - DEBUG -   value: 30.0
+2025-10-14 03:04:46,422 - typedef_etl - DEBUG -   value_json: "30.0"
+2025-10-14 03:04:46,422 - typedef_etl - DEBUG -   explanation: 30度を直接指定
+2025-10-14 03:04:46,422 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,422 - typedef_etl - DEBUG - [Relation #31] Created HAS_EXAMPLE: type::角度 -> example::角度::0
+2025-10-14 03:04:46,423 - typedef_etl - DEBUG - [Relation #32] Created ILLUSTRATES_VARIANT: example::角度::0 -> variant::角度::degree_literal
+2025-10-14 03:04:46,423 - typedef_etl - DEBUG - [Node #31] Created Example: example::角度::1
+2025-10-14 03:04:46,423 - typedef_etl - DEBUG -   value: Angle1
+2025-10-14 03:04:46,424 - typedef_etl - DEBUG -   value_json: "Angle1"
+2025-10-14 03:04:46,424 - typedef_etl - DEBUG -   explanation: 既存角度 Angle1 を参照
+2025-10-14 03:04:46,424 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,424 - typedef_etl - DEBUG - [Relation #33] Created HAS_EXAMPLE: type::角度 -> example::角度::1
+2025-10-14 03:04:46,424 - typedef_etl - DEBUG - [Relation #34] Created ILLUSTRATES_VARIANT: example::角度::1 -> variant::角度::variable_reference
+2025-10-14 03:04:46,424 - typedef_etl - DEBUG - [Node #32] Created Example: example::角度::2
+2025-10-14 03:04:46,424 - typedef_etl - DEBUG -   value: Angle1 * 0.2
+2025-10-14 03:04:46,424 - typedef_etl - DEBUG -   value_json: "Angle1 * 0.2"
+2025-10-14 03:04:46,424 - typedef_etl - DEBUG -   explanation: Angle1 の20%を利用
+2025-10-14 03:04:46,424 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,424 - typedef_etl - DEBUG - [Relation #35] Created HAS_EXAMPLE: type::角度 -> example::角度::2
+2025-10-14 03:04:46,425 - typedef_etl - DEBUG - [Relation #36] Created ILLUSTRATES_VARIANT: example::角度::2 -> variant::角度::expression
+2025-10-14 03:04:46,425 - typedef_etl - DEBUG - [Node #33] Created Source: source::角度::inline
+2025-10-14 03:04:46,425 - typedef_etl - DEBUG -   text: ■角度
+  度(°)単位の数値、変数要素名,式文字列、
+ 例) "30.0" , "Angle1" , "Angle1 * 0.2"
+2025-10-14 03:04:46,425 - typedef_etl - DEBUG - [Relation #37] Created HAS_TYPE: type::角度 -> canonical::string
+2025-10-14 03:04:46,425 - typedef_etl - DEBUG - [Relation #38] Created CITED_FROM: type::角度 -> source::角度::inline
+2025-10-14 03:04:46,425 - typedef_etl - DEBUG - Processing type definition #7: 数値
+2025-10-14 03:04:46,425 - typedef_etl - DEBUG - [Node #34] Created TypeDefinition: type::数値
+2025-10-14 03:04:46,425 - typedef_etl - DEBUG -   name: 数値
+2025-10-14 03:04:46,425 - typedef_etl - DEBUG -   description: 数値、変数要素名、または式を表す文字列。
+2025-10-14 03:04:46,426 - typedef_etl - DEBUG -   text: 数値、変数要素名、または式を表す文字列。
+
+■数値
+  数値、変数要素名,式文字列、
+ 例)  "3", "N1", "N1*5"
+2025-10-14 03:04:46,426 - typedef_etl - DEBUG -   raw_json: {"name":"数値","canonical_type":"string","description":"数値、変数要素名、または式を表す文字列。","one_of":[{"id":"numeric...
+2025-10-14 03:04:46,426 - typedef_etl - DEBUG -   position: 6
+2025-10-14 03:04:46,426 - typedef_etl - DEBUG - [Relation #39] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::数値
+2025-10-14 03:04:46,426 - typedef_etl - DEBUG - [Node #35] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,426 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,426 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,426 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,426 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,426 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,427 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,427 - typedef_etl - DEBUG - [Node #36] Created Variant: variant::数値::numeric_literal
+2025-10-14 03:04:46,427 - typedef_etl - DEBUG -   identifier: numeric_literal
+2025-10-14 03:04:46,427 - typedef_etl - DEBUG -   origin: one_of
+2025-10-14 03:04:46,427 - typedef_etl - DEBUG -   description: 数値リテラル
+2025-10-14 03:04:46,427 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,427 - typedef_etl - DEBUG - [Relation #40] Created HAS_ONE_OF: type::数値 -> variant::数値::numeric_literal
+2025-10-14 03:04:46,427 - typedef_etl - DEBUG -   list_origin: one_of
+2025-10-14 03:04:46,427 - typedef_etl - DEBUG - [Node #37] Created Variant: variant::数値::variable_reference
+2025-10-14 03:04:46,427 - typedef_etl - DEBUG -   identifier: variable_reference
+2025-10-14 03:04:46,427 - typedef_etl - DEBUG -   origin: one_of
+2025-10-14 03:04:46,427 - typedef_etl - DEBUG -   description: 既存の数値変数
+2025-10-14 03:04:46,427 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,427 - typedef_etl - DEBUG - [Relation #41] Created HAS_ONE_OF: type::数値 -> variant::数値::variable_reference
+2025-10-14 03:04:46,427 - typedef_etl - DEBUG -   list_origin: one_of
+2025-10-14 03:04:46,427 - typedef_etl - DEBUG - [Node #38] Created Variant: variant::数値::expression
+2025-10-14 03:04:46,428 - typedef_etl - DEBUG -   identifier: expression
+2025-10-14 03:04:46,428 - typedef_etl - DEBUG -   origin: one_of
+2025-10-14 03:04:46,428 - typedef_etl - DEBUG -   description: 式で数値を指定
+2025-10-14 03:04:46,428 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,428 - typedef_etl - DEBUG - [Relation #42] Created HAS_ONE_OF: type::数値 -> variant::数値::expression
+2025-10-14 03:04:46,428 - typedef_etl - DEBUG -   list_origin: one_of
+2025-10-14 03:04:46,428 - typedef_etl - DEBUG - [Node #39] Created Example: example::数値::0
+2025-10-14 03:04:46,428 - typedef_etl - DEBUG -   value: 3
+2025-10-14 03:04:46,428 - typedef_etl - DEBUG -   value_json: "3"
+2025-10-14 03:04:46,429 - typedef_etl - DEBUG -   explanation: 数値3を直接指定
+2025-10-14 03:04:46,429 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,429 - typedef_etl - DEBUG - [Relation #43] Created HAS_EXAMPLE: type::数値 -> example::数値::0
+2025-10-14 03:04:46,429 - typedef_etl - DEBUG - [Relation #44] Created ILLUSTRATES_VARIANT: example::数値::0 -> variant::数値::numeric_literal
+2025-10-14 03:04:46,429 - typedef_etl - DEBUG - [Node #40] Created Example: example::数値::1
+2025-10-14 03:04:46,429 - typedef_etl - DEBUG -   value: N1
+2025-10-14 03:04:46,429 - typedef_etl - DEBUG -   value_json: "N1"
+2025-10-14 03:04:46,429 - typedef_etl - DEBUG -   explanation: 数値変数 N1 を参照
+2025-10-14 03:04:46,429 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,429 - typedef_etl - DEBUG - [Relation #45] Created HAS_EXAMPLE: type::数値 -> example::数値::1
+2025-10-14 03:04:46,430 - typedef_etl - DEBUG - [Relation #46] Created ILLUSTRATES_VARIANT: example::数値::1 -> variant::数値::variable_reference
+2025-10-14 03:04:46,430 - typedef_etl - DEBUG - [Node #41] Created Example: example::数値::2
+2025-10-14 03:04:46,430 - typedef_etl - DEBUG -   value: N1*5
+2025-10-14 03:04:46,430 - typedef_etl - DEBUG -   value_json: "N1*5"
+2025-10-14 03:04:46,430 - typedef_etl - DEBUG -   explanation: N1 を5倍する式
+2025-10-14 03:04:46,430 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,430 - typedef_etl - DEBUG - [Relation #47] Created HAS_EXAMPLE: type::数値 -> example::数値::2
+2025-10-14 03:04:46,430 - typedef_etl - DEBUG - [Relation #48] Created ILLUSTRATES_VARIANT: example::数値::2 -> variant::数値::expression
+2025-10-14 03:04:46,430 - typedef_etl - DEBUG - [Node #42] Created Source: source::数値::inline
+2025-10-14 03:04:46,431 - typedef_etl - DEBUG -   text: ■数値
+  数値、変数要素名,式文字列、
+ 例)  "3", "N1", "N1*5"
+2025-10-14 03:04:46,431 - typedef_etl - DEBUG - [Relation #49] Created HAS_TYPE: type::数値 -> canonical::string
+2025-10-14 03:04:46,431 - typedef_etl - DEBUG - [Relation #50] Created CITED_FROM: type::数値 -> source::数値::inline
+2025-10-14 03:04:46,431 - typedef_etl - DEBUG - Processing type definition #8: 範囲
+2025-10-14 03:04:46,431 - typedef_etl - DEBUG - [Node #43] Created TypeDefinition: type::範囲
+2025-10-14 03:04:46,431 - typedef_etl - DEBUG -   name: 範囲
+2025-10-14 03:04:46,431 - typedef_etl - DEBUG -   description: 上限、下限の数値をコンマで区切って指定
+2025-10-14 03:04:46,431 - typedef_etl - DEBUG -   text: 上限、下限の数値をコンマで区切って指定
+
+■範囲
+  上限、下限の数値をコンマで区切って指定
+ 例)  "0.0,1.0" ,  "L1,L2", "-1.0,1.0"
+2025-10-14 03:04:46,431 - typedef_etl - DEBUG -   raw_json: {"name":"範囲","canonical_type":"string","description":"上限、下限の数値をコンマで区切って指定","one_of":[{"id":"comma_de...
+2025-10-14 03:04:46,432 - typedef_etl - DEBUG -   position: 7
+2025-10-14 03:04:46,432 - typedef_etl - DEBUG - [Relation #51] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::範囲
+2025-10-14 03:04:46,432 - typedef_etl - DEBUG - [Node #44] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,432 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,432 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,432 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,432 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,432 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,432 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,432 - typedef_etl - DEBUG - [Node #45] Created Variant: variant::範囲::comma_delimited_range
+2025-10-14 03:04:46,432 - typedef_etl - DEBUG -   identifier: comma_delimited_range
+2025-10-14 03:04:46,434 - typedef_etl - DEBUG -   origin: one_of
+2025-10-14 03:04:46,434 - typedef_etl - DEBUG -   description: 数値リテラルを上下限で指定
+2025-10-14 03:04:46,434 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,434 - typedef_etl - DEBUG - [Relation #52] Created HAS_ONE_OF: type::範囲 -> variant::範囲::comma_delimited_range
+2025-10-14 03:04:46,434 - typedef_etl - DEBUG -   list_origin: one_of
+2025-10-14 03:04:46,434 - typedef_etl - DEBUG - [Node #46] Created Variant: variant::範囲::variable_reference
+2025-10-14 03:04:46,434 - typedef_etl - DEBUG -   identifier: variable_reference
+2025-10-14 03:04:46,434 - typedef_etl - DEBUG -   origin: one_of
+2025-10-14 03:04:46,434 - typedef_etl - DEBUG -   description: 変数名で上下限を指定
+2025-10-14 03:04:46,434 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,434 - typedef_etl - DEBUG - [Relation #53] Created HAS_ONE_OF: type::範囲 -> variant::範囲::variable_reference
+2025-10-14 03:04:46,434 - typedef_etl - DEBUG -   list_origin: one_of
+2025-10-14 03:04:46,435 - typedef_etl - DEBUG - [Node #47] Created Example: example::範囲::0
+2025-10-14 03:04:46,435 - typedef_etl - DEBUG -   value: 0.0,1.0
+2025-10-14 03:04:46,435 - typedef_etl - DEBUG -   value_json: "0.0,1.0"
+2025-10-14 03:04:46,435 - typedef_etl - DEBUG -   explanation: 下限0.0, 上限1.0
+2025-10-14 03:04:46,435 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,435 - typedef_etl - DEBUG - [Relation #54] Created HAS_EXAMPLE: type::範囲 -> example::範囲::0
+2025-10-14 03:04:46,435 - typedef_etl - DEBUG - [Relation #55] Created ILLUSTRATES_VARIANT: example::範囲::0 -> variant::範囲::comma_delimited_range
+2025-10-14 03:04:46,435 - typedef_etl - DEBUG - [Node #48] Created Example: example::範囲::1
+2025-10-14 03:04:46,435 - typedef_etl - DEBUG -   value: L1,L2
+2025-10-14 03:04:46,435 - typedef_etl - DEBUG -   value_json: "L1,L2"
+2025-10-14 03:04:46,435 - typedef_etl - DEBUG -   explanation: 変数L1, L2で範囲を指定
+2025-10-14 03:04:46,435 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,435 - typedef_etl - DEBUG - [Relation #56] Created HAS_EXAMPLE: type::範囲 -> example::範囲::1
+2025-10-14 03:04:46,435 - typedef_etl - DEBUG - [Relation #57] Created ILLUSTRATES_VARIANT: example::範囲::1 -> variant::範囲::variable_reference
+2025-10-14 03:04:46,435 - typedef_etl - DEBUG - [Node #49] Created Example: example::範囲::2
+2025-10-14 03:04:46,437 - typedef_etl - DEBUG -   value: -1.0,1.0
+2025-10-14 03:04:46,437 - typedef_etl - DEBUG -   value_json: "-1.0,1.0"
+2025-10-14 03:04:46,437 - typedef_etl - DEBUG -   explanation: 下限-1.0, 上限1.0
+2025-10-14 03:04:46,437 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,437 - typedef_etl - DEBUG - [Relation #58] Created HAS_EXAMPLE: type::範囲 -> example::範囲::2
+2025-10-14 03:04:46,437 - typedef_etl - DEBUG - [Relation #59] Created ILLUSTRATES_VARIANT: example::範囲::2 -> variant::範囲::comma_delimited_range
+2025-10-14 03:04:46,437 - typedef_etl - DEBUG - [Node #50] Created Source: source::範囲::inline
+2025-10-14 03:04:46,437 - typedef_etl - DEBUG -   text: ■範囲
+  上限、下限の数値をコンマで区切って指定
+ 例)  "0.0,1.0" ,  "L1,L2", "-1.0,1.0"
+2025-10-14 03:04:46,437 - typedef_etl - DEBUG - [Relation #60] Created HAS_TYPE: type::範囲 -> canonical::string
+2025-10-14 03:04:46,437 - typedef_etl - DEBUG - [Relation #61] Created CITED_FROM: type::範囲 -> source::範囲::inline
+2025-10-14 03:04:46,437 - typedef_etl - DEBUG - Processing type definition #9: 点
+2025-10-14 03:04:46,438 - typedef_etl - DEBUG - [Node #51] Created TypeDefinition: type::点
+2025-10-14 03:04:46,438 - typedef_etl - DEBUG -   name: 点
+2025-10-14 03:04:46,438 - typedef_etl - DEBUG -   description: モデル座標系の点を表す値。2DはX,Y、3DはX,Y,Z を"," コンマで区切って区切って長さや変数で指定。
+2025-10-14 03:04:46,438 - typedef_etl - DEBUG -   text: モデル座標系の点を表す値。2DはX,Y、3DはX,Y,Z を"," コンマで区切って区切って長さや変数で指定。
+
+■点
+   "," コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（...
+2025-10-14 03:04:46,438 - typedef_etl - DEBUG -   raw_json: {"name":"点","canonical_type":"string","alias":["点(2D)","点(3D)"],"description":"モデル座標系の点を表す値。2DはX,Y、3...
+2025-10-14 03:04:46,438 - typedef_etl - DEBUG -   position: 8
+2025-10-14 03:04:46,438 - typedef_etl - DEBUG - [Relation #62] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::点
+2025-10-14 03:04:46,438 - typedef_etl - DEBUG - [Node #52] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,438 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,438 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,439 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,439 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,439 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,439 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,439 - typedef_etl - DEBUG - [Node #53] Created Alias: alias::点::点(2D)
+2025-10-14 03:04:46,439 - typedef_etl - DEBUG -   name: 点(2D)
+2025-10-14 03:04:46,439 - typedef_etl - DEBUG -   origin: type_definition
+2025-10-14 03:04:46,439 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,439 - typedef_etl - DEBUG - [Relation #63] Created HAS_ALIAS: type::点 -> alias::点::点(2D)
+2025-10-14 03:04:46,439 - typedef_etl - DEBUG - [Node #54] Created Alias: alias::点::点(3D)
+2025-10-14 03:04:46,440 - typedef_etl - DEBUG -   name: 点(3D)
+2025-10-14 03:04:46,440 - typedef_etl - DEBUG -   origin: type_definition
+2025-10-14 03:04:46,440 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Relation #64] Created HAS_ALIAS: type::点 -> alias::点::点(3D)
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Node #55] Created Variant: variant::点::2d
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   identifier: 2d
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   origin: variants
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   description: X,Y
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Relation #65] Created ALIAS_OF_VARIANT: alias::点::点(2D) -> variant::点::2d
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Relation #66] Created HAS_VARIANTS: type::点 -> variant::点::2d
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   list_origin: variants
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Node #56] Created Variant: variant::点::3d
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   identifier: 3d
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   origin: variants
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   description: X,Y,Z
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Relation #67] Created ALIAS_OF_VARIANT: alias::点::点(3D) -> variant::点::3d
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Relation #68] Created HAS_VARIANTS: type::点 -> variant::点::3d
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   list_origin: variants
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Node #57] Created Example: example::点::0
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   value: 100.0,50.0
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   value_json: "100.0,50.0"
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   explanation: 2Dの数値例
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Relation #69] Created HAS_EXAMPLE: type::点 -> example::点::0
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Relation #70] Created ILLUSTRATES_VARIANT: example::点::0 -> variant::点::2d
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Node #58] Created Example: example::点::1
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   value: REF1,0.0
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   value_json: "REF1,0.0"
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   explanation: 変数REF1を用いた2D座標指定
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Relation #71] Created HAS_EXAMPLE: type::点 -> example::点::1
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Relation #72] Created ILLUSTRATES_VARIANT: example::点::1 -> variant::点::2d
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Node #59] Created Example: example::点::2
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   value: 100.0,50.0,0.0
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   value_json: "100.0,50.0,0.0"
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   explanation: 3Dの数値例
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Relation #73] Created HAS_EXAMPLE: type::点 -> example::点::2
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Relation #74] Created ILLUSTRATES_VARIANT: example::点::2 -> variant::点::3d
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Node #60] Created Example: example::点::3
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   value: REF1,0.0,1000.0
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   value_json: "REF1,0.0,1000.0"
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   explanation: 変数REF1を用いた3D座標指定
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   position: 3
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Relation #75] Created HAS_EXAMPLE: type::点 -> example::点::3
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Relation #76] Created ILLUSTRATES_VARIANT: example::点::3 -> variant::点::3d
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Node #61] Created Source: source::点::inline
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   text: ■点
+   "," コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定
+  例) "100.0,50,0,0.0" , "FRM1,0.0,1000.0"
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Relation #77] Created HAS_TYPE: type::点 -> canonical::string
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Relation #78] Created CITED_FROM: type::点 -> source::点::inline
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - Processing type definition #10: 方向
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Node #62] Created TypeDefinition: type::方向
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   name: 方向
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   description: 各軸方向は"+X","-X","+Y","-Y","+Z","-Z"で指定。コンマで区切ってX,Y,Z（3Dの場合）各成分を数値（変数も可）で指定。各成分は数値・変数を許容。
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   text: 各軸方向は"+X","-X","+Y","-Y","+Z","-Z"で指定。コンマで区切ってX,Y,Z（3Dの場合）各成分を数値（変数も可）で指定。各成分は数値・変数を許容。
+
+■方向
+   〇 各軸...
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   raw_json: {"name":"方向","canonical_type":"string","description":"各軸方向は\"+X\",\"-X\",\"+Y\",\"-Y\",\"+Z\",\"-Z\"...
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   position: 9
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Relation #79] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::方向
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Node #63] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Node #64] Created Variant: variant::方向::axis
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   identifier: axis
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   origin: variants
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   description: 軸名で指定（+X など）
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Relation #80] Created HAS_VARIANTS: type::方向 -> variant::方向::axis
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG -   list_origin: variants
+2025-10-14 03:04:46,441 - typedef_etl - DEBUG - [Node #65] Created Variant: variant::方向::vector2
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   identifier: vector2
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   origin: variants
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   description: 2Dベクトルで指定（x,y）
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Relation #81] Created HAS_VARIANTS: type::方向 -> variant::方向::vector2
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   list_origin: variants
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Node #66] Created Variant: variant::方向::vector3
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   identifier: vector3
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   origin: variants
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   description: 3Dベクトルで指定（x,y,z）
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Relation #82] Created HAS_VARIANTS: type::方向 -> variant::方向::vector3
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   list_origin: variants
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Node #67] Created Example: example::方向::0
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   value: +X
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   value_json: "+X"
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   explanation: X正方向を指す軸名
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Relation #83] Created HAS_EXAMPLE: type::方向 -> example::方向::0
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Relation #84] Created ILLUSTRATES_VARIANT: example::方向::0 -> variant::方向::axis
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Node #68] Created Example: example::方向::1
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   value: -X
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   value_json: "-X"
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   explanation: X負方向を指す軸名
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Relation #85] Created HAS_EXAMPLE: type::方向 -> example::方向::1
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Relation #86] Created ILLUSTRATES_VARIANT: example::方向::1 -> variant::方向::axis
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Node #69] Created Example: example::方向::2
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   value: +Y
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   value_json: "+Y"
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   explanation: Y正方向を指す軸名
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Relation #87] Created HAS_EXAMPLE: type::方向 -> example::方向::2
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Relation #88] Created ILLUSTRATES_VARIANT: example::方向::2 -> variant::方向::axis
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Node #70] Created Example: example::方向::3
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   value: -Y
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   value_json: "-Y"
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   explanation: Y負方向を指す軸名
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   position: 3
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Relation #89] Created HAS_EXAMPLE: type::方向 -> example::方向::3
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Relation #90] Created ILLUSTRATES_VARIANT: example::方向::3 -> variant::方向::axis
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Node #71] Created Example: example::方向::4
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   value: +Z
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   value_json: "+Z"
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   explanation: Z正方向を指す軸名
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   position: 4
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Relation #91] Created HAS_EXAMPLE: type::方向 -> example::方向::4
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Relation #92] Created ILLUSTRATES_VARIANT: example::方向::4 -> variant::方向::axis
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Node #72] Created Example: example::方向::5
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   value: -Z
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   value_json: "-Z"
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   explanation: Z負方向を指す軸名
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   position: 5
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Relation #93] Created HAS_EXAMPLE: type::方向 -> example::方向::5
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Relation #94] Created ILLUSTRATES_VARIANT: example::方向::5 -> variant::方向::axis
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Node #73] Created Example: example::方向::6
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   value: 1.0,0.0
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   value_json: "1.0,0.0"
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   explanation: 2Dの数値ベクトル
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   position: 6
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Relation #95] Created HAS_EXAMPLE: type::方向 -> example::方向::6
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Relation #96] Created ILLUSTRATES_VARIANT: example::方向::6 -> variant::方向::vector2
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Node #74] Created Example: example::方向::7
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   value: DX,DY
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   value_json: "DX,DY"
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   explanation: 2Dの変数ベクトル
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG -   position: 7
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Relation #97] Created HAS_EXAMPLE: type::方向 -> example::方向::7
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Relation #98] Created ILLUSTRATES_VARIANT: example::方向::7 -> variant::方向::vector2
+2025-10-14 03:04:46,448 - typedef_etl - DEBUG - [Node #75] Created Example: example::方向::8
+2025-10-14 03:04:46,456 - typedef_etl - DEBUG -   value: DX,0.0
+2025-10-14 03:04:46,456 - typedef_etl - DEBUG -   value_json: "DX,0.0"
+2025-10-14 03:04:46,456 - typedef_etl - DEBUG -   explanation: 2Dの混在（数値+変数）
+2025-10-14 03:04:46,456 - typedef_etl - DEBUG -   position: 8
+2025-10-14 03:04:46,456 - typedef_etl - DEBUG - [Relation #99] Created HAS_EXAMPLE: type::方向 -> example::方向::8
+2025-10-14 03:04:46,456 - typedef_etl - DEBUG - [Relation #100] Created ILLUSTRATES_VARIANT: example::方向::8 -> variant::方向::vector2
+2025-10-14 03:04:46,456 - typedef_etl - DEBUG - [Node #76] Created Example: example::方向::9
+2025-10-14 03:04:46,456 - typedef_etl - DEBUG -   value: 0,0,1
+2025-10-14 03:04:46,456 - typedef_etl - DEBUG -   value_json: "0,0,1"
+2025-10-14 03:04:46,456 - typedef_etl - DEBUG -   explanation: 3Dの数値ベクトル（Z正方向）
+2025-10-14 03:04:46,456 - typedef_etl - DEBUG -   position: 9
+2025-10-14 03:04:46,456 - typedef_etl - DEBUG - [Relation #101] Created HAS_EXAMPLE: type::方向 -> example::方向::9
+2025-10-14 03:04:46,456 - typedef_etl - DEBUG - [Relation #102] Created ILLUSTRATES_VARIANT: example::方向::9 -> variant::方向::vector3
+2025-10-14 03:04:46,456 - typedef_etl - DEBUG - [Node #77] Created Example: example::方向::10
+2025-10-14 03:04:46,456 - typedef_etl - DEBUG -   value: VX,VY,VZ
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   value_json: "VX,VY,VZ"
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   explanation: 3Dの変数ベクトル
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   position: 10
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Relation #103] Created HAS_EXAMPLE: type::方向 -> example::方向::10
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Relation #104] Created ILLUSTRATES_VARIANT: example::方向::10 -> variant::方向::vector3
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Node #78] Created Example: example::方向::11
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   value: VX,0.0,1.0
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   value_json: "VX,0.0,1.0"
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   explanation: 3Dの混在（数値+変数）
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   position: 11
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Relation #105] Created HAS_EXAMPLE: type::方向 -> example::方向::11
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Relation #106] Created ILLUSTRATES_VARIANT: example::方向::11 -> variant::方向::vector3
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Node #79] Created Source: source::方向::inline
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   text: ■方向
+   〇 各軸方向は"+X","-X","+Y","-X","+Z","-Z" で指定
+   〇 "," コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を数値（変数も可）で指定
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Relation #107] Created HAS_TYPE: type::方向 -> canonical::string
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Relation #108] Created CITED_FROM: type::方向 -> source::方向::inline
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - Processing type definition #11: 平面
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Node #80] Created TypeDefinition: type::平面
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   name: 平面
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   description: 先頭は必ず"PL"。グローバル基準面の場合は "PL,軸"（軸はX|Y|Z）で指定する。オフセット距離(長さ)を付ける場合は "PL,O,オフセット,軸" を指定。軸の意味は X=グローバルYZ面, ...
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   text: 先頭は必ず"PL"。グローバル基準面の場合は "PL,軸"（軸はX|Y|Z）で指定する。オフセット距離(長さ)を付ける場合は "PL,O,オフセット,軸" を指定。軸の意味は X=グローバルYZ面, ...
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   raw_json: {"name":"平面","canonical_type":"string","description":"先頭は必ず\"PL\"。グローバル基準面の場合は \"PL,軸\"（軸はX|Y|Z）で指定す...
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   position: 10
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Relation #109] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::平面
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Node #81] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Node #82] Created Variant: variant::平面::global_axis
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   identifier: global_axis
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   origin: variants
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   description: グローバル基準面（軸= X|Y|Z、任意でオフセット指定）
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Relation #110] Created HAS_VARIANTS: type::平面 -> variant::平面::global_axis
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   list_origin: variants
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Node #83] Created Variant: variant::平面::face_ref
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   identifier: face_ref
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   origin: variants
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   description: ボディのフェイス参照で平面を指定（フェイスIDなど）
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Relation #111] Created HAS_VARIANTS: type::平面 -> variant::平面::face_ref
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   list_origin: variants
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Node #84] Created Example: example::平面::0
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   value: PL,Z
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   value_json: "PL,Z"
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   explanation: グローバルXY平面（Z法線）
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Relation #112] Created HAS_EXAMPLE: type::平面 -> example::平面::0
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Relation #113] Created ILLUSTRATES_VARIANT: example::平面::0 -> variant::平面::global_axis
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Node #85] Created Example: example::平面::1
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   value: PL,X
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   value_json: "PL,X"
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   explanation: グローバルYZ平面（X法線）
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Relation #114] Created HAS_EXAMPLE: type::平面 -> example::平面::1
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Relation #115] Created ILLUSTRATES_VARIANT: example::平面::1 -> variant::平面::global_axis
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG - [Node #86] Created Example: example::平面::2
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   value: PL,O,500.0,X
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   value_json: "PL,O,500.0,X"
+2025-10-14 03:04:46,459 - typedef_etl - DEBUG -   explanation: YZ面を+X方向へ500.0移動（数値オフセット）
+2025-10-14 03:04:46,469 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,469 - typedef_etl - DEBUG - [Relation #116] Created HAS_EXAMPLE: type::平面 -> example::平面::2
+2025-10-14 03:04:46,469 - typedef_etl - DEBUG - [Relation #117] Created ILLUSTRATES_VARIANT: example::平面::2 -> variant::平面::global_axis
+2025-10-14 03:04:46,469 - typedef_etl - DEBUG - [Node #87] Created Example: example::平面::3
+2025-10-14 03:04:46,469 - typedef_etl - DEBUG -   value: PL,O,OFST,Y
+2025-10-14 03:04:46,469 - typedef_etl - DEBUG -   value_json: "PL,O,OFST,Y"
+2025-10-14 03:04:46,469 - typedef_etl - DEBUG -   explanation: ZX面を+Y方向へOFSTだけ移動（変数オフセット）
+2025-10-14 03:04:46,469 - typedef_etl - DEBUG -   position: 3
+2025-10-14 03:04:46,469 - typedef_etl - DEBUG - [Relation #118] Created HAS_EXAMPLE: type::平面 -> example::平面::3
+2025-10-14 03:04:46,469 - typedef_etl - DEBUG - [Relation #119] Created ILLUSTRATES_VARIANT: example::平面::3 -> variant::平面::global_axis
+2025-10-14 03:04:46,469 - typedef_etl - DEBUG - [Node #88] Created Example: example::平面::4
+2025-10-14 03:04:46,469 - typedef_etl - DEBUG -   value: PL,O,F,ID@A1B2C3
+2025-10-14 03:04:46,469 - typedef_etl - DEBUG -   value_json: "PL,O,F,ID@A1B2C3"
+2025-10-14 03:04:46,472 - typedef_etl - DEBUG -   explanation: フェイスID参照で平面を指定
+2025-10-14 03:04:46,472 - typedef_etl - DEBUG -   position: 4
+2025-10-14 03:04:46,472 - typedef_etl - DEBUG - [Relation #120] Created HAS_EXAMPLE: type::平面 -> example::平面::4
+2025-10-14 03:04:46,472 - typedef_etl - DEBUG - [Relation #121] Created ILLUSTRATES_VARIANT: example::平面::4 -> variant::平面::face_ref
+2025-10-14 03:04:46,472 - typedef_etl - DEBUG - [Node #89] Created Example: example::平面::5
+2025-10-14 03:04:46,472 - typedef_etl - DEBUG -   value: PL,O,F,FRM1_FACE_TOP
+2025-10-14 03:04:46,472 - typedef_etl - DEBUG -   value_json: "PL,O,F,FRM1_FACE_TOP"
+2025-10-14 03:04:46,472 - typedef_etl - DEBUG -   explanation: 名前参照でフェイス指定
+2025-10-14 03:04:46,472 - typedef_etl - DEBUG -   position: 5
+2025-10-14 03:04:46,472 - typedef_etl - DEBUG - [Relation #122] Created HAS_EXAMPLE: type::平面 -> example::平面::5
+2025-10-14 03:04:46,472 - typedef_etl - DEBUG - [Relation #123] Created ILLUSTRATES_VARIANT: example::平面::5 -> variant::平面::face_ref
+2025-10-14 03:04:46,472 - typedef_etl - DEBUG - [Node #90] Created Source: source::平面::inline
+2025-10-14 03:04:46,472 - typedef_etl - DEBUG -   text: ■平面
+  "," コンマで区切られた文字列で指定。最初のカラムは必ず"PL"
+  次のカラムが"O"の場合はその次のカラムにオフセット距離（長さ）を指定
+  以降は
+ 〇 "X" グローバルＹＺ平面...
+2025-10-14 03:04:46,472 - typedef_etl - DEBUG - [Relation #124] Created HAS_TYPE: type::平面 -> canonical::string
+2025-10-14 03:04:46,478 - typedef_etl - DEBUG - [Relation #125] Created CITED_FROM: type::平面 -> source::平面::inline
+2025-10-14 03:04:46,478 - typedef_etl - DEBUG - Processing type definition #12: 変数単位
+2025-10-14 03:04:46,478 - typedef_etl - DEBUG - [Node #91] Created TypeDefinition: type::変数単位
+2025-10-14 03:04:46,478 - typedef_etl - DEBUG -   name: 変数単位
+2025-10-14 03:04:46,478 - typedef_etl - DEBUG -   description: 変数が表す量の単位を示す文字列。長さ・角度・数値（無次元）のいずれかを指定する。数値は空文字（""）または"num"で表す。
+2025-10-14 03:04:46,478 - typedef_etl - DEBUG -   text: 変数が表す量の単位を示す文字列。長さ・角度・数値（無次元）のいずれかを指定する。数値は空文字（""）または"num"で表す。
+
+■変数単位
+ 長さ "mm","cm","m","in","ft","p...
+2025-10-14 03:04:46,483 - typedef_etl - DEBUG -   raw_json: {"name":"変数単位","canonical_type":"string","description":"変数が表す量の単位を示す文字列。長さ・角度・数値（無次元）のいずれかを指定する。数値は空...
+2025-10-14 03:04:46,483 - typedef_etl - DEBUG -   position: 11
+2025-10-14 03:04:46,483 - typedef_etl - DEBUG - [Relation #126] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::変数単位
+2025-10-14 03:04:46,483 - typedef_etl - DEBUG - [Node #92] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,483 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,483 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,483 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,483 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,483 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,483 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,483 - typedef_etl - DEBUG - [Node #93] Created Variant: variant::変数単位::length
+2025-10-14 03:04:46,483 - typedef_etl - DEBUG -   identifier: length
+2025-10-14 03:04:46,483 - typedef_etl - DEBUG -   origin: variants
+2025-10-14 03:04:46,483 - typedef_etl - DEBUG -   description: 長さの単位（mm, cm, m, in, ft, pt）
+2025-10-14 03:04:46,488 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,489 - typedef_etl - DEBUG - [Relation #127] Created HAS_VARIANTS: type::変数単位 -> variant::変数単位::length
+2025-10-14 03:04:46,489 - typedef_etl - DEBUG -   list_origin: variants
+2025-10-14 03:04:46,489 - typedef_etl - DEBUG - [Node #94] Created Variant: variant::変数単位::angle
+2025-10-14 03:04:46,489 - typedef_etl - DEBUG -   identifier: angle
+2025-10-14 03:04:46,489 - typedef_etl - DEBUG -   origin: variants
+2025-10-14 03:04:46,489 - typedef_etl - DEBUG -   description: 角度の単位（deg, rad）
+2025-10-14 03:04:46,489 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,489 - typedef_etl - DEBUG - [Relation #128] Created HAS_VARIANTS: type::変数単位 -> variant::変数単位::angle
+2025-10-14 03:04:46,489 - typedef_etl - DEBUG -   list_origin: variants
+2025-10-14 03:04:46,489 - typedef_etl - DEBUG - [Node #95] Created Variant: variant::変数単位::number
+2025-10-14 03:04:46,489 - typedef_etl - DEBUG -   identifier: number
+2025-10-14 03:04:46,489 - typedef_etl - DEBUG -   origin: variants
+2025-10-14 03:04:46,489 - typedef_etl - DEBUG -   description: 無次元（空文字 "" または "num"）
+2025-10-14 03:04:46,489 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,489 - typedef_etl - DEBUG - [Relation #129] Created HAS_VARIANTS: type::変数単位 -> variant::変数単位::number
+2025-10-14 03:04:46,489 - typedef_etl - DEBUG -   list_origin: variants
+2025-10-14 03:04:46,493 - typedef_etl - DEBUG - [Node #96] Created Example: example::変数単位::0
+2025-10-14 03:04:46,493 - typedef_etl - DEBUG -   value: mm
+2025-10-14 03:04:46,493 - typedef_etl - DEBUG -   value_json: "mm"
+2025-10-14 03:04:46,493 - typedef_etl - DEBUG -   explanation: 長さ（ミリメートル）
+2025-10-14 03:04:46,493 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,493 - typedef_etl - DEBUG - [Relation #130] Created HAS_EXAMPLE: type::変数単位 -> example::変数単位::0
+2025-10-14 03:04:46,493 - typedef_etl - DEBUG - [Relation #131] Created ILLUSTRATES_VARIANT: example::変数単位::0 -> variant::変数単位::length
+2025-10-14 03:04:46,493 - typedef_etl - DEBUG - [Node #97] Created Example: example::変数単位::1
+2025-10-14 03:04:46,493 - typedef_etl - DEBUG -   value: m
+2025-10-14 03:04:46,493 - typedef_etl - DEBUG -   value_json: "m"
+2025-10-14 03:04:46,493 - typedef_etl - DEBUG -   explanation: 長さ（メートル）
+2025-10-14 03:04:46,493 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,493 - typedef_etl - DEBUG - [Relation #132] Created HAS_EXAMPLE: type::変数単位 -> example::変数単位::1
+2025-10-14 03:04:46,493 - typedef_etl - DEBUG - [Relation #133] Created ILLUSTRATES_VARIANT: example::変数単位::1 -> variant::変数単位::length
+2025-10-14 03:04:46,493 - typedef_etl - DEBUG - [Node #98] Created Example: example::変数単位::2
+2025-10-14 03:04:46,493 - typedef_etl - DEBUG -   value: in
+2025-10-14 03:04:46,495 - typedef_etl - DEBUG -   value_json: "in"
+2025-10-14 03:04:46,495 - typedef_etl - DEBUG -   explanation: 長さ（インチ）
+2025-10-14 03:04:46,495 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,495 - typedef_etl - DEBUG - [Relation #134] Created HAS_EXAMPLE: type::変数単位 -> example::変数単位::2
+2025-10-14 03:04:46,495 - typedef_etl - DEBUG - [Relation #135] Created ILLUSTRATES_VARIANT: example::変数単位::2 -> variant::変数単位::length
+2025-10-14 03:04:46,495 - typedef_etl - DEBUG - [Node #99] Created Example: example::変数単位::3
+2025-10-14 03:04:46,495 - typedef_etl - DEBUG -   value: deg
+2025-10-14 03:04:46,495 - typedef_etl - DEBUG -   value_json: "deg"
+2025-10-14 03:04:46,495 - typedef_etl - DEBUG -   explanation: 角度（度）
+2025-10-14 03:04:46,495 - typedef_etl - DEBUG -   position: 3
+2025-10-14 03:04:46,495 - typedef_etl - DEBUG - [Relation #136] Created HAS_EXAMPLE: type::変数単位 -> example::変数単位::3
+2025-10-14 03:04:46,495 - typedef_etl - DEBUG - [Relation #137] Created ILLUSTRATES_VARIANT: example::変数単位::3 -> variant::変数単位::angle
+2025-10-14 03:04:46,495 - typedef_etl - DEBUG - [Node #100] Created Example: example::変数単位::4
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG -   value: rad
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG -   value_json: "rad"
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG -   explanation: 角度（ラジアン）
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG -   position: 4
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG - [Relation #138] Created HAS_EXAMPLE: type::変数単位 -> example::変数単位::4
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG - [Relation #139] Created ILLUSTRATES_VARIANT: example::変数単位::4 -> variant::変数単位::angle
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG - [Node #101] Created Example: example::変数単位::5
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG -   value: 
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG -   value_json: ""
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG -   explanation: 無次元（空文字）
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG -   position: 5
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG - [Relation #140] Created HAS_EXAMPLE: type::変数単位 -> example::変数単位::5
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG - [Relation #141] Created ILLUSTRATES_VARIANT: example::変数単位::5 -> variant::変数単位::number
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG - [Node #102] Created Example: example::変数単位::6
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG -   value: num
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG -   value_json: "num"
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG -   explanation: 無次元（数値）
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG -   position: 6
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG - [Relation #142] Created HAS_EXAMPLE: type::変数単位 -> example::変数単位::6
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG - [Relation #143] Created ILLUSTRATES_VARIANT: example::変数単位::6 -> variant::変数単位::number
+2025-10-14 03:04:46,498 - typedef_etl - DEBUG - [Node #103] Created Source: source::変数単位::inline
+2025-10-14 03:04:46,503 - typedef_etl - DEBUG -   text: ■変数単位
+ 長さ "mm","cm","m","in","ft","pt"のいずれか
+ 角度 "deg","rad"のいずれか
+ 数値 ""(空白),"num"のいずれか
+2025-10-14 03:04:46,503 - typedef_etl - DEBUG - [Relation #144] Created HAS_TYPE: type::変数単位 -> canonical::string
+2025-10-14 03:04:46,503 - typedef_etl - DEBUG - [Relation #145] Created CITED_FROM: type::変数単位 -> source::変数単位::inline
+2025-10-14 03:04:46,503 - typedef_etl - DEBUG - Processing type definition #13: 要素グループ
+2025-10-14 03:04:46,503 - typedef_etl - DEBUG - [Node #104] Created TypeDefinition: type::要素グループ
+2025-10-14 03:04:46,503 - typedef_etl - DEBUG -   name: 要素グループ
+2025-10-14 03:04:46,503 - typedef_etl - DEBUG -   description: EVO.SHIPの要素グループ名。階層は「/」で区切る。
+2025-10-14 03:04:46,503 - typedef_etl - DEBUG -   text: EVO.SHIPの要素グループ名。階層は「/」で区切る。
+
+■要素グループ
+  EVO.SHIPの要素グループ名
+ 要素グループの階層は"/"で区切る
+2025-10-14 03:04:46,503 - typedef_etl - DEBUG -   raw_json: {"name":"要素グループ","canonical_type":"string","description":"EVO.SHIPの要素グループ名。階層は「/」で区切る。","examples":[...
+2025-10-14 03:04:46,503 - typedef_etl - DEBUG -   position: 12
+2025-10-14 03:04:46,503 - typedef_etl - DEBUG - [Relation #146] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::要素グループ
+2025-10-14 03:04:46,503 - typedef_etl - DEBUG - [Node #105] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,503 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,503 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,503 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,503 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,503 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,503 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,503 - typedef_etl - DEBUG - [Node #106] Created Example: example::要素グループ::0
+2025-10-14 03:04:46,503 - typedef_etl - DEBUG -   value: A
+2025-10-14 03:04:46,508 - typedef_etl - DEBUG -   value_json: "A"
+2025-10-14 03:04:46,508 - typedef_etl - DEBUG -   explanation: 単一のグループ名
+2025-10-14 03:04:46,508 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,510 - typedef_etl - DEBUG - [Relation #147] Created HAS_EXAMPLE: type::要素グループ -> example::要素グループ::0
+2025-10-14 03:04:46,510 - typedef_etl - DEBUG - [Node #107] Created Example: example::要素グループ::1
+2025-10-14 03:04:46,510 - typedef_etl - DEBUG -   value: A/B
+2025-10-14 03:04:46,510 - typedef_etl - DEBUG -   value_json: "A/B"
+2025-10-14 03:04:46,511 - typedef_etl - DEBUG -   explanation: 2階層のグループ
+2025-10-14 03:04:46,511 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,511 - typedef_etl - DEBUG - [Relation #148] Created HAS_EXAMPLE: type::要素グループ -> example::要素グループ::1
+2025-10-14 03:04:46,512 - typedef_etl - DEBUG - [Node #108] Created Source: source::要素グループ::inline
+2025-10-14 03:04:46,512 - typedef_etl - DEBUG -   text: ■要素グループ
+  EVO.SHIPの要素グループ名
+ 要素グループの階層は"/"で区切る
+2025-10-14 03:04:46,512 - typedef_etl - DEBUG - [Relation #149] Created HAS_TYPE: type::要素グループ -> canonical::string
+2025-10-14 03:04:46,512 - typedef_etl - DEBUG - [Relation #150] Created CITED_FROM: type::要素グループ -> source::要素グループ::inline
+2025-10-14 03:04:46,512 - typedef_etl - DEBUG - Processing type definition #14: 注記スタイル
+2025-10-14 03:04:46,512 - typedef_etl - DEBUG - [Node #109] Created TypeDefinition: type::注記スタイル
+2025-10-14 03:04:46,513 - typedef_etl - DEBUG -   name: 注記スタイル
+2025-10-14 03:04:46,513 - typedef_etl - DEBUG -   description: EVO.SHIPに設定している注記スタイルの名称。
+2025-10-14 03:04:46,513 - typedef_etl - DEBUG -   text: EVO.SHIPに設定している注記スタイルの名称。
+
+■注記スタイル
+ EVO.SHIPに設定している注記スタイルの名称
+2025-10-14 03:04:46,513 - typedef_etl - DEBUG -   raw_json: {"name":"注記スタイル","canonical_type":"string","description":"EVO.SHIPに設定している注記スタイルの名称。","examples":[{"v...
+2025-10-14 03:04:46,513 - typedef_etl - DEBUG -   position: 13
+2025-10-14 03:04:46,514 - typedef_etl - DEBUG - [Relation #151] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::注記スタイル
+2025-10-14 03:04:46,514 - typedef_etl - DEBUG - [Node #110] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,514 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,514 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,514 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,514 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,514 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,514 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,515 - typedef_etl - DEBUG - [Node #111] Created Example: example::注記スタイル::0
+2025-10-14 03:04:46,515 - typedef_etl - DEBUG -   value: <NoteStyleName>
+2025-10-14 03:04:46,515 - typedef_etl - DEBUG -   value_json: "<NoteStyleName>"
+2025-10-14 03:04:46,516 - typedef_etl - DEBUG -   explanation: ユーザが設定した注記スタイル名
+2025-10-14 03:04:46,516 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,516 - typedef_etl - DEBUG - [Relation #152] Created HAS_EXAMPLE: type::注記スタイル -> example::注記スタイル::0
+2025-10-14 03:04:46,516 - typedef_etl - DEBUG - [Node #112] Created Example: example::注記スタイル::1
+2025-10-14 03:04:46,516 - typedef_etl - DEBUG -   value: <EVO.SHIPで設定されたスタイル名>
+2025-10-14 03:04:46,516 - typedef_etl - DEBUG -   value_json: "<EVO.SHIPで設定されたスタイル名>"
+2025-10-14 03:04:46,517 - typedef_etl - DEBUG -   explanation: EVO.SHIPの設定で選択された名称
+2025-10-14 03:04:46,517 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,517 - typedef_etl - DEBUG - [Relation #153] Created HAS_EXAMPLE: type::注記スタイル -> example::注記スタイル::1
+2025-10-14 03:04:46,517 - typedef_etl - DEBUG - [Node #113] Created Source: source::注記スタイル::inline
+2025-10-14 03:04:46,517 - typedef_etl - DEBUG -   text: ■注記スタイル
+ EVO.SHIPに設定している注記スタイルの名称
+2025-10-14 03:04:46,517 - typedef_etl - DEBUG - [Relation #154] Created HAS_TYPE: type::注記スタイル -> canonical::string
+2025-10-14 03:04:46,517 - typedef_etl - DEBUG - [Relation #155] Created CITED_FROM: type::注記スタイル -> source::注記スタイル::inline
+2025-10-14 03:04:46,518 - typedef_etl - DEBUG - Processing type definition #15: 材料
+2025-10-14 03:04:46,518 - typedef_etl - DEBUG - [Node #114] Created TypeDefinition: type::材料
+2025-10-14 03:04:46,518 - typedef_etl - DEBUG -   name: 材料
+2025-10-14 03:04:46,518 - typedef_etl - DEBUG -   description: EVO.SHIPに設定されている材料の名称。
+2025-10-14 03:04:46,518 - typedef_etl - DEBUG -   text: EVO.SHIPに設定されている材料の名称。
+
+■材料
+   EVO.SHIPに設定している材料の名称
+2025-10-14 03:04:46,518 - typedef_etl - DEBUG -   raw_json: {"name":"材料","canonical_type":"string","description":"EVO.SHIPに設定されている材料の名称。","examples":[{"value":"...
+2025-10-14 03:04:46,519 - typedef_etl - DEBUG -   position: 14
+2025-10-14 03:04:46,519 - typedef_etl - DEBUG - [Relation #156] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::材料
+2025-10-14 03:04:46,519 - typedef_etl - DEBUG - [Node #115] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,519 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,519 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,519 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,519 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,520 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,520 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,520 - typedef_etl - DEBUG - [Node #116] Created Example: example::材料::0
+2025-10-14 03:04:46,520 - typedef_etl - DEBUG -   value: <MaterialName>
+2025-10-14 03:04:46,520 - typedef_etl - DEBUG -   value_json: "<MaterialName>"
+2025-10-14 03:04:46,520 - typedef_etl - DEBUG -   explanation: EVO.SHIPで設定された材料名
+2025-10-14 03:04:46,520 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,520 - typedef_etl - DEBUG - [Relation #157] Created HAS_EXAMPLE: type::材料 -> example::材料::0
+2025-10-14 03:04:46,520 - typedef_etl - DEBUG - [Node #117] Created Source: source::材料::inline
+2025-10-14 03:04:46,521 - typedef_etl - DEBUG -   text: ■材料
+   EVO.SHIPに設定している材料の名称
+2025-10-14 03:04:46,521 - typedef_etl - DEBUG - [Relation #158] Created HAS_TYPE: type::材料 -> canonical::string
+2025-10-14 03:04:46,521 - typedef_etl - DEBUG - [Relation #159] Created CITED_FROM: type::材料 -> source::材料::inline
+2025-10-14 03:04:46,521 - typedef_etl - DEBUG - Processing type definition #16: スイープ方向
+2025-10-14 03:04:46,522 - typedef_etl - DEBUG - [Node #118] Created TypeDefinition: type::スイープ方向
+2025-10-14 03:04:46,522 - typedef_etl - DEBUG -   name: スイープ方向
+2025-10-14 03:04:46,522 - typedef_etl - DEBUG -   description: スイープ方向を示すコード（方向の種類を指定）。
+2025-10-14 03:04:46,522 - typedef_etl - DEBUG -   text: スイープ方向を示すコード（方向の種類を指定）。
+
+■スイープ方向
+ "N"  順方向
+  "R" 反対方向
+  "B" 両方向
+  "2"  ２方向
+  "T"   貫通
+2025-10-14 03:04:46,522 - typedef_etl - DEBUG -   raw_json: {"name":"スイープ方向","canonical_type":"string","description":"スイープ方向を示すコード（方向の種類を指定）。","examples":[{"val...
+2025-10-14 03:04:46,522 - typedef_etl - DEBUG -   position: 15
+2025-10-14 03:04:46,523 - typedef_etl - DEBUG - [Relation #160] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::スイープ方向
+2025-10-14 03:04:46,523 - typedef_etl - DEBUG - [Node #119] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,523 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,523 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,523 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,523 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,524 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,524 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,524 - typedef_etl - DEBUG - [Node #120] Created Example: example::スイープ方向::0
+2025-10-14 03:04:46,525 - typedef_etl - DEBUG -   value: N
+2025-10-14 03:04:46,525 - typedef_etl - DEBUG -   value_json: "N"
+2025-10-14 03:04:46,525 - typedef_etl - DEBUG -   explanation: 
+2025-10-14 03:04:46,525 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,525 - typedef_etl - DEBUG -   metadata_json: {"meaning":"順方向"}
+2025-10-14 03:04:46,526 - typedef_etl - DEBUG - [Relation #161] Created HAS_EXAMPLE: type::スイープ方向 -> example::スイープ方向::0
+2025-10-14 03:04:46,526 - typedef_etl - DEBUG - [Node #121] Created Example: example::スイープ方向::1
+2025-10-14 03:04:46,526 - typedef_etl - DEBUG -   value: R
+2025-10-14 03:04:46,526 - typedef_etl - DEBUG -   value_json: "R"
+2025-10-14 03:04:46,527 - typedef_etl - DEBUG -   explanation: 
+2025-10-14 03:04:46,527 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,527 - typedef_etl - DEBUG -   metadata_json: {"meaning":"反対方向"}
+2025-10-14 03:04:46,527 - typedef_etl - DEBUG - [Relation #162] Created HAS_EXAMPLE: type::スイープ方向 -> example::スイープ方向::1
+2025-10-14 03:04:46,527 - typedef_etl - DEBUG - [Node #122] Created Example: example::スイープ方向::2
+2025-10-14 03:04:46,527 - typedef_etl - DEBUG -   value: B
+2025-10-14 03:04:46,528 - typedef_etl - DEBUG -   value_json: "B"
+2025-10-14 03:04:46,528 - typedef_etl - DEBUG -   explanation: 
+2025-10-14 03:04:46,528 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,528 - typedef_etl - DEBUG -   metadata_json: {"meaning":"両方向"}
+2025-10-14 03:04:46,528 - typedef_etl - DEBUG - [Relation #163] Created HAS_EXAMPLE: type::スイープ方向 -> example::スイープ方向::2
+2025-10-14 03:04:46,528 - typedef_etl - DEBUG - [Node #123] Created Example: example::スイープ方向::3
+2025-10-14 03:04:46,528 - typedef_etl - DEBUG -   value: 2
+2025-10-14 03:04:46,529 - typedef_etl - DEBUG -   value_json: "2"
+2025-10-14 03:04:46,529 - typedef_etl - DEBUG -   explanation: 
+2025-10-14 03:04:46,529 - typedef_etl - DEBUG -   position: 3
+2025-10-14 03:04:46,529 - typedef_etl - DEBUG -   metadata_json: {"meaning":"２方向"}
+2025-10-14 03:04:46,529 - typedef_etl - DEBUG - [Relation #164] Created HAS_EXAMPLE: type::スイープ方向 -> example::スイープ方向::3
+2025-10-14 03:04:46,529 - typedef_etl - DEBUG - [Node #124] Created Example: example::スイープ方向::4
+2025-10-14 03:04:46,530 - typedef_etl - DEBUG -   value: T
+2025-10-14 03:04:46,530 - typedef_etl - DEBUG -   value_json: "T"
+2025-10-14 03:04:46,530 - typedef_etl - DEBUG -   explanation: 
+2025-10-14 03:04:46,530 - typedef_etl - DEBUG -   position: 4
+2025-10-14 03:04:46,530 - typedef_etl - DEBUG -   metadata_json: {"meaning":"貫通"}
+2025-10-14 03:04:46,531 - typedef_etl - DEBUG - [Relation #165] Created HAS_EXAMPLE: type::スイープ方向 -> example::スイープ方向::4
+2025-10-14 03:04:46,531 - typedef_etl - DEBUG - [Node #125] Created Source: source::スイープ方向::inline
+2025-10-14 03:04:46,531 - typedef_etl - DEBUG -   text: ■スイープ方向
+ "N"  順方向
+  "R" 反対方向
+  "B" 両方向
+  "2"  ２方向
+  "T"   貫通
+2025-10-14 03:04:46,531 - typedef_etl - DEBUG - [Relation #166] Created HAS_TYPE: type::スイープ方向 -> canonical::string
+2025-10-14 03:04:46,531 - typedef_etl - DEBUG - [Relation #167] Created CITED_FROM: type::スイープ方向 -> source::スイープ方向::inline
+2025-10-14 03:04:46,531 - typedef_etl - DEBUG - Processing type definition #17: 厚み付けタイプ
+2025-10-14 03:04:46,532 - typedef_etl - DEBUG - [Node #126] Created TypeDefinition: type::厚み付けタイプ
+2025-10-14 03:04:46,532 - typedef_etl - DEBUG -   name: 厚み付けタイプ
+2025-10-14 03:04:46,532 - typedef_etl - DEBUG -   description: 厚み付けの方向を指定する文字列。
+2025-10-14 03:04:46,532 - typedef_etl - DEBUG -   text: 厚み付けの方向を指定する文字列。
+
+■厚み付けタイプ
+ "+" 内側
+ "-" 外側
+  "B" 両方向
+  "2"  ２方向
+  "" （空文字）厚み付けしない
+2025-10-14 03:04:46,532 - typedef_etl - DEBUG -   raw_json: {"name":"厚み付けタイプ","canonical_type":"string","description":"厚み付けの方向を指定する文字列。","examples":[{"value":"+...
+2025-10-14 03:04:46,533 - typedef_etl - DEBUG -   position: 16
+2025-10-14 03:04:46,533 - typedef_etl - DEBUG - [Relation #168] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::厚み付けタイプ
+2025-10-14 03:04:46,533 - typedef_etl - DEBUG - [Node #127] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,533 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,534 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,534 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,534 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,534 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,534 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,535 - typedef_etl - DEBUG - [Node #128] Created Example: example::厚み付けタイプ::0
+2025-10-14 03:04:46,535 - typedef_etl - DEBUG -   value: +
+2025-10-14 03:04:46,535 - typedef_etl - DEBUG -   value_json: "+"
+2025-10-14 03:04:46,535 - typedef_etl - DEBUG -   explanation: 内側
+2025-10-14 03:04:46,535 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,535 - typedef_etl - DEBUG - [Relation #169] Created HAS_EXAMPLE: type::厚み付けタイプ -> example::厚み付けタイプ::0
+2025-10-14 03:04:46,535 - typedef_etl - DEBUG - [Node #129] Created Example: example::厚み付けタイプ::1
+2025-10-14 03:04:46,535 - typedef_etl - DEBUG -   value: -
+2025-10-14 03:04:46,535 - typedef_etl - DEBUG -   value_json: "-"
+2025-10-14 03:04:46,535 - typedef_etl - DEBUG -   explanation: 外側
+2025-10-14 03:04:46,536 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,536 - typedef_etl - DEBUG - [Relation #170] Created HAS_EXAMPLE: type::厚み付けタイプ -> example::厚み付けタイプ::1
+2025-10-14 03:04:46,536 - typedef_etl - DEBUG - [Node #130] Created Example: example::厚み付けタイプ::2
+2025-10-14 03:04:46,536 - typedef_etl - DEBUG -   value: B
+2025-10-14 03:04:46,536 - typedef_etl - DEBUG -   value_json: "B"
+2025-10-14 03:04:46,536 - typedef_etl - DEBUG -   explanation: 両方向
+2025-10-14 03:04:46,536 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,536 - typedef_etl - DEBUG - [Relation #171] Created HAS_EXAMPLE: type::厚み付けタイプ -> example::厚み付けタイプ::2
+2025-10-14 03:04:46,536 - typedef_etl - DEBUG - [Node #131] Created Example: example::厚み付けタイプ::3
+2025-10-14 03:04:46,537 - typedef_etl - DEBUG -   value: 2
+2025-10-14 03:04:46,537 - typedef_etl - DEBUG -   value_json: "2"
+2025-10-14 03:04:46,537 - typedef_etl - DEBUG -   explanation: ２方向
+2025-10-14 03:04:46,537 - typedef_etl - DEBUG -   position: 3
+2025-10-14 03:04:46,537 - typedef_etl - DEBUG - [Relation #172] Created HAS_EXAMPLE: type::厚み付けタイプ -> example::厚み付けタイプ::3
+2025-10-14 03:04:46,537 - typedef_etl - DEBUG - [Node #132] Created Example: example::厚み付けタイプ::4
+2025-10-14 03:04:46,538 - typedef_etl - DEBUG -   value: 
+2025-10-14 03:04:46,538 - typedef_etl - DEBUG -   value_json: ""
+2025-10-14 03:04:46,538 - typedef_etl - DEBUG -   explanation: 厚み付けしない（空文字）
+2025-10-14 03:04:46,539 - typedef_etl - DEBUG -   position: 4
+2025-10-14 03:04:46,539 - typedef_etl - DEBUG - [Relation #173] Created HAS_EXAMPLE: type::厚み付けタイプ -> example::厚み付けタイプ::4
+2025-10-14 03:04:46,539 - typedef_etl - DEBUG - [Node #133] Created Source: source::厚み付けタイプ::inline
+2025-10-14 03:04:46,539 - typedef_etl - DEBUG -   text: ■厚み付けタイプ
+ "+" 内側
+ "-" 外側
+  "B" 両方向
+  "2"  ２方向
+  "" （空文字）厚み付けしない
+2025-10-14 03:04:46,539 - typedef_etl - DEBUG - [Relation #174] Created HAS_TYPE: type::厚み付けタイプ -> canonical::string
+2025-10-14 03:04:46,540 - typedef_etl - DEBUG - [Relation #175] Created CITED_FROM: type::厚み付けタイプ -> source::厚み付けタイプ::inline
+2025-10-14 03:04:46,540 - typedef_etl - DEBUG - Processing type definition #18: モールド位置
+2025-10-14 03:04:46,540 - typedef_etl - DEBUG - [Node #134] Created TypeDefinition: type::モールド位置
+2025-10-14 03:04:46,540 - typedef_etl - DEBUG -   name: モールド位置
+2025-10-14 03:04:46,541 - typedef_etl - DEBUG -   description: モールド位置の指定。「+」= ＋側、「-」= ー側、空文字 = センター。
+2025-10-14 03:04:46,541 - typedef_etl - DEBUG -   text: モールド位置の指定。「+」= ＋側、「-」= ー側、空文字 = センター。
+
+■モールド位置
+ "+" ＋側
+ "-" ー側
+  "" （空文字）センター
+2025-10-14 03:04:46,541 - typedef_etl - DEBUG -   raw_json: {"name":"モールド位置","canonical_type":"string","description":"モールド位置の指定。「+」= ＋側、「-」= ー側、空文字 = センター。","ex...
+2025-10-14 03:04:46,541 - typedef_etl - DEBUG -   position: 17
+2025-10-14 03:04:46,541 - typedef_etl - DEBUG - [Relation #176] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::モールド位置
+2025-10-14 03:04:46,541 - typedef_etl - DEBUG - [Node #135] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,541 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG - [Node #136] Created Example: example::モールド位置::0
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   value: +
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   value_json: "+"
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   explanation: 
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   metadata_json: {"meaning":"＋側"}
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG - [Relation #177] Created HAS_EXAMPLE: type::モールド位置 -> example::モールド位置::0
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG - [Node #137] Created Example: example::モールド位置::1
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   value: -
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   value_json: "-"
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   explanation: 
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   metadata_json: {"meaning":"ー側"}
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG - [Relation #178] Created HAS_EXAMPLE: type::モールド位置 -> example::モールド位置::1
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG - [Node #138] Created Example: example::モールド位置::2
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   value: 
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   value_json: ""
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   explanation: 
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   metadata_json: {"meaning":"センター（空文字）"}
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG - [Relation #179] Created HAS_EXAMPLE: type::モールド位置 -> example::モールド位置::2
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG - [Node #139] Created Source: source::モールド位置::inline
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   text: ■モールド位置
+ "+" ＋側
+ "-" ー側
+  "" （空文字）センター
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG - [Relation #180] Created HAS_TYPE: type::モールド位置 -> canonical::string
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG - [Relation #181] Created CITED_FROM: type::モールド位置 -> source::モールド位置::inline
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG - Processing type definition #19: オペレーションタイプ （ボディ）
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG - [Node #140] Created TypeDefinition: type::オペレーションタイプ （ボディ）
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   name: オペレーションタイプ （ボディ）
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   description: ボディ演算の種類。「+」= 和、「-」= 削除、「*」= 積。
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   text: ボディ演算の種類。「+」= 和、「-」= 削除、「*」= 積。
+
+■オペレーションタイプ （ボディ）
+ "+" 和
+ "-" 削除
+ "*"  積
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   raw_json: {"name":"オペレーションタイプ （ボディ）","canonical_type":"string","description":"ボディ演算の種類。「+」= 和、「-」= 削除、「*」= 積。"...
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   position: 18
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG - [Relation #182] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::オペレーションタイプ （ボディ）
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG - [Node #141] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG - [Node #142] Created Example: example::オペレーションタイプ （ボディ）::0
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   value: 
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   value_json: null
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   explanation: 
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   metadata_json: {"symbol":"+","meaning":"和"}
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG - [Relation #183] Created HAS_EXAMPLE: type::オペレーションタイプ （ボディ） -> example::オペレーションタイプ （ボディ）::0
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG - [Node #143] Created Example: example::オペレーションタイプ （ボディ）::1
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   value: 
+2025-10-14 03:04:46,542 - typedef_etl - DEBUG -   value_json: null
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   explanation: 
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   metadata_json: {"symbol":"-","meaning":"削除"}
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG - [Relation #184] Created HAS_EXAMPLE: type::オペレーションタイプ （ボディ） -> example::オペレーションタイプ （ボディ）::1
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG - [Node #144] Created Example: example::オペレーションタイプ （ボディ）::2
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   value: 
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   value_json: null
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   explanation: 
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   metadata_json: {"symbol":"*","meaning":"積"}
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG - [Relation #185] Created HAS_EXAMPLE: type::オペレーションタイプ （ボディ） -> example::オペレーションタイプ （ボディ）::2
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG - [Node #145] Created Source: source::オペレーションタイプ （ボディ）::inline
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   text: ■オペレーションタイプ （ボディ）
+ "+" 和
+ "-" 削除
+ "*"  積
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG - [Relation #186] Created HAS_TYPE: type::オペレーションタイプ （ボディ） -> canonical::string
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG - [Relation #187] Created CITED_FROM: type::オペレーションタイプ （ボディ） -> source::オペレーションタイプ （ボディ）::inline
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG - Processing type definition #20: 関連設定
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG - [Node #146] Created TypeDefinition: type::関連設定
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   name: 関連設定
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   description: 関連の種類を指定。値が「B」の場合はボディ関連。それ以外（空白を含む）はフィーチャー関連。
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   text: 関連の種類を指定。値が「B」の場合はボディ関連。それ以外（空白を含む）はフィーチャー関連。
+
+■関連設定
+ ボディ関連とする場合は"B"
+  それ以外（空白含む）はフィーチャー関連
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   raw_json: {"name":"関連設定","canonical_type":"string","description":"関連の種類を指定。値が「B」の場合はボディ関連。それ以外（空白を含む）はフィーチャー関連...
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   position: 19
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG - [Relation #188] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::関連設定
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG - [Node #147] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG - [Node #148] Created Example: example::関連設定::0
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   value: B
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   value_json: "B"
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   explanation: 
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   metadata_json: {"meaning":"ボディ関連"}
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG - [Relation #189] Created HAS_EXAMPLE: type::関連設定 -> example::関連設定::0
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG - [Node #149] Created Example: example::関連設定::1
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   value: 
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   value_json: ""
+2025-10-14 03:04:46,548 - typedef_etl - DEBUG -   explanation: 
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG -   metadata_json: {"meaning":"フィーチャー関連（空白）"}
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG - [Relation #190] Created HAS_EXAMPLE: type::関連設定 -> example::関連設定::1
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG - [Node #150] Created Source: source::関連設定::inline
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG -   text: ■関連設定
+ ボディ関連とする場合は"B"
+  それ以外（空白含む）はフィーチャー関連
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG - [Relation #191] Created HAS_TYPE: type::関連設定 -> canonical::string
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG - [Relation #192] Created CITED_FROM: type::関連設定 -> source::関連設定::inline
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG - Processing type definition #21: 形状タイプ
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG - [Node #151] Created TypeDefinition: type::形状タイプ
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG -   name: 形状タイプ
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG -   description: EVO.SHIPの部材既定寸法設定ファイルで使用される形状番号（文字列）。詳細はヘルプ「EVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイル」を参照。
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG -   text: EVO.SHIPの部材既定寸法設定ファイルで使用される形状番号（文字列）。詳細はヘルプ「EVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイル」を参照。
+
+■形状タイプ
+ EVO.SHIPの部...
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG -   raw_json: {"name":"形状タイプ","canonical_type":"string","description":"EVO.SHIPの部材既定寸法設定ファイルで使用される形状番号（文字列）。詳細はヘルプ...
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG -   position: 20
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG - [Relation #193] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::形状タイプ
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG - [Node #152] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG - [Node #153] Created Example: example::形状タイプ::0
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG -   value: 1007
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG -   value_json: "1007"
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG -   explanation: 平鋼
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,553 - typedef_etl - DEBUG - [Relation #194] Created HAS_EXAMPLE: type::形状タイプ -> example::形状タイプ::0
+2025-10-14 03:04:46,556 - typedef_etl - DEBUG - [Node #154] Created Example: example::形状タイプ::1
+2025-10-14 03:04:46,556 - typedef_etl - DEBUG -   value: 1003
+2025-10-14 03:04:46,556 - typedef_etl - DEBUG -   value_json: "1003"
+2025-10-14 03:04:46,556 - typedef_etl - DEBUG -   explanation: 不等辺不等厚山形鋼
+2025-10-14 03:04:46,556 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,556 - typedef_etl - DEBUG - [Relation #195] Created HAS_EXAMPLE: type::形状タイプ -> example::形状タイプ::1
+2025-10-14 03:04:46,556 - typedef_etl - DEBUG - [Node #155] Created Example: example::形状タイプ::2
+2025-10-14 03:04:46,556 - typedef_etl - DEBUG -   value: 1101
+2025-10-14 03:04:46,556 - typedef_etl - DEBUG -   value_json: "1101"
+2025-10-14 03:04:46,556 - typedef_etl - DEBUG -   explanation: 条材端部Sタイプ
+2025-10-14 03:04:46,556 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,556 - typedef_etl - DEBUG - [Relation #196] Created HAS_EXAMPLE: type::形状タイプ -> example::形状タイプ::2
+2025-10-14 03:04:46,558 - typedef_etl - DEBUG - [Node #156] Created Example: example::形状タイプ::3
+2025-10-14 03:04:46,558 - typedef_etl - DEBUG -   value: 1120
+2025-10-14 03:04:46,558 - typedef_etl - DEBUG -   value_json: "1120"
+2025-10-14 03:04:46,558 - typedef_etl - DEBUG -   explanation: 条材端部スカラップA1タイプ
+2025-10-14 03:04:46,558 - typedef_etl - DEBUG -   position: 3
+2025-10-14 03:04:46,558 - typedef_etl - DEBUG - [Relation #197] Created HAS_EXAMPLE: type::形状タイプ -> example::形状タイプ::3
+2025-10-14 03:04:46,558 - typedef_etl - DEBUG - [Node #157] Created Example: example::形状タイプ::4
+2025-10-14 03:04:46,558 - typedef_etl - DEBUG -   value: 1503
+2025-10-14 03:04:46,558 - typedef_etl - DEBUG -   value_json: "1503"
+2025-10-14 03:04:46,558 - typedef_etl - DEBUG -   explanation: ブラケット2-Bタイプ
+2025-10-14 03:04:46,558 - typedef_etl - DEBUG -   position: 4
+2025-10-14 03:04:46,558 - typedef_etl - DEBUG - [Relation #198] Created HAS_EXAMPLE: type::形状タイプ -> example::形状タイプ::4
+2025-10-14 03:04:46,558 - typedef_etl - DEBUG - [Node #158] Created Source: source::形状タイプ::inline
+2025-10-14 03:04:46,558 - typedef_etl - DEBUG -   text: ■形状タイプ
+ EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号 (ヘルプのEVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイルの項を参照)
+ 例）"1007" 平鋼、"1003"...
+2025-10-14 03:04:46,558 - typedef_etl - DEBUG - [Relation #199] Created HAS_TYPE: type::形状タイプ -> canonical::string
+2025-10-14 03:04:46,561 - typedef_etl - DEBUG - [Relation #200] Created CITED_FROM: type::形状タイプ -> source::形状タイプ::inline
+2025-10-14 03:04:46,561 - typedef_etl - DEBUG - Processing type definition #22: 形状パラメータ
+2025-10-14 03:04:46,561 - typedef_etl - DEBUG - [Node #159] Created TypeDefinition: type::形状パラメータ
+2025-10-14 03:04:46,561 - typedef_etl - DEBUG -   name: 形状パラメータ
+2025-10-14 03:04:46,561 - typedef_etl - DEBUG -   description: 各形状タイプの寸法値を文字列配列で設定する。配列の要素数と並び順は対応する「形状タイプ」に依存し、数値表記の桁や末尾の小数点など原文のフォーマットを保持するため文字列として扱う。
+2025-10-14 03:04:46,561 - typedef_etl - DEBUG -   text: 各形状タイプの寸法値を文字列配列で設定する。配列の要素数と並び順は対応する「形状タイプ」に依存し、数値表記の桁や末尾の小数点など原文のフォーマットを保持するため文字列として扱う。
+
+■形状パラメータ
+...
+2025-10-14 03:04:46,561 - typedef_etl - DEBUG -   raw_json: {"name":"形状パラメータ","canonical_type":"string[]","description":"各形状タイプの寸法値を文字列配列で設定する。配列の要素数と並び順は対応する「形...
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG -   position: 21
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG - [Relation #201] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::形状パラメータ
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG - [Node #160] Created CanonicalType: canonical::string[]
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG -   name: string[]
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG -   description: 文字列を要素とする配列/シーケンス。
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG -   python_module: typing
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG -   python_name: Sequence
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG -   python_qualname: typing.Sequence[str]
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG -   python_description: 文字列を要素とするシーケンス型。
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG - [Node #161] Created Example: example::形状パラメータ::0
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG -   value: ["150.","90.","9.0000000000000018","12.","6."]
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG -   value_json: ["150.","90.","9.0000000000000018","12.","6."]
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG -   explanation: 不等辺山形鋼(1002)の寸法列
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG -   metadata_json: {"shape_type":"1002"}
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG - [Relation #202] Created HAS_EXAMPLE: type::形状パラメータ -> example::形状パラメータ::0
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG - [Node #162] Created Source: source::形状パラメータ::inline
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG -   text: ■形状パラメータ
+  各形状タイプの寸法値を文字列配列で設定
+  例) 不当辺山形鋼(1002)の形状タイプの場合 ["150.","90.","9.0000000000000018","12.","...
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG - [Relation #203] Created HAS_TYPE: type::形状パラメータ -> canonical::string[]
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG - [Relation #204] Created CITED_FROM: type::形状パラメータ -> source::形状パラメータ::inline
+2025-10-14 03:04:46,563 - typedef_etl - DEBUG - Processing type definition #23: 要素
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG - [Node #163] Created TypeDefinition: type::要素
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   name: 要素
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   description: モデル内の要素を参照する識別子。次のいずれかの形式を受け付ける：要素ID（"ID@..."）、要素名/要素グループのパス、板厚面指定の配列（PLS配列）、フェイス指定のCSV文字列。座標成分は数値また...
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   text: モデル内の要素を参照する識別子。次のいずれかの形式を受け付ける：要素ID（"ID@..."）、要素名/要素グループのパス、板厚面指定の配列（PLS配列）、フェイス指定のCSV文字列。座標成分は数値また...
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   raw_json: {"name":"要素","canonical_type":"string","description":"モデル内の要素を参照する識別子。次のいずれかの形式を受け付ける：要素ID（\"ID@...\...
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   position: 22
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG - [Relation #205] Created HAS_TYPE_DEFINITION: type_definitions::collection -> type::要素
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG - [Node #164] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG - [Node #165] Created Variant: variant::要素::element_id
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   identifier: element_id
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   origin: variants
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   description: ユニークIDで指定（例: ID@<32桁hex>）
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   metadata_json: {"value_kind":"string","pattern":"^ID@[0-9a-fA-F]{32}$"}
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG - [Node #166] Created Pattern: pattern::variant::要素::element_id
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   pattern: ^ID@[0-9a-fA-F]{32}$
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   pattern_type: regex
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG - [Relation #206] Created HAS_PATTERN: variant::要素::element_id -> pattern::variant::要素::element_id
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG - [Node #167] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,568 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG - [Relation #207] Created CONSTRAINED_BY_CANONICAL_TYPE: variant::要素::element_id -> canonical::string
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG - [Relation #208] Created HAS_VARIANTS: type::要素 -> variant::要素::element_id
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   list_origin: variants
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG - [Node #168] Created Variant: variant::要素::element_path
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   identifier: element_path
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   origin: variants
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   description: 要素名/要素グループを「/」区切りで指定（重名の場合は不定）
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   metadata_json: {"value_kind":"string","pattern":"^[^/]+(?:/[^/]+)*$"}
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG - [Node #169] Created Pattern: pattern::variant::要素::element_path
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   pattern: ^[^/]+(?:/[^/]+)*$
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   pattern_type: regex
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG - [Relation #209] Created HAS_PATTERN: variant::要素::element_path -> pattern::variant::要素::element_path
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG - [Node #170] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG - [Relation #210] Created CONSTRAINED_BY_CANONICAL_TYPE: variant::要素::element_path -> canonical::string
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG - [Relation #211] Created HAS_VARIANTS: type::要素 -> variant::要素::element_path
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   list_origin: variants
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG - [Node #171] Created Variant: variant::要素::plate_surface_array
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   identifier: plate_surface_array
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   origin: variants
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   description: 板ソリッド要素の板厚面（条材はウェブ）を配列で指定
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   metadata_json: {"value_kind":"string[]","constraints":{"length":7,"schema":["PLS","True|False","False","num|var","n...
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG - [Node #172] Created Constraint: constraint::variant::要素::plate_surface_array
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   kind: structured
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   notes: 2番目は内部穴削除フラグ、3番目は固定で"False"。4–6番目は外側方向ベクトル(x,y,z)。
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   length: 7
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   raw_json: {"length":7,"schema":["PLS","True|False","False","num|var","num|var","num|var","ID@[0-9a-fA-F]{32}"]...
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG - [Relation #212] Created HAS_CONSTRAINT: variant::要素::plate_surface_array -> constraint::variant::要素::plate_surface_array
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG - [Node #173] Created ConstraintSchemaItem: constraint::variant::要素::plate_surface_array::schema::0
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   index: 0
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   value: PLS
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG - [Relation #213] Created HAS_SCHEMA_ITEM: constraint::variant::要素::plate_surface_array -> constraint::variant::要素::plate_surface_array::schema::0
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG - [Node #174] Created LiteralValue: constraint::variant::要素::plate_surface_array::schema::0::literal
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   value: PLS
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   value_type: string
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG - [Relation #214] Created HAS_LITERAL_VALUE: constraint::variant::要素::plate_surface_array::schema::0 -> constraint::variant::要素::plate_surface_array::schema::0::literal
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG - [Node #175] Created ConstraintSchemaItem: constraint::variant::要素::plate_surface_array::schema::1
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   index: 1
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   value: True|False
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG - [Relation #215] Created HAS_SCHEMA_ITEM: constraint::variant::要素::plate_surface_array -> constraint::variant::要素::plate_surface_array::schema::1
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG - [Node #176] Created RegexPattern: constraint::variant::要素::plate_surface_array::schema::1::regex
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   pattern: True|False
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   description: Schema item 1 regex pattern
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG - [Relation #216] Created HAS_REGEX_PATTERN: constraint::variant::要素::plate_surface_array::schema::1 -> constraint::variant::要素::plate_surface_array::schema::1::regex
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG - [Node #177] Created ConstraintSchemaItem: constraint::variant::要素::plate_surface_array::schema::2
+2025-10-14 03:04:46,572 - typedef_etl - DEBUG -   index: 2
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   value: False
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Relation #217] Created HAS_SCHEMA_ITEM: constraint::variant::要素::plate_surface_array -> constraint::variant::要素::plate_surface_array::schema::2
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Node #178] Created LiteralValue: constraint::variant::要素::plate_surface_array::schema::2::literal
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   value: False
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   value_type: string
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Relation #218] Created HAS_LITERAL_VALUE: constraint::variant::要素::plate_surface_array::schema::2 -> constraint::variant::要素::plate_surface_array::schema::2::literal
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Node #179] Created ConstraintSchemaItem: constraint::variant::要素::plate_surface_array::schema::3
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   index: 3
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   value: num|var
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Relation #219] Created HAS_SCHEMA_ITEM: constraint::variant::要素::plate_surface_array -> constraint::variant::要素::plate_surface_array::schema::3
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Node #180] Created RegexPattern: constraint::variant::要素::plate_surface_array::schema::3::regex
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   pattern: num|var
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   description: Schema item 3 regex pattern
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Relation #220] Created HAS_REGEX_PATTERN: constraint::variant::要素::plate_surface_array::schema::3 -> constraint::variant::要素::plate_surface_array::schema::3::regex
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Node #181] Created ConstraintSchemaItem: constraint::variant::要素::plate_surface_array::schema::4
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   index: 4
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   value: num|var
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Relation #221] Created HAS_SCHEMA_ITEM: constraint::variant::要素::plate_surface_array -> constraint::variant::要素::plate_surface_array::schema::4
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Node #182] Created RegexPattern: constraint::variant::要素::plate_surface_array::schema::4::regex
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   pattern: num|var
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   description: Schema item 4 regex pattern
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Relation #222] Created HAS_REGEX_PATTERN: constraint::variant::要素::plate_surface_array::schema::4 -> constraint::variant::要素::plate_surface_array::schema::4::regex
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Node #183] Created ConstraintSchemaItem: constraint::variant::要素::plate_surface_array::schema::5
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   index: 5
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   value: num|var
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Relation #223] Created HAS_SCHEMA_ITEM: constraint::variant::要素::plate_surface_array -> constraint::variant::要素::plate_surface_array::schema::5
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Node #184] Created RegexPattern: constraint::variant::要素::plate_surface_array::schema::5::regex
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   pattern: num|var
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   description: Schema item 5 regex pattern
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Relation #224] Created HAS_REGEX_PATTERN: constraint::variant::要素::plate_surface_array::schema::5 -> constraint::variant::要素::plate_surface_array::schema::5::regex
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Node #185] Created ConstraintSchemaItem: constraint::variant::要素::plate_surface_array::schema::6
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   index: 6
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   value: ID@[0-9a-fA-F]{32}
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Relation #225] Created HAS_SCHEMA_ITEM: constraint::variant::要素::plate_surface_array -> constraint::variant::要素::plate_surface_array::schema::6
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Node #186] Created RegexPattern: constraint::variant::要素::plate_surface_array::schema::6::regex
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   pattern: ID@[0-9a-fA-F]{32}
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   description: Schema item 6 regex pattern
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Relation #226] Created HAS_REGEX_PATTERN: constraint::variant::要素::plate_surface_array::schema::6 -> constraint::variant::要素::plate_surface_array::schema::6::regex
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Node #187] Created CanonicalType: canonical::string[]
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   name: string[]
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   description: 文字列を要素とする配列/シーケンス。
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   python_module: typing
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   python_name: Sequence
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   python_qualname: typing.Sequence[str]
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   python_description: 文字列を要素とするシーケンス型。
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Relation #227] Created CONSTRAINED_BY_CANONICAL_TYPE: variant::要素::plate_surface_array -> canonical::string[]
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Relation #228] Created HAS_VARIANTS: type::要素 -> variant::要素::plate_surface_array
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   list_origin: variants
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Node #188] Created Variant: variant::要素::face_points_csv
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   identifier: face_points_csv
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   origin: variants
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   description: ソリッド/シート要素のフェイスをCSVで指定：ID, F, (x1,y1,z1), (x2,y2,z2), ...
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   position: 3
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   metadata_json: {"value_kind":"string","constraints":{"prefix":"ID@<hex>,F,","coords":"以降は3要素の座標タプルを1つ以上（数値/変数、混在可）"...
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Node #189] Created Constraint: constraint::variant::要素::face_points_csv
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   kind: structured
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   notes: 
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   raw_json: {"prefix":"ID@<hex>,F,","coords":"以降は3要素の座標タプルを1つ以上（数値/変数、混在可）","triplet_multiple":true}
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Relation #229] Created HAS_CONSTRAINT: variant::要素::face_points_csv -> constraint::variant::要素::face_points_csv
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Node #190] Created ConstraintProperty: constraint::variant::要素::face_points_csv::property::prefix
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   property_name: prefix
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   property_value: ID@<hex>,F,
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   property_type: string
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Relation #230] Created HAS_PROPERTY: constraint::variant::要素::face_points_csv -> constraint::variant::要素::face_points_csv::property::prefix
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Node #191] Created ConstraintProperty: constraint::variant::要素::face_points_csv::property::coords
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   property_name: coords
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   property_value: 以降は3要素の座標タプルを1つ以上（数値/変数、混在可）
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   property_type: string
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Relation #231] Created HAS_PROPERTY: constraint::variant::要素::face_points_csv -> constraint::variant::要素::face_points_csv::property::coords
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Node #192] Created ConstraintProperty: constraint::variant::要素::face_points_csv::property::triplet_multiple
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   property_name: triplet_multiple
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   property_value: True
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   property_type: boolean
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Relation #232] Created HAS_PROPERTY: constraint::variant::要素::face_points_csv -> constraint::variant::要素::face_points_csv::property::triplet_multiple
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Node #193] Created CanonicalType: canonical::string
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   name: string
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   description: テキスト値を表す基本的な文字列型。
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   python_module: builtins
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   python_name: str
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   python_qualname: str
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG -   python_description: Python の Unicode 文字列型。
+2025-10-14 03:04:46,578 - typedef_etl - DEBUG - [Relation #233] Created CONSTRAINED_BY_CANONICAL_TYPE: variant::要素::face_points_csv -> canonical::string
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG - [Relation #234] Created HAS_VARIANTS: type::要素 -> variant::要素::face_points_csv
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG -   list_origin: variants
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG - [Node #194] Created Example: example::要素::0
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG -   value: ID@d8baafc30be94411a6ab9d6173c1d1dd
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG -   value_json: "ID@d8baafc30be94411a6ab9d6173c1d1dd"
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG -   explanation: ユニークIDで要素を直接指定
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG -   position: 0
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG - [Relation #235] Created HAS_EXAMPLE: type::要素 -> example::要素::0
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG - [Relation #236] Created ILLUSTRATES_VARIANT: example::要素::0 -> variant::要素::element_id
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG - [Node #195] Created Example: example::要素::1
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG -   value: G1/G2/A
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG -   value_json: "G1/G2/A"
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG -   explanation: グループ/名前で指定（重名があると不定）
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG -   position: 1
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG - [Relation #237] Created HAS_EXAMPLE: type::要素 -> example::要素::1
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG - [Relation #238] Created ILLUSTRATES_VARIANT: example::要素::1 -> variant::要素::element_path
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG - [Node #196] Created Example: example::要素::2
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG -   value: ["PLS","False","False","0.0","0.0","-1.0","ID@d8baafc30be94411a6ab9d6173c1d1dd"]
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG -   value_json: ["PLS","False","False","0.0","0.0","-1.0","ID@d8baafc30be94411a6ab9d6173c1d1dd"]
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG -   explanation: ID要素の(0,0,-1)側の板厚面を指定
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG -   position: 2
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG - [Relation #239] Created HAS_EXAMPLE: type::要素 -> example::要素::2
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG - [Relation #240] Created ILLUSTRATES_VARIANT: example::要素::2 -> variant::要素::plate_surface_array
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG - [Node #197] Created Example: example::要素::3
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG -   value: ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG -   value_json: "ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8"
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG -   explanation: 2点の座標でフェイスを指定（(x,y,z)を複数個）
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG -   position: 3
+2025-10-14 03:04:46,588 - typedef_etl - DEBUG - [Relation #241] Created HAS_EXAMPLE: type::要素 -> example::要素::3
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG - [Relation #242] Created ILLUSTRATES_VARIANT: example::要素::3 -> variant::要素::face_points_csv
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG - [Node #198] Created Source: source::要素::inline
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   text: ■要素
+ (複数要素の場合は文字列の配列とする)
+  EVO.SHIPの各要素を指定する
+
+ 〇IDで指定
+    EVO.SHIPの要素はユニークなIDを必ずもつのでそのID文字列を"ID@"をプレ...
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG - [Relation #243] Created HAS_TYPE: type::要素 -> canonical::string
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG - [Relation #244] Created CITED_FROM: type::要素 -> source::要素::inline
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG - GraphBuilder.build_graph_elements完了: ノード176件, リレーション244件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG - デバッグ統計: ノード作成数=198, リレーション作成数=244
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG - リレーションタイプ別統計:
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   ALIAS_OF_VARIANT: 2件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   CITED_FROM: 23件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   CONSTRAINED_BY_CANONICAL_TYPE: 4件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   HAS_ALIAS: 2件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   HAS_CONSTRAINT: 2件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   HAS_EXAMPLE: 76件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   HAS_LITERAL_VALUE: 2件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   HAS_ONE_OF: 11件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   HAS_PATTERN: 2件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   HAS_PROPERTY: 3件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   HAS_REGEX_PATTERN: 5件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   HAS_SCHEMA_ITEM: 7件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   HAS_TYPE: 23件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   HAS_TYPE_DEFINITION: 23件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   HAS_VARIANTS: 14件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   ILLUSTRATES_VARIANT: 45件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG - ノードラベル別統計:
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   Alias: 2件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   CanonicalType: 5件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   Constraint: 2件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   ConstraintProperty: 3件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   ConstraintSchemaItem: 7件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   Example: 76件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   LiteralValue: 2件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   Pattern: 2件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   RegexPattern: 5件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   Source: 23件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   TypeDefinition: 23件
+2025-10-14 03:04:46,593 - typedef_etl - DEBUG -   TypeDefinitions: 1件
+2025-10-14 03:04:46,598 - typedef_etl - DEBUG -   Variant: 25件
+2025-10-14 03:04:46,598 - typedef_etl - DEBUG - グラフ要素の構築完了
+2025-10-14 03:04:46,598 - typedef_etl - INFO - 生成ノード: 176, リレーション: 244
+2025-10-14 03:04:51,972 - typedef_etl - WARNING - --wipe により過去のノード/リレーションを削除します
+2025-10-14 03:05:00,953 - typedef_etl - INFO - Neo4j へ投入完了: ノード 176, リレーション 244
+2025-10-14 03:05:00,954 - typedef_etl - INFO - 完了
