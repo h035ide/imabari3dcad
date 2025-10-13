@@ -3842,58 +3842,6 @@
           "source": {
             "text": "〇データム平面の作成（回転）\n 既存平面を回転移動コピーしたデータム平面を作成します\n  返り値:作成されたデータム平面の要素ID\nCreateRotatedDatumPlane(\n    Name,         // 文字列：作成するデータム平面要素名称（空文字可）\n    ElementGroup, // 要素グループ：作成するデータム平面要素を要素グループに入れる場合は要素グループを指定（空文字可）\n    Plane,        // 平面：元になる平面を指定する\n    Axis,         // 軸： 回転軸を指定する\n    Angle,        // 角度： 回転角度\n    ReferMethod,   // 関連設定: 要素の関連づけ方法の指定（未実装、使用しない）\n    bUpdate )  // bool：更新フラグ（未実装、使用しない）"
           }
-        },
-        {
-          "category": "Partオブジェクト",
-          "entry_type": "function",
-          "name": "CreateOffsetDatumPlane",
-          "description": "既存平面をオフセット移動コピーしたデータム平面を作成します",
-          "pseudo_code": "CreateOffsetDatumPlane(Name, ElementGroup, Plane, OffsetDistance, ReferMethod, bUpdate)",
-          "params": [
-            {
-              "name": "Name",
-              "type": "文字列",
-              "description": "作成するデータム平面要素名称（空文字可）",
-              "position": 0
-            },
-            {
-              "name": "ElementGroup",
-              "type": "要素グループ",
-              "description": "作成するデータム平面要素を要素グループに入れる場合は要素グループを指定（空文字可）",
-              "position": 1
-            },
-            {
-              "name": "Plane",
-              "type": "平面",
-              "description": "元になる平面を指定する",
-              "position": 2
-            },
-            {
-              "name": "OffsetDistance",
-              "type": "長さ",
-              "description": "元になる平面からのオフセット距離を指定",
-              "position": 3
-            },
-            {
-              "name": "ReferMethod",
-              "type": "関連設定",
-              "description": "要素の関連づけ方法の指定（未実装、使用しない）",
-              "position": 4
-            },
-            {
-              "name": "bUpdate",
-              "type": "bool",
-              "description": "更新フラグ（未実装、使用しない）",
-              "position": 5
-            }
-          ],
-          "returns": {
-            "type": "void",
-            "description": "作成されたデータム平面の要素ID"
-          },
-          "source": {
-            "text": "〇データム平面の作成（移動）\n 既存平面をオフセット移動コピーしたデータム平面を作成します\n  返り値:作成されたデータム平面の要素ID\nCreateOffsetDatumPlane(\n    Name,         // 文字列：作成するデータム平面要素名称（空文字可）\n    ElementGroup, // 要素グループ：作成するデータム平面要素を要素グループに入れる場合は要素グループを指定（空文字可）\n    Plane,        // 平面：元になる平面を指定する\n    OffsetDistance, // 長さ：元になる平面からのオフセット距離を指定\n    ReferMethod,   // 関連設定: 要素の関連づけ方法の指定（未実装、使用しない）\n    bUpdate )  // bool：更新フラグ（未実装、使用しない）"
-          }
         }
       ]
 }
