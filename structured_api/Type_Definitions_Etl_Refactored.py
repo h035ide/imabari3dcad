@@ -460,7 +460,6 @@ class TypeDefinitionProcessor:
                 or self.node_builder._to_str(entry)
             )
             description_v = entry.get("description") or entry.get("desc") or ""
-            # value_kind = entry.get("value_kind")  # 現在は未使用
             constraints = (
                 entry.get("constraints")
                 if isinstance(entry.get("constraints"), dict)
@@ -472,7 +471,6 @@ class TypeDefinitionProcessor:
         else:
             identifier = self.node_builder._to_str(entry)
             description_v = ""
-            # value_kind = None  # 現在は未使用
             constraints = None
             metadata = {"literal": identifier}
 
