@@ -767,10 +767,14 @@ def load_api_entries(json_path: Path) -> List[ApiEntryRecord]:
     return records
 
 
+# 全角スペースを半角スペースに置換するための定数
+FULLWIDTH_SPACE = "　"
+
+
 def normalize_neo4j_uri(uri: str) -> str:
     if not uri:
         return uri
-    trimmed = str(uri).strip().replace("　", " ")
+    trimmed = str(uri).strip().replace(FULLWIDTH_SPACE, " ")
     if (trimmed.startswith("\"") and trimmed.endswith("\"")) or (
         trimmed.startswith("'") and trimmed.endswith("'")
     ):

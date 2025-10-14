@@ -844,8 +844,12 @@ class GraphBuilder:
             relations.extend(td_relations)
 
             # 追加のリレーションを作成
-            additional_relations = self._create_additional_relations(td, td_nodes)
+            additional_relations, additional_nodes = self._create_additional_relations(td, td_nodes)
             relations.extend(additional_relations)
+
+            # 追加のノードをマップに追加
+            for node in additional_nodes:
+                nodes_map[node.uid] = node
 
         final_nodes = list(nodes_map.values())
         LOGGER.debug(
@@ -881,24 +885,34 @@ class GraphBuilder:
 
     def _create_additional_relations(
         self, td: Dict[str, Any], nodes: List[Node]
-    ) -> List[Relation]:
+    ) -> Tuple[List[Relation], List[Node]]:
         """追加のリレーションを作成する"""
         relations = []
+        additional_nodes = []
         name = (td.get("name") or td.get("type_name") or "").strip()
         if not name:
-            return relations
+            return relations, additional_nodes
 
         td_uid = f"type::{name}"
 
         # カノニカル型へのリレーション（対応するカノニカルノードが作成されている場合のみ）
         canonical = (td.get("canonical_type") or "").strip()
         if canonical:
-            # カノニカルノードが作成されているかチェック
-            canonical_node = self._build_canonical_type_node(canonical)
-            if canonical_node:
+            # 既存のノードにカノニカルノードがあるかチェック
+            canonical_uid = f"canonical::{canonical}"
+            canonical_exists = any(node.uid == canonical_uid for node in nodes)
+
+            if not canonical_exists:
+                # カノニカルノードが存在しない場合は作成
+                canonical_node = self._build_canonical_type_node(canonical)
+                if canonical_node:
+                    additional_nodes.append(canonical_node)
+
+            # カノニカルノードが存在する場合のみリレーションを作成
+            if canonical_exists or additional_nodes:
                 relations.append(
                     self.relation_builder.create_relation(
-                        td_uid, "HAS_TYPE", f"canonical::{canonical}"
+                        td_uid, "HAS_TYPE", canonical_uid
                     )
                 )
 
@@ -916,7 +930,7 @@ class GraphBuilder:
                 self.relation_builder.create_relation(td_uid, "CITED_FROM", source_uid)
             )
 
-        return relations
+        return relations, additional_nodes
 
 
 # 既存の関数群は残す（Neo4j操作、メイン処理など）
@@ -1176,8 +1190,6 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
         default=None,
         help="canonical_type に付随する Python 型メタ情報の JSON (任意)",
     )
-    # TODO: If OpenAI API integration is added, re-enable the following argument:
-    # parser.add_argument("--openai-api-key", default=os.getenv("OPENAI_API_KEY"))
     parser.add_argument(
         "--neo4j-uri",
         type=str,
