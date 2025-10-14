@@ -890,14 +890,17 @@ class GraphBuilder:
 
         td_uid = f"type::{name}"
 
-        # カノニカル型へのリレーション
+        # カノニカル型へのリレーション（対応するカノニカルノードが作成されている場合のみ）
         canonical = (td.get("canonical_type") or "").strip()
         if canonical:
-            relations.append(
-                self.relation_builder.create_relation(
-                    td_uid, "HAS_TYPE", f"canonical::{canonical}"
+            # カノニカルノードが作成されているかチェック
+            canonical_node = self._build_canonical_type_node(canonical)
+            if canonical_node:
+                relations.append(
+                    self.relation_builder.create_relation(
+                        td_uid, "HAS_TYPE", f"canonical::{canonical}"
+                    )
                 )
-            )
 
         # エイリアスからバリアントへのリレーションは _process_single_variant で処理済み
 
