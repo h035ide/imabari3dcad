@@ -533,16 +533,17 @@ class TypeDefinitionProcessor:
             relations.extend(constraint_relations)
 
         canonical_key = self.node_builder._to_str(value_kind).strip() if value_kind is not None else ""
-        if canonical_key and self.config.canonical_meta.get(canonical_key):
+        # value_kind が与えられている場合は、canonical_meta に未登録でもカノニカル型ノードを必ず生成してからリレーションを張る
+        if canonical_key:
             canonical_node = self._build_canonical_type_node(canonical_key)
             if canonical_node:
                 nodes.append(canonical_node)
-            canonical_relation = self.relation_builder.create_relation(
-                variant_uid,
-                "CONSTRAINED_BY_CANONICAL_TYPE",
-                f"canonical::{canonical_key}",
-            )
-            relations.append(canonical_relation)
+                canonical_relation = self.relation_builder.create_relation(
+                    variant_uid,
+                    "CONSTRAINED_BY_CANONICAL_TYPE",
+                    f"canonical::{canonical_key}",
+                )
+                relations.append(canonical_relation)
 
         return nodes, relations
 
