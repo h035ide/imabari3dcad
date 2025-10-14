@@ -58,14 +58,14 @@ def _stringify(value: Any) -> str:
         return str(value)
     try:
         return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
-    except Exception:
+    except (TypeError, ValueError):
         return str(value)
 
 
 def _safe_json(value: Any) -> str:
     try:
         return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
-    except Exception:
+    except (TypeError, ValueError):
         return _stringify(value)
 
 

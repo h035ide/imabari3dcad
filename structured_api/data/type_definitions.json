@@ -506,7 +506,8 @@
           "id": "element_id",
           "description": "ユニークIDで指定（例: ID@<32桁hex>）",
           "value_kind": "string",
-          "pattern": "^ID@[0-9a-fA-F]{32}$"
+          "pattern": "^ID@[0-9a-fA-F]{32}$",
+          "pattern_description": "32桁の16進数ID（UUID v4の長さに準拠）"
         },
         {
           "id": "element_path",

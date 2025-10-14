@@ -1157,7 +1157,7 @@ def clear_database_contents(
                         "データベース '%s' が存在しないため作成します", database
                     )
                     system_session.run(f"CREATE DATABASE `{database}`")
-        except Exception as exc:
+        except (ConnectionError, OSError, RuntimeError) as exc:
             LOGGER.debug(
                 "データベース存在確認でエラーが発生しましたが処理を継続します: %s", exc
             )
