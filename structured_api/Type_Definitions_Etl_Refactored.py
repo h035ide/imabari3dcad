@@ -904,7 +904,7 @@ class GraphBuilder:
 
             if not canonical_exists:
                 # カノニカルノードが存在しない場合は作成
-                canonical_node = self._build_canonical_type_node(canonical)
+                canonical_node = self.type_processor._build_canonical_type_node(canonical)
                 if canonical_node:
                     additional_nodes.append(canonical_node)
 
