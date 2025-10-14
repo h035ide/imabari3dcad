@@ -8342,3 +8342,21 @@
 2025-10-14 03:04:51,972 - typedef_etl - WARNING - --wipe により過去のノード/リレーションを削除します
 2025-10-14 03:05:00,953 - typedef_etl - INFO - Neo4j へ投入完了: ノード 176, リレーション 244
 2025-10-14 03:05:00,954 - typedef_etl - INFO - 完了
+2025-10-14 16:59:42,609 - typedef_etl - DEBUG - ログ設定完了 - ファイル: C:\Users\akiro\workfolder\imabari3dcad\structured_api\type_definitions_etl.log, コンソール: INFO以上, ファイル: DEBUG以上
+2025-10-14 16:59:42,609 - typedef_etl - INFO - ログファイルに保存中: C:\Users\akiro\workfolder\imabari3dcad\structured_api\type_definitions_etl.log
+2025-10-14 16:59:42,611 - typedef_etl - DEBUG - main関数開始
+2025-10-14 16:59:42,617 - typedef_etl - INFO - JSON を読み込み: C:\Users\akiro\workfolder\imabari3dcad\structured_api\data\type_definitions.json
+2025-10-14 16:59:42,617 - typedef_etl - DEBUG - 型定義JSONファイルを読み込み開始: C:\Users\akiro\workfolder\imabari3dcad\structured_api\data\type_definitions.json
+2025-10-14 16:59:42,618 - typedef_etl - DEBUG - 型定義読み込み完了: 23件
+2025-10-14 16:59:42,618 - typedef_etl - INFO - 定義の件数: 23
+2025-10-14 16:59:42,618 - typedef_etl - DEBUG - GraphBuilderを初期化中
+2025-10-14 16:59:42,618 - typedef_etl - DEBUG - グラフ要素の構築開始
+2025-10-14 16:59:42,618 - typedef_etl - DEBUG - GraphBuilder.build_graph_elements開始: 23件の定義を処理
+2025-10-14 16:59:42,622 - typedef_etl - DEBUG - GraphBuilder.build_graph_elements完了: ノード176件, リレーション244件
+2025-10-14 16:59:42,622 - typedef_etl - DEBUG - グラフ要素の構築完了
+2025-10-14 16:59:42,622 - typedef_etl - INFO - 生成ノード: 176, リレーション: 244
+2025-10-14 16:59:42,627 - typedef_etl - INFO - トリプルを書き出しました: structured_api\typedef_triples.json
+2025-10-14 16:59:43,661 - typedef_etl - WARNING - データベース 'demo' を完全にクリアします
+2025-10-14 16:59:46,408 - typedef_etl - INFO - データベース 'demo' のクリアが完了しました
+2025-10-14 16:59:51,393 - typedef_etl - INFO - Neo4j へ投入完了: ノード 176, リレーション 244
+2025-10-14 16:59:51,394 - typedef_etl - INFO - 完了

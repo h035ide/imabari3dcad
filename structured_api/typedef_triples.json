@@ -2403,11 +2403,27 @@
       }
     },
     {
+      "src_uid": "alias::点::点(2D)",
+      "rel_type": "ALIAS_OF_VARIANT",
+      "dst_uid": "variant::点::2d",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "type::点",
       "rel_type": "HAS_VARIANTS",
       "dst_uid": "variant::点::2d",
       "props": {
         "list_origin": "variants",
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "alias::点::点(3D)",
+      "rel_type": "ALIAS_OF_VARIANT",
+      "dst_uid": "variant::点::3d",
+      "props": {
         "managed_tag": "type_definitions_etl"
       }
     },
@@ -3525,11 +3541,43 @@
       }
     },
     {
+      "src_uid": "variant::要素::element_id",
+      "rel_type": "HAS_PATTERN",
+      "dst_uid": "pattern::variant::要素::element_id",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "variant::要素::element_id",
+      "rel_type": "CONSTRAINED_BY_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "type::要素",
       "rel_type": "HAS_VARIANTS",
       "dst_uid": "variant::要素::element_id",
       "props": {
         "list_origin": "variants",
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "variant::要素::element_path",
+      "rel_type": "HAS_PATTERN",
+      "dst_uid": "pattern::variant::要素::element_path",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "variant::要素::element_path",
+      "rel_type": "CONSTRAINED_BY_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {
         "managed_tag": "type_definitions_etl"
       }
     },
@@ -3543,11 +3591,179 @@
       }
     },
     {
+      "src_uid": "variant::要素::plate_surface_array",
+      "rel_type": "HAS_CONSTRAINT",
+      "dst_uid": "constraint::variant::要素::plate_surface_array",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::plate_surface_array",
+      "rel_type": "HAS_SCHEMA_ITEM",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::0",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::plate_surface_array::schema::0",
+      "rel_type": "HAS_LITERAL_VALUE",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::0::literal",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::plate_surface_array",
+      "rel_type": "HAS_SCHEMA_ITEM",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::1",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::plate_surface_array::schema::1",
+      "rel_type": "HAS_REGEX_PATTERN",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::1::regex",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::plate_surface_array",
+      "rel_type": "HAS_SCHEMA_ITEM",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::2",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::plate_surface_array::schema::2",
+      "rel_type": "HAS_LITERAL_VALUE",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::2::literal",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::plate_surface_array",
+      "rel_type": "HAS_SCHEMA_ITEM",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::3",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::plate_surface_array::schema::3",
+      "rel_type": "HAS_REGEX_PATTERN",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::3::regex",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::plate_surface_array",
+      "rel_type": "HAS_SCHEMA_ITEM",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::4",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::plate_surface_array::schema::4",
+      "rel_type": "HAS_REGEX_PATTERN",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::4::regex",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::plate_surface_array",
+      "rel_type": "HAS_SCHEMA_ITEM",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::5",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::plate_surface_array::schema::5",
+      "rel_type": "HAS_REGEX_PATTERN",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::5::regex",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::plate_surface_array",
+      "rel_type": "HAS_SCHEMA_ITEM",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::6",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::plate_surface_array::schema::6",
+      "rel_type": "HAS_REGEX_PATTERN",
+      "dst_uid": "constraint::variant::要素::plate_surface_array::schema::6::regex",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "variant::要素::plate_surface_array",
+      "rel_type": "CONSTRAINED_BY_CANONICAL_TYPE",
+      "dst_uid": "canonical::string[]",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
       "src_uid": "type::要素",
       "rel_type": "HAS_VARIANTS",
       "dst_uid": "variant::要素::plate_surface_array",
       "props": {
         "list_origin": "variants",
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "variant::要素::face_points_csv",
+      "rel_type": "HAS_CONSTRAINT",
+      "dst_uid": "constraint::variant::要素::face_points_csv",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::face_points_csv",
+      "rel_type": "HAS_PROPERTY",
+      "dst_uid": "constraint::variant::要素::face_points_csv::property::prefix",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::face_points_csv",
+      "rel_type": "HAS_PROPERTY",
+      "dst_uid": "constraint::variant::要素::face_points_csv::property::coords",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "constraint::variant::要素::face_points_csv",
+      "rel_type": "HAS_PROPERTY",
+      "dst_uid": "constraint::variant::要素::face_points_csv::property::triplet_multiple",
+      "props": {
+        "managed_tag": "type_definitions_etl"
+      }
+    },
+    {
+      "src_uid": "variant::要素::face_points_csv",
+      "rel_type": "CONSTRAINED_BY_CANONICAL_TYPE",
+      "dst_uid": "canonical::string",
+      "props": {
         "managed_tag": "type_definitions_etl"
       }
     },
@@ -3627,38 +3843,6 @@
     {
       "src_uid": "type::要素",
       "rel_type": "HAS_TYPE",
-      "dst_uid": "canonical::string",
-      "props": {
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "src_uid": "variant::要素::element_id",
-      "rel_type": "CONSTRAINED_BY_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
-      "props": {
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "src_uid": "variant::要素::element_path",
-      "rel_type": "CONSTRAINED_BY_CANONICAL_TYPE",
-      "dst_uid": "canonical::string",
-      "props": {
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "src_uid": "variant::要素::plate_surface_array",
-      "rel_type": "CONSTRAINED_BY_CANONICAL_TYPE",
-      "dst_uid": "canonical::string[]",
-      "props": {
-        "managed_tag": "type_definitions_etl"
-      }
-    },
-    {
-      "src_uid": "variant::要素::face_points_csv",
-      "rel_type": "CONSTRAINED_BY_CANONICAL_TYPE",
       "dst_uid": "canonical::string",
       "props": {
         "managed_tag": "type_definitions_etl"
