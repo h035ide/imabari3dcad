@@ -124,5 +124,5 @@ structured_api/demo_qa/
 - [ ] `tools/` 以下のインデックス生成スクリプトを実装し、CI で存在確認を行うジョブを追加した。
 - [ ] Layer B/A/Pipeline/Fusion/Response Builder の `pydantic` モデルを定義し、型互換性テストを通過した。
 - [ ] LLM キャッシュとフォールバックが統合テストで確認できるよう、再現手順を doc/README に記録した。
-- [ ] Neo4j テンプレート T1〜T6 の仕様書（入力／出力フィールド、適用条件）を社内 Wiki に公開した。
+- [ ] Neo4j テンプレート T1〜T6 の仕様書（入力／出力フィールド、適用条件）を作成した。
 
