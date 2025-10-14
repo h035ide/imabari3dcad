@@ -1,0 +1,1262 @@
+[
+  {
+    "subject_id": "type::文字列",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::文字列",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::string",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::string",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::浮動小数点",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::浮動小数点",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::float",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::float",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::整数",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::整数",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::integer",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::integer",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::bool",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::bool",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::bool",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::bool",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::bool",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::bool",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::bool::0",
+    "object_label": "Example",
+    "object_name": "example::bool::0",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::bool",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::bool",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::bool::1",
+    "object_label": "Example",
+    "object_name": "example::bool::1",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::長さ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::長さ",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::string",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::string",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::長さ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::長さ",
+    "predicate": "HAS_VARIANT",
+    "object_id": "oneof::長さ::millimeter_literal",
+    "object_label": "OneOfVariant",
+    "object_name": "oneof::長さ::millimeter_literal",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::長さ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::長さ",
+    "predicate": "HAS_VARIANT",
+    "object_id": "oneof::長さ::variable_reference",
+    "object_label": "OneOfVariant",
+    "object_name": "oneof::長さ::variable_reference",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::長さ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::長さ",
+    "predicate": "HAS_VARIANT",
+    "object_id": "oneof::長さ::expression",
+    "object_label": "OneOfVariant",
+    "object_name": "oneof::長さ::expression",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::長さ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::長さ",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::長さ::0",
+    "object_label": "Example",
+    "object_name": "example::長さ::0",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::長さ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::長さ",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::長さ::1",
+    "object_label": "Example",
+    "object_name": "example::長さ::1",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::長さ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::長さ",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::長さ::2",
+    "object_label": "Example",
+    "object_name": "example::長さ::2",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::角度",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::角度",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::string",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::string",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::角度",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::角度",
+    "predicate": "HAS_VARIANT",
+    "object_id": "oneof::角度::degree_literal",
+    "object_label": "OneOfVariant",
+    "object_name": "oneof::角度::degree_literal",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::角度",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::角度",
+    "predicate": "HAS_VARIANT",
+    "object_id": "oneof::角度::variable_reference",
+    "object_label": "OneOfVariant",
+    "object_name": "oneof::角度::variable_reference",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::角度",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::角度",
+    "predicate": "HAS_VARIANT",
+    "object_id": "oneof::角度::expression",
+    "object_label": "OneOfVariant",
+    "object_name": "oneof::角度::expression",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::角度",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::角度",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::角度::0",
+    "object_label": "Example",
+    "object_name": "example::角度::0",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::角度",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::角度",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::角度::1",
+    "object_label": "Example",
+    "object_name": "example::角度::1",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::角度",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::角度",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::角度::2",
+    "object_label": "Example",
+    "object_name": "example::角度::2",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::数値",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::数値",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::string",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::string",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::数値",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::数値",
+    "predicate": "HAS_VARIANT",
+    "object_id": "oneof::数値::numeric_literal",
+    "object_label": "OneOfVariant",
+    "object_name": "oneof::数値::numeric_literal",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::数値",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::数値",
+    "predicate": "HAS_VARIANT",
+    "object_id": "oneof::数値::variable_reference",
+    "object_label": "OneOfVariant",
+    "object_name": "oneof::数値::variable_reference",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::数値",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::数値",
+    "predicate": "HAS_VARIANT",
+    "object_id": "oneof::数値::expression",
+    "object_label": "OneOfVariant",
+    "object_name": "oneof::数値::expression",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::数値",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::数値",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::数値::0",
+    "object_label": "Example",
+    "object_name": "example::数値::0",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::数値",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::数値",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::数値::1",
+    "object_label": "Example",
+    "object_name": "example::数値::1",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::数値",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::数値",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::数値::2",
+    "object_label": "Example",
+    "object_name": "example::数値::2",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::範囲",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::範囲",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::string",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::string",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::範囲",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::範囲",
+    "predicate": "HAS_VARIANT",
+    "object_id": "oneof::範囲::comma_delimited_range",
+    "object_label": "OneOfVariant",
+    "object_name": "oneof::範囲::comma_delimited_range",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::範囲",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::範囲",
+    "predicate": "HAS_VARIANT",
+    "object_id": "oneof::範囲::variable_reference",
+    "object_label": "OneOfVariant",
+    "object_name": "oneof::範囲::variable_reference",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::範囲",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::範囲",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::範囲::0",
+    "object_label": "Example",
+    "object_name": "example::範囲::0",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::範囲",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::範囲",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::範囲::1",
+    "object_label": "Example",
+    "object_name": "example::範囲::1",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::範囲",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::範囲",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::範囲::2",
+    "object_label": "Example",
+    "object_name": "example::範囲::2",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::点",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::点",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::string",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::string",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::点",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::点",
+    "predicate": "HAS_ALIAS",
+    "object_id": "alias::点(2D)",
+    "object_label": "Alias",
+    "object_name": "alias::点(2D)",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::点",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::点",
+    "predicate": "HAS_ALIAS",
+    "object_id": "alias::点(3D)",
+    "object_label": "Alias",
+    "object_name": "alias::点(3D)",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::点",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::点",
+    "predicate": "HAS_VARIANT",
+    "object_id": "variant::点::2d",
+    "object_label": "Variant",
+    "object_name": "variant::点::2d",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::点",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::点",
+    "predicate": "HAS_VARIANT",
+    "object_id": "variant::点::3d",
+    "object_label": "Variant",
+    "object_name": "variant::点::3d",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::点",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::点",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::点::0",
+    "object_label": "Example",
+    "object_name": "example::点::0",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::点",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::点",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::点::1",
+    "object_label": "Example",
+    "object_name": "example::点::1",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::点",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::点",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::点::2",
+    "object_label": "Example",
+    "object_name": "example::点::2",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::点",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::点",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::点::3",
+    "object_label": "Example",
+    "object_name": "example::点::3",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::方向",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::string",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::string",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::方向",
+    "predicate": "HAS_VARIANT",
+    "object_id": "variant::方向::axis",
+    "object_label": "Variant",
+    "object_name": "variant::方向::axis",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::方向",
+    "predicate": "HAS_VARIANT",
+    "object_id": "variant::方向::vector2",
+    "object_label": "Variant",
+    "object_name": "variant::方向::vector2",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::方向",
+    "predicate": "HAS_VARIANT",
+    "object_id": "variant::方向::vector3",
+    "object_label": "Variant",
+    "object_name": "variant::方向::vector3",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::方向",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::方向::0",
+    "object_label": "Example",
+    "object_name": "example::方向::0",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::方向",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::方向::1",
+    "object_label": "Example",
+    "object_name": "example::方向::1",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::方向",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::方向::2",
+    "object_label": "Example",
+    "object_name": "example::方向::2",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::方向",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::方向::3",
+    "object_label": "Example",
+    "object_name": "example::方向::3",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::方向",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::方向::4",
+    "object_label": "Example",
+    "object_name": "example::方向::4",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::方向",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::方向::5",
+    "object_label": "Example",
+    "object_name": "example::方向::5",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::方向",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::方向::6",
+    "object_label": "Example",
+    "object_name": "example::方向::6",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::方向",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::方向::7",
+    "object_label": "Example",
+    "object_name": "example::方向::7",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::方向",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::方向::8",
+    "object_label": "Example",
+    "object_name": "example::方向::8",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::方向",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::方向::9",
+    "object_label": "Example",
+    "object_name": "example::方向::9",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::方向",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::方向::10",
+    "object_label": "Example",
+    "object_name": "example::方向::10",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::方向",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::方向::11",
+    "object_label": "Example",
+    "object_name": "example::方向::11",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::平面",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::平面",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::string",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::string",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::平面",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::平面",
+    "predicate": "HAS_VARIANT",
+    "object_id": "variant::平面::global_axis",
+    "object_label": "Variant",
+    "object_name": "variant::平面::global_axis",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::平面",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::平面",
+    "predicate": "HAS_VARIANT",
+    "object_id": "variant::平面::face_ref",
+    "object_label": "Variant",
+    "object_name": "variant::平面::face_ref",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::平面",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::平面",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::平面::0",
+    "object_label": "Example",
+    "object_name": "example::平面::0",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::平面",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::平面",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::平面::1",
+    "object_label": "Example",
+    "object_name": "example::平面::1",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::平面",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::平面",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::平面::2",
+    "object_label": "Example",
+    "object_name": "example::平面::2",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::平面",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::平面",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::平面::3",
+    "object_label": "Example",
+    "object_name": "example::平面::3",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::平面",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::平面",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::平面::4",
+    "object_label": "Example",
+    "object_name": "example::平面::4",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::平面",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::平面",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::平面::5",
+    "object_label": "Example",
+    "object_name": "example::平面::5",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::変数単位",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::変数単位",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::string",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::string",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::変数単位",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::変数単位",
+    "predicate": "HAS_VARIANT",
+    "object_id": "variant::変数単位::length",
+    "object_label": "Variant",
+    "object_name": "variant::変数単位::length",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::変数単位",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::変数単位",
+    "predicate": "HAS_VARIANT",
+    "object_id": "variant::変数単位::angle",
+    "object_label": "Variant",
+    "object_name": "variant::変数単位::angle",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::変数単位",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::変数単位",
+    "predicate": "HAS_VARIANT",
+    "object_id": "variant::変数単位::number",
+    "object_label": "Variant",
+    "object_name": "variant::変数単位::number",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::変数単位",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::変数単位",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::変数単位::0",
+    "object_label": "Example",
+    "object_name": "example::変数単位::0",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::変数単位",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::変数単位",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::変数単位::1",
+    "object_label": "Example",
+    "object_name": "example::変数単位::1",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::変数単位",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::変数単位",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::変数単位::2",
+    "object_label": "Example",
+    "object_name": "example::変数単位::2",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::変数単位",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::変数単位",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::変数単位::3",
+    "object_label": "Example",
+    "object_name": "example::変数単位::3",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::変数単位",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::変数単位",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::変数単位::4",
+    "object_label": "Example",
+    "object_name": "example::変数単位::4",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::変数単位",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::変数単位",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::変数単位::5",
+    "object_label": "Example",
+    "object_name": "example::変数単位::5",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::変数単位",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::変数単位",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::変数単位::6",
+    "object_label": "Example",
+    "object_name": "example::変数単位::6",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::要素グループ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::要素グループ",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::string",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::string",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::要素グループ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::要素グループ",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::要素グループ::0",
+    "object_label": "Example",
+    "object_name": "example::要素グループ::0",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::要素グループ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::要素グループ",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::要素グループ::1",
+    "object_label": "Example",
+    "object_name": "example::要素グループ::1",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::注記スタイル",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::注記スタイル",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::string",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::string",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::注記スタイル",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::注記スタイル",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::注記スタイル::0",
+    "object_label": "Example",
+    "object_name": "example::注記スタイル::0",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::注記スタイル",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::注記スタイル",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::注記スタイル::1",
+    "object_label": "Example",
+    "object_name": "example::注記スタイル::1",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::材料",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::材料",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::string",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::string",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::材料",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::材料",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::材料::0",
+    "object_label": "Example",
+    "object_name": "example::材料::0",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::スイープ方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::スイープ方向",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::string",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::string",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::スイープ方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::スイープ方向",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::スイープ方向::0",
+    "object_label": "Example",
+    "object_name": "example::スイープ方向::0",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::スイープ方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::スイープ方向",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::スイープ方向::1",
+    "object_label": "Example",
+    "object_name": "example::スイープ方向::1",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::スイープ方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::スイープ方向",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::スイープ方向::2",
+    "object_label": "Example",
+    "object_name": "example::スイープ方向::2",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::スイープ方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::スイープ方向",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::スイープ方向::3",
+    "object_label": "Example",
+    "object_name": "example::スイープ方向::3",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::スイープ方向",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::スイープ方向",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::スイープ方向::4",
+    "object_label": "Example",
+    "object_name": "example::スイープ方向::4",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::厚み付けタイプ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::厚み付けタイプ",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::string",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::string",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::厚み付けタイプ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::厚み付けタイプ",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::厚み付けタイプ::0",
+    "object_label": "Example",
+    "object_name": "example::厚み付けタイプ::0",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::厚み付けタイプ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::厚み付けタイプ",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::厚み付けタイプ::1",
+    "object_label": "Example",
+    "object_name": "example::厚み付けタイプ::1",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::厚み付けタイプ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::厚み付けタイプ",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::厚み付けタイプ::2",
+    "object_label": "Example",
+    "object_name": "example::厚み付けタイプ::2",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::厚み付けタイプ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::厚み付けタイプ",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::厚み付けタイプ::3",
+    "object_label": "Example",
+    "object_name": "example::厚み付けタイプ::3",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::厚み付けタイプ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::厚み付けタイプ",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::厚み付けタイプ::4",
+    "object_label": "Example",
+    "object_name": "example::厚み付けタイプ::4",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::モールド位置",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::モールド位置",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::string",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::string",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::モールド位置",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::モールド位置",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::モールド位置::0",
+    "object_label": "Example",
+    "object_name": "example::モールド位置::0",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::モールド位置",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::モールド位置",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::モールド位置::1",
+    "object_label": "Example",
+    "object_name": "example::モールド位置::1",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::モールド位置",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::モールド位置",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::モールド位置::2",
+    "object_label": "Example",
+    "object_name": "example::モールド位置::2",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::オペレーションタイプ （ボディ）",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::オペレーションタイプ （ボディ）",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::string",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::string",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::オペレーションタイプ （ボディ）",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::オペレーションタイプ （ボディ）",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::オペレーションタイプ （ボディ）::0",
+    "object_label": "Example",
+    "object_name": "example::オペレーションタイプ （ボディ）::0",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::オペレーションタイプ （ボディ）",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::オペレーションタイプ （ボディ）",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::オペレーションタイプ （ボディ）::1",
+    "object_label": "Example",
+    "object_name": "example::オペレーションタイプ （ボディ）::1",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::オペレーションタイプ （ボディ）",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::オペレーションタイプ （ボディ）",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::オペレーションタイプ （ボディ）::2",
+    "object_label": "Example",
+    "object_name": "example::オペレーションタイプ （ボディ）::2",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::関連設定",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::関連設定",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::string",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::string",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::関連設定",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::関連設定",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::関連設定::0",
+    "object_label": "Example",
+    "object_name": "example::関連設定::0",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::関連設定",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::関連設定",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::関連設定::1",
+    "object_label": "Example",
+    "object_name": "example::関連設定::1",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::形状タイプ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::形状タイプ",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::string",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::string",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::形状タイプ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::形状タイプ",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::形状タイプ::0",
+    "object_label": "Example",
+    "object_name": "example::形状タイプ::0",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::形状タイプ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::形状タイプ",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::形状タイプ::1",
+    "object_label": "Example",
+    "object_name": "example::形状タイプ::1",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::形状タイプ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::形状タイプ",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::形状タイプ::2",
+    "object_label": "Example",
+    "object_name": "example::形状タイプ::2",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::形状タイプ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::形状タイプ",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::形状タイプ::3",
+    "object_label": "Example",
+    "object_name": "example::形状タイプ::3",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::形状タイプ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::形状タイプ",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::形状タイプ::4",
+    "object_label": "Example",
+    "object_name": "example::形状タイプ::4",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::形状パラメータ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::形状パラメータ",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::string[]",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::string[]",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::形状パラメータ",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::形状パラメータ",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::形状パラメータ::0",
+    "object_label": "Example",
+    "object_name": "example::形状パラメータ::0",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::要素",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::要素",
+    "predicate": "HAS_CANONICAL_TYPE",
+    "object_id": "canonical::string",
+    "object_label": "CanonicalType",
+    "object_name": "canonical::string",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::要素",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::要素",
+    "predicate": "HAS_VARIANT",
+    "object_id": "variant::要素::element_id",
+    "object_label": "Variant",
+    "object_name": "variant::要素::element_id",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::要素",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::要素",
+    "predicate": "HAS_VARIANT",
+    "object_id": "variant::要素::element_path",
+    "object_label": "Variant",
+    "object_name": "variant::要素::element_path",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::要素",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::要素",
+    "predicate": "HAS_VARIANT",
+    "object_id": "variant::要素::plate_surface_array",
+    "object_label": "Variant",
+    "object_name": "variant::要素::plate_surface_array",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::要素",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::要素",
+    "predicate": "HAS_VARIANT",
+    "object_id": "variant::要素::face_points_csv",
+    "object_label": "Variant",
+    "object_name": "variant::要素::face_points_csv",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::要素",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::要素",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::要素::0",
+    "object_label": "Example",
+    "object_name": "example::要素::0",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::要素",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::要素",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::要素::1",
+    "object_label": "Example",
+    "object_name": "example::要素::1",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::要素",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::要素",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::要素::2",
+    "object_label": "Example",
+    "object_name": "example::要素::2",
+    "edge_properties": {}
+  },
+  {
+    "subject_id": "type::要素",
+    "subject_label": "TypeDefinition",
+    "subject_name": "type::要素",
+    "predicate": "HAS_EXAMPLE",
+    "object_id": "example::要素::3",
+    "object_label": "Example",
+    "object_name": "example::要素::3",
+    "edge_properties": {}
+  }
+]
