@@ -20,14 +20,32 @@
 - 項目整合チェック
   - 各 API について、パラメータの数・順序・名前・型・必須/任意・デフォルト値、戻り値型/配列を照合
   - 型は `DataProcessor.normalize_type_name()` で正規化して比較
+- リンク一貫性チェック
+  - 抽出結果に付与する `source_refs`（チャンク開始/終了行・ファイル名）が入力元と整合しているかを検証
+  - Neo4j/Chroma での同一判定用に生成するキー（例: `canonical_id`、`source_span_hash`）の重複・欠落を確認
+- 設計整合チェック（LangChain/LlamaIndex連携）
+  - LangChain Tool 呼び出しログに記録されたステップ数と `graph_state.execution_trace` の整合を確認
+  - LlamaIndex の `Node` メタデータに含めた `doc_source_id`・`span` が抽出結果の `source_refs` と一致しているかを突合
 - 指標（メトリクス）
   - 型カバレッジ = |S_out ∩ S_arg| / |S_arg|
   - APIカバレッジ = |F_out ∩ F_src| / |F_src|
   - パラメータ一致率 = 一致パラメータ数 / 総パラメータ数
   - 重大差分件数（例: 欠落API、型不一致）
+  - リンク完全率 = `source_refs` が有効かつユニークな API 件数 / 総 API 件数
+  - 自己修正成功率 = LangGraph 再抽出により解消された差分件数 / 再抽出対象件数
+  - ベースライン比較での回帰指標（後述の基準を満たすこと）
 
 ### 2. 実装構成
-- 新規スクリプト: `doc_parser/validate_parsed_output.py`
+- LangGraph orchestrator: `doc_parser/pipeline_langgraph.py`
+  - LangChain の `Runnable` と LangGraph の `StateGraph` を併用し、ノードをクラス実装で提供。
+  - `GraphState` dataclass に以下を保持: `chunk_stats`, `function_stats`, `retry_queue`, `extraction_outputs`, `validator_report`, `execution_trace`。
+- LlamaIndex リポジトリ: `doc_parser/index_builder.py`
+  - `SimpleDirectoryReader` + `SentenceSplitter` で `api.txt` をチャンク化し、`MetadataExtractor` により `doc_source_id`・`span_start`・`span_end`・`heading_path` を付与。
+  - 生成した `VectorStoreIndex` を Chroma ストアへ永続化し、LangChain の `Chroma` retriever と共有メタデータ構造を用意。
+- 自己修正エージェント: `doc_parser/self_heal.py`
+  - LangChain の `Tool` として `retrieve_source(tool_input)`（LlamaIndex→原文返却）と `call_extractor(tool_input)`（LLM 抽出）を定義。
+  - LangGraph の `RetryController` ノードから差分項目を受け取り、原文スパンを再取得して再抽出フローにリダイレクト。
+- バリデータ: `doc_parser/validate_parsed_output.py`
   - 役割: 入力ソースと生成物を読み、差分とメトリクスを出力
   - 引数:
     - `--api-doc data/src/api.txt`
@@ -35,29 +53,49 @@
     - `--parsed doc_parser/parsed_api_result.json`
     - `--format json|text`（既定 text）
     - `--fail-on <none|missing|all>`（CI向け閾値）
+    - `--baseline doc/validation_baseline.json`（既存レポートと比較し回帰を検出）
+    - `--graph-metrics doc_parser/graph_metrics.json`（LangGraph ステージ統計をインポート）
 - 既存CLI統合: `doc_paser.py`
-  - 追加フラグ: `--validate-against-src`
-  - 解析直後にバリデータ呼び出し（内部関数 or サブプロセス）
-  - 失敗条件に応じて非ゼロ終了（CI用途）
+  - 追加フラグ: `--validate-against-src`, `--use-langgraph`, `--rebuild-index`
+  - LangGraph で抽出後、`graph_metrics.json` と `parsed_api_result.json` を生成し、バリデータを同期呼び出し。
+  - CI向けに `--baseline` を渡し、閾値（例: 型95%・API95%）は `.validationrc` に YAML 形式で保存し共有。
 
 ### 3. 主要ロジック（擬似仕様）
-- 型抽出（入力）: `api_arg.txt` の型名を抽出（正規表現/既知辞書）。コメント/例は除外。
-- API抽出（入力）: `api.txt` から関数/オブジェクト名を抽出（見出し/定義パターンの正規表現化）。
+- 型抽出（入力）: `api_arg.txt` の型見出し行（先頭`■`）を走査し、`^■\s*(?P<name>[^\s\(]+)` の正規表現で S_arg を構築。
+  - 説明文や例 (`例)`, インデント付き行) は無視し、抽出後に `DataProcessor.normalize_type_name()` で正規化。
+  - 用語揺れ・別名は `type_alias_map`（例: 「浮動小数点」→`float`）で吸収し、重複を除外した集合として S_arg を確定。
+- API抽出（入力）
+  - LlamaIndex で構築した `Document` から `heading_path` を辿り、関数ごとに `FunctionMetadata` を生成。
+  - 正規表現ベースのフォールバック抽出を併用し、両者の差分を `graph_state.function_stats.expected` に記録。
+- LangGraph ノードロジック
+  - `ChunkLoader`: LlamaIndex の `Document` チャンクを読み出し、LangChain `Runnable` へ引き渡す辞書構造（`chunk_id`, `text`, `span`）。
+  - `FunctionSplitter`: heading/表形式を解析し、関数単位の `TaskPayload` を生成、件数を `graph_state.function_stats.detected` に追記。
+  - `LLMExtractor`: LangChain の `ChatPromptTemplate` + `JsonOutputParser` で厳格スキーマを強制、LangSmith トレーシング ID を `execution_trace` に記録。
+  - `SelfHealAgent`: 差分付きペイロードを入力すると、LlamaIndex retriever から原文を復元し `LLMExtractor` を再実行。
+  - `PostProcessor`: 型正規化、配列判定、必須推定、デフォルト値整形、`position`/`canonical_id` の付与。
+  - `Aggregator`: 同名関数のマージ、型集合のユニーク化、`parsed_api_result.json` への集約。
+  - `Validator`: 既存差分検証ロジックを呼び出し、メトリクス計算とベースライン比較を実施。
 - 出力パース: `parsed_api_result.json` の `type_definitions`・`api_entries` を取得。
 - 正規化: 型名は両側で `DataProcessor.normalize_type_name()`、配列は `_is_array_type`/`_strip_array_notation`。
+- リンク生成: `normalized_name` と `source_refs` を元に `canonical_id`・`source_span_hash` を付与し、LlamaIndex ノードIDとも突合。
 - 照合: 型（S_arg vs S_out）、API（F_src vs F_out）、各APIの params/returns 詳細一致。
 - 出力: text（サマリ＋差分）、json（欠落/余剰/不一致詳細・メトリクス）。
+  - JSON には `canonical_id`、`source_span_hash`、`normalized_name` を含め Neo4j/Chroma 取り込み時のキーに利用
 
 ### 4. CLI/UX
-- 解析＋検証一括: `uv run python doc_parser/doc_paser.py --validate-against-src --verbose`
+- LangGraph + LlamaIndex 実行: `uv run python doc_parser/doc_paser.py --use-langgraph --rebuild-index --validate-against-src`
+- 解析＋検証一括（既存 pipeline）: `uv run python doc_parser/doc_paser.py --validate-against-src --verbose`
 - 生成物のみ検証: `uv run python doc_parser/validate_parsed_output.py --format text`
-- JSON レポート: `uv run python doc_parser/validate_parsed_output.py --format json > validation_report.json`
+- JSON レポート: `uv run python doc_parser/validate_parsed_output.py --format json --emit-graph-metrics doc_parser/graph_metrics.json > validation_report.json`
+- ベースライン比較: `uv run python doc_parser/validate_parsed_output.py --baseline doc/validation_baseline.json --fail-on all`
 
 ### 5. テスト計画（pytest）
 - 型網羅: 入力に含む型がすべて出力されるケース／欠落ケース
 - API網羅: 入力関数がすべて出力される／一部欠落
 - パラメータ整合: 位置・必須・デフォルト・型の不一致
 - 境界: 空配列、戻り値 void、配列型判定
+- リンク検証: `source_refs` 欠落・重複、`canonical_id` 衝突、`source_span_hash` 不一致
+- ベースライン回帰: 既存レポートとの差分が閾値に応じて検知されるか
 
 ### 6. スケジュール/工数目安
 - バリデータ実装: 0.5〜1.0日（入力の正規表現整備次第）
@@ -72,16 +110,25 @@
 ### データフロー
 - 入力: `api_arg.txt`→型集合 S_arg、`api.txt`→API集合 F_src
 - 出力: `parsed_api_result.json`→S_out・F_out・各 API 詳細
-- 処理: 正規化→集合比較→詳細比較
+- 処理: 正規化→集合比較→詳細比較→リンク生成（`canonical_id`/`source_span_hash`）→ベースライン比較
 - 出力: `stdout`（text）/ JSON レポート（オプションでファイル書き出し）
+
+### アクセプタンス基準
+- 型カバレッジ・APIカバレッジともに 95%以上（閾値は `.validationrc` で管理し共有）
+- `source_refs` 欠落率 0%、`canonical_id` 重複 0 件、`source_span_hash` の衝突なし
+- ベースライン比較で重大差分（欠落API/型不一致/必須フラグ変更）が増えていないこと
+- CI 実行では `--fail-on missing` を既定とし、重大差分検知時に Slack/Teams へレポート送信
 
 ### エラー処理
 - 入力ファイル未発見・エンコーディング問題は `read_file_safely` を流用
 - JSON パース失敗は例外＋非ゼロ終了（`--format json` 時はエラーJSONも可）
+- ベースラインファイル未指定/未検出時は警告ログを出力し比較をスキップ（CIでは必須）
 
 ### 失敗基準（例）
 - `--fail-on missing`: 欠落（型/API/主要フィールド）が1つでもあれば非ゼロ終了
 - `--fail-on all`: 欠落または不一致・余剰があれば非ゼロ終了
+- ベースライン差分が許容閾値（例: 欠落API 0 件、パラメータ不一致 5 件以内）を超過
+- `source_refs` の欠落/重複が検知された場合
 
 ---
 
@@ -94,6 +141,15 @@
   - `uv run python doc_parser/validate_parsed_output.py --format text`
 - JSON レポート
   - `uv run python doc_parser/validate_parsed_output.py --format json > validation_report.json`
+- ベースライン比較
+  - `uv run python doc_parser/validate_parsed_output.py --baseline doc/validation_baseline.json --fail-on all`
+
+### トリアージ手順
+- CI 失敗時は検証レポートのメトリクス差分を確認し、`missing`・`mismatch`・`link_failure` のカテゴリごとに整理
+- `graph_metrics.json` の `function_stats`・`self_heal` を確認し、どのステージで落ちたかをトリアージ
+- 欠落API/型が発生したチャンクを特定し、`--reconcile-missing-only` で再抽出 → 解消しない場合は LlamaIndex retriever で原文を参照
+- 人手レビューが必要な項目はチケット化し、`source_refs` と `canonical_id` を添付して Neo4j/Chroma 上のノードを直接参照
+- 再抽出後はベースラインを更新し、差分承認を記録（`doc/validation_baseline.json` を Pull Request に同梱）
 
 ### 出力例（text）
 - 型カバレッジ: 26/27 (96.3%)
@@ -104,6 +160,7 @@
 - 整合差分（例）
   - OpenDocument.params[1].default_value: expected=false, actual="false"
   - View.GetViews.returns.is_array: expected=true, actual=false
+- リンク完全率: 114/118 (96.6%) - 欠落: Drawing.Open, Part.CreateSketchEllipse2
 
 ---
 
@@ -112,6 +169,8 @@
 - HTML レポート
 - 表記ゆれ辞書の強化（真偽/有無/単位）
 - 不一致を自動パッチ提案（LLM による修正候補生成）
+- Neo4j/Chroma への格納時に差分状態・カバレッジ指標をメタデータ保存し、長期トレンドをダッシュボードで可視化
+- 低カバレッジ関数を優先度付きで人手レビューに回すフロー（レビューフィードバックの自動取込）
 
 
 ---
@@ -121,27 +180,29 @@
 ### 目的
 - LLM 抽出の網羅性・安定性を高めつつ、差分検証と再抽出で品質を底上げする。
 
-### 流れ（高レベル）
-1. チャンク化（`api.txt`）
-   - 大見出し（例: Application/Document/Part …）単位に分割
-   - 各チャンク内で関数ブロックを検出（関数名を示す見出し〜次の関数見出し直前まで）
-2. 関数単位の LLM 抽出（1 関数 = 1 プロンプト）
-   - 厳格な JSON スキーマで出力（`entry_type/name/description/category/params[]/returns/is_array/notes/implementation_status/source_refs`）
-   - 推測禁止・未記載は null を明言、JSON のみ出力
-   - `source_refs` に `file/start_line/end_line` を含めて後段の検証根拠に利用
-3. 関数ごとの後処理
-   - `DataProcessor.normalize_type_name()` による型正規化
-   - 配列判定（`_is_array_type/_strip_array_notation`）
-   - 必須推定（`infer_is_required`）、デフォルト値正規化（`_normalize_default_value`）、`position` 付与
-4. 集約・重複排除
-   - 同名エントリはフィールド充足度の高いものを優先しマージ、差異は `notes` に集約
-   - 型名は正規化後にユニーク化
-5. 入力突合バリデーション
-   - 型網羅（`api_arg.txt`）/API網羅（`api.txt`）/項目整合（params/returns）
-   - 欠落や不一致のある関数のみ、該当チャンクを再投入して再抽出（Few-shot 指南付き）
-6. 最終出力
-   - `parsed_api_result.json` を保存、検証レポートとメトリクスを出力
-
+### LangGraph ワークフロー詳細
+1. インデックス構築（LlamaIndex + LangChain）
+   - `SimpleDirectoryReader` で原文を読み込み、`SentenceSplitter` による 512 token チャンクを生成。
+   - `MetadataExtractor` が `section_hierarchy`, `line_start`, `line_end`, `doc_source_id` を計算し、Chroma 向けに JSON Lines で永続化。
+   - `graph_state.chunk_stats.expected` にチャンク数を記録し、`chunk_hash` を計算して再ビルド判定に活用。
+2. ノード定義と遷移
+   - `ChunkLoader`: LlamaIndex の retriever を LangChain `Tool` 化し、チャンクごとに `ChunkPayload`（テキスト+メタデータ）を出力。出力件数を `chunk_stats.loaded` に記録。
+   - `FunctionSplitter`: heading/表形式を解析し `FunctionTask`（ID, span, expected_params, raw_text）を生成。件数を `function_stats.detected` に、予想到達数を `function_stats.expected` に保存。
+   - `LLMExtractor`: LangChain の `StructuredChatAgent` + `JsonOutputParser` で厳格スキーマを強制し、LangSmith Trace ID を `execution_trace` に記録。失敗は `retry_queue` へ積む。
+   - `PostProcessor`: `normalize_types`→`infer_required`→`format_default`→`assign_positions` の順で整形し、`source_refs` と LlamaIndex ノードIDを照合。欠落があれば `retry_queue` へ返送。
+   - `Aggregator`: `graph_state.extraction_outputs` をマージし、`function_stats.extracted` と `type_stats.unique` を更新。件数差異があれば `RetryController` を呼び出し。
+   - `Validator`: `validate_parsed_output.py` を実行し `graph_state.validator_report` に格納。欠落差分が残れば `RetryController` へ渡し再抽出を開始。
+   - `RetryController`: `retry_queue` と `validator_report` を突合し、原文再取得→再抽出→再検証のループを LangGraph の `While` で管理。
+3. ステージゲートと件数チェック
+   - `chunk_stats.loaded == chunk_stats.expected` を満たさない場合は `DiagnosticReporter` ノードに遷移し CI を失敗させる。
+   - `function_stats.extracted / function_stats.expected ≥ 0.95` を閾値に設定し、下回る場合は `RetryController` を継続。
+   - `retry_count` が 3 を超過した場合は `HumanReviewQueue` ノードへ分岐し、原文スパンを添えて手動確認チケットを発行。
+4. モニタリングとレポート
+   - LangGraph のトレースログ（node_name, duration, attempt）を `graph_state.execution_trace` として保存し、`graph_metrics.json` に書き出し。
+   - 件数チェック結果（`chunk_stats`, `function_stats`, `retry_count`, `self_heal.success_rate`, `type_stats`）を最終レポートに同梱。
+5. 最終出力
+   - `parsed_api_result.json`, `graph_metrics.json`, `validation_report.json` を出力し、Neo4j/Chroma 連携で `canonical_id` と `source_span_hash` をキーに格納。
+   - Slack/Teams 通知にはメトリクスサマリと直近差分（欠落 API 名等）を添付。
 ### プロンプト設計（関数用の要点）
 - 役割: 仕様→スキーマへの正規化抽出器
 - 制約: JSON のみ、推測禁止、未記載は null、フィールド固定
@@ -158,10 +219,13 @@
 
 ### CLI/実装ポイント
 - 新フラグ（例）
-  - `--chunked-extract`: チャンク化＋関数単位抽出を有効化
-  - `--extract-parallel N`: 並列度を指定
+  - `--use-langgraph`: LangGraph orchestrator + LlamaIndex 連携を有効化
+  - `--rebuild-index`: 既存の LlamaIndex/Chroma ストアを再構築
+  - `--extract-parallel N`: LangChain executor の並列度を指定
   - `--reconcile-missing-only`: 検証差分のある関数のみ再抽出
+  - `--emit-graph-metrics`: `graph_metrics.json` のパスを指定
 - ロギング
-  - チャンク/関数の開始・成功・失敗、再抽出回数、検証メトリクスを INFO/DEBUG で出力
+  - チャンク/関数の開始・成功・失敗、再抽出回数、検証メトリクス、LangSmith Trace URL を INFO/DEBUG で出力
+  - `--verbose` 時は各ノードの `graph_state` スナップショットと retriever ヒット件数を表示
 
 
