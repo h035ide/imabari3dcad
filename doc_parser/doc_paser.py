@@ -1,6 +1,8 @@
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
+import logging
+from logging.handlers import RotatingFileHandler
 import json
 import os
 import sys
@@ -21,10 +23,10 @@ class Config:
 
     # モデル設定
     MODEL_CONFIG = {
-        "model": "gpt-5-mini",  # "gpt-5-nano", "gpt-5-mini", "gpt-5"
+        "model": "gpt-5-nano",  # "gpt-5-nano", "gpt-5-mini", "gpt-5"
         "output_version": "responses/v1",
-        "reasoning_effort": "high",  # "minimal", 'low', 'medium', 'high'
-        "verbosity": "high",  # 'low', 'medium', 'high'
+        "reasoning_effort": "minimal",  # "minimal", 'low', 'medium', 'high'
+        "verbosity": "low",  # 'low', 'medium', 'high'
     }
 
     # 自己修正設定
@@ -49,6 +51,29 @@ class SelfCorrectionState(TypedDict):
 # ===== 初期化 =====
 load_dotenv()
 
+# ===== ロギング設定 =====
+LOGGER_NAME = "doc_parser"
+logger = logging.getLogger(LOGGER_NAME)
+if not logger.handlers:
+    logger.setLevel(logging.INFO)
+    log_formatter = logging.Formatter(
+        fmt="%(asctime)s [%(levelname)s] %(name)s %(module)s:%(lineno)d - %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    )
+    # コンソール
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(log_formatter)
+    logger.addHandler(console_handler)
+    # ファイル（ローテーション）
+    file_handler = RotatingFileHandler(
+        filename=os.path.join(os.path.dirname(__file__), "doc_parser.log"),
+        maxBytes=2 * 1024 * 1024,
+        backupCount=3,
+        encoding="utf-8",
+    )
+    file_handler.setFormatter(log_formatter)
+    logger.addHandler(file_handler)
+
 
 # ===== ユーティリティ関数 =====
 def safe_file_operation(operation, *args, **kwargs):
@@ -56,12 +81,16 @@ def safe_file_operation(operation, *args, **kwargs):
     try:
         return operation(*args, **kwargs)
     except FileNotFoundError as e:
+        logger.error("File not found: %s", e)
         raise FileNotFoundError(f"ファイルが見つかりません: {e}")
     except UnicodeDecodeError as e:
+        logger.error("Unicode decode error: %s", e)
         raise e
     except PermissionError as e:
+        logger.error("Permission error: %s", e)
         raise PermissionError(f"ファイルへのアクセス権限がありません: {e}")
     except IOError as e:
+        logger.error("IO error: %s", e)
         raise IOError(f"ファイル操作エラー: {e}")
 
 
@@ -107,6 +136,7 @@ def load_api_document(api_doc_path: Optional[str] = None, api_arg_path: Optional
     api_arg_path = api_arg_path or Config.DEFAULT_API_ARG_PATH
 
     try:
+        logger.info("Loading API docs: api_doc=%s api_arg=%s", api_doc_path, api_arg_path)
         api_doc_content = read_file_safely(api_doc_path)
         api_arg_content = read_file_safely(api_arg_path)
 
@@ -122,6 +152,7 @@ def load_api_document(api_doc_path: Optional[str] = None, api_arg_path: Optional
         {api_arg_content}
         """
     except Exception as e:
+        logger.exception("Failed to load documents")
         print(f"ドキュメントの読み込みに失敗しました: {e}")
         raise
 
@@ -131,10 +162,12 @@ def save_parsed_result(parsed_result: Union[Dict, List], output_file_path: Optio
     output_file_path = output_file_path or Config.DEFAULT_OUTPUT_PATH
 
     try:
+        logger.info("Saving parsed result to %s", output_file_path)
         json_content = json.dumps(parsed_result, ensure_ascii=False, indent=2)
         write_file_safely(output_file_path, json_content)
         print(f"解析結果を保存しました: {output_file_path}")
     except Exception as e:
+        logger.exception("Failed to save parsed result")
         print(f"解析結果の保存に失敗しました: {e}")
         raise
 
@@ -499,24 +532,29 @@ class LLMProcessor:
     @staticmethod
     def create_structured_llm() -> Any:
         """構造化応答を強制するLLMインスタンスを生成する"""
-        llm = ChatOpenAI(model=Config.MODEL_CONFIG["model"],
-                         model_kwargs={
-                             "output_version": Config.MODEL_CONFIG["output_version"],
-                             "reasoning": {"effort": Config.MODEL_CONFIG["reasoning_effort"]},
-                             "verbosity": Config.MODEL_CONFIG["verbosity"],
-                         })
+        # output_version は 'v0' または 'responses/v1' のみ許容
+        ov = Config.MODEL_CONFIG["output_version"]
+        if ov not in ("v0", "responses/v1"):
+            ov = "responses/v1"
+        llm = ChatOpenAI(
+            model=Config.MODEL_CONFIG["model"],
+            output_version=ov,  # type: ignore[arg-type]
+            reasoning={"effort": Config.MODEL_CONFIG["reasoning_effort"]},
+            verbosity=Config.MODEL_CONFIG["verbosity"],
+        )
         return llm.bind(response_format=LLMProcessor.STRUCTURED_RESPONSE_FORMAT)
 
     @staticmethod
     def create_text_llm() -> ChatOpenAI:
         """自由形式のテキストを生成するLLMインスタンスを生成する"""
+        ov = Config.MODEL_CONFIG["output_version"]
+        if ov not in ("v0", "responses/v1"):
+            ov = "responses/v1"
         return ChatOpenAI(
             model=Config.MODEL_CONFIG["model"],
-            model_kwargs={
-                "output_version": Config.MODEL_CONFIG["output_version"],
-                "reasoning": {"effort": Config.MODEL_CONFIG["reasoning_effort"]},
-                "verbosity": Config.MODEL_CONFIG["verbosity"],
-            },
+            output_version=ov,  # type: ignore[arg-type]
+            reasoning={"effort": Config.MODEL_CONFIG["reasoning_effort"]},
+            verbosity=Config.MODEL_CONFIG["verbosity"],
         )
 
     @staticmethod
@@ -810,6 +848,7 @@ class SelfCorrectionAgent:
 # ===== メイン処理関数 =====
 def analyze_api_document(args: argparse.Namespace) -> Dict[str, Any]:
     """APIドキュメントの解析を実行"""
+    logger.info("Start analyze_api_document: api_doc=%s api_arg=%s", args.api_doc, args.api_arg)
     print("🤖 LLMを使ってAPIドキュメントを解析しています...")
 
     # ドキュメントとプロンプトの読み込み
@@ -828,6 +867,7 @@ def analyze_api_document(args: argparse.Namespace) -> Dict[str, Any]:
     )
 
     chain = prompt | llm
+    logger.info("Invoking LLM with structured response")
     response = chain.invoke(
         {
             "document": api_document_text,
@@ -837,6 +877,7 @@ def analyze_api_document(args: argparse.Namespace) -> Dict[str, Any]:
 
     # 応答のパース
     parsed_result = LLMProcessor.parse_response(response)
+    logger.info("LLM response parsed: type=%s", type(parsed_result).__name__)
 
     # Responses API v1形式の処理
     if isinstance(parsed_result, dict):
@@ -846,8 +887,13 @@ def analyze_api_document(args: argparse.Namespace) -> Dict[str, Any]:
 
     # 後処理の実行
     print("\n🔄 解析結果の後処理を実行中...")
+    logger.info("Post-processing parsed result")
     processed_result = DataProcessor.postprocess_parsed_result(parsed_result)
 
+    logger.info(
+        "analyze_api_document finished: result_keys=%s",
+        list(processed_result.keys()) if isinstance(processed_result, dict) else "array",
+    )
     return processed_result if isinstance(processed_result, dict) else {"result": processed_result}
 
 
@@ -856,6 +902,7 @@ def main():
     try:
         # コマンドライン引数の解析
         args = parse_arguments()
+        logger.setLevel(logging.DEBUG if args.verbose else logging.INFO)
 
         if args.verbose:
             print("🔧 詳細モードで実行中...")
@@ -879,6 +926,7 @@ def main():
         # 自己修正機能の実行（オプション）
         if args.self_correct:
             print("\n🔧 自己修正機能を実行します...")
+            logger.info("Running self-correction workflow")
 
             # 現在のファイルの内容を読み込み
             current_file_path = __file__
@@ -894,15 +942,18 @@ def main():
                 with open(corrected_file_path, "w", encoding="utf-8") as f:
                     f.write(corrected_result["corrected_code"])
                 print(f"修正されたコードを保存しました: {corrected_file_path}")
+                logger.info("Saved corrected code to %s", corrected_file_path)
 
                 if args.verbose:
                     print(f"最終品質スコア: {corrected_result['final_quality_score']}/100")
                     print(f"実行された修正回数: {corrected_result['corrections_made']}")
             else:
                 print("✅ 修正は必要ありませんでした")
+                logger.info("No corrections were necessary")
 
     except Exception as e:
         print(f"\n❌ エラーが発生しました: {e}")
+        logger.exception("Unhandled error in main")
         print(f"エラーの種類: {type(e).__name__}")
         if "api_key" in str(e).lower():
             print("\n💡 ヒント: .envファイルに正しいOPENAI_API_KEYが設定されているか確認してください。")
