@@ -248,6 +248,16 @@
 
 上記をクリアできれば、実装計画書として実務開始に十分な状態と判断できる。
 
+### 最終確認チェックリスト
+- [ ] LangGraph ノード実装と自己修正ループのユニットテストが `tests/langgraph_*.py` でグリーン
+- [ ] `doc_parser/index_builder.py` が `line_start/line_end/section_hierarchy` を出力し、`graph_state.chunk_catalog_path` が生成されている
+- [ ] `.validationrc`（または `.validationrc.local`）がリポジトリルートに配置され、CI から閾値・通知設定を読み込める
+- [ ] `scripts/post_validation_result.py` が CI で動作し、Slack/Teams への通知テストを完了
+- [ ] `db_integration/push_validation_results.py` が Neo4j/Chroma へのメタデータ反映を成功（スタブ環境で検証済み）
+- [ ] `doc/validation_baseline.json` を最新の検証結果で更新し、PR でレビューを受けたログが残っている
+
+上記チェックが完了していれば、実装計画書は完成版として扱って差し支えない。未完了項目がある場合は、チケット化してフォローアップのスケジュールを明記すること。
+
 ---
 
 ## LLM抽出設計（チャンク化＋関数単位）
