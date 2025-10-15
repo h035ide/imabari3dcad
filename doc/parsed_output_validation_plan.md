@@ -114,3 +114,54 @@
 - 不一致を自動パッチ提案（LLM による修正候補生成）
 
 
+---
+
+## LLM抽出設計（チャンク化＋関数単位）
+
+### 目的
+- LLM 抽出の網羅性・安定性を高めつつ、差分検証と再抽出で品質を底上げする。
+
+### 流れ（高レベル）
+1. チャンク化（`api.txt`）
+   - 大見出し（例: Application/Document/Part …）単位に分割
+   - 各チャンク内で関数ブロックを検出（関数名を示す見出し〜次の関数見出し直前まで）
+2. 関数単位の LLM 抽出（1 関数 = 1 プロンプト）
+   - 厳格な JSON スキーマで出力（`entry_type/name/description/category/params[]/returns/is_array/notes/implementation_status/source_refs`）
+   - 推測禁止・未記載は null を明言、JSON のみ出力
+   - `source_refs` に `file/start_line/end_line` を含めて後段の検証根拠に利用
+3. 関数ごとの後処理
+   - `DataProcessor.normalize_type_name()` による型正規化
+   - 配列判定（`_is_array_type/_strip_array_notation`）
+   - 必須推定（`infer_is_required`）、デフォルト値正規化（`_normalize_default_value`）、`position` 付与
+4. 集約・重複排除
+   - 同名エントリはフィールド充足度の高いものを優先しマージ、差異は `notes` に集約
+   - 型名は正規化後にユニーク化
+5. 入力突合バリデーション
+   - 型網羅（`api_arg.txt`）/API網羅（`api.txt`）/項目整合（params/returns）
+   - 欠落や不一致のある関数のみ、該当チャンクを再投入して再抽出（Few-shot 指南付き）
+6. 最終出力
+   - `parsed_api_result.json` を保存、検証レポートとメトリクスを出力
+
+### プロンプト設計（関数用の要点）
+- 役割: 仕様→スキーマへの正規化抽出器
+- 制約: JSON のみ、推測禁止、未記載は null、フィールド固定
+- 出力: `entry_type/name/description/category/params[]/returns/is_array/notes/implementation_status/source_refs`
+- Few-shot: 良い例・悪い例→修正例を 1 セット提示し、表記ゆれを抑制
+
+### リトライ/自動補正
+- JSON 破損時は温度を下げて数回リトライ
+- 差分検証（欠落/不一致）が出た関数のみ対象再抽出（コスト最小化）
+
+### 並列化とスループット
+- チャンク単位・関数単位で並列実行可（API レート制御のみ配慮）
+- 最終集約とバリデーションは同期ポイントで実施
+
+### CLI/実装ポイント
+- 新フラグ（例）
+  - `--chunked-extract`: チャンク化＋関数単位抽出を有効化
+  - `--extract-parallel N`: 並列度を指定
+  - `--reconcile-missing-only`: 検証差分のある関数のみ再抽出
+- ロギング
+  - チャンク/関数の開始・成功・失敗、再抽出回数、検証メトリクスを INFO/DEBUG で出力
+
+
