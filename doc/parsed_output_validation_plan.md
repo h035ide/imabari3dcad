@@ -60,7 +60,33 @@
   - LangGraph で抽出後、`graph_metrics.json` と `parsed_api_result.json` を生成し、バリデータを同期呼び出し。
   - CI向けに `--baseline` を渡し、閾値（例: 型95%・API95%）は `.validationrc` に YAML 形式で保存し共有。
 
-### 3. 主要ロジック（擬似仕様）
+### 3. 実装手順（番号付きフロー）
+1. **準備/設定**
+   - `.validationrc` に検証閾値・通知設定を作成し、`requirements.txt` の LangChain・LangGraph・LlamaIndex バージョンを固定。
+   - 既存の `doc_parser/doc_paser.py` に `--use-langgraph` などのフラグ定義を追加し、`uv run` コマンドで再利用できるよう CLI を整える。
+2. **入力前処理**
+   - `doc_parser/index_builder.py` に LlamaIndex チャンク生成とメタデータ整形ロジックを実装し、`graph_state.chunk_stats.expected` を初期化。
+   - `api_arg.txt` から S_arg を抽出するヘルパー関数を `validate_parsed_output.py` に追加し、型正規化・別名吸収テーブルを定義。
+3. **LangGraph ノード実装**
+   - `pipeline_langgraph.py` に `ChunkLoader`→`FunctionSplitter`→`LLMExtractor`→`SelfHealAgent`→`PostProcessor`→`Aggregator`→`Validator` のノードクラスを順次実装。
+   - `GraphState` dataclass を定義して `retry_queue` や `execution_trace` などの状態を一元管理し、ノード遷移条件を明示。
+4. **自己修正ループの統合**
+   - `self_heal.py` に retriever・再抽出ツールを実装し、LangGraph の `RetryController` ノードから呼び出して差分項目を再処理。
+   - 再抽出後の結果を `graph_state.extraction_outputs` にマージし、成功件数を `graph_metrics.json` に記録。
+5. **検証ロジックの充実**
+   - `validate_parsed_output.py` に型/API/パラメータ・リンク整合性チェックとベースライン比較ロジックを実装。
+   - `--format`, `--fail-on`, `--baseline`, `--graph-metrics` などの CLI 引数を受け取り、JSON・text 両形式のレポートを生成。
+6. **Neo4j/Chroma 連携準備**
+   - 検証結果に `canonical_id`・`source_span_hash` を出力し、`db_integration/` のスクリプトから取り込める形で JSON スキーマを固定。
+   - 取り込みスクリプトで `source_refs` をキーに原文確認ができることを確認。
+7. **CI・通知統合**
+   - GitHub Actions（想定）に `uv run python doc_parser/doc_paser.py --use-langgraph --validate-against-src --baseline ...` を追加。
+   - CI 失敗時に Slack/Teams 通知を送るスクリプトを `doc_parser/notify_validation.py`（新規）で実装し、メトリクスサマリを投稿。
+8. **テストとドキュメント整備**
+   - `tests/test_validation.py` などに単体・統合テストを追加し、欠落・不一致・リンクエラーのケースを網羅。
+   - README や計画書に実行手順とトリアージ方法を追記し、ベースライン更新手順を `doc/validation_baseline.md` として整理。
+
+### 4. 主要ロジック（擬似仕様）
 - 型抽出（入力）: `api_arg.txt` の型見出し行（先頭`■`）を走査し、`^■\s*(?P<name>[^\s\(]+)` の正規表現で S_arg を構築。
   - 説明文や例 (`例)`, インデント付き行) は無視し、抽出後に `DataProcessor.normalize_type_name()` で正規化。
   - 用語揺れ・別名は `type_alias_map`（例: 「浮動小数点」→`float`）で吸収し、重複を除外した集合として S_arg を確定。
@@ -82,14 +108,14 @@
 - 出力: text（サマリ＋差分）、json（欠落/余剰/不一致詳細・メトリクス）。
   - JSON には `canonical_id`、`source_span_hash`、`normalized_name` を含め Neo4j/Chroma 取り込み時のキーに利用
 
-### 4. CLI/UX
+### 5. CLI/UX
 - LangGraph + LlamaIndex 実行: `uv run python doc_parser/doc_paser.py --use-langgraph --rebuild-index --validate-against-src`
 - 解析＋検証一括（既存 pipeline）: `uv run python doc_parser/doc_paser.py --validate-against-src --verbose`
 - 生成物のみ検証: `uv run python doc_parser/validate_parsed_output.py --format text`
 - JSON レポート: `uv run python doc_parser/validate_parsed_output.py --format json --emit-graph-metrics doc_parser/graph_metrics.json > validation_report.json`
 - ベースライン比較: `uv run python doc_parser/validate_parsed_output.py --baseline doc/validation_baseline.json --fail-on all`
 
-### 5. テスト計画（pytest）
+### 6. テスト計画（pytest）
 - 型網羅: 入力に含む型がすべて出力されるケース／欠落ケース
 - API網羅: 入力関数がすべて出力される／一部欠落
 - パラメータ整合: 位置・必須・デフォルト・型の不一致
@@ -97,7 +123,7 @@
 - リンク検証: `source_refs` 欠落・重複、`canonical_id` 衝突、`source_span_hash` 不一致
 - ベースライン回帰: 既存レポートとの差分が閾値に応じて検知されるか
 
-### 6. スケジュール/工数目安
+### 7. スケジュール/工数目安
 - バリデータ実装: 0.5〜1.0日（入力の正規表現整備次第）
 - CLI 統合: 0.5日
 - テスト: 0.5日
