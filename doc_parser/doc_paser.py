@@ -5,7 +5,7 @@ import json
 import os
 import sys
 import argparse
-from typing import Dict, List, Any, Union, TypedDict
+from typing import Dict, List, Any, Union, TypedDict, Optional
 from langgraph.graph import StateGraph, END
 
 
@@ -101,7 +101,7 @@ def write_file_safely(file_path: str, content: str, encoding: str = Config.DEFAU
 
 
 # ===== ファイル操作関数 =====
-def load_api_document(api_doc_path: str = None, api_arg_path: str = None) -> str:
+def load_api_document(api_doc_path: Optional[str] = None, api_arg_path: Optional[str] = None) -> str:
     """APIドキュメントと引数情報を連結して読み込む"""
     api_doc_path = api_doc_path or Config.DEFAULT_API_DOC_PATH
     api_arg_path = api_arg_path or Config.DEFAULT_API_ARG_PATH
@@ -126,7 +126,7 @@ def load_api_document(api_doc_path: str = None, api_arg_path: str = None) -> str
         raise
 
 
-def save_parsed_result(parsed_result: Union[Dict, List], output_file_path: str = None) -> None:
+def save_parsed_result(parsed_result: Union[Dict, List], output_file_path: Optional[str] = None) -> None:
     """解析結果をJSONファイルとして保存"""
     output_file_path = output_file_path or Config.DEFAULT_OUTPUT_PATH
 
@@ -180,7 +180,8 @@ class PromptManager:
                             </kinds>
                             <fields>
                                 <item>name / description / category</item>
-                                <item>params: name, position(0-based), type, description, is_required, default_value</item>
+                                <item>params: name, position(0-based), type,
+                                description, is_required, default_value</item>
                                 <item>properties: name, type, description</item>
                                 <item>returns: type, description, is_array（戻り値が無い場合は type を "void" とする）</item>
                                 <item>is_required は「空欄不可」「必須」とあれば true、記載がなければ false</item>
@@ -203,7 +204,9 @@ class PromptManager:
         # 重要: データ型の抽出について
         - 「引数の型と書式」セクションから<strong>すべての</strong>データ型を漏れなく抽出してください
         - 基本データ型（文字列、浮動小数点、整数、bool）も含めてください
-        - 特殊データ型（長さ、角度、数値、方向、点、平面、変数単位、要素グループ、注記スタイル、材料、スイープ方向、厚み付けタイプ、モールド位置、オペレーションタイプ、連結設定、形状タイプ、形状パラメータ、要素など）も含めてください
+        - 特殊データ型（長さ、角度、数値、方向、点、平面、変数単位、要素グループ、注記スタイル、材料、
+        スイープ方向、厚み付けタイプ、モールド位置、オペレーションタイプ、連結設定、形状タイプ、
+        形状パラメータ、要素など）も含めてください
         - 各データ型の description には詳細な仕様、書式、具体例を含めてください
 
         # 解析対象ドキュメント
@@ -287,6 +290,8 @@ class PromptManager:
         """
 
 # ===== データ処理ユーティリティ =====
+
+
 class DataProcessor:
     """解析結果を整形するユーティリティクラス"""
 
@@ -484,20 +489,35 @@ class DataProcessor:
         return value
 
 # ===== LLMユーティリティ =====
+
+
 class LLMProcessor:
     """LLMを利用した解析処理をまとめたユーティリティクラス"""
 
     STRUCTURED_RESPONSE_FORMAT = {"type": "json_object"}
 
     @staticmethod
-    def create_structured_llm() -> ChatOpenAI:
+    def create_structured_llm() -> Any:
         """構造化応答を強制するLLMインスタンスを生成する"""
-        return ChatOpenAI(**Config.MODEL_CONFIG).bind(response_format=LLMProcessor.STRUCTURED_RESPONSE_FORMAT)
+        llm = ChatOpenAI(model=Config.MODEL_CONFIG["model"],
+                         model_kwargs={
+                             "output_version": Config.MODEL_CONFIG["output_version"],
+                             "reasoning": {"effort": Config.MODEL_CONFIG["reasoning_effort"]},
+                             "verbosity": Config.MODEL_CONFIG["verbosity"],
+                         })
+        return llm.bind(response_format=LLMProcessor.STRUCTURED_RESPONSE_FORMAT)
 
     @staticmethod
     def create_text_llm() -> ChatOpenAI:
         """自由形式のテキストを生成するLLMインスタンスを生成する"""
-        return ChatOpenAI(**Config.MODEL_CONFIG)
+        return ChatOpenAI(
+            model=Config.MODEL_CONFIG["model"],
+            model_kwargs={
+                "output_version": Config.MODEL_CONFIG["output_version"],
+                "reasoning": {"effort": Config.MODEL_CONFIG["reasoning_effort"]},
+                "verbosity": Config.MODEL_CONFIG["verbosity"],
+            },
+        )
 
     @staticmethod
     def parse_response(response: Any) -> Union[Dict, List]:
@@ -535,7 +555,14 @@ class LLMProcessor:
 
         print("Inspecting response for Responses API v1 envelope...")
 
-        text_element = next((item for item in parsed_result if isinstance(item, dict) and item.get("type") == "text"), None)
+        text_element = next(
+            (
+                item
+                for item in parsed_result
+                if isinstance(item, dict) and item.get("type") == "text"
+            ),
+            None,
+        )
 
         if text_element and "text" in text_element:
             try:
@@ -551,8 +578,9 @@ class LLMProcessor:
         return parsed_result
 
 # ===== 自己修正機能 =====
-class CodeQualityAnalyzer:
 
+
+class CodeQualityAnalyzer:
     """コード品質分析クラス"""
 
     @staticmethod
@@ -706,14 +734,23 @@ class SelfCorrectionAgent:
         return "continue"
 
     @staticmethod
-    def create_workflow(args: argparse.Namespace) -> StateGraph:
+    def create_workflow(args: argparse.Namespace) -> Any:
         """自己修正ワークフローを作成"""
-        workflow = StateGraph(SelfCorrectionState)
+        workflow: Any = StateGraph(SelfCorrectionState)
 
         # ノードの追加
-        workflow.add_node("analyze_quality", lambda state: CodeQualityAnalyzer.analyze_code_quality(state, args))
-        workflow.add_node("generate_corrections", lambda state: CodeCorrector.generate_corrections(state, args))
-        workflow.add_node("apply_corrections", lambda state: CodeCorrector.apply_corrections(state, args))
+        workflow.add_node(
+            "analyze_quality",
+            lambda state: CodeQualityAnalyzer.analyze_code_quality(state, args),  # type: ignore[arg-type]
+        )
+        workflow.add_node(
+            "generate_corrections",
+            lambda state: CodeCorrector.generate_corrections(state, args),  # type: ignore[arg-type]
+        )
+        workflow.add_node(
+            "apply_corrections",
+            lambda state: CodeCorrector.apply_corrections(state, args),  # type: ignore[arg-type]
+        )
 
         # エントリーポイントの設定（STARTから最初のノードへ）
         workflow.set_entry_point("analyze_quality")
@@ -750,7 +787,7 @@ class SelfCorrectionAgent:
 
         # 自己修正エージェントの実行
         agent = SelfCorrectionAgent.create_workflow(args)
-        final_state = agent.invoke(initial_state)
+        final_state: SelfCorrectionState = agent.invoke(initial_state)  # type: ignore[assignment]
 
         print(f"🎯 自己修正完了！最終品質スコア: {final_state['quality_score']}/100")
         print(f"📊 実行された修正回数: {final_state['corrections_made']}")
@@ -811,7 +848,7 @@ def analyze_api_document(args: argparse.Namespace) -> Dict[str, Any]:
     print("\n🔄 解析結果の後処理を実行中...")
     processed_result = DataProcessor.postprocess_parsed_result(parsed_result)
 
-    return processed_result
+    return processed_result if isinstance(processed_result, dict) else {"result": processed_result}
 
 
 def main():
