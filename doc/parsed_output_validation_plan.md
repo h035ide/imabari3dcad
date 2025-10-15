@@ -216,6 +216,31 @@
 - `.validationrc` の閾値設計や Slack/Teams 通知のワークフロー（責任者・通知テンプレート）は別途ドキュメント化が必要。
 - Neo4j/Chroma 連携で `canonical_id`・`source_span_hash` を利用する周辺スクリプトが未定義の場合は、追加の設計と実装を行う必要がある。
 
+### 未対応項目への対応計画
+- **LangGraph ノード実装**
+  - `doc_parser/pipeline_langgraph.py` に `ChunkLoader` から `RetryController` までの各ノードを Python クラスとして実装し、`BaseNode` インタフェース（`run(graph_state: GraphState) -> GraphState`）を統一する。
+  - 先にユニットテスト用の `MockRetriever`・`MockLLM` を `tests/langgraph_fixtures.py` に用意し、ノードごとに入出力の契約テストを作成する。
+  - LangGraph の `StateGraph` 生成コードを CLI から呼び出せるようにし、`graph_state` のデフォルト初期化を `GraphStateFactory` に切り出す。
+- **LlamaIndex メタデータ整形**
+  - `doc_parser/index_builder.py` に `build_index(config: IndexConfig) -> IndexArtifacts` を追加し、チャンクごとに `line_start/line_end`, `section_hierarchy`, `doc_source_id` を JSON Lines として保存。
+  - `IndexConfig` にはチャンクサイズ・オーバーラップ・出力先パスを含め、LangGraph 側で再利用できるよう `graph_state.chunk_catalog_path` を渡す。
+- **`.validationrc` 設計**
+  - リポジトリ直下に YAML テンプレート `doc/validationrc.example` を追加し、`thresholds`（型/API/リンク）、`notifications`（Slack Webhook, Teams Connector URL, mention 先）、`owner`（担当者 Slack ID）を定義。
+  - CLI 起動時に `--config .validationrc` を受け取れるよう `validate_parsed_output.py` に設定ローダーを実装し、閾値が欠落している場合はテンプレートを参照するフォールバックを設ける。
+- **通知ワークフロー整備**
+  - `doc/validation_notifications.md` を新設し、Slack/Teams のメッセージフォーマット（成功/失敗時のフィールド、添付するメトリクス、担当者メンション）と運用手順（誰が初動対応・レビュー）を記載。
+  - CI（GitHub Actions 予定）で `VALIDATION_WEBHOOK_URL` 等のシークレットを読み込み、検証結果 JSON を整形して送信するスクリプトを `scripts/post_validation_result.py` に配置。
+- **Neo4j/Chroma 連携スクリプト**
+  - `db_integration/push_validation_results.py` を追加し、`parsed_api_result.json` と `validation_report.json` を読み込み `canonical_id`, `source_span_hash`, `coverage_metrics` を Neo4j/Chroma のノード/ドキュメントメタデータに書き戻す。
+  - 既存の `chroma_data.json` や `neo4j_data.json` を参照し、差分状態（例: `status=missing|mismatch|ok`）を属性として付与、長期モニタリング用の `doc/coverage_history.csv` に追記するジョブを設計。
+
+### 改善提案
+- LangGraph のステージごとに `graph_state` のダンプを `doc/debug/graph_state_<timestamp>.json` として保存し、障害発生時の再現性を高める運用を推奨。
+- LLM 抽出プロンプトに「原文に無いフィールドは null で出力する」旨を明記し、空文字列や推測値が混入しないようスキーマを `pydantic` で厳格検証する実装を検討。
+- ベースライン更新時に自動で Pull Request コメントへメトリクス差分を投稿する GitHub Action（`comment_validation_diff.yml`）を追加し、レビューアーが差分を素早く把握できるよう支援。
+- Neo4j/Chroma 側で `source_refs` の行番号リンクを Grafana などの可視化に連携し、低カバレッジ領域の発見を容易にするダッシュボード整備を長期計画に含める。
+- API 仕様更新の検知のために `data/src/api.txt` の Git 差分から変更チャンクのみを再抽出する `--changed-only` フラグを LangGraph CLI に導入し、運用コストと LLM コール数を削減する。
+
 ### 推奨アクション
 1. LangGraph ノード・self-heal・バリデータを優先実装し、ミニマムデータセットで end-to-end テストを実施。
 2. `.validationrc` と Slack/Teams 通知の詳細運用設計を別ドキュメントで整備し、CI 連携時の責務分担を明文化。
