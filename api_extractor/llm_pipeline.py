@@ -26,6 +26,7 @@ from pydantic import BaseModel, Field, ValidationError
 from .models import (
     ApiEntry,
     ApiExtractionResult,
+    ArrayInfo,
     ParameterDefinition,
     PropertyDefinition,
     ReturnDefinition,
@@ -155,6 +156,17 @@ class LLMApiExtractor:
                 "chunk_text": chunk.get_content(),
                 "chunk_metadata": chunk.metadata or {},
             }
+            # Log prompt preview (rendered with current payload)
+            try:
+                rendered = self._get_prompt().format_messages(
+                    chunk_text=payload["chunk_text"],
+                    chunk_metadata=payload["chunk_metadata"],
+                )
+                # System + Human messages contents to log (truncate for safety)
+                rendered_text = "\n".join([str(m.content) for m in rendered])
+                logger.debug("Prompt(messages) for chunk %d/%d:\n%s", idx, total_chunks, rendered_text[:4000])
+            except Exception:
+                logger.debug("Failed to render prompt for logging on chunk %d", idx)
             logger.debug(
                 "Invoking LLM for chunk %d/%d (len=%d)",
                 idx,
@@ -163,10 +175,29 @@ class LLMApiExtractor:
             )
             try:
                 raw = chain.invoke(payload)
+                # Log raw response for debugging (truncate for safety)
+                try:
+                    if isinstance(raw, dict):
+                        snippet = json.dumps(raw)
+                        logger.debug(
+                            "LLM raw response (dict) on chunk %d: %s",
+                            idx,
+                            snippet[:4000],
+                        )
+                    else:
+                        logger.debug(
+                            "LLM raw response (text) on chunk %d: %.4000s",
+                            idx,
+                            str(raw),
+                        )
+                except Exception:
+                    logger.debug("Failed to log raw LLM response on chunk %d", idx)
             except Exception:
                 logger.exception("LLM invocation failed for chunk %d", idx)
                 continue
             parsed_entries = self._parse_llm_response(raw)
+            # Minimal postprocess: filter entry_type and complement returns/category
+            parsed_entries = self._postprocess_entries(parsed_entries)
             logger.debug(
                 "Chunk %d/%d produced %d entries",
                 idx,
@@ -246,7 +277,14 @@ class LLMApiExtractor:
                     (
                         "system",
                         """あなたはCADソフトのAPI仕様から厳密な構造化データを抽出するエキスパートです。
-                        JSONスキーマに従い、チャンク内に記載されている関数／オブジェクトを漏れなく抽出してください。
+                        次の制約を厳守して JSON を生成してください。
+                        - entries には function と object のみを出力（parameter/method/日本語型名などは出力禁止）
+                        - category は必須（見出しから抽出。取得できない場合は空文字にし null は禁止）
+                        - function の returns が未記載の場合は type=void とする（"なし" は void と見なす）
+                        - 型名はタイプカタログの日本語名のみ使用（number/object/length 等の英語は禁止）
+                        - 配列は is_array=true または array_info の qualifier に「配列」を設定して必ず明示
+                        - オブジェクトの属性は properties にのみ記載し、function の properties は空にする
+                        - JSON スキーマに不必要な項目は出力しない（例: 疑似コードや書式例）
                         原文に無い情報は推測せず null を使用し、値の単位や説明は日本語のまま保持してください。""",
                     ),
                     (
@@ -254,7 +292,7 @@ class LLMApiExtractor:
                         """# 出力仕様
                         {format_instructions}
 
-                        # 型候補の参考
+                        # 型候補の参考（この日本語の型名以外は使用しない）
                         {type_catalog}
 
                         # チャンクテキスト
@@ -457,6 +495,99 @@ class LLMApiExtractor:
             lines.append(line)
             current_len += len(line)
         return "\n".join(lines)
+
+    def _postprocess_entries(self, entries: List[ApiEntry]) -> List[ApiEntry]:
+        filtered: List[ApiEntry] = []
+        seen: set[str] = set()
+        dropped_invalid = 0
+        dropped_spurious = 0
+        complemented_returns = 0
+        complemented_category = 0
+        normalized_arrays = 0
+        for e in entries:
+            et = (e.entry_type or "").strip().lower()
+            if et not in {"function", "object"}:
+                dropped_invalid += 1
+                continue
+            # Heuristic 1: drop spurious entries that look like mislabeled fields/labels
+            if et == "object" and not e.properties and e.returns is None:
+                dropped_spurious += 1
+                continue
+            if (
+                et == "function"
+                and (not e.params)
+                and (not (e.notes or "").strip())
+                and (not (e.category or "").strip())
+                and (
+                    e.returns is None
+                    or ((e.returns.type is None or e.returns.type == "void") and not (e.returns.description or "").strip())
+                )
+            ):
+                dropped_spurious += 1
+                continue
+
+            # complement returns for functions
+            if et == "function" and (e.returns is None or e.returns.type is None):
+                e.returns = ReturnDefinition(
+                    type="void",
+                    description=(e.returns.description if e.returns else None),
+                    is_array=False,
+                )
+                complemented_returns += 1
+            # complement category if missing
+            if not e.category:
+                # heuristic: try from notes or leave empty string instead of None
+                e.category = ""
+                complemented_category += 1
+
+            # Heuristic 2: normalize array typing leakage (type=="配列")
+            for p in e.params:
+                if (p.type or "").strip() == "配列":
+                    p.type = None
+                    p.array_info = ArrayInfo(qualifier="配列")
+                    normalized_arrays += 1
+            for prop in e.properties:
+                if (prop.type or "").strip() == "配列":
+                    prop.type = None
+                    prop.array_info = ArrayInfo(qualifier="配列")
+                    normalized_arrays += 1
+            if e.returns is not None and (e.returns.type or "").strip() == "配列":
+                e.returns.type = None
+                e.returns.is_array = True
+                normalized_arrays += 1
+            if (
+                e.returns is not None
+                and not e.returns.is_array
+                and (e.returns.description or "").find("配列") >= 0
+            ):
+                e.returns.is_array = True
+            key = f"{e.entry_type}:{e.name}"
+            if key in seen:
+                continue
+            seen.add(key)
+            filtered.append(e)
+        if dropped_invalid:
+            logger.info(
+                "Postprocess: dropped %d non function/object entries",
+                dropped_invalid,
+            )
+        if dropped_spurious:
+            logger.info(
+                "Postprocess: dropped %d spurious label-like entries",
+                dropped_spurious,
+            )
+        if complemented_returns or complemented_category:
+            logger.info(
+                "Postprocess: complemented returns=%d, category=%d",
+                complemented_returns,
+                complemented_category,
+            )
+        if normalized_arrays:
+            logger.info(
+                "Postprocess: normalized %d array-typed fields",
+                normalized_arrays,
+            )
+        return filtered
 
 
 def run_llm_extraction(

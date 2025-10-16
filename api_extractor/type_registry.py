@@ -28,6 +28,11 @@ class TypeRegistry:
             "int": "整数",
             "integer": "整数",
             "float": "浮動小数点",
+            # English to Japanese normalization often emitted by LLM
+            "number": "浮動小数点",
+            "length": "長さ",
+            "object": "オブジェクト",
+            "array": "配列",
         }
 
     @staticmethod
@@ -57,14 +62,20 @@ class TypeRegistry:
         text = raw.strip()
         if not text:
             return None, None
+        # Detect array notation like "Xの配列" or "X(配列)"
         qualifier: Optional[str] = None
-        if "配列" in text:
+        base = text
+        if "の配列" in base:
             qualifier = "配列"
-        normalized = self.normalize(text)
+            base = base.replace("の配列", "")
+        if "(配列)" in base:
+            qualifier = "配列"
+            base = base.replace("(配列)", "")
+        # Normalize base type after trimming decorations like whitespace and full-width parens
+        base = base.strip()
+        normalized = self.normalize(base)
         array_info = ArrayInfo(qualifier=qualifier) if qualifier else None
         return normalized, array_info
 
 
 __all__ = ["TypeRegistry"]
-
-
