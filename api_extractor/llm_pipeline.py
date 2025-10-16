@@ -10,8 +10,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Iterable, List
 
+from llama_index.core import Document
+from llama_index.core.node_parser import SentenceSplitter
+from llama_index.core.schema import TextNode
+
 from .models import ApiEntry, ApiExtractionResult, TypeDefinition
 from .type_parser import parse_type_definitions
+from .type_registry import TypeRegistry
 
 
 @dataclass(slots=True)
@@ -23,6 +28,8 @@ class LLMExtractionConfig:
     """
 
     model: str = "gpt-4.1-mini"
+    chunk_size: int = 512
+    chunk_overlap: int = 64
 
 
 class LLMApiExtractor:
@@ -40,6 +47,12 @@ class LLMApiExtractor:
     ):
         self.type_definitions = list(type_definitions)
         self.config = config or LLMExtractionConfig()
+        self.type_registry = TypeRegistry(self.type_definitions)
+        self._splitter = SentenceSplitter(
+            chunk_size=self.config.chunk_size,
+            chunk_overlap=self.config.chunk_overlap,
+        )
+        self._last_chunks: List[TextNode] = []
 
     def extract(self, api_text: str) -> List[ApiEntry]:
         """LLMを利用してAPIテキストから構造化情報を抽出する。
@@ -49,8 +62,18 @@ class LLMApiExtractor:
         空リストを返す仮実装とする。
         """
 
-        _ = api_text  # 後続の実装で利用予定。
+        self._last_chunks = self._chunk_api_text(api_text)
         return []
+
+    def _chunk_api_text(self, api_text: str) -> List[TextNode]:
+        """`api.txt` のコンテンツをチャンク化してノード列として返す。"""
+
+        document = Document(text=api_text, metadata={"source": "api.txt"})
+        nodes = self._splitter.get_nodes_from_documents(
+            [document],
+            show_progress=False,
+        )
+        return nodes
 
 
 def run_llm_extraction(
