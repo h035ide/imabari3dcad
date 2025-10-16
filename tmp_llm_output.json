@@ -93,5 +93,1614 @@
       "description": "(複数要素の場合は文字列の配列とする) EVO.SHIPの各要素を指定する 〇IDで指定 EVO.SHIPの要素はユニークなIDを必ずもつのでそのID文字列を\"ID@\"をプレフィックスとして指定 例）\"ID@d8baafc30be94411a6ab9d6173c1d1dd\" (d8baafc30be94411a6ab9d6173c1d1ddというIDをもつ要素) 〇要素名で指定 EVO.SHIPの要素名称は重複を許すので、複数見つかった際にどれになるかは不定 要素名称はEVO.SHIPの要素グループを指定するのこともできる 例）G1という要素グループ配下のG2という要素グループ配下のAという名前の要素の指定 G1/G2/A 〇板ソリッド要素の板厚面を指定（条材ソリッドの場合はウェブ部分） 必ず文字列配列で指定 配列の最初の要素は\"PLS\"という固定文字列 次の配列要素（２番目）は\"True\"か\"False\"で,\"True\"の場合はFace内部穴を削除する 次の配列要素（３番目）は常に\"False\" (システムで利用します） その次から３っつの要素（４番目、５番目、６番目）で板厚面のどちら側かを 指定するために外側方向（おおよそ）をベクトル指定する 最後の要素でソリッド要素を指定する 例）[\"PLS\",\"False\",\"False\",\"0.0\",\"0.0\",\"-1.0\",\"ID@d8baafc30be94411a6ab9d6173c1d1dd\"] d8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつソリッド要素（板材)の(0,0,-1)方向を向いている側の面の指定 〇ソリッドやシート要素のフェイスを指定 \",\" コンマで区切られた文字列で指定 最初のカラムでソリッドやシート要素のＩＤを指定、次のカラムは固定文字\"F\"、その次のカラムからフェイス上の点の座標値を指定（複数フェイス指定可能） 例 \"ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8\" d8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつ要素でそのFace上の座標値が(-10,0.5,2.3)と(-11.0,0.0,4.8) である２つのフェイスを指定"
     }
   ],
-  "api_entries": []
+  "api_entries": [
+    {
+      "entry_type": "method",
+      "name": "Quit",
+      "description": "EvoShipを終了する",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "method",
+      "name": "ShowMainWindow",
+      "description": "EvoShipのメインウィンドウを表示する",
+      "category": null,
+      "params": [
+        {
+          "name": "bShow",
+          "position": 0,
+          "type": "bool",
+          "description": "表示する時はTrue",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        }
+      ],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "method",
+      "name": "LoadPart",
+      "description": "Partオブジェクトを読み込む",
+      "category": null,
+      "params": [
+        {
+          "name": "FileName",
+          "position": 0,
+          "type": "文字列",
+          "description": "保存されているドキュメントのファイルパス名",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        },
+        {
+          "name": "bForceEvaluation",
+          "position": 1,
+          "type": "bool",
+          "description": "強制的に全要素を再計算して開くときはTrue (通常はFalse）",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        }
+      ],
+      "returns": {
+        "type": "Partオブジェクト",
+        "description": null,
+        "is_array": false
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "method",
+      "name": "OpenDocument",
+      "description": "Documentを開く",
+      "category": null,
+      "params": [
+        {
+          "name": "FileName",
+          "position": 0,
+          "type": "文字列",
+          "description": null,
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        }
+      ],
+      "returns": {
+        "type": "Documentオブジェクト",
+        "description": null,
+        "is_array": false
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "Create3DDocument",
+      "description": "3DのDocumentを新規に作成する",
+      "category": null,
+      "params": [],
+      "returns": {
+        "type": "Documentオブジェクト",
+        "description": null,
+        "is_array": false
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "GetActiveDocument",
+      "description": "アクティブなDocumentオブジェクトを取得する",
+      "category": null,
+      "params": [],
+      "returns": {
+        "type": "Documentオブジェクト",
+        "description": null,
+        "is_array": false
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "GetDocuments",
+      "description": "開かれているDocumentオブジェクトを全て取得する",
+      "category": null,
+      "params": [],
+      "returns": {
+        "type": "Documentオブジェクトの配列",
+        "description": null,
+        "is_array": true
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "method",
+      "name": "Close",
+      "description": "ドキュメントを閉じる",
+      "category": "Documentオブジェクト",
+      "params": [],
+      "returns": {
+        "type": null,
+        "description": null,
+        "is_array": false
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "method",
+      "name": "Save",
+      "description": "ドキュメントをファイルに保存する",
+      "category": "Documentオブジェクト",
+      "params": [
+        {
+          "name": "FileName",
+          "position": 0,
+          "type": "文字列",
+          "description": "保存するファイルパス名",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        },
+        {
+          "name": "bAsCompactFormat",
+          "position": 1,
+          "type": "bool",
+          "description": "最小サイズになる形式で保存する時はTrue（開くのに計算を必要とします）",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        }
+      ],
+      "returns": {
+        "type": null,
+        "description": null,
+        "is_array": false
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "method",
+      "name": "GetPart",
+      "description": "Partオブジェクトの取得",
+      "category": "Documentオブジェクト",
+      "params": [],
+      "returns": {
+        "type": "Partオブジェクト",
+        "description": null,
+        "is_array": false
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "method",
+      "name": "IsActive",
+      "description": "ドキュメントがアクティブ（カレント）かどうか",
+      "category": "Documentオブジェクト",
+      "params": [],
+      "returns": {
+        "type": "bool",
+        "description": null,
+        "is_array": false
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "IsActive",
+      "description": "ドキュメントがActiveな時はTrue",
+      "category": null,
+      "params": [],
+      "returns": {
+        "type": "bool",
+        "description": null,
+        "is_array": false
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "Activate",
+      "description": "ドキュメントをアクティベイト（カレントに）する",
+      "category": null,
+      "params": [],
+      "returns": {
+        "type": null,
+        "description": null,
+        "is_array": false
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "FitAllViews",
+      "description": "ドキュメントのビューを要素にフィットする",
+      "category": null,
+      "params": [],
+      "returns": {
+        "type": null,
+        "description": null,
+        "is_array": false
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "GetViews",
+      "description": "ドキュメントのビューを取得する",
+      "category": null,
+      "params": [],
+      "returns": {
+        "type": "Viewオブジェクトの配列",
+        "description": null,
+        "is_array": true
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateSTLOption",
+      "description": "ドキュメントをSTLとして保存する際のパラメータオブジェクトの作成",
+      "category": null,
+      "params": [],
+      "returns": {
+        "type": "STLパラメータオブジェクト",
+        "description": null,
+        "is_array": false
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "object",
+      "name": "STLパラメータオブジェクト",
+      "description": "STLパラメータオブジェクト",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": [
+        {
+          "name": "ChordalTolerance",
+          "type": "浮動小数点",
+          "description": "メッシュ近似する際の弦の幅の許容トレランスを指定 (mm)",
+          "array_info": null
+        },
+        {
+          "name": "NormalTolerance",
+          "type": "浮動小数点",
+          "description": "メッシュ近似した場合のポリゴンの面と局面との法線方向のずれ角度の許容値（Degree)",
+          "array_info": null
+        },
+        {
+          "name": "SigDigits",
+          "type": "整数",
+          "description": "頂点座標値の有効桁数",
+          "array_info": null
+        },
+        {
+          "name": "MinMeshLength",
+          "type": "浮動小数点",
+          "description": "メッシュの辺の最小サイズを指定する場合は指定(mm)（指定しない場合は０）",
+          "array_info": null
+        },
+        {
+          "name": "MaxMeshLength",
+          "type": "浮動小数点",
+          "description": "メッシュの辺の最大サイズを指定する場合は指定(mm)（指定しない場合は０）",
+          "array_info": null
+        },
+        {
+          "name": "Elements",
+          "type": "配列",
+          "description": "STL出力する要素を指定（指定しない場合は表示されている全ての要素を出力します）",
+          "array_info": {
+            "qualifier": "配列"
+          }
+        }
+      ]
+    },
+    {
+      "entry_type": "function",
+      "name": "ExporAsSTL",
+      "description": "ドキュメントをSTLとして保存する",
+      "category": null,
+      "params": [
+        {
+          "name": "FileName",
+          "position": 0,
+          "type": "文字列",
+          "description": "保存するファイル名",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        }
+      ],
+      "returns": {
+        "type": null,
+        "description": null,
+        "is_array": false
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateLinearSweepParam",
+      "description": "押し出しパラメータオブジェクトの作成",
+      "category": null,
+      "params": [
+        {
+          "name": "MaterialName",
+          "position": 0,
+          "type": "文字列",
+          "description": "作成するシート要素の材質名称（空文字可）",
+          "is_required": false,
+          "default_value": null,
+          "array_info": null
+        },
+        {
+          "name": "SrcSurfaces",
+          "position": 1,
+          "type": "array",
+          "description": "オフセットする元シート要素、フェイス要素の指定文字列配列",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        },
+        {
+          "name": "OffsetLength",
+          "position": 2,
+          "type": "length",
+          "description": "オフセット距離",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        },
+        {
+          "name": "bOffsetBackwards",
+          "position": 3,
+          "type": "bool",
+          "description": "オフセット方向を反転",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        },
+        {
+          "name": "bUpdate",
+          "position": 4,
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": false,
+          "default_value": null,
+          "array_info": null
+        }
+      ],
+      "returns": {
+        "type": "object",
+        "description": "押し出しパラメータオブジェクト",
+        "is_array": false
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": [
+        {
+          "name": "NAME",
+          "type": "文字列",
+          "description": "要素名（空文字可）",
+          "array_info": null
+        },
+        {
+          "name": "ElementGroup",
+          "type": "文字列",
+          "description": "作成するシート要素を要素グループに入れる場合は要素グループを指定（空文字可）",
+          "array_info": null
+        },
+        {
+          "name": "MaterialName",
+          "type": "文字列",
+          "description": "作成するシード要素の材質名称（空文字可）",
+          "array_info": null
+        },
+        {
+          "name": "Target1",
+          "type": "array",
+          "description": "スイープするターゲット要素１（点、線、シート、ソリッド、あるいはソリッドフェイス）",
+          "array_info": null
+        },
+        {
+          "name": "Target2",
+          "type": "array",
+          "description": "スイープ方向が２方向の場合に使用。",
+          "array_info": null
+        }
+      ]
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateBracketParam",
+      "description": "ブラケット要素のパラメータオブジェクトの作成",
+      "category": null,
+      "params": [],
+      "returns": {
+        "type": "object",
+        "description": "ブラケット要素のパラメータオブジェクト",
+        "is_array": false
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": [
+        {
+          "name": "DefinitionType",
+          "type": "整数",
+          "description": "ブラケットの作成方法指定 0: 面指定 1:基準要素指定",
+          "array_info": null
+        },
+        {
+          "name": "BracketName",
+          "type": "文字列",
+          "description": "作成するブラケットソリッド要素名称（空文字可）",
+          "array_info": null
+        },
+        {
+          "name": "ElementGroup",
+          "type": "文字列",
+          "description": "作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）",
+          "array_info": null
+        },
+        {
+          "name": "MaterialName",
+          "type": "文字列",
+          "description": "作成するソリッド要素の材質名称（空文字可）",
+          "array_info": null
+        },
+        {
+          "name": "BasePlane",
+          "type": "文字列",
+          "description": "面指定の場合の基準平面",
+          "array_info": null
+        },
+        {
+          "name": "BasePlaneOffset",
+          "type": "length",
+          "description": "基準平面のオフセット距離",
+          "array_info": null
+        },
+        {
+          "name": "BaseElement",
+          "type": "文字列",
+          "description": "基準要素指定の場合の基準要素",
+          "array_info": null
+        },
+        {
+          "name": "UseSideSheetForPlane",
+          "type": "bool",
+          "description": "三面指定の場合はTrue",
+          "array_info": null
+        },
+        {
+          "name": "Thickness",
+          "type": "length",
+          "description": "板厚",
+          "array_info": null
+        },
+        {
+          "name": "Mold",
+          "type": "文字列",
+          "description": "モールド位置",
+          "array_info": null
+        },
+        {
+          "name": "MoldOffset",
+          "type": "length",
+          "description": "モールド位置のオフセット距離",
+          "array_info": null
+        },
+        {
+          "name": "BracketType",
+          "type": "文字列",
+          "description": "形状タイプ: ブラケットの形状タイプ",
+          "array_info": null
+        },
+        {
+          "name": "BracketParams",
+          "type": "null",
+          "description": "形状パラメータ: ブラケットの形状タイプのパラメータ",
+          "array_info": null
+        },
+        {
+          "name": "Scallop1Type",
+          "type": "null",
+          "description": null,
+          "array_info": null
+        }
+      ]
+    },
+    {
+      "entry_type": "parameter",
+      "name": "Scallop1Type",
+      "description": "ブラケットのスカラップの形状タイプ",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "Scallop1Params",
+      "description": "ブラケットのスカラップの形状タイプのパラメータ",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "nScallop2Type",
+      "description": "３面ブラケットの場合のスカラップ２の形状タイプ",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "Scallop2Params",
+      "description": "ブラケットのスカラップ２の形状タイプのパラメータ",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "Surfaces1",
+      "description": "ブラケット作成する面１の要素（ソリッド、シート、フェイス）",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "RevSf1",
+      "description": "面１の反対側にブラケットを作成する場合はTrue",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "Surfaces2",
+      "description": "ブラケット作成する面2の要素（ソリッド、シート、フェイス）",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "RevSf2",
+      "description": "面2の反対側にブラケットを作成する場合はTrue",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "Surfaces3",
+      "description": "３面ブラケット作成する面３の要素（ソリッド、シート、フェイス）",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "RevSf3",
+      "description": "面3の反対側にブラケットを作成する場合はTrue",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "FlangeType",
+      "description": "ブラケットのフランジの形状タイプ (0の場合はフランジをつけない）",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "FlangeParams",
+      "description": null,
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "RevFlange",
+      "description": "フランジの向きを反転する場合はTrue",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "FlangeAngle",
+      "description": "フランジの角度指定　０°は直角を意味し、そこからの増分を＋－で指定",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "Sf1DimensionType",
+      "description": "面１方向の寸法タイプ",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "Sf1DimensonParams",
+      "description": "面１方向の寸法タイプのパラメータ",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "Sf1EndElements",
+      "description": "面１方向の端部要素（必要な形状タイプの場合）",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "Sf1BaseElements",
+      "description": "面１方向の基準要素（必要な形状タイプの場合）",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "Sf2DimensionType",
+      "description": "面２方向の寸法タイプ",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "Sf2DimensonParams",
+      "description": "面２方向の寸法タイプのパラメータ",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "Sf2EndElements",
+      "description": "面２方向の端部要素（必要な形状タイプの場合）",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "Sf2BaseElements",
+      "description": "面２方向の基準要素（必要な形状タイプの場合）",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "ScallopEnd1LowerType",
+      "description": null,
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateBracket",
+      "description": "船殻のブラケットソリッド要素を作成する",
+      "category": null,
+      "params": [
+        {
+          "name": "ParamObj",
+          "position": 0,
+          "type": "object",
+          "description": "ブラケットパラメータオブジェクト",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        },
+        {
+          "name": "bUpdate",
+          "position": 1,
+          "type": "bool",
+          "description": "更新フラグ（未実装、使用しない）",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        }
+      ],
+      "returns": {
+        "type": "整数",
+        "description": "作成したソリッド要素のID",
+        "is_array": false
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "CreatePlate",
+      "description": "船殻のプレートソリッド要素を作成する",
+      "category": null,
+      "params": [
+        {
+          "name": "PlateName",
+          "position": 0,
+          "type": "文字列",
+          "description": "作成するプレートソリッド要素名称（空文字可）",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        },
+        {
+          "name": "ElementGroup",
+          "position": 1,
+          "type": "文字列",
+          "description": "要素グループ：作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可）",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        },
+        {
+          "name": "MaterialName",
+          "position": 2,
+          "type": "文字列",
+          "description": "材料：作成するソリッド要素の材質名称（空文字可）",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        },
+        {
+          "name": "Plane",
+          "position": 3,
+          "type": "文字列",
+          "description": "平面： プレートのる平面位置",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        },
+        {
+          "name": "PlaneOffset",
+          "position": 4,
+          "type": "length",
+          "description": "長さ：　平面のオフセット距離を指定",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        },
+        {
+          "name": "Thickness",
+          "position": 5,
+          "type": "length",
+          "description": "長さ： 板厚",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        },
+        {
+          "name": "nMold",
+          "position": 6,
+          "type": "文字列",
+          "description": "モールド位置: ",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        },
+        {
+          "name": "MoldOffset",
+          "position": 7,
+          "type": "length",
+          "description": "長さ： モールド位置のオフセット距離",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        },
+        {
+          "name": "BoundSolid",
+          "position": 8,
+          "type": "object",
+          "description": "要素：　プレートソリッドの境界となるソリッド要素。",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        },
+        {
+          "name": "Section1End1",
+          "position": 9,
+          "type": "length",
+          "description": "長さ： プレートソリッドの平面上の方向１の境界位置の座標値１",
+          "is_required": true,
+          "default_value": null,
+          "array_info": null
+        },
+        {
+          "name": "Section1End2",
+          "position": 10,
+          "type": "length",
+          "description": null,
+          "is_required": false,
+          "default_value": null,
+          "array_info": null
+        }
+      ],
+      "returns": {
+        "type": "整数",
+        "description": "作成したソリッド要素のID",
+        "is_array": false
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "bool",
+      "name": "DefPossitionAngles",
+      "description": "ねじれた条材を作成する場合のネジレ角度を位置と角度で指定",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "bool",
+      "name": "DefPositionNormalAngles",
+      "description": "ねじれた条材を作成する場合のネジレ角度を位置と角度を取付面の法線位置からの差分で指定",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "要素",
+      "name": "End1Elements",
+      "description": "端部１、端部となる要素を指定する",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "形状タイプ",
+      "name": "End1Type",
+      "description": "端部１、条材の端部タイプを指定",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "形状パラメータ",
+      "name": "End1TypeParams",
+      "description": "端部１、条材の端部タイプのパラメータ",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "要素",
+      "name": "End2Elements",
+      "description": "端部２、端部となる要素を指定する",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "形状タイプ",
+      "name": "End2Type",
+      "description": "端部２、条材の端部タイプを指定",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "形状パラメータ",
+      "name": "End2TypeParams",
+      "description": "端部２、条材の端部タイプのパラメータ",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "形状タイプ",
+      "name": "End1ScallopType",
+      "description": "端部１、条材の端部スカラップタイプを指定",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "形状パラメータ",
+      "name": "End1ScallopTypeParams",
+      "description": null,
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "parameter",
+      "name": "End1ScallopTypeParams",
+      "description": "形状パラメータ: 端部１、条材の端部スカラップタイプのパラメータ",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": [
+        {
+          "name": "End1ScallopType",
+          "type": "文字列",
+          "description": "形状タイプ: 端部１、条材の端部スカラップタイプを指定",
+          "array_info": null
+        },
+        {
+          "name": "End2ScallopType",
+          "type": "文字列",
+          "description": "形状タイプ: 端部２、条材の端部スカラップタイプを指定",
+          "array_info": null
+        },
+        {
+          "name": "End2ScallopTypeParams",
+          "type": "文字列",
+          "description": "形状パラメータ: 端部２、条材の端部スカラップタイプのパラメータ",
+          "array_info": null
+        },
+        {
+          "name": "AttachLines",
+          "type": "array",
+          "description": "要素(配列)：条材の取付線",
+          "array_info": null
+        },
+        {
+          "name": "AttachSurface",
+          "type": "array",
+          "description": "要素(配列)：条材を取り付ける面要素（フェイス、シートボディ）",
+          "array_info": null
+        },
+        {
+          "name": "BasePlane",
+          "type": "文字列",
+          "description": "要素：基準面要素（平面、シート、フェイス）を指定",
+          "array_info": null
+        },
+        {
+          "name": "BasePlaneOffset",
+          "type": "length",
+          "description": "基準面のオフセット距離を指定",
+          "array_info": null
+        },
+        {
+          "name": "BaseSolid",
+          "type": "文字列",
+          "description": "要素：基準要素（ソリッド）を指定",
+          "array_info": null
+        },
+        {
+          "name": "PathCurves",
+          "type": "array",
+          "description": "要素(配列)：取付線（取付線＋指定方向線で作成する際に使用する)",
+          "array_info": null
+        },
+        {
+          "name": "DirLines",
+          "type": "array",
+          "description": "要素(配列)：基準直線（取付線＋指定方向線で作成する際に使用する）",
+          "array_info": null
+        },
+        {
+          "name": "OrignalProfile",
+          "type": "文字列",
+          "description": "要素：",
+          "array_info": null
+        }
+      ]
+    },
+    {
+      "entry_type": "要素",
+      "name": "DirLines",
+      "description": "基準直線（取付線＋指定方向線で作成する際に使用する)",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "要素",
+      "name": "OrignalProfile",
+      "description": "作成元の条材(元要素指定で作成する際に使用する)",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "要素",
+      "name": "HoleFeature",
+      "description": "ホールフィーチャー(ホール指定で作成する際に使用する)",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "整数",
+      "name": "LocationAtHole",
+      "description": "条材の位置 0:上 1:下 2:左 3:右 (ホール指定で作成する際に使用する)",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "点",
+      "name": "BasePoint1",
+      "description": "基準点1 (２点もしくは基準点と方向で作成する際に使用する)",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "点",
+      "name": "BasePoint2",
+      "description": "基準点2 (２点で作成する際に使用する)",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "要素",
+      "name": "BaseProfile1",
+      "description": "ロンジ１(ロンジ間で作成する際に使用する)",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "要素",
+      "name": "BaseProfile2",
+      "description": "ロンジ２(ロンジ間で作成する際に使用する)",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "方向",
+      "name": "BaseDirection1",
+      "description": "(基準点と方向で作成する際に使用する)",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "方向",
+      "name": "BaseDirection2",
+      "description": "取付方向指定 (基準点と方向で作成する際に使用する)",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "整数",
+      "name": "BaseLocation",
+      "description": "基準位置 0:左下 1:中下 2:右下 3:左中 4:中中 5:右中 6:左上 7:中上 8:右上 (基準点と方向で作成する際に使用する)",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "関連設定",
+      "name": "ReferMethod",
+      "description": null,
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateRotationalSweepParam",
+      "description": "回転パラメータオブジェクトの作成",
+      "category": null,
+      "params": [],
+      "returns": {
+        "type": "object",
+        "description": "回転パラメータオブジェクト",
+        "is_array": false
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": [
+        {
+          "name": "NAME",
+          "type": "文字列",
+          "description": "要素名（空文字可）",
+          "array_info": null
+        },
+        {
+          "name": "ElementGroup",
+          "type": null,
+          "description": null,
+          "array_info": null
+        }
+      ]
+    },
+    {
+      "entry_type": "parameter",
+      "name": "bUpdate",
+      "description": "更新フラグ（未実装、使用しない）",
+      "category": null,
+      "params": [],
+      "returns": {
+        "type": "bool",
+        "description": null,
+        "is_array": false
+      },
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "MaterialName",
+      "description": "材料：作成するシード要素の材質名称（空文字可）",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "ReferMethod",
+      "description": "関連設定: 要素の関連づけ方法の指定",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "Profile",
+      "description": "要素(配列)：ロフトのプロファイル要素（スケッチ、線）",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "Guide",
+      "description": "要素(配列)：ロフトのガイド要素（スケッチ、線）",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "Alignment",
+      "description": "要素(配列)：ロフトのプロファイル要素の整列要素（スケッチ、線）",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "StartTangentType",
+      "description": "整数：始点側の接続要素指定(0:指定なし 1:平面に接続 2:面群にG1連続で接続 3:面群にG2連続で接続",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "StartTangentElement",
+      "description": "要素(配列)：始点側の接続要素",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "StartTangentScale",
+      "description": "浮動小数点:　始点側の接続スケール",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "EndTangentType",
+      "description": "整数：終点側の接続要素指定(0:指定なし 1:平面に接続 2:面群にG1連続で接続 3:面群にG2連続で接続",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "EndTangentElement",
+      "description": "要素(配列)：終点側の接続要素",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "EndTangentScale",
+      "description": "浮動小数点:　終点側の接続スケール",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "Close",
+      "description": "bool：閉じたロフト形状を作成するときはTrue",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "function",
+      "name": "UseGuidesInProfiles",
+      "description": "bool： プロファイル範囲内でガイドせんを利用する場合はTrue",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "取付線指定",
+      "name": "ProfileType",
+      "description": "形状タイプ: フェイスプレートの形状タイプを指定",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "取付線指定",
+      "name": "ProfileParam",
+      "description": "形状パラメータ: フェイスプレートの形状タイプのパラメータ",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "取付線指定",
+      "name": "FaceAngle",
+      "description": "角度：角度指定　０°は直角を意味し、そこからの増分を＋－で指定",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "取付線指定",
+      "name": "ReverseDirection",
+      "description": "bool：フェイスプレートの幅方向の向きを反転するときはTrue",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "取付線指定",
+      "name": "End1Elements",
+      "description": "要素(配列)： 端部１、端部となる要素を指定する",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "取付線指定",
+      "name": "End1Type",
+      "description": "形状タイプ: 端部１、フェイスプレートの端部タイプを指定",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "取付線指定",
+      "name": "End1TypeParams",
+      "description": "形状パラメータ: 端部１ フェイスプレートの端部タイプのパラメータ",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "取付線指定",
+      "name": "End2Elements",
+      "description": "要素(配列)： 端部２、端部となる要素を指定する",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "取付線指定",
+      "name": "End2Type",
+      "description": "形状タイプ: 端部２、フェイスプレートの端部タイプを指定",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "取付線指定",
+      "name": "End2TypeParams",
+      "description": "形状パラメータ: 端部２、フェイスプレートの端部タイプのパラメータ",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "取付線指定",
+      "name": "BaseFaces",
+      "description": "要素(配列)： 面指定で作成する場合の基準面（フェイス）",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "取付線指定",
+      "name": "AttachFaces",
+      "description": "要素(配列)： 面指定、取付線指定で作成する場合の取付面（フェイス）",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    },
+    {
+      "entry_type": "取付線指定",
+      "name": "OrignalFacePlate",
+      "description": "要素：",
+      "category": null,
+      "params": [],
+      "returns": null,
+      "notes": null,
+      "implementation_status": null,
+      "properties": []
+    }
+  ]
 }

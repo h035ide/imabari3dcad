@@ -58,12 +58,48 @@ def parse_args() -> argparse.Namespace:
         default=defaults.chunk_overlap,
         help="Chunk overlap for LLM extraction.",
     )
+    parser.add_argument(
+        "--log-file",
+        type=Path,
+        default=Path("api_extractor.log"),
+        help="Path to a log file (default: api_extractor.log)",
+    )
+    parser.add_argument(
+        "--log-level",
+        type=str,
+        default="INFO",
+        help="Logging level (DEBUG, INFO, WARNING, ERROR)",
+    )
     return parser.parse_args()
 
 
 def main() -> None:
     load_dotenv()
     args = parse_args()
+    # Configure logging to both file and console
+    log_level = getattr(logging, str(args.log_level).upper(), logging.INFO)
+    logger_handlers: list[logging.Handler] = []
+    try:
+        file_handler = logging.FileHandler(args.log_file, encoding="utf-8")
+        file_handler.setLevel(log_level)
+        file_handler.setFormatter(
+            logging.Formatter(
+                fmt="%(asctime)s %(levelname)s %(name)s - %(message)s",
+                datefmt="%Y-%m-%d %H:%M:%S",
+            )
+        )
+        logger_handlers.append(file_handler)
+    except Exception:
+        # フォールバック: ファイル作成に失敗した場合でもコンソール出力は確保
+        pass
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(log_level)
+    console_handler.setFormatter(
+        logging.Formatter("%(levelname)s %(name)s - %(message)s")
+    )
+    logger_handlers.append(console_handler)
+    logging.basicConfig(level=log_level, handlers=logger_handlers)
+    logging.info("Starting API extraction (llm=%s, model=%s)", args.llm, args.model)
     api_text = args.api_doc.read_text(encoding="utf-8")
     type_text = args.api_arg.read_text(encoding="utf-8")
     type_defs = parse_type_definitions(type_text)
@@ -78,6 +114,7 @@ def main() -> None:
     else:
         extractor = ApiExtractor(type_defs)
         entries = extractor.parse_api_text(api_text)
+    logging.info("Extraction finished: types=%d, entries=%d", len(type_defs), len(entries))
     result = {
         "type_definitions": [asdict(definition) for definition in type_defs],
         "api_entries": [

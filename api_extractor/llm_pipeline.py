@@ -15,7 +15,7 @@ from typing import Iterable, List, Optional, Set
 
 from llama_index.core import Document
 from llama_index.core.node_parser import SentenceSplitter
-from llama_index.core.schema import TextNode
+from llama_index.core.schema import BaseNode, TextNode
 from langchain_core.messages import BaseMessage
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import Runnable, RunnableSequence
@@ -124,12 +124,12 @@ class LLMApiExtractor:
             chunk_size=int(self.config.chunk_size),
             chunk_overlap=int(resolved_overlap),
         )
-        self._last_chunks: List[TextNode] = []
+        self._last_chunks: List[BaseNode] = []
         self._llm_override: Optional[Runnable] = llm
         self._llm_cached: Optional[Runnable] = None
         self._prompt: Optional[ChatPromptTemplate] = None
         self._parser: Optional[JsonOutputParser] = None
-        self._chain: Optional[RunnableSequence] = None
+        self._chain: Optional[Runnable] = None
         self._type_catalog_text = self._build_type_catalog()
         logger.debug(
             "Initialized LLMApiExtractor with %d type definitions (model=%s)",
@@ -183,7 +183,7 @@ class LLMApiExtractor:
         logger.info("LLM extraction completed with %d unique entries", len(entries))
         return entries
 
-    def _chunk_api_text(self, api_text: str) -> List[TextNode]:
+    def _chunk_api_text(self, api_text: str) -> List[BaseNode]:
         """`api.txt` のコンテンツをチャンク化してノード列として返す。"""
 
         document = Document(text=api_text, metadata={"source": "api.txt"})
@@ -225,7 +225,7 @@ class LLMApiExtractor:
                 temperature=self.config.temperature,
                 max_retries=self.config.max_retries,
                 timeout=self.config.request_timeout,
-                response_format={"type": self.config.response_format},
+                model_kwargs={"response_format": {"type": self.config.response_format}},
             )
         return self._llm_cached
 
@@ -234,7 +234,7 @@ class LLMApiExtractor:
             self._parser = JsonOutputParser(pydantic_object=LLMChunkResponse)
         return self._parser
 
-    def _get_chain(self) -> RunnableSequence:
+    def _get_chain(self) -> Runnable:
         if self._chain is None:
             self._chain = self._get_prompt() | self._get_llm() | self._get_parser()
         return self._chain
@@ -268,7 +268,10 @@ class LLMApiExtractor:
                         """,
                     ),
                 ]
-            ).partial(type_catalog=self._type_catalog_text)
+            ).partial(
+                type_catalog=self._type_catalog_text,
+                format_instructions=format_instructions,
+            )
         return self._prompt
 
     def _parse_llm_response(self, raw_response: object) -> List[ApiEntry]:

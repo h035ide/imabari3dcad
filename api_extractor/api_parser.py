@@ -37,8 +37,8 @@ class _RawEntry:
     category: Optional[str] = None
     description: Optional[str] = None
     return_text: Optional[str] = None
-    signature_lines: List[str] = None
-    property_lines: List[str] = None
+    signature_lines: Optional[List[str]] = None
+    property_lines: Optional[List[str]] = None
 
     def __post_init__(self) -> None:
         if self.signature_lines is None:
@@ -169,8 +169,12 @@ class ApiExtractor:
                 continue
 
             if in_properties:
+                if current_entry.property_lines is None:
+                    current_entry.property_lines = []
                 current_entry.property_lines.append(normalized.strip())
             else:
+                if current_entry.signature_lines is None:
+                    current_entry.signature_lines = []
                 current_entry.signature_lines.append(normalized.rstrip())
 
         if current_entry:
@@ -193,7 +197,7 @@ class ApiExtractor:
             yield raw_line.replace("\ufeff", "")
 
     def _build_function_entry(self, raw: _RawEntry) -> ApiEntry:
-        name, params = self._parse_signature(raw.signature_lines)
+        name, params = self._parse_signature(raw.signature_lines or [])
         returns = self._parse_return(raw.return_text)
         return ApiEntry(
             entry_type="function",
@@ -208,7 +212,7 @@ class ApiExtractor:
         )
 
     def _build_object_entry(self, raw: _RawEntry) -> ApiEntry:
-        properties = self._parse_properties(raw.property_lines)
+        properties = self._parse_properties(raw.property_lines or [])
         return ApiEntry(
             entry_type="object",
             name=self._extract_object_name(raw),
@@ -223,7 +227,7 @@ class ApiExtractor:
 
     def _extract_object_name(self, raw: _RawEntry) -> str:
         if raw.signature_lines:
-            candidate, _ = self._parse_signature(raw.signature_lines)
+            candidate, _ = self._parse_signature(raw.signature_lines or [])
             if candidate:
                 return candidate
         return raw.description or ""
@@ -231,7 +235,7 @@ class ApiExtractor:
     def _parse_signature(self, lines: List[str]) -> tuple[Optional[str], List[ParameterDefinition]]:
         header_line: Optional[str] = None
         params: List[ParameterDefinition] = []
-        for idx, line in enumerate(lines):
+        for line in lines:
             stripped = line.strip()
             if not stripped:
                 continue
@@ -257,7 +261,7 @@ class ApiExtractor:
         comment_match = _COMMENT_SPLIT.split(line, maxsplit=1)
         if len(comment_match) > 1:
             main_part = comment_match[0]
-            comment = line[line.index("//") + 2 :]
+            comment = line[line.index("//") + 2:]
         else:
             main_part = line
         main_part = main_part.rstrip(",); ")
@@ -350,10 +354,11 @@ class ApiExtractor:
         for pattern in _DEFAULT_PATTERNS:
             match = pattern.search(normalized)
             if match:
-                default_value = match.group("value").strip()
-                default_value = default_value.rstrip("。.")
-                default_value = default_value.rstrip(")")
-                default_value = default_value.rstrip("）")
+                value = match.group("value")
+                value = value.strip().rstrip("。.")
+                value = value.rstrip(")")
+                value = value.rstrip("）")
+                default_value = value
                 break
         is_required = True
         if default_value:
