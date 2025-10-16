@@ -20,6 +20,7 @@ from llama_index.core.schema import TextNode
 from langchain_core.language_models.base import BaseLanguageModel
 from langchain_core.messages import BaseMessage
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.runnables.base import Runnable
 from langchain_openai import ChatOpenAI
 
 from .models import (
@@ -67,6 +68,7 @@ class LLMApiExtractor:
         self,
         type_definitions: Iterable[TypeDefinition],
         config: LLMExtractionConfig | None = None,
+        llm: Optional[Runnable] = None,
     ):
         self.type_definitions = list(type_definitions)
         self.config = config or LLMExtractionConfig()
@@ -76,7 +78,8 @@ class LLMApiExtractor:
             chunk_overlap=self.config.chunk_overlap,
         )
         self._last_chunks: List[TextNode] = []
-        self._llm: BaseLanguageModel | None = None
+        self._llm_override: Optional[Runnable] = llm
+        self._llm_cached: Optional[Runnable] = None
         self._prompt: ChatPromptTemplate | None = None
         logger.debug(
             "Initialized LLMApiExtractor with %d type definitions (model=%s)",
@@ -148,16 +151,18 @@ class LLMApiExtractor:
         )
         return nodes
 
-    def _get_llm(self) -> BaseLanguageModel:
-        if self._llm is None:
-            self._llm = ChatOpenAI(
+    def _get_llm(self) -> Runnable:
+        if self._llm_override is not None:
+            return self._llm_override
+        if self._llm_cached is None:
+            self._llm_cached = ChatOpenAI(
                 model=self.config.model,
                 temperature=self.config.temperature,
                 max_retries=self.config.max_retries,
                 timeout=self.config.request_timeout,
                 response_format={"type": self.config.response_format},
             )
-        return self._llm
+        return self._llm_cached
 
     def _get_prompt(self) -> ChatPromptTemplate:
         if self._prompt is None:

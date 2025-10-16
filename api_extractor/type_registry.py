@@ -2,17 +2,15 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from typing import Iterable, Optional
 
 from .models import ArrayInfo, TypeDefinition
 
 
-@dataclass(slots=True)
 class TypeRegistry:
     """Helper that normalizes raw type hints using known definitions."""
 
-    definitions: list[TypeDefinition]
+    __slots__ = ("definitions", "_lookup", "_aliases")
 
     def __init__(self, definitions: Iterable[TypeDefinition]):
         self.definitions = list(definitions)
