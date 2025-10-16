@@ -14,6 +14,8 @@ from .type_parser import parse_type_definitions
 
 
 def parse_args() -> argparse.Namespace:
+    defaults = LLMExtractionConfig()
+
     parser = argparse.ArgumentParser(description="Extract structured EvoShip API metadata.")
     parser.add_argument("--api-doc", type=Path, required=True, help="Path to api.txt")
     parser.add_argument("--api-arg", type=Path, required=True, help="Path to api_arg.txt")
@@ -29,19 +31,19 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--model",
         type=str,
-        default=LLMExtractionConfig.model,
+        default=defaults.model,
         help="LLM model identifier when using --llm.",
     )
     parser.add_argument(
         "--chunk-size",
         type=int,
-        default=LLMExtractionConfig.chunk_size,
+        default=defaults.chunk_size,
         help="Chunk size for LLM extraction.",
     )
     parser.add_argument(
         "--chunk-overlap",
         type=int,
-        default=LLMExtractionConfig.chunk_overlap,
+        default=defaults.chunk_overlap,
         help="Chunk overlap for LLM extraction.",
     )
     return parser.parse_args()
