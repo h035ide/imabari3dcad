@@ -15,10 +15,10 @@ from typing import Iterable, List, Optional, Set
 
 from llama_index.core import Document
 from llama_index.core.node_parser import SentenceSplitter
-from llama_index.core.schema import BaseNode, TextNode
+from llama_index.core.schema import BaseNode
 from langchain_core.messages import BaseMessage
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.runnables import Runnable, RunnableSequence
+from langchain_core.runnables import Runnable
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, Field, ValidationError
@@ -26,7 +26,6 @@ from pydantic import BaseModel, Field, ValidationError
 from .models import (
     ApiEntry,
     ApiExtractionResult,
-    ArrayInfo,
     ParameterDefinition,
     PropertyDefinition,
     ReturnDefinition,
