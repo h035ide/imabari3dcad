@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Optional
 
 from .api_parser import ApiExtractor
+from .llm_pipeline import LLMApiExtractor, LLMExtractionConfig
 from .type_parser import parse_type_definitions
 
 
@@ -20,6 +21,29 @@ def parse_args() -> argparse.Namespace:
         "--output", type=Path, default=None, help="Destination JSON file. Defaults to stdout if omitted."
     )
     parser.add_argument("--indent", type=int, default=2, help="Indentation level for JSON output.")
+    parser.add_argument(
+        "--llm",
+        action="store_true",
+        help="Use the LLM-based extractor instead of the legacy regex parser.",
+    )
+    parser.add_argument(
+        "--model",
+        type=str,
+        default=LLMExtractionConfig.model,
+        help="LLM model identifier when using --llm.",
+    )
+    parser.add_argument(
+        "--chunk-size",
+        type=int,
+        default=LLMExtractionConfig.chunk_size,
+        help="Chunk size for LLM extraction.",
+    )
+    parser.add_argument(
+        "--chunk-overlap",
+        type=int,
+        default=LLMExtractionConfig.chunk_overlap,
+        help="Chunk overlap for LLM extraction.",
+    )
     return parser.parse_args()
 
 
@@ -28,8 +52,17 @@ def main() -> None:
     api_text = args.api_doc.read_text(encoding="utf-8")
     type_text = args.api_arg.read_text(encoding="utf-8")
     type_defs = parse_type_definitions(type_text)
-    extractor = ApiExtractor(type_defs)
-    entries = extractor.parse_api_text(api_text)
+    if args.llm:
+        config = LLMExtractionConfig(
+            model=args.model,
+            chunk_size=args.chunk_size,
+            chunk_overlap=args.chunk_overlap,
+        )
+        extractor = LLMApiExtractor(type_defs, config)
+        entries = extractor.extract(api_text)
+    else:
+        extractor = ApiExtractor(type_defs)
+        entries = extractor.parse_api_text(api_text)
     result = {
         "type_definitions": [asdict(definition) for definition in type_defs],
         "api_entries": [
