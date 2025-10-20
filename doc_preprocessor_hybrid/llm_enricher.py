@@ -187,7 +187,7 @@ def _extract_type_context(type_def: TypeDefinition, lines: List[str]) -> str:
         end_idx += 1
     snippet = "\n".join(
         lines[
-            max(0, start_idx - TYPE_CONTEXT_WINDOW) : min(
+            max(0, start_idx - TYPE_CONTEXT_WINDOW): min(
                 line_count, end_idx + TYPE_CONTEXT_WINDOW
             )
         ]

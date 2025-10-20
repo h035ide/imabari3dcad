@@ -100,7 +100,7 @@ def _build_source_fragment(
         return None
     start = max(0, min(start_idx, len(lines) - 1))
     end = max(start, min(end_idx, len(lines) - 1))
-    snippet = "\n".join(lines[start : end + 1])
+    snippet = "\n".join(lines[start:end + 1])
     # 簡略化されたsource形式（textのみ）
     return SourceFragment(
         path="",

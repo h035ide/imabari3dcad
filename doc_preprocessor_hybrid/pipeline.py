@@ -11,7 +11,6 @@ from .logging_config import setup_logging, get_logger
 from .rule_parser import (
     dump_bundle,
     generate_vector_chunks,
-    load_bundle,
     parse_api_documents,
 )
 from .storage.chroma_loader import ChromaIngestError, store_vectors

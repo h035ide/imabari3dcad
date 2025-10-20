@@ -23,10 +23,12 @@ class SourceFragment:
 
     @classmethod
     def from_dict(cls, data: Dict[str, object]) -> "SourceFragment":
+        start_line_val = data.get("start_line")
+        end_line_val = data.get("end_line")
         return cls(
             path=str(data.get("path", "")),
-            start_line=int(data.get("start_line", 0)),
-            end_line=int(data.get("end_line", 0)),
+            start_line=int(start_line_val) if isinstance(start_line_val, (int, str)) else 0,
+            end_line=int(end_line_val) if isinstance(end_line_val, (int, str)) else 0,
             text=str(data.get("text", "")),
             checksum=str(data.get("checksum", "")),
         )
@@ -75,17 +77,23 @@ class TypeDefinition:
                 if isinstance(item, dict)
             ]
 
+        # examples は常に List[str] に正規化する
+        examples_val = data.get("examples")
+        examples_list = (
+            [str(x) for x in examples_val] if isinstance(examples_val, list) else []
+        )
+
         return cls(
             name=str(data.get("name", "")),
             description=str(data.get("description", "")),
-            examples=list(data.get("examples", [])),
+            examples=examples_list,
             canonical_type=(
                 str(data.get("canonical_type")) if data.get("canonical_type") else None
             ),
             py_type=str(data.get("py_type")) if data.get("py_type") else None,
             one_of=one_of,
             source=(
-                SourceFragment.from_dict(data["source"]) if data.get("source") else None
+                SourceFragment.from_dict(src) if isinstance((src := data.get("source")), dict) else None
             ),
         )
 

@@ -45,11 +45,11 @@ def parse_methods_from_doc(path: Path) -> List[TemplateMethod]:
             i += 1
             continue
         if normalized.startswith(HEADER_MARK):
-            section = normalized[len(HEADER_MARK) :].strip() or None
+            section = normalized[len(HEADER_MARK):].strip() or None
             i += 1
             continue
         if normalized.startswith(TITLE_MARK):
-            title = normalized[len(TITLE_MARK) :].strip()
+            title = normalized[len(TITLE_MARK):].strip()
             j = i + 1
             return_text = ""
             while j < len(lines) and not _normalize_line(lines[j]):
