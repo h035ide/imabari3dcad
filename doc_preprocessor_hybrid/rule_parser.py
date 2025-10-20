@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 import re
-import hashlib
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Tuple
 
@@ -85,7 +84,11 @@ def _log_snippet(text: str) -> str:
     if text is None:
         return ""
     one_line = text.replace("\n", " ")
-    return one_line if len(one_line) <= LOG_SNIPPET_LENGTH else one_line[:LOG_SNIPPET_LENGTH] + "…"
+    return (
+        one_line
+        if len(one_line) <= LOG_SNIPPET_LENGTH
+        else one_line[:LOG_SNIPPET_LENGTH] + "…"
+    )
 
 
 def _build_source_fragment(
@@ -97,14 +100,14 @@ def _build_source_fragment(
         return None
     start = max(0, min(start_idx, len(lines) - 1))
     end = max(start, min(end_idx, len(lines) - 1))
-    snippet = "\n".join(lines[start:end + 1])
-    checksum = hashlib.sha1(snippet.encode("utf-8")).hexdigest() if snippet else ""
+    snippet = "\n".join(lines[start : end + 1])
+    # 簡略化されたsource形式（textのみ）
     return SourceFragment(
-        path=str(path),
-        start_line=start + 1,
-        end_line=end + 1,
+        path="",
+        start_line=0,
+        end_line=0,
         text=snippet,
-        checksum=checksum,
+        checksum="",
     )
 
 
@@ -225,7 +228,20 @@ def _apply_type_metadata(type_def: TypeDefinition) -> None:
         type_def.canonical_type, type_def.py_type = meta
     one_of = TYPE_ONE_OF_MAP.get(type_def.name)
     if one_of:
-        type_def.one_of = one_of
+        # one_ofをオブジェクト配列形式に変換（より具体的な説明）
+        one_of_descriptions = {
+            "millimeter_literal": "mm単位の数値リテラル",
+            "variable_reference": "変数要素名",
+            "expression": "四則演算などの式",
+            "integer_literal": "整数リテラル",
+            "float_literal": "浮動小数点リテラル",
+            "string_literal": "文字列リテラル",
+            "boolean_literal": "真偽値リテラル",
+        }
+        type_def.one_of = [
+            {"id": item, "description": one_of_descriptions.get(item, f"{item}の説明")}
+            for item in one_of
+        ]
     if type_def.name == "要素":
         _refine_element_definition(type_def)
     if type_def.name == "点":
@@ -258,7 +274,11 @@ def _build_point_variants(base: TypeDefinition) -> List[TypeDefinition]:
             examples=examples,
             canonical_type="point",
             py_type="str",
-            one_of=[token, "variable_reference", "expression"],
+            one_of=[
+                {"id": token, "description": f"{token}の説明"},
+                {"id": "variable_reference", "description": "変数要素名"},
+                {"id": "expression", "description": "四則演算などの式"},
+            ],
             source=base.source,
         )
         variants.append(variant)
@@ -514,14 +534,18 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
             continue
         header_match = HEADER_RE.match(line)
         if header_match:
-            logger.info(f"[api] HEADER matched: object='{header_match.group(1).strip()}' at line={i}")
+            logger.info(
+                f"[api] HEADER matched: object='{header_match.group(1).strip()}' at line={i}"
+            )
             current_object = header_match.group(1).strip()
             block_start_idx = None
             i += 1
             continue
         title_match = TITLE_RE.match(line)
         if title_match:
-            logger.info(f"[api] TITLE matched: title='{title_match.group(1).strip()}' at line={i}")
+            logger.info(
+                f"[api] TITLE matched: title='{title_match.group(1).strip()}' at line={i}"
+            )
             current_title = title_match.group(1).strip()
             current_return = ""
             block_start_idx = i
@@ -530,13 +554,17 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
                 ret_line = lines[i].strip()
                 ret_match = RETURN_RE.match(ret_line)
                 if ret_match:
-                    logger.debug(f"[api] RETURN matched: '{_log_snippet(ret_line)}' at line={i}")
+                    logger.debug(
+                        f"[api] RETURN matched: '{_log_snippet(ret_line)}' at line={i}"
+                    )
                     current_return = ret_match.group(1).strip()
                     i += 1
             continue
         zero_match = ZERO_PARAM_METHOD_RE.match(line)
         if zero_match:
-            logger.info(f"[api] ZERO-PARAM METHOD matched: name='{zero_match.group(1)}' at line={i}")
+            logger.info(
+                f"[api] ZERO-PARAM METHOD matched: name='{zero_match.group(1)}' at line={i}"
+            )
             method_name = zero_match.group(1)
             entry = ApiEntry(
                 entry_type="function",
@@ -561,7 +589,9 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
 
         method_match = METHOD_RE.match(line)
         if method_match:
-            logger.info(f"[api] METHOD start matched: name='{method_match.group(1)}' at line={i}")
+            logger.info(
+                f"[api] METHOD start matched: name='{method_match.group(1)}' at line={i}"
+            )
             method_name = method_match.group(1)
             entry_start_idx = block_start_idx if block_start_idx is not None else i
             entry_end_idx = i
@@ -640,7 +670,9 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
                 bare = bare.split("//", 1)[0]
             pname_ptype = _parse_bare_param(bare)
             if pname_ptype:
-                logger.debug(f"[api] BARE_PARAM matched: raw='{_log_snippet(bare)}' at line={i}")
+                logger.debug(
+                    f"[api] BARE_PARAM matched: raw='{_log_snippet(bare)}' at line={i}"
+                )
                 pname, ptype = pname_ptype
                 parameter = _build_parameter(pname, ptype, "", param_index)
                 current_entry.params.append(parameter)
@@ -755,6 +787,15 @@ def parse_api_documents(
     return ApiBundle(type_definitions=types, api_entries=entries, checklist=checklist)
 
 
+def _should_include_field(value, field_name):
+    """空でない値のみフィールドを含める"""
+    if field_name in ["examples", "one_of"]:
+        return value and len(value) > 0
+    if field_name == "source_text":
+        return value and value.strip()
+    return value is not None and value != ""
+
+
 def dump_bundle(bundle: ApiBundle, path: Path) -> None:
     logger = get_logger("rule_parser.dump_bundle")
     logger.debug(f"Dumping bundle to {path}")
@@ -764,8 +805,118 @@ def dump_bundle(bundle: ApiBundle, path: Path) -> None:
     )
 
     path.parent.mkdir(parents=True, exist_ok=True)
+
+    # 空配列を生成しない形式で出力
+    output_data = {
+        "type_definitions": [
+            {
+                "name": td.name,
+                "canonical_type": td.canonical_type,
+                "description": td.description,
+                **(
+                    {
+                        k: v
+                        for k, v in {
+                            "examples": td.examples,
+                            "one_of": td.one_of,
+                        }.items()
+                        if _should_include_field(v, k)
+                    }
+                ),
+                **(
+                    {"source": {"text": td.source.text}}
+                    if td.source
+                    and _should_include_field(td.source.text, "source_text")
+                    else {}
+                ),
+            }
+            for td in bundle.type_definitions
+        ],
+        "api_entries": [
+            {
+                "name": entry.name,
+                "description": entry.description,
+                "category": entry.category,
+                "entry_type": entry.entry_type,
+                **(
+                    {
+                        "params": [
+                            {
+                                "name": param.name,
+                                "type": param.type,
+                                "description": param.description,
+                                **(
+                                    {"is_required": param.is_required}
+                                    if param.is_required
+                                    else {}
+                                ),
+                                **(
+                                    {"position": param.position}
+                                    if param.position is not None
+                                    else {}
+                                ),
+                                **(
+                                    {"raw_type": param.raw_type}
+                                    if param.raw_type
+                                    else {}
+                                ),
+                                **(
+                                    {"dimension": param.dimension}
+                                    if param.dimension
+                                    else {}
+                                ),
+                            }
+                            for param in entry.params
+                        ]
+                    }
+                    if entry.params
+                    else {}
+                ),
+                **(
+                    {
+                        "returns": {
+                            "type": entry.returns.type if entry.returns else "void",
+                            "description": (
+                                entry.returns.description if entry.returns else ""
+                            ),
+                            **(
+                                {"is_array": entry.returns.is_array}
+                                if entry.returns and entry.returns.is_array
+                                else {}
+                            ),
+                            **(
+                                {"raw_type": entry.returns.raw_type}
+                                if entry.returns and entry.returns.raw_type
+                                else {}
+                            ),
+                        }
+                    }
+                    if entry.returns and entry.returns.type != "void"
+                    else {}
+                ),
+                **(
+                    {"title_jp": entry.title_jp}
+                    if entry.title_jp and entry.title_jp != entry.description
+                    else {}
+                ),
+                **(
+                    {"object_name": entry.object_name}
+                    if entry.object_name and entry.object_name != entry.category
+                    else {}
+                ),
+                **(
+                    {"source": {"text": entry.source.text}}
+                    if entry.source
+                    and _should_include_field(entry.source.text, "source_text")
+                    else {}
+                ),
+            }
+            for entry in bundle.api_entries
+        ],
+    }
+
     path.write_text(
-        json.dumps(bundle.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8"
+        json.dumps(output_data, ensure_ascii=False, indent=2), encoding="utf-8"
     )
     logger.info(f"Successfully saved bundle to {path}")
 

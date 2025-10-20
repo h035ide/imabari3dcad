@@ -42,8 +42,8 @@ class TypeDefinition:
         None  # e.g., "string","integer","length","angle","point","direction"
     )
     py_type: Optional[str] = None  # e.g., "str","int","float","bool","list","dict"
-    one_of: Optional[List[str]] = (
-        None  # e.g., ["number_mm","variable_name","expression"]
+    one_of: Optional[List[Dict[str, str]]] = (
+        None  # e.g., [{"id": "number_mm", "description": "..."}]
     )
     source: Optional[SourceFragment] = None
 
@@ -60,6 +60,34 @@ class TypeDefinition:
         if self.source:
             data["source"] = self.source.to_dict()
         return data
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, object]) -> "TypeDefinition":
+        one_of_data = data.get("one_of")
+        one_of = None
+        if one_of_data and isinstance(one_of_data, list):
+            one_of = [
+                {
+                    "id": str(item.get("id", "")),
+                    "description": str(item.get("description", "")),
+                }
+                for item in one_of_data
+                if isinstance(item, dict)
+            ]
+
+        return cls(
+            name=str(data.get("name", "")),
+            description=str(data.get("description", "")),
+            examples=list(data.get("examples", [])),
+            canonical_type=(
+                str(data.get("canonical_type")) if data.get("canonical_type") else None
+            ),
+            py_type=str(data.get("py_type")) if data.get("py_type") else None,
+            one_of=one_of,
+            source=(
+                SourceFragment.from_dict(data["source"]) if data.get("source") else None
+            ),
+        )
 
 
 @dataclass

@@ -123,7 +123,9 @@ def run_pipeline(
     logger.info(f"Generated {len(vector_records)} vector chunks")
     _write_jsonl(vector_records, cfg.vector_output)
 
-    structured_path = cfg.structured_output_enriched if use_llm else cfg.structured_output
+    structured_path = (
+        cfg.structured_output_enriched if use_llm else cfg.structured_output
+    )
 
     storage_results: Dict[str, object] = {}
     if store_neo4j or store_chroma:
