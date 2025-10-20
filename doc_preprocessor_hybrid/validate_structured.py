@@ -170,7 +170,9 @@ def normalize_json_entry(entry: Dict[str, object]) -> Tuple[str, Dict[str, objec
         "title_jp": normalize_whitespace(entry.get("title_jp")),
         "raw_return": normalize_whitespace(entry.get("raw_return")),
         "return_description": normalize_whitespace(
-            (entry.get("returns") or {}).get("description") if isinstance(entry.get("returns"), dict) else None
+            (entry.get("returns") or {}).get("description")
+            if isinstance(entry.get("returns"), dict)
+            else None
         ),
         "object_name": normalize_whitespace(entry.get("object_name")),
     }
@@ -210,7 +212,9 @@ class Difference:
     actual: object
 
 
-def compare_entries(xml_entry: XmlEntry, json_entry: Dict[str, object]) -> List[Difference]:
+def compare_entries(
+    xml_entry: XmlEntry, json_entry: Dict[str, object]
+) -> List[Difference]:
     differences: List[Difference] = []
 
     def record(field: str, expected: object, actual: object) -> None:
@@ -229,10 +233,16 @@ def compare_entries(xml_entry: XmlEntry, json_entry: Dict[str, object]) -> List[
     record("category", xml_entry.category, json_entry.get("category"))
     record("title_jp", xml_entry.title_jp, json_entry.get("title_jp"))
     record("raw_return", xml_entry.raw_return, json_entry.get("raw_return"))
-    record("return_description", xml_entry.return_description, json_entry.get("return_description"))
+    record(
+        "return_description",
+        xml_entry.return_description,
+        json_entry.get("return_description"),
+    )
     record("object_name", xml_entry.object_name, json_entry.get("object_name"))
 
-    xml_params: Dict[str, XmlParameter] = {param.key: param for param in xml_entry.params}
+    xml_params: Dict[str, XmlParameter] = {
+        param.key: param for param in xml_entry.params
+    }
     json_params_raw: Dict[str, Dict[str, str]] = {}
     for idx, param in enumerate(json_entry.get("params", [])):
         key = build_parameter_key(param.get("name", ""), idx)
@@ -257,7 +267,10 @@ def compare_entries(xml_entry: XmlEntry, json_entry: Dict[str, object]) -> List[
                 entry_type=xml_entry.entry_type,
                 field=f"params[{param.get('name') or key}]",
                 expected="(XMLに無し)",
-                actual={"type": param.get("type"), "description": param.get("description")},
+                actual={
+                    "type": param.get("type"),
+                    "description": param.get("description"),
+                },
             )
         )
 
@@ -376,7 +389,16 @@ def run_validation(xml_path: Path, json_path: Path, report_path: Path) -> int:
 
     full_report = format_differences(xml_only, json_only, diffs, limit=None)
     exit_code = 0 if not (xml_only or json_only or diffs) else 1
-    write_report_document(report_path, xml_path, json_path, xml_only, json_only, diffs, full_report, exit_code)
+    write_report_document(
+        report_path,
+        xml_path,
+        json_path,
+        xml_only,
+        json_only,
+        diffs,
+        full_report,
+        exit_code,
+    )
 
     return exit_code
 
@@ -422,4 +444,3 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 if __name__ == "__main__":  # pragma: no cover - CLI entrypoint
     sys.exit(main())
-

@@ -63,7 +63,9 @@ class ChromaConfig:
             else:
                 model = "sentence-transformers/all-MiniLM-L6-v2"
         return cls(
-            persist_directory=Path(persist_dir) if persist_dir else Path("vector_store"),
+            persist_directory=(
+                Path(persist_dir) if persist_dir else Path("vector_store")
+            ),
             collection_name=os.getenv("CHROMA_COLLECTION", "evo_ship_api"),
             embedding_provider=provider,
             embedding_model=model,
@@ -79,4 +81,6 @@ class StorageConfig:
 
     @classmethod
     def load(cls) -> "StorageConfig":
-        return cls(neo4j=Neo4jConnectionConfig.from_env(), chroma=ChromaConfig.from_env())
+        return cls(
+            neo4j=Neo4jConnectionConfig.from_env(), chroma=ChromaConfig.from_env()
+        )

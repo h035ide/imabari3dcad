@@ -9,6 +9,8 @@ class PipelineConfig:
     api_doc_path: Path = Path("data/src/api.txt")
     api_arg_path: Path = Path("data/src/api_arg.txt")
     output_dir: Path = Path("doc_preprocessor_hybrid/out")
+    log_level: str = "INFO"
+    enable_debug_logging: bool = True
 
     @property
     def structured_output(self) -> Path:
@@ -25,3 +27,7 @@ class PipelineConfig:
     @property
     def structured_output_enriched(self) -> Path:
         return self.output_dir / "structured_api_enriched.json"
+
+    @property
+    def log_file(self) -> Path:
+        return self.output_dir / "pipeline.log"

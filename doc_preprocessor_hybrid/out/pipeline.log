@@ -1,0 +1,78 @@
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - main:76 - ============================================================
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - main:77 - Starting CLI execution
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - main:78 - Arguments: {'api_doc': 'data/src/api.txt', 'api_arg': 'data/src/api_arg.txt', 'output_dir': 'doc_preprocessor_hybrid/out', 'llm': False, 'model': None, 'store_neo4j': False, 'store_chroma': False, 'dry_run': False, 'log_level': 'DEBUG', 'disable_debug_logging': False}
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - main:79 - ============================================================
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:54 - ============================================================
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:55 - Starting pipeline execution
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:56 - Configuration: PipelineConfig(api_doc_path=WindowsPath('data/src/api.txt'), api_arg_path=WindowsPath('data/src/api_arg.txt'), output_dir=WindowsPath('doc_preprocessor_hybrid/out'), log_level='DEBUG', enable_debug_logging=True)
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:57 - Use LLM: False
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:58 - Store Neo4j: False
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:59 - Store Chroma: False
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:60 - ============================================================
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:68 - Checking for existing structured output files...
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:73 - Found enriched structured output: doc_preprocessor_hybrid\out\structured_api_enriched.json
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:79 - Loading existing bundle from: doc_preprocessor_hybrid\out\structured_api_enriched.json
+2025-10-20 17:04:13 - doc_preprocessor_hybrid.rule_parser.load_bundle - INFO - load_bundle:793 - Loading bundle from doc_preprocessor_hybrid\out\structured_api_enriched.json
+2025-10-20 17:04:13 - doc_preprocessor_hybrid.rule_parser.load_bundle - INFO - load_bundle:802 - Loaded bundle with 70 API entries and 25 type definitions
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:82 - Successfully loaded bundle with 70 API entries and 25 type definitions
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:131 - Skipping LLM enrichment phase
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:134 - Building graph payload...
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:136 - Graph payload contains 370 nodes and 648 relationships
+2025-10-20 17:04:13 - doc_preprocessor_hybrid.pipeline._write_graph - DEBUG - _write_graph:34 - Writing graph payload to doc_preprocessor_hybrid\out\graph_payload.json
+2025-10-20 17:04:13 - doc_preprocessor_hybrid.pipeline._write_graph - INFO - _write_graph:37 - Successfully wrote graph payload to doc_preprocessor_hybrid\out\graph_payload.json
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:142 - Generating vector chunks...
+2025-10-20 17:04:13 - doc_preprocessor_hybrid.rule_parser.generate_vector_chunks - DEBUG - generate_vector_chunks:812 - Generating vector chunks from API entries
+2025-10-20 17:04:13 - doc_preprocessor_hybrid.rule_parser.generate_vector_chunks - INFO - generate_vector_chunks:848 - Generated 70 vector chunks
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:144 - Generated 70 vector chunks
+2025-10-20 17:04:13 - doc_preprocessor_hybrid.pipeline._write_jsonl - DEBUG - _write_jsonl:24 - Writing 70 records to doc_preprocessor_hybrid\out\vector_chunks.jsonl
+2025-10-20 17:04:13 - doc_preprocessor_hybrid.pipeline._write_jsonl - INFO - _write_jsonl:29 - Successfully wrote 70 records to doc_preprocessor_hybrid\out\vector_chunks.jsonl
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:210 - ============================================================
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:211 - Pipeline execution completed successfully
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:212 - Output files:
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:213 -   - Structured output: doc_preprocessor_hybrid\out\structured_api_enriched.json
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:214 -   - Graph output: doc_preprocessor_hybrid\out\graph_payload.json
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:215 -   - Vector output: doc_preprocessor_hybrid\out\vector_chunks.jsonl
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:216 -   - Log file: doc_preprocessor_hybrid\out\pipeline.log
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:217 - Bundle source: structured_api_enriched
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:218 - Used existing structured: True
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - run_pipeline:223 - ============================================================
+2025-10-20 17:04:13 - doc_preprocessor_hybrid - INFO - main:109 - CLI execution completed successfully
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - main:76 - ============================================================
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - main:77 - Starting CLI execution
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - main:78 - Arguments: {'api_doc': 'data/src/api.txt', 'api_arg': 'data/src/api_arg.txt', 'output_dir': 'doc_preprocessor_hybrid/out', 'llm': False, 'model': None, 'store_neo4j': False, 'store_chroma': False, 'dry_run': False, 'log_level': 'DEBUG', 'disable_debug_logging': False}
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - main:79 - ============================================================
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:54 - ============================================================
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:55 - Starting pipeline execution
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:56 - Configuration: PipelineConfig(api_doc_path=WindowsPath('data/src/api.txt'), api_arg_path=WindowsPath('data/src/api_arg.txt'), output_dir=WindowsPath('doc_preprocessor_hybrid/out'), log_level='DEBUG', enable_debug_logging=True)
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:57 - Use LLM: False
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:58 - Store Neo4j: False
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:59 - Store Chroma: False
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:60 - ============================================================
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:68 - Checking for existing structured output files...
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:73 - Found enriched structured output: doc_preprocessor_hybrid\out\structured_api_enriched.json
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:79 - Loading existing bundle from: doc_preprocessor_hybrid\out\structured_api_enriched.json
+2025-10-20 17:11:55 - doc_preprocessor_hybrid.rule_parser.load_bundle - INFO - load_bundle:849 - Loading bundle from doc_preprocessor_hybrid\out\structured_api_enriched.json
+2025-10-20 17:11:55 - doc_preprocessor_hybrid.rule_parser.load_bundle - INFO - load_bundle:858 - Loaded bundle with 70 API entries and 25 type definitions
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:82 - Successfully loaded bundle with 70 API entries and 25 type definitions
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:131 - Skipping LLM enrichment phase
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:134 - Building graph payload...
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:136 - Graph payload contains 370 nodes and 648 relationships
+2025-10-20 17:11:55 - doc_preprocessor_hybrid.pipeline._write_graph - DEBUG - _write_graph:34 - Writing graph payload to doc_preprocessor_hybrid\out\graph_payload.json
+2025-10-20 17:11:55 - doc_preprocessor_hybrid.pipeline._write_graph - INFO - _write_graph:37 - Successfully wrote graph payload to doc_preprocessor_hybrid\out\graph_payload.json
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:142 - Generating vector chunks...
+2025-10-20 17:11:55 - doc_preprocessor_hybrid.rule_parser.generate_vector_chunks - DEBUG - generate_vector_chunks:868 - Generating vector chunks from API entries
+2025-10-20 17:11:55 - doc_preprocessor_hybrid.rule_parser.generate_vector_chunks - INFO - generate_vector_chunks:904 - Generated 70 vector chunks
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:144 - Generated 70 vector chunks
+2025-10-20 17:11:55 - doc_preprocessor_hybrid.pipeline._write_jsonl - DEBUG - _write_jsonl:24 - Writing 70 records to doc_preprocessor_hybrid\out\vector_chunks.jsonl
+2025-10-20 17:11:55 - doc_preprocessor_hybrid.pipeline._write_jsonl - INFO - _write_jsonl:29 - Successfully wrote 70 records to doc_preprocessor_hybrid\out\vector_chunks.jsonl
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:210 - ============================================================
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:211 - Pipeline execution completed successfully
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:212 - Output files:
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:213 -   - Structured output: doc_preprocessor_hybrid\out\structured_api_enriched.json
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:214 -   - Graph output: doc_preprocessor_hybrid\out\graph_payload.json
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:215 -   - Vector output: doc_preprocessor_hybrid\out\vector_chunks.jsonl
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:216 -   - Log file: doc_preprocessor_hybrid\out\pipeline.log
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:217 - Bundle source: structured_api_enriched
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:218 - Used existing structured: True
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - run_pipeline:223 - ============================================================
+2025-10-20 17:11:55 - doc_preprocessor_hybrid - INFO - main:109 - CLI execution completed successfully

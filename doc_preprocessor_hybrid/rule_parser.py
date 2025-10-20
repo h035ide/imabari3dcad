@@ -7,7 +7,15 @@ from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Tuple
 
 from .config import PipelineConfig
-from .schemas import ApiBundle, ApiEntry, Parameter, ReturnSpec, TypeDefinition, SourceFragment
+from .logging_config import get_logger
+from .schemas import (
+    ApiBundle,
+    ApiEntry,
+    Parameter,
+    ReturnSpec,
+    TypeDefinition,
+    SourceFragment,
+)
 
 
 HEADER_RE = re.compile(r"^■(.+?)(?:のメソッド)?$")
@@ -65,7 +73,24 @@ TYPE_ONE_OF_MAP: dict[str, List[str]] = {
 }
 
 
-def _build_source_fragment(lines: List[str], start_idx: int, end_idx: int, path: Path | None) -> SourceFragment | None:
+# ---- logging helpers -----------------------------------------------------
+LOG_SNIPPET_LENGTH = 200
+
+
+def _log_snippet(text: str) -> str:
+    """Return a truncated single-line snippet for debug logs.
+
+    This avoids flooding logs with very long source lines.
+    """
+    if text is None:
+        return ""
+    one_line = text.replace("\n", " ")
+    return one_line if len(one_line) <= LOG_SNIPPET_LENGTH else one_line[:LOG_SNIPPET_LENGTH] + "…"
+
+
+def _build_source_fragment(
+    lines: List[str], start_idx: int, end_idx: int, path: Path | None
+) -> SourceFragment | None:
     if path is None:
         return None
     if not lines:
@@ -122,9 +147,7 @@ DEFAULT_POINT_EXAMPLES: Tuple[Tuple[str, ...], ...] = (
     ("100.0", "50.0", "0.0"),
     ("FRM1", "0.0", "1000.0"),
 )
-POINT_COMPONENT_PATTERN = re.compile(
-    r"^-?\d+(?:\.\d+)?$|^[A-Za-z_][A-Za-z0-9_]*$"
-)
+POINT_COMPONENT_PATTERN = re.compile(r"^-?\d+(?:\.\d+)?$|^[A-Za-z_][A-Za-z0-9_]*$")
 
 
 def _unique_preserve_order(values: Iterable[str]) -> List[str]:
@@ -142,7 +165,11 @@ def _tokenize_point_example(example: str) -> List[str]:
     if not example:
         return []
     cleaned = example.strip()
-    if cleaned.startswith(("'", '"')) and cleaned.endswith(("'", '"')) and len(cleaned) >= 2:
+    if (
+        cleaned.startswith(("'", '"'))
+        and cleaned.endswith(("'", '"'))
+        and len(cleaned) >= 2
+    ):
         cleaned = cleaned[1:-1].strip()
     tokens = [token.strip() for token in cleaned.split(",")]
     normalized: List[str] = []
@@ -165,7 +192,9 @@ def _parse_point_examples(examples: List[str]) -> List[List[str]]:
     return parsed
 
 
-def _examples_to_strings(parsed_examples: List[List[str]], *, limit: int | None = None) -> List[str]:
+def _examples_to_strings(
+    parsed_examples: List[List[str]], *, limit: int | None = None
+) -> List[str]:
     formatted: List[str] = []
     for tokens in parsed_examples:
         if limit is not None and len(tokens) < limit:
@@ -176,7 +205,11 @@ def _examples_to_strings(parsed_examples: List[List[str]], *, limit: int | None 
 
 
 def _fallback_point_examples(components: int) -> List[str]:
-    values = [",".join(example[:components]) for example in DEFAULT_POINT_EXAMPLES if len(example) >= components]
+    values = [
+        ",".join(example[:components])
+        for example in DEFAULT_POINT_EXAMPLES
+        if len(example) >= components
+    ]
     if not values:
         head = DEFAULT_POINT_EXAMPLES[0]
         values = [",".join(head[:components])]
@@ -184,7 +217,9 @@ def _fallback_point_examples(components: int) -> List[str]:
 
 
 def _apply_type_metadata(type_def: TypeDefinition) -> None:
-    type_def.description = _normalize_type_definition_description(type_def.name, type_def.description)
+    type_def.description = _normalize_type_definition_description(
+        type_def.name, type_def.description
+    )
     meta = TYPE_CANONICAL_MAP.get(type_def.name)
     if meta:
         type_def.canonical_type, type_def.py_type = meta
@@ -194,9 +229,7 @@ def _apply_type_metadata(type_def: TypeDefinition) -> None:
     if type_def.name == "要素":
         _refine_element_definition(type_def)
     if type_def.name == "点":
-        type_def.description = (
-            "モデル座標系の点を表す値を指定します。数値リテラルのほか、変数参照や式を利用できます。"
-        )
+        type_def.description = "モデル座標系の点を表す値を指定します。数値リテラルのほか、変数参照や式を利用できます。"
         parsed_examples = _parse_point_examples(type_def.examples)
         if not parsed_examples:
             parsed_examples = [list(example) for example in DEFAULT_POINT_EXAMPLES]
@@ -232,7 +265,9 @@ def _build_point_variants(base: TypeDefinition) -> List[TypeDefinition]:
     return variants
 
 
-def _augment_type_definitions(definitions: List[TypeDefinition]) -> List[TypeDefinition]:
+def _augment_type_definitions(
+    definitions: List[TypeDefinition],
+) -> List[TypeDefinition]:
     augmented: List[TypeDefinition] = []
     for definition in definitions:
         augmented.append(definition)
@@ -262,7 +297,11 @@ def _clean_type_name(raw: str) -> Tuple[str, bool]:
     name = raw.strip()
     # COM/IDL 属性の除去と代表型の正規化
     name = re.sub(r"\[[^\]]*\]", "", name).strip()  # [in], [out] など
-    name = name.replace("BSTR", "string").replace("LPWSTR", "string").replace("LPSTR", "string")
+    name = (
+        name.replace("BSTR", "string")
+        .replace("LPWSTR", "string")
+        .replace("LPSTR", "string")
+    )
     # 2D/3D注記など括弧内は後で落とす（dimension抽出は別）
     is_array = any(marker in name for marker in ARRAY_MARKERS)
     if is_array:
@@ -299,7 +338,9 @@ def _is_required(desc: str) -> bool:
     return False
 
 
-def _build_parameter(name: str, raw_type: str, description: str, position: int) -> Parameter:
+def _build_parameter(
+    name: str, raw_type: str, description: str, position: int
+) -> Parameter:
     cleaned, is_array = _clean_type_name(raw_type)
     # 次元(2D/3D)抽出
     dim: str | None = None
@@ -346,7 +387,7 @@ def _parse_bare_param(candidate: str) -> Tuple[str, str] | None:
     if not candidate:
         return None
     # 末尾のカンマを除去、全角スペース→半角
-    cand = candidate.strip().rstrip(',').replace("\u3000", " ")
+    cand = candidate.strip().rstrip(",").replace("\u3000", " ")
     # 括弧内属性はそのまま型側に残す
     tokens = re.split(r"\s+", cand)
     if not tokens:
@@ -359,9 +400,15 @@ def _parse_bare_param(candidate: str) -> Tuple[str, str] | None:
     return pname, ptype
 
 
-def parse_type_definitions(text: str, *, path: Path | None = None) -> List[TypeDefinition]:
+def parse_type_definitions(
+    text: str, *, path: Path | None = None
+) -> List[TypeDefinition]:
+    logger = get_logger("rule_parser.parse_type_definitions")
+    logger.debug(f"Begin parse_type_definitions: source={path}")
     definitions: List[TypeDefinition] = []
-    lines = _normalize_text(text).split("\n")
+    normalized = _normalize_text(text)
+    lines = normalized.split("\n")
+    logger.debug(f"Total lines: {len(lines)}")
 
     current_name: str | None = None
     current_lines: List[str] = []
@@ -376,7 +423,9 @@ def parse_type_definitions(text: str, *, path: Path | None = None) -> List[TypeD
             current_start = None
             current_end = None
             return
-        type_def = TypeDefinition(name=current_name, description="\n".join(current_lines))
+        type_def = TypeDefinition(
+            name=current_name, description="\n".join(current_lines)
+        )
         fragment = None
         if current_start is not None:
             end_idx = current_end if current_end is not None else current_start
@@ -391,11 +440,15 @@ def parse_type_definitions(text: str, *, path: Path | None = None) -> List[TypeD
 
     for idx, raw_line in enumerate(lines):
         line = raw_line.strip()
+        if idx < 5 or idx % 50 == 0:
+            # 先頭数行と50行毎に軽量スニペットを出力
+            logger.debug(f"[type:{idx}] {_log_snippet(raw_line)}")
         if not line:
             continue
         if line.startswith("■"):
             finalize()
             current_name = line.replace("■", "", 1).strip()
+            logger.info(f"[type] section start: name='{current_name}' at line={idx}")
             current_lines = []
             current_start = idx
             current_end = idx
@@ -411,6 +464,9 @@ def parse_type_definitions(text: str, *, path: Path | None = None) -> List[TypeD
     refined: List[TypeDefinition] = []
     for type_def in definitions:
         _apply_type_metadata(type_def)
+        logger.debug(
+            f"[type] built: name='{type_def.name}', desc_snippet='{_log_snippet(type_def.description)}'"
+        )
         refined.append(type_def)
     return _augment_type_definitions(refined)
 
@@ -422,8 +478,12 @@ def _finalize_entry(entry: ApiEntry, entries: List[ApiEntry]) -> None:
 
 
 def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
+    logger = get_logger("rule_parser.parse_api_specs")
+    logger.debug(f"Begin parse_api_specs: source={path}")
     entries: List[ApiEntry] = []
-    lines = _normalize_text(text).split("\n")
+    normalized = _normalize_text(text)
+    lines = normalized.split("\n")
+    logger.debug(f"Total lines: {len(lines)}")
     current_object = ""
     current_title = ""
     current_return = ""
@@ -434,7 +494,9 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
     entry_start_idx: int | None = None
     entry_end_idx: int | None = None
 
-    def attach_source(entry: ApiEntry | None, start_idx: int | None, end_idx: int | None) -> None:
+    def attach_source(
+        entry: ApiEntry | None, start_idx: int | None, end_idx: int | None
+    ) -> None:
         if not entry or start_idx is None or end_idx is None:
             return
         fragment = _build_source_fragment(lines, start_idx, end_idx, path)
@@ -445,17 +507,21 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
     while i < len(lines):
         raw_line = lines[i]
         line = raw_line.strip()
+        if i < 5 or i % 50 == 0:
+            logger.debug(f"[api:{i}] {_log_snippet(raw_line)}")
         if not line:
             i += 1
             continue
         header_match = HEADER_RE.match(line)
         if header_match:
+            logger.info(f"[api] HEADER matched: object='{header_match.group(1).strip()}' at line={i}")
             current_object = header_match.group(1).strip()
             block_start_idx = None
             i += 1
             continue
         title_match = TITLE_RE.match(line)
         if title_match:
+            logger.info(f"[api] TITLE matched: title='{title_match.group(1).strip()}' at line={i}")
             current_title = title_match.group(1).strip()
             current_return = ""
             block_start_idx = i
@@ -464,11 +530,13 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
                 ret_line = lines[i].strip()
                 ret_match = RETURN_RE.match(ret_line)
                 if ret_match:
+                    logger.debug(f"[api] RETURN matched: '{_log_snippet(ret_line)}' at line={i}")
                     current_return = ret_match.group(1).strip()
                     i += 1
             continue
         zero_match = ZERO_PARAM_METHOD_RE.match(line)
         if zero_match:
+            logger.info(f"[api] ZERO-PARAM METHOD matched: name='{zero_match.group(1)}' at line={i}")
             method_name = zero_match.group(1)
             entry = ApiEntry(
                 entry_type="function",
@@ -493,6 +561,7 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
 
         method_match = METHOD_RE.match(line)
         if method_match:
+            logger.info(f"[api] METHOD start matched: name='{method_match.group(1)}' at line={i}")
             method_name = method_match.group(1)
             entry_start_idx = block_start_idx if block_start_idx is not None else i
             entry_end_idx = i
@@ -516,15 +585,19 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
             i += 1
             continue
         if collecting and current_entry:
-            processed_line = re.sub(r'\s*\)\s*(?=//)', '', line)
+            processed_line = re.sub(r"\s*\)\s*(?=//)", "", line)
             param_match = PARAM_RE.match(processed_line)
             if param_match:
+                logger.debug(
+                    f"[api] PARAM matched: name='{param_match.group(1)}', raw='{_log_snippet(processed_line)}' at line={i}"
+                )
                 pname, ptype, pdesc = param_match.groups()
                 parameter = _build_parameter(pname, ptype, pdesc, param_index)
                 current_entry.params.append(parameter)
                 param_index += 1
                 entry_end_idx = i
                 if _is_closing_line(raw_line):
+                    logger.debug(f"[api] entry close detected at line={i}")
                     attach_source(current_entry, entry_start_idx, entry_end_idx)
                     _finalize_entry(current_entry, entries)
                     current_entry = None
@@ -535,6 +608,9 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
                 continue
             loose_match = PARAM_RE_LOOSE.match(line)
             if loose_match:
+                logger.debug(
+                    f"[api] PARAM_LOOSE matched: name='{loose_match.group(1)}', raw='{_log_snippet(line)}' at line={i}"
+                )
                 pname, comment = loose_match.groups()
                 if ":" in comment or "：" in comment:
                     raw = re.split(r"[:：]", comment, maxsplit=1)
@@ -548,6 +624,7 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
                 param_index += 1
                 entry_end_idx = i
                 if _is_closing_line(raw_line):
+                    logger.debug(f"[api] entry close detected at line={i}")
                     attach_source(current_entry, entry_start_idx, entry_end_idx)
                     _finalize_entry(current_entry, entries)
                     current_entry = None
@@ -563,12 +640,14 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
                 bare = bare.split("//", 1)[0]
             pname_ptype = _parse_bare_param(bare)
             if pname_ptype:
+                logger.debug(f"[api] BARE_PARAM matched: raw='{_log_snippet(bare)}' at line={i}")
                 pname, ptype = pname_ptype
                 parameter = _build_parameter(pname, ptype, "", param_index)
                 current_entry.params.append(parameter)
                 param_index += 1
                 entry_end_idx = i
                 if _is_closing_line(raw_line):
+                    logger.debug(f"[api] entry close detected at line={i}")
                     attach_source(current_entry, entry_start_idx, entry_end_idx)
                     _finalize_entry(current_entry, entries)
                     current_entry = None
@@ -593,12 +672,18 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
                     synthetic = f"{candidate} // {comment}"
                 pm2 = PARAM_RE.match(synthetic)
                 if pm2:
+                    logger.debug(
+                        f"[api] SYNTHETIC PARAM matched: name='{pm2.group(1)}', raw='{_log_snippet(synthetic)}' at line={i}"
+                    )
                     pname, ptype, pdesc = pm2.groups()
                     parameter = _build_parameter(pname, ptype, pdesc, param_index)
                     current_entry.params.append(parameter)
                 else:
                     pm2_loose = PARAM_RE_LOOSE.match(synthetic)
                     if pm2_loose:
+                        logger.debug(
+                            f"[api] SYNTHETIC PARAM_LOOSE matched: name='{pm2_loose.group(1)}', raw='{_log_snippet(synthetic)}' at line={i}"
+                        )
                         pname, comment2 = pm2_loose.groups()
                         if ":" in comment2 or "：" in comment2:
                             raw2 = re.split(r"[:：]", comment2, maxsplit=1)
@@ -610,6 +695,9 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
                         parameter = _build_parameter(pname, ptype, pdesc, param_index)
                         current_entry.params.append(parameter)
                     else:
+                        logger.debug(
+                            f"[api] TRY BARE after close: raw='{_log_snippet(candidate)}' at line={i}"
+                        )
                         bare_parsed = _parse_bare_param(candidate)
                         if bare_parsed:
                             pname, ptype = bare_parsed
@@ -633,25 +721,53 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
     return entries
 
 
-def parse_api_documents(api_doc_path: Path | None = None, api_arg_path: Path | None = None) -> ApiBundle:
+def parse_api_documents(
+    api_doc_path: Path | None = None, api_arg_path: Path | None = None
+) -> ApiBundle:
+    logger = get_logger("rule_parser.parse_api_documents")
+    logger.info("Starting API document parsing...")
+
     config = PipelineConfig()
     doc_path = Path(api_doc_path) if api_doc_path else config.api_doc_path
     arg_path = Path(api_arg_path) if api_arg_path else config.api_arg_path
 
+    logger.info(f"API doc path: {doc_path}")
+    logger.info(f"API arg path: {arg_path}")
+
+    logger.info("Reading API document files...")
     api_text = _read_text_file(doc_path)
     arg_text = _read_text_file(arg_path)
 
+    logger.info(f"API doc text length: {len(api_text)} characters")
+    logger.info(f"API arg text length: {len(arg_text)} characters")
+
+    logger.info("Parsing type definitions...")
     types = parse_type_definitions(arg_text, path=arg_path)
+    logger.info(f"Parsed {len(types)} type definitions")
+
+    logger.info("Parsing API specifications...")
     entries = parse_api_specs(api_text, path=doc_path)
+    logger.info(f"Parsed {len(entries)} API entries")
 
     checklist = ["parsed_api_doc", "parsed_api_arg"]
+    logger.info("API document parsing completed successfully")
 
     return ApiBundle(type_definitions=types, api_entries=entries, checklist=checklist)
 
 
 def dump_bundle(bundle: ApiBundle, path: Path) -> None:
+    logger = get_logger("rule_parser.dump_bundle")
+    logger.debug(f"Dumping bundle to {path}")
+    logger.info(
+        f"Bundle contains {len(bundle.api_entries)} API entries "
+        f"and {len(bundle.type_definitions)} type definitions"
+    )
+
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(bundle.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
+    path.write_text(
+        json.dumps(bundle.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    logger.info(f"Successfully saved bundle to {path}")
 
 
 def _parameter_from_dict(payload: Dict[str, object]) -> Parameter:
@@ -685,7 +801,11 @@ def _return_from_dict(data: Optional[Dict[str, object]]) -> Optional[ReturnSpec]
 
 def _type_definition_from_dict(data: Dict[str, object]) -> TypeDefinition:
     source_payload = data.get("source")
-    source = SourceFragment.from_dict(source_payload) if isinstance(source_payload, dict) else None
+    source = (
+        SourceFragment.from_dict(source_payload)
+        if isinstance(source_payload, dict)
+        else None
+    )
     return TypeDefinition(
         name=data.get("name", ""),
         description=data.get("description", ""),
@@ -702,7 +822,11 @@ def _api_entry_from_dict(data: Dict[str, object]) -> ApiEntry:
     properties = _parameters_from_list(data.get("properties", []))
     returns = _return_from_dict(data.get("returns"))
     source_payload = data.get("source")
-    source = SourceFragment.from_dict(source_payload) if isinstance(source_payload, dict) else None
+    source = (
+        SourceFragment.from_dict(source_payload)
+        if isinstance(source_payload, dict)
+        else None
+    )
     return ApiEntry(
         entry_type=data.get("entry_type", "function"),
         name=data.get("name", ""),
@@ -721,20 +845,39 @@ def _api_entry_from_dict(data: Dict[str, object]) -> ApiEntry:
 
 
 def load_bundle(path: Path) -> ApiBundle:
+    logger = get_logger("rule_parser.load_bundle")
+    logger.info(f"Loading bundle from {path}")
+
     payload = json.loads(Path(path).read_text(encoding="utf-8"))
-    type_definitions = [_type_definition_from_dict(item) for item in payload.get("type_definitions", [])]
+    type_definitions = [
+        _type_definition_from_dict(item) for item in payload.get("type_definitions", [])
+    ]
     entries = [_api_entry_from_dict(item) for item in payload.get("api_entries", [])]
     checklist = payload.get("checklist", [])
-    return ApiBundle(type_definitions=type_definitions, api_entries=entries, checklist=checklist)
+
+    logger.info(
+        f"Loaded bundle with {len(entries)} API entries and {len(type_definitions)} type definitions"
+    )
+    return ApiBundle(
+        type_definitions=type_definitions, api_entries=entries, checklist=checklist
+    )
 
 
 def generate_vector_chunks(entries: Iterable[ApiEntry]) -> Iterable[dict]:
+    logger = get_logger("rule_parser.generate_vector_chunks")
+    logger.debug("Generating vector chunks from API entries")
+
+    chunk_count = 0
     for entry in entries:
         limited_params = []
         for idx, param in enumerate(entry.params):
             if idx >= VECTOR_PARAM_LIMIT:
                 break
-            description = param.description.strip() if param.description else FALLBACK_PARAM_DESCRIPTION
+            description = (
+                param.description.strip()
+                if param.description
+                else FALLBACK_PARAM_DESCRIPTION
+            )
             limited_params.append(f"- {param.name} ({param.type}): {description}")
         if len(entry.params) > VECTOR_PARAM_LIMIT:
             remaining = len(entry.params) - VECTOR_PARAM_LIMIT
@@ -755,4 +898,7 @@ def generate_vector_chunks(entries: Iterable[ApiEntry]) -> Iterable[dict]:
             "title_jp": entry.title_jp,
             "content": "\n".join(summary_parts),
         }
+        chunk_count += 1
         yield payload
+
+    logger.info(f"Generated {chunk_count} vector chunks")

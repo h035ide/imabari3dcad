@@ -90,6 +90,8 @@ uv run python -m doc_preprocessor_hybrid.cli --store-chroma
 - `--model`: OpenAIモデルIDの上書き
 - `--store-neo4j`, `--store-chroma`: 外部ストレージへ保存
 - `--dry-run`: 実行計画のみ表示（ファイルは書き込まない）
+- `--log-level`: ログレベル設定（DEBUG, INFO, WARNING, ERROR, CRITICAL）
+- `--disable-debug-logging`: デバッグログを無効化
 
 ## 再実行ポリシー（idempotency）
 - `--llm` が未指定の場合:
@@ -102,6 +104,7 @@ uv run python -m doc_preprocessor_hybrid.cli --store-chroma
 - `structured_api.json` / `structured_api_enriched.json`: 構造化API（`schemas.ApiBundle`に整合）
 - `graph_payload.json`: グラフ挿入用ノード/リレーション（`graph_builder.build_graph_payload`）
 - `vector_chunks.jsonl`: 検索用の要約チャンク（`rule_parser.generate_vector_chunks`）
+- `pipeline.log`: 実行ログファイル（デバッグ情報、エラー、進捗状況を記録）
 - 既定の出力先: `doc_preprocessor_hybrid/out`
 
 ## 処理フロー図

@@ -38,9 +38,13 @@ class TypeDefinition:
     description: str
     examples: List[str] = field(default_factory=list)
     # 追加メタ: 正規化型や受理形の明示（後工程用、任意）
-    canonical_type: Optional[str] = None  # e.g., "string","integer","length","angle","point","direction"
+    canonical_type: Optional[str] = (
+        None  # e.g., "string","integer","length","angle","point","direction"
+    )
     py_type: Optional[str] = None  # e.g., "str","int","float","bool","list","dict"
-    one_of: Optional[List[str]] = None  # e.g., ["number_mm","variable_name","expression"]
+    one_of: Optional[List[str]] = (
+        None  # e.g., ["number_mm","variable_name","expression"]
+    )
     source: Optional[SourceFragment] = None
 
     def to_dict(self) -> Dict[str, object]:
