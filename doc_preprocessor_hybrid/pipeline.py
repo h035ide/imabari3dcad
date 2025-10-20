@@ -59,43 +59,22 @@ def run_pipeline(
     logger.info(f"Store Chroma: {store_chroma}")
     logger.info("=" * 60)
 
-    bundle = None
+    # Always re-parse and overwrite outputs
     audit: list[Dict[str, object]] = []
     bundle_source = "parsed"
     used_existing_structured = False
 
-    if not use_llm:
-        logger.info("Checking for existing structured output files...")
-        existing_path: Path | None = None
-        if cfg.structured_output_enriched.exists():
-            existing_path = cfg.structured_output_enriched
-            bundle_source = "structured_api_enriched"
-            logger.info(f"Found enriched structured output: {existing_path}")
-        elif cfg.structured_output.exists():
-            existing_path = cfg.structured_output
-            bundle_source = "structured_api"
-            logger.info(f"Found structured output: {existing_path}")
-        if existing_path is not None:
-            logger.info(f"Loading existing bundle from: {existing_path}")
-            bundle = load_bundle(existing_path)
-            used_existing_structured = True
-            logger.info(
-                f"Successfully loaded bundle with {len(bundle.api_entries)} API entries "
-                f"and {len(bundle.type_definitions)} type definitions"
-            )
-
-    if bundle is None:
-        logger.info("No existing bundle found, parsing API documents...")
-        logger.info(f"API doc path: {cfg.api_doc_path}")
-        logger.info(f"API arg path: {cfg.api_arg_path}")
-        bundle = parse_api_documents(cfg.api_doc_path, cfg.api_arg_path)
-        logger.info(
-            f"Parsed bundle with {len(bundle.api_entries)} API entries "
-            f"and {len(bundle.type_definitions)} type definitions"
-        )
-        logger.info(f"Saving structured output to: {cfg.structured_output}")
-        dump_bundle(bundle, cfg.structured_output)
-        bundle_source = "parsed"
+    logger.info("Parsing API documents (force re-parse)...")
+    logger.info(f"API doc path: {cfg.api_doc_path}")
+    logger.info(f"API arg path: {cfg.api_arg_path}")
+    bundle = parse_api_documents(cfg.api_doc_path, cfg.api_arg_path)
+    logger.info(
+        f"Parsed bundle with {len(bundle.api_entries)} API entries "
+        f"and {len(bundle.type_definitions)} type definitions"
+    )
+    logger.info(f"Saving structured output to: {cfg.structured_output}")
+    dump_bundle(bundle, cfg.structured_output)
+    bundle_source = "parsed"
 
     if use_llm:
         logger.info("Starting LLM enrichment phase...")
@@ -144,12 +123,7 @@ def run_pipeline(
     logger.info(f"Generated {len(vector_records)} vector chunks")
     _write_jsonl(vector_records, cfg.vector_output)
 
-    structured_path = (
-        cfg.structured_output_enriched
-        if use_llm
-        or (used_existing_structured and cfg.structured_output_enriched.exists())
-        else cfg.structured_output
-    )
+    structured_path = cfg.structured_output_enriched if use_llm else cfg.structured_output
 
     storage_results: Dict[str, object] = {}
     if store_neo4j or store_chroma:

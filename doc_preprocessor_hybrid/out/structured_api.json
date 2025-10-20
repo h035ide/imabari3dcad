@@ -131,6 +131,10 @@
     {
       "name": "点",
       "description": "モデル座標系の点を表す値を指定します。数値リテラルのほか、変数参照や式を利用できます。",
+      "examples": [
+        "100.0,50.0,0.0",
+        "FRM1,0.0,1000.0"
+      ],
       "canonical_type": "point",
       "py_type": "str",
       "one_of": [
@@ -149,6 +153,10 @@
     {
       "name": "点(2D)",
       "description": "モデル座標系の点を表す値を指定します。数値リテラルのほか、変数参照や式を利用できます（2D 座標）。",
+      "examples": [
+        "100.0,50.0",
+        "FRM1,0.0"
+      ],
       "canonical_type": "point",
       "py_type": "str",
       "one_of": [
@@ -167,6 +175,10 @@
     {
       "name": "点(3D)",
       "description": "モデル座標系の点を表す値を指定します。数値リテラルのほか、変数参照や式を利用できます（3D 座標）。",
+      "examples": [
+        "100.0,50.0,0.0",
+        "FRM1,0.0,1000.0"
+      ],
       "canonical_type": "point",
       "py_type": "str",
       "one_of": [
@@ -954,6 +966,64 @@
         "end_line": 101,
         "text": "〇ビューの表示内容をビットマップファイルとして出力する\n 返り値:なし\n ExportToBitmap(\n  FileName, // 文字列：ビットマップファイルのファイル名\n  nBitapWidth ) // 整数:ビットマップファイルの横方向のピクセルサイズ（縦方向はビューの縦横比から取得）",
         "checksum": "8f154fa656f15d07b1827aa4eabdc73bf9ed4f78"
+      }
+    },
+    {
+      "entry_type": "function",
+      "name": "CreateVariable",
+      "description": "変数要素の作成",
+      "category": "Partオブジェクト",
+      "params": [
+        {
+          "name": "VariableName",
+          "type": "文字列",
+          "description": "作成する変数名称（空文字不可）",
+          "metadata": {
+            "position": 0
+          }
+        },
+        {
+          "name": "VariableValue",
+          "type": "浮動小数点",
+          "description": "変数の値",
+          "metadata": {
+            "position": 1
+          }
+        },
+        {
+          "name": "VariableUnit",
+          "type": "変数単位",
+          "description": "作成する変数の単位を指定",
+          "metadata": {
+            "position": 2
+          }
+        },
+        {
+          "name": "VariableElementGroup",
+          "type": "不明",
+          "metadata": {
+            "position": 3
+          }
+        }
+      ],
+      "properties": [],
+      "returns": {
+        "type": "ID",
+        "description": "作成された変数要素の要素ID",
+        "is_array": false,
+        "raw_type": null
+      },
+      "notes": null,
+      "implementation_status": "implemented",
+      "object_name": "Partオブジェクト",
+      "title_jp": "変数要素の作成",
+      "raw_return": "作成された変数要素の要素ID",
+      "source": {
+        "path": "data\\src\\api.txt",
+        "start_line": 105,
+        "end_line": 111,
+        "text": "〇変数要素の作成\n 返り値:作成された変数要素の要素ID\n CreateVariable(\n        VariableName, // 文字列：作成する変数名称（空文字不可）\n        VariableValue,// 浮動小数点: 変数の値\n        VariableUnit  // 変数単位：作成する変数の単位を指定\n        VariableElementGroup );// 要素グループ：作成する変数要素を要素グループに入れる場合は要素グループを指定（空文字可）",
+        "checksum": "3f99f5b12ef41fc0f62c1a7f37db8ff9f468edeb"
       }
     },
     {

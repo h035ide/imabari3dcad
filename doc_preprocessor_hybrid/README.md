@@ -94,11 +94,8 @@ uv run python -m doc_preprocessor_hybrid.cli --store-chroma
 - `--disable-debug-logging`: デバッグログを無効化
 
 ## 再実行ポリシー（idempotency）
-- `--llm` が未指定の場合:
-  - `structured_output_enriched.json` が存在すればそれを読み込み（最優先）、次に `structured_output.json` を読み込みます。
-  - いずれも無い場合のみ `api.txt` / `api_arg.txt` を再解析して `structured_api.json` を生成します。
-- `--llm` が指定された場合:
-  - 既存バンドルに対して補強を行い、差分だけを適用して `structured_api_enriched.json` を更新します（監査ログを返却）。
+- 常に `api.txt` / `api_arg.txt` を再解析し、`structured_api.json` を上書き生成します。
+- `--llm` 指定時は、再解析後のバンドルに対し補強を行い、`structured_api_enriched.json` を上書き生成します（監査ログを返却）。
 
 ## 成果物
 - `structured_api.json` / `structured_api_enriched.json`: 構造化API（`schemas.ApiBundle`に整合）
