@@ -422,7 +422,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--report",
         type=Path,
-        default=Path("doc/validate_structured_report.md"),
+        default=Path("doc_preprocessor_hybrid/out/validate_structured_report.md"),
         help="検証結果を書き出すMarkdownファイルのパス",
     )
     return parser

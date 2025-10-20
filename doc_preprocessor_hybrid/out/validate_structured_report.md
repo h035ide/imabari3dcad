@@ -1,4 +1,4 @@
-# structured_api 検証ログ (2025-10-20 18:43:04)
+# structured_api 検証ログ (2025-10-20 18:44:20)
 
 - XML: `doc_preprocessor_hybrid/out/api_template.xml`
 - JSON: `doc_preprocessor_hybrid/out/structured_api.json`
