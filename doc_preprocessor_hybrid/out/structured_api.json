@@ -2851,6 +2851,70 @@
       }
     },
     {
+      "name": "CreateNURBSCurve",
+      "description": "3DのＮＵＲＢＳ線要素を作成",
+      "category": "Partオブジェクト",
+      "entry_type": "function",
+      "params": [
+        {
+          "name": "nDegree",
+          "type": "整数",
+          "description": "ＮＵＲＢＳ線の次数",
+          "position": 0,
+          "raw_type": "整数"
+        },
+        {
+          "name": "bClose",
+          "type": "bool",
+          "description": "閉じたＮＵＲＢＳ線の場合True",
+          "position": 1,
+          "raw_type": "bool"
+        },
+        {
+          "name": "bPeriodic",
+          "type": "bool",
+          "description": "周期ＮＵＲＢＳ線の場合True",
+          "position": 2,
+          "raw_type": "bool"
+        },
+        {
+          "name": "CtrlPoints",
+          "type": "点[]",
+          "description": "制御点",
+          "position": 3,
+          "raw_type": "点(配列)"
+        },
+        {
+          "name": "Weights",
+          "type": "浮動小数点[]",
+          "description": "重み",
+          "position": 4,
+          "raw_type": "浮動小数点(配列)"
+        },
+        {
+          "name": "Knots",
+          "type": "浮動小数点[]",
+          "description": "ノットベクトル",
+          "position": 5,
+          "raw_type": "浮動小数点(配列)"
+        },
+        {
+          "name": "Range",
+          "type": "範囲",
+          "description": "トリム範囲",
+          "position": 6,
+          "raw_type": "範囲"
+        }
+      ],
+      "returns": {
+        "type": "ID",
+        "description": "線要素の要素ID"
+      },
+      "source": {
+        "text": "〇3DのＮＵＲＢＳ線要素を作成\n  返り値:線要素の要素ID\nCreateNURBSCurve(\n        nDegree,       // 整数：ＮＵＲＢＳ線の次数\n        bClose,        // bool：閉じたＮＵＲＢＳ線の場合True\n        bPeriodic,     // bool：周期ＮＵＲＢＳ線の場合True\n        CtrlPoints,    // 点(配列): 制御点\n        Weights,       // 浮動小数点(配列): 重み\n        Knots,         // 浮動小数点(配列): ノットベクトル\n        Range, )        // 範囲: トリム範囲"
+      }
+    },
+    {
       "name": "CreateLoftParam",
       "description": "ロフトパラメータオブジェクトの作成",
       "category": "Partオブジェクト",

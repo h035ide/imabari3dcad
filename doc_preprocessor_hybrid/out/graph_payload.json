@@ -3610,6 +3610,99 @@
       }
     },
     {
+      "id": "CreateNURBSCurve",
+      "label": "Method",
+      "properties": {
+        "name": "CreateNURBSCurve",
+        "description": "3DのＮＵＲＢＳ線要素を作成",
+        "category": "Partオブジェクト",
+        "source_path": "",
+        "source_start_line": 0,
+        "source_end_line": 0,
+        "source_checksum": ""
+      }
+    },
+    {
+      "id": "CreateNURBSCurve:nDegree",
+      "label": "Parameter",
+      "properties": {
+        "name": "nDegree",
+        "description": "ＮＵＲＢＳ線の次数",
+        "metadata": {
+          "position": 0
+        }
+      }
+    },
+    {
+      "id": "CreateNURBSCurve:bClose",
+      "label": "Parameter",
+      "properties": {
+        "name": "bClose",
+        "description": "閉じたＮＵＲＢＳ線の場合True",
+        "metadata": {
+          "position": 1
+        }
+      }
+    },
+    {
+      "id": "CreateNURBSCurve:bPeriodic",
+      "label": "Parameter",
+      "properties": {
+        "name": "bPeriodic",
+        "description": "周期ＮＵＲＢＳ線の場合True",
+        "metadata": {
+          "position": 2
+        }
+      }
+    },
+    {
+      "id": "CreateNURBSCurve:CtrlPoints",
+      "label": "Parameter",
+      "properties": {
+        "name": "CtrlPoints",
+        "description": "制御点",
+        "metadata": {
+          "position": 3,
+          "raw_type": "点(配列)"
+        }
+      }
+    },
+    {
+      "id": "CreateNURBSCurve:Weights",
+      "label": "Parameter",
+      "properties": {
+        "name": "Weights",
+        "description": "重み",
+        "metadata": {
+          "position": 4,
+          "raw_type": "浮動小数点(配列)"
+        }
+      }
+    },
+    {
+      "id": "CreateNURBSCurve:Knots",
+      "label": "Parameter",
+      "properties": {
+        "name": "Knots",
+        "description": "ノットベクトル",
+        "metadata": {
+          "position": 5,
+          "raw_type": "浮動小数点(配列)"
+        }
+      }
+    },
+    {
+      "id": "CreateNURBSCurve:Range",
+      "label": "Parameter",
+      "properties": {
+        "name": "Range",
+        "description": "トリム範囲",
+        "metadata": {
+          "position": 6
+        }
+      }
+    },
+    {
       "id": "CreateLoftParam",
       "label": "Method",
       "properties": {
@@ -7222,6 +7315,89 @@
     {
       "type": "HAS_TYPE",
       "start": "CreateEllipse:Range",
+      "end": "範囲"
+    },
+    {
+      "type": "BELONGS_TO",
+      "start": "CreateNURBSCurve",
+      "end": "Partオブジェクト"
+    },
+    {
+      "type": "RETURNS",
+      "start": "CreateNURBSCurve",
+      "end": "ID",
+      "properties": {
+        "raw_type": "ID"
+      }
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateNURBSCurve",
+      "end": "CreateNURBSCurve:nDegree"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateNURBSCurve:nDegree",
+      "end": "整数"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateNURBSCurve",
+      "end": "CreateNURBSCurve:bClose"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateNURBSCurve:bClose",
+      "end": "bool"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateNURBSCurve",
+      "end": "CreateNURBSCurve:bPeriodic"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateNURBSCurve:bPeriodic",
+      "end": "bool"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateNURBSCurve",
+      "end": "CreateNURBSCurve:CtrlPoints"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateNURBSCurve:CtrlPoints",
+      "end": "点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateNURBSCurve",
+      "end": "CreateNURBSCurve:Weights"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateNURBSCurve:Weights",
+      "end": "浮動小数点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateNURBSCurve",
+      "end": "CreateNURBSCurve:Knots"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateNURBSCurve:Knots",
+      "end": "浮動小数点"
+    },
+    {
+      "type": "HAS_PARAMETER",
+      "start": "CreateNURBSCurve",
+      "end": "CreateNURBSCurve:Range"
+    },
+    {
+      "type": "HAS_TYPE",
+      "start": "CreateNURBSCurve:Range",
       "end": "範囲"
     },
     {

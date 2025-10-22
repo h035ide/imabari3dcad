@@ -1,0 +1,347 @@
+# structured_api 検証ログ (2025-10-22 15:30:59)
+
+- XML: `doc_preprocessor_hybrid/out/api_template.xml`
+- JSON: `doc_preprocessor_hybrid/out/structured_api.json`
+- 結果: 差分あり (exit 1)
+- XMLエントリ数: 320
+- JSONエントリ数: 311
+- XMLのみ: 9件 / JSONのみ: 0件 / 差分: 311件
+
+## 正答率メトリクス
+
+### ⑴関数名・引数定義名の正答率
+- 総数: 72
+- 正解数: 72
+- 正答率: 100.00%
+
+### ⑵引数パラメータの正答率
+- 総数: 530
+- 正解数: 214
+- 正答率: 40.38%
+
+### ⑶各オブジェクト名の正答率
+- 総数: 72
+- 正解数: 0
+- 正答率: 0.00%
+
+### ⑷descriptionの正答率（完全一致）
+- 総数: 592
+- 正解数: 272
+- 正答率: 45.95%
+
+## レポート
+```
+[XMLのみ]BracketParam, FacePlateParam, LinearSweepParam, LoftParam, ProfileParam, RotationalSweepParam, STLParameter, SlotParam, SweepParam
+[差分]
+- function:Activate title_jp -> 期待: ドキュメントをアクティベイト（カレントに）する / 実際: (空)
+- function:Activate raw_return -> 期待: なし / 実際: (空)
+- function:Activate return_description -> 期待: なし / 実際: (空)
+- function:Activate object_name -> 期待: Documentオブジェクト / 実際: (空)
+- function:BlankElement title_jp -> 期待: 指定要素を表示状態を設定する / 実際: (空)
+- function:BlankElement raw_return -> 期待: なし / 実際: (空)
+- function:BlankElement return_description -> 期待: なし / 実際: (空)
+- function:BlankElement object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:BlankElement params[bBlank].type -> 期待: bool / 実際: 不明
+- function:BlankElement params[bBlank].description -> 期待: Trueの時は非表示にする。Falseの時は表示する。 / 実際: (空)
+- function:BodyDivideByCurves title_jp -> 期待: ボディを指定した線で分割する / 実際: (空)
+- function:BodyDivideByCurves raw_return -> 期待: 分割で作成されたボディ要素のID配列 / 実際: (空)
+- function:BodyDivideByCurves object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:BodyDivideByCurves params[pDivideCurves].type -> 期待: 要素(配列) / 実際: 要素[]
+- function:BodyDivideByElements title_jp -> 期待: ボディを指定した要素で分割する / 実際: (空)
+- function:BodyDivideByElements raw_return -> 期待: 分割で作成されたボディ要素のID配列 / 実際: (空)
+- function:BodyDivideByElements object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:BodyDivideByElements params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:BodyDivideByElements params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:BodyDivideByElements params[pDivideElements].type -> 期待: 要素(配列) / 実際: 要素[]
+- function:BodyDivideByPlanes title_jp -> 期待: ボディを指定した平面で分割する / 実際: (空)
+- function:BodyDivideByPlanes raw_return -> 期待: 分割で作成されたボディ要素のID配列 / 実際: (空)
+- function:BodyDivideByPlanes object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:BodySeparateBySubSolids title_jp -> 期待: ボディを指定したソリッドで削除することで分割する（ボディの区分けコマンド） / 実際: (空)
+- function:BodySeparateBySubSolids raw_return -> 期待: 分割で作成されたボディ要素のID配列 / 実際: (空)
+- function:BodySeparateBySubSolids object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:BodySeparateBySubSolids params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:BodySeparateBySubSolids params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:BodySeparateBySubSolids params[pSubSolids].type -> 期待: 要素(配列) / 実際: 要素[]
+- function:Close title_jp -> 期待: ドキュメントを閉じる / 実際: (空)
+- function:Close raw_return -> 期待: なし / 実際: (空)
+- function:Close return_description -> 期待: なし / 実際: (空)
+- function:Close object_name -> 期待: Documentオブジェクト / 実際: (空)
+- function:Create3DDocument title_jp -> 期待: 3DのDocumentを新規に作成する / 実際: (空)
+- function:Create3DDocument raw_return -> 期待: Documentオブジェクト / 実際: (空)
+- function:Create3DDocument object_name -> 期待: Applicationオブジェクト / 実際: (空)
+- function:CreateArc title_jp -> 期待: 3Dの円弧線要素を作成 / 実際: (空)
+- function:CreateArc raw_return -> 期待: 線要素の要素ID / 実際: (空)
+- function:CreateArc object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateBoundedPlate title_jp -> 期待: 指定したソリッド要素に境界要素を指定した板形状を作成する / 実際: (空)
+- function:CreateBoundedPlate raw_return -> 期待: 作成された境界要素指定フィーチャーのID / 実際: (空)
+- function:CreateBoundedPlate object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateBoundedPlate params[BoundObjects].type -> 期待: 要素(配列) / 実際: 要素[]
+- function:CreateBoundingBox title_jp -> 期待: 指定したソリッド要素に境界ボックス形状を作成する / 実際: (空)
+- function:CreateBoundingBox raw_return -> 期待: 作成された境界ボックス形状フィーチャーのID / 実際: (空)
+- function:CreateBoundingBox object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateBoundingBox params[Bodies].type -> 期待: 要素(配列) / 実際: 要素[]
+- function:CreateBracket title_jp -> 期待: 船殻のブラケットソリッド要素を作成する / 実際: (空)
+- function:CreateBracket raw_return -> 期待: 作成したソリッド要素のID / 実際: (空)
+- function:CreateBracket object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateBracket params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateBracket params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateBracketParam title_jp -> 期待: 船殻のブラケット要素のパラメータオブジェクトの作成 / 実際: (空)
+- function:CreateBracketParam raw_return -> 期待: ブラケット要素のパラメータオブジェクト / 実際: (空)
+- function:CreateBracketParam object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateElementsFromFile title_jp -> 期待: ファイルをインポートして要素を作成 / 実際: (空)
+- function:CreateElementsFromFile raw_return -> 期待: 作成された要素の要素IDの配列 / 実際: (空)
+- function:CreateElementsFromFile object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateEllipse title_jp -> 期待: 3Dの楕円線要素を作成 / 実際: (空)
+- function:CreateEllipse raw_return -> 期待: 線要素の要素ID / 実際: (空)
+- function:CreateEllipse object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateFacePlate title_jp -> 期待: 船殻のフェイスプレート要素トを作成する / 実際: (空)
+- function:CreateFacePlate raw_return -> 期待: 作成されたフェイスプレート要素ID / 実際: (空)
+- function:CreateFacePlate object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateFacePlate params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateFacePlate params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateFacePlateParam title_jp -> 期待: 船殻のフェイスプレートパラメータオブジェクトの作成 / 実際: (空)
+- function:CreateFacePlateParam raw_return -> 期待: フェイスプレートパラメータオブジェクト / 実際: (空)
+- function:CreateFacePlateParam object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateLine title_jp -> 期待: 3Dの直線線要素を作成 / 実際: (空)
+- function:CreateLine raw_return -> 期待: 線要素の要素ID / 実際: (空)
+- function:CreateLine object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateLinearSweep title_jp -> 期待: 指定したソリッド要素に押し出し形状を付加する / 実際: (空)
+- function:CreateLinearSweep raw_return -> 期待: 作成された押し出しフィーチャーのID / 実際: (空)
+- function:CreateLinearSweep object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateLinearSweep params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateLinearSweep params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateLinearSweepParam title_jp -> 期待: 押し出しパラメータオブジェクトの作成 / 実際: (空)
+- function:CreateLinearSweepParam raw_return -> 期待: 押し出しパラメータオブジェクト / 実際: (空)
+- function:CreateLinearSweepParam object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateLinearSweepSheet title_jp -> 期待: プロファイル要素を押し出してシート要素を作成 / 実際: (空)
+- function:CreateLinearSweepSheet raw_return -> 期待: 作成されたシート要素の要素ID / 実際: (空)
+- function:CreateLinearSweepSheet object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateLinearSweepSheet params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateLinearSweepSheet params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateLoft title_jp -> 期待: 指定したソリッド要素にロフト形状を付加する / 実際: (空)
+- function:CreateLoft raw_return -> 期待: 作成されたロフトフィーチャーのID / 実際: (空)
+- function:CreateLoft object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateLoft params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateLoft params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateLoftParam title_jp -> 期待: ロフトパラメータオブジェクトの作成 / 実際: (空)
+- function:CreateLoftParam raw_return -> 期待: ロフトパラメータオブジェクト / 実際: (空)
+- function:CreateLoftParam object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateLoftSheet title_jp -> 期待: ロフトシート要素を作成 / 実際: (空)
+- function:CreateLoftSheet raw_return -> 期待: 作成されたシート要素の要素ID / 実際: (空)
+- function:CreateLoftSheet object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateLoftSheet params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateLoftSheet params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateNURBSCurve title_jp -> 期待: 3DのＮＵＲＢＳ線要素を作成 / 実際: (空)
+- function:CreateNURBSCurve raw_return -> 期待: 線要素の要素ID / 実際: (空)
+- function:CreateNURBSCurve object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateNURBSCurve params[CtrlPoints].type -> 期待: 点(配列) / 実際: 点[]
+- function:CreateNURBSCurve params[Knots].type -> 期待: 浮動小数点(配列) / 実際: 浮動小数点[]
+- function:CreateNURBSCurve params[Weights].type -> 期待: 浮動小数点(配列) / 実際: 浮動小数点[]
+- function:CreateOffsetDatumPlane title_jp -> 期待: データム平面の作成（移動） / 実際: (空)
+- function:CreateOffsetDatumPlane raw_return -> 期待: 作成されたデータム平面の要素ID / 実際: (空)
+- function:CreateOffsetDatumPlane return_description -> 期待: 作成されたデータム平面の要素ID / 実際: (空)
+- function:CreateOffsetDatumPlane object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateOffsetDatumPlane params[ElementGroup].description -> 期待: 作成するデータム平面要素を入れる場合は指定（空文字可） / 実際: 作成するデータム平面要素を要素グループに入れる場合は要素グループを指定（空文字可）
+- function:CreateOffsetSheet title_jp -> 期待: オフセットシートを作成 / 実際: (空)
+- function:CreateOffsetSheet raw_return -> 期待: 作成されたオフセットシート要素の要素ID / 実際: (空)
+- function:CreateOffsetSheet object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateOffsetSheet params[SrcSurfaces].type -> 期待: 要素(配列) / 実際: 要素[]
+- function:CreateOtherSolid title_jp -> 期待: 指定したソリッド要素に別のソリッド要素形状を付加する / 実際: (空)
+- function:CreateOtherSolid raw_return -> 期待: 作成された別ソリッドフィーチャーのID / 実際: (空)
+- function:CreateOtherSolid object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateOtherSolid params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateOtherSolid params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreatePlate title_jp -> 期待: 船殻のプレートソリッド要素を作成する / 実際: (空)
+- function:CreatePlate raw_return -> 期待: 作成したソリッド要素のID / 実際: (空)
+- function:CreatePlate object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreatePlate params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreatePlate params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateProfile title_jp -> 期待: 船殻の条材ソリッド要素を取付線指定で作成する / 実際: (空)
+- function:CreateProfile raw_return -> 期待: 作成した条材ソリッド要素のID(配列 配列[0]Web要素 配列[1]フランジ要素 / 実際: (空)
+- function:CreateProfile object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateProfile params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateProfile params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateProfileParam title_jp -> 期待: 船殻の条材ソリッド要素のパラメータオブジェクトの作成 / 実際: (空)
+- function:CreateProfileParam raw_return -> 期待: 条材要素のパラメータオブジェクト / 実際: (空)
+- function:CreateProfileParam object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateRotatedDatumPlane title_jp -> 期待: データム平面の作成（回転） / 実際: (空)
+- function:CreateRotatedDatumPlane raw_return -> 期待: 作成されたデータム平面の要素ID / 実際: (空)
+- function:CreateRotatedDatumPlane return_description -> 期待: 作成されたデータム平面の要素ID / 実際: (空)
+- function:CreateRotatedDatumPlane object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateRotatedDatumPlane params[Plane].description -> 期待: 元になる平面 / 実際: 元になる平面を指定する
+- function:CreateRotationalSweep title_jp -> 期待: 指定したソリッド要素に回転形状を付加する / 実際: (空)
+- function:CreateRotationalSweep raw_return -> 期待: 作成された回転フィーチャーのID / 実際: (空)
+- function:CreateRotationalSweep object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateRotationalSweep params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateRotationalSweep params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateRotationalSweepParam title_jp -> 期待: 回転パラメータオブジェクトの作成 / 実際: (空)
+- function:CreateRotationalSweepParam raw_return -> 期待: 回転パラメータオブジェクト / 実際: (空)
+- function:CreateRotationalSweepParam object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateRotationalSweepSheet title_jp -> 期待: プロファイル要素を回転してシート要素を作成 / 実際: (空)
+- function:CreateRotationalSweepSheet raw_return -> 期待: 作成されたシート要素の要素ID / 実際: (空)
+- function:CreateRotationalSweepSheet object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateRotationalSweepSheet params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateRotationalSweepSheet params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSTLOption title_jp -> 期待: ドキュメントをSTLとして保存する際のパラメータオブジェクトの作成 / 実際: (空)
+- function:CreateSTLOption raw_return -> 期待: STLパラメータオブジェクト / 実際: (空)
+- function:CreateSTLOption object_name -> 期待: Documentオブジェクト / 実際: (空)
+- function:CreateSketchArc title_jp -> 期待: スケッチ円弧を中心点と始終点を指定して作成 / 実際: (空)
+- function:CreateSketchArc raw_return -> 期待: 作成されたスケッチ円弧要素の要素ID / 実際: (空)
+- function:CreateSketchArc object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateSketchArc params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateSketchArc params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSketchArc3Pts title_jp -> 期待: スケッチ円弧を周上の３点を指定して作成 / 実際: (空)
+- function:CreateSketchArc3Pts raw_return -> 期待: 作成されたスケッチ円弧要素の要素ID / 実際: (空)
+- function:CreateSketchArc3Pts object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateSketchArc3Pts params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateSketchArc3Pts params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSketchCircle title_jp -> 期待: スケッチ円を中心点を指定して作成 / 実際: (空)
+- function:CreateSketchCircle raw_return -> 期待: 作成されたスケッチ円要素の要素ID / 実際: (空)
+- function:CreateSketchCircle object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateSketchCircle params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateSketchCircle params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSketchEllipse title_jp -> 期待: スケッチ楕円を中心点を指定して作成 / 実際: (空)
+- function:CreateSketchEllipse raw_return -> 期待: 作成されたスケッチ楕円要素の要素ID / 実際: (空)
+- function:CreateSketchEllipse object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateSketchEllipse params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateSketchEllipse params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSketchLayer title_jp -> 期待: スケッチレイヤーの作成 / 実際: (空)
+- function:CreateSketchLayer raw_return -> 期待: 作成されたスケッチレイヤー要素の要素ID / 実際: (空)
+- function:CreateSketchLayer object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateSketchLayer params[SketchPlane].type -> 期待: 要素 / 実際: 不明
+- function:CreateSketchLayer params[SketchPlane].description -> 期待: レイヤーを作成するスケッチ要素 / 実際: (空)
+- function:CreateSketchLine title_jp -> 期待: スケッチ直線作成 / 実際: (空)
+- function:CreateSketchLine raw_return -> 期待: 作成されたスケッチ直線要素の要素ID / 実際: (空)
+- function:CreateSketchLine object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateSketchLine params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateSketchLine params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSketchNURBSCurve title_jp -> 期待: スケッチＮＵＲＢＳ線を中心点を指定して作成 / 実際: (空)
+- function:CreateSketchNURBSCurve raw_return -> 期待: 作成されたスケッチＮＵＲＢＳ線要素の要素ID / 実際: (空)
+- function:CreateSketchNURBSCurve object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateSketchNURBSCurve params[CtrlPoints].type -> 期待: 点(配列) / 実際: 点[]
+- function:CreateSketchNURBSCurve params[Knots].type -> 期待: 浮動小数点(配列) / 実際: 浮動小数点[]
+- function:CreateSketchNURBSCurve params[Weights].type -> 期待: 浮動小数点(配列) / 実際: 浮動小数点[]
+- function:CreateSketchNURBSCurve params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateSketchNURBSCurve params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSketchPlane title_jp -> 期待: スケッチ平面の作成 / 実際: (空)
+- function:CreateSketchPlane raw_return -> 期待: 作成されたスケッチ平面要素の要素ID / 実際: (空)
+- function:CreateSketchPlane object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateSketchPlane params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateSketchPlane params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSlot title_jp -> 期待: 船殻のスロット要素、カラープレートを作成する / 実際: (空)
+- function:CreateSlot raw_return -> 期待: 作成されたスロットフィーチャー、カラープレート１，カラープレート２の要素ID配列 / 実際: (空)
+- function:CreateSlot object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateSlot params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateSlot params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSlotParam title_jp -> 期待: 船殻のスロットパラメータオブジェクトの作成 / 実際: (空)
+- function:CreateSlotParam raw_return -> 期待: スロットパラメータオブジェクト / 実際: (空)
+- function:CreateSlotParam object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateSolid title_jp -> 期待: 空のソリッド要素を作成する / 実際: (空)
+- function:CreateSolid raw_return -> 期待: 作成されたソリッドの要素ID / 実際: (空)
+- function:CreateSolid object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateSweep title_jp -> 期待: 指定したソリッド要素にスイープ形状を付加する / 実際: (空)
+- function:CreateSweep raw_return -> 期待: 作成されたスイープフィーチャーのID / 実際: (空)
+- function:CreateSweep object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateSweep params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateSweep params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSweepParam title_jp -> 期待: スイープパラメータオブジェクトの作成 / 実際: (空)
+- function:CreateSweepParam raw_return -> 期待: スイープパラメータオブジェクト / 実際: (空)
+- function:CreateSweepParam object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateSweepSheet title_jp -> 期待: プロファイル要素をスイープしてシート要素を作成 / 実際: (空)
+- function:CreateSweepSheet raw_return -> 期待: 作成されたシート要素の要素ID / 実際: (空)
+- function:CreateSweepSheet object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateSweepSheet params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateSweepSheet params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateThicken title_jp -> 期待: 指定したソリッド要素に指定要素厚みづけした形状を作成する / 実際: (空)
+- function:CreateThicken raw_return -> 期待: 作成された厚みづけフィーチャーのID / 実際: (空)
+- function:CreateThicken object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateThicken params[Sheet].type -> 期待: 要素(配列) / 実際: 要素[]
+- function:CreateThicken params[bUpdate].type -> 期待: bool / 実際: 不明
+- function:CreateThicken params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateVariable title_jp -> 期待: 変数要素の作成 / 実際: (空)
+- function:CreateVariable raw_return -> 期待: 作成された変数要素の要素ID / 実際: (空)
+- function:CreateVariable object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateVariable params[VariableElementGroup].type -> 期待: 要素グループ / 実際: 不明
+- function:CreateVariable params[VariableElementGroup].description -> 期待: 作成する変数要素を要素グループに入れる場合は要素グループを指定（空文字可） / 実際: (空)
+- function:CutBody title_jp -> 期待: ボディを指定した要素でカットする / 実際: (空)
+- function:CutBody raw_return -> 期待: 作成されたカットフィーチャーのID / 実際: (空)
+- function:CutBody object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CutBody params[ReferMethod].type -> 期待: (空) / 実際: 不明
+- function:ExporAsSTL title_jp -> 期待: ドキュメントをSTLとして保存する / 実際: (空)
+- function:ExporAsSTL raw_return -> 期待: なし / 実際: (空)
+- function:ExporAsSTL return_description -> 期待: なし / 実際: (空)
+- function:ExporAsSTL object_name -> 期待: Documentオブジェクト / 実際: (空)
+- function:ExporAsSTL params[pOpt].type -> 期待: STLパラメータオブジェクト / 実際: 不明
+- function:ExportToBitmap title_jp -> 期待: ビューの表示内容をビットマップファイルとして出力する / 実際: (空)
+- function:ExportToBitmap raw_return -> 期待: なし / 実際: (空)
+- function:ExportToBitmap return_description -> 期待: なし / 実際: (空)
+- function:ExportToBitmap object_name -> 期待: Viewオブジェクト / 実際: (空)
+- function:FitAllViews title_jp -> 期待: ドキュメントのビューを要素にフィットする / 実際: (空)
+- function:FitAllViews raw_return -> 期待: なし / 実際: (空)
+- function:FitAllViews return_description -> 期待: なし / 実際: (空)
+- function:FitAllViews object_name -> 期待: Documentオブジェクト / 実際: (空)
+- function:GetActiveDocument title_jp -> 期待: アクティブなDocumentオブジェクトを取得する / 実際: (空)
+- function:GetActiveDocument raw_return -> 期待: Documentオブジェクト / 実際: (空)
+- function:GetActiveDocument object_name -> 期待: Applicationオブジェクト / 実際: (空)
+- function:GetDocuments title_jp -> 期待: 開かれているDocumentオブジェクトを全て取得する / 実際: (空)
+- function:GetDocuments raw_return -> 期待: Documentオブジェクトの配列 / 実際: (空)
+- function:GetDocuments object_name -> 期待: Applicationオブジェクト / 実際: (空)
+- function:GetPart title_jp -> 期待: Partオブジェクトの取得 / 実際: (空)
+- function:GetPart raw_return -> 期待: Partオブジェクト / 実際: (空)
+- function:GetPart object_name -> 期待: Documentオブジェクト / 実際: (空)
+- function:GetViews title_jp -> 期待: ドキュメントのビューを取得する / 実際: (空)
+- function:GetViews raw_return -> 期待: Viewオブジェクトの配列 / 実際: (空)
+- function:GetViews object_name -> 期待: Documentオブジェクト / 実際: (空)
+- function:IsActive title_jp -> 期待: ドキュメントがアクティブ（カレント）かどうか / 実際: (空)
+- function:IsActive raw_return -> 期待: bool ドキュメントがActiveな時はTrue / 実際: (空)
+- function:IsActive object_name -> 期待: Documentオブジェクト / 実際: (空)
+- function:LoadPart title_jp -> 期待: Partオブジェクトを読み込む / 実際: (空)
+- function:LoadPart raw_return -> 期待: Partオブジェクト / 実際: (空)
+- function:LoadPart object_name -> 期待: Applicationオブジェクト / 実際: (空)
+- function:MirrorCopy title_jp -> 期待: 指定要素をミラーコピーする / 実際: (空)
+- function:MirrorCopy raw_return -> 期待: コピーされた要素ID配列 / 実際: (空)
+- function:MirrorCopy object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:MirrorCopy params[[in] BSTR plane] -> 期待: {'type': '', 'description': ''} / 実際: (JSONに無し)
+- function:MirrorCopy params[ReferMethod].type -> 期待: 関連設定 / 実際: 不明
+- function:MirrorCopy params[ReferMethod].description -> 期待: 要素の関連づけ方法の指定 / 実際: (空)
+- function:MirrorCopy params[SrcElements].type -> 期待: 要素(配列) / 実際: 要素[]
+- function:MirrorCopy params[plane].type -> 期待: 平面 / 実際: 文字列
+- function:MirrorCopy params[plane].description -> 期待: ミラーを作成する平面 / 実際: (空)
+- function:OpenDocument title_jp -> 期待: Documentを開く / 実際: (空)
+- function:OpenDocument raw_return -> 期待: Documentオブジェクト / 実際: (空)
+- function:OpenDocument object_name -> 期待: Applicationオブジェクト / 実際: (空)
+- function:Quit title_jp -> 期待: EvoShipを終了する / 実際: (空)
+- function:Quit raw_return -> 期待: なし / 実際: (空)
+- function:Quit return_description -> 期待: なし / 実際: (空)
+- function:Quit object_name -> 期待: Applicationオブジェクト / 実際: (空)
+- function:ReverseSheet title_jp -> 期待: シート要素の向きを反転する / 実際: (空)
+- function:ReverseSheet raw_return -> 期待: シート反転フィーチャーの要素ID / 実際: (空)
+- function:ReverseSheet object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:ReverseSheet params[SheetElement] -> 期待: (XMLに無し) / 実際: {'type': '不明', 'description': ''}
+- function:Save title_jp -> 期待: ドキュメントをファイルに保存する / 実際: (空)
+- function:Save raw_return -> 期待: なし / 実際: (空)
+- function:Save return_description -> 期待: なし / 実際: (空)
+- function:Save object_name -> 期待: Documentオブジェクト / 実際: (空)
+- function:SetDirection title_jp -> 期待: ビューの表示方向を設定する / 実際: (空)
+- function:SetDirection raw_return -> 期待: なし / 実際: (空)
+- function:SetDirection return_description -> 期待: なし / 実際: (空)
+- function:SetDirection object_name -> 期待: Viewオブジェクト / 実際: (空)
+- function:SetElementColor title_jp -> 期待: 指定要素の色を設定する / 実際: (空)
+- function:SetElementColor object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:SheetAlignNormal title_jp -> 期待: シート要素の向き（表側、法線方向）を指定した方向に揃える / 実際: (空)
+- function:SheetAlignNormal raw_return -> 期待: なし / 実際: (空)
+- function:SheetAlignNormal return_description -> 期待: なし / 実際: (空)
+- function:SheetAlignNormal object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:SheetAlignNormal params[dirZ].type -> 期待: 浮動小数点 / 実際: 不明
+- function:SheetAlignNormal params[dirZ].description -> 期待: 方向ベクトルのZ成分 / 実際: (空)
+- function:ShowMainWindow title_jp -> 期待: EvoShipのメインウィンドウを表示する / 実際: (空)
+- function:ShowMainWindow raw_return -> 期待: なし / 実際: (空)
+- function:ShowMainWindow return_description -> 期待: なし / 実際: (空)
+- function:ShowMainWindow object_name -> 期待: Applicationオブジェクト / 実際: (空)
+- function:TranslationCopy title_jp -> 期待: 指定要素を移動コピーする / 実際: (空)
+- function:TranslationCopy raw_return -> 期待: コピーされた要素ID配列 / 実際: (空)
+- function:TranslationCopy object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:TranslationCopy params[ReferMethod].type -> 期待: 関連設定 / 実際: 不明
+- function:TranslationCopy params[ReferMethod].description -> 期待: 要素の関連づけ方法の指定 / 実際: (空)
+- function:TranslationCopy params[SrcElements].type -> 期待: 要素(配列) / 実際: 要素[]
+```

@@ -225,12 +225,7 @@ class AccuracyMetrics:
     parameters_correct: int
     parameters_accuracy: float
 
-    # ⑶各オブジェクト名の総数に対する割合
-    object_names_total: int
-    object_names_correct: int
-    object_names_accuracy: float
-
-    # ⑷descriptionの総数に対する割合（完全一致）
+    # ⑶descriptionの総数に対する割合（完全一致）
     descriptions_total: int
     descriptions_correct: int
     descriptions_accuracy: float
@@ -255,14 +250,11 @@ def compare_entries(
 
     record("entry_type", xml_entry.entry_type, json_entry.get("entry_type"))
     record("category", xml_entry.category, json_entry.get("category"))
-    record("title_jp", xml_entry.title_jp, json_entry.get("title_jp"))
-    record("raw_return", xml_entry.raw_return, json_entry.get("raw_return"))
     record(
         "return_description",
         xml_entry.return_description,
         json_entry.get("return_description"),
     )
-    record("object_name", xml_entry.object_name, json_entry.get("object_name"))
 
     xml_params: Dict[str, XmlParameter] = {
         param.key: param for param in xml_entry.params
@@ -330,12 +322,12 @@ def compare_collections(
 
 def calculate_denominators(
     xml_entries: Dict[str, XmlEntry], json_entries: Dict[str, Dict[str, object]]
-) -> Tuple[int, int, int, int]:
+) -> Tuple[int, int, int]:
     """
     各評価指標の分母を計算する
 
     Returns:
-        Tuple[int, int, int, int]: (関数名総数, パラメータ総数, オブジェクト名総数, description総数)
+        Tuple[int, int, int]: (関数名総数, パラメータ総数, description総数)
     """
     # ⑴関数名・引数定義名の総数
     # XMLとJSONの両方に存在するエントリ数を分母とする
@@ -350,18 +342,7 @@ def calculate_denominators(
         # XMLとJSONの両方のパラメータ数を合計
         parameters_total += len(xml_entry.params) + len(json_entry.get("params", []))
 
-    # ⑶各オブジェクト名の総数
-    object_names_total = 0
-    for name in common_entries:
-        xml_entry = xml_entries[name]
-        json_entry = json_entries[name]
-        # オブジェクト名が存在する場合にカウント
-        if xml_entry.object_name:
-            object_names_total += 1
-        if json_entry.get("object_name"):
-            object_names_total += 1
-
-    # ⑷descriptionの総数
+    # ⑶descriptionの総数
     descriptions_total = 0
     for name in common_entries:
         xml_entry = xml_entries[name]
@@ -381,17 +362,17 @@ def calculate_denominators(
         if json_entry.get("return_description"):
             descriptions_total += 1
 
-    return function_names_total, parameters_total, object_names_total, descriptions_total
+    return function_names_total, parameters_total, descriptions_total
 
 
 def calculate_numerators(
     xml_entries: Dict[str, XmlEntry], json_entries: Dict[str, Dict[str, object]]
-) -> Tuple[int, int, int, int]:
+) -> Tuple[int, int, int]:
     """
     各評価指標の分子（正解数）を計算する
 
     Returns:
-        Tuple[int, int, int, int]: (関数名正解数, パラメータ正解数, オブジェクト名正解数, description正解数)
+        Tuple[int, int, int]: (関数名正解数, パラメータ正解数, description正解数)
     """
     # ⑴関数名・引数定義名の正解数
     # XMLとJSONの両方に存在するエントリで、nameが一致するものの数
@@ -422,19 +403,7 @@ def calculate_numerators(
                     xml_param.description == json_param.get("description", "")):
                 parameters_correct += 1
 
-    # ⑶各オブジェクト名の正解数
-    object_names_correct = 0
-    for name in common_entries:
-        xml_entry = xml_entries[name]
-        json_entry = json_entries[name]
-
-        # オブジェクト名が一致する場合を正解とする
-        if (xml_entry.object_name and
-                json_entry.get("object_name") and
-                xml_entry.object_name == json_entry.get("object_name")):
-            object_names_correct += 1
-
-    # ⑷descriptionの正解数（完全一致）
+    # ⑶descriptionの正解数（完全一致）
     descriptions_correct = 0
     for name in common_entries:
         xml_entry = xml_entries[name]
@@ -462,7 +431,7 @@ def calculate_numerators(
                 xml_entry.return_description == json_entry.get("return_description")):
             descriptions_correct += 1
 
-    return function_names_correct, parameters_correct, object_names_correct, descriptions_correct
+    return function_names_correct, parameters_correct, descriptions_correct
 
 
 def calculate_accuracy_metrics(
@@ -476,19 +445,17 @@ def calculate_accuracy_metrics(
     """
     # 分母を計算
     (function_names_total, parameters_total,
-     object_names_total, descriptions_total) = calculate_denominators(xml_entries, json_entries)
+     descriptions_total) = calculate_denominators(xml_entries, json_entries)
 
     # 分子を計算
     (function_names_correct, parameters_correct,
-     object_names_correct, descriptions_correct) = calculate_numerators(xml_entries, json_entries)
+     descriptions_correct) = calculate_numerators(xml_entries, json_entries)
 
     # 正答率を計算（ゼロ除算を避ける）
     function_names_accuracy = (function_names_correct / function_names_total
                                if function_names_total > 0 else 0.0)
     parameters_accuracy = (parameters_correct / parameters_total
                            if parameters_total > 0 else 0.0)
-    object_names_accuracy = (object_names_correct / object_names_total
-                             if object_names_total > 0 else 0.0)
     descriptions_accuracy = (descriptions_correct / descriptions_total
                              if descriptions_total > 0 else 0.0)
 
@@ -499,9 +466,6 @@ def calculate_accuracy_metrics(
         parameters_total=parameters_total,
         parameters_correct=parameters_correct,
         parameters_accuracy=parameters_accuracy,
-        object_names_total=object_names_total,
-        object_names_correct=object_names_correct,
-        object_names_accuracy=object_names_accuracy,
         descriptions_total=descriptions_total,
         descriptions_correct=descriptions_correct,
         descriptions_accuracy=descriptions_accuracy,
@@ -606,12 +570,7 @@ def write_report_document(
             f"- 正解数: {accuracy_metrics.parameters_correct}",
             f"- 正答率: {accuracy_metrics.parameters_accuracy:.2%}",
             "",
-            "### ⑶各オブジェクト名の正答率",
-            f"- 総数: {accuracy_metrics.object_names_total}",
-            f"- 正解数: {accuracy_metrics.object_names_correct}",
-            f"- 正答率: {accuracy_metrics.object_names_accuracy:.2%}",
-            "",
-            "### ⑷descriptionの正答率（完全一致）",
+            "### ⑶descriptionの正答率（完全一致）",
             f"- 総数: {accuracy_metrics.descriptions_total}",
             f"- 正解数: {accuracy_metrics.descriptions_correct}",
             f"- 正答率: {accuracy_metrics.descriptions_accuracy:.2%}",
@@ -650,8 +609,7 @@ def run_validation(xml_path: Path, json_path: Path, report_path: Path) -> int:
     print("\n=== 正答率メトリクス ===")
     print(f"⑴関数名・引数定義名の正答率: {accuracy_metrics.function_names_correct}/{accuracy_metrics.function_names_total} ({accuracy_metrics.function_names_accuracy:.2%})")  # noqa: E501
     print(f"⑵引数パラメータの正答率: {accuracy_metrics.parameters_correct}/{accuracy_metrics.parameters_total} ({accuracy_metrics.parameters_accuracy:.2%})")  # noqa: E501
-    print(f"⑶各オブジェクト名の正答率: {accuracy_metrics.object_names_correct}/{accuracy_metrics.object_names_total} ({accuracy_metrics.object_names_accuracy:.2%})")  # noqa: E501
-    print(f"⑷descriptionの正答率: {accuracy_metrics.descriptions_correct}/{accuracy_metrics.descriptions_total} ({accuracy_metrics.descriptions_accuracy:.2%})")  # noqa: E501
+    print(f"⑶descriptionの正答率: {accuracy_metrics.descriptions_correct}/{accuracy_metrics.descriptions_total} ({accuracy_metrics.descriptions_accuracy:.2%})")  # noqa: E501
 
     full_report = format_differences(xml_only, json_only, diffs, limit=None)
     exit_code = 0 if not (xml_only or json_only or diffs) else 1
