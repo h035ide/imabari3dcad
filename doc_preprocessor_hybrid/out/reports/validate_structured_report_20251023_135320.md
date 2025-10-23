@@ -1,11 +1,11 @@
-# structured_api 検証ログ (2025-10-23 13:55:58)
+# structured_api 検証ログ (2025-10-23 13:53:20)
 
 - XML: `doc_preprocessor_hybrid/out/api_template.xml`
 - JSON: `doc_preprocessor_hybrid/out/structured_api.json`
 - 結果: 差分あり (exit 1)
-- XMLエントリ数: 145
-- JSONエントリ数: 138
-- XMLのみ: 9件 / JSONのみ: 2件 / 差分: 136件
+- XMLエントリ数: 144
+- JSONエントリ数: 137
+- XMLのみ: 10件 / JSONのみ: 3件 / 差分: 134件
 
 ## 正答率メトリクス
 
@@ -41,8 +41,8 @@
 
 ## レポート
 ```
-[XMLのみ]BracketParam, FacePlateParam, LinearSweepParam, LoftParam, ProfileParam, RotationalSweepParam, STLParameter, SlotParam, SweepParam
-[JSONのみ]点(2D), 点(3D)
+[XMLのみ]BracketParam, FacePlateParam, LinearSweepParam, LoftParam, ProfileParam, RotationalSweepParam, STLParameter, SlotParam, SweepParam, オペレーションタイプ　（ボディ）
+[JSONのみ]オペレーションタイプ （ボディ）, 点(2D), 点(3D)
 [差分]
 - function:Activate return_description -> 期待: なし / 実際: (空)
 - function:BlankElement return_description -> 期待: なし / 実際: (空)
@@ -141,8 +141,6 @@
 - function:TranslationCopy params[ReferMethod].description -> 期待: 要素の関連づけ方法の指定 / 実際: (空)
 - function:TranslationCopy params[SrcElements].type -> 期待: 要素(配列) / 実際: 要素[]
 - type_definition:bool category -> 期待: 型定義 / 実際: (空)
-- type_definition:オペレーションタイプ （ボディ） category -> 期待: 型定義 / 実際: (空)
-- type_definition:オペレーションタイプ （ボディ） description -> 期待: "+" 和、"-" 削除、"*" 積 / 実際: "+" 和 "-" 削除 "*" 積
 - type_definition:スイープ方向 category -> 期待: 型定義 / 実際: (空)
 - type_definition:スイープ方向 description -> 期待: "N" 順方向、"R" 反対方向、"B" 両方向、"2" ２方向、"T" 貫通 / 実際: "N" 順方向 "R" 反対方向 "B" 両方向 "2" ２方向 "T" 貫通
 - type_definition:モールド位置 category -> 期待: 型定義 / 実際: (空)
