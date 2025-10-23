@@ -39,6 +39,7 @@ class TypeDefinition:
     name: str
     description: str
     examples: List[str] = field(default_factory=list)
+    category: Optional[str] = None  # カテゴリ（例: "型定義"）
     # 追加メタ: 正規化型や受理形の明示（後工程用、任意）
     canonical_type: Optional[str] = (
         None  # e.g., "string","integer","length","angle","point","direction"
@@ -53,6 +54,8 @@ class TypeDefinition:
         data: Dict[str, object] = {"name": self.name, "description": self.description}
         if self.examples:
             data["examples"] = self.examples
+        if self.category:
+            data["category"] = self.category
         if self.canonical_type:
             data["canonical_type"] = self.canonical_type
         if self.py_type:
@@ -87,6 +90,7 @@ class TypeDefinition:
             name=str(data.get("name", "")),
             description=str(data.get("description", "")),
             examples=examples_list,
+            category=str(data.get("category")) if data.get("category") else None,
             canonical_type=(
                 str(data.get("canonical_type")) if data.get("canonical_type") else None
             ),
