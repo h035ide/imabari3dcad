@@ -106,8 +106,18 @@ def normalize_punct_and_width(value: Optional[str]) -> Optional[str]:
 
 
 def equals_text(a: Optional[str], b: Optional[str]) -> bool:
-    """文字種差/句読点差を無視した等価判定。"""
-    return normalize_punct_and_width(a) == normalize_punct_and_width(b)
+    """文字種差/句読点差に加え、空等価（なし/空）も無視した等価判定。"""
+    def to_comparable(x: Optional[str]) -> str:
+        nx = normalize_punct_and_width(x)
+        if nx is None:
+            return ""
+        # 空等価語の統一（日本語中心）。必要に応じて拡張可。
+        empties = {"なし", "無し", "(空)", "空", "na", "n/a", "none"}
+        if nx.lower() in empties:
+            return ""
+        return nx
+
+    return to_comparable(a) == to_comparable(b)
 
 
 def normalize_category(section: Optional[str]) -> Optional[str]:

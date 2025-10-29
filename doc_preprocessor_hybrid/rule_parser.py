@@ -525,14 +525,14 @@ def parse_type_definitions(
     for idx, raw_line in enumerate(lines):
         line = raw_line.strip()
         if idx < 5 or idx % 50 == 0:
-            # 先頭数行と50行毎に軽量スニペットを出力
-            logger.debug(f"[type:{idx}] {_log_snippet(raw_line)}")
+            # 先頭数行と50行毎に軽量スニペットを出力（1始まり表記）
+            logger.debug(f"[type:{idx + 1}] {_log_snippet(raw_line)}")
         if not line:
             continue
         if line.startswith("■"):
             finalize()
             current_name = line.replace("■", "", 1).strip()
-            logger.info(f"[type] section start: name='{current_name}' at line={idx}")
+            logger.info(f"[type] section start: name='{current_name}' at line={idx + 1}")
             current_lines = []
             current_start = idx
             current_end = idx
@@ -606,7 +606,7 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
         param_index += 1
         entry_end_idx = i
         if _is_closing_line(raw_line):
-            logger.debug(f"[api] entry close detected at line={i}")
+            logger.debug(f"[api] entry close detected at line={i + 1}")
             attach_source(current_entry, entry_start_idx, entry_end_idx)
             _finalize_entry(current_entry, entries)
             current_entry = None
@@ -620,14 +620,14 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
         raw_line = lines[i]
         line = raw_line.strip()
         if i < 5 or i % 50 == 0:
-            logger.debug(f"[api:{i}] {_log_snippet(raw_line)}")
+            logger.debug(f"[api:{i + 1}] {_log_snippet(raw_line)}")
         if not line:
             i += 1
             continue
         header_match = HEADER_RE.match(line)
         if header_match:
             logger.info(
-                f"[api] HEADER matched: object='{header_match.group(1).strip()}' at line={i}"
+                f"[api] HEADER matched: object='{header_match.group(1).strip()}' at line={i + 1}"
             )
             current_object = header_match.group(1).strip()
             block_start_idx = None
@@ -639,7 +639,7 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
         if param_obj_match:
             logger.info(
                 f"[api] PARAM_OBJECT matched: name='{param_obj_match.group(1).strip()}' "
-                f"at line={i}"
+                f"at line={i + 1}"
             )
             param_obj_jp_name = param_obj_match.group(1).strip()
             # 日本語名から英語名にマッピング（現在は未使用／将来の拡張用）
@@ -730,7 +730,7 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
             if line.strip() == f"〇{param_name}":
                 logger.info(
                     f"[api] KNOWN_PARAM_OBJECT matched: name='{param_name}' "
-                    f"at line={i}"
+                    f"at line={i + 1}"
                 )
                 param_entry = ApiEntry(
                     entry_type="object",
@@ -758,7 +758,7 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
         title_match = TITLE_RE.match(line)
         if title_match:
             logger.info(
-                f"[api] TITLE matched: title='{title_match.group(1).strip()}' at line={i}"
+                f"[api] TITLE matched: title='{title_match.group(1).strip()}' at line={i + 1}"
             )
             current_title = title_match.group(1).strip()
             current_return = ""
@@ -769,7 +769,7 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
                 ret_match = RETURN_RE.match(ret_line)
                 if ret_match:
                     logger.debug(
-                        f"[api] RETURN matched: '{_log_snippet(ret_line)}' at line={i}"
+                        f"[api] RETURN matched: '{_log_snippet(ret_line)}' at line={i + 1}"
                     )
                     current_return = ret_match.group(1).strip()
                     i += 1
@@ -778,7 +778,7 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
         zero_match = ZERO_PARAM_METHOD_RE.match(line)
         if zero_match:
             logger.info(
-                f"[api] ZERO-PARAM METHOD matched: name='{zero_match.group(1)}' at line={i}"
+                f"[api] ZERO-PARAM METHOD matched: name='{zero_match.group(1)}' at line={i + 1}"
             )
             method_name = zero_match.group(1)
             entry = ApiEntry(
@@ -805,7 +805,7 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
         method_match = METHOD_RE.match(line)
         if method_match:
             logger.info(
-                f"[api] METHOD start matched: name='{method_match.group(1)}' at line={i}"
+                f"[api] METHOD start matched: name='{method_match.group(1)}' at line={i + 1}"
             )
             method_name = method_match.group(1)
             entry_start_idx = block_start_idx if block_start_idx is not None else i
@@ -835,7 +835,7 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
             if param_match:
                 logger.debug(
                     f"[api] PARAM matched: name='{param_match.group(1)}', "
-                    f"raw='{_log_snippet(processed_line)}' at line={i}"
+                    f"raw='{_log_snippet(processed_line)}' at line={i + 1}"
                 )
                 pname, ptype, pdesc = param_match.groups()
                 _consume_param(pname, ptype, pdesc)
@@ -847,7 +847,7 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
             if flexible_param_match:
                 logger.debug(
                     f"[api] FLEXIBLE_PARAM matched: name='{flexible_param_match.group(2)}', "
-                    f"raw='{_log_snippet(line)}' at line={i}"
+                    f"raw='{_log_snippet(line)}' at line={i + 1}"
                 )
                 pname = flexible_param_match.group(2)
                 ptype = flexible_param_match.group(3).strip()
@@ -858,7 +858,7 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
             loose_match = PARAM_RE_LOOSE.match(line)
             if loose_match:
                 logger.debug(
-                    f"[api] PARAM_LOOSE matched: name='{loose_match.group(1)}', raw='{_log_snippet(line)}' at line={i}"
+                    f"[api] PARAM_LOOSE matched: name='{loose_match.group(1)}', raw='{_log_snippet(line)}' at line={i + 1}"
                 )
                 pname, comment = loose_match.groups()
                 if ":" in comment or "：" in comment:
@@ -884,7 +884,7 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
             pname_ptype = _parse_bare_param(bare)
             if pname_ptype:
                 logger.debug(
-                    f"[api] BARE_PARAM matched: raw='{_log_snippet(bare)}' at line={i}"
+                    f"[api] BARE_PARAM matched: raw='{_log_snippet(bare)}' at line={i + 1}"
                 )
                 pname, ptype = pname_ptype
                 # コメント内に『型:説明』形式があれば説明だけを抽出し、型が不明なら上書き
@@ -917,7 +917,7 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
                 if pm2:
                     logger.debug(
                         f"[api] SYNTHETIC PARAM matched: name='{pm2.group(1)}', "
-                        f"raw='{_log_snippet(synthetic)}' at line={i}"
+                        f"raw='{_log_snippet(synthetic)}' at line={i + 1}"
                     )
                     pname, ptype, pdesc = pm2.groups()
                     _consume_param(pname, ptype, pdesc)
@@ -928,7 +928,7 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
                         logger.debug(
                             f"[api] SYNTHETIC PARAM_LOOSE matched: "
                             f"name='{pm2_loose.group(1)}', "
-                            f"raw='{_log_snippet(synthetic)}' at line={i}"
+                            f"raw='{_log_snippet(synthetic)}' at line={i + 1}"
                         )
                         pname, comment2 = pm2_loose.groups()
                         if ":" in comment2 or "：" in comment2:
@@ -942,7 +942,7 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
                         matched = True
                     else:
                         logger.debug(
-                            f"[api] TRY BARE after close: raw='{_log_snippet(candidate)}' at line={i}"
+                            f"[api] TRY BARE after close: raw='{_log_snippet(candidate)}' at line={i + 1}"
                         )
                         bare_parsed = _parse_bare_param(candidate)
                         if bare_parsed:

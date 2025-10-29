@@ -994,7 +994,7 @@
     </attributes>
   </parameterObject>
   <method name="CreateFacePlate" section="Partオブジェクトのメソッド">
-    <title>船殻のフェイスプレート要素トを作成する</title>
+    <title>船殻のフェイスプレート要素を作成する</title>
     <return>返り値:作成されたフェイスプレート要素ID</return>
     <parameters>
       <parameter name="ParamObj">フェイスプレートパラメータオブジェクト</parameter>
