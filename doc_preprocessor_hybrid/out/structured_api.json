@@ -548,27 +548,16 @@
       }
     },
     {
-      "name": "ドキュメントをSTLとして保存する際のパラメータオブジェクト",
-      "description": "ドキュメントをSTLとして保存する際のパラメータオブジェクトのパラメータ定義",
-      "category": "Documentオブジェクト",
-      "entry_type": "object",
-      "title_jp": "ドキュメントをSTLとして保存する際のパラメータオブジェクト",
-      "source": {
-        "text": "〇ドキュメントをSTLとして保存する際のパラメータオブジェクトの作成"
-      }
-    },
-    {
       "name": "CreateSTLOption",
-      "description": "ドキュメントのビューを取得する",
+      "description": "ドキュメントをSTLとして保存する際のパラメータオブジェクトの作成",
       "category": "Documentオブジェクト",
       "entry_type": "function",
       "returns": {
         "type": "不明",
-        "description": "Viewオブジェクトの配列",
-        "is_array": true
+        "description": "STLパラメータオブジェクト"
       },
       "source": {
-        "text": " CreateSTLOption()"
+        "text": "〇ドキュメントをSTLとして保存する際のパラメータオブジェクトの作成\n 返り値:STLパラメータオブジェクト\n CreateSTLOption()"
       }
     },
     {
@@ -1417,26 +1406,16 @@
       }
     },
     {
-      "name": "押し出しパラメータオブジェクト",
-      "description": "押し出しパラメータオブジェクトのパラメータ定義",
-      "category": "Partオブジェクト",
-      "entry_type": "object",
-      "title_jp": "押し出しパラメータオブジェクト",
-      "source": {
-        "text": "〇押し出しパラメータオブジェクトの作成"
-      }
-    },
-    {
       "name": "CreateLinearSweepParam",
-      "description": "オフセットシートを作成",
+      "description": "押し出しパラメータオブジェクトの作成",
       "category": "Partオブジェクト",
       "entry_type": "function",
       "returns": {
-        "type": "ID",
-        "description": "作成されたオフセットシート要素の要素ID"
+        "type": "不明",
+        "description": "押し出しパラメータオブジェクト"
       },
       "source": {
-        "text": " CreateLinearSweepParam()"
+        "text": "〇押し出しパラメータオブジェクトの作成\n 返り値:押し出しパラメータオブジェクト\n CreateLinearSweepParam()"
       }
     },
     {
@@ -2030,26 +2009,16 @@
       }
     },
     {
-      "name": "船殻のブラケット要素のパラメータオブジェクト",
-      "description": "船殻のブラケット要素のパラメータオブジェクトのパラメータ定義",
-      "category": "Partオブジェクト",
-      "entry_type": "object",
-      "title_jp": "船殻のブラケット要素のパラメータオブジェクト",
-      "source": {
-        "text": "〇船殻のブラケット要素のパラメータオブジェクトの作成"
-      }
-    },
-    {
       "name": "CreateBracketParam",
-      "description": "指定したソリッド要素に別のソリッド要素形状を付加する",
+      "description": "船殻のブラケット要素のパラメータオブジェクトの作成",
       "category": "Partオブジェクト",
       "entry_type": "function",
       "returns": {
         "type": "不明",
-        "description": "作成された別ソリッドフィーチャーのID"
+        "description": "ブラケット要素のパラメータオブジェクト"
       },
       "source": {
-        "text": " CreateBracketParam()"
+        "text": "〇船殻のブラケット要素のパラメータオブジェクトの作成\n 返り値:ブラケット要素のパラメータオブジェクト\n CreateBracketParam()"
       }
     },
     {
@@ -2522,26 +2491,16 @@
       }
     },
     {
-      "name": "船殻の条材ソリッド要素のパラメータオブジェクト",
-      "description": "船殻の条材ソリッド要素のパラメータオブジェクトのパラメータ定義",
-      "category": "Partオブジェクト",
-      "entry_type": "object",
-      "title_jp": "船殻の条材ソリッド要素のパラメータオブジェクト",
-      "source": {
-        "text": "〇船殻の条材ソリッド要素のパラメータオブジェクトの作成"
-      }
-    },
-    {
       "name": "CreateProfileParam",
-      "description": "船殻のプレートソリッド要素を作成する",
+      "description": "船殻の条材ソリッド要素のパラメータオブジェクトの作成",
       "category": "Partオブジェクト",
       "entry_type": "function",
       "returns": {
         "type": "不明",
-        "description": "作成したソリッド要素のID"
+        "description": "条材要素のパラメータオブジェクト"
       },
       "source": {
-        "text": "  CreateProfileParam()"
+        "text": "〇船殻の条材ソリッド要素のパラメータオブジェクトの作成\n  返り値:条材要素のパラメータオブジェクト\n  CreateProfileParam()"
       }
     },
     {
@@ -3134,22 +3093,16 @@
       }
     },
     {
-      "name": "スイープパラメータオブジェクト",
-      "description": "スイープパラメータオブジェクトのパラメータ定義",
-      "category": "Partオブジェクト",
-      "entry_type": "object",
-      "title_jp": "スイープパラメータオブジェクト",
-      "source": {
-        "text": "〇スイープパラメータオブジェクトの作成"
-      }
-    },
-    {
       "name": "CreateSweepParam",
-      "description": "指定要素の色を設定する",
+      "description": "スイープパラメータオブジェクトの作成",
       "category": "Partオブジェクト",
       "entry_type": "function",
+      "returns": {
+        "type": "不明",
+        "description": "スイープパラメータオブジェクト"
+      },
       "source": {
-        "text": "CreateSweepParam()"
+        "text": "〇スイープパラメータオブジェクトの作成\n 返り値:スイープパラメータオブジェクト\nCreateSweepParam()"
       }
     },
     {
@@ -3363,26 +3316,16 @@
       }
     },
     {
-      "name": "回転パラメータオブジェクト",
-      "description": "回転パラメータオブジェクトのパラメータ定義",
-      "category": "Partオブジェクト",
-      "entry_type": "object",
-      "title_jp": "回転パラメータオブジェクト",
-      "source": {
-        "text": "〇回転パラメータオブジェクトの作成"
-      }
-    },
-    {
       "name": "CreateRotationalSweepParam",
-      "description": "プロファイル要素をスイープしてシート要素を作成",
+      "description": "回転パラメータオブジェクトの作成",
       "category": "Partオブジェクト",
       "entry_type": "function",
       "returns": {
-        "type": "ID",
-        "description": "作成されたシート要素の要素ID"
+        "type": "不明",
+        "description": "回転パラメータオブジェクト"
       },
       "source": {
-        "text": "CreateRotationalSweepParam()"
+        "text": "〇回転パラメータオブジェクトの作成\n 返り値:回転パラメータオブジェクト\nCreateRotationalSweepParam()"
       }
     },
     {
@@ -3786,26 +3729,16 @@
       }
     },
     {
-      "name": "ロフトパラメータオブジェクト",
-      "description": "ロフトパラメータオブジェクトのパラメータ定義",
-      "category": "Partオブジェクト",
-      "entry_type": "object",
-      "title_jp": "ロフトパラメータオブジェクト",
-      "source": {
-        "text": "〇ロフトパラメータオブジェクトの作成"
-      }
-    },
-    {
       "name": "CreateLoftParam",
-      "description": "3DのＮＵＲＢＳ線要素を作成",
+      "description": "ロフトパラメータオブジェクトの作成",
       "category": "Partオブジェクト",
       "entry_type": "function",
       "returns": {
-        "type": "ID",
-        "description": "線要素の要素ID"
+        "type": "不明",
+        "description": "ロフトパラメータオブジェクト"
       },
       "source": {
-        "text": "  CreateLoftParam()"
+        "text": "〇ロフトパラメータオブジェクトの作成\n 返り値:ロフトパラメータオブジェクト\n  CreateLoftParam()"
       }
     },
     {
@@ -3998,26 +3931,16 @@
       }
     },
     {
-      "name": "船殻のスロットパラメータオブジェクト",
-      "description": "船殻のスロットパラメータオブジェクトのパラメータ定義",
-      "category": "Partオブジェクト",
-      "entry_type": "object",
-      "title_jp": "船殻のスロットパラメータオブジェクト",
-      "source": {
-        "text": "〇船殻のスロットパラメータオブジェクトの作成"
-      }
-    },
-    {
       "name": "CreateSlotParam",
-      "description": "ロフトシート要素を作成",
+      "description": "船殻のスロットパラメータオブジェクトの作成",
       "category": "Partオブジェクト",
       "entry_type": "function",
       "returns": {
-        "type": "ID",
-        "description": "作成されたシート要素の要素ID"
+        "type": "不明",
+        "description": "スロットパラメータオブジェクト"
       },
       "source": {
-        "text": "CreateSlotParam()"
+        "text": "〇船殻のスロットパラメータオブジェクトの作成\n 返り値:スロットパラメータオブジェクト\nCreateSlotParam()"
       }
     },
     {
@@ -4168,27 +4091,16 @@
       }
     },
     {
-      "name": "船殻のフェイスプレートパラメータオブジェクト",
-      "description": "船殻のフェイスプレートパラメータオブジェクトのパラメータ定義",
-      "category": "Partオブジェクト",
-      "entry_type": "object",
-      "title_jp": "船殻のフェイスプレートパラメータオブジェクト",
-      "source": {
-        "text": "〇船殻のフェイスプレートパラメータオブジェクトの作成"
-      }
-    },
-    {
       "name": "CreateFacePlateParam",
-      "description": "船殻のスロット要素,カラープレートを作成する",
+      "description": "船殻のフェイスプレートパラメータオブジェクトの作成",
       "category": "Partオブジェクト",
       "entry_type": "function",
       "returns": {
-        "type": "ID",
-        "description": "作成されたスロットフィーチャー,カラープレート１，カラープレート２の要素ID配列",
-        "is_array": true
+        "type": "不明",
+        "description": "フェイスプレートパラメータオブジェクト"
       },
       "source": {
-        "text": "CreateFacePlateParam()"
+        "text": "〇船殻のフェイスプレートパラメータオブジェクトの作成\n 返り値:フェイスプレートパラメータオブジェクト\nCreateFacePlateParam()"
       }
     },
     {

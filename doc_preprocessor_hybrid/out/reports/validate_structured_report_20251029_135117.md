@@ -1,11 +1,11 @@
-# structured_api 検証ログ (2025-10-29 13:51:46)
+# structured_api 検証ログ (2025-10-29 13:51:17)
 
 - XML: `doc_preprocessor_hybrid/out/api_template.xml`
 - JSON: `doc_preprocessor_hybrid/out/structured_api.json`
 - 結果: 差分あり (exit 1)
-- XMLエントリ数: 350
-- JSONエントリ数: 352
-- XMLのみ: 1件 / JSONのみ: 3件 / 差分: 349件
+- XMLエントリ数: 359
+- JSONエントリ数: 366
+- XMLのみ: 1件 / JSONのみ: 8件 / 差分: 358件
 
 ## 正答率メトリクス
 
@@ -16,8 +16,8 @@
 
 ### ⑵パラメータオブジェクトの正答率
 - 総数: 9
-- 正解数: 9
-- 正答率: 100.00%
+- 正解数: 14
+- 正答率: 155.56%
 
 ### ⑶型定義の正答率
 - 総数: 23
@@ -36,13 +36,13 @@
 
 ### ⑹descriptionの正答率（完全一致）
 - 総数: 547
-- 正解数: 226
-- 正答率: 41.32%
+- 正解数: 217
+- 正答率: 39.67%
 
 ## レポート
 ```
 [XMLのみ]オペレーションタイプ （ボディ）
-[JSONのみ]オペレーションタイプ (ボディ), 点(2D), 点(3D)
+[JSONのみ]オペレーションタイプ (ボディ), ドキュメントをSTLとして保存する際のパラメータオブジェクト, 点(2D), 点(3D), 船殻のスロットパラメータオブジェクト, 船殻のフェイスプレートパラメータオブジェクト, 船殻のブラケット要素のパラメータオブジェクト, 船殻の条材ソリッド要素のパラメータオブジェクト
 [差分]
 - function:Activate return_description -> 期待: なし / 実際: (空)
 - function:BlankElement return_description -> 期待: なし / 実際: (空)
@@ -71,12 +71,16 @@
 - function:CreateBoundingBox params[bOptimalBox].description -> 期待: Trueを指定するとボックスを計算する座標系を最適なものにする。（そうでない場合は絶対座標系で計算する） / 実際: Trueを指定するとボックスを計算する座標系を最適なものにする.(そうでない場合は絶対座標系で計算する)
 - function:CreateBoundingBox params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: 更新フラグ(未実装,使用しない)
 - function:CreateBracket params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateBracketParam return_description -> 期待: ブラケット要素のパラメータオブジェクト / 実際: 作成された別ソリッドフィーチャーのID
 - function:CreateElementsFromFile params[FileName].description -> 期待: ファイルパス（現状、Parasolid形式のみ） / 実際: ファイルパス(現状,Parasolid形式のみ)
 - function:CreateEllipse params[MajorDir].description -> 期待: 主軸方向（パラメータ０の位置方向 / 実際: 主軸方向(パラメータ０の位置方向
 - function:CreateFacePlate params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateFacePlateParam return_description -> 期待: フェイスプレートパラメータオブジェクト / 実際: 作成されたスロットフィーチャー,カラープレート１，カラープレート２の要素ID配列
 - function:CreateLinearSweep params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateLinearSweepParam return_description -> 期待: 押し出しパラメータオブジェクト / 実際: 作成されたオフセットシート要素の要素ID
 - function:CreateLinearSweepSheet params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
 - function:CreateLoft params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateLoftParam return_description -> 期待: ロフトパラメータオブジェクト / 実際: 線要素の要素ID
 - function:CreateLoftSheet params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
 - function:CreateOffsetDatumPlane return_description -> 期待: 作成されたデータム平面の要素ID / 実際: (空)
 - function:CreateOffsetDatumPlane params[ElementGroup].description -> 期待: 作成するデータム平面要素を入れる場合は指定（空文字可） / 実際: 作成するデータム平面要素を要素グループに入れる場合は要素グループを指定(空文字可)
@@ -96,6 +100,7 @@
 - function:CreatePlate params[PlateName].description -> 期待: 作成するプレートソリッド要素名称（空文字可） / 実際: 作成するプレートソリッド要素名称(空文字可)
 - function:CreatePlate params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
 - function:CreateProfile params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateProfileParam return_description -> 期待: 条材要素のパラメータオブジェクト / 実際: 作成したソリッド要素のID
 - function:CreateRotatedDatumPlane return_description -> 期待: 作成されたデータム平面の要素ID / 実際: (空)
 - function:CreateRotatedDatumPlane params[ElementGroup].description -> 期待: 作成するデータム平面要素を要素グループに入れる場合は要素グループを指定（空文字可） / 実際: 作成するデータム平面要素を要素グループに入れる場合は要素グループを指定(空文字可)
 - function:CreateRotatedDatumPlane params[Name].description -> 期待: 作成するデータム平面要素名称（空文字可） / 実際: 作成するデータム平面要素名称(空文字可)
@@ -103,7 +108,9 @@
 - function:CreateRotatedDatumPlane params[ReferMethod].description -> 期待: 要素の関連づけ方法の指定（未実装、使用しない） / 実際: 要素の関連づけ方法の指定(未実装,使用しない)
 - function:CreateRotatedDatumPlane params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: 更新フラグ(未実装,使用しない)
 - function:CreateRotationalSweep params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateRotationalSweepParam return_description -> 期待: 回転パラメータオブジェクト / 実際: 作成されたシート要素の要素ID
 - function:CreateRotationalSweepSheet params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSTLOption return_description -> 期待: STLパラメータオブジェクト / 実際: Viewオブジェクトの配列
 - function:CreateSketchArc params[SketchArcName].description -> 期待: 作成するスケッチ円弧名称（空文字可） / 実際: 作成するスケッチ円弧名称(空文字可)
 - function:CreateSketchArc params[SketchLayer].description -> 期待: 円弧を作成するスケッチレイヤー(空文字可） / 実際: 円弧を作成するスケッチレイヤー(空文字可)
 - function:CreateSketchArc params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
@@ -133,10 +140,12 @@
 - function:CreateSketchPlane params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
 - function:CreateSlot return_description -> 期待: 作成されたスロットフィーチャー、カラープレート１，カラープレート２の要素ID配列 / 実際: 作成されたスロットフィーチャー,カラープレート１，カラープレート２の要素ID配列
 - function:CreateSlot params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSlotParam return_description -> 期待: スロットパラメータオブジェクト / 実際: 作成されたシート要素の要素ID
 - function:CreateSolid params[ElementGroup].description -> 期待: 作成するソリッド要素を要素グループに入れる場合は要素グループを指定（空文字可） / 実際: 作成するソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)
 - function:CreateSolid params[MaterialName].description -> 期待: 作成するソリッド要素の材質名称（空文字可） / 実際: 作成するソリッド要素の材質名称(空文字可)
 - function:CreateSolid params[SolidName].description -> 期待: 作成するソリッド要素名称（空文字可） / 実際: 作成するソリッド要素名称(空文字可)
 - function:CreateSweep params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSweepParam return_description -> 期待: スイープパラメータオブジェクト / 実際: (空)
 - function:CreateSweepSheet params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
 - function:CreateThicken params[ThickenFeatureName].description -> 期待: 作成する厚みづけフィーチャー要素名称（空文字可） / 実際: 作成する厚みづけフィーチャー要素名称(空文字可)
 - function:CreateThicken params[Thickeness2].description -> 期待: 板厚２（厚み付けタイプが２方向のときに使用） / 実際: 板厚２(厚み付けタイプが２方向のときに使用)

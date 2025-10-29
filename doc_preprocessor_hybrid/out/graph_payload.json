@@ -302,24 +302,11 @@
       }
     },
     {
-      "id": "ドキュメントをSTLとして保存する際のパラメータオブジェクト",
-      "label": "Method",
-      "properties": {
-        "name": "ドキュメントをSTLとして保存する際のパラメータオブジェクト",
-        "description": "ドキュメントをSTLとして保存する際のパラメータオブジェクトのパラメータ定義",
-        "category": "Documentオブジェクト",
-        "source_path": "",
-        "source_start_line": 0,
-        "source_end_line": 0,
-        "source_checksum": ""
-      }
-    },
-    {
       "id": "CreateSTLOption",
       "label": "Method",
       "properties": {
         "name": "CreateSTLOption",
-        "description": "ドキュメントのビューを取得する",
+        "description": "ドキュメントをSTLとして保存する際のパラメータオブジェクトの作成",
         "category": "Documentオブジェクト",
         "source_path": "",
         "source_start_line": 0,
@@ -1577,11 +1564,11 @@
       }
     },
     {
-      "id": "押し出しパラメータオブジェクト",
+      "id": "CreateLinearSweepParam",
       "label": "Method",
       "properties": {
-        "name": "押し出しパラメータオブジェクト",
-        "description": "押し出しパラメータオブジェクトのパラメータ定義",
+        "name": "CreateLinearSweepParam",
+        "description": "押し出しパラメータオブジェクトの作成",
         "category": "Partオブジェクト",
         "source_path": "",
         "source_start_line": 0,
@@ -1590,11 +1577,11 @@
       }
     },
     {
-      "id": "CreateLinearSweepParam",
+      "id": "押し出しパラメータオブジェクト",
       "label": "Method",
       "properties": {
-        "name": "CreateLinearSweepParam",
-        "description": "オフセットシートを作成",
+        "name": "押し出しパラメータオブジェクト",
+        "description": "押し出しパラメータオブジェクトのパラメータ定義",
         "category": "Partオブジェクト",
         "source_path": "",
         "source_start_line": 0,
@@ -2203,24 +2190,11 @@
       }
     },
     {
-      "id": "船殻のブラケット要素のパラメータオブジェクト",
-      "label": "Method",
-      "properties": {
-        "name": "船殻のブラケット要素のパラメータオブジェクト",
-        "description": "船殻のブラケット要素のパラメータオブジェクトのパラメータ定義",
-        "category": "Partオブジェクト",
-        "source_path": "",
-        "source_start_line": 0,
-        "source_end_line": 0,
-        "source_checksum": ""
-      }
-    },
-    {
       "id": "CreateBracketParam",
       "label": "Method",
       "properties": {
         "name": "CreateBracketParam",
-        "description": "指定したソリッド要素に別のソリッド要素形状を付加する",
+        "description": "船殻のブラケット要素のパラメータオブジェクトの作成",
         "category": "Partオブジェクト",
         "source_path": "",
         "source_start_line": 0,
@@ -2482,24 +2456,11 @@
       }
     },
     {
-      "id": "船殻の条材ソリッド要素のパラメータオブジェクト",
-      "label": "Method",
-      "properties": {
-        "name": "船殻の条材ソリッド要素のパラメータオブジェクト",
-        "description": "船殻の条材ソリッド要素のパラメータオブジェクトのパラメータ定義",
-        "category": "Partオブジェクト",
-        "source_path": "",
-        "source_start_line": 0,
-        "source_end_line": 0,
-        "source_checksum": ""
-      }
-    },
-    {
       "id": "CreateProfileParam",
       "label": "Method",
       "properties": {
         "name": "CreateProfileParam",
-        "description": "船殻のプレートソリッド要素を作成する",
+        "description": "船殻の条材ソリッド要素のパラメータオブジェクトの作成",
         "category": "Partオブジェクト",
         "source_path": "",
         "source_start_line": 0,
@@ -3314,11 +3275,11 @@
       }
     },
     {
-      "id": "スイープパラメータオブジェクト",
+      "id": "CreateSweepParam",
       "label": "Method",
       "properties": {
-        "name": "スイープパラメータオブジェクト",
-        "description": "スイープパラメータオブジェクトのパラメータ定義",
+        "name": "CreateSweepParam",
+        "description": "スイープパラメータオブジェクトの作成",
         "category": "Partオブジェクト",
         "source_path": "",
         "source_start_line": 0,
@@ -3327,11 +3288,11 @@
       }
     },
     {
-      "id": "CreateSweepParam",
+      "id": "スイープパラメータオブジェクト",
       "label": "Method",
       "properties": {
-        "name": "CreateSweepParam",
-        "description": "指定要素の色を設定する",
+        "name": "スイープパラメータオブジェクト",
+        "description": "スイープパラメータオブジェクトのパラメータ定義",
         "category": "Partオブジェクト",
         "source_path": "",
         "source_start_line": 0,
@@ -3435,11 +3396,11 @@
       }
     },
     {
-      "id": "回転パラメータオブジェクト",
+      "id": "CreateRotationalSweepParam",
       "label": "Method",
       "properties": {
-        "name": "回転パラメータオブジェクト",
-        "description": "回転パラメータオブジェクトのパラメータ定義",
+        "name": "CreateRotationalSweepParam",
+        "description": "回転パラメータオブジェクトの作成",
         "category": "Partオブジェクト",
         "source_path": "",
         "source_start_line": 0,
@@ -3448,11 +3409,11 @@
       }
     },
     {
-      "id": "CreateRotationalSweepParam",
+      "id": "回転パラメータオブジェクト",
       "label": "Method",
       "properties": {
-        "name": "CreateRotationalSweepParam",
-        "description": "プロファイル要素をスイープしてシート要素を作成",
+        "name": "回転パラメータオブジェクト",
+        "description": "回転パラメータオブジェクトのパラメータ定義",
         "category": "Partオブジェクト",
         "source_path": "",
         "source_start_line": 0,
@@ -3854,11 +3815,11 @@
       }
     },
     {
-      "id": "ロフトパラメータオブジェクト",
+      "id": "CreateLoftParam",
       "label": "Method",
       "properties": {
-        "name": "ロフトパラメータオブジェクト",
-        "description": "ロフトパラメータオブジェクトのパラメータ定義",
+        "name": "CreateLoftParam",
+        "description": "ロフトパラメータオブジェクトの作成",
         "category": "Partオブジェクト",
         "source_path": "",
         "source_start_line": 0,
@@ -3867,11 +3828,11 @@
       }
     },
     {
-      "id": "CreateLoftParam",
+      "id": "ロフトパラメータオブジェクト",
       "label": "Method",
       "properties": {
-        "name": "CreateLoftParam",
-        "description": "3DのＮＵＲＢＳ線要素を作成",
+        "name": "ロフトパラメータオブジェクト",
+        "description": "ロフトパラメータオブジェクトのパラメータ定義",
         "category": "Partオブジェクト",
         "source_path": "",
         "source_start_line": 0,
@@ -3968,24 +3929,11 @@
       }
     },
     {
-      "id": "船殻のスロットパラメータオブジェクト",
-      "label": "Method",
-      "properties": {
-        "name": "船殻のスロットパラメータオブジェクト",
-        "description": "船殻のスロットパラメータオブジェクトのパラメータ定義",
-        "category": "Partオブジェクト",
-        "source_path": "",
-        "source_start_line": 0,
-        "source_end_line": 0,
-        "source_checksum": ""
-      }
-    },
-    {
       "id": "CreateSlotParam",
       "label": "Method",
       "properties": {
         "name": "CreateSlotParam",
-        "description": "ロフトシート要素を作成",
+        "description": "船殻のスロットパラメータオブジェクトの作成",
         "category": "Partオブジェクト",
         "source_path": "",
         "source_start_line": 0,
@@ -4040,24 +3988,11 @@
       }
     },
     {
-      "id": "船殻のフェイスプレートパラメータオブジェクト",
-      "label": "Method",
-      "properties": {
-        "name": "船殻のフェイスプレートパラメータオブジェクト",
-        "description": "船殻のフェイスプレートパラメータオブジェクトのパラメータ定義",
-        "category": "Partオブジェクト",
-        "source_path": "",
-        "source_start_line": 0,
-        "source_end_line": 0,
-        "source_checksum": ""
-      }
-    },
-    {
       "id": "CreateFacePlateParam",
       "label": "Method",
       "properties": {
         "name": "CreateFacePlateParam",
-        "description": "船殻のスロット要素,カラープレートを作成する",
+        "description": "船殻のフェイスプレートパラメータオブジェクトの作成",
         "category": "Partオブジェクト",
         "source_path": "",
         "source_start_line": 0,
@@ -4563,19 +4498,6 @@
       "end": "不明",
       "properties": {
         "raw_type": "不明"
-      }
-    },
-    {
-      "type": "BELONGS_TO",
-      "start": "ドキュメントをSTLとして保存する際のパラメータオブジェクト",
-      "end": "Documentオブジェクト"
-    },
-    {
-      "type": "RETURNS",
-      "start": "ドキュメントをSTLとして保存する際のパラメータオブジェクト",
-      "end": "void",
-      "properties": {
-        "raw_type": "void"
       }
     },
     {
@@ -5618,28 +5540,15 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "押し出しパラメータオブジェクト",
-      "end": "Partオブジェクト"
-    },
-    {
-      "type": "RETURNS",
-      "start": "押し出しパラメータオブジェクト",
-      "end": "void",
-      "properties": {
-        "raw_type": "void"
-      }
-    },
-    {
-      "type": "BELONGS_TO",
       "start": "CreateLinearSweepParam",
       "end": "Partオブジェクト"
     },
     {
       "type": "RETURNS",
       "start": "CreateLinearSweepParam",
-      "end": "ID",
+      "end": "不明",
       "properties": {
-        "raw_type": "ID"
+        "raw_type": "不明"
       }
     },
     {
@@ -6187,19 +6096,6 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "船殻のブラケット要素のパラメータオブジェクト",
-      "end": "Partオブジェクト"
-    },
-    {
-      "type": "RETURNS",
-      "start": "船殻のブラケット要素のパラメータオブジェクト",
-      "end": "void",
-      "properties": {
-        "raw_type": "void"
-      }
-    },
-    {
-      "type": "BELONGS_TO",
       "start": "CreateBracketParam",
       "end": "Partオブジェクト"
     },
@@ -6409,19 +6305,6 @@
       "type": "HAS_TYPE",
       "start": "CreatePlate:bUpdate",
       "end": "bool"
-    },
-    {
-      "type": "BELONGS_TO",
-      "start": "船殻の条材ソリッド要素のパラメータオブジェクト",
-      "end": "Partオブジェクト"
-    },
-    {
-      "type": "RETURNS",
-      "start": "船殻の条材ソリッド要素のパラメータオブジェクト",
-      "end": "void",
-      "properties": {
-        "raw_type": "void"
-      }
     },
     {
       "type": "BELONGS_TO",
@@ -7188,28 +7071,15 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "スイープパラメータオブジェクト",
-      "end": "Partオブジェクト"
-    },
-    {
-      "type": "RETURNS",
-      "start": "スイープパラメータオブジェクト",
-      "end": "void",
-      "properties": {
-        "raw_type": "void"
-      }
-    },
-    {
-      "type": "BELONGS_TO",
       "start": "CreateSweepParam",
       "end": "Partオブジェクト"
     },
     {
       "type": "RETURNS",
       "start": "CreateSweepParam",
-      "end": "void",
+      "end": "不明",
       "properties": {
-        "raw_type": "void"
+        "raw_type": "不明"
       }
     },
     {
@@ -7313,28 +7183,15 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "回転パラメータオブジェクト",
-      "end": "Partオブジェクト"
-    },
-    {
-      "type": "RETURNS",
-      "start": "回転パラメータオブジェクト",
-      "end": "void",
-      "properties": {
-        "raw_type": "void"
-      }
-    },
-    {
-      "type": "BELONGS_TO",
       "start": "CreateRotationalSweepParam",
       "end": "Partオブジェクト"
     },
     {
       "type": "RETURNS",
       "start": "CreateRotationalSweepParam",
-      "end": "ID",
+      "end": "不明",
       "properties": {
-        "raw_type": "ID"
+        "raw_type": "不明"
       }
     },
     {
@@ -7710,28 +7567,15 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "ロフトパラメータオブジェクト",
-      "end": "Partオブジェクト"
-    },
-    {
-      "type": "RETURNS",
-      "start": "ロフトパラメータオブジェクト",
-      "end": "void",
-      "properties": {
-        "raw_type": "void"
-      }
-    },
-    {
-      "type": "BELONGS_TO",
       "start": "CreateLoftParam",
       "end": "Partオブジェクト"
     },
     {
       "type": "RETURNS",
       "start": "CreateLoftParam",
-      "end": "ID",
+      "end": "不明",
       "properties": {
-        "raw_type": "ID"
+        "raw_type": "不明"
       }
     },
     {
@@ -7835,28 +7679,15 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "船殻のスロットパラメータオブジェクト",
-      "end": "Partオブジェクト"
-    },
-    {
-      "type": "RETURNS",
-      "start": "船殻のスロットパラメータオブジェクト",
-      "end": "void",
-      "properties": {
-        "raw_type": "void"
-      }
-    },
-    {
-      "type": "BELONGS_TO",
       "start": "CreateSlotParam",
       "end": "Partオブジェクト"
     },
     {
       "type": "RETURNS",
       "start": "CreateSlotParam",
-      "end": "ID",
+      "end": "不明",
       "properties": {
-        "raw_type": "ID"
+        "raw_type": "不明"
       }
     },
     {
@@ -7907,28 +7738,15 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "船殻のフェイスプレートパラメータオブジェクト",
-      "end": "Partオブジェクト"
-    },
-    {
-      "type": "RETURNS",
-      "start": "船殻のフェイスプレートパラメータオブジェクト",
-      "end": "void",
-      "properties": {
-        "raw_type": "void"
-      }
-    },
-    {
-      "type": "BELONGS_TO",
       "start": "CreateFacePlateParam",
       "end": "Partオブジェクト"
     },
     {
       "type": "RETURNS",
       "start": "CreateFacePlateParam",
-      "end": "ID",
+      "end": "不明",
       "properties": {
-        "raw_type": "ID"
+        "raw_type": "不明"
       }
     },
     {

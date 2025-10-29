@@ -578,8 +578,8 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
     entry_start_idx: int | None = None
     entry_end_idx: int | None = None
 
-    # パラメータオブジェクトの検出パターン
-    PARAM_OBJECT_PATTERN = re.compile(r"^\s*〇(.+パラメータオブジェクト)(?:の作成)?$")
+    # パラメータオブジェクトの検出パターン（"…の作成" は除外）
+    PARAM_OBJECT_PATTERN = re.compile(r"^\s*〇(.+パラメータオブジェクト)\s*$")
     PARAM_OBJECT_NAMES = [
         "BracketParam", "FacePlateParam", "LinearSweepParam", "LoftParam",
         "ProfileParam", "RotationalSweepParam", "STLParameter", "SlotParam", "SweepParam"

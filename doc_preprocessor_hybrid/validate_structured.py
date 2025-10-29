@@ -114,7 +114,7 @@ def parse_xml_template(path: Path) -> Dict[str, XmlEntry]:
         raise ValueError(f"XMLの解析に失敗しました: {exc}") from exc
 
     entries: Dict[str, XmlEntry] = {}
-    
+
     # 通常の要素を処理
     for element in root:
         if element.tag == "typeDefinitions":
@@ -202,8 +202,12 @@ def parse_xml_template(path: Path) -> Dict[str, XmlEntry]:
 
 def normalize_json_entry(entry: Dict[str, object]) -> Tuple[str, Dict[str, object]]:
     name = str(entry.get("name", ""))
+    # entry_typeの正規化: rule_parserの"object"は検証上の"parameter_object"に対応
+    entry_type = entry.get("entry_type")
+    if entry_type == "object":
+        entry_type = "parameter_object"
     data: Dict[str, object] = {
-        "entry_type": entry.get("entry_type"),
+        "entry_type": entry_type,
         "category": normalize_whitespace(entry.get("category")),
         "title_jp": normalize_whitespace(entry.get("title_jp")),
         "raw_return": normalize_whitespace(entry.get("raw_return")),
@@ -215,8 +219,10 @@ def normalize_json_entry(entry: Dict[str, object]) -> Tuple[str, Dict[str, objec
         "object_name": normalize_whitespace(entry.get("object_name")),
     }
 
+    # params + properties を統合して比較対象にする
     params = []
-    for param in entry.get("params", []) or []:
+    json_params = (entry.get("params", []) or []) + (entry.get("properties", []) or [])
+    for param in json_params:
         param_name = param.get("name")
         param_desc = param.get("description")
         params.append(
@@ -233,14 +239,14 @@ def normalize_json_entry(entry: Dict[str, object]) -> Tuple[str, Dict[str, objec
 def parse_structured_json(path: Path) -> Dict[str, Dict[str, object]]:
     data = json.loads(path.read_text(encoding="utf-8"))
     entries: Dict[str, Dict[str, object]] = {}
-    
+
     # api_entriesを処理
     for entry in data.get("api_entries", []) or []:
         name, normalized = normalize_json_entry(entry)
         if not name:
             continue
         entries[name] = normalized
-    
+
     # type_definitionsを処理
     for type_def in data.get("type_definitions", []) or []:
         name = normalize_whitespace(type_def.get("name", ""))
@@ -253,7 +259,7 @@ def parse_structured_json(path: Path) -> Dict[str, Dict[str, object]]:
             "canonical_type": normalize_whitespace(type_def.get("canonical_type")),
             "params": [],  # 型定義にはパラメータはない
         }
-    
+
     return entries
 
 
@@ -319,7 +325,7 @@ def compare_entries(
 
     record("entry_type", xml_entry.entry_type, json_entry.get("entry_type"))
     record("category", xml_entry.category, json_entry.get("category"))
-    
+
     # 型定義の場合はdescriptionを比較
     if xml_entry.entry_type == "type_definition":
         record("description", xml_entry.title_jp, json_entry.get("description"))
@@ -448,19 +454,19 @@ def calculate_numerators(
     """
     # ⑴関数名の正解数（JSONで正しく抽出された関数数）
     function_names_correct = sum(
-        1 for entry in json_entries.values() 
+        1 for entry in json_entries.values()
         if entry.get("entry_type") == "function"
     )
 
     # ⑵パラメータオブジェクトの正解数（JSONで正しく抽出されたパラメータオブジェクト数）
     parameter_objects_correct = sum(
-        1 for entry in json_entries.values() 
+        1 for entry in json_entries.values()
         if entry.get("entry_type") == "parameter_object"
     )
 
     # ⑶型定義の正解数（JSONで正しく抽出された型定義数）
     type_definitions_correct = sum(
-        1 for entry in json_entries.values() 
+        1 for entry in json_entries.values()
         if entry.get("entry_type") == "type_definition"
     )
 
@@ -470,14 +476,14 @@ def calculate_numerators(
         if name in json_entries:
             xml_entry = xml_entries[name]
             json_entry = json_entries[name]
-            
+
             # パラメータのマッピングを作成
             xml_params = {param.key: param for param in xml_entry.params}
             json_params = {}
             for idx, param in enumerate(json_entry.get("params", [])):
                 key = build_parameter_key(param.get("name", ""), len(json_params))
                 json_params[key] = param
-            
+
             # 共通のパラメータで名前が一致するものをカウント
             common_params = set(xml_params.keys()) & set(json_params.keys())
             for key in common_params:
@@ -492,14 +498,14 @@ def calculate_numerators(
         if name in json_entries:
             xml_entry = xml_entries[name]
             json_entry = json_entries[name]
-            
+
             # パラメータのマッピングを作成
             xml_params = {param.key: param for param in xml_entry.params}
             json_params = {}
             for idx, param in enumerate(json_entry.get("params", [])):
                 key = build_parameter_key(param.get("name", ""), len(json_params))
                 json_params[key] = param
-            
+
             # 共通のパラメータでタイプが一致するものをカウント
             common_params = set(xml_params.keys()) & set(json_params.keys())
             for key in common_params:
@@ -514,31 +520,42 @@ def calculate_numerators(
         if name in json_entries:
             xml_entry = xml_entries[name]
             json_entry = json_entries[name]
-            
+
             # パラメータのマッピングを作成
             xml_params = {param.key: param for param in xml_entry.params}
             json_params = {}
             for idx, param in enumerate(json_entry.get("params", [])):
                 key = build_parameter_key(param.get("name", ""), len(json_params))
                 json_params[key] = param
-            
+
             # 共通のパラメータでdescriptionが一致するものをカウント
             common_params = set(xml_params.keys()) & set(json_params.keys())
             for key in common_params:
                 xml_param = xml_params[key]
                 json_param = json_params[key]
-                if (xml_param.description and 
-                    json_param.get("description") and
-                    xml_param.description == json_param.get("description")):
+                if (
+                    xml_param.description
+                    and json_param.get("description")
+                    and xml_param.description == json_param.get("description")
+                ):
                     descriptions_correct += 1
-            
+
             # 戻り値のdescription
-            if (xml_entry.return_description and 
-                json_entry.get("return_description") and
-                xml_entry.return_description == json_entry.get("return_description")):
+            if (
+                xml_entry.return_description
+                and json_entry.get("return_description")
+                and xml_entry.return_description == json_entry.get("return_description")
+            ):
                 descriptions_correct += 1
 
-    return function_names_correct, parameter_objects_correct, type_definitions_correct, parameter_names_correct, parameter_types_correct, descriptions_correct
+    return (
+        function_names_correct,
+        parameter_objects_correct,
+        type_definitions_correct,
+        parameter_names_correct,
+        parameter_types_correct,
+        descriptions_correct,
+    )
 
 
 def calculate_accuracy_metrics(
@@ -551,12 +568,24 @@ def calculate_accuracy_metrics(
         AccuracyMetrics: 各評価指標の総数、正解数、正答率
     """
     # 分母を計算
-    (function_names_total, parameter_objects_total, type_definitions_total, parameter_names_total, 
-     parameter_types_total, descriptions_total) = calculate_denominators(xml_entries, json_entries)
+    (
+        function_names_total,
+        parameter_objects_total,
+        type_definitions_total,
+        parameter_names_total,
+        parameter_types_total,
+        descriptions_total,
+    ) = calculate_denominators(xml_entries, json_entries)
 
     # 分子を計算
-    (function_names_correct, parameter_objects_correct, type_definitions_correct, parameter_names_correct,
-     parameter_types_correct, descriptions_correct) = calculate_numerators(xml_entries, json_entries)
+    (
+        function_names_correct,
+        parameter_objects_correct,
+        type_definitions_correct,
+        parameter_names_correct,
+        parameter_types_correct,
+        descriptions_correct,
+    ) = calculate_numerators(xml_entries, json_entries)
 
     # 正答率を計算（ゼロ除算を避ける）
     function_names_accuracy = (function_names_correct / function_names_total
