@@ -21,7 +21,7 @@ class Config:
 
     # モデル設定
     MODEL_CONFIG = {
-        "model": "gpt-5-mini",  # "gpt-5-nano", "gpt-5-mini", "gpt-5"
+        "model": "gpt-5",  # "gpt-5-nano", "gpt-5-mini", "gpt-5"
         "output_version": "responses/v1",
         "reasoning_effort": "high",  # "minimal", 'low', 'medium', 'high'
         "verbosity": "high",  # 'low', 'medium', 'high'
