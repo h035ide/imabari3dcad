@@ -1,11 +1,11 @@
-# structured_api 検証ログ (2025-10-29 14:13:39)
+# structured_api 検証ログ (2025-10-29 14:08:03)
 
 - XML: `doc_preprocessor_hybrid/out/api_template.xml`
 - JSON: `doc_preprocessor_hybrid/out/structured_api.json`
 - 結果: 差分あり (exit 1)
-- XMLエントリ数: 224
-- JSONエントリ数: 226
-- XMLのみ: 0件 / JSONのみ: 2件 / 差分: 224件
+- XMLエントリ数: 255
+- JSONエントリ数: 257
+- XMLのみ: 0件 / JSONのみ: 2件 / 差分: 255件
 
 ## 正答率メトリクス
 
@@ -31,13 +31,13 @@
 
 ### ⑸引数タイプの正答率
 - 総数: 478
-- 正解数: 417
-- 正答率: 87.24%
+- 正解数: 415
+- 正答率: 86.82%
 
 ### ⑹descriptionの正答率（完全一致）
 - 総数: 547
-- 正解数: 347
-- 正答率: 63.44%
+- 正解数: 317
+- 正答率: 57.95%
 
 ## レポート
 ```
@@ -45,22 +45,50 @@
 [差分]
 - function:Activate return_description -> 期待: なし / 実際: (空)
 - function:BlankElement return_description -> 期待: なし / 実際: (空)
+- function:BlankElement params[bBlank].description -> 期待: Trueの時は非表示にする。Falseの時は表示する。 / 実際: (空)
+- function:BodyDivideByElements params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:BodySeparateBySubSolids params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
 - function:Close return_description -> 期待: なし / 実際: (空)
+- function:CreateBracket params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateFacePlate params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateLinearSweep params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateLinearSweepSheet params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateLoft params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateLoftSheet params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
 - function:CreateOffsetDatumPlane return_description -> 期待: 作成されたデータム平面の要素ID / 実際: (空)
 - function:CreateOffsetDatumPlane params[ElementGroup].description -> 期待: 作成するデータム平面要素を入れる場合は指定（空文字可） / 実際: 作成するデータム平面要素を要素グループに入れる場合は要素グループを指定(空文字可)
+- function:CreateOtherSolid params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreatePlate params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateProfile params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
 - function:CreateRotatedDatumPlane return_description -> 期待: 作成されたデータム平面の要素ID / 実際: (空)
 - function:CreateRotatedDatumPlane params[Plane].description -> 期待: 元になる平面 / 実際: 元になる平面を指定する
+- function:CreateRotationalSweep params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateRotationalSweepSheet params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSketchArc params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSketchArc3Pts params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSketchCircle params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSketchEllipse params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSketchLayer params[SketchPlane].type -> 期待: 要素 / 実際: 不明
+- function:CreateSketchLayer params[SketchPlane].description -> 期待: レイヤーを作成するスケッチ要素 / 実際: (空)
+- function:CreateSketchLine params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSketchNURBSCurve params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSketchPlane params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSlot params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSweep params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateSweepSheet params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateThicken params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateVariable params[VariableElementGroup].description -> 期待: 作成する変数要素を要素グループに入れる場合は要素グループを指定（空文字可） / 実際: (空)
 - function:CutBody params[ReferMethod].type -> 期待: (空) / 実際: 関連設定
 - function:ExporAsSTL return_description -> 期待: なし / 実際: (空)
 - function:ExporAsSTL params[pOpt].type -> 期待: STLパラメータオブジェクト / 実際: 要素
-- function:ExporAsSTL params[pOpt].description -> 期待: (空) / 実際: STLパラメータオブジェクト
 - function:ExportToBitmap return_description -> 期待: なし / 実際: (空)
 - function:FitAllViews return_description -> 期待: なし / 実際: (空)
 - function:MirrorCopy params[[in] BSTR plane] -> 期待: {'type': '', 'description': ''} / 実際: (JSONに無し)
+- function:MirrorCopy params[ReferMethod].description -> 期待: 要素の関連づけ方法の指定 / 実際: (空)
 - function:MirrorCopy params[plane].type -> 期待: 平面 / 実際: 文字列
 - function:MirrorCopy params[plane].description -> 期待: ミラーを作成する平面 / 実際: (空)
 - function:Quit return_description -> 期待: なし / 実際: (空)
-- function:ReverseSheet params[SheetElement] -> 期待: (XMLに無し) / 実際: {'type': '要素', 'description': '反転するシート要素'}
+- function:ReverseSheet params[SheetElement] -> 期待: (XMLに無し) / 実際: {'type': '不明', 'description': ''}
 - parameter_object:STLパラメータオブジェクト params[ChordalTolerance].description -> 期待: メッシュ近似する際の弦の幅の許容トレランス (mm) / 実際: メッシュ近似する際の弦の幅の許容トレランスを指定 (mm)
 - parameter_object:STLパラメータオブジェクト params[Elements].description -> 期待: STL出力対象要素（未指定なら表示中要素すべて） / 実際: STL出力する要素を指定(指定しない場合は表示されている全ての要素を出力します)
 - parameter_object:STLパラメータオブジェクト params[MaxMeshLength].description -> 期待: メッシュ辺の最大サイズ (mm) / 実際: メッシュの辺の最大サイズを指定する場合は指定(mm)(指定しない場合は０)
@@ -69,7 +97,10 @@
 - function:Save return_description -> 期待: なし / 実際: (空)
 - function:SetDirection return_description -> 期待: なし / 実際: (空)
 - function:SheetAlignNormal return_description -> 期待: なし / 実際: (空)
+- function:SheetAlignNormal params[dirZ].type -> 期待: 浮動小数点 / 実際: 不明
+- function:SheetAlignNormal params[dirZ].description -> 期待: 方向ベクトルのZ成分 / 実際: (空)
 - function:ShowMainWindow return_description -> 期待: なし / 実際: (空)
+- function:TranslationCopy params[ReferMethod].description -> 期待: 要素の関連づけ方法の指定 / 実際: (空)
 - type_definition:bool category -> 期待: 型定義 / 実際: (空)
 - type_definition:オペレーションタイプ （ボディ） category -> 期待: 型定義 / 実際: (空)
 - type_definition:オペレーションタイプ （ボディ） description -> 期待: "+" 和、"-" 削除、"*" 積 / 実際: "+" 和 "-" 削除 "*" 積

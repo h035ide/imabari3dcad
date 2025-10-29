@@ -384,6 +384,7 @@
       "label": "Parameter",
       "properties": {
         "name": "pOpt",
+        "description": "STLパラメータオブジェクト",
         "metadata": {
           "position": 1
         }
@@ -563,6 +564,7 @@
       "label": "Parameter",
       "properties": {
         "name": "VariableElementGroup",
+        "description": "作成する変数要素を要素グループに入れる場合は要素グループを指定(空文字可)",
         "metadata": {
           "position": 3
         }
@@ -735,6 +737,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 11
         }
@@ -769,6 +772,7 @@
       "label": "Parameter",
       "properties": {
         "name": "SketchPlane",
+        "description": "レイヤーを作成するスケッチ要素",
         "metadata": {
           "position": 1
         }
@@ -856,6 +860,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 5
         }
@@ -959,6 +964,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 7
         }
@@ -1051,6 +1057,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 6
         }
@@ -1152,6 +1159,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 7
         }
@@ -1290,6 +1298,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 9
         }
@@ -1437,6 +1446,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 10
         }
@@ -1681,6 +1691,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 3
         }
@@ -1714,6 +1725,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 1
         }
@@ -1770,6 +1782,7 @@
       "label": "Parameter",
       "properties": {
         "name": "dirZ",
+        "description": "方向ベクトルのZ成分",
         "metadata": {
           "position": 3
         }
@@ -1793,6 +1806,7 @@
       "label": "Parameter",
       "properties": {
         "name": "SheetElement",
+        "description": "反転するシート要素",
         "metadata": {
           "position": 0
         }
@@ -1827,6 +1841,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bBlank",
+        "description": "Trueの時は非表示にする.Falseの時は表示する.",
         "metadata": {
           "position": 1
         }
@@ -1894,6 +1909,7 @@
       "label": "Parameter",
       "properties": {
         "name": "ReferMethod",
+        "description": "要素の関連づけ方法の指定",
         "metadata": {
           "position": 4
         }
@@ -1939,6 +1955,7 @@
       "label": "Parameter",
       "properties": {
         "name": "ReferMethod",
+        "description": "要素の関連づけ方法の指定",
         "metadata": {
           "position": 2
         }
@@ -2106,6 +2123,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 9
         }
@@ -2184,6 +2202,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 5
         }
@@ -2285,6 +2304,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 1
         }
@@ -2450,6 +2470,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 13
         }
@@ -2509,6 +2530,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 1
         }
@@ -2598,6 +2620,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 6
         }
@@ -2676,6 +2699,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 5
         }
@@ -3357,6 +3381,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 3
         }
@@ -3390,6 +3415,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 1
         }
@@ -3471,6 +3497,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 3
         }
@@ -3504,6 +3531,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 1
         }
@@ -3890,6 +3918,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 3
         }
@@ -3923,6 +3952,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 1
         }
@@ -3982,6 +4012,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 1
         }
@@ -4041,6 +4072,7 @@
       "label": "Parameter",
       "properties": {
         "name": "bUpdate",
+        "description": "更新フラグ(未実装,使用しない)",
         "metadata": {
           "position": 1
         }
@@ -4852,7 +4884,7 @@
     {
       "type": "HAS_TYPE",
       "start": "CreateSketchLayer:SketchPlane",
-      "end": "不明"
+      "end": "要素"
     },
     {
       "type": "BELONGS_TO",
@@ -5701,7 +5733,7 @@
     {
       "type": "HAS_TYPE",
       "start": "SheetAlignNormal:dirZ",
-      "end": "不明"
+      "end": "浮動小数点"
     },
     {
       "type": "BELONGS_TO",
@@ -5724,7 +5756,7 @@
     {
       "type": "HAS_TYPE",
       "start": "ReverseSheet:SheetElement",
-      "end": "不明"
+      "end": "要素"
     },
     {
       "type": "BELONGS_TO",

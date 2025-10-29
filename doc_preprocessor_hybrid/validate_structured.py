@@ -4,6 +4,7 @@ import argparse
 import json
 import re
 import sys
+import unicodedata
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
 from datetime import datetime
@@ -67,6 +68,46 @@ def normalize_whitespace(value: Optional[str]) -> Optional[str]:
     normalized = value.replace("\u3000", " ")
     normalized = re.sub(r"\s+", " ", normalized.strip())
     return normalized or None
+
+
+def normalize_punct_and_width(value: Optional[str]) -> Optional[str]:
+    """比較用の文字種正規化。
+
+    - 全角/半角の統一（NFKC）
+    - 句読点や記号の同一視（、→, / 。→. ・→/ など）
+    - コロンの統一（：→:）
+    - 前後の余分な空白除去と空白正規化
+    """
+    if value is None:
+        return None
+    if not isinstance(value, str):
+        value = str(value)
+
+    text = value
+    # まず互換分解で全角記号・数字・括弧・コロン・スラッシュ等を半角に
+    text = unicodedata.normalize("NFKC", text)
+
+    # 日本語固有の句読点や中点を英語記号へ寄せる
+    translation_table = {
+        ord("、"): ",",
+        ord("。"): ".",
+        ord("・"): "/",  # 区切りのバリエーションとして許容
+        ord("，"): ",",
+        ord("．"): ".",
+    }
+    text = text.translate(translation_table)
+
+    # 記号の前後に入った空白を除去
+    text = re.sub(r"\s*([,.:/()])\s*", r"\1", text)
+
+    # 最終的に空白正規化
+    text = normalize_whitespace(text) or ""
+    return text
+
+
+def equals_text(a: Optional[str], b: Optional[str]) -> bool:
+    """文字種差/句読点差を無視した等価判定。"""
+    return normalize_punct_and_width(a) == normalize_punct_and_width(b)
 
 
 def normalize_category(section: Optional[str]) -> Optional[str]:
@@ -312,6 +353,21 @@ def compare_entries(
     differences: List[Difference] = []
 
     def record(field: str, expected: object, actual: object) -> None:
+        # 文字列（またはNone）同士は文字種正規化後に比較する
+        if (isinstance(expected, str) or expected is None) and (
+            isinstance(actual, str) or actual is None
+        ):
+            if not equals_text(expected, actual):
+                differences.append(
+                    Difference(
+                        name=xml_entry.name,
+                        entry_type=xml_entry.entry_type,
+                        field=field,
+                        expected=expected,
+                        actual=actual,
+                    )
+                )
+            return
         if expected != actual:
             differences.append(
                 Difference(
@@ -489,7 +545,7 @@ def calculate_numerators(
             for key in common_params:
                 xml_param = xml_params[key]
                 json_param = json_params[key]
-                if xml_param.name == json_param.get("name", ""):
+                if equals_text(xml_param.name, json_param.get("name", "")):
                     parameter_names_correct += 1
 
     # ⑸引数タイプの正解数（XMLとJSONで同じパラメータのタイプが一致しているものの数）
@@ -511,7 +567,7 @@ def calculate_numerators(
             for key in common_params:
                 xml_param = xml_params[key]
                 json_param = json_params[key]
-                if xml_param.type_name == json_param.get("type", ""):
+                if equals_text(xml_param.type_name, json_param.get("type", "")):
                     parameter_types_correct += 1
 
     # ⑹descriptionの正解数（完全一致）
@@ -536,7 +592,7 @@ def calculate_numerators(
                 if (
                     xml_param.description
                     and json_param.get("description")
-                    and xml_param.description == json_param.get("description")
+                    and equals_text(xml_param.description, json_param.get("description"))
                 ):
                     descriptions_correct += 1
 
@@ -544,7 +600,7 @@ def calculate_numerators(
             if (
                 xml_entry.return_description
                 and json_entry.get("return_description")
-                and xml_entry.return_description == json_entry.get("return_description")
+                and equals_text(xml_entry.return_description, json_entry.get("return_description"))
             ):
                 descriptions_correct += 1
 
@@ -761,10 +817,33 @@ def write_report_document(
 
 
 def run_validation(xml_path: Path, json_path: Path, report_path: Path) -> int:
-    xml_entries = parse_xml_template(xml_path)
-    json_entries = parse_structured_json(json_path)
+    xml_entries_raw = parse_xml_template(xml_path)
+    json_entries_raw = parse_structured_json(json_path)
 
-    xml_only, json_only, diffs = compare_collections(xml_entries, json_entries)
+    # エントリ名のキーを比較用に正規化
+    def normalized_key(name: str) -> str:
+        return normalize_punct_and_width(name) or ""
+
+    xml_entries: Dict[str, XmlEntry] = {}
+    xml_key_to_original: Dict[str, str] = {}
+    for original_name, entry in xml_entries_raw.items():
+        key = normalized_key(original_name)
+        if key not in xml_entries:
+            xml_entries[key] = entry
+            xml_key_to_original[key] = original_name
+
+    json_entries: Dict[str, Dict[str, object]] = {}
+    json_key_to_original: Dict[str, str] = {}
+    for original_name, entry in json_entries_raw.items():
+        key = normalized_key(original_name)
+        if key not in json_entries:
+            json_entries[key] = entry
+            json_key_to_original[key] = original_name
+
+    xml_only_keys, json_only_keys, diffs = compare_collections(xml_entries, json_entries)
+    # 表示は元の名称で
+    xml_only = [xml_key_to_original.get(k, k) for k in xml_only_keys]
+    json_only = [json_key_to_original.get(k, k) for k in json_only_keys]
     report = format_differences(xml_only, json_only, diffs)
     print(report)
 

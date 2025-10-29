@@ -24,14 +24,14 @@ RETURN_RE = re.compile(r"^\s*返り値[:：]\s*(.+)$")
 METHOD_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*\($")
 # パラメータ無しの同一行型: 例) Quit() / Create3DDocument()
 ZERO_PARAM_METHOD_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*\(\)\s*;?$")
-PARAM_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*,?\s*//\s*([^:：]+)[:：]\s*(.+)$")
+PARAM_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*[),]?\s*//\s*([^:：]+)[:：]\s*(.+)$")
 # コロンなしコメント形式にも対応する緩和版（例: pOpt) // STLパラメータオブジェクト）
 PARAM_RE_LOOSE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*,?\s*//\s*(.+)$")
 ARRAY_MARKERS = ("(配列)", "[]", "(array)")
 
 # 閉じ括弧直前のパラメータ + コメント形式（例: bShow ) // bool: 表示する時はTrue）
 FLEXIBLE_PARAM_RE = re.compile(
-    r"^(\s*)([A-Za-z_][A-Za-z0-9_]*)\s*\)\s*//\s*([^:：]+)[:：]\s*(.+)$"
+    r"^(\s*)([A-Za-z_][A-Za-z0-9_]*)\s*\)\s*;?\s*//\s*([^:：]+)[:：]\s*(.+)$"
 )
 
 TYPE_CANONICAL_MAP: dict[str, tuple[str, str]] = {
@@ -874,7 +874,10 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
             comment = ""
             if ")" in bare:
                 bare = bare.split(")", 1)[0]
-            if "//" in bare:
+            # コメントは行末の '//' から取得（閉じ括弧以降にある場合も拾う）
+            if "//" in raw_line and not comment:
+                comment = raw_line.split("//", 1)[1].strip()
+            elif "//" in bare:
                 parts = bare.split("//", 1)
                 bare = parts[0]
                 comment = parts[1].strip()
@@ -884,6 +887,15 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
                     f"[api] BARE_PARAM matched: raw='{_log_snippet(bare)}' at line={i}"
                 )
                 pname, ptype = pname_ptype
+                # コメント内に『型:説明』形式があれば説明だけを抽出し、型が不明なら上書き
+                if comment:
+                    if ":" in comment or "：" in comment:
+                        raw2 = re.split(r"[:：]", comment, maxsplit=1)
+                        c_type = raw2[0].strip()
+                        c_desc = raw2[1].strip() if len(raw2) > 1 else ""
+                        if ptype == "不明" and c_type:
+                            ptype = c_type
+                        comment = c_desc
                 _consume_param(pname, ptype, comment)
                 continue
             if _is_closing_line(raw_line):

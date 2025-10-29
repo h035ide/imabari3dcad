@@ -942,7 +942,7 @@
       <parameter name="Collar2Material">材料：2つ目のカラープレート材質名称（空文字可）</parameter>
       <parameter name="Collar2ElementGroup">要素グループ：2つ目のカラープレート要素のグループ（空文字可）</parameter>
       <parameter name="ProfileType">形状タイプ：スロットの形状タイプ</parameter>
-      <parameter name="ProfileParam">形状パラメータ：スロット形状タイプのパラメータ</parameter>
+      <parameter name="ProfileParam">形状パラメータ：スロットの形状タイプのパラメータ</parameter>
       <parameter name="AttachFace">要素：スロットを開けるフェイス要素</parameter>
       <parameter name="ProfileSolid">要素：スロットを通すプロファイルソリッド要素</parameter>
       <parameter name="ProfileFlangeSolid">要素：スロットを通すフランジソリッド要素</parameter>
