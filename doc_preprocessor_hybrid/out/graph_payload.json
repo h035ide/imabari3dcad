@@ -328,16 +328,37 @@
       }
     },
     {
-      "id": "STLParameter",
+      "id": "STLパラメータオブジェクト",
       "label": "Method",
       "properties": {
-        "name": "STLParameter",
+        "name": "STLパラメータオブジェクト",
         "description": "STLパラメータオブジェクトのパラメータ定義",
         "category": "Documentオブジェクト",
         "source_path": "",
         "source_start_line": 0,
         "source_end_line": 0,
         "source_checksum": ""
+      }
+    },
+    {
+      "id": "浮動小数点",
+      "label": "Type",
+      "properties": {
+        "name": "浮動小数点"
+      }
+    },
+    {
+      "id": "整数",
+      "label": "Type",
+      "properties": {
+        "name": "整数"
+      }
+    },
+    {
+      "id": "要素(配列)",
+      "label": "Type",
+      "properties": {
+        "name": "要素(配列)"
       }
     },
     {
@@ -455,13 +476,6 @@
       }
     },
     {
-      "id": "整数",
-      "label": "Type",
-      "properties": {
-        "name": "整数"
-      }
-    },
-    {
       "id": "ExportToBitmap:FileName",
       "label": "Parameter",
       "properties": {
@@ -508,13 +522,6 @@
       "label": "Type",
       "properties": {
         "name": "ID"
-      }
-    },
-    {
-      "id": "浮動小数点",
-      "label": "Type",
-      "properties": {
-        "name": "浮動小数点"
       }
     },
     {
@@ -1493,13 +1500,6 @@
       }
     },
     {
-      "id": "要素(配列)",
-      "label": "Type",
-      "properties": {
-        "name": "要素(配列)"
-      }
-    },
-    {
       "id": "CreateOffsetSheet:SheetName",
       "label": "Parameter",
       "properties": {
@@ -1577,10 +1577,10 @@
       }
     },
     {
-      "id": "LinearSweepParam",
+      "id": "押し出しパラメータオブジェクト",
       "label": "Method",
       "properties": {
-        "name": "LinearSweepParam",
+        "name": "押し出しパラメータオブジェクト",
         "description": "押し出しパラメータオブジェクトのパラメータ定義",
         "category": "Partオブジェクト",
         "source_path": "",
@@ -1603,6 +1603,41 @@
       }
     },
     {
+      "id": "スイープ方向",
+      "label": "Type",
+      "properties": {
+        "name": "スイープ方向"
+      }
+    },
+    {
+      "id": "角度",
+      "label": "Type",
+      "properties": {
+        "name": "角度"
+      }
+    },
+    {
+      "id": "勾配２のタイプ",
+      "label": "Type",
+      "properties": {
+        "name": "勾配２のタイプ"
+      }
+    },
+    {
+      "id": "厚み付けタイプ",
+      "label": "Type",
+      "properties": {
+        "name": "厚み付けタイプ"
+      }
+    },
+    {
+      "id": "関連設定",
+      "label": "Type",
+      "properties": {
+        "name": "関連設定"
+      }
+    },
+    {
       "id": "CreateLinearSweep",
       "label": "Method",
       "properties": {
@@ -1620,13 +1655,6 @@
       "label": "Type",
       "properties": {
         "name": "オペレーションタイプ"
-      }
-    },
-    {
-      "id": "押し出しパラメータオブジェクト",
-      "label": "Type",
-      "properties": {
-        "name": "押し出しパラメータオブジェクト"
       }
     },
     {
@@ -1831,13 +1859,6 @@
       }
     },
     {
-      "id": "関連設定",
-      "label": "Type",
-      "properties": {
-        "name": "関連設定"
-      }
-    },
-    {
       "id": "TranslationCopy:SrcElements",
       "label": "Parameter",
       "properties": {
@@ -1993,13 +2014,6 @@
         "source_start_line": 0,
         "source_end_line": 0,
         "source_checksum": ""
-      }
-    },
-    {
-      "id": "厚み付けタイプ",
-      "label": "Type",
-      "properties": {
-        "name": "厚み付けタイプ"
       }
     },
     {
@@ -2215,16 +2229,51 @@
       }
     },
     {
-      "id": "BracketParam",
+      "id": "ブラケット要素のパラメータオブジェクト",
       "label": "Method",
       "properties": {
-        "name": "BracketParam",
+        "name": "ブラケット要素のパラメータオブジェクト",
         "description": "ブラケット要素のパラメータオブジェクトのパラメータ定義",
         "category": "Partオブジェクト",
         "source_path": "",
         "source_start_line": 0,
         "source_end_line": 0,
         "source_checksum": ""
+      }
+    },
+    {
+      "id": "面指定の場合の基準平面",
+      "label": "Type",
+      "properties": {
+        "name": "面指定の場合の基準平面"
+      }
+    },
+    {
+      "id": "基準要素指定の場合の基準要素",
+      "label": "Type",
+      "properties": {
+        "name": "基準要素指定の場合の基準要素"
+      }
+    },
+    {
+      "id": "モールド位置",
+      "label": "Type",
+      "properties": {
+        "name": "モールド位置"
+      }
+    },
+    {
+      "id": "形状タイプ",
+      "label": "Type",
+      "properties": {
+        "name": "形状タイプ"
+      }
+    },
+    {
+      "id": "形状パラメータ",
+      "label": "Type",
+      "properties": {
+        "name": "形状パラメータ"
       }
     },
     {
@@ -2278,13 +2327,6 @@
         "source_start_line": 0,
         "source_end_line": 0,
         "source_checksum": ""
-      }
-    },
-    {
-      "id": "モールド位置",
-      "label": "Type",
-      "properties": {
-        "name": "モールド位置"
       }
     },
     {
@@ -2466,10 +2508,10 @@
       }
     },
     {
-      "id": "ProfileParam",
+      "id": "条材要素のパラメータオブジェクト",
       "label": "Method",
       "properties": {
-        "name": "ProfileParam",
+        "name": "条材要素のパラメータオブジェクト",
         "description": "条材要素のパラメータオブジェクトのパラメータ定義",
         "category": "Partオブジェクト",
         "source_path": "",
@@ -2489,13 +2531,6 @@
         "source_start_line": 0,
         "source_end_line": 0,
         "source_checksum": ""
-      }
-    },
-    {
-      "id": "条材要素のパラメータオブジェクト",
-      "label": "Type",
-      "properties": {
-        "name": "条材要素のパラメータオブジェクト"
       }
     },
     {
@@ -3279,10 +3314,10 @@
       }
     },
     {
-      "id": "SweepParam",
+      "id": "スイープパラメータオブジェクト",
       "label": "Method",
       "properties": {
-        "name": "SweepParam",
+        "name": "スイープパラメータオブジェクト",
         "description": "スイープパラメータオブジェクトのパラメータ定義",
         "category": "Partオブジェクト",
         "source_path": "",
@@ -3305,6 +3340,13 @@
       }
     },
     {
+      "id": "角度(配列)",
+      "label": "Type",
+      "properties": {
+        "name": "角度(配列)"
+      }
+    },
+    {
       "id": "CreateSweep",
       "label": "Method",
       "properties": {
@@ -3315,13 +3357,6 @@
         "source_start_line": 0,
         "source_end_line": 0,
         "source_checksum": ""
-      }
-    },
-    {
-      "id": "スイープパラメータオブジェクト",
-      "label": "Type",
-      "properties": {
-        "name": "スイープパラメータオブジェクト"
       }
     },
     {
@@ -3400,10 +3435,10 @@
       }
     },
     {
-      "id": "RotationalSweepParam",
+      "id": "回転パラメータオブジェクト",
       "label": "Method",
       "properties": {
-        "name": "RotationalSweepParam",
+        "name": "回転パラメータオブジェクト",
         "description": "回転パラメータオブジェクトのパラメータ定義",
         "category": "Partオブジェクト",
         "source_path": "",
@@ -3436,13 +3471,6 @@
         "source_start_line": 0,
         "source_end_line": 0,
         "source_checksum": ""
-      }
-    },
-    {
-      "id": "回転パラメータオブジェクト",
-      "label": "Type",
-      "properties": {
-        "name": "回転パラメータオブジェクト"
       }
     },
     {
@@ -3826,10 +3854,10 @@
       }
     },
     {
-      "id": "LoftParam",
+      "id": "ロフトパラメータオブジェクト",
       "label": "Method",
       "properties": {
-        "name": "LoftParam",
+        "name": "ロフトパラメータオブジェクト",
         "description": "ロフトパラメータオブジェクトのパラメータ定義",
         "category": "Partオブジェクト",
         "source_path": "",
@@ -3862,13 +3890,6 @@
         "source_start_line": 0,
         "source_end_line": 0,
         "source_checksum": ""
-      }
-    },
-    {
-      "id": "ロフトパラメータオブジェクト",
-      "label": "Type",
-      "properties": {
-        "name": "ロフトパラメータオブジェクト"
       }
     },
     {
@@ -3973,10 +3994,10 @@
       }
     },
     {
-      "id": "SlotParam",
+      "id": "スロットパラメータオブジェクト",
       "label": "Method",
       "properties": {
-        "name": "SlotParam",
+        "name": "スロットパラメータオブジェクト",
         "description": "スロットパラメータオブジェクトのパラメータ定義",
         "category": "Partオブジェクト",
         "source_path": "",
@@ -3996,13 +4017,6 @@
         "source_start_line": 0,
         "source_end_line": 0,
         "source_checksum": ""
-      }
-    },
-    {
-      "id": "スロットパラメータオブジェクト",
-      "label": "Type",
-      "properties": {
-        "name": "スロットパラメータオブジェクト"
       }
     },
     {
@@ -4052,10 +4066,10 @@
       }
     },
     {
-      "id": "FacePlateParam",
+      "id": "フェイスプレートパラメータオブジェクト",
       "label": "Method",
       "properties": {
-        "name": "FacePlateParam",
+        "name": "フェイスプレートパラメータオブジェクト",
         "description": "フェイスプレートパラメータオブジェクトのパラメータ定義",
         "category": "Partオブジェクト",
         "source_path": "",
@@ -4075,13 +4089,6 @@
         "source_start_line": 0,
         "source_end_line": 0,
         "source_checksum": ""
-      }
-    },
-    {
-      "id": "フェイスプレートパラメータオブジェクト",
-      "label": "Type",
-      "properties": {
-        "name": "フェイスプレートパラメータオブジェクト"
       }
     },
     {
@@ -4204,13 +4211,6 @@
       }
     },
     {
-      "id": "角度",
-      "label": "Type",
-      "properties": {
-        "name": "角度"
-      }
-    },
-    {
       "id": "CreateRotatedDatumPlane:Name",
       "label": "Parameter",
       "properties": {
@@ -4300,47 +4300,11 @@
       }
     },
     {
-      "id": "スイープ方向",
-      "label": "TypeDef",
-      "properties": {
-        "name": "スイープ方向",
-        "description": "\"N\" 順方向\n\"R\" 反対方向\n\"B\" 両方向\n\"2\" ２方向\n\"T\" 貫通",
-        "source_path": "",
-        "source_start_line": 0,
-        "source_end_line": 0,
-        "source_checksum": ""
-      }
-    },
-    {
       "id": "オペレーションタイプ (ボディ)",
       "label": "TypeDef",
       "properties": {
         "name": "オペレーションタイプ (ボディ)",
         "description": "\"+\" 和\n\"-\" 削除\n\"*\" 積",
-        "source_path": "",
-        "source_start_line": 0,
-        "source_end_line": 0,
-        "source_checksum": ""
-      }
-    },
-    {
-      "id": "形状タイプ",
-      "label": "TypeDef",
-      "properties": {
-        "name": "形状タイプ",
-        "description": "EVO. SHIPの部材既定寸法設定ファイルで用いる形状番号 (ヘルプのEVO. SHIPの基礎→船殻設計機能→部材既定寸法設定ファイルの項を\n参照)\n例)\"1007\" 平鋼, \"1003\" 不等辺不等厚山形鋼\n\"1101\" 条材端部Sタイプ, \"1120\" 条材端部スカラップA1タイプ\n\"1503\" ブラケット2-Bタイプ",
-        "source_path": "",
-        "source_start_line": 0,
-        "source_end_line": 0,
-        "source_checksum": ""
-      }
-    },
-    {
-      "id": "形状パラメータ",
-      "label": "TypeDef",
-      "properties": {
-        "name": "形状パラメータ",
-        "description": "各形状タイプの寸法値を文字列配列で設定\n例) 不当辺山形鋼(1002)の形状タイプの場合 [\"150。 \", \"90。 \", \"9。 0000000000000018\", \"12。 \", \"6。 \"]",
         "source_path": "",
         "source_start_line": 0,
         "source_end_line": 0,
@@ -4629,12 +4593,12 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "STLParameter",
+      "start": "STLパラメータオブジェクト",
       "end": "Documentオブジェクト"
     },
     {
       "type": "RETURNS",
-      "start": "STLParameter",
+      "start": "STLパラメータオブジェクト",
       "end": "void",
       "properties": {
         "raw_type": "void"
@@ -5654,12 +5618,12 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "LinearSweepParam",
+      "start": "押し出しパラメータオブジェクト",
       "end": "Partオブジェクト"
     },
     {
       "type": "RETURNS",
-      "start": "LinearSweepParam",
+      "start": "押し出しパラメータオブジェクト",
       "end": "void",
       "properties": {
         "raw_type": "void"
@@ -5680,12 +5644,12 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "LinearSweepParam",
+      "start": "押し出しパラメータオブジェクト",
       "end": "Partオブジェクト"
     },
     {
       "type": "RETURNS",
-      "start": "LinearSweepParam",
+      "start": "押し出しパラメータオブジェクト",
       "end": "void",
       "properties": {
         "raw_type": "void"
@@ -6249,12 +6213,12 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "BracketParam",
+      "start": "ブラケット要素のパラメータオブジェクト",
       "end": "Partオブジェクト"
     },
     {
       "type": "RETURNS",
-      "start": "BracketParam",
+      "start": "ブラケット要素のパラメータオブジェクト",
       "end": "void",
       "properties": {
         "raw_type": "void"
@@ -6474,12 +6438,12 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "ProfileParam",
+      "start": "条材要素のパラメータオブジェクト",
       "end": "Partオブジェクト"
     },
     {
       "type": "RETURNS",
-      "start": "ProfileParam",
+      "start": "条材要素のパラメータオブジェクト",
       "end": "void",
       "properties": {
         "raw_type": "void"
@@ -7224,12 +7188,12 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "SweepParam",
+      "start": "スイープパラメータオブジェクト",
       "end": "Partオブジェクト"
     },
     {
       "type": "RETURNS",
-      "start": "SweepParam",
+      "start": "スイープパラメータオブジェクト",
       "end": "void",
       "properties": {
         "raw_type": "void"
@@ -7250,12 +7214,12 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "SweepParam",
+      "start": "スイープパラメータオブジェクト",
       "end": "Partオブジェクト"
     },
     {
       "type": "RETURNS",
-      "start": "SweepParam",
+      "start": "スイープパラメータオブジェクト",
       "end": "void",
       "properties": {
         "raw_type": "void"
@@ -7349,12 +7313,12 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "RotationalSweepParam",
+      "start": "回転パラメータオブジェクト",
       "end": "Partオブジェクト"
     },
     {
       "type": "RETURNS",
-      "start": "RotationalSweepParam",
+      "start": "回転パラメータオブジェクト",
       "end": "void",
       "properties": {
         "raw_type": "void"
@@ -7375,12 +7339,12 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "RotationalSweepParam",
+      "start": "回転パラメータオブジェクト",
       "end": "Partオブジェクト"
     },
     {
       "type": "RETURNS",
-      "start": "RotationalSweepParam",
+      "start": "回転パラメータオブジェクト",
       "end": "void",
       "properties": {
         "raw_type": "void"
@@ -7746,12 +7710,12 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "LoftParam",
+      "start": "ロフトパラメータオブジェクト",
       "end": "Partオブジェクト"
     },
     {
       "type": "RETURNS",
-      "start": "LoftParam",
+      "start": "ロフトパラメータオブジェクト",
       "end": "void",
       "properties": {
         "raw_type": "void"
@@ -7772,12 +7736,12 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "LoftParam",
+      "start": "ロフトパラメータオブジェクト",
       "end": "Partオブジェクト"
     },
     {
       "type": "RETURNS",
-      "start": "LoftParam",
+      "start": "ロフトパラメータオブジェクト",
       "end": "void",
       "properties": {
         "raw_type": "void"
@@ -7897,12 +7861,12 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "SlotParam",
+      "start": "スロットパラメータオブジェクト",
       "end": "Partオブジェクト"
     },
     {
       "type": "RETURNS",
-      "start": "SlotParam",
+      "start": "スロットパラメータオブジェクト",
       "end": "void",
       "properties": {
         "raw_type": "void"
@@ -7969,12 +7933,12 @@
     },
     {
       "type": "BELONGS_TO",
-      "start": "FacePlateParam",
+      "start": "フェイスプレートパラメータオブジェクト",
       "end": "Partオブジェクト"
     },
     {
       "type": "RETURNS",
-      "start": "FacePlateParam",
+      "start": "フェイスプレートパラメータオブジェクト",
       "end": "void",
       "properties": {
         "raw_type": "void"

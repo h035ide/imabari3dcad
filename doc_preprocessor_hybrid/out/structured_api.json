@@ -572,13 +572,57 @@
       }
     },
     {
-      "name": "STLParameter",
+      "name": "STLパラメータオブジェクト",
       "description": "STLパラメータオブジェクトのパラメータ定義",
       "category": "Documentオブジェクト",
       "entry_type": "object",
+      "properties": [
+        {
+          "name": "ChordalTolerance",
+          "type": "浮動小数点",
+          "description": "メッシュ近似する際の弦の幅の許容トレランスを指定 (mm)",
+          "position": 0,
+          "raw_type": "浮動小数点"
+        },
+        {
+          "name": "NormalTolerance",
+          "type": "浮動小数点",
+          "description": "メッシュ近似した場合のポリゴンの面と局面との法線方向のずれ角度の許容値(Degree)",
+          "position": 1,
+          "raw_type": "浮動小数点"
+        },
+        {
+          "name": "SigDigits",
+          "type": "整数",
+          "description": "頂点座標値の有効桁数",
+          "position": 2,
+          "raw_type": "整数"
+        },
+        {
+          "name": "MinMeshLength",
+          "type": "浮動小数点",
+          "description": "メッシュの辺の最小サイズを指定する場合は指定(mm)(指定しない場合は０)",
+          "position": 3,
+          "raw_type": "浮動小数点"
+        },
+        {
+          "name": "MaxMeshLength",
+          "type": "浮動小数点",
+          "description": "メッシュの辺の最大サイズを指定する場合は指定(mm)(指定しない場合は０)",
+          "position": 4,
+          "raw_type": "浮動小数点"
+        },
+        {
+          "name": "Elements",
+          "type": "要素(配列)",
+          "description": "STL出力する要素を指定(指定しない場合は表示されている全ての要素を出力します)",
+          "position": 5,
+          "raw_type": "要素(配列)"
+        }
+      ],
       "title_jp": "STLパラメータオブジェクト",
       "source": {
-        "text": "〇STLパラメータオブジェクト"
+        "text": "〇STLパラメータオブジェクト\n  属性\n ChordalTolerance // 浮動小数点:メッシュ近似する際の弦の幅の許容トレランスを指定 (mm)\n NormalTolerance // 浮動小数点:メッシュ近似した場合のポリゴンの面と局面との法線方向のずれ角度の許容値(Degree)\n SigDigits // 整数:頂点座標値の有効桁数\n MinMeshLength // 浮動小数点:メッシュの辺の最小サイズを指定する場合は指定(mm)(指定しない場合は０)\n MaxMeshLength // 浮動小数点:メッシュの辺の最大サイズを指定する場合は指定(mm)(指定しない場合は０)\n  Elements  // 要素(配列)：STL出力する要素を指定(指定しない場合は表示されている全ての要素を出力します)"
       }
     },
     {
@@ -1373,7 +1417,7 @@
       }
     },
     {
-      "name": "LinearSweepParam",
+      "name": "押し出しパラメータオブジェクト",
       "description": "押し出しパラメータオブジェクトのパラメータ定義",
       "category": "Partオブジェクト",
       "entry_type": "object",
@@ -1396,13 +1440,169 @@
       }
     },
     {
-      "name": "LinearSweepParam",
+      "name": "押し出しパラメータオブジェクト",
       "description": "押し出しパラメータオブジェクトのパラメータ定義",
       "category": "Partオブジェクト",
       "entry_type": "object",
+      "properties": [
+        {
+          "name": "NAME",
+          "type": "文字列",
+          "description": "要素名(空文字可)",
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "ElementGroup",
+          "type": "要素グループ",
+          "description": "作成するシート要素を要素グループに入れる場合は要素グループを指定(空文字可)",
+          "position": 1,
+          "raw_type": "要素グループ"
+        },
+        {
+          "name": "MaterialName",
+          "type": "材料",
+          "description": "作成するシード要素の材質名称(空文字可)",
+          "position": 2,
+          "raw_type": "材料"
+        },
+        {
+          "name": "Target1",
+          "type": "要素(配列)",
+          "description": "スイープするターゲット要素１ (点,線,シート,ソリッド,あるいはソリッドフェイス)",
+          "position": 3,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "Target2",
+          "type": "要素(配列)",
+          "description": "スイープ方向が２方向の場合に使用.スイープするターゲット要素２",
+          "position": 4,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "Profile",
+          "type": "要素(配列)",
+          "description": "押し出しのプロファイル要素(スケッチ,線,シート)",
+          "position": 5,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "ProfileNormal",
+          "type": "方向",
+          "description": "プロファイルの平面法線方向.(プロファイルが３Dの直線の場合にその平面法線として指定.)",
+          "position": 6,
+          "raw_type": "方向"
+        },
+        {
+          "name": "ProfileOffset",
+          "type": "長さ",
+          "description": "プロファイル位置のオフセット距離",
+          "position": 7,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "DirectionType",
+          "type": "スイープ方向",
+          "description": "",
+          "position": 8,
+          "raw_type": "スイープ方向"
+        },
+        {
+          "name": "DirectionParameter1",
+          "type": "長さ",
+          "description": "スイープする距離１(SweepTarget1を指定している場合は使用しない)",
+          "position": 9,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "DirectionParameter2",
+          "type": "長さ",
+          "description": "スイープ方向が２方向の場合に使用.スイープする距離２(SweepTarget２を指定している場合は使用しない)",
+          "position": 10,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "SweepDirection",
+          "type": "方向",
+          "description": "スイープする方向を設定する場合に使用.指定しない場合はプロファイルの法線方向",
+          "position": 11,
+          "raw_type": "方向"
+        },
+        {
+          "name": "DraftAngle",
+          "type": "角度",
+          "description": "押し出し方向の勾配角度",
+          "position": 12,
+          "raw_type": "角度"
+        },
+        {
+          "name": "DraftAngle2Type",
+          "type": "勾配２のタイプ",
+          "description": "２方向に押し出す際の勾配の取り方指定",
+          "position": 13,
+          "raw_type": "勾配２のタイプ"
+        },
+        {
+          "name": "DraftAngle2",
+          "type": "角度",
+          "description": "２方向目の押し出し方向の勾配角度",
+          "position": 14,
+          "raw_type": "角度"
+        },
+        {
+          "name": "ThickenType",
+          "type": "厚み付けタイプ",
+          "description": "",
+          "position": 15,
+          "raw_type": "厚み付けタイプ"
+        },
+        {
+          "name": "Thickeness1",
+          "type": "長さ",
+          "description": "板厚",
+          "position": 16,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "Thickeness2",
+          "type": "長さ",
+          "description": "板厚２(厚み付けタイプが２方向のときに使用)",
+          "position": 17,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "ThickenessOffset",
+          "type": "長さ",
+          "description": "厚みづけのオフセット距離",
+          "position": 18,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "bRefByGeometricMethod",
+          "type": "bool",
+          "description": "Trueの時は幾何位置にもとづいて関連を設定する",
+          "position": 19,
+          "raw_type": "bool"
+        },
+        {
+          "name": "bIntervalSwep",
+          "type": "bool",
+          "description": "区間内だけをスイープする",
+          "position": 20,
+          "raw_type": "bool"
+        },
+        {
+          "name": "ReferMethod",
+          "type": "関連設定",
+          "description": "要素の関連づけ方法の指定",
+          "position": 21,
+          "raw_type": "関連設定"
+        }
+      ],
       "title_jp": "押し出しパラメータオブジェクト",
       "source": {
-        "text": "〇押し出しパラメータオブジェクト"
+        "text": "〇押し出しパラメータオブジェクト\n   属性\n   NAME   // 文字列：要素名(空文字可)\n   ElementGroup // 要素グループ：作成するシート要素を要素グループに入れる場合は要素グループを指定(空文字可)\n   MaterialName // 材料：作成するシード要素の材質名称(空文字可)\n   Target1  // 要素(配列)：スイープするターゲット要素１ (点,線,シート,ソリッド,あるいはソリッドフェイス)\n   Target2  // 要素(配列)：スイープ方向が２方向の場合に使用.スイープするターゲット要素２\n   Profile // 要素(配列)：押し出しのプロファイル要素(スケッチ,線,シート)\n   ProfileNormal // 方向：プロファイルの平面法線方向.(プロファイルが３Dの直線の場合にその平面法線として指定.)\n   ProfileOffset // 長さ：プロファイル位置のオフセット距離\n   DirectionType  // スイープ方向：\n   DirectionParameter1 // 長さ： スイープする距離１(SweepTarget1を指定している場合は使用しない)\n   DirectionParameter2 // 長さ： スイープ方向が２方向の場合に使用.スイープする距離２(SweepTarget２を指定している場合は使用しない)\n   SweepDirection // 方向：スイープする方向を設定する場合に使用.指定しない場合はプロファイルの法線方向\n   DraftAngle   // 角度: 押し出し方向の勾配角度\n   DraftAngle2Type // 勾配２のタイプ: ２方向に押し出す際の勾配の取り方指定\n   DraftAngle2 // 角度: ２方向目の押し出し方向の勾配角度\n   ThickenType // 厚み付けタイプ:\n   Thickeness1  // 長さ： 板厚\n   Thickeness2  // 長さ： 板厚２(厚み付けタイプが２方向のときに使用)\n   ThickenessOffset // 長さ： 厚みづけのオフセット距離\n   bRefByGeometricMethod // bool：Trueの時は幾何位置にもとづいて関連を設定する\n   bIntervalSwep // bool：区間内だけをスイープする\n   ReferMethod // 関連設定: 要素の関連づけ方法の指定"
       }
     },
     {
@@ -1853,13 +2053,330 @@
       }
     },
     {
-      "name": "BracketParam",
+      "name": "ブラケット要素のパラメータオブジェクト",
       "description": "ブラケット要素のパラメータオブジェクトのパラメータ定義",
       "category": "Partオブジェクト",
       "entry_type": "object",
+      "properties": [
+        {
+          "name": "DefinitionType",
+          "type": "整数",
+          "description": "ブラケットの作成方法指定 0: 面指定 1:基準要素指定",
+          "position": 0,
+          "raw_type": "整数"
+        },
+        {
+          "name": "BracketName",
+          "type": "文字列",
+          "description": "作成するブラケットソリッド要素名称(空文字可)",
+          "position": 1,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "ElementGroup",
+          "type": "要素グループ",
+          "description": "作成するソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)",
+          "position": 2,
+          "raw_type": "要素グループ"
+        },
+        {
+          "name": "MaterialName",
+          "type": "材料",
+          "description": "作成するソリッド要素の材質名称(空文字可)",
+          "position": 3,
+          "raw_type": "材料"
+        },
+        {
+          "name": "BasePlane",
+          "type": "面指定の場合の基準平面",
+          "description": "",
+          "position": 4,
+          "raw_type": "面指定の場合の基準平面"
+        },
+        {
+          "name": "BasePlaneOffset",
+          "type": "長さ",
+          "description": "基準平面のオフセット距離",
+          "position": 5,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "BaseElement",
+          "type": "基準要素指定の場合の基準要素",
+          "description": "",
+          "position": 6,
+          "raw_type": "基準要素指定の場合の基準要素"
+        },
+        {
+          "name": "UseSideSheetForPlane",
+          "type": "bool",
+          "description": "三面指定の場合はTrue",
+          "position": 7,
+          "raw_type": "bool"
+        },
+        {
+          "name": "Thickness",
+          "type": "長さ",
+          "description": "板厚",
+          "position": 8,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "Mold",
+          "type": "モールド位置",
+          "description": "",
+          "position": 9,
+          "raw_type": "モールド位置"
+        },
+        {
+          "name": "MoldOffset",
+          "type": "長さ",
+          "description": "モールド位置のオフセット距離",
+          "position": 10,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "BracketType",
+          "type": "形状タイプ",
+          "description": "ブラケットの形状タイプ",
+          "position": 11,
+          "raw_type": "形状タイプ"
+        },
+        {
+          "name": "BracketParams",
+          "type": "形状パラメータ",
+          "description": "ブラケットの形状タイプのパラメータ",
+          "position": 12,
+          "raw_type": "形状パラメータ"
+        },
+        {
+          "name": "Scallop1Type",
+          "type": "形状タイプ",
+          "description": "ブラケットのスカラップの形状タイプ",
+          "position": 13,
+          "raw_type": "形状タイプ"
+        },
+        {
+          "name": "Scallop1Params",
+          "type": "形状パラメータ",
+          "description": "ブラケットのスカラップの形状タイプのパラメータ",
+          "position": 14,
+          "raw_type": "形状パラメータ"
+        },
+        {
+          "name": "nScallop2Type",
+          "type": "形状タイプ",
+          "description": "３面ブラケットの場合のスカラップ２の形状タイプ",
+          "position": 15,
+          "raw_type": "形状タイプ"
+        },
+        {
+          "name": "Scallop2Params",
+          "type": "形状パラメータ",
+          "description": "ブラケットのスカラップ２の形状タイプのパラメータ",
+          "position": 16,
+          "raw_type": "形状パラメータ"
+        },
+        {
+          "name": "Surfaces1",
+          "type": "要素(配列)",
+          "description": "ブラケット作成する面１の要素(ソリッド,シート,フェイス)",
+          "position": 17,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "RevSf1",
+          "type": "bool",
+          "description": "面１の反対側にブラケットを作成する場合はTrue",
+          "position": 18,
+          "raw_type": "bool"
+        },
+        {
+          "name": "Surfaces2",
+          "type": "要素(配列)",
+          "description": "ブラケット作成する面2の要素(ソリッド,シート,フェイス)",
+          "position": 19,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "RevSf2",
+          "type": "bool",
+          "description": "面2の反対側にブラケットを作成する場合はTrue",
+          "position": 20,
+          "raw_type": "bool"
+        },
+        {
+          "name": "Surfaces3",
+          "type": "要素(配列)",
+          "description": "３面ブラケット作成する場合の面３の要素(ソリッド,シート,フェイス)",
+          "position": 21,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "RevSf3",
+          "type": "bool",
+          "description": "面3の反対側にブラケットを作成する場合はTrue",
+          "position": 22,
+          "raw_type": "bool"
+        },
+        {
+          "name": "FlangeType",
+          "type": "形状タイプ",
+          "description": "ブラケットのフランジの形状タイプ (0の場合はフランジをつけない)",
+          "position": 23,
+          "raw_type": "形状タイプ"
+        },
+        {
+          "name": "FlangeParams",
+          "type": "形状パラメータ",
+          "description": "ブラケットのフランジの形状タイプのパラメータ",
+          "position": 24,
+          "raw_type": "形状パラメータ"
+        },
+        {
+          "name": "RevFlange",
+          "type": "bool",
+          "description": "フランジの向きを反転する場合はTrue",
+          "position": 25,
+          "raw_type": "bool"
+        },
+        {
+          "name": "FlangeAngle",
+          "type": "角度",
+          "description": "フランジの角度指定 ０°は直角を意味し,そこからの増分を＋－で指定",
+          "position": 26,
+          "raw_type": "角度"
+        },
+        {
+          "name": "Sf1DimensionType",
+          "type": "形状タイプ",
+          "description": "面１方向の寸法タイプ",
+          "position": 27,
+          "raw_type": "形状タイプ"
+        },
+        {
+          "name": "Sf1DimensonParams",
+          "type": "形状パラメータ",
+          "description": "面１方向の寸法タイプのパラメータ",
+          "position": 28,
+          "raw_type": "形状パラメータ"
+        },
+        {
+          "name": "Sf1EndElements",
+          "type": "要素(配列)",
+          "description": "面１方向の端部要素(必要な形状タイプの場合)",
+          "position": 29,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "Sf1BaseElements",
+          "type": "要素(配列)",
+          "description": "面１方向の基準要素(必要な形状タイプの場合)",
+          "position": 30,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "Sf2DimensionType",
+          "type": "形状タイプ",
+          "description": "面２方向の寸法タイプ",
+          "position": 31,
+          "raw_type": "形状タイプ"
+        },
+        {
+          "name": "Sf2DimensonParams",
+          "type": "形状パラメータ",
+          "description": "面２方向の寸法タイプのパラメータ",
+          "position": 32,
+          "raw_type": "形状パラメータ"
+        },
+        {
+          "name": "Sf2EndElements",
+          "type": "要素(配列)",
+          "description": "面２方向の端部要素(必要な形状タイプの場合)",
+          "position": 33,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "Sf2BaseElements",
+          "type": "要素(配列)",
+          "description": "面２方向の基準要素(必要な形状タイプの場合)",
+          "position": 34,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "ScallopEnd1LowerType",
+          "type": "形状タイプ",
+          "description": "面１方向の下側端部のスカラップのタイプ",
+          "position": 35,
+          "raw_type": "形状タイプ"
+        },
+        {
+          "name": "ScallopEnd1LowerParams",
+          "type": "形状パラメータ",
+          "description": "面１方向の下側端部のスカラップのタイプのパラメータ",
+          "position": 36,
+          "raw_type": "形状パラメータ"
+        },
+        {
+          "name": "ScallopEnd1UpperType",
+          "type": "形状タイプ",
+          "description": "面１方向の上側端部のスカラップのタイプ",
+          "position": 37,
+          "raw_type": "形状タイプ"
+        },
+        {
+          "name": "ScallopEnd1UpperParams",
+          "type": "形状パラメータ",
+          "description": "面１方向の上側端部のスカラップのタイプのパラメータ",
+          "position": 38,
+          "raw_type": "形状パラメータ"
+        },
+        {
+          "name": "ScallopEnd2LowerType",
+          "type": "形状タイプ",
+          "description": "面２方向の下側端部のスカラップのタイプ",
+          "position": 39,
+          "raw_type": "形状タイプ"
+        },
+        {
+          "name": "ScallopEnd2LowerParams",
+          "type": "形状パラメータ",
+          "description": "面２方向の下側端部のスカラップのタイプのパラメータ",
+          "position": 40,
+          "raw_type": "形状パラメータ"
+        },
+        {
+          "name": "ScallopEnd2UpperType",
+          "type": "形状タイプ",
+          "description": "面２方向の上側端部のスカラップのタイプ",
+          "position": 41,
+          "raw_type": "形状タイプ"
+        },
+        {
+          "name": "ScallopEnd2UpperParams",
+          "type": "形状パラメータ",
+          "description": "面２方向の上側端部のスカラップのタイプのパラメータ",
+          "position": 42,
+          "raw_type": "形状パラメータ"
+        },
+        {
+          "name": "WCS",
+          "type": "要素",
+          "description": "ブラケットが使用する座標系を指定.通常は指定しない",
+          "position": 43,
+          "raw_type": "要素"
+        },
+        {
+          "name": "ReferMethod",
+          "type": "関連設定",
+          "description": "要素の関連づけ方法の指定",
+          "position": 44,
+          "raw_type": "関連設定"
+        }
+      ],
       "title_jp": "ブラケット要素のパラメータオブジェクト",
       "source": {
-        "text": "〇ブラケット要素のパラメータオブジェクト"
+        "text": "〇ブラケット要素のパラメータオブジェクト\n   属性\n        DefinitionType // 整数: ブラケットの作成方法指定 0: 面指定 1:基準要素指定\n        BracketName // 文字列：作成するブラケットソリッド要素名称(空文字可)\n        ElementGroup // 要素グループ：作成するソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)\n        MaterialName // 材料：作成するソリッド要素の材質名称(空文字可)\n        BasePlane    //面指定の場合の基準平面\n        BasePlaneOffset // 長さ：基準平面のオフセット距離\n        BaseElement  // 基準要素指定の場合の基準要素\n        UseSideSheetForPlane // bool： 三面指定の場合はTrue\n        Thickness // 長さ： 板厚\n        Mold     // モールド位置:\n        MoldOffset // 長さ： モールド位置のオフセット距離\n        BracketType // 形状タイプ: ブラケットの形状タイプ\n        BracketParams, // 形状パラメータ: ブラケットの形状タイプのパラメータ\n        Scallop1Type, // 形状タイプ: ブラケットのスカラップの形状タイプ\n        Scallop1Params, // 形状パラメータ: ブラケットのスカラップの形状タイプのパラメータ\n        nScallop2Type, // 形状タイプ: ３面ブラケットの場合のスカラップ２の形状タイプ\n        Scallop2Params, // 形状パラメータ: ブラケットのスカラップ２の形状タイプのパラメータ\n        Surfaces1, // 要素(配列)：ブラケット作成する面１の要素(ソリッド,シート,フェイス)\n        RevSf1, // bool： 面１の反対側にブラケットを作成する場合はTrue\n        Surfaces2, // 要素(配列)：ブラケット作成する面2の要素(ソリッド,シート,フェイス)\n        RevSf2, // bool： 面2の反対側にブラケットを作成する場合はTrue\n        Surfaces3, // 要素(配列)：３面ブラケット作成する場合の面３の要素(ソリッド,シート,フェイス)\n        RevSf3, // bool： 面3の反対側にブラケットを作成する場合はTrue\n        FlangeType, // 形状タイプ: ブラケットのフランジの形状タイプ (0の場合はフランジをつけない)\n        FlangeParams,// 形状パラメータ: ブラケットのフランジの形状タイプのパラメータ\n        RevFlange, // bool： フランジの向きを反転する場合はTrue\n        FlangeAngle, // 角度： フランジの角度指定 ０°は直角を意味し,そこからの増分を＋－で指定\n        Sf1DimensionType, // 形状タイプ: 面１方向の寸法タイプ\n        Sf1DimensonParams, // 形状パラメータ: 面１方向の寸法タイプのパラメータ\n        Sf1EndElements, // 要素(配列)：面１方向の端部要素(必要な形状タイプの場合)\n        Sf1BaseElements, // 要素(配列)：面１方向の基準要素(必要な形状タイプの場合)\n        Sf2DimensionType, // 形状タイプ: 面２方向の寸法タイプ\n        Sf2DimensonParams, // 形状パラメータ: 面２方向の寸法タイプのパラメータ\n        Sf2EndElements, // 要素(配列)：面２方向の端部要素(必要な形状タイプの場合)\n        Sf2BaseElements, // 要素(配列)：面２方向の基準要素(必要な形状タイプの場合)\n        ScallopEnd1LowerType, // 形状タイプ: 面１方向の下側端部のスカラップのタイプ\n        ScallopEnd1LowerParams, // 形状パラメータ: 面１方向の下側端部のスカラップのタイプのパラメータ\n        ScallopEnd1UpperType, // 形状タイプ: 面１方向の上側端部のスカラップのタイプ\n        ScallopEnd1UpperParams, // 形状パラメータ: 面１方向の上側端部のスカラップのタイプのパラメータ\n        ScallopEnd2LowerType, // 形状タイプ: 面２方向の下側端部のスカラップのタイプ\n        ScallopEnd2LowerParams, // 形状パラメータ: 面２方向の下側端部のスカラップのタイプのパラメータ\n        ScallopEnd2UpperType, // 形状タイプ: 面２方向の上側端部のスカラップのタイプ\n        ScallopEnd2UpperParams,// 形状パラメータ: 面２方向の上側端部のスカラップのタイプのパラメータ\n        WCS, // 要素： ブラケットが使用する座標系を指定.通常は指定しない\n        ReferMethod, // 関連設定: 要素の関連づけ方法の指定"
       }
     },
     {
@@ -2028,13 +2545,22 @@
       }
     },
     {
-      "name": "ProfileParam",
+      "name": "条材要素のパラメータオブジェクト",
       "description": "条材要素のパラメータオブジェクトのパラメータ定義",
       "category": "Partオブジェクト",
       "entry_type": "object",
+      "properties": [
+        {
+          "name": "DefinitionType",
+          "type": "整数",
+          "description": "の作成方法指定 0:取付線指定  1:基準面指定  2:取付線＋指定方向線  3: 元要素指定",
+          "position": 0,
+          "raw_type": "整数"
+        }
+      ],
       "title_jp": "条材要素のパラメータオブジェクト",
       "source": {
-        "text": "〇条材要素のパラメータオブジェクト"
+        "text": "〇条材要素のパラメータオブジェクト\n   属性\n        DefinitionType // 整数: の作成方法指定 0:取付線指定  1:基準面指定  2:取付線＋指定方向線  3: 元要素指定"
       }
     },
     {
@@ -2608,7 +3134,7 @@
       }
     },
     {
-      "name": "SweepParam",
+      "name": "スイープパラメータオブジェクト",
       "description": "スイープパラメータオブジェクトのパラメータ定義",
       "category": "Partオブジェクト",
       "entry_type": "object",
@@ -2627,13 +3153,141 @@
       }
     },
     {
-      "name": "SweepParam",
+      "name": "スイープパラメータオブジェクト",
       "description": "スイープパラメータオブジェクトのパラメータ定義",
       "category": "Partオブジェクト",
       "entry_type": "object",
+      "properties": [
+        {
+          "name": "NAME",
+          "type": "文字列",
+          "description": "要素名(空文字可)",
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "ElementGroup",
+          "type": "要素グループ",
+          "description": "作成するシート要素を要素グループに入れる場合は要素グループを指定(空文字可)",
+          "position": 1,
+          "raw_type": "要素グループ"
+        },
+        {
+          "name": "MaterialName",
+          "type": "材料",
+          "description": "作成するシード要素の材質名称(空文字可)",
+          "position": 2,
+          "raw_type": "材料"
+        },
+        {
+          "name": "ReferMethod",
+          "type": "関連設定",
+          "description": "要素の関連づけ方法の指定",
+          "position": 3,
+          "raw_type": "関連設定"
+        },
+        {
+          "name": "bRefByGeometricMethod",
+          "type": "bool",
+          "description": "Trueの時は幾何位置にもとづいて関連を設定する",
+          "position": 4,
+          "raw_type": "bool"
+        },
+        {
+          "name": "ThickenType",
+          "type": "厚み付けタイプ",
+          "description": "",
+          "position": 5,
+          "raw_type": "厚み付けタイプ"
+        },
+        {
+          "name": "Thickeness1",
+          "type": "長さ",
+          "description": "板厚",
+          "position": 6,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "Thickeness2",
+          "type": "長さ",
+          "description": "板厚２(厚み付けタイプが２方向のときに使用)",
+          "position": 7,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "ThickenessOffset",
+          "type": "長さ",
+          "description": "厚みづけのオフセット距離",
+          "position": 8,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "Profile",
+          "type": "要素(配列)",
+          "description": "スイープのプロファイル要素(スケッチ,線)",
+          "position": 9,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "Path",
+          "type": "要素(配列)",
+          "description": "スイープのパス要素(スケッチ,線)",
+          "position": 10,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "ProfileNormal",
+          "type": "方向",
+          "description": "プロファイルの平面法線方向.(プロファイルが３Dの直線の場合にその平面法線として指定.)",
+          "position": 11,
+          "raw_type": "方向"
+        },
+        {
+          "name": "LockDirection",
+          "type": "方向",
+          "description": "プロファイルをパスに沿って回転させずに固定してスイープさせる際に使用する固定方向",
+          "position": 12,
+          "raw_type": "方向"
+        },
+        {
+          "name": "TwistLine",
+          "type": "要素(配列)",
+          "description": "ねじれを定義する直線",
+          "position": 13,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "TwistPosition",
+          "type": "要素(配列)",
+          "description": "ねじれを定義する位置(点)",
+          "position": 14,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "TwistAngle",
+          "type": "角度(配列)",
+          "description": "ねじれの定義点でのねじれ角度",
+          "position": 15,
+          "raw_type": "角度(配列)"
+        },
+        {
+          "name": "ParallelSweep",
+          "type": "bool",
+          "description": "プロファイルをパスにたいして平行になるようにスイープさせるときTrue",
+          "position": 16,
+          "raw_type": "bool"
+        },
+        {
+          "name": "MinimizeFace",
+          "type": "bool",
+          "description": "スイープされた要素を構成するフェイスの数を最小化させるときTrue",
+          "position": 17,
+          "raw_type": "bool"
+        }
+      ],
       "title_jp": "スイープパラメータオブジェクト",
       "source": {
-        "text": "〇スイープパラメータオブジェクト"
+        "text": "〇スイープパラメータオブジェクト\n   属性\n   NAME   // 文字列：要素名(空文字可)\n   ElementGroup, // 要素グループ：作成するシート要素を要素グループに入れる場合は要素グループを指定(空文字可)\n   MaterialName // 材料：作成するシード要素の材質名称(空文字可)\n   ReferMethod // 関連設定: 要素の関連づけ方法の指定\n   bRefByGeometricMethod // bool：Trueの時は幾何位置にもとづいて関連を設定する\n   ThickenType // 厚み付けタイプ:\n   Thickeness1  // 長さ： 板厚\n   Thickeness2  // 長さ： 板厚２(厚み付けタイプが２方向のときに使用)\n   ThickenessOffset // 長さ： 厚みづけのオフセット距離\n   Profile // 要素(配列)：スイープのプロファイル要素(スケッチ,線)\n   Path // 要素(配列)：スイープのパス要素(スケッチ,線)\n   ProfileNormal // 方向：プロファイルの平面法線方向.(プロファイルが３Dの直線の場合にその平面法線として指定.)\n   LockDirection // 方向： プロファイルをパスに沿って回転させずに固定してスイープさせる際に使用する固定方向\n   TwistLine // 要素(配列)：ねじれを定義する直線\n   TwistPosition // 要素(配列)：ねじれを定義する位置(点)\n   TwistAngle // 角度(配列)：ねじれの定義点でのねじれ角度\n   ParallelSweep  // bool：プロファイルをパスにたいして平行になるようにスイープさせるときTrue\n   MinimizeFace  // bool：スイープされた要素を構成するフェイスの数を最小化させるときTrue"
       }
     },
     {
@@ -2709,7 +3363,7 @@
       }
     },
     {
-      "name": "RotationalSweepParam",
+      "name": "回転パラメータオブジェクト",
       "description": "回転パラメータオブジェクトのパラメータ定義",
       "category": "Partオブジェクト",
       "entry_type": "object",
@@ -2732,13 +3386,113 @@
       }
     },
     {
-      "name": "RotationalSweepParam",
+      "name": "回転パラメータオブジェクト",
       "description": "回転パラメータオブジェクトのパラメータ定義",
       "category": "Partオブジェクト",
       "entry_type": "object",
+      "properties": [
+        {
+          "name": "NAME",
+          "type": "文字列",
+          "description": "要素名(空文字可)",
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "ElementGroup",
+          "type": "要素グループ",
+          "description": "作成するシート要素を要素グループに入れる場合は要素グループを指定(空文字可)",
+          "position": 1,
+          "raw_type": "要素グループ"
+        },
+        {
+          "name": "MaterialName",
+          "type": "材料",
+          "description": "作成するシード要素の材質名称(空文字可)",
+          "position": 2,
+          "raw_type": "材料"
+        },
+        {
+          "name": "ReferMethod",
+          "type": "関連設定",
+          "description": "要素の関連づけ方法の指定",
+          "position": 3,
+          "raw_type": "関連設定"
+        },
+        {
+          "name": "bRefByGeometricMethod",
+          "type": "bool",
+          "description": "Trueの時は幾何位置にもとづいて関連を設定する",
+          "position": 4,
+          "raw_type": "bool"
+        },
+        {
+          "name": "ThickenType",
+          "type": "厚み付けタイプ",
+          "description": "",
+          "position": 5,
+          "raw_type": "厚み付けタイプ"
+        },
+        {
+          "name": "Thickeness1",
+          "type": "長さ",
+          "description": "板厚",
+          "position": 6,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "Thickeness2",
+          "type": "長さ",
+          "description": "板厚２(厚み付けタイプが２方向のときに使用)",
+          "position": 7,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "ThickenessOffset",
+          "type": "長さ",
+          "description": "厚みづけのオフセット距離",
+          "position": 8,
+          "raw_type": "長さ"
+        },
+        {
+          "name": "Profile",
+          "type": "要素(配列)",
+          "description": "回転のプロファイル要素(スケッチ,線)",
+          "position": 9,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "Axis",
+          "type": "要素",
+          "description": "回転の回転軸要素(線)",
+          "position": 10,
+          "raw_type": "要素"
+        },
+        {
+          "name": "DirectionType",
+          "type": "スイープ方向",
+          "description": "",
+          "position": 11,
+          "raw_type": "スイープ方向"
+        },
+        {
+          "name": "Angle",
+          "type": "角度",
+          "description": "回転角度",
+          "position": 12,
+          "raw_type": "角度"
+        },
+        {
+          "name": "Angle2",
+          "type": "角度",
+          "description": "スイープ方向が２方向だった場合の２方向側の回転角度",
+          "position": 13,
+          "raw_type": "角度"
+        }
+      ],
       "title_jp": "回転パラメータオブジェクト",
       "source": {
-        "text": "〇回転パラメータオブジェクト"
+        "text": "〇回転パラメータオブジェクト\n   属性\n   NAME   // 文字列：要素名(空文字可)\n   ElementGroup, // 要素グループ：作成するシート要素を要素グループに入れる場合は要素グループを指定(空文字可)\n   MaterialName // 材料：作成するシード要素の材質名称(空文字可)\n   ReferMethod // 関連設定: 要素の関連づけ方法の指定\n   bRefByGeometricMethod // bool：Trueの時は幾何位置にもとづいて関連を設定する\n   ThickenType // 厚み付けタイプ:\n   Thickeness1  // 長さ： 板厚\n   Thickeness2  // 長さ： 板厚２(厚み付けタイプが２方向のときに使用)\n   ThickenessOffset // 長さ： 厚みづけのオフセット距離\n   Profile // 要素(配列)：回転のプロファイル要素(スケッチ,線)\n   Axis // 要素：回転の回転軸要素(線)\n   DirectionType  //スイープ方向 ：\n   Angle // 角度：回転角度\n   Angle2 // 角度：スイープ方向が２方向だった場合の２方向側の回転角度"
       }
     },
     {
@@ -3032,7 +3786,7 @@
       }
     },
     {
-      "name": "LoftParam",
+      "name": "ロフトパラメータオブジェクト",
       "description": "ロフトパラメータオブジェクトのパラメータ定義",
       "category": "Partオブジェクト",
       "entry_type": "object",
@@ -3055,13 +3809,120 @@
       }
     },
     {
-      "name": "LoftParam",
+      "name": "ロフトパラメータオブジェクト",
       "description": "ロフトパラメータオブジェクトのパラメータ定義",
       "category": "Partオブジェクト",
       "entry_type": "object",
+      "properties": [
+        {
+          "name": "NAME",
+          "type": "文字列",
+          "description": "要素名(空文字可)",
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "ElementGroup",
+          "type": "要素グループ",
+          "description": "作成するシート要素を要素グループに入れる場合は要素グループを指定(空文字可)",
+          "position": 1,
+          "raw_type": "要素グループ"
+        },
+        {
+          "name": "MaterialName",
+          "type": "材料",
+          "description": "作成するシード要素の材質名称(空文字可)",
+          "position": 2,
+          "raw_type": "材料"
+        },
+        {
+          "name": "ReferMethod",
+          "type": "関連設定",
+          "description": "要素の関連づけ方法の指定",
+          "position": 3,
+          "raw_type": "関連設定"
+        },
+        {
+          "name": "Profile",
+          "type": "要素(配列)",
+          "description": "ロフトのプロファイル要素(スケッチ,線)",
+          "position": 4,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "Guide",
+          "type": "要素(配列)",
+          "description": "ロフトのガイド要素(スケッチ,線)",
+          "position": 5,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "Alignment",
+          "type": "要素(配列)",
+          "description": "ロフトのプロファイル要素の整列要素(スケッチ,線)",
+          "position": 6,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "StartTangentType",
+          "type": "整数",
+          "description": "始点側の接続要素指定(0:指定なし 1:平面に接続 2:面群にG1連続で接続 3:面群にG2連続で接続",
+          "position": 7,
+          "raw_type": "整数"
+        },
+        {
+          "name": "StartTangentElement",
+          "type": "要素(配列)",
+          "description": "始点側の接続要素",
+          "position": 8,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "StartTangentScale",
+          "type": "浮動小数点",
+          "description": "始点側の接続スケール",
+          "position": 9,
+          "raw_type": "浮動小数点"
+        },
+        {
+          "name": "EndTangentType",
+          "type": "整数",
+          "description": "終点側の接続要素指定(0:指定なし 1:平面に接続 2:面群にG1連続で接続 3:面群にG2連続で接続",
+          "position": 10,
+          "raw_type": "整数"
+        },
+        {
+          "name": "EndTangentElement",
+          "type": "要素(配列)",
+          "description": "終点側の接続要素",
+          "position": 11,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "EndTangentScale",
+          "type": "浮動小数点",
+          "description": "終点側の接続スケール",
+          "position": 12,
+          "raw_type": "浮動小数点"
+        },
+        {
+          "name": "Close",
+          "type": "bool",
+          "description": "閉じたロフト形状を作成するときはTrue",
+          "position": 13,
+          "raw_type": "bool"
+        },
+        {
+          "name": "UseGuidesInProfiles",
+          "type": "bool",
+          "description": "プロファイル範囲内でガイドせんを利用する場合はTrue",
+          "position": 14,
+          "raw_type": "bool"
+        }
+      ],
       "title_jp": "ロフトパラメータオブジェクト",
       "source": {
-        "text": "〇ロフトパラメータオブジェクト"
+        "text": "〇ロフトパラメータオブジェクト\n   属性\n   NAME   // 文字列：要素名(空文字可)\n   ElementGroup, // 要素グループ：作成するシート要素を要素グループに入れる場合は要素グループを指定(空文字可)\n   MaterialName // 材料：作成するシード要素の材質名称(空文字可)\n   ReferMethod // 関連設定: 要素の関連づけ方法の指定\n   Profile // 要素(配列)：ロフトのプロファイル要素(スケッチ,線)\n   Guide // 要素(配列)：ロフトのガイド要素(スケッチ,線)\n   Alignment  // 要素(配列)：ロフトのプロファイル要素の整列要素(スケッチ,線)\n   StartTangentType // 整数：始点側の接続要素指定(0:指定なし 1:平面に接続 2:面群にG1連続で接続 3:面群にG2連続で接続\n   StartTangentElement // 要素(配列)：始点側の接続要素\n   StartTangentScale // 浮動小数点: 始点側の接続スケール\n   EndTangentType // 整数：終点側の接続要素指定(0:指定なし 1:平面に接続 2:面群にG1連続で接続 3:面群にG2連続で接続\n   EndTangentElement // 要素(配列)：終点側の接続要素\n   EndTangentScale // 浮動小数点: 終点側の接続スケール\n   Close      // bool：閉じたロフト形状を作成するときはTrue\n   UseGuidesInProfiles // bool： プロファイル範囲内でガイドせんを利用する場合はTrue"
       }
     },
     {
@@ -3160,13 +4021,120 @@
       }
     },
     {
-      "name": "SlotParam",
+      "name": "スロットパラメータオブジェクト",
       "description": "スロットパラメータオブジェクトのパラメータ定義",
       "category": "Partオブジェクト",
       "entry_type": "object",
+      "properties": [
+        {
+          "name": "SlotName",
+          "type": "文字列",
+          "description": "作成する条材ソリッド要素名称(空文字可)",
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "CollarName",
+          "type": "文字列",
+          "description": "作成するカラープレート要素名称(空文字可)",
+          "position": 1,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "CollarMaterial",
+          "type": "材料",
+          "description": "作成するカラープレートの材質名称(空文字可)",
+          "position": 2,
+          "raw_type": "材料"
+        },
+        {
+          "name": "CollarElementGroup",
+          "type": "要素グループ",
+          "description": "作成するカラープレート要素を要素グループに入れる場合は要素グループを指定(空文字可)",
+          "position": 3,
+          "raw_type": "要素グループ"
+        },
+        {
+          "name": "Collar2Name",
+          "type": "文字列",
+          "description": "作成する２つ目のカラープレート要素名称(空文字可)",
+          "position": 4,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "Collar2Material",
+          "type": "材料",
+          "description": "作成する２つ目のカラープレートの材質名称(空文字可)",
+          "position": 5,
+          "raw_type": "材料"
+        },
+        {
+          "name": "Collar2ElementGroup",
+          "type": "要素グループ",
+          "description": "作成する２つ目のカラープレート要素を要素グループに入れる場合は要素グループを指定(空文字可)",
+          "position": 6,
+          "raw_type": "要素グループ"
+        },
+        {
+          "name": "ProfileType",
+          "type": "形状タイプ",
+          "description": "スロットの形状タイプを指定",
+          "position": 7,
+          "raw_type": "形状タイプ"
+        },
+        {
+          "name": "ProfileParam",
+          "type": "形状パラメータ",
+          "description": "スロットの形状タイプのパラメータ",
+          "position": 8,
+          "raw_type": "形状パラメータ"
+        },
+        {
+          "name": "AttachFace",
+          "type": "要素",
+          "description": "スロットをあけるフェイス要素",
+          "position": 9,
+          "raw_type": "要素"
+        },
+        {
+          "name": "ProfileSolid",
+          "type": "要素",
+          "description": "スロットをとおすプロファイルソリッド要素",
+          "position": 10,
+          "raw_type": "要素"
+        },
+        {
+          "name": "ProfileFlangeSolid",
+          "type": "要素",
+          "description": "スロットをとおすプロファイルのフランジソリッド要素",
+          "position": 11,
+          "raw_type": "要素"
+        },
+        {
+          "name": "ReverseDir",
+          "type": "bool",
+          "description": "スロットの向きを反転するときはTrue",
+          "position": 12,
+          "raw_type": "bool"
+        },
+        {
+          "name": "ExtendToBoundary",
+          "type": "bool",
+          "description": "スロットを境界まで延長するときはTrue",
+          "position": 13,
+          "raw_type": "bool"
+        },
+        {
+          "name": "MakeVevel",
+          "type": "bool",
+          "description": "スロットに開先形状を作成するときはTrue",
+          "position": 14,
+          "raw_type": "bool"
+        }
+      ],
       "title_jp": "スロットパラメータオブジェクト",
       "source": {
-        "text": "〇スロットパラメータオブジェクト"
+        "text": "〇スロットパラメータオブジェクト\n   属性\n   SlotName        // 文字列：作成する条材ソリッド要素名称(空文字可)\n   CollarName      // 文字列：作成するカラープレート要素名称(空文字可)\n   CollarMaterial   // 材料：作成するカラープレートの材質名称(空文字可)\n   CollarElementGroup //  要素グループ：作成するカラープレート要素を要素グループに入れる場合は要素グループを指定(空文字可)\n   Collar2Name      // 文字列：作成する２つ目のカラープレート要素名称(空文字可)\n   Collar2Material   // 材料：作成する２つ目のカラープレートの材質名称(空文字可)\n   Collar2ElementGroup //  要素グループ：作成する２つ目のカラープレート要素を要素グループに入れる場合は要素グループを指定(空文字可)\n   ProfileType    // 形状タイプ: スロットの形状タイプを指定\n   ProfileParam // 形状パラメータ: スロットの形状タイプのパラメータ\n   AttachFace // 要素：スロットをあけるフェイス要素\n   ProfileSolid // 要素：スロットをとおすプロファイルソリッド要素\n   ProfileFlangeSolid // 要素：スロットをとおすプロファイルのフランジソリッド要素\n   ReverseDir  // bool：スロットの向きを反転するときはTrue\n   ExtendToBoundary // bool：スロットを境界まで延長するときはTrue\n   MakeVevel  // bool：スロットに開先形状を作成するときはTrue"
       }
     },
     {
@@ -3224,13 +4192,176 @@
       }
     },
     {
-      "name": "FacePlateParam",
+      "name": "フェイスプレートパラメータオブジェクト",
       "description": "フェイスプレートパラメータオブジェクトのパラメータ定義",
       "category": "Partオブジェクト",
       "entry_type": "object",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "文字列",
+          "description": "作成するフェイスプレートソリッド要素名称(空文字可)",
+          "position": 0,
+          "raw_type": "文字列"
+        },
+        {
+          "name": "ElementGroup",
+          "type": "要素グループ",
+          "description": "作成するソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)",
+          "position": 1,
+          "raw_type": "要素グループ"
+        },
+        {
+          "name": "MaterialName",
+          "type": "材料",
+          "description": "作成するソリッド要素の材質名称(空文字可)",
+          "position": 2,
+          "raw_type": "材料"
+        },
+        {
+          "name": "DefinitionType",
+          "type": "整数",
+          "description": "フェイスプレートの定義方法(0:面指定 , 1:元要素指定 , 2:ブラケット要素指定 , 3:取付線指定 )",
+          "position": 3,
+          "raw_type": "整数"
+        },
+        {
+          "name": "ProfileType",
+          "type": "形状タイプ",
+          "description": "フェイスプレートの形状タイプを指定",
+          "position": 4,
+          "raw_type": "形状タイプ"
+        },
+        {
+          "name": "ProfileParam",
+          "type": "形状パラメータ",
+          "description": "フェイスプレートの形状タイプのパラメータ",
+          "position": 5,
+          "raw_type": "形状パラメータ"
+        },
+        {
+          "name": "FaceAngle",
+          "type": "角度",
+          "description": "角度指定 ０°は直角を意味し,そこからの増分を＋－で指定",
+          "position": 6,
+          "raw_type": "角度"
+        },
+        {
+          "name": "ReverseDirection",
+          "type": "bool",
+          "description": "フェイスプレートの幅方向の向きを反転するときはTrue",
+          "position": 7,
+          "raw_type": "bool"
+        },
+        {
+          "name": "End1Elements",
+          "type": "要素(配列)",
+          "description": "端部１,端部となる要素を指定する",
+          "position": 8,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "End1Type",
+          "type": "形状タイプ",
+          "description": "端部１,フェイスプレートの端部タイプを指定",
+          "position": 9,
+          "raw_type": "形状タイプ"
+        },
+        {
+          "name": "End1TypeParams",
+          "type": "形状パラメータ",
+          "description": "端部１ フェイスプレートの端部タイプのパラメータ",
+          "position": 10,
+          "raw_type": "形状パラメータ"
+        },
+        {
+          "name": "End2Elements",
+          "type": "要素(配列)",
+          "description": "端部２,端部となる要素を指定する",
+          "position": 11,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "End2Type",
+          "type": "形状タイプ",
+          "description": "端部２,フェイスプレートの端部タイプを指定",
+          "position": 12,
+          "raw_type": "形状タイプ"
+        },
+        {
+          "name": "End2TypeParams",
+          "type": "形状パラメータ",
+          "description": "端部２,フェイスプレートの端部タイプのパラメータ",
+          "position": 13,
+          "raw_type": "形状パラメータ"
+        },
+        {
+          "name": "BaseFaces",
+          "type": "要素(配列)",
+          "description": "面指定で作成する場合の基準面(フェイス)",
+          "position": 14,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "AttachFaces",
+          "type": "要素(配列)",
+          "description": "面指定,取付線指定で作成する場合の取付面(フェイス)",
+          "position": 15,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "OrignalFacePlate",
+          "type": "要素",
+          "description": "元要素指定で作成する場合の元となるフェイスプレート要素",
+          "position": 16,
+          "raw_type": "要素"
+        },
+        {
+          "name": "Bracket",
+          "type": "要素",
+          "description": "ブラケット指定で作成する場合のブラケット要素",
+          "position": 17,
+          "raw_type": "要素"
+        },
+        {
+          "name": "BaseCurves",
+          "type": "要素(配列)",
+          "description": "取付線指定で作成する場合の取付線(カーブ,エッジ)",
+          "position": 18,
+          "raw_type": "要素(配列)"
+        },
+        {
+          "name": "ProjectionDir",
+          "type": "方向",
+          "description": "取付線指定で作成する場合の取付線の投影方向",
+          "position": 19,
+          "raw_type": "方向"
+        },
+        {
+          "name": "NotProjectAttachLines",
+          "type": "bool",
+          "description": "取付線指定で作成する場合に取付線を面に投影しない場合はTrue",
+          "position": 20,
+          "raw_type": "bool"
+        },
+        {
+          "name": "ReverseAttachDirection",
+          "type": "bool",
+          "description": "取付線指定で作成する場合に取付方向を反転する場合はTrue",
+          "position": 21,
+          "raw_type": "bool"
+        },
+        {
+          "name": "BaseOwner",
+          "type": "要素",
+          "description": "面指定で作成する場合の面の属するソリッド要素",
+          "position": 22,
+          "raw_type": "要素"
+        }
+      ],
       "title_jp": "フェイスプレートパラメータオブジェクト",
       "source": {
-        "text": "〇フェイスプレートパラメータオブジェクト"
+        "text": "〇フェイスプレートパラメータオブジェクト\n   属性\n   Name // 文字列：作成するフェイスプレートソリッド要素名称(空文字可)\n   ElementGroup // 要素グループ：作成するソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)\n   MaterialName // 材料：作成するソリッド要素の材質名称(空文字可)\n   DefinitionType // 整数： フェイスプレートの定義方法(0:面指定 , 1:元要素指定 , 2:ブラケット要素指定 , 3:取付線指定 )\n   ProfileType    // 形状タイプ: フェイスプレートの形状タイプを指定\n   ProfileParam // 形状パラメータ: フェイスプレートの形状タイプのパラメータ\n   FaceAngle // 角度：角度指定 ０°は直角を意味し,そこからの増分を＋－で指定\n   ReverseDirection // bool：フェイスプレートの幅方向の向きを反転するときはTrue\n   End1Elements  // 要素(配列)： 端部１,端部となる要素を指定する\n   End1Type       // 形状タイプ: 端部１,フェイスプレートの端部タイプを指定\n   End1TypeParams // 形状パラメータ: 端部１ フェイスプレートの端部タイプのパラメータ\n   End2Elements   // 要素(配列)： 端部２,端部となる要素を指定する\n   End2Type       // 形状タイプ: 端部２,フェイスプレートの端部タイプを指定\n   End2TypeParams // 形状パラメータ: 端部２,フェイスプレートの端部タイプのパラメータ\n   BaseFaces   // 要素(配列)： 面指定で作成する場合の基準面(フェイス)\n   AttachFaces  // 要素(配列)： 面指定,取付線指定で作成する場合の取付面(フェイス)\n   OrignalFacePlate // 要素： 元要素指定で作成する場合の元となるフェイスプレート要素\n   Bracket    // 要素： ブラケット指定で作成する場合のブラケット要素\n   BaseCurves  // 要素(配列)： 取付線指定で作成する場合の取付線(カーブ,エッジ)\n   ProjectionDir // 方向：取付線指定で作成する場合の取付線の投影方向\n   NotProjectAttachLines // bool：取付線指定で作成する場合に取付線を面に投影しない場合はTrue\n   ReverseAttachDirection // bool：取付線指定で作成する場合に取付方向を反転する場合はTrue\n   BaseOwner // 要素： 面指定で作成する場合の面の属するソリッド要素"
       }
     },
     {
