@@ -1,5 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <apiTemplate>
+  <!-- 引数の型タイプ定義 -->
+  <typeDefinitions>
+    <typeDefinition name="文字列">
+      <description>通常の文字列</description>
+    </typeDefinition>
+    <typeDefinition name="浮動小数点">
+      <description>通常の数値</description>
+    </typeDefinition>
+    <typeDefinition name="整数">
+      <description>通常の数値</description>
+    </typeDefinition>
+    <typeDefinition name="bool">
+      <description>通常の真偽値 True False</description>
+    </typeDefinition>
+    <typeDefinition name="長さ">
+      <description>mm単位の数値、変数要素名,式文字列、のいずれか。例) "100.0" , "L1", "L1 / 2.0"</description>
+    </typeDefinition>
+    <typeDefinition name="角度">
+      <description>度(°)単位の数値、変数要素名,式文字列、のいずれか。例) "30.0" , "Angle1" , "Angle1 * 0.2"</description>
+    </typeDefinition>
+    <typeDefinition name="数値">
+      <description>数値、変数要素名,式文字列、のいずれか。例) "3", "N1", "N1*5"</description>
+    </typeDefinition>
+    <typeDefinition name="範囲">
+      <description>上限、下限の数値をコンマで区切って指定。例) "0.0,1.0" , "L1,L2", "-1.0,1.0"</description>
+    </typeDefinition>
+    <typeDefinition name="点">
+      <description>"," コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定。例) "100.0,50,0,0.0" , "FRM1,0.0,1000.0"</description>
+    </typeDefinition>
+    <typeDefinition name="方向">
+      <description>各軸方向は"+X","-X","+Y","-X","+Z","-Z" で指定、または"," コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を数値（変数も可）で指定</description>
+    </typeDefinition>
+    <typeDefinition name="平面">
+      <description>"," コンマで区切られた文字列で指定。最初のカラムは必ず"PL"。例) "PL,Z" グローバルＸＹ平面、"PL,O,500.0,X" グローバルＹＺ平面をＸ方向に500移動させた平面</description>
+    </typeDefinition>
+    <typeDefinition name="変数単位">
+      <description>長さ "mm","cm","m","in","ft","pt"のいずれか、角度 "deg","rad"のいずれか、数値 ""(空白),"num"のいずれか</description>
+    </typeDefinition>
+    <typeDefinition name="要素グループ">
+      <description>EVO.SHIPの要素グループ名。要素グループの階層は"/"で区切る</description>
+    </typeDefinition>
+    <typeDefinition name="注記スタイル">
+      <description>EVO.SHIPに設定している注記スタイルの名称</description>
+    </typeDefinition>
+    <typeDefinition name="材料">
+      <description>EVO.SHIPに設定している材料の名称</description>
+    </typeDefinition>
+    <typeDefinition name="スイープ方向">
+      <description>"N" 順方向、"R" 反対方向、"B" 両方向、"2" ２方向、"T" 貫通</description>
+    </typeDefinition>
+    <typeDefinition name="厚み付けタイプ">
+      <description>"+" 内側、"-" 外側、"B" 両方向、"2" ２方向、"" （空文字）厚み付けしない</description>
+    </typeDefinition>
+    <typeDefinition name="モールド位置">
+      <description>"+" ＋側、"-" ー側、"" （空文字）センター</description>
+    </typeDefinition>
+    <typeDefinition name="オペレーションタイプ　（ボディ）">
+      <description>"+" 和、"-" 削除、"*" 積</description>
+    </typeDefinition>
+    <typeDefinition name="関連設定">
+      <description>ボディ関連とする場合は"B"、それ以外（空白含む）はフィーチャー関連</description>
+    </typeDefinition>
+    <typeDefinition name="形状タイプ">
+      <description>EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号。例) "1007" 平鋼、"1003" 不等辺不等厚山形鋼、"1101" 条材端部Sタイプ、"1120" 条材端部スカラップA1タイプ、"1503" ブラケット2-Bタイプ</description>
+    </typeDefinition>
+    <typeDefinition name="形状パラメータ">
+      <description>各形状タイプの寸法値を文字列配列で設定。例) 不当辺山形鋼(1002)の形状タイプの場合 ["150.","90.","9.0000000000000018","12.","6."]</description>
+    </typeDefinition>
+    <typeDefinition name="要素">
+      <description>EVO.SHIPの各要素を指定する。複数要素の場合は文字列の配列とする。IDで指定する場合は"ID@"をプレフィックスとして指定。要素名で指定する場合は要素グループを"/"で区切って指定。板ソリッド要素の板厚面を指定する場合は配列で指定。ソリッドやシート要素のフェイスを指定する場合は"," コンマで区切られた文字列で指定</description>
+    </typeDefinition>
+  </typeDefinitions>
   <method name="Quit" section="Applicationオブジェクトのメソッド">
     <title>EvoShipを終了する</title>
     <return>返り値:なし</return>
@@ -96,7 +168,7 @@
     <parameters>
     <parameters/>
   </method>
-  <parameterObject name="STLParameter" section="Documentオブジェクトのメソッド">
+  <parameterObject name="STLパラメータオブジェクト" section="Documentオブジェクトのメソッド">
     <title>STLパラメータオブジェクト</title>
     <attributes>
       <parameter name="ChordalTolerance">浮動小数点: メッシュ近似する際の弦の幅の許容トレランス (mm)</parameter>
@@ -280,7 +352,7 @@
     <parameters>
     <parameters/>
   </method>
-   <parameterObject name="LinearSweepParam" section="Partオブジェクトのメソッド">
+   <parameterObject name="押し出しパラメータオブジェクト" section="Partオブジェクトのメソッド">
     <title>押し出しパラメータオブジェクト</title>
     <attributes>
       <parameter name="NAME">文字列：要素名（空文字可）</parameter>
@@ -413,7 +485,7 @@
     <parameters>
     <parameters/>
   </method>
-  <parameterObject name="BracketParam" section="Partオブジェクトのメソッド">
+  <parameterObject name="ブラケット要素のパラメータオブジェクト" section="Partオブジェクトのメソッド">
     <title>ブラケット要素のパラメータオブジェクト</title>
     <attributes>
       <parameter name="DefinitionType">整数: ブラケットの作成方法指定 (0: 面指定, 1: 基準要素指定 など)</parameter>
@@ -497,7 +569,7 @@
     <parameters>
     <parameters/>
   </method>
-    <parameterObject name="ProfileParam" section="Partオブジェクトのメソッド">
+    <parameterObject name="条材要素のパラメータオブジェクト" section="Partオブジェクトのメソッド">
     <title>条材要素のパラメータオブジェクト</title>
     <attributes>
       <parameter name="DefinitionType">整数: 作成方法指定（0:取付線指定, 1:基準面, 2:取付線＋指定方向線, 3:元要素指定, 4:ホール指定, 5:２点, 6:ロンジ間, 7:基準線, 8:基準点と方向, 9:基準要素）</parameter>
@@ -679,7 +751,7 @@
     <parameters>
     <parameters/>
   </method>
-    <parameterObject name="SweepParam" section="Partオブジェクトのメソッド">
+    <parameterObject name="スイープパラメータオブジェクト" section="Partオブジェクトのメソッド">
     <title>スイープパラメータオブジェクト</title>
     <attributes>
       <parameter name="NAME">文字列：要素名（空文字可）</parameter>
@@ -726,7 +798,7 @@
     <parameters>
     <parameters/>
   </method>
-    <parameterObject name="RotationalSweepParam" section="Partオブジェクトのメソッド">
+    <parameterObject name="回転パラメータオブジェクト" section="Partオブジェクトのメソッド">
     <title>回転パラメータオブジェクト</title>
     <attributes>
       <parameter name="NAME">文字列：要素名（空文字可）</parameter>
@@ -815,7 +887,7 @@
     <parameters>
     </parameters>
   </method>
-  <parameterObject name="LoftParam" section="Partオブジェクトのメソッド">
+  <parameterObject name="ロフトパラメータオブジェクト" section="Partオブジェクトのメソッド">
     <title>ロフトパラメータオブジェクト</title>
     <attributes>
       <parameter name="NAME">文字列：要素名（空文字可）</parameter>
@@ -859,7 +931,7 @@
     <parameters>
     <parameters/>
   </method>
-  <parameterObject name="SlotParam" section="Partオブジェクトのメソッド">
+  <parameterObject name="スロットパラメータオブジェクト" section="Partオブジェクトのメソッド">
     <title>スロットパラメータオブジェクト</title>
     <attributes>
       <parameter name="SlotName">文字列：作成する条材ソリッド要素名称（空文字可）</parameter>
@@ -870,7 +942,7 @@
       <parameter name="Collar2Material">材料：2つ目のカラープレート材質名称（空文字可）</parameter>
       <parameter name="Collar2ElementGroup">要素グループ：2つ目のカラープレート要素のグループ（空文字可）</parameter>
       <parameter name="ProfileType">形状タイプ：スロットの形状タイプ</parameter>
-      <parameter name="ProfileParam">形状パラメータ：スロット形状タイプのパラメータ</parameter>
+      <parameter name="ProfileParam">形状パラメータ：スロットの形状タイプのパラメータ</parameter>
       <parameter name="AttachFace">要素：スロットを開けるフェイス要素</parameter>
       <parameter name="ProfileSolid">要素：スロットを通すプロファイルソリッド要素</parameter>
       <parameter name="ProfileFlangeSolid">要素：スロットを通すフランジソリッド要素</parameter>
@@ -893,7 +965,7 @@
     <parameters>
     <parameters/>
   </method>
-    <parameterObject name="FacePlateParam" section="Partオブジェクトのメソッド">
+    <parameterObject name="フェイスプレートパラメータオブジェクト" section="Partオブジェクトのメソッド">
     <title>フェイスプレートパラメータオブジェクト</title>
     <attributes>
       <parameter name="Name">文字列：作成するフェイスプレートソリッド要素名称（空文字可）</parameter>
@@ -922,7 +994,7 @@
     </attributes>
   </parameterObject>
   <method name="CreateFacePlate" section="Partオブジェクトのメソッド">
-    <title>船殻のフェイスプレート要素トを作成する</title>
+    <title>船殻のフェイスプレート要素を作成する</title>
     <return>返り値:作成されたフェイスプレート要素ID</return>
     <parameters>
       <parameter name="ParamObj">フェイスプレートパラメータオブジェクト</parameter>

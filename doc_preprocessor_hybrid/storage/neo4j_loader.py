@@ -114,7 +114,9 @@ def _merge_parameter(tx, api_name: str, parameter: Parameter) -> None:
     )
 
 
-def _link_parameter_type(tx, api_name: str, parameter_name: str, type_name: Optional[str]) -> None:
+def _link_parameter_type(
+    tx, api_name: str, parameter_name: str, type_name: Optional[str]
+) -> None:
     if not type_name:
         return
     tx.run(
@@ -143,7 +145,9 @@ def _link_return_type(tx, api_name: str, type_name: Optional[str]) -> None:
     )
 
 
-def _normalise_type_name(raw: str, available_types: Dict[str, TypeDefinition]) -> Optional[str]:
+def _normalise_type_name(
+    raw: str, available_types: Dict[str, TypeDefinition]
+) -> Optional[str]:
     if not raw:
         return None
     candidates = [raw]
@@ -160,14 +164,18 @@ def _normalise_type_name(raw: str, available_types: Dict[str, TypeDefinition]) -
 
 def store_bundle(bundle: ApiBundle, config: Neo4jConnectionConfig) -> Dict[str, object]:
     if not config.enabled:
-        raise ValueError("Neo4j configuration is incomplete; set NEO4J_URI/NEO4J_USER/NEO4J_PASSWORD")
+        raise ValueError(
+            "Neo4j configuration is incomplete; set NEO4J_URI/NEO4J_USER/NEO4J_PASSWORD"
+        )
 
     driver = GraphDatabase.driver(
         config.uri,
         auth=basic_auth(config.username, config.password),
     )
 
-    type_lookup = {definition.name: definition for definition in bundle.type_definitions}
+    type_lookup = {
+        definition.name: definition for definition in bundle.type_definitions
+    }
 
     stats = {
         "types": len(type_lookup),
@@ -181,7 +189,9 @@ def store_bundle(bundle: ApiBundle, config: Neo4jConnectionConfig) -> Dict[str, 
         for entry in bundle.api_entries:
             _merge_api_entry(tx, entry)
             _merge_return(tx, entry)
-            return_type_name = _normalise_type_name(entry.returns.type if entry.returns else None, type_lookup)
+            return_type_name = _normalise_type_name(
+                entry.returns.type if entry.returns else None, type_lookup
+            )
             if return_type_name:
                 _link_return_type(tx, entry.name, return_type_name)
             for parameter in entry.params:

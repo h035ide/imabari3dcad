@@ -28,13 +28,17 @@ def _build_embedding_function(config: ChromaConfig):
     if provider == "openai":
         api_key = config.openai_api_key
         if not api_key:
-            raise ChromaIngestError("OPENAI_API_KEY is required when CHROMA_EMBEDDING_PROVIDER=openai")
+            raise ChromaIngestError(
+                "OPENAI_API_KEY is required when CHROMA_EMBEDDING_PROVIDER=openai"
+            )
         return embedding_functions.OpenAIEmbeddingFunction(
             api_key=api_key,
             model_name=config.embedding_model,
         )
     if provider in {"sentence-transformers", "sbert"}:
-        return embedding_functions.SentenceTransformerEmbeddingFunction(model_name=config.embedding_model)
+        return embedding_functions.SentenceTransformerEmbeddingFunction(
+            model_name=config.embedding_model
+        )
     raise ChromaIngestError(f"Unsupported embedding provider: {provider}")
 
 

@@ -23,10 +23,12 @@ class SourceFragment:
 
     @classmethod
     def from_dict(cls, data: Dict[str, object]) -> "SourceFragment":
+        start_line_val = data.get("start_line")
+        end_line_val = data.get("end_line")
         return cls(
             path=str(data.get("path", "")),
-            start_line=int(data.get("start_line", 0)),
-            end_line=int(data.get("end_line", 0)),
+            start_line=int(start_line_val) if isinstance(start_line_val, (int, str)) else 0,
+            end_line=int(end_line_val) if isinstance(end_line_val, (int, str)) else 0,
             text=str(data.get("text", "")),
             checksum=str(data.get("checksum", "")),
         )
@@ -37,16 +39,23 @@ class TypeDefinition:
     name: str
     description: str
     examples: List[str] = field(default_factory=list)
+    category: Optional[str] = None  # カテゴリ（例: "型定義"）
     # 追加メタ: 正規化型や受理形の明示（後工程用、任意）
-    canonical_type: Optional[str] = None  # e.g., "string","integer","length","angle","point","direction"
+    canonical_type: Optional[str] = (
+        None  # e.g., "string","integer","length","angle","point","direction"
+    )
     py_type: Optional[str] = None  # e.g., "str","int","float","bool","list","dict"
-    one_of: Optional[List[str]] = None  # e.g., ["number_mm","variable_name","expression"]
+    one_of: Optional[List[Dict[str, str]]] = (
+        None  # e.g., [{"id": "number_mm", "description": "..."}]
+    )
     source: Optional[SourceFragment] = None
 
     def to_dict(self) -> Dict[str, object]:
         data: Dict[str, object] = {"name": self.name, "description": self.description}
         if self.examples:
             data["examples"] = self.examples
+        if self.category:
+            data["category"] = self.category
         if self.canonical_type:
             data["canonical_type"] = self.canonical_type
         if self.py_type:
@@ -56,6 +65,41 @@ class TypeDefinition:
         if self.source:
             data["source"] = self.source.to_dict()
         return data
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, object]) -> "TypeDefinition":
+        one_of_data = data.get("one_of")
+        one_of = None
+        if one_of_data and isinstance(one_of_data, list):
+            one_of = [
+                {
+                    "id": str(item.get("id", "")),
+                    "description": str(item.get("description", "")),
+                }
+                for item in one_of_data
+                if isinstance(item, dict)
+            ]
+
+        # examples は常に List[str] に正規化する
+        examples_val = data.get("examples")
+        examples_list = (
+            [str(x) for x in examples_val] if isinstance(examples_val, list) else []
+        )
+
+        return cls(
+            name=str(data.get("name", "")),
+            description=str(data.get("description", "")),
+            examples=examples_list,
+            category=str(data.get("category")) if data.get("category") else None,
+            canonical_type=(
+                str(data.get("canonical_type")) if data.get("canonical_type") else None
+            ),
+            py_type=str(data.get("py_type")) if data.get("py_type") else None,
+            one_of=one_of,
+            source=(
+                SourceFragment.from_dict(src) if isinstance((src := data.get("source")), dict) else None
+            ),
+        )
 
 
 @dataclass

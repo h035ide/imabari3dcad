@@ -8,6 +8,7 @@ from typing import Dict, List, Optional
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 
+from .logging_config import get_logger
 from .schemas import ApiBundle, ApiEntry, ReturnSpec, TypeDefinition
 
 from dotenv import load_dotenv
@@ -28,9 +29,7 @@ ENTRY_CONTEXT_WINDOW = 12
 TYPE_CONTEXT_WINDOW = 8
 MAX_TYPE_CONTEXTS_PER_ENTRY = 4
 
-POINT_COMPONENT_PATTERN = re.compile(
-    r"^-?\d+(?:\.\d+)?$|^[A-Za-z_][A-Za-z0-9_]*$"
-)
+POINT_COMPONENT_PATTERN = re.compile(r"^-?\d+(?:\.\d+)?$|^[A-Za-z_][A-Za-z0-9_]*$")
 
 PROMPT = ChatPromptTemplate.from_messages(
     [
@@ -101,7 +100,6 @@ TYPE_PROMPT = ChatPromptTemplate.from_messages(
 )
 
 
-
 def _doc_snippet(entry: ApiEntry) -> str:
     chunks: List[str] = []
     if entry.title_jp:
@@ -166,7 +164,7 @@ def _extract_type_context(type_def: TypeDefinition, lines: List[str]) -> str:
 
     targets = [
         f"■{type_def.name}",  # 完全一致
-        f"■{base_name}",      # 基本名のみ
+        f"■{base_name}",  # 基本名のみ
     ]
 
     idx = _find_line_index(lines, targets)
@@ -175,11 +173,25 @@ def _extract_type_context(type_def: TypeDefinition, lines: List[str]) -> str:
     start_idx = idx
     end_idx = idx + 1
     line_count = len(lines)
-    while start_idx > 0 and lines[start_idx - 1].strip() and not lines[start_idx - 1].startswith("■"):
+    while (
+        start_idx > 0
+        and lines[start_idx - 1].strip()
+        and not lines[start_idx - 1].startswith("■")
+    ):
         start_idx -= 1
-    while end_idx < line_count and lines[end_idx].strip() and not lines[end_idx].startswith("■"):
+    while (
+        end_idx < line_count
+        and lines[end_idx].strip()
+        and not lines[end_idx].startswith("■")
+    ):
         end_idx += 1
-    snippet = "\n".join(lines[max(0, start_idx - TYPE_CONTEXT_WINDOW): min(line_count, end_idx + TYPE_CONTEXT_WINDOW)])
+    snippet = "\n".join(
+        lines[
+            max(0, start_idx - TYPE_CONTEXT_WINDOW): min(
+                line_count, end_idx + TYPE_CONTEXT_WINDOW
+            )
+        ]
+    )
     return _truncate_text(snippet, MAX_TYPE_SOURCE_CHARS)
 
 
@@ -221,7 +233,11 @@ def _normalise_point_examples(examples: List[str]) -> List[str]:
     normalised: List[str] = []
     for example in examples:
         cleaned = example.strip()
-        if cleaned.startswith(("'", '"')) and cleaned.endswith(("'", '"')) and len(cleaned) >= 2:
+        if (
+            cleaned.startswith(("'", '"'))
+            and cleaned.endswith(("'", '"'))
+            and len(cleaned) >= 2
+        ):
             cleaned = cleaned[1:-1].strip()
         tokens = [token.strip() for token in cleaned.split(",") if token.strip()]
         if not tokens:
@@ -231,7 +247,6 @@ def _normalise_point_examples(examples: List[str]) -> List[str]:
             if candidate not in normalised:
                 normalised.append(candidate)
     return normalised
-
 
 
 def _needs_enrichment(entry: ApiEntry) -> bool:
@@ -291,10 +306,16 @@ def _apply_enrichment(entry: ApiEntry, payload: Dict[str, object]) -> None:
                 break
 
 
-def _apply_type_enrichment(type_def: TypeDefinition, payload: Dict[str, object]) -> bool:
+def _apply_type_enrichment(
+    type_def: TypeDefinition, payload: Dict[str, object]
+) -> bool:
     updated = False
     description = payload.get("description")
-    if isinstance(description, str) and description.strip() and description.strip() != type_def.description:
+    if (
+        isinstance(description, str)
+        and description.strip()
+        and description.strip() != type_def.description
+    ):
         type_def.description = description.strip()
         updated = True
     examples = payload.get("examples")
@@ -320,15 +341,22 @@ def enrich_bundle(
     api_arg_text: Optional[str] = None,
 ) -> List[Dict[str, object]]:
     """Enrich bundle entries with LLM hints. Returns audit log."""
+    logger = get_logger("llm_enricher.enrich_bundle")
+    logger.info("Starting LLM enrichment process...")
+
     audit_log: List[Dict[str, object]] = []
     if not enabled:
+        logger.info("LLM enrichment is disabled, skipping...")
         return audit_log
 
     if not os.getenv("OPENAI_API_KEY"):
+        logger.warning("OPENAI_API_KEY not found, skipping LLM enrichment")
         audit_log.append({"status": "skipped", "reason": "missing_openai_api_key"})
         return audit_log
 
     config = {**DEFAULT_MODEL_CONFIG, **(model_config or {})}
+    logger.info(f"Using model configuration: {config}")
+
     llm_verbosity = config.pop("llm_verbosity", None)
     llm_reasoning = config.pop("llm_reasoning_effort", None)
     llm = ChatOpenAI(**config)
@@ -342,9 +370,18 @@ def enrich_bundle(
     type_chain = TYPE_PROMPT | llm
     entry_chain = PROMPT | llm
 
+    logger.info(
+        f"Initialized LLM chains for {len(bundle.type_definitions)} type definitions "
+        f"and {len(bundle.api_entries)} API entries"
+    )
+
     api_doc_lines = _prepare_lines(api_doc_text)
     api_arg_lines = _prepare_lines(api_arg_text)
+    logger.info(
+        f"Prepared {len(api_doc_lines)} API doc lines and {len(api_arg_lines)} API arg lines"
+    )
 
+    logger.info("Building type context map...")
     type_context_map: Dict[str, str] = {}
     for definition in bundle.type_definitions:
         context = ""
@@ -353,13 +390,18 @@ def enrich_bundle(
         elif api_arg_lines:
             context = _extract_type_context(definition, api_arg_lines)
         type_context_map[definition.name] = context
-        base_name = definition.name.split('(', 1)[0].strip()
+        base_name = definition.name.split("(", 1)[0].strip()
         if base_name and base_name not in type_context_map:
             type_context_map[base_name] = context
+    logger.info(f"Built type context map with {len(type_context_map)} entries")
 
+    logger.info("Processing type definitions...")
+    type_updated_count = 0
+    type_error_count = 0
     for type_def in bundle.type_definitions:
         current_json = json.dumps(type_def.to_dict(), ensure_ascii=False)
         try:
+            logger.debug(f"Enriching type definition: {type_def.name}")
             result = type_chain.invoke(
                 {
                     "current_json": current_json,
@@ -372,14 +414,31 @@ def enrich_bundle(
             if not isinstance(payload, dict):
                 raise ValueError("Type definition payload must be a JSON object")
             if _apply_type_enrichment(type_def, payload):
-                audit_log.append({"status": "updated_type", "definition": type_def.name})
+                audit_log.append(
+                    {"status": "updated_type", "definition": type_def.name}
+                )
+                type_updated_count += 1
+                logger.debug(f"Updated type definition: {type_def.name}")
         except Exception as exc:  # noqa: BLE001 - bubble up aggregate context
-            audit_log.append({"status": "error_type", "definition": type_def.name, "error": str(exc)})
+            audit_log.append(
+                {"status": "error_type", "definition": type_def.name, "error": str(exc)}
+            )
+            type_error_count += 1
+            logger.warning(f"Error enriching type definition {type_def.name}: {exc}")
+
+    logger.info(
+        f"Type definitions processed: {type_updated_count} updated, {type_error_count} errors"
+    )
 
     entries = [entry for entry in bundle.api_entries if _needs_enrichment(entry)]
+    logger.info(f"Processing {len(entries)} API entries that need enrichment")
+
+    entry_updated_count = 0
+    entry_error_count = 0
     for entry in entries:
         current_json = json.dumps(entry.to_dict(), ensure_ascii=False)
         try:
+            logger.debug(f"Enriching API entry: {entry.name}")
             if entry.source and entry.source.text:
                 api_source = _truncate_text(entry.source.text, MAX_ENTRY_SOURCE_CHARS)
             else:
@@ -399,6 +458,17 @@ def enrich_bundle(
                 raise ValueError("Entry payload must be a JSON object")
             _apply_enrichment(entry, payload)
             audit_log.append({"status": "updated_entry", "entry": entry.name})
+            entry_updated_count += 1
+            logger.debug(f"Updated API entry: {entry.name}")
         except Exception as exc:  # noqa: BLE001 - bubble up aggregate context
-            audit_log.append({"status": "error_entry", "entry": entry.name, "error": str(exc)})
+            audit_log.append(
+                {"status": "error_entry", "entry": entry.name, "error": str(exc)}
+            )
+            entry_error_count += 1
+            logger.warning(f"Error enriching API entry {entry.name}: {exc}")
+
+    logger.info(
+        f"API entries processed: {entry_updated_count} updated, {entry_error_count} errors"
+    )
+    logger.info(f"LLM enrichment completed with {len(audit_log)} total audit entries")
     return audit_log

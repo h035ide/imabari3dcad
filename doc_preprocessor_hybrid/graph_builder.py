@@ -72,7 +72,9 @@ def build_graph_payload(bundle: ApiBundle) -> Dict[str, List[Dict[str, object]]]
                     "type": "RETURNS",
                     "start": entry.name,
                     "end": entry.returns.type.rstrip("[]"),
-                    "properties": {"raw_type": entry.returns.raw_type or entry.returns.type},
+                    "properties": {
+                        "raw_type": entry.returns.raw_type or entry.returns.type
+                    },
                 }
             )
 

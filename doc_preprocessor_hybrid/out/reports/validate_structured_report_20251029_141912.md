@@ -1,0 +1,258 @@
+# structured_api 検証ログ (2025-10-29 14:19:12)
+
+- XML: `doc_preprocessor_hybrid/out/api_template.xml`
+- JSON: `doc_preprocessor_hybrid/out/structured_api.json`
+- 結果: 差分あり (exit 1)
+- XMLエントリ数: 212
+- JSONエントリ数: 214
+- XMLのみ: 0件 / JSONのみ: 2件 / 差分: 212件
+
+## 正答率メトリクス
+
+### ⑴関数名の正答率
+- 総数: 72
+- 正解数: 72
+- 正答率: 100.00%
+
+### ⑵パラメータオブジェクトの正答率
+- 総数: 9
+- 正解数: 9
+- 正答率: 100.00%
+
+### ⑶型定義の正答率
+- 総数: 23
+- 正解数: 25
+- 正答率: 108.70%
+
+### ⑷引数定義名の正答率
+- 総数: 478
+- 正解数: 422
+- 正答率: 88.28%
+
+### ⑸引数タイプの正答率
+- 総数: 478
+- 正解数: 417
+- 正答率: 87.24%
+
+### ⑹descriptionの正答率（完全一致）
+- 総数: 547
+- 正解数: 348
+- 正答率: 63.62%
+
+## レポート
+```
+[JSONのみ]点(2D), 点(3D)
+[差分]
+- function:CreateOffsetDatumPlane return_description -> 期待: 作成されたデータム平面の要素ID / 実際: (空)
+- function:CreateOffsetDatumPlane params[ElementGroup].description -> 期待: 作成するデータム平面要素を入れる場合は指定（空文字可） / 実際: 作成するデータム平面要素を要素グループに入れる場合は要素グループを指定(空文字可)
+- function:CreateRotatedDatumPlane return_description -> 期待: 作成されたデータム平面の要素ID / 実際: (空)
+- function:CreateRotatedDatumPlane params[Plane].description -> 期待: 元になる平面 / 実際: 元になる平面を指定する
+- function:CutBody params[ReferMethod].type -> 期待: (空) / 実際: 関連設定
+- function:ExporAsSTL params[pOpt].type -> 期待: STLパラメータオブジェクト / 実際: 要素
+- function:ExporAsSTL params[pOpt].description -> 期待: (空) / 実際: STLパラメータオブジェクト
+- function:MirrorCopy params[[in] BSTR plane] -> 期待: {'type': '', 'description': ''} / 実際: (JSONに無し)
+- function:MirrorCopy params[plane].type -> 期待: 平面 / 実際: 文字列
+- function:MirrorCopy params[plane].description -> 期待: ミラーを作成する平面 / 実際: (空)
+- function:ReverseSheet params[SheetElement] -> 期待: (XMLに無し) / 実際: {'type': '要素', 'description': '反転するシート要素'}
+- parameter_object:STLパラメータオブジェクト params[ChordalTolerance].description -> 期待: メッシュ近似する際の弦の幅の許容トレランス (mm) / 実際: メッシュ近似する際の弦の幅の許容トレランスを指定 (mm)
+- parameter_object:STLパラメータオブジェクト params[Elements].description -> 期待: STL出力対象要素（未指定なら表示中要素すべて） / 実際: STL出力する要素を指定(指定しない場合は表示されている全ての要素を出力します)
+- parameter_object:STLパラメータオブジェクト params[MaxMeshLength].description -> 期待: メッシュ辺の最大サイズ (mm) / 実際: メッシュの辺の最大サイズを指定する場合は指定(mm)(指定しない場合は０)
+- parameter_object:STLパラメータオブジェクト params[MinMeshLength].description -> 期待: メッシュ辺の最小サイズ (mm) / 実際: メッシュの辺の最小サイズを指定する場合は指定(mm)(指定しない場合は０)
+- parameter_object:STLパラメータオブジェクト params[NormalTolerance].description -> 期待: メッシュ近似した場合の法線方向ずれ角度 (Degree) / 実際: メッシュ近似した場合のポリゴンの面と局面との法線方向のずれ角度の許容値(Degree)
+- type_definition:bool category -> 期待: 型定義 / 実際: (空)
+- type_definition:オペレーションタイプ （ボディ） category -> 期待: 型定義 / 実際: (空)
+- type_definition:オペレーションタイプ （ボディ） description -> 期待: "+" 和、"-" 削除、"*" 積 / 実際: "+" 和 "-" 削除 "*" 積
+- parameter_object:スイープパラメータオブジェクト params[ElementGroup].description -> 期待: シート要素を配置する場合に指定（空文字可） / 実際: 作成するシート要素を要素グループに入れる場合は要素グループを指定(空文字可)
+- parameter_object:スイープパラメータオブジェクト params[LockDirection].description -> 期待: プロファイルを回転させず固定する際の方向 / 実際: プロファイルをパスに沿って回転させずに固定してスイープさせる際に使用する固定方向
+- parameter_object:スイープパラメータオブジェクト params[MaterialName].description -> 期待: シート要素の材質名称（空文字可） / 実際: 作成するシード要素の材質名称(空文字可)
+- parameter_object:スイープパラメータオブジェクト params[MinimizeFace].description -> 期待: スイープ生成要素のフェイス数を最小化する場合 True / 実際: スイープされた要素を構成するフェイスの数を最小化させるときTrue
+- parameter_object:スイープパラメータオブジェクト params[ParallelSweep].description -> 期待: パスに対して平行になるようスイープする場合 True / 実際: プロファイルをパスにたいして平行になるようにスイープさせるときTrue
+- parameter_object:スイープパラメータオブジェクト params[ProfileNormal].description -> 期待: プロファイルの平面法線方向（3D直線プロファイルのときに指定） / 実際: プロファイルの平面法線方向.(プロファイルが３Dの直線の場合にその平面法線として指定.)
+- parameter_object:スイープパラメータオブジェクト params[Thickeness2].description -> 期待: 板厚２（厚み付けタイプが２方向のとき） / 実際: 板厚２(厚み付けタイプが２方向のときに使用)
+- parameter_object:スイープパラメータオブジェクト params[TwistAngle].description -> 期待: ねじれ定義点でのねじれ角度 / 実際: ねじれの定義点でのねじれ角度
+- parameter_object:スイープパラメータオブジェクト params[bRefByGeometricMethod].description -> 期待: Trueで幾何位置にもとづいて関連を設定 / 実際: Trueの時は幾何位置にもとづいて関連を設定する
+- type_definition:スイープ方向 category -> 期待: 型定義 / 実際: (空)
+- type_definition:スイープ方向 description -> 期待: "N" 順方向、"R" 反対方向、"B" 両方向、"2" ２方向、"T" 貫通 / 実際: "N" 順方向 "R" 反対方向 "B" 両方向 "2" ２方向 "T" 貫通
+- parameter_object:スロットパラメータオブジェクト params[AttachFace].description -> 期待: スロットを開けるフェイス要素 / 実際: スロットをあけるフェイス要素
+- parameter_object:スロットパラメータオブジェクト params[Collar2ElementGroup].description -> 期待: 2つ目のカラープレート要素のグループ（空文字可） / 実際: 作成する２つ目のカラープレート要素を要素グループに入れる場合は要素グループを指定(空文字可)
+- parameter_object:スロットパラメータオブジェクト params[Collar2Material].description -> 期待: 2つ目のカラープレート材質名称（空文字可） / 実際: 作成する２つ目のカラープレートの材質名称(空文字可)
+- parameter_object:スロットパラメータオブジェクト params[Collar2Name].description -> 期待: 2つ目のカラープレート要素名称（空文字可） / 実際: 作成する２つ目のカラープレート要素名称(空文字可)
+- parameter_object:スロットパラメータオブジェクト params[CollarElementGroup].description -> 期待: カラープレート要素を配置するグループ（空文字可） / 実際: 作成するカラープレート要素を要素グループに入れる場合は要素グループを指定(空文字可)
+- parameter_object:スロットパラメータオブジェクト params[CollarMaterial].description -> 期待: カラープレートの材質名称（空文字可） / 実際: 作成するカラープレートの材質名称(空文字可)
+- parameter_object:スロットパラメータオブジェクト params[ExtendToBoundary].description -> 期待: スロットを境界まで延長する場合 True / 実際: スロットを境界まで延長するときはTrue
+- parameter_object:スロットパラメータオブジェクト params[MakeVevel].description -> 期待: スロットに開先形状を作成する場合 True / 実際: スロットに開先形状を作成するときはTrue
+- parameter_object:スロットパラメータオブジェクト params[ProfileFlangeSolid].description -> 期待: スロットを通すフランジソリッド要素 / 実際: スロットをとおすプロファイルのフランジソリッド要素
+- parameter_object:スロットパラメータオブジェクト params[ProfileSolid].description -> 期待: スロットを通すプロファイルソリッド要素 / 実際: スロットをとおすプロファイルソリッド要素
+- parameter_object:スロットパラメータオブジェクト params[ProfileType].description -> 期待: スロットの形状タイプ / 実際: スロットの形状タイプを指定
+- parameter_object:スロットパラメータオブジェクト params[ReverseDir].description -> 期待: スロットの向きを反転する場合 True / 実際: スロットの向きを反転するときはTrue
+- parameter_object:フェイスプレートパラメータオブジェクト params[OriginalFacePlate] -> 期待: {'type': '要素', 'description': '元要素指定で使用する既存フェイスプレート'} / 実際: (JSONに無し)
+- parameter_object:フェイスプレートパラメータオブジェクト params[OrignalFacePlate] -> 期待: (XMLに無し) / 実際: {'type': '要素', 'description': '元要素指定で作成する場合の元となるフェイスプレート要素'}
+- parameter_object:フェイスプレートパラメータオブジェクト params[AttachFaces].description -> 期待: 面指定／取付線指定での取付面（フェイス） / 実際: 面指定,取付線指定で作成する場合の取付面(フェイス)
+- parameter_object:フェイスプレートパラメータオブジェクト params[BaseCurves].description -> 期待: 取付線指定で使用する取付線（カーブ・エッジ） / 実際: 取付線指定で作成する場合の取付線(カーブ,エッジ)
+- parameter_object:フェイスプレートパラメータオブジェクト params[BaseFaces].description -> 期待: 面指定での基準面（フェイス） / 実際: 面指定で作成する場合の基準面(フェイス)
+- parameter_object:フェイスプレートパラメータオブジェクト params[BaseOwner].description -> 期待: 面指定で作成する際の面の属するソリッド / 実際: 面指定で作成する場合の面の属するソリッド要素
+- parameter_object:フェイスプレートパラメータオブジェクト params[Bracket].description -> 期待: ブラケット指定で使用するブラケット要素 / 実際: ブラケット指定で作成する場合のブラケット要素
+- parameter_object:フェイスプレートパラメータオブジェクト params[DefinitionType].description -> 期待: 定義方法（0:面指定, 1:元要素指定, 2:ブラケット要素指定, 3:取付線指定） / 実際: フェイスプレートの定義方法(0:面指定 , 1:元要素指定 , 2:ブラケット要素指定 , 3:取付線指定 )
+- parameter_object:フェイスプレートパラメータオブジェクト params[ElementGroup].description -> 期待: ソリッド要素を配置する場合は指定（空文字可） / 実際: 作成するソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)
+- parameter_object:フェイスプレートパラメータオブジェクト params[End1Elements].description -> 期待: 端部１の要素 / 実際: 端部１,端部となる要素を指定する
+- parameter_object:フェイスプレートパラメータオブジェクト params[End1Type].description -> 期待: 端部１の端部タイプ / 実際: 端部１,フェイスプレートの端部タイプを指定
+- parameter_object:フェイスプレートパラメータオブジェクト params[End1TypeParams].description -> 期待: 端部１端部タイプのパラメータ / 実際: 端部１ フェイスプレートの端部タイプのパラメータ
+- parameter_object:フェイスプレートパラメータオブジェクト params[End2Elements].description -> 期待: 端部２の要素 / 実際: 端部２,端部となる要素を指定する
+- parameter_object:フェイスプレートパラメータオブジェクト params[End2Type].description -> 期待: 端部２の端部タイプ / 実際: 端部２,フェイスプレートの端部タイプを指定
+- parameter_object:フェイスプレートパラメータオブジェクト params[End2TypeParams].description -> 期待: 端部２端部タイプのパラメータ / 実際: 端部２,フェイスプレートの端部タイプのパラメータ
+- parameter_object:フェイスプレートパラメータオブジェクト params[FaceAngle].description -> 期待: 幅方向の角度指定（0°が直角で±指定） / 実際: 角度指定 ０°は直角を意味し,そこからの増分を＋－で指定
+- parameter_object:フェイスプレートパラメータオブジェクト params[MaterialName].description -> 期待: ソリッド要素の材質名称（空文字可） / 実際: 作成するソリッド要素の材質名称(空文字可)
+- parameter_object:フェイスプレートパラメータオブジェクト params[NotProjectAttachLines].description -> 期待: 取付線を面に投影しない場合 True / 実際: 取付線指定で作成する場合に取付線を面に投影しない場合はTrue
+- parameter_object:フェイスプレートパラメータオブジェクト params[ProfileParam].description -> 期待: フェイスプレート形状のパラメータ / 実際: フェイスプレートの形状タイプのパラメータ
+- parameter_object:フェイスプレートパラメータオブジェクト params[ProfileType].description -> 期待: フェイスプレートの形状タイプ / 実際: フェイスプレートの形状タイプを指定
+- parameter_object:フェイスプレートパラメータオブジェクト params[ProjectionDir].description -> 期待: 取付線指定での投影方向 / 実際: 取付線指定で作成する場合の取付線の投影方向
+- parameter_object:フェイスプレートパラメータオブジェクト params[ReverseAttachDirection].description -> 期待: 取付方向を反転する場合 True / 実際: 取付線指定で作成する場合に取付方向を反転する場合はTrue
+- parameter_object:フェイスプレートパラメータオブジェクト params[ReverseDirection].description -> 期待: 幅方向を反転する場合 True / 実際: フェイスプレートの幅方向の向きを反転するときはTrue
+- parameter_object:ブラケット要素のパラメータオブジェクト params[BaseElement].type -> 期待: 要素 / 実際: 基準要素指定の場合の基準要素
+- parameter_object:ブラケット要素のパラメータオブジェクト params[BaseElement].description -> 期待: 基準要素指定の場合の基準要素 / 実際: (空)
+- parameter_object:ブラケット要素のパラメータオブジェクト params[BasePlane].type -> 期待: 面 / 実際: 面指定の場合の基準平面
+- parameter_object:ブラケット要素のパラメータオブジェクト params[BasePlane].description -> 期待: 面指定の場合の基準平面 / 実際: (空)
+- parameter_object:ブラケット要素のパラメータオブジェクト params[BracketParams].description -> 期待: ブラケット形状タイプのパラメータ / 実際: ブラケットの形状タイプのパラメータ
+- parameter_object:ブラケット要素のパラメータオブジェクト params[DefinitionType].description -> 期待: ブラケットの作成方法指定 (0: 面指定, 1: 基準要素指定 など) / 実際: ブラケットの作成方法指定 0: 面指定 1:基準要素指定
+- parameter_object:ブラケット要素のパラメータオブジェクト params[ElementGroup].description -> 期待: 作成するソリッド要素を入れる場合に指定（空文字可） / 実際: 作成するソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)
+- parameter_object:ブラケット要素のパラメータオブジェクト params[FlangeAngle].description -> 期待: フランジ角度 (0° を直角とし、増減で指定) / 実際: フランジの角度指定 ０°は直角を意味し,そこからの増分を＋－で指定
+- parameter_object:ブラケット要素のパラメータオブジェクト params[FlangeParams].description -> 期待: フランジ形状タイプのパラメータ / 実際: ブラケットのフランジの形状タイプのパラメータ
+- parameter_object:ブラケット要素のパラメータオブジェクト params[FlangeType].description -> 期待: フランジ形状タイプ (0 でフランジなし) / 実際: ブラケットのフランジの形状タイプ (0の場合はフランジをつけない)
+- parameter_object:ブラケット要素のパラメータオブジェクト params[RevFlange].description -> 期待: フランジ向きを反転する場合 True / 実際: フランジの向きを反転する場合はTrue
+- parameter_object:ブラケット要素のパラメータオブジェクト params[RevSf1].description -> 期待: 面１の反対側に作成する場合 True / 実際: 面１の反対側にブラケットを作成する場合はTrue
+- parameter_object:ブラケット要素のパラメータオブジェクト params[RevSf2].description -> 期待: 面２の反対側に作成する場合 True / 実際: 面2の反対側にブラケットを作成する場合はTrue
+- parameter_object:ブラケット要素のパラメータオブジェクト params[RevSf3].description -> 期待: 面３の反対側に作成する場合 True / 実際: 面3の反対側にブラケットを作成する場合はTrue
+- parameter_object:ブラケット要素のパラメータオブジェクト params[Scallop1Params].description -> 期待: スカラップ１タイプのパラメータ / 実際: ブラケットのスカラップの形状タイプのパラメータ
+- parameter_object:ブラケット要素のパラメータオブジェクト params[Scallop1Type].description -> 期待: ブラケットのスカラップ１タイプ / 実際: ブラケットのスカラップの形状タイプ
+- parameter_object:ブラケット要素のパラメータオブジェクト params[Scallop2Params].description -> 期待: スカラップ２タイプのパラメータ / 実際: ブラケットのスカラップ２の形状タイプのパラメータ
+- parameter_object:ブラケット要素のパラメータオブジェクト params[ScallopEnd1LowerParams].description -> 期待: 面１下側端部スカラップ / 実際: 面１方向の下側端部のスカラップのタイプのパラメータ
+- parameter_object:ブラケット要素のパラメータオブジェクト params[ScallopEnd1LowerType].description -> 期待: 面１下側端部スカラップタイプ / 実際: 面１方向の下側端部のスカラップのタイプ
+- parameter_object:ブラケット要素のパラメータオブジェクト params[ScallopEnd1UpperParams].description -> 期待: 面１上側端部スカラップ / 実際: 面１方向の上側端部のスカラップのタイプのパラメータ
+- parameter_object:ブラケット要素のパラメータオブジェクト params[ScallopEnd1UpperType].description -> 期待: 面１上側端部スカラップタイプ / 実際: 面１方向の上側端部のスカラップのタイプ
+- parameter_object:ブラケット要素のパラメータオブジェクト params[ScallopEnd2LowerParams].description -> 期待: 面２下側端部スカラップ / 実際: 面２方向の下側端部のスカラップのタイプのパラメータ
+- parameter_object:ブラケット要素のパラメータオブジェクト params[ScallopEnd2LowerType].description -> 期待: 面２下側端部スカラップタイプ / 実際: 面２方向の下側端部のスカラップのタイプ
+- parameter_object:ブラケット要素のパラメータオブジェクト params[ScallopEnd2UpperParams].description -> 期待: 面２上側端部スカラップ / 実際: 面２方向の上側端部のスカラップのタイプのパラメータ
+- parameter_object:ブラケット要素のパラメータオブジェクト params[ScallopEnd2UpperType].description -> 期待: 面２上側端部スカラップタイプ / 実際: 面２方向の上側端部のスカラップのタイプ
+- parameter_object:ブラケット要素のパラメータオブジェクト params[Sf1BaseElements].description -> 期待: 面１方向の基準要素 / 実際: 面１方向の基準要素(必要な形状タイプの場合)
+- parameter_object:ブラケット要素のパラメータオブジェクト params[Sf1DimensonParams].description -> 期待: 面１方向寸法タイプのパラメータ / 実際: 面１方向の寸法タイプのパラメータ
+- parameter_object:ブラケット要素のパラメータオブジェクト params[Sf1EndElements].description -> 期待: 面１方向の端部要素 / 実際: 面１方向の端部要素(必要な形状タイプの場合)
+- parameter_object:ブラケット要素のパラメータオブジェクト params[Sf2BaseElements].description -> 期待: 面２方向基準要素 / 実際: 面２方向の基準要素(必要な形状タイプの場合)
+- parameter_object:ブラケット要素のパラメータオブジェクト params[Sf2DimensonParams].description -> 期待: 面２方向寸法タイプのパラメータ / 実際: 面２方向の寸法タイプのパラメータ
+- parameter_object:ブラケット要素のパラメータオブジェクト params[Sf2EndElements].description -> 期待: 面２方向端部要素 / 実際: 面２方向の端部要素(必要な形状タイプの場合)
+- parameter_object:ブラケット要素のパラメータオブジェクト params[Surfaces1].description -> 期待: ブラケット面１の要素群 / 実際: ブラケット作成する面１の要素(ソリッド,シート,フェイス)
+- parameter_object:ブラケット要素のパラメータオブジェクト params[Surfaces2].description -> 期待: 面２の要素群 / 実際: ブラケット作成する面2の要素(ソリッド,シート,フェイス)
+- parameter_object:ブラケット要素のパラメータオブジェクト params[Surfaces3].description -> 期待: 三面ブラケット時の面３要素群 / 実際: ３面ブラケット作成する場合の面３の要素(ソリッド,シート,フェイス)
+- parameter_object:ブラケット要素のパラメータオブジェクト params[UseSideSheetForPlane].description -> 期待: 三面指定の場合 True / 実際: 三面指定の場合はTrue
+- parameter_object:ブラケット要素のパラメータオブジェクト params[WCS].description -> 期待: ブラケットが使用する座標系（通常は指定しない） / 実際: ブラケットが使用する座標系を指定.通常は指定しない
+- parameter_object:ブラケット要素のパラメータオブジェクト params[nScallop2Type].description -> 期待: 三面ブラケット時のスカラップ２タイプ / 実際: ３面ブラケットの場合のスカラップ２の形状タイプ
+- type_definition:モールド位置 category -> 期待: 型定義 / 実際: (空)
+- type_definition:モールド位置 description -> 期待: "+" ＋側、"-" ー側、"" （空文字）センター / 実際: "+" ＋側 "-" ー側 "" (空文字)センター
+- parameter_object:ロフトパラメータオブジェクト params[Alignment].description -> 期待: プロファイルの整列要素（スケッチ、線） / 実際: ロフトのプロファイル要素の整列要素(スケッチ,線)
+- parameter_object:ロフトパラメータオブジェクト params[Close].description -> 期待: 閉じたロフト形状を作成するとき True / 実際: 閉じたロフト形状を作成するときはTrue
+- parameter_object:ロフトパラメータオブジェクト params[ElementGroup].description -> 期待: シート要素を配置する場合に指定（空文字可） / 実際: 作成するシート要素を要素グループに入れる場合は要素グループを指定(空文字可)
+- parameter_object:ロフトパラメータオブジェクト params[EndTangentType].description -> 期待: 終点側の接続要素指定（0:なし, 1:平面, 2:G1連続, 3:G2連続） / 実際: 終点側の接続要素指定(0:指定なし 1:平面に接続 2:面群にG1連続で接続 3:面群にG2連続で接続
+- parameter_object:ロフトパラメータオブジェクト params[MaterialName].description -> 期待: シート要素の材質名称（空文字可） / 実際: 作成するシード要素の材質名称(空文字可)
+- parameter_object:ロフトパラメータオブジェクト params[StartTangentType].description -> 期待: 始点側の接続要素指定（0:なし, 1:平面, 2:G1連続, 3:G2連続） / 実際: 始点側の接続要素指定(0:指定なし 1:平面に接続 2:面群にG1連続で接続 3:面群にG2連続で接続
+- parameter_object:ロフトパラメータオブジェクト params[UseGuidesInProfiles].description -> 期待: プロファイル範囲内でガイド線を利用する場合 True / 実際: プロファイル範囲内でガイドせんを利用する場合はTrue
+- type_definition:厚み付けタイプ category -> 期待: 型定義 / 実際: (空)
+- type_definition:厚み付けタイプ description -> 期待: "+" 内側、"-" 外側、"B" 両方向、"2" ２方向、"" （空文字）厚み付けしない / 実際: "+" 内側 "-" 外側 "B" 両方向 "2" ２方向 "" (空文字)厚み付けしない
+- parameter_object:回転パラメータオブジェクト params[Angle2].description -> 期待: ２方向スイープ時のもう一方の回転角度 / 実際: スイープ方向が２方向だった場合の２方向側の回転角度
+- parameter_object:回転パラメータオブジェクト params[Axis].description -> 期待: 回転軸要素（線） / 実際: 回転の回転軸要素(線)
+- parameter_object:回転パラメータオブジェクト params[ElementGroup].description -> 期待: シート要素を配置する場合に指定（空文字可） / 実際: 作成するシート要素を要素グループに入れる場合は要素グループを指定(空文字可)
+- parameter_object:回転パラメータオブジェクト params[MaterialName].description -> 期待: シート要素の材質名称（空文字可） / 実際: 作成するシード要素の材質名称(空文字可)
+- parameter_object:回転パラメータオブジェクト params[Thickeness2].description -> 期待: 板厚２（厚み付けタイプが２方向の場合） / 実際: 板厚２(厚み付けタイプが２方向のときに使用)
+- parameter_object:回転パラメータオブジェクト params[bRefByGeometricMethod].description -> 期待: Trueで幾何位置にもとづいて関連を設定 / 実際: Trueの時は幾何位置にもとづいて関連を設定する
+- type_definition:変数単位 category -> 期待: 型定義 / 実際: (空)
+- type_definition:変数単位 description -> 期待: 長さ "mm","cm","m","in","ft","pt"のいずれか、角度 "deg","rad"のいずれか、数値 ""(空白),"num"のいずれか / 実際: 長さ "mm", "cm", "m", "in", "ft", "pt"のいずれか 角度 "deg", "rad"のいずれか 数値 ""(空白), "num"のいずれか
+- type_definition:平面 category -> 期待: 型定義 / 実際: (空)
+- type_definition:平面 description -> 期待: "," コンマで区切られた文字列で指定。最初のカラムは必ず"PL"。例) "PL,Z" グローバルＸＹ平面、"PL,O,500.0,X" グローバルＹＺ平面をＸ方向に500移動させた平面 / 実際: "、 " コンマで区切られた文字列で指定. 最初のカラムは必ず"PL" 次のカラムが"O"の場合はその次のカラムにオフセット距離(長さ)を指定 以降は 〇 "X" グローバルＹＺ平面, "Y" グローバルＺＸ平面, "Z" グローバルＸＹ平面 〇 "F" の場合はボディのフェイスを指定 (要素の項参照) 例)"PL、 Z" グローバルＸＹ平面 "PL、 O、 500。 0、 X" グローバルＹＺ平面をＸ方向に500移動させた平面
+- type_definition:形状タイプ category -> 期待: 型定義 / 実際: (空)
+- type_definition:形状タイプ description -> 期待: EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号。例) "1007" 平鋼、"1003" 不等辺不等厚山形鋼、"1101" 条材端部Sタイプ、"1120" 条材端部スカラップA1タイプ、"1503" ブラケット2-Bタイプ / 実際: EVO. SHIPの部材既定寸法設定ファイルで用いる形状番号 (ヘルプのEVO. SHIPの基礎→船殻設計機能→部材既定寸法設定ファイルの項を 参照) 例)"1007" 平鋼, "1003" 不等辺不等厚山形鋼 "1101" 条材端部Sタイプ, "1120" 条材端部スカラップA1タイプ "1503" ブラケット2-Bタイプ
+- type_definition:形状パラメータ category -> 期待: 型定義 / 実際: (空)
+- type_definition:形状パラメータ description -> 期待: 各形状タイプの寸法値を文字列配列で設定。例) 不当辺山形鋼(1002)の形状タイプの場合 ["150.","90.","9.0000000000000018","12.","6."] / 実際: 各形状タイプの寸法値を文字列配列で設定 例) 不当辺山形鋼(1002)の形状タイプの場合 ["150。 ", "90。 ", "9。 0000000000000018", "12。 ", "6。 "]
+- parameter_object:押し出しパラメータオブジェクト params[DirectionParameter1].description -> 期待: スイープ距離1（SweepTarget1を指定している場合は使用しない） / 実際: スイープする距離１(SweepTarget1を指定している場合は使用しない)
+- parameter_object:押し出しパラメータオブジェクト params[DirectionParameter2].description -> 期待: スイープ距離2（2方向時／SweepTarget2指定なしの場合に使用） / 実際: スイープ方向が２方向の場合に使用.スイープする距離２(SweepTarget２を指定している場合は使用しない)
+- parameter_object:押し出しパラメータオブジェクト params[DraftAngle2].description -> 期待: ２方向目の勾配角度 / 実際: ２方向目の押し出し方向の勾配角度
+- parameter_object:押し出しパラメータオブジェクト params[DraftAngle2Type].description -> 期待: ２方向に押し出す際の勾配の取り方 / 実際: ２方向に押し出す際の勾配の取り方指定
+- parameter_object:押し出しパラメータオブジェクト params[MaterialName].description -> 期待: 作成するシート要素の材質名称（空文字可） / 実際: 作成するシード要素の材質名称(空文字可)
+- parameter_object:押し出しパラメータオブジェクト params[ProfileNormal].description -> 期待: プロファイルの平面法線方向。3D直線プロファイルの場合に指定 / 実際: プロファイルの平面法線方向.(プロファイルが３Dの直線の場合にその平面法線として指定.)
+- parameter_object:押し出しパラメータオブジェクト params[SweepDirection].description -> 期待: スイープ方向を明示指定する場合に使用（未指定時はプロファイル法線） / 実際: スイープする方向を設定する場合に使用.指定しない場合はプロファイルの法線方向
+- parameter_object:押し出しパラメータオブジェクト params[Thickeness2].description -> 期待: 板厚２（厚み付けタイプが２方向の場合） / 実際: 板厚２(厚み付けタイプが２方向のときに使用)
+- parameter_object:押し出しパラメータオブジェクト params[ThickenessOffset].description -> 期待: 厚み付けのオフセット距離 / 実際: 厚みづけのオフセット距離
+- parameter_object:押し出しパラメータオブジェクト params[bRefByGeometricMethod].description -> 期待: Trueで幾何位置にもとづいて関連を設定 / 実際: Trueの時は幾何位置にもとづいて関連を設定する
+- type_definition:数値 category -> 期待: 型定義 / 実際: (空)
+- type_definition:整数 category -> 期待: 型定義 / 実際: (空)
+- type_definition:文字列 category -> 期待: 型定義 / 実際: (空)
+- type_definition:方向 category -> 期待: 型定義 / 実際: (空)
+- type_definition:方向 description -> 期待: 各軸方向は"+X","-X","+Y","-X","+Z","-Z" で指定、または"," コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を数値（変数も可）で指定 / 実際: 〇 各軸方向は"+X", "-X", "+Y", "-X", "+Z", "-Z" で指定 〇 "、 " コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ(３Ｄの場合)を数値(変数も可)で指定
+- type_definition:材料 category -> 期待: 型定義 / 実際: (空)
+- parameter_object:条材要素のパラメータオブジェクト params[AttachAngle] -> 期待: {'type': '角度', 'description': '取付角度指定'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[AttachDirMethod] -> 期待: {'type': '整数', 'description': '取付方向設定（0: デフォルト, 1:基準平面内, 2:取付角度指定）'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[AttachDirection] -> 期待: {'type': '方向', 'description': '条材取付方向を明示指定する場合'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[AttachLines] -> 期待: {'type': '要素(配列)', 'description': '条材の取付線'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[AttachSurface] -> 期待: {'type': '要素(配列)', 'description': '条材を取り付ける面（フェイス/シート）'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[BaseDirection1] -> 期待: {'type': '方向', 'description': '基準点と方向設定時の基準方向1'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[BaseDirection2] -> 期待: {'type': '方向', 'description': '取付方向指定時の方向'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[BaseLocation] -> 期待: {'type': '整数', 'description': '基準位置 (0:左下〜8:右上)'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[BaseOnAttachLines] -> 期待: {'type': 'bool', 'description': '取付線境界を基準にする場合 True'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[BasePlane] -> 期待: {'type': '要素', 'description': '基準面要素（平面、シート、フェイス）'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[BasePlaneOffset] -> 期待: {'type': '長さ', 'description': '基準面のオフセット距離'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[BasePoint1] -> 期待: {'type': '点', 'description': '基準点1（２点/基準点と方向で使用）'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[BasePoint2] -> 期待: {'type': '点', 'description': '基準点2（２点で使用）'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[BaseProfile1] -> 期待: {'type': '要素', 'description': 'ロンジ１（ロンジ間で使用）'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[BaseProfile2] -> 期待: {'type': '要素', 'description': 'ロンジ２（ロンジ間で使用）'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[BaseSolid] -> 期待: {'type': '要素', 'description': '基準ソリッド'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[CCWDefAngle] -> 期待: {'type': 'bool', 'description': 'ねじれ角度を反時計回りに指定する場合 True'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[CalcSnipOnlyAttachLines] -> 期待: {'type': 'bool', 'description': '端部スニップ量を取付線のみで計算する場合 True'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[ConnectionTol] -> 期待: {'type': '長さ', 'description': '取付線の連続性判定トレランス（通常は空）'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[DefAngleBaseDir] -> 期待: {'type': '方向', 'description': 'ねじれ角度の基準軸方向'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[DefAnglePositionAxisDir] -> 期待: {'type': '方向', 'description': 'ねじれ角度の定義軸方向'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[DefPositionNormalAngles] -> 期待: {'type': '位置と角度配列', 'description': '取付面法線との差分でねじれ角度を指定'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[DefPossitionAngles] -> 期待: {'type': '位置と角度配列', 'description': 'ねじれ角度を位置と角度で指定'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[DirLines] -> 期待: {'type': '要素(配列)', 'description': '基準直線（取付線＋指定方向線作成時）'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[ElementGroup] -> 期待: {'type': '要素グループ', 'description': '条材ソリッドを配置するグループ（空文字可）'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[End1Elements] -> 期待: {'type': '要素(配列)', 'description': '端部１の要素'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[End1ScallopType] -> 期待: {'type': '形状タイプ', 'description': '端部１スカラップタイプ'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[End1ScallopTypeParams] -> 期待: {'type': '形状パラメータ', 'description': '端部１スカラップパラメータ'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[End1Type] -> 期待: {'type': '形状タイプ', 'description': '端部１の端部タイプ'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[End1TypeParams] -> 期待: {'type': '形状パラメータ', 'description': '端部１端部タイプのパラメータ'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[End2Elements] -> 期待: {'type': '要素(配列)', 'description': '端部２の要素'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[End2ScallopType] -> 期待: {'type': '形状タイプ', 'description': '端部２スカラップタイプ'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[End2ScallopTypeParams] -> 期待: {'type': '形状パラメータ', 'description': '端部２スカラップパラメータ'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[End2Type] -> 期待: {'type': '形状タイプ', 'description': '端部２の端部タイプ'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[End2TypeParams] -> 期待: {'type': '形状パラメータ', 'description': '端部２端部タイプのパラメータ'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[FaceAngle] -> 期待: {'type': '角度', 'description': 'フランジ角度指定（0°が直角で±指定）'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[FlangeElementGroup] -> 期待: {'type': '要素グループ', 'description': 'フランジソリッドを入れるグループ（空文字可）'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[FlangeMaterialName] -> 期待: {'type': '材料', 'description': 'フランジソリッドの材質名称（空文字可）'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[FlangeName] -> 期待: {'type': '文字列', 'description': 'ビルトアップ用フランジソリッド名称（空文字可）'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[HoleFeature] -> 期待: {'type': '要素', 'description': 'ホールフィーチャー（ホール指定で使用）'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[LocationAtHole] -> 期待: {'type': '整数', 'description': 'ホール位置 (0:上, 1:下, 2:左, 3:右)'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[MaterialName] -> 期待: {'type': '材料', 'description': '条材ソリッドの材質名称（空文字可）'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[Mold] -> 期待: {'type': 'モールド位置', 'description': ''} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[MoldOffset] -> 期待: {'type': '長さ', 'description': 'モールド位置のオフセット距離'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[NotProjectAttachLines] -> 期待: {'type': 'bool', 'description': '取付線を取付面に投影しない場合 True'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[OriginalProfile] -> 期待: {'type': '要素', 'description': '元の条材（元要素指定で使用）'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[PathCurves] -> 期待: {'type': '要素(配列)', 'description': '取付線（取付線＋指定方向線作成時）'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[ProfileName] -> 期待: {'type': '文字列', 'description': '作成する条材ソリッド要素名称（空文字可）'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[ProfileParam] -> 期待: {'type': '形状パラメータ', 'description': '条材形状タイプのパラメータ'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[ProfileType] -> 期待: {'type': '形状タイプ', 'description': '条材の形状タイプ'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[ProjectionDir] -> 期待: {'type': '方向', 'description': '取付線投影方向（通常は空）'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[ReferMethod] -> 期待: {'type': '関連設定', 'description': '要素の関連づけ方法の指定'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[ReverseAngle] -> 期待: {'type': 'bool', 'description': 'アングル方向を反転する場合 True'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[ReverseDir] -> 期待: {'type': 'bool', 'description': '取付方向を反転する場合 True'} / 実際: (JSONに無し)
+- parameter_object:条材要素のパラメータオブジェクト params[DefinitionType].description -> 期待: 作成方法指定（0:取付線指定, 1:基準面, 2:取付線＋指定方向線, 3:元要素指定, 4:ホール指定, 5:２点, 6:ロンジ間, 7:基準線, 8:基準点と方向, 9:基準要素） / 実際: の作成方法指定 0:取付線指定 1:基準面指定 2:取付線＋指定方向線 3: 元要素指定
+- type_definition:注記スタイル category -> 期待: 型定義 / 実際: (空)
+- type_definition:浮動小数点 category -> 期待: 型定義 / 実際: (空)
+- type_definition:点 category -> 期待: 型定義 / 実際: (空)
+- type_definition:点 description -> 期待: "," コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定。例) "100.0,50,0,0.0" , "FRM1,0.0,1000.0" / 実際: モデル座標系の点を表す値を指定します。数値リテラルのほか、変数参照や式を利用できます。
+- type_definition:範囲 category -> 期待: 型定義 / 実際: (空)
+- type_definition:範囲 description -> 期待: 上限、下限の数値をコンマで区切って指定。例) "0.0,1.0" , "L1,L2", "-1.0,1.0" / 実際: 上限, 下限の数値をコンマで区切って指定 例) "0。 0、 1。 0", "L1、 L2", "-1。 0、 1。 0"
+- type_definition:要素 category -> 期待: 型定義 / 実際: (空)
+- type_definition:要素 description -> 期待: EVO.SHIPの各要素を指定する。複数要素の場合は文字列の配列とする。IDで指定する場合は"ID@"をプレフィックスとして指定。要素名で指定する場合は要素グループを"/"で区切って指定。板ソリッド要素の板厚面を指定する場合は配列で指定。ソリッドやシート要素のフェイスを指定する場合は"," コンマで区切られた文字列で指定 / 実際: モデル内の要素を参照する識別子を受け取ります。 - element_id: 既存要素を一意に識別する ID（例: ID@...）。 - element_group: 要素グループ名。複数要素をまとめて参照します。 - element_reference: 操作対象の単一要素を指すラベルや名称。 - element_array: 面リストや辺リストなど、複数要素を配列で指定するケース。
+- type_definition:要素グループ category -> 期待: 型定義 / 実際: (空)
+- type_definition:要素グループ description -> 期待: EVO.SHIPの要素グループ名。要素グループの階層は"/"で区切る / 実際: EVO. SHIPの要素グループ名 要素グループの階層は"/"で区切る
+- type_definition:角度 category -> 期待: 型定義 / 実際: (空)
+- type_definition:長さ category -> 期待: 型定義 / 実際: (空)
+- type_definition:関連設定 category -> 期待: 型定義 / 実際: (空)
+- type_definition:関連設定 description -> 期待: ボディ関連とする場合は"B"、それ以外（空白含む）はフィーチャー関連 / 実際: ボディ関連とする場合は"B" それ以外(空白含む)はフィーチャー関連
+```

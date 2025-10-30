@@ -45,11 +45,11 @@ def parse_methods_from_doc(path: Path) -> List[TemplateMethod]:
             i += 1
             continue
         if normalized.startswith(HEADER_MARK):
-            section = normalized[len(HEADER_MARK) :].strip() or None
+            section = normalized[len(HEADER_MARK):].strip() or None
             i += 1
             continue
         if normalized.startswith(TITLE_MARK):
-            title = normalized[len(TITLE_MARK) :].strip()
+            title = normalized[len(TITLE_MARK):].strip()
             j = i + 1
             return_text = ""
             while j < len(lines) and not _normalize_line(lines[j]):
@@ -76,7 +76,9 @@ def parse_methods_from_doc(path: Path) -> List[TemplateMethod]:
                 candidate_norm = _normalize_line(candidate)
                 if not candidate_norm:
                     break
-                if candidate_norm.startswith(TITLE_MARK) or candidate_norm.startswith(HEADER_MARK):
+                if candidate_norm.startswith(TITLE_MARK) or candidate_norm.startswith(
+                    HEADER_MARK
+                ):
                     break
                 if _looks_like_param(candidate):
                     parameters.append(candidate)
@@ -133,8 +135,15 @@ def generate_template(doc_path: Path, output_path: Path) -> None:
 def run_cli(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser(description="APIテンプレートXML生成")
     config = PipelineConfig()
-    parser.add_argument("--api-doc", type=Path, default=config.api_doc_path, help="api.txt のパス")
-    parser.add_argument("--output", type=Path, default=Path("doc_preprocessor_hybrid/out/api_template.xml"), help="生成するテンプレートXMLのパス")
+    parser.add_argument(
+        "--api-doc", type=Path, default=config.api_doc_path, help="api.txt のパス"
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=Path("doc_preprocessor_hybrid/out/api_template.xml"),
+        help="生成するテンプレートXMLのパス",
+    )
     args = parser.parse_args(argv)
     generate_template(args.api_doc, args.output)
     return 0
@@ -142,4 +151,3 @@ def run_cli(argv: Optional[Sequence[str]] = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(run_cli())
-

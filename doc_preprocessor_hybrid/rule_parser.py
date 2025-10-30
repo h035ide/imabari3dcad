@@ -2,12 +2,19 @@ from __future__ import annotations
 
 import json
 import re
-import hashlib
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Tuple
 
 from .config import PipelineConfig
-from .schemas import ApiBundle, ApiEntry, Parameter, ReturnSpec, TypeDefinition, SourceFragment
+from .logging_config import get_logger
+from .schemas import (
+    ApiBundle,
+    ApiEntry,
+    Parameter,
+    ReturnSpec,
+    TypeDefinition,
+    SourceFragment,
+)
 
 
 HEADER_RE = re.compile(r"^■(.+?)(?:のメソッド)?$")
@@ -17,10 +24,15 @@ RETURN_RE = re.compile(r"^\s*返り値[:：]\s*(.+)$")
 METHOD_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*\($")
 # パラメータ無しの同一行型: 例) Quit() / Create3DDocument()
 ZERO_PARAM_METHOD_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*\(\)\s*;?$")
-PARAM_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*,?\s*//\s*([^:：]+)[:：]\s*(.+)$")
+PARAM_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*[),]?\s*//\s*([^:：]+)[:：]\s*(.+)$")
 # コロンなしコメント形式にも対応する緩和版（例: pOpt) // STLパラメータオブジェクト）
 PARAM_RE_LOOSE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*,?\s*//\s*(.+)$")
 ARRAY_MARKERS = ("(配列)", "[]", "(array)")
+
+# 閉じ括弧直前のパラメータ + コメント形式（例: bShow ) // bool: 表示する時はTrue）
+FLEXIBLE_PARAM_RE = re.compile(
+    r"^(\s*)([A-Za-z_][A-Za-z0-9_]*)\s*\)\s*;?\s*//\s*([^:：]+)[:：]\s*(.+)$"
+)
 
 TYPE_CANONICAL_MAP: dict[str, tuple[str, str]] = {
     "文字列": ("string", "str"),
@@ -65,7 +77,28 @@ TYPE_ONE_OF_MAP: dict[str, List[str]] = {
 }
 
 
-def _build_source_fragment(lines: List[str], start_idx: int, end_idx: int, path: Path | None) -> SourceFragment | None:
+# ---- logging helpers -----------------------------------------------------
+LOG_SNIPPET_LENGTH = 200
+
+
+def _log_snippet(text: str) -> str:
+    """Return a truncated single-line snippet for debug logs.
+
+    This avoids flooding logs with very long source lines.
+    """
+    if text is None:
+        return ""
+    one_line = text.replace("\n", " ")
+    return (
+        one_line
+        if len(one_line) <= LOG_SNIPPET_LENGTH
+        else one_line[:LOG_SNIPPET_LENGTH] + "…"
+    )
+
+
+def _build_source_fragment(
+    lines: List[str], start_idx: int, end_idx: int, path: Path | None
+) -> SourceFragment | None:
     if path is None:
         return None
     if not lines:
@@ -73,13 +106,13 @@ def _build_source_fragment(lines: List[str], start_idx: int, end_idx: int, path:
     start = max(0, min(start_idx, len(lines) - 1))
     end = max(start, min(end_idx, len(lines) - 1))
     snippet = "\n".join(lines[start:end + 1])
-    checksum = hashlib.sha1(snippet.encode("utf-8")).hexdigest() if snippet else ""
+    # 簡略化されたsource形式（textのみ）
     return SourceFragment(
-        path=str(path),
-        start_line=start + 1,
-        end_line=end + 1,
+        path="",
+        start_line=0,
+        end_line=0,
         text=snippet,
-        checksum=checksum,
+        checksum="",
     )
 
 
@@ -98,14 +131,30 @@ def _normalize_type_definition_description(name: str, description: str) -> str:
     lines = [line.strip() for line in description.split("\n") if line.strip()]
     if not lines:
         return ""
+
+    # 句読点の統一処理
+    normalized_lines = []
+    for line in lines:
+        # 全角句読点を半角に統一
+        line = line.replace("、", ",").replace("。", ".")
+        # 複数のスペースを単一スペースに統一
+        line = re.sub(r"\s+", " ", line)
+        # 句読点の前後のスペースを調整
+        line = re.sub(r"\s*,\s*", ", ", line)
+        line = re.sub(r"\s*\.\s*", ". ", line)
+        # 引用符内の句読点を統一
+        line = re.sub(r'"([^"]*)"', lambda m: f'"{m.group(1).replace(",", "、").replace(".", "。")}"', line)
+        normalized_lines.append(line)
+
     if name in ENUM_DESCRIPTION_SUFFIX_NAMES:
-        first = lines[0].rstrip("。")
+        first = normalized_lines[0].rstrip(".")
         if "のいずれか" not in first:
             first = f"{first}のいずれか"
-        if not first.endswith("。"):
-            first = f"{first}。"
-        lines[0] = first
-    return "\n".join(lines)
+        if not first.endswith("."):
+            first = f"{first}."
+        normalized_lines[0] = first
+
+    return "\n".join(normalized_lines)
 
 
 def _refine_element_definition(type_def: TypeDefinition) -> None:
@@ -122,9 +171,7 @@ DEFAULT_POINT_EXAMPLES: Tuple[Tuple[str, ...], ...] = (
     ("100.0", "50.0", "0.0"),
     ("FRM1", "0.0", "1000.0"),
 )
-POINT_COMPONENT_PATTERN = re.compile(
-    r"^-?\d+(?:\.\d+)?$|^[A-Za-z_][A-Za-z0-9_]*$"
-)
+POINT_COMPONENT_PATTERN = re.compile(r"^-?\d+(?:\.\d+)?$|^[A-Za-z_][A-Za-z0-9_]*$")
 
 
 def _unique_preserve_order(values: Iterable[str]) -> List[str]:
@@ -142,7 +189,11 @@ def _tokenize_point_example(example: str) -> List[str]:
     if not example:
         return []
     cleaned = example.strip()
-    if cleaned.startswith(("'", '"')) and cleaned.endswith(("'", '"')) and len(cleaned) >= 2:
+    if (
+        cleaned.startswith(("'", '"'))
+        and cleaned.endswith(("'", '"'))
+        and len(cleaned) >= 2
+    ):
         cleaned = cleaned[1:-1].strip()
     tokens = [token.strip() for token in cleaned.split(",")]
     normalized: List[str] = []
@@ -165,7 +216,9 @@ def _parse_point_examples(examples: List[str]) -> List[List[str]]:
     return parsed
 
 
-def _examples_to_strings(parsed_examples: List[List[str]], *, limit: int | None = None) -> List[str]:
+def _examples_to_strings(
+    parsed_examples: List[List[str]], *, limit: int | None = None
+) -> List[str]:
     formatted: List[str] = []
     for tokens in parsed_examples:
         if limit is not None and len(tokens) < limit:
@@ -176,7 +229,11 @@ def _examples_to_strings(parsed_examples: List[List[str]], *, limit: int | None 
 
 
 def _fallback_point_examples(components: int) -> List[str]:
-    values = [",".join(example[:components]) for example in DEFAULT_POINT_EXAMPLES if len(example) >= components]
+    values = [
+        ",".join(example[:components])
+        for example in DEFAULT_POINT_EXAMPLES
+        if len(example) >= components
+    ]
     if not values:
         head = DEFAULT_POINT_EXAMPLES[0]
         values = [",".join(head[:components])]
@@ -184,19 +241,34 @@ def _fallback_point_examples(components: int) -> List[str]:
 
 
 def _apply_type_metadata(type_def: TypeDefinition) -> None:
-    type_def.description = _normalize_type_definition_description(type_def.name, type_def.description)
+    type_def.description = _normalize_type_definition_description(
+        type_def.name, type_def.description
+    )
+    # categoryフィールドを追加
+    type_def.category = "型定義"
     meta = TYPE_CANONICAL_MAP.get(type_def.name)
     if meta:
         type_def.canonical_type, type_def.py_type = meta
     one_of = TYPE_ONE_OF_MAP.get(type_def.name)
     if one_of:
-        type_def.one_of = one_of
+        # one_ofをオブジェクト配列形式に変換（より具体的な説明）
+        one_of_descriptions = {
+            "millimeter_literal": "mm単位の数値リテラル",
+            "variable_reference": "変数要素名",
+            "expression": "四則演算などの式",
+            "integer_literal": "整数リテラル",
+            "float_literal": "浮動小数点リテラル",
+            "string_literal": "文字列リテラル",
+            "boolean_literal": "真偽値リテラル",
+        }
+        type_def.one_of = [
+            {"id": item, "description": one_of_descriptions.get(item, f"{item}の説明")}
+            for item in one_of
+        ]
     if type_def.name == "要素":
         _refine_element_definition(type_def)
     if type_def.name == "点":
-        type_def.description = (
-            "モデル座標系の点を表す値を指定します。数値リテラルのほか、変数参照や式を利用できます。"
-        )
+        type_def.description = "モデル座標系の点を表す値を指定します。数値リテラルのほか、変数参照や式を利用できます。"
         parsed_examples = _parse_point_examples(type_def.examples)
         if not parsed_examples:
             parsed_examples = [list(example) for example in DEFAULT_POINT_EXAMPLES]
@@ -223,16 +295,23 @@ def _build_point_variants(base: TypeDefinition) -> List[TypeDefinition]:
             name=f"{base.name}({dim})",
             description=f"{desc}。",
             examples=examples,
+            category="型定義",
             canonical_type="point",
             py_type="str",
-            one_of=[token, "variable_reference", "expression"],
+            one_of=[
+                {"id": token, "description": f"{token}の説明"},
+                {"id": "variable_reference", "description": "変数要素名"},
+                {"id": "expression", "description": "四則演算などの式"},
+            ],
             source=base.source,
         )
         variants.append(variant)
     return variants
 
 
-def _augment_type_definitions(definitions: List[TypeDefinition]) -> List[TypeDefinition]:
+def _augment_type_definitions(
+    definitions: List[TypeDefinition],
+) -> List[TypeDefinition]:
     augmented: List[TypeDefinition] = []
     for definition in definitions:
         augmented.append(definition)
@@ -250,6 +329,15 @@ def _normalize_text(text: str) -> str:
     text = text.replace("\r\n", "\n").replace("\r", "\n")
     # 全角スペースを半角へ
     text = text.replace("\u3000", " ")
+    # 句読点の正規化
+    text = text.replace("、", ",")
+    text = text.replace("。", ".")
+    text = text.replace("（", "(")
+    text = text.replace("）", ")")
+    text = text.replace("「", "\"")
+    text = text.replace("」", "\"")
+    text = text.replace("『", "\"")
+    text = text.replace("』", "\"")
     text = "\n".join(line.rstrip() for line in text.split("\n"))
     return text
 
@@ -262,7 +350,11 @@ def _clean_type_name(raw: str) -> Tuple[str, bool]:
     name = raw.strip()
     # COM/IDL 属性の除去と代表型の正規化
     name = re.sub(r"\[[^\]]*\]", "", name).strip()  # [in], [out] など
-    name = name.replace("BSTR", "string").replace("LPWSTR", "string").replace("LPSTR", "string")
+    name = (
+        name.replace("BSTR", "string")
+        .replace("LPWSTR", "string")
+        .replace("LPSTR", "string")
+    )
     # 2D/3D注記など括弧内は後で落とす（dimension抽出は別）
     is_array = any(marker in name for marker in ARRAY_MARKERS)
     if is_array:
@@ -299,7 +391,9 @@ def _is_required(desc: str) -> bool:
     return False
 
 
-def _build_parameter(name: str, raw_type: str, description: str, position: int) -> Parameter:
+def _build_parameter(
+    name: str, raw_type: str, description: str, position: int
+) -> Parameter:
     cleaned, is_array = _clean_type_name(raw_type)
     # 次元(2D/3D)抽出
     dim: str | None = None
@@ -319,7 +413,8 @@ def _build_parameter(name: str, raw_type: str, description: str, position: int) 
     if dim:
         param.type = f"{param.type}({dim})"
     if is_array:
-        param.type = f"{param.type}[]"
+        # 配列型の表記を統一: [] -> (配列)
+        param.type = f"{param.type}(配列)"
     return param
 
 
@@ -346,7 +441,7 @@ def _parse_bare_param(candidate: str) -> Tuple[str, str] | None:
     if not candidate:
         return None
     # 末尾のカンマを除去、全角スペース→半角
-    cand = candidate.strip().rstrip(',').replace("\u3000", " ")
+    cand = candidate.strip().rstrip(",").replace("\u3000", " ")
     # 括弧内属性はそのまま型側に残す
     tokens = re.split(r"\s+", cand)
     if not tokens:
@@ -355,13 +450,47 @@ def _parse_bare_param(candidate: str) -> Tuple[str, str] | None:
     if not re.match(r"^[A-Za-z_][A-Za-z0-9_]*$", pname):
         # 末尾が識別子でない場合は放棄
         return None
-    ptype = " ".join(tokens[:-1]).strip() or "不明"
+
+    # 型推論の改善
+    ptype = " ".join(tokens[:-1]).strip()
+    if not ptype:
+        # パラメータ名から型を推論
+        if pname.startswith("b") and pname[1:2].isupper():
+            # bUpdate, bShow など -> bool
+            ptype = "bool"
+        elif pname.startswith("n") and pname[1:2].isupper():
+            # nDegree, nCount など -> 整数
+            ptype = "整数"
+        elif pname.startswith("f") and pname[1:2].isupper():
+            # fValue, fLength など -> 浮動小数点
+            ptype = "浮動小数点"
+        elif pname.startswith("p") and pname[1:2].isupper():
+            # pElement, pParam など -> 要素
+            ptype = "要素"
+        elif pname.endswith("Name") or pname.endswith("Name"):
+            # Name, FileName など -> 文字列
+            ptype = "文字列"
+        elif pname.endswith("Group"):
+            # ElementGroup など -> 要素グループ
+            ptype = "要素グループ"
+        elif pname.endswith("Method"):
+            # ReferMethod など -> 関連設定
+            ptype = "関連設定"
+        else:
+            ptype = "不明"
+
     return pname, ptype
 
 
-def parse_type_definitions(text: str, *, path: Path | None = None) -> List[TypeDefinition]:
+def parse_type_definitions(
+    text: str, *, path: Path | None = None
+) -> List[TypeDefinition]:
+    logger = get_logger("rule_parser.parse_type_definitions")
+    logger.debug(f"Begin parse_type_definitions: source={path}")
     definitions: List[TypeDefinition] = []
-    lines = _normalize_text(text).split("\n")
+    normalized = _normalize_text(text)
+    lines = normalized.split("\n")
+    logger.debug(f"Total lines: {len(lines)}")
 
     current_name: str | None = None
     current_lines: List[str] = []
@@ -376,7 +505,11 @@ def parse_type_definitions(text: str, *, path: Path | None = None) -> List[TypeD
             current_start = None
             current_end = None
             return
-        type_def = TypeDefinition(name=current_name, description="\n".join(current_lines))
+        type_def = TypeDefinition(
+            name=current_name,
+            description="\n".join(current_lines),
+            category="型定義"
+        )
         fragment = None
         if current_start is not None:
             end_idx = current_end if current_end is not None else current_start
@@ -391,11 +524,15 @@ def parse_type_definitions(text: str, *, path: Path | None = None) -> List[TypeD
 
     for idx, raw_line in enumerate(lines):
         line = raw_line.strip()
+        if idx < 5 or idx % 50 == 0:
+            # 先頭数行と50行毎に軽量スニペットを出力（1始まり表記）
+            logger.debug(f"[type:{idx + 1}] {_log_snippet(raw_line)}")
         if not line:
             continue
         if line.startswith("■"):
             finalize()
             current_name = line.replace("■", "", 1).strip()
+            logger.info(f"[type] section start: name='{current_name}' at line={idx + 1}")
             current_lines = []
             current_start = idx
             current_end = idx
@@ -411,6 +548,9 @@ def parse_type_definitions(text: str, *, path: Path | None = None) -> List[TypeD
     refined: List[TypeDefinition] = []
     for type_def in definitions:
         _apply_type_metadata(type_def)
+        logger.debug(
+            f"[type] built: name='{type_def.name}', desc_snippet='{_log_snippet(type_def.description)}'"
+        )
         refined.append(type_def)
     return _augment_type_definitions(refined)
 
@@ -422,8 +562,12 @@ def _finalize_entry(entry: ApiEntry, entries: List[ApiEntry]) -> None:
 
 
 def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
+    logger = get_logger("rule_parser.parse_api_specs")
+    logger.debug(f"Begin parse_api_specs: source={path}")
     entries: List[ApiEntry] = []
-    lines = _normalize_text(text).split("\n")
+    normalized = _normalize_text(text)
+    lines = normalized.split("\n")
+    logger.debug(f"Total lines: {len(lines)}")
     current_object = ""
     current_title = ""
     current_return = ""
@@ -434,28 +578,188 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
     entry_start_idx: int | None = None
     entry_end_idx: int | None = None
 
-    def attach_source(entry: ApiEntry | None, start_idx: int | None, end_idx: int | None) -> None:
+    # パラメータオブジェクトの検出パターン（"…の作成" は除外）
+    PARAM_OBJECT_PATTERN = re.compile(r"^\s*〇(.+パラメータオブジェクト)\s*$")
+    PARAM_OBJECT_NAMES = [
+        "BracketParam", "FacePlateParam", "LinearSweepParam", "LoftParam",
+        "ProfileParam", "RotationalSweepParam", "STLParameter", "SlotParam", "SweepParam"
+    ]
+
+    # 以前は日本語→英語マッピングを用意していたが、評価照合の都合により未使用
+
+    def attach_source(
+        entry: ApiEntry | None, start_idx: int | None, end_idx: int | None
+    ) -> None:
         if not entry or start_idx is None or end_idx is None:
             return
         fragment = _build_source_fragment(lines, start_idx, end_idx, path)
         if fragment:
             entry.source = fragment
 
+    def _consume_param(pname: str, ptype: str, pdesc: str) -> None:
+        """現在のエントリにパラメータを追加し、必要なら即時クローズする。"""
+        nonlocal current_entry, collecting, param_index, entry_end_idx, entry_start_idx, i
+        if not current_entry:
+            return
+        parameter = _build_parameter(pname, ptype, pdesc, param_index)
+        current_entry.params.append(parameter)
+        param_index += 1
+        entry_end_idx = i
+        if _is_closing_line(raw_line):
+            logger.debug(f"[api] entry close detected at line={i + 1}")
+            attach_source(current_entry, entry_start_idx, entry_end_idx)
+            _finalize_entry(current_entry, entries)
+            current_entry = None
+            collecting = False
+            entry_start_idx = None
+            entry_end_idx = None
+        i += 1
+
     i = 0
     while i < len(lines):
         raw_line = lines[i]
         line = raw_line.strip()
+        if i < 5 or i % 50 == 0:
+            logger.debug(f"[api:{i + 1}] {_log_snippet(raw_line)}")
         if not line:
             i += 1
             continue
         header_match = HEADER_RE.match(line)
         if header_match:
+            logger.info(
+                f"[api] HEADER matched: object='{header_match.group(1).strip()}' at line={i + 1}"
+            )
             current_object = header_match.group(1).strip()
             block_start_idx = None
             i += 1
             continue
+
+        # パラメータオブジェクトの検出（タイトル検出より前に実行）
+        param_obj_match = PARAM_OBJECT_PATTERN.match(line)
+        if param_obj_match:
+            logger.info(
+                f"[api] PARAM_OBJECT matched: name='{param_obj_match.group(1).strip()}' "
+                f"at line={i + 1}"
+            )
+            param_obj_jp_name = param_obj_match.group(1).strip()
+            # 日本語名から英語名にマッピング（現在は未使用／将来の拡張用）
+            # param_obj_name = PARAM_OBJECT_MAPPING.get(param_obj_jp_name, param_obj_jp_name)
+
+            # パラメータオブジェクトを独立したエントリとして追加
+            param_entry = ApiEntry(
+                entry_type="object",
+                # 評価の照合に合わせて name は原文（日本語）を使用
+                name=param_obj_jp_name,
+                description=f"{param_obj_jp_name}のパラメータ定義",
+                category=current_object,
+                object_name=current_object,
+                title_jp=param_obj_jp_name,
+                raw_return="",
+                returns=ReturnSpec(
+                    type="void", description="", is_array=False
+                ),
+            )
+            start_idx = block_start_idx if block_start_idx is not None else i
+
+            # 直後の属性定義をpropertiesとして収集
+            j = i + 1
+            # 属性ラベル行をスキップ
+            if j < len(lines) and lines[j].strip().startswith("属性"):
+                j += 1
+
+            prop_index = 0
+            last_idx = i
+            while j < len(lines):
+                raw_prop_line = lines[j]
+                stripped_prop = raw_prop_line.strip()
+                if not stripped_prop:
+                    # 空行はスキップして継続
+                    j += 1
+                    continue
+                # セクション開始や次のブロック検出で打ち切り
+                if (
+                    HEADER_RE.match(stripped_prop)
+                    or TITLE_RE.match(stripped_prop)
+                    or METHOD_RE.match(stripped_prop)
+                    or ZERO_PARAM_METHOD_RE.match(stripped_prop)
+                ):
+                    break
+
+                # 型:説明 形式を優先
+                pm = PARAM_RE.match(stripped_prop)
+                if pm:
+                    pname, ptype, pdesc = pm.groups()
+                    parameter = _build_parameter(pname, ptype, pdesc, prop_index)
+                    param_entry.properties.append(parameter)
+                    prop_index += 1
+                    last_idx = j
+                    j += 1
+                    continue
+
+                # コロン無しコメント形式
+                pm_loose = PARAM_RE_LOOSE.match(stripped_prop)
+                if pm_loose:
+                    pname, comment = pm_loose.groups()
+                    if ":" in comment or "：" in comment:
+                        raw2 = re.split(r"[:：]", comment, maxsplit=1)
+                        ptype = raw2[0].strip()
+                        pdesc = raw2[1].strip() if len(raw2) > 1 else ""
+                    else:
+                        ptype = comment.strip()
+                        pdesc = ""
+                    parameter = _build_parameter(pname, ptype, pdesc, prop_index)
+                    param_entry.properties.append(parameter)
+                    prop_index += 1
+                    last_idx = j
+                    j += 1
+                    continue
+
+                # 属性解釈不可 -> ブロック終了
+                break
+
+            # ソース範囲（属性を含む）を付与
+            end_for_source = last_idx if prop_index > 0 else i
+            attach_source(param_entry, start_idx, end_for_source)
+            _finalize_entry(param_entry, entries)
+            block_start_idx = None
+            i = j
+            continue
+
+        # 既知のパラメータオブジェクト名の検出
+        for param_name in PARAM_OBJECT_NAMES:
+            if line.strip() == f"〇{param_name}":
+                logger.info(
+                    f"[api] KNOWN_PARAM_OBJECT matched: name='{param_name}' "
+                    f"at line={i + 1}"
+                )
+                param_entry = ApiEntry(
+                    entry_type="object",
+                    name=param_name,
+                    description=f"{param_name}のパラメータ定義",
+                    category=current_object,
+                    object_name=current_object,
+                    title_jp=param_name,
+                    raw_return="",
+                    returns=ReturnSpec(
+                        type="void", description="", is_array=False
+                    ),
+                )
+                start_idx = block_start_idx if block_start_idx is not None else i
+                attach_source(param_entry, start_idx, i)
+                _finalize_entry(param_entry, entries)
+                block_start_idx = None
+                i += 1
+                break
+        else:
+            # パラメータオブジェクトが見つからなかった場合、通常の処理を続行
+            pass
+
+        # タイトルの検出
         title_match = TITLE_RE.match(line)
         if title_match:
+            logger.info(
+                f"[api] TITLE matched: title='{title_match.group(1).strip()}' at line={i + 1}"
+            )
             current_title = title_match.group(1).strip()
             current_return = ""
             block_start_idx = i
@@ -464,11 +768,18 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
                 ret_line = lines[i].strip()
                 ret_match = RETURN_RE.match(ret_line)
                 if ret_match:
+                    logger.debug(
+                        f"[api] RETURN matched: '{_log_snippet(ret_line)}' at line={i + 1}"
+                    )
                     current_return = ret_match.group(1).strip()
                     i += 1
             continue
+
         zero_match = ZERO_PARAM_METHOD_RE.match(line)
         if zero_match:
+            logger.info(
+                f"[api] ZERO-PARAM METHOD matched: name='{zero_match.group(1)}' at line={i + 1}"
+            )
             method_name = zero_match.group(1)
             entry = ApiEntry(
                 entry_type="function",
@@ -493,6 +804,9 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
 
         method_match = METHOD_RE.match(line)
         if method_match:
+            logger.info(
+                f"[api] METHOD start matched: name='{method_match.group(1)}' at line={i + 1}"
+            )
             method_name = method_match.group(1)
             entry_start_idx = block_start_idx if block_start_idx is not None else i
             entry_end_idx = i
@@ -516,25 +830,36 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
             i += 1
             continue
         if collecting and current_entry:
-            processed_line = re.sub(r'\s*\)\s*(?=//)', '', line)
+            processed_line = re.sub(r"\s*\)\s*(?=//)", "", line)
             param_match = PARAM_RE.match(processed_line)
             if param_match:
+                logger.debug(
+                    f"[api] PARAM matched: name='{param_match.group(1)}', "
+                    f"raw='{_log_snippet(processed_line)}' at line={i + 1}"
+                )
                 pname, ptype, pdesc = param_match.groups()
-                parameter = _build_parameter(pname, ptype, pdesc, param_index)
-                current_entry.params.append(parameter)
-                param_index += 1
-                entry_end_idx = i
-                if _is_closing_line(raw_line):
-                    attach_source(current_entry, entry_start_idx, entry_end_idx)
-                    _finalize_entry(current_entry, entries)
-                    current_entry = None
-                    collecting = False
-                    entry_start_idx = None
-                    entry_end_idx = None
-                i += 1
+                _consume_param(pname, ptype, pdesc)
                 continue
+
+            # より柔軟なパラメータ解析を追加
+            # 例: "bShow ) // bool: 表示する時はTrue"
+            flexible_param_match = FLEXIBLE_PARAM_RE.match(line)
+            if flexible_param_match:
+                logger.debug(
+                    f"[api] FLEXIBLE_PARAM matched: name='{flexible_param_match.group(2)}', "
+                    f"raw='{_log_snippet(line)}' at line={i + 1}"
+                )
+                pname = flexible_param_match.group(2)
+                ptype = flexible_param_match.group(3).strip()
+                pdesc = flexible_param_match.group(4).strip()
+                _consume_param(pname, ptype, pdesc)
+                continue
+
             loose_match = PARAM_RE_LOOSE.match(line)
             if loose_match:
+                logger.debug(
+                    f"[api] PARAM_LOOSE matched: name='{loose_match.group(1)}', raw='{_log_snippet(line)}' at line={i + 1}"
+                )
                 pname, comment = loose_match.groups()
                 if ":" in comment or "：" in comment:
                     raw = re.split(r"[:：]", comment, maxsplit=1)
@@ -543,39 +868,35 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
                 else:
                     ptype = comment.strip()
                     pdesc = ""
-                parameter = _build_parameter(pname, ptype, pdesc, param_index)
-                current_entry.params.append(parameter)
-                param_index += 1
-                entry_end_idx = i
-                if _is_closing_line(raw_line):
-                    attach_source(current_entry, entry_start_idx, entry_end_idx)
-                    _finalize_entry(current_entry, entries)
-                    current_entry = None
-                    collecting = False
-                    entry_start_idx = None
-                    entry_end_idx = None
-                i += 1
+                _consume_param(pname, ptype, pdesc)
                 continue
             bare = raw_line
+            comment = ""
             if ")" in bare:
                 bare = bare.split(")", 1)[0]
-            if "//" in bare:
-                bare = bare.split("//", 1)[0]
+            # コメントは行末の '//' から取得（閉じ括弧以降にある場合も拾う）
+            if "//" in raw_line and not comment:
+                comment = raw_line.split("//", 1)[1].strip()
+            elif "//" in bare:
+                parts = bare.split("//", 1)
+                bare = parts[0]
+                comment = parts[1].strip()
             pname_ptype = _parse_bare_param(bare)
             if pname_ptype:
+                logger.debug(
+                    f"[api] BARE_PARAM matched: raw='{_log_snippet(bare)}' at line={i + 1}"
+                )
                 pname, ptype = pname_ptype
-                parameter = _build_parameter(pname, ptype, "", param_index)
-                current_entry.params.append(parameter)
-                param_index += 1
-                entry_end_idx = i
-                if _is_closing_line(raw_line):
-                    attach_source(current_entry, entry_start_idx, entry_end_idx)
-                    _finalize_entry(current_entry, entries)
-                    current_entry = None
-                    collecting = False
-                    entry_start_idx = None
-                    entry_end_idx = None
-                i += 1
+                # コメント内に『型:説明』形式があれば説明だけを抽出し、型が不明なら上書き
+                if comment:
+                    if ":" in comment or "：" in comment:
+                        raw2 = re.split(r"[:：]", comment, maxsplit=1)
+                        c_type = raw2[0].strip()
+                        c_desc = raw2[1].strip() if len(raw2) > 1 else ""
+                        if ptype == "不明" and c_type:
+                            ptype = c_type
+                        comment = c_desc
+                _consume_param(pname, ptype, comment)
                 continue
             if _is_closing_line(raw_line):
                 idx_close = raw_line.rfind(")")
@@ -591,14 +912,24 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
                 synthetic = candidate
                 if comment:
                     synthetic = f"{candidate} // {comment}"
+                matched = False
                 pm2 = PARAM_RE.match(synthetic)
                 if pm2:
+                    logger.debug(
+                        f"[api] SYNTHETIC PARAM matched: name='{pm2.group(1)}', "
+                        f"raw='{_log_snippet(synthetic)}' at line={i + 1}"
+                    )
                     pname, ptype, pdesc = pm2.groups()
-                    parameter = _build_parameter(pname, ptype, pdesc, param_index)
-                    current_entry.params.append(parameter)
+                    _consume_param(pname, ptype, pdesc)
+                    matched = True
                 else:
                     pm2_loose = PARAM_RE_LOOSE.match(synthetic)
                     if pm2_loose:
+                        logger.debug(
+                            f"[api] SYNTHETIC PARAM_LOOSE matched: "
+                            f"name='{pm2_loose.group(1)}', "
+                            f"raw='{_log_snippet(synthetic)}' at line={i + 1}"
+                        )
                         pname, comment2 = pm2_loose.groups()
                         if ":" in comment2 or "：" in comment2:
                             raw2 = re.split(r"[:：]", comment2, maxsplit=1)
@@ -607,22 +938,26 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
                         else:
                             ptype = comment2.strip()
                             pdesc = ""
-                        parameter = _build_parameter(pname, ptype, pdesc, param_index)
-                        current_entry.params.append(parameter)
+                        _consume_param(pname, ptype, pdesc)
+                        matched = True
                     else:
+                        logger.debug(
+                            f"[api] TRY BARE after close: raw='{_log_snippet(candidate)}' at line={i + 1}"
+                        )
                         bare_parsed = _parse_bare_param(candidate)
                         if bare_parsed:
                             pname, ptype = bare_parsed
-                            parameter = _build_parameter(pname, ptype, "", param_index)
-                            current_entry.params.append(parameter)
-                entry_end_idx = i
-                attach_source(current_entry, entry_start_idx, entry_end_idx)
-                _finalize_entry(current_entry, entries)
-                current_entry = None
-                collecting = False
-                entry_start_idx = None
-                entry_end_idx = None
-                i += 1
+                            _consume_param(pname, ptype, "")
+                            matched = True
+                if not matched and current_entry:
+                    entry_end_idx = i
+                    attach_source(current_entry, entry_start_idx, entry_end_idx)
+                    _finalize_entry(current_entry, entries)
+                    current_entry = None
+                    collecting = False
+                    entry_start_idx = None
+                    entry_end_idx = None
+                    i += 1
                 continue
         i += 1
 
@@ -633,25 +968,206 @@ def parse_api_specs(text: str, *, path: Path | None = None) -> List[ApiEntry]:
     return entries
 
 
-def parse_api_documents(api_doc_path: Path | None = None, api_arg_path: Path | None = None) -> ApiBundle:
+def parse_api_documents(
+    api_doc_path: Path | None = None, api_arg_path: Path | None = None
+) -> ApiBundle:
+    logger = get_logger("rule_parser.parse_api_documents")
+    logger.info("Starting API document parsing...")
+
     config = PipelineConfig()
     doc_path = Path(api_doc_path) if api_doc_path else config.api_doc_path
     arg_path = Path(api_arg_path) if api_arg_path else config.api_arg_path
 
+    logger.info(f"API doc path: {doc_path}")
+    logger.info(f"API arg path: {arg_path}")
+
+    logger.info("Reading API document files...")
     api_text = _read_text_file(doc_path)
     arg_text = _read_text_file(arg_path)
 
+    logger.info(f"API doc text length: {len(api_text)} characters")
+    logger.info(f"API arg text length: {len(arg_text)} characters")
+
+    logger.info("Parsing type definitions...")
     types = parse_type_definitions(arg_text, path=arg_path)
+    logger.info(f"Parsed {len(types)} type definitions")
+
+    logger.info("Parsing API specifications...")
     entries = parse_api_specs(api_text, path=doc_path)
+    logger.info(f"Parsed {len(entries)} API entries")
 
     checklist = ["parsed_api_doc", "parsed_api_arg"]
+    logger.info("API document parsing completed successfully")
 
     return ApiBundle(type_definitions=types, api_entries=entries, checklist=checklist)
 
 
+def _should_include_field(value, field_name):
+    """空でない値のみフィールドを含める"""
+    if field_name in ["examples", "one_of"]:
+        return value and len(value) > 0
+    if field_name == "source_text":
+        return value and value.strip()
+    return value is not None and value != ""
+
+
 def dump_bundle(bundle: ApiBundle, path: Path) -> None:
+    logger = get_logger("rule_parser.dump_bundle")
+    logger.debug(f"Dumping bundle to {path}")
+    logger.info(
+        f"Bundle contains {len(bundle.api_entries)} API entries "
+        f"and {len(bundle.type_definitions)} type definitions"
+    )
+
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(bundle.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
+
+    # 空配列を生成しない形式で出力
+    output_data = {
+        "type_definitions": [
+            {
+                "name": td.name,
+                "canonical_type": td.canonical_type,
+                "description": td.description,
+                **(
+                    {
+                        k: v
+                        for k, v in {
+                            "examples": td.examples,
+                            "one_of": td.one_of,
+                        }.items()
+                        if _should_include_field(v, k)
+                    }
+                ),
+                **(
+                    {"source": {"text": td.source.text}}
+                    if td.source
+                    and _should_include_field(td.source.text, "source_text")
+                    else {}
+                ),
+            }
+            for td in bundle.type_definitions
+        ],
+        "api_entries": [
+            {
+                "name": entry.name,
+                "description": entry.description,
+                "category": entry.category,
+                "entry_type": entry.entry_type,
+                **(
+                    {
+                        "params": [
+                            {
+                                "name": param.name,
+                                "type": param.type,
+                                "description": param.description,
+                                **(
+                                    {"is_required": param.is_required}
+                                    if param.is_required
+                                    else {}
+                                ),
+                                **(
+                                    {"position": param.position}
+                                    if param.position is not None
+                                    else {}
+                                ),
+                                **(
+                                    {"raw_type": param.raw_type}
+                                    if param.raw_type
+                                    else {}
+                                ),
+                                **(
+                                    {"dimension": param.dimension}
+                                    if param.dimension
+                                    else {}
+                                ),
+                            }
+                            for param in entry.params
+                        ]
+                    }
+                    if entry.params
+                    else {}
+                ),
+                **(
+                    {
+                        "properties": [
+                            {
+                                "name": prop.name,
+                                "type": prop.type,
+                                "description": prop.description,
+                                **(
+                                    {"is_required": prop.is_required}
+                                    if prop.is_required
+                                    else {}
+                                ),
+                                **(
+                                    {"position": prop.position}
+                                    if prop.position is not None
+                                    else {}
+                                ),
+                                **(
+                                    {"raw_type": prop.raw_type}
+                                    if prop.raw_type
+                                    else {}
+                                ),
+                                **(
+                                    {"dimension": prop.dimension}
+                                    if prop.dimension
+                                    else {}
+                                ),
+                            }
+                            for prop in entry.properties
+                        ]
+                    }
+                    if entry.properties
+                    else {}
+                ),
+                **(
+                    {
+                        "returns": {
+                            "type": entry.returns.type if entry.returns else "void",
+                            "description": (
+                                entry.returns.description if entry.returns else ""
+                            ),
+                            **(
+                                {"is_array": entry.returns.is_array}
+                                if entry.returns and entry.returns.is_array
+                                else {}
+                            ),
+                            **(
+                                {"raw_type": entry.returns.raw_type}
+                                if entry.returns and entry.returns.raw_type
+                                else {}
+                            ),
+                        }
+                    }
+                    if entry.returns and entry.returns.type != "void"
+                    else {}
+                ),
+                **(
+                    {"title_jp": entry.title_jp}
+                    if entry.title_jp and entry.title_jp != entry.description
+                    else {}
+                ),
+                **(
+                    {"object_name": entry.object_name}
+                    if entry.object_name and entry.object_name != entry.category
+                    else {}
+                ),
+                **(
+                    {"source": {"text": entry.source.text}}
+                    if entry.source
+                    and _should_include_field(entry.source.text, "source_text")
+                    else {}
+                ),
+            }
+            for entry in bundle.api_entries
+        ],
+    }
+
+    path.write_text(
+        json.dumps(output_data, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    logger.info(f"Successfully saved bundle to {path}")
 
 
 def _parameter_from_dict(payload: Dict[str, object]) -> Parameter:
@@ -685,7 +1201,11 @@ def _return_from_dict(data: Optional[Dict[str, object]]) -> Optional[ReturnSpec]
 
 def _type_definition_from_dict(data: Dict[str, object]) -> TypeDefinition:
     source_payload = data.get("source")
-    source = SourceFragment.from_dict(source_payload) if isinstance(source_payload, dict) else None
+    source = (
+        SourceFragment.from_dict(source_payload)
+        if isinstance(source_payload, dict)
+        else None
+    )
     return TypeDefinition(
         name=data.get("name", ""),
         description=data.get("description", ""),
@@ -702,7 +1222,11 @@ def _api_entry_from_dict(data: Dict[str, object]) -> ApiEntry:
     properties = _parameters_from_list(data.get("properties", []))
     returns = _return_from_dict(data.get("returns"))
     source_payload = data.get("source")
-    source = SourceFragment.from_dict(source_payload) if isinstance(source_payload, dict) else None
+    source = (
+        SourceFragment.from_dict(source_payload)
+        if isinstance(source_payload, dict)
+        else None
+    )
     return ApiEntry(
         entry_type=data.get("entry_type", "function"),
         name=data.get("name", ""),
@@ -721,20 +1245,39 @@ def _api_entry_from_dict(data: Dict[str, object]) -> ApiEntry:
 
 
 def load_bundle(path: Path) -> ApiBundle:
+    logger = get_logger("rule_parser.load_bundle")
+    logger.info(f"Loading bundle from {path}")
+
     payload = json.loads(Path(path).read_text(encoding="utf-8"))
-    type_definitions = [_type_definition_from_dict(item) for item in payload.get("type_definitions", [])]
+    type_definitions = [
+        _type_definition_from_dict(item) for item in payload.get("type_definitions", [])
+    ]
     entries = [_api_entry_from_dict(item) for item in payload.get("api_entries", [])]
     checklist = payload.get("checklist", [])
-    return ApiBundle(type_definitions=type_definitions, api_entries=entries, checklist=checklist)
+
+    logger.info(
+        f"Loaded bundle with {len(entries)} API entries and {len(type_definitions)} type definitions"
+    )
+    return ApiBundle(
+        type_definitions=type_definitions, api_entries=entries, checklist=checklist
+    )
 
 
 def generate_vector_chunks(entries: Iterable[ApiEntry]) -> Iterable[dict]:
+    logger = get_logger("rule_parser.generate_vector_chunks")
+    logger.debug("Generating vector chunks from API entries")
+
+    chunk_count = 0
     for entry in entries:
         limited_params = []
         for idx, param in enumerate(entry.params):
             if idx >= VECTOR_PARAM_LIMIT:
                 break
-            description = param.description.strip() if param.description else FALLBACK_PARAM_DESCRIPTION
+            description = (
+                param.description.strip()
+                if param.description
+                else FALLBACK_PARAM_DESCRIPTION
+            )
             limited_params.append(f"- {param.name} ({param.type}): {description}")
         if len(entry.params) > VECTOR_PARAM_LIMIT:
             remaining = len(entry.params) - VECTOR_PARAM_LIMIT
@@ -755,4 +1298,7 @@ def generate_vector_chunks(entries: Iterable[ApiEntry]) -> Iterable[dict]:
             "title_jp": entry.title_jp,
             "content": "\n".join(summary_parts),
         }
+        chunk_count += 1
         yield payload
+
+    logger.info(f"Generated {chunk_count} vector chunks")

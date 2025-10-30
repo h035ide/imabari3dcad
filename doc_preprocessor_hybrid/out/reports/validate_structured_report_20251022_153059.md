@@ -1,15 +1,37 @@
-# structured_api 検証ログ (2025-10-20 18:43:04)
+# structured_api 検証ログ (2025-10-22 15:30:59)
 
 - XML: `doc_preprocessor_hybrid/out/api_template.xml`
 - JSON: `doc_preprocessor_hybrid/out/structured_api.json`
 - 結果: 差分あり (exit 1)
-- XMLエントリ数: 315
-- JSONエントリ数: 305
-- XMLのみ: 10件 / JSONのみ: 0件 / 差分: 305件
+- XMLエントリ数: 320
+- JSONエントリ数: 311
+- XMLのみ: 9件 / JSONのみ: 0件 / 差分: 311件
+
+## 正答率メトリクス
+
+### ⑴関数名・引数定義名の正答率
+- 総数: 72
+- 正解数: 72
+- 正答率: 100.00%
+
+### ⑵引数パラメータの正答率
+- 総数: 530
+- 正解数: 214
+- 正答率: 40.38%
+
+### ⑶各オブジェクト名の正答率
+- 総数: 72
+- 正解数: 0
+- 正答率: 0.00%
+
+### ⑷descriptionの正答率（完全一致）
+- 総数: 592
+- 正解数: 272
+- 正答率: 45.95%
 
 ## レポート
 ```
-[XMLのみ]BracketParam, CreateNURBSCurve, FacePlateParam, LinearSweepParam, LoftParam, ProfileParam, RotationalSweepParam, STLParameter, SlotParam, SweepParam
+[XMLのみ]BracketParam, FacePlateParam, LinearSweepParam, LoftParam, ProfileParam, RotationalSweepParam, STLParameter, SlotParam, SweepParam
 [差分]
 - function:Activate title_jp -> 期待: ドキュメントをアクティベイト（カレントに）する / 実際: (空)
 - function:Activate raw_return -> 期待: なし / 実際: (空)
@@ -109,6 +131,12 @@
 - function:CreateLoftSheet object_name -> 期待: Partオブジェクト / 実際: (空)
 - function:CreateLoftSheet params[bUpdate].type -> 期待: bool / 実際: 不明
 - function:CreateLoftSheet params[bUpdate].description -> 期待: 更新フラグ（未実装、使用しない） / 実際: (空)
+- function:CreateNURBSCurve title_jp -> 期待: 3DのＮＵＲＢＳ線要素を作成 / 実際: (空)
+- function:CreateNURBSCurve raw_return -> 期待: 線要素の要素ID / 実際: (空)
+- function:CreateNURBSCurve object_name -> 期待: Partオブジェクト / 実際: (空)
+- function:CreateNURBSCurve params[CtrlPoints].type -> 期待: 点(配列) / 実際: 点[]
+- function:CreateNURBSCurve params[Knots].type -> 期待: 浮動小数点(配列) / 実際: 浮動小数点[]
+- function:CreateNURBSCurve params[Weights].type -> 期待: 浮動小数点(配列) / 実際: 浮動小数点[]
 - function:CreateOffsetDatumPlane title_jp -> 期待: データム平面の作成（移動） / 実際: (空)
 - function:CreateOffsetDatumPlane raw_return -> 期待: 作成されたデータム平面の要素ID / 実際: (空)
 - function:CreateOffsetDatumPlane return_description -> 期待: 作成されたデータム平面の要素ID / 実際: (空)
