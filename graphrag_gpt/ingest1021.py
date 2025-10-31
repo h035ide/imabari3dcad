@@ -17,7 +17,7 @@ from langchain_community.graphs.graph_document import GraphDocument, Node, Relat
 from langchain_community.vectorstores import Chroma
 from langchain_openai import OpenAIEmbeddings
 
-DATA_DIR = Path("data")
+DATA_DIR = Path("data/src")
 NEO4J_URI = config.NEO4J_URI
 NEO4J_USER = config.NEO4J_USER
 NEO4J_PASSWORD = config.NEO4J_PASSWORD
@@ -42,7 +42,7 @@ CHROMA_PERSIST_DIR = DATA_DIR / "chroma_db"
 OPENAI_API_KEY = config.OPENAI_API_KEY
 
 # モデル名を "gpt-4-turbo" など、利用可能なモデルに変更してください
-llm = ChatOpenAI(temperature=0, model_name="gpt-5", openai_api_key=OPENAI_API_KEY) 
+llm = ChatOpenAI(temperature=0, model_name="gpt-5-nano", openai_api_key=OPENAI_API_KEY) 
 
 
 def extract_triples_from_script(
