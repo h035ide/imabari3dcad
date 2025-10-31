@@ -12,3 +12,6 @@ htmlcov/
 .ruff_cache/
 chroma_db_store/
 imabari3dcad.egg-info/
+
+
+*.pyc
