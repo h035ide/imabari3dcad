@@ -69,6 +69,45 @@ def _hash_identifier(*parts: str) -> str:
     return hashlib.sha1(joined.encode("utf-8")).hexdigest()
 
 
+@dataclass(frozen=True, slots=True)
+class DocumentInfo:
+    id: str
+    source_path: str
+    title: str
+    headings: List[str]
+    section_count: int
+    last_modified: Optional[str]
+    extracted_at: Optional[str]
+
+
+@dataclass(frozen=True, slots=True)
+class SectionInfo:
+    id: str
+    document_id: str
+    source_path: str
+    title: str
+    heading: str
+    level: int
+    index: int
+    last_modified: Optional[str]
+    extracted_at: Optional[str]
+
+
+@dataclass(slots=True)
+class PreparedCorpus:
+    documents: List[Document]
+    doc_infos: Dict[str, DocumentInfo]
+    section_infos: Dict[str, SectionInfo]
+
+
+def _clean_props(**properties: Any) -> Dict[str, Any]:
+    return {
+        key: value
+        for key, value in properties.items()
+        if value not in (None, "")
+    }
+
+
 def _resolve_neo4j_config(database_override: Optional[str] = None) -> Tuple[str, str, str, str]:
     uri = os.getenv("NEO4J_URI")
     user = os.getenv("NEO4J_USER") or os.getenv("NEO4J_USERNAME")
@@ -83,12 +122,10 @@ def _resolve_neo4j_config(database_override: Optional[str] = None) -> Tuple[str,
     return uri, user, password, database
 
 
-def _prepare_documents(
-    help_docs: Sequence[HelpDocument],
-) -> Tuple[List[Document], Dict[str, Dict[str, Any]], Dict[str, Dict[str, Any]]]:
+def _prepare_corpus(help_docs: Sequence[HelpDocument]) -> PreparedCorpus:
     documents: List[Document] = []
-    doc_metadata: Dict[str, Dict[str, str]] = {}
-    section_metadata: Dict[str, Dict[str, str]] = {}
+    doc_infos: Dict[str, DocumentInfo] = {}
+    section_infos: Dict[str, SectionInfo] = {}
 
     for help_doc in help_docs:
         source_path = str(help_doc.source_path.resolve())
@@ -96,16 +133,15 @@ def _prepare_documents(
         last_modified = _to_iso(help_doc.last_modified)
         extracted_at = _to_iso(help_doc.extracted_at)
 
-        doc_metadata[document_id] = {
-            "document_id": document_id,
-            "source_path": source_path,
-            "title": help_doc.title,
-            "headings": list(help_doc.headings),
-            "section_count": len(help_doc.sections),
-            "last_modified": last_modified or "",
-            "extracted_at": extracted_at or "",
-            "data_source": DATA_SOURCE,
-        }
+        doc_infos[document_id] = DocumentInfo(
+            id=document_id,
+            source_path=source_path,
+            title=help_doc.title,
+            headings=list(help_doc.headings),
+            section_count=len(help_doc.sections),
+            last_modified=last_modified,
+            extracted_at=extracted_at,
+        )
 
         for section_index, section in enumerate(help_doc.sections):
             heading = (section.heading or "Untitled Section").strip()
@@ -113,41 +149,49 @@ def _prepare_documents(
             content = (section.content or "").strip()
             text = heading if not content else f"{heading}\n\n{content}"
 
-            section_metadata[section_id] = {
-                "section_id": section_id,
-                "document_id": document_id,
-                "source_path": source_path,
-                "title": help_doc.title,
-                "section_heading": heading,
-                "section_level": section.level,
-                "section_index": section_index,
-                "last_modified": last_modified or "",
-                "extracted_at": extracted_at or "",
-                "data_source": DATA_SOURCE,
-            }
+            section_infos[section_id] = SectionInfo(
+                id=section_id,
+                document_id=document_id,
+                source_path=source_path,
+                title=help_doc.title,
+                heading=heading,
+                level=section.level,
+                index=section_index,
+                last_modified=last_modified,
+                extracted_at=extracted_at,
+            )
 
             if text:
-                metadata = {
-                    "document_id": document_id,
-                    "source_path": source_path,
-                    "title": help_doc.title,
-                    "section_heading": heading,
-                    "section_level": section.level,
-                    "section_index": section_index,
-                    "section_id": section_id,
-                    "last_modified": last_modified,
-                    "extracted_at": extracted_at,
-                    "data_source": DATA_SOURCE,
-                }
-                documents.append(Document(text=text, metadata=metadata, doc_id=section_id))
+                documents.append(
+                    Document(
+                        text=text,
+                        metadata={
+                            "document_id": document_id,
+                            "source_path": source_path,
+                            "section_id": section_id,
+                            "title": help_doc.title,
+                            "section_heading": heading,
+                            "section_level": section.level,
+                            "section_index": section_index,
+                            "last_modified": last_modified,
+                            "extracted_at": extracted_at,
+                            "data_source": DATA_SOURCE,
+                        },
+                        doc_id=section_id,
+                    )
+                )
 
-    return documents, doc_metadata, section_metadata
+    return PreparedCorpus(
+        documents=documents,
+        doc_infos=doc_infos,
+        section_infos=section_infos,
+    )
 
 
 def _build_property_graph_nodes(
     nodes: Sequence[TextNode],
-    doc_metadata: Dict[str, Dict[str, Any]],
-    section_metadata: Dict[str, Dict[str, Any]],
+    doc_infos: Dict[str, DocumentInfo],
+    section_infos: Dict[str, SectionInfo],
 ) -> List[TextNode]:
     processed_nodes: List[TextNode] = []
     chunk_counters: Dict[Tuple[str, str], int] = defaultdict(int)
@@ -170,12 +214,12 @@ def _build_property_graph_nodes(
             )
             continue
 
-        doc_props = dict(doc_metadata.get(document_id, {}))
-        section_props = dict(section_metadata.get(section_id, {}))
+        doc_info = doc_infos[document_id]
+        section_info = section_infos[section_id]
 
         # Ensure core metadata is propagated
-        source_path = section_props.get("source_path") or doc_props.get("source_path")
-        section_index = section_props.get("section_index")
+        source_path = section_info.source_path or doc_info.source_path
+        section_index = section_info.index
 
         counter_key = (document_id, section_id)
         chunk_index = chunk_counters[counter_key]
@@ -186,12 +230,12 @@ def _build_property_graph_nodes(
             "document_id": document_id,
             "section_id": section_id,
             "source_path": source_path,
-            "title": metadata.get("title"),
-            "section_heading": metadata.get("section_heading"),
-            "section_level": metadata.get("section_level"),
+            "title": section_info.title,
+            "section_heading": section_info.heading,
+            "section_level": section_info.level,
             "section_index": section_index,
-            "last_modified": metadata.get("last_modified"),
-            "extracted_at": metadata.get("extracted_at"),
+            "last_modified": section_info.last_modified,
+            "extracted_at": section_info.extracted_at,
             "chunk_index": chunk_index,
             "text_length": len(text),
             "start_char_idx": node.start_char_idx,
@@ -199,24 +243,44 @@ def _build_property_graph_nodes(
             "data_source": DATA_SOURCE,
         }
 
-        doc_props.setdefault("data_source", DATA_SOURCE)
-        section_props.setdefault("data_source", DATA_SOURCE)
+        doc_props = _clean_props(
+            document_id=doc_info.id,
+            source_path=doc_info.source_path,
+            title=doc_info.title,
+            headings=doc_info.headings,
+            section_count=doc_info.section_count,
+            last_modified=doc_info.last_modified,
+            extracted_at=doc_info.extracted_at,
+            data_source=DATA_SOURCE,
+        )
+        section_props = _clean_props(
+            section_id=section_info.id,
+            document_id=section_info.document_id,
+            source_path=section_info.source_path,
+            title=section_info.title,
+            section_heading=section_info.heading,
+            section_level=section_info.level,
+            section_index=section_info.index,
+            last_modified=section_info.last_modified,
+            extracted_at=section_info.extracted_at,
+            data_source=DATA_SOURCE,
+        )
 
         doc_entity = EntityNode(
-            name=document_id,
+            name=doc_info.id,
             label="HelpDocument",
-            properties={k: v for k, v in doc_props.items() if v not in (None, "")},
+            properties=doc_props,
         )
         section_entity = EntityNode(
-            name=section_id,
+            name=section_info.id,
             label="HelpSection",
-            properties={k: v for k, v in section_props.items() if v not in (None, "")},
+            properties=section_props,
         )
         chunk_entity = ChunkNode(
             text=text,
             id_=node.node_id,
             label="HelpChunk",
-            properties={k: v for k, v in chunk_properties.items() if v is not None},
+            properties=_clean_props(**chunk_properties),
         )
 
         relations = [
@@ -284,20 +348,20 @@ def ingest_help_files(
         logging.warning("指定ディレクトリにヘルプHTMLファイルが見つかりませんでした: %s", root)
         return IngestStats(0, 0, 0)
 
-    documents, doc_metadata, section_metadata = _prepare_documents(help_docs)
+    corpus = _prepare_corpus(help_docs)
 
-    if not documents:
+    if not corpus.documents:
         logging.warning("解析可能なセクションが存在しませんでした: %s", root)
-        return IngestStats(len(doc_metadata), 0, 0)
+        return IngestStats(len(corpus.doc_infos), 0, 0)
 
     parser = SimpleNodeParser.from_defaults(
         chunk_size=chunk_size,
         chunk_overlap=chunk_overlap,
     )
-    nodes = parser.get_nodes_from_documents(documents)
-    graph_nodes = _build_property_graph_nodes(nodes, doc_metadata, section_metadata)
+    nodes = parser.get_nodes_from_documents(corpus.documents)
+    graph_nodes = _build_property_graph_nodes(nodes, corpus.doc_infos, corpus.section_infos)
 
-    stats = IngestStats(len(doc_metadata), len(section_metadata), len(graph_nodes))
+    stats = IngestStats(len(corpus.doc_infos), len(corpus.section_infos), len(graph_nodes))
     logging.info(
         "LlamaIndexでチャンク化完了: %s (chunk_size=%d, overlap=%d)",
         stats,
