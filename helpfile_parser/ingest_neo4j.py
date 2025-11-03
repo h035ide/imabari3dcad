@@ -10,6 +10,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
+from itertools import islice
 
 from dotenv import load_dotenv
 from llama_index.core import Document
@@ -335,15 +336,21 @@ def ingest_help_files(
     database: Optional[str] = None,
     wipe: bool = False,
     dry_run: bool = False,
+    max_files: Optional[int] = None,
 ) -> IngestStats:
     if chunk_size <= 0:
         raise ValueError("chunk_size は正の整数で指定してください。")
     if chunk_overlap < 0:
         raise ValueError("chunk_overlap は0以上で指定してください。")
+    if max_files is not None and max_files < 0:
+        raise ValueError("max_files は0以上で指定してください。")
     if not root.exists():
         raise FileNotFoundError(f"Directory not found: {root}")
 
-    help_docs = list(iter_help_documents(root))
+    documents_iter = iter_help_documents(root)
+    if max_files is not None:
+        documents_iter = islice(documents_iter, max_files)
+    help_docs = list(documents_iter)
     if not help_docs:
         logging.warning("指定ディレクトリにヘルプHTMLファイルが見つかりませんでした: %s", root)
         return IngestStats(0, 0, 0)
@@ -446,6 +453,11 @@ def build_argument_parser() -> argparse.ArgumentParser:
         help="EVOSHIP_HELP_FILES ディレクトリへのパス",
     )
     parser.add_argument(
+        "--max-files",
+        type=int,
+        help="読み込む最大ファイル数を指定します（0で0件、未指定で全件）。",
+    )
+    parser.add_argument(
         "--chunk-size",
         type=int,
         default=DEFAULT_CHUNK_SIZE,
@@ -511,6 +523,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             database=args.database,
             wipe=args.wipe,
             dry_run=args.dry_run,
+            max_files=args.max_files,
         )
     except Exception as exc:  # pragma: no cover - CLI entry point
         logging.error("インポート処理中にエラーが発生しました: %s", exc)
