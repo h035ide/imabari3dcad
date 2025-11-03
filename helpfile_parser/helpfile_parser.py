@@ -152,8 +152,29 @@ def parse_help_html(source_path: Path, html_text: str) -> HelpDocument:
     return doc
 
 
-def extract_help_document(path: Path, encoding: str = "utf-8") -> HelpDocument:
-    html_text = path.read_text(encoding=encoding, errors="ignore")
+def extract_help_document(path: Path, encoding: str = "cp932") -> HelpDocument:
+    """Extract a HelpDocument from an HTML file.
+
+    Default encoding is set to cp932 (Windows-31J) to support Shift-JIS based
+    EVOSHIP help files. If decoding fails, fall back to UTF-8, and finally
+    perform a lenient decode to avoid data loss where possible.
+    """
+
+    try:
+        # Prefer cp932 (Shift-JIS on Windows) strictly first
+        html_text = path.read_text(encoding=encoding, errors="strict")
+    except UnicodeDecodeError:
+        # Fallback to UTF-8 strictly
+        try:
+            html_text = path.read_text(encoding="utf-8", errors="strict")
+        except UnicodeDecodeError:
+            # Final fallback: decode bytes leniently to avoid total failure
+            raw = path.read_bytes()
+            try:
+                html_text = raw.decode(encoding, errors="replace")
+            except Exception:
+                html_text = raw.decode("utf-8", errors="replace")
+
     document = parse_help_html(path, html_text)
     try:
         stat = path.stat()

@@ -399,6 +399,43 @@ def ingest_help_files(
     return stats
 
 
+def _configure_logging(*, log_level: str, console_level: str, log_file: Optional[Path]) -> None:
+    """Configure logging to minimize console output and optionally write to a file.
+
+    - Console: minimal output (default WARNING)
+    - File: detailed output at `log_level` (UTF-8)
+    """
+    root_logger = logging.getLogger()
+    # Reset existing handlers
+    for handler in list(root_logger.handlers):
+        root_logger.removeHandler(handler)
+
+    numeric_log_level = getattr(logging, log_level.upper(), logging.INFO)
+    numeric_console_level = getattr(logging, console_level.upper(), logging.WARNING)
+    root_logger.setLevel(numeric_log_level)
+
+    # Console handler (minimal)
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(numeric_console_level)
+    console_handler.setFormatter(logging.Formatter("%(levelname)s %(message)s"))
+    root_logger.addHandler(console_handler)
+
+    # File handler (detailed) if requested
+    if log_file:
+        try:
+            log_path = Path(log_file)
+            if log_path.parent:
+                log_path.parent.mkdir(parents=True, exist_ok=True)
+            file_handler = logging.FileHandler(log_path, encoding="utf-8")
+            file_handler.setLevel(numeric_log_level)
+            file_handler.setFormatter(
+                logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s")
+            )
+            root_logger.addHandler(file_handler)
+        except Exception as exc:  # pragma: no cover - best effort logging setup
+            logging.getLogger(__name__).warning("ログファイルの設定に失敗しました: %s", exc)
+
+
 def build_argument_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="EVOSHIPヘルプHTMLをLlamaIndexでチャンク化しNeo4jへ格納します。",
@@ -441,6 +478,17 @@ def build_argument_parser() -> argparse.ArgumentParser:
         choices=("DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"),
         help="ログレベルを指定します (デフォルト: INFO)",
     )
+    parser.add_argument(
+        "--log-file",
+        type=Path,
+        help="ログファイルの出力先パス。指定時はコンソール出力を最小限にします。",
+    )
+    parser.add_argument(
+        "--console-level",
+        default="WARNING",
+        choices=("DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"),
+        help="コンソール出力のログレベル (デフォルト: WARNING)",
+    )
     return parser
 
 
@@ -448,9 +496,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = build_argument_parser()
     args = parser.parse_args(argv if argv is not None else None)
 
-    logging.basicConfig(
-        level=getattr(logging, args.log_level.upper(), logging.INFO),
-        format="%(levelname)s %(message)s",
+    # 構造化されたロギング設定: ファイルへは詳細、コンソールは最小限
+    _configure_logging(
+        log_level=args.log_level,
+        console_level=args.console_level,
+        log_file=args.log_file,
     )
 
     try:
