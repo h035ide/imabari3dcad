@@ -22,6 +22,9 @@ from llama_index.core.graph_stores.types import (
     Relation,
 )
 from llama_index.core.indices.property_graph.base import PropertyGraphIndex
+from llama_index.core.indices.property_graph.transformations import (
+    ImplicitPathExtractor,
+)
 from llama_index.core.node_parser import SimpleNodeParser
 from llama_index.core.schema import MetadataMode, TextNode
 from llama_index.graph_stores.neo4j import Neo4jPropertyGraphStore
@@ -337,6 +340,8 @@ def ingest_help_files(
     wipe: bool = False,
     dry_run: bool = False,
     max_files: Optional[int] = None,
+    use_llm_extract: bool = False,
+    llm_model: Optional[str] = None,
 ) -> IngestStats:
     if chunk_size <= 0:
         raise ValueError("chunk_size は正の整数で指定してください。")
@@ -393,13 +398,24 @@ def ingest_help_files(
             logging.info("既存のヘルプグラフを削除します。")
             _wipe_existing_graph(graph_store)
 
-        PropertyGraphIndex(
-            nodes=graph_nodes,
-            property_graph_store=graph_store,
-            kg_extractors=[],
-            embed_kg_nodes=False,
-            show_progress=False,
-        )
+        if use_llm_extract:
+            llm = _resolve_llm(model=llm_model)
+            PropertyGraphIndex(
+                nodes=graph_nodes,
+                property_graph_store=graph_store,
+                llm=llm,
+                # kg_extractors は未指定でデフォルトの [SimpleLLMPathExtractor, ImplicitPathExtractor]
+                embed_kg_nodes=False,
+                show_progress=False,
+            )
+        else:
+            PropertyGraphIndex(
+                nodes=graph_nodes,
+                property_graph_store=graph_store,
+                kg_extractors=[ImplicitPathExtractor()],
+                embed_kg_nodes=False,
+                show_progress=False,
+            )
     finally:
         graph_store.close()
 
@@ -443,6 +459,17 @@ def _configure_logging(*, log_level: str, console_level: str, log_file: Optional
             logging.getLogger(__name__).warning("ログファイルの設定に失敗しました: %s", exc)
 
 
+def _resolve_llm(*, model: Optional[str]):
+    """OpenAI 固定で LLM を初期化して返す。失敗時は None を返す。"""
+    try:
+        from llama_index.llms.openai import OpenAI  # type: ignore
+
+        return OpenAI(model=model or os.getenv("OPENAI_MODEL", "gpt-4o-mini"))
+    except Exception as exc:  # pragma: no cover
+        logging.warning("OpenAI LLM の初期化に失敗: %s", exc)
+        return None
+
+
 def build_argument_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="EVOSHIPヘルプHTMLをLlamaIndexでチャンク化しNeo4jへ格納します。",
@@ -451,6 +478,16 @@ def build_argument_parser() -> argparse.ArgumentParser:
         "root",
         type=Path,
         help="EVOSHIP_HELP_FILES ディレクトリへのパス",
+    )
+    parser.add_argument(
+        "--use-llm-extract",
+        action="store_true",
+        help="LLMを用いたトリプレット抽出を有効化します（モデルは --llm-provider/--llm-model で指定）。",
+    )
+    parser.add_argument(
+        "--llm-model",
+        type=str,
+        help="使用するLLMモデル名（デフォルト: gpt-4o-mini）",
     )
     parser.add_argument(
         "--max-files",
@@ -524,6 +561,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             wipe=args.wipe,
             dry_run=args.dry_run,
             max_files=args.max_files,
+            use_llm_extract=args.use_llm_extract,
+            llm_model=args.llm_model,
         )
     except Exception as exc:  # pragma: no cover - CLI entry point
         logging.error("インポート処理中にエラーが発生しました: %s", exc)
