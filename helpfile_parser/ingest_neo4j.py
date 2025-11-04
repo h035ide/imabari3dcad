@@ -343,6 +343,7 @@ def ingest_help_files(
     max_files: Optional[int] = None,
     use_llm_extract: bool = False,
     llm_model: Optional[str] = None,
+    export_dir: Optional[Path] = None,
 ) -> IngestStats:
     if chunk_size <= 0:
         raise ValueError("chunk_size は正の整数で指定してください。")
@@ -417,6 +418,12 @@ def ingest_help_files(
                 embed_kg_nodes=False,
                 show_progress=False,
             )
+        # オプション: グラフを書き出し
+        if export_dir:
+            try:
+                _export_graph_as_jsonl(graph_store, export_dir)
+            except Exception as exc:
+                logging.warning("グラフのエクスポートに失敗しました: %s", exc)
     finally:
         graph_store.close()
 
@@ -469,6 +476,59 @@ def _configure_logging(*, log_level: str, console_level: str, log_file: Optional
             root_logger.addHandler(file_handler)
         except Exception as exc:  # pragma: no cover - best effort logging setup
             logging.getLogger(__name__).warning("ログファイルの設定に失敗しました: %s", exc)
+
+
+def _export_graph_as_jsonl(graph_store: Neo4jPropertyGraphStore, export_dir: Path) -> None:
+    """`DATA_SOURCE` に紐づくノード/リレーションを JSONL で書き出す。
+
+    - nodes.jsonl: {id, labels, properties}
+    - relationships.jsonl: {id, type, start, end, properties}
+    """
+    export_dir = Path(export_dir)
+    export_dir.mkdir(parents=True, exist_ok=True)
+
+    nodes_query = (
+        "MATCH (n) WHERE n.data_source = $source "
+        "RETURN id(n) AS id, labels(n) AS labels, properties(n) AS properties"
+    )
+    rels_query = (
+        "MATCH (a)-[r]->(b) WHERE r.data_source = $source "
+        "RETURN id(r) AS id, type(r) AS type, id(a) AS start, id(b) AS end, properties(r) AS properties"
+    )
+
+    param_map = {"source": DATA_SOURCE}
+
+    # Neo4jPropertyGraphStore.structured_query は結果リストを返す想定
+    node_rows = graph_store.structured_query(nodes_query, param_map=param_map)
+    rel_rows = graph_store.structured_query(rels_query, param_map=param_map)
+
+    nodes_path = export_dir / "nodes.jsonl"
+    rels_path = export_dir / "relationships.jsonl"
+
+    import json
+
+    with nodes_path.open("w", encoding="utf-8") as f_nodes:
+        for row in node_rows or []:
+            # LlamaIndex の返却形式が dict である前提（無ければそのまま書く）
+            data = {
+                "id": row.get("id") if isinstance(row, dict) else row[0],
+                "labels": row.get("labels") if isinstance(row, dict) else row[1],
+                "properties": row.get("properties") if isinstance(row, dict) else row[2],
+            }
+            f_nodes.write(json.dumps(data, ensure_ascii=False) + "\n")
+
+    with rels_path.open("w", encoding="utf-8") as f_rels:
+        for row in rel_rows or []:
+            data = {
+                "id": row.get("id") if isinstance(row, dict) else row[0],
+                "type": row.get("type") if isinstance(row, dict) else row[1],
+                "start": row.get("start") if isinstance(row, dict) else row[2],
+                "end": row.get("end") if isinstance(row, dict) else row[3],
+                "properties": row.get("properties") if isinstance(row, dict) else row[4],
+            }
+            f_rels.write(json.dumps(data, ensure_ascii=False) + "\n")
+
+    logging.info("グラフをエクスポートしました: %s", export_dir)
 
 
 def _resolve_llm(*, model: Optional[str]):
@@ -550,6 +610,11 @@ def build_argument_parser() -> argparse.ArgumentParser:
         choices=("DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"),
         help="コンソール出力のログレベル (デフォルト: WARNING)",
     )
+    parser.add_argument(
+        "--export-dir",
+        type=Path,
+        help="インポート完了後にグラフをJSONLで書き出すディレクトリ（nodes.jsonl / relationships.jsonl）",
+    )
     return parser
 
 
@@ -575,6 +640,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             max_files=args.max_files,
             use_llm_extract=args.use_llm_extract,
             llm_model=args.llm_model,
+            export_dir=args.export_dir,
         )
     except Exception as exc:  # pragma: no cover - CLI entry point
         logging.error("インポート処理中にエラーが発生しました: %s", exc)
