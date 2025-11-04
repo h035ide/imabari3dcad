@@ -27,16 +27,18 @@ from llama_index.core.indices.property_graph.transformations import (
 )
 from llama_index.core.node_parser import SimpleNodeParser
 from llama_index.core.schema import MetadataMode, TextNode
+from llama_index.core.settings import Settings
 from llama_index.graph_stores.neo4j import Neo4jPropertyGraphStore
 
 try:  # pragma: no cover - import resolution guard
     from .helpfile_parser import HelpDocument, iter_help_documents
 except ImportError:  # pragma: no cover - fallback when executed as a script
-    ROOT_DIR = Path(__file__).resolve().parent.parent
-    if str(ROOT_DIR) not in sys.path:
-        sys.path.insert(0, str(ROOT_DIR))
-    from helpfile_parser import helpfile_parser as _helpfile_parser  # type: ignore
-
+    # When executed as a script, add the parent directory to path
+    # and import from the same directory
+    CURRENT_DIR = Path(__file__).resolve().parent
+    if str(CURRENT_DIR) not in sys.path:
+        sys.path.insert(0, str(CURRENT_DIR))
+    import helpfile_parser as _helpfile_parser  # type: ignore
     HelpDocument = _helpfile_parser.HelpDocument
     iter_help_documents = _helpfile_parser.iter_help_documents
 
@@ -342,6 +344,8 @@ def ingest_help_files(
     max_files: Optional[int] = None,
     use_llm_extract: bool = False,
     llm_model: Optional[str] = None,
+    export_dir: Optional[Path] = None,
+    embed_kg_nodes: bool = True,
 ) -> IngestStats:
     if chunk_size <= 0:
         raise ValueError("chunk_size は正の整数で指定してください。")
@@ -398,6 +402,9 @@ def ingest_help_files(
             logging.info("既存のヘルプグラフを削除します。")
             _wipe_existing_graph(graph_store)
 
+        if embed_kg_nodes:
+            _ensure_default_embedding("text-embedding-3-small")
+
         if use_llm_extract:
             llm = _resolve_llm(model=llm_model)
             PropertyGraphIndex(
@@ -405,7 +412,7 @@ def ingest_help_files(
                 property_graph_store=graph_store,
                 llm=llm,
                 # kg_extractors は未指定でデフォルトの [SimpleLLMPathExtractor, ImplicitPathExtractor]
-                embed_kg_nodes=False,
+                embed_kg_nodes=embed_kg_nodes,
                 show_progress=False,
             )
         else:
@@ -413,9 +420,15 @@ def ingest_help_files(
                 nodes=graph_nodes,
                 property_graph_store=graph_store,
                 kg_extractors=[ImplicitPathExtractor()],
-                embed_kg_nodes=False,
+                embed_kg_nodes=embed_kg_nodes,
                 show_progress=False,
             )
+        # オプション: グラフを書き出し
+        if export_dir:
+            try:
+                _export_graph_as_jsonl(graph_store, export_dir)
+            except Exception as exc:
+                logging.warning("グラフのエクスポートに失敗しました: %s", exc)
     finally:
         graph_store.close()
 
@@ -428,6 +441,17 @@ def _configure_logging(*, log_level: str, console_level: str, log_file: Optional
     - Console: minimal output (default WARNING)
     - File: detailed output at `log_level` (UTF-8)
     """
+    # Configure console encoding for Windows PowerShell UTF-8 support
+    if sys.platform == "win32":
+        try:
+            # Python 3.7+ supports reconfigure
+            if hasattr(sys.stdout, "reconfigure"):
+                sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+            if hasattr(sys.stderr, "reconfigure"):
+                sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:  # pragma: no cover - best effort encoding setup
+            pass
+
     root_logger = logging.getLogger()
     # Reset existing handlers
     for handler in list(root_logger.handlers):
@@ -459,6 +483,59 @@ def _configure_logging(*, log_level: str, console_level: str, log_file: Optional
             logging.getLogger(__name__).warning("ログファイルの設定に失敗しました: %s", exc)
 
 
+def _export_graph_as_jsonl(graph_store: Neo4jPropertyGraphStore, export_dir: Path) -> None:
+    """`DATA_SOURCE` に紐づくノード/リレーションを JSONL で書き出す。
+
+    - nodes.jsonl: {id, labels, properties}
+    - relationships.jsonl: {id, type, start, end, properties}
+    """
+    export_dir = Path(export_dir)
+    export_dir.mkdir(parents=True, exist_ok=True)
+
+    nodes_query = (
+        "MATCH (n) WHERE n.data_source = $source "
+        "RETURN id(n) AS id, labels(n) AS labels, properties(n) AS properties"
+    )
+    rels_query = (
+        "MATCH (a)-[r]->(b) WHERE r.data_source = $source "
+        "RETURN id(r) AS id, type(r) AS type, id(a) AS start, id(b) AS end, properties(r) AS properties"
+    )
+
+    param_map = {"source": DATA_SOURCE}
+
+    # Neo4jPropertyGraphStore.structured_query は結果リストを返す想定
+    node_rows = graph_store.structured_query(nodes_query, param_map=param_map)
+    rel_rows = graph_store.structured_query(rels_query, param_map=param_map)
+
+    nodes_path = export_dir / "nodes.jsonl"
+    rels_path = export_dir / "relationships.jsonl"
+
+    import json
+
+    with nodes_path.open("w", encoding="utf-8") as f_nodes:
+        for row in node_rows or []:
+            # LlamaIndex の返却形式が dict である前提（無ければそのまま書く）
+            data = {
+                "id": row.get("id") if isinstance(row, dict) else row[0],
+                "labels": row.get("labels") if isinstance(row, dict) else row[1],
+                "properties": row.get("properties") if isinstance(row, dict) else row[2],
+            }
+            f_nodes.write(json.dumps(data, ensure_ascii=False) + "\n")
+
+    with rels_path.open("w", encoding="utf-8") as f_rels:
+        for row in rel_rows or []:
+            data = {
+                "id": row.get("id") if isinstance(row, dict) else row[0],
+                "type": row.get("type") if isinstance(row, dict) else row[1],
+                "start": row.get("start") if isinstance(row, dict) else row[2],
+                "end": row.get("end") if isinstance(row, dict) else row[3],
+                "properties": row.get("properties") if isinstance(row, dict) else row[4],
+            }
+            f_rels.write(json.dumps(data, ensure_ascii=False) + "\n")
+
+    logging.info("グラフをエクスポートしました: %s", export_dir)
+
+
 def _resolve_llm(*, model: Optional[str]):
     """OpenAI 固定で LLM を初期化して返す。失敗時は None を返す。"""
     try:
@@ -468,6 +545,22 @@ def _resolve_llm(*, model: Optional[str]):
     except Exception as exc:  # pragma: no cover
         logging.warning("OpenAI LLM の初期化に失敗: %s", exc)
         return None
+
+
+def _ensure_default_embedding(model_name: Optional[str] = None) -> None:
+    """Set default embedding model for LlamaIndex Settings if not set.
+
+    Prefer OpenAI `text-embedding-3-small` unless explicitly provided.
+    """
+    try:
+        # Lazy import to avoid hard dependency when not used
+        from llama_index.embeddings.openai import OpenAIEmbedding  # type: ignore
+
+        if getattr(Settings, "embed_model", None) is None:
+            default_model = model_name or os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small")
+            Settings.embed_model = OpenAIEmbedding(model=default_model)
+    except Exception as exc:  # pragma: no cover
+        logging.warning("埋め込みモデルの既定設定に失敗しました: %s", exc)
 
 
 def build_argument_parser() -> argparse.ArgumentParser:
@@ -538,6 +631,25 @@ def build_argument_parser() -> argparse.ArgumentParser:
         choices=("DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"),
         help="コンソール出力のログレベル (デフォルト: WARNING)",
     )
+    parser.add_argument(
+        "--export-dir",
+        type=Path,
+        help="インポート完了後にグラフをJSONLで書き出すディレクトリ（nodes.jsonl / relationships.jsonl）",
+    )
+    embed_group = parser.add_mutually_exclusive_group()
+    embed_group.add_argument(
+        "--embed-kg-nodes",
+        dest="embed_kg_nodes",
+        action="store_true",
+        help="KGノードのベクトル埋め込みとベクタ検索を有効化（デフォルト有効）",
+    )
+    embed_group.add_argument(
+        "--no-embed-kg-nodes",
+        dest="embed_kg_nodes",
+        action="store_false",
+        help="KGノードのベクトル埋め込みとベクタ検索を無効化",
+    )
+    parser.set_defaults(embed_kg_nodes=True)
     return parser
 
 
@@ -563,6 +675,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             max_files=args.max_files,
             use_llm_extract=args.use_llm_extract,
             llm_model=args.llm_model,
+            export_dir=args.export_dir,
+            embed_kg_nodes=args.embed_kg_nodes,
         )
     except Exception as exc:  # pragma: no cover - CLI entry point
         logging.error("インポート処理中にエラーが発生しました: %s", exc)
