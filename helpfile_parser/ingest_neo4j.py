@@ -32,11 +32,12 @@ from llama_index.graph_stores.neo4j import Neo4jPropertyGraphStore
 try:  # pragma: no cover - import resolution guard
     from .helpfile_parser import HelpDocument, iter_help_documents
 except ImportError:  # pragma: no cover - fallback when executed as a script
-    ROOT_DIR = Path(__file__).resolve().parent.parent
-    if str(ROOT_DIR) not in sys.path:
-        sys.path.insert(0, str(ROOT_DIR))
-    from helpfile_parser import helpfile_parser as _helpfile_parser  # type: ignore
-
+    # When executed as a script, add the parent directory to path
+    # and import from the same directory
+    CURRENT_DIR = Path(__file__).resolve().parent
+    if str(CURRENT_DIR) not in sys.path:
+        sys.path.insert(0, str(CURRENT_DIR))
+    import helpfile_parser as _helpfile_parser  # type: ignore
     HelpDocument = _helpfile_parser.HelpDocument
     iter_help_documents = _helpfile_parser.iter_help_documents
 
@@ -428,6 +429,17 @@ def _configure_logging(*, log_level: str, console_level: str, log_file: Optional
     - Console: minimal output (default WARNING)
     - File: detailed output at `log_level` (UTF-8)
     """
+    # Configure console encoding for Windows PowerShell UTF-8 support
+    if sys.platform == "win32":
+        try:
+            # Python 3.7+ supports reconfigure
+            if hasattr(sys.stdout, "reconfigure"):
+                sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+            if hasattr(sys.stderr, "reconfigure"):
+                sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:  # pragma: no cover - best effort encoding setup
+            pass
+
     root_logger = logging.getLogger()
     # Reset existing handlers
     for handler in list(root_logger.handlers):
