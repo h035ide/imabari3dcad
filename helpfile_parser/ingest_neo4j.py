@@ -27,6 +27,7 @@ from llama_index.core.indices.property_graph.transformations import (
 )
 from llama_index.core.node_parser import SimpleNodeParser
 from llama_index.core.schema import MetadataMode, TextNode
+from llama_index.core.settings import Settings
 from llama_index.graph_stores.neo4j import Neo4jPropertyGraphStore
 
 try:  # pragma: no cover - import resolution guard
@@ -344,6 +345,7 @@ def ingest_help_files(
     use_llm_extract: bool = False,
     llm_model: Optional[str] = None,
     export_dir: Optional[Path] = None,
+    embed_kg_nodes: bool = True,
 ) -> IngestStats:
     if chunk_size <= 0:
         raise ValueError("chunk_size は正の整数で指定してください。")
@@ -400,6 +402,9 @@ def ingest_help_files(
             logging.info("既存のヘルプグラフを削除します。")
             _wipe_existing_graph(graph_store)
 
+        if embed_kg_nodes:
+            _ensure_default_embedding("text-embedding-3-small")
+
         if use_llm_extract:
             llm = _resolve_llm(model=llm_model)
             PropertyGraphIndex(
@@ -407,7 +412,7 @@ def ingest_help_files(
                 property_graph_store=graph_store,
                 llm=llm,
                 # kg_extractors は未指定でデフォルトの [SimpleLLMPathExtractor, ImplicitPathExtractor]
-                embed_kg_nodes=False,
+                embed_kg_nodes=embed_kg_nodes,
                 show_progress=False,
             )
         else:
@@ -415,7 +420,7 @@ def ingest_help_files(
                 nodes=graph_nodes,
                 property_graph_store=graph_store,
                 kg_extractors=[ImplicitPathExtractor()],
-                embed_kg_nodes=False,
+                embed_kg_nodes=embed_kg_nodes,
                 show_progress=False,
             )
         # オプション: グラフを書き出し
@@ -542,6 +547,22 @@ def _resolve_llm(*, model: Optional[str]):
         return None
 
 
+def _ensure_default_embedding(model_name: Optional[str] = None) -> None:
+    """Set default embedding model for LlamaIndex Settings if not set.
+
+    Prefer OpenAI `text-embedding-3-small` unless explicitly provided.
+    """
+    try:
+        # Lazy import to avoid hard dependency when not used
+        from llama_index.embeddings.openai import OpenAIEmbedding  # type: ignore
+
+        if getattr(Settings, "embed_model", None) is None:
+            default_model = model_name or os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small")
+            Settings.embed_model = OpenAIEmbedding(model=default_model)
+    except Exception as exc:  # pragma: no cover
+        logging.warning("埋め込みモデルの既定設定に失敗しました: %s", exc)
+
+
 def build_argument_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="EVOSHIPヘルプHTMLをLlamaIndexでチャンク化しNeo4jへ格納します。",
@@ -615,6 +636,20 @@ def build_argument_parser() -> argparse.ArgumentParser:
         type=Path,
         help="インポート完了後にグラフをJSONLで書き出すディレクトリ（nodes.jsonl / relationships.jsonl）",
     )
+    embed_group = parser.add_mutually_exclusive_group()
+    embed_group.add_argument(
+        "--embed-kg-nodes",
+        dest="embed_kg_nodes",
+        action="store_true",
+        help="KGノードのベクトル埋め込みとベクタ検索を有効化（デフォルト有効）",
+    )
+    embed_group.add_argument(
+        "--no-embed-kg-nodes",
+        dest="embed_kg_nodes",
+        action="store_false",
+        help="KGノードのベクトル埋め込みとベクタ検索を無効化",
+    )
+    parser.set_defaults(embed_kg_nodes=True)
     return parser
 
 
@@ -641,6 +676,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             use_llm_extract=args.use_llm_extract,
             llm_model=args.llm_model,
             export_dir=args.export_dir,
+            embed_kg_nodes=args.embed_kg_nodes,
         )
     except Exception as exc:  # pragma: no cover - CLI entry point
         logging.error("インポート処理中にエラーが発生しました: %s", exc)
