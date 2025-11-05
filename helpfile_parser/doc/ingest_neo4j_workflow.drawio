@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.8 Chrome/140.0.7339.240 Electron/38.4.0 Safari/537.36" version="28.2.8">
   <diagram id="workflow" name="Ingest Workflow">
-    <mxGraphModel dx="1901" dy="1281" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1296" dy="874" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -15,6 +15,11 @@
         </mxCell>
         <mxCell id="decisionDocs" value="HTMLが存在する?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="220" y="10" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="2K6h1u6sEIO9l94qQxp_-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="logNoDocs" target="endDry">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="870" y="320" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="logNoDocs" value="HTML未検出を警告" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="420" y="12" width="120" height="40" as="geometry" />
@@ -41,7 +46,7 @@
           <mxGeometry x="580" y="142" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="endDry" value="終了" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
-          <mxGeometry x="590" y="45" width="100" height="60" as="geometry" />
+          <mxGeometry x="840" y="320" width="66.67" height="40" as="geometry" />
         </mxCell>
         <mxCell id="loadEnv" value="load_dotenvを実行" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry y="209" width="120" height="40" as="geometry" />
@@ -102,8 +107,19 @@
         <mxCell id="edgeBaseTransformToMeta" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="baseTransform" edge="1" target="decisionExport">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
+        <mxCell id="2K6h1u6sEIO9l94qQxp_-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="decisionExport" target="endDry">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="620" y="370" />
+              <mxPoint x="873" y="370" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
         <mxCell id="decisionExport" value="--export-dirが指定?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="560" y="320" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="2K6h1u6sEIO9l94qQxp_-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="exportJsonl" target="endDry">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="exportJsonl" value="グラフデータを出力" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="700" y="320" width="120" height="40" as="geometry" />
@@ -190,6 +206,9 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="edgeWipeNo" value="いいえ" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="decisionWipe" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2K6h1u6sEIO9l94qQxp_-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="logNoChunks" target="endDry">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="logNoChunks" value="チャンク無しを警告" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
