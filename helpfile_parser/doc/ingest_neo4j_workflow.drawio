@@ -1,194 +1,112 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.8 Chrome/140.0.7339.240 Electron/38.4.0 Safari/537.36" version="28.2.8">
   <diagram id="workflow" name="Ingest Workflow">
-    <mxGraphModel dx="2206" dy="1563" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1901" dy="1281" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="start" value="開始" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
-          <mxGeometry x="10" y="10" width="66.67" height="40" as="geometry" />
+        <mxCell id="2K6h1u6sEIO9l94qQxp_-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="start" target="listHtml">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="checkDir" value="入力ディレクトリを確認" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="97" y="10" width="120" height="40" as="geometry" />
+        <mxCell id="start" value="開始" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry y="12" width="60" height="36" as="geometry" />
         </mxCell>
         <mxCell id="listHtml" value="help HTMLを列挙" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="237" y="10" width="120" height="40" as="geometry" />
+          <mxGeometry x="80" y="10" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="decisionDocs" value="HTMLが存在する?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="377" y="10" width="120" height="40" as="geometry" />
+          <mxGeometry x="220" y="10" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="logNoDocs" value="HTML未検出を警告" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="547" y="10" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="returnEmpty" value="IngestStats(0,0,0)を返す" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="687" y="10" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="endEarly" value="終了" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
-          <mxGeometry x="1050" width="100" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="prepare" value="_prepare_corpusを呼び出す" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="10" y="80" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="makeDocInfo" value="DocumentInfoを作成" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="180" y="80" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="makeSectionInfo" value="SectionInfoを作成" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="340" y="80" width="120" height="40" as="geometry" />
+          <mxGeometry x="420" y="12" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="makeDocs" value="チャンク用Documentを作成" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="490" y="80" width="120" height="40" as="geometry" />
+          <mxGeometry y="80" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="decisionChunks" value="チャンク対象がある?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="640" y="80" width="120" height="40" as="geometry" />
+          <mxGeometry x="140" y="80" width="120" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="logNoChunks" value="チャンク無しを警告" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="775" y="80" width="120" height="40" as="geometry" />
+        <mxCell id="parse" value="&lt;font style=&quot;font-size: 11px;&quot;&gt;テキストをチャンク化&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry y="142" width="120" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="returnDocsOnly" value="IngestStats(doc件数,0,0)を返す" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="920" y="80" width="120" height="40" as="geometry" />
+        <mxCell id="splitText" value="チャンクにKG情報を付与" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="140" y="142" width="120" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="parse" value="SimpleNodeParserを生成" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry y="160" width="120" height="40" as="geometry" />
+        <mxCell id="2K6h1u6sEIO9l94qQxp_-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="buildNodes" target="2K6h1u6sEIO9l94qQxp_-3">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="splitText" value="Documentをチャンクに分割" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="150" y="160" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="buildNodes" value="_build_property_graph_nodesを呼び出す" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="300" y="160" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="createEntity" value="EntityNodeを生成" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="450" y="160" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="createChunk" value="ChunkNodeを生成" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="590" y="160" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="makeSectionRel" value="HAS_SECTIONを作成" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="740" y="160" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="makeChunkRel" value="HAS_CHUNKを作成" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="900" y="160" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="updateMeta" value="メタデータを更新" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1040" y="160" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="computeStats" value="IngestStatsを計算" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1180" y="160" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="logStats" value="処理結果をlogging.infoで記録" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1330" y="160" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="decisionDry" value="dry_runが指定?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1470" y="145" width="150" height="70" as="geometry" />
+        <mxCell id="buildNodes" value="処理サマリを記録" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="280" y="142" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="logDry" value="dry-runメッセージを記録" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1425" y="50" width="240" height="60" as="geometry" />
+          <mxGeometry x="580" y="142" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="endDry" value="終了" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
-          <mxGeometry x="1275" y="50" width="100" height="60" as="geometry" />
+          <mxGeometry x="590" y="45" width="100" height="60" as="geometry" />
         </mxCell>
         <mxCell id="loadEnv" value="load_dotenvを実行" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry y="220" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="resolveConfig" value="_resolve_neo4j_configで接続情報取得" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="150" y="220" width="120" height="40" as="geometry" />
+          <mxGeometry y="209" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="createStore" value="Neo4jPropertyGraphStoreを作成" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="305" y="220" width="120" height="40" as="geometry" />
+          <mxGeometry x="140" y="209" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="decisionWipe" value="--wipeが指定?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="450" y="220" width="120" height="40" as="geometry" />
+          <mxGeometry x="280" y="209" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="wipeGraph" value="_wipe_existing_graphで既存データ削除" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="450" y="290" width="120" height="40" as="geometry" />
+          <mxGeometry x="420" y="249" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="pgSetNodes" value="nodes を指定" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="720" y="220" width="120" height="40" as="geometry" />
+          <mxGeometry x="560" y="209" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="pgSetStore" value="property_graph_store を指定" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry y="360" width="120" height="40" as="geometry" />
+          <mxGeometry y="320" width="120" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="pgSetEmbed" value="embed_kg_nodes = false" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="140" y="360" width="120" height="40" as="geometry" />
+        <mxCell id="2K6h1u6sEIO9l94qQxp_-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="pgSetEmbed" target="decisionUseLLMInline">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="pgSetProgress" value="show_progress = false" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="300" y="360" width="120" height="40" as="geometry" />
+        <mxCell id="pgSetEmbed" value="embed_kg_nodes を設定" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="140" y="320" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="2K6h1u6sEIO9l94qQxp_-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="decisionUseLLMInline" target="baseTransform">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="decisionUseLLMInline" value="LLM抽出を使用?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="440" y="360" width="120" height="40" as="geometry" />
+          <mxGeometry x="280" y="320" width="120" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="pgBuildWithLLM" value="LLM有: llm を指定して構築" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="440" y="440" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="pgBuildWithoutLLM" value="LLM無: kg_extractors=[ImplicitPathExtractor()] で構築" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="630" y="360" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeWipeToPgSetNodes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="wipeGraph" target="pgSetNodes" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="edgeWipeToPgSetNodes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="wipeGraph" target="pgSetNodes" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="550" y="269" />
+              <mxPoint x="550" y="229" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="edgeWipeNoToPgSetNodes" value="いいえ" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="decisionWipe" target="pgSetNodes" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="edgePgNodesToStore" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="pgSetNodes" target="pgSetStore" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="229" />
+              <mxPoint x="700" y="300" />
+              <mxPoint x="60" y="300" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="edgePgStoreToEmbed" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="pgSetStore" target="pgSetEmbed" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edgePgEmbedToProgress" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="pgSetEmbed" target="pgSetProgress" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="baseTransform" value="Neo4jへ反映（PropertyGraphIndex）" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="420" y="320" width="120" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="edgePgProgressToDecisionLLMInline" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="pgSetProgress" target="decisionUseLLMInline" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeDecisionLLMInlineYes" value="はい" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="decisionUseLLMInline" target="pgBuildWithLLM" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeDecisionLLMInlineNo" value="いいえ" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="decisionUseLLMInline" target="pgBuildWithoutLLM" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeBuildWithLLMToBase" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="pgBuildWithLLM" target="baseTransform" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeBuildWithoutLLMToBase" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="pgBuildWithoutLLM" target="baseTransform" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="baseTransform" value="変換実行\n(run/arun_transformations)" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="770" y="440" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeBaseTransformToMeta" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="baseTransform" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="baseDedup" value="重複除去\n(KG/LLAMAノード)" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="2080" y="240" width="220" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeMetaToDedup" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" target="baseDedup" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="baseEmbed" value="埋め込み/ベクタ登録\n(embed_kg_nodes=True の場合)" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="2480" y="340" width="300" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeDedupToEmbed" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="baseDedup" target="baseEmbed" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="baseUpsert" value="アップサート\n(llama_nodes→nodes→relations)" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="2120" y="510" width="300" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeEmbedToUpsert" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="baseEmbed" target="baseUpsert" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="baseSchema" value="スキーマ更新\n(schema refresh)" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="2580" y="600" width="220" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeUpsertToSchema" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="baseUpsert" target="baseSchema" edge="1">
+        <mxCell id="edgeBaseTransformToMeta" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="baseTransform" edge="1" target="decisionExport">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="decisionExport" value="--export-dirが指定?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1880" y="40" width="200" height="70" as="geometry" />
+          <mxGeometry x="560" y="320" width="120" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="exportJsonl" value="_export_graph_as_jsonlを実行\n(nodes.jsonl / relationships.jsonl)" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="2640" y="120" width="320" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeIndexToExportDecision" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="baseSchema" target="decisionExport" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="exportJsonl" value="グラフデータを出力" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="700" y="320" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="edgeExportYes" value="はい" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="decisionExport" target="exportJsonl" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -202,40 +120,20 @@
         <mxCell id="edgeCloseEnd" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edgeStart" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="start" target="checkDir" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeDir" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="checkDir" target="listHtml" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
         <mxCell id="edgeList" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="listHtml" target="decisionDocs" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="edgeDocsNo" value="いいえ" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="decisionDocs" target="logNoDocs" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edgeWarnEnd" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="logNoDocs" target="returnEmpty" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeEmptyEnd" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="returnEmpty" target="endEarly" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeDocsYes" value="はい" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="decisionDocs" target="prepare" edge="1">
+        <mxCell id="edgeDocsYes" value="はい" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="decisionDocs" target="makeDocs" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="437" y="60" />
-              <mxPoint x="70" y="60" />
+              <mxPoint x="280" y="60" />
+              <mxPoint x="60" y="60" />
             </Array>
+            <mxPoint x="70.0344827586207" y="80" as="targetPoint" />
           </mxGeometry>
-        </mxCell>
-        <mxCell id="edgePrepareDoc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="prepare" target="makeDocInfo" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeDocSection" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="makeDocInfo" target="makeSectionInfo" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeSectionDocs" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="makeSectionInfo" target="makeDocs" edge="1">
-          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="edgeDocsDecision" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="makeDocs" target="decisionChunks" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -243,18 +141,13 @@
         <mxCell id="edgeChunksNo" value="いいえ" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="decisionChunks" target="logNoChunks" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edgeLogNoChunks" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="logNoChunks" target="returnDocsOnly" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeReturnDocsOnly" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="returnDocsOnly" target="endEarly" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeChunksYes" value="はい" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="decisionChunks" target="parse" edge="1">
+        <mxCell id="edgeChunksYes" value="はい" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" target="parse" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="700" y="130" />
+              <mxPoint x="200" y="130" />
               <mxPoint x="60" y="130" />
             </Array>
+            <mxPoint x="200" y="120" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="edgeParseSplit" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="parse" target="splitText" edge="1">
@@ -263,60 +156,47 @@
         <mxCell id="edgeSplitBuild" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="splitText" target="buildNodes" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edgeBuildEntity" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="buildNodes" target="createEntity" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeEntityChunk" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="createEntity" target="createChunk" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeChunkSection" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="createChunk" target="makeSectionRel" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeSectionRel" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="makeSectionRel" target="makeChunkRel" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeChunkRel" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="makeChunkRel" target="updateMeta" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeUpdateStats" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="updateMeta" target="computeStats" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeStatsLog" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="computeStats" target="logStats" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeLogDryDecision" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="logStats" target="decisionDry" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeDryYes" value="はい" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="decisionDry" target="logDry" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="edgeDryYes" value="はい" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="2K6h1u6sEIO9l94qQxp_-3" target="logDry" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1545.0000000000005" y="145.00000000000023" as="sourcePoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="edgeDryFinish" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="logDry" target="endDry" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edgeDryNo" value="いいえ" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="decisionDry" target="loadEnv" edge="1">
+        <mxCell id="edgeDryNo" value="いいえ" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="2K6h1u6sEIO9l94qQxp_-3" target="loadEnv" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="60" y="210" />
+              <mxPoint x="480" y="190" />
+              <mxPoint x="60" y="190" />
             </Array>
+            <mxPoint x="1534.2857142857138" y="210" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="edgeEnvResolve" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="loadEnv" target="resolveConfig" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeResolveStore" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="resolveConfig" target="createStore" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="edgeEnvResolve" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="loadEnv" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="140" y="229" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="edgeStoreWipe" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="createStore" target="decisionWipe" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edgeWipeYes" value="はい" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="decisionWipe" target="wipeGraph" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="edgeWipeYes" value="はい" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="decisionWipe" target="wipeGraph" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="390" y="269" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="edgeWipeToBuild" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="wipeGraph" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="edgeWipeNo" value="いいえ" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="decisionWipe" edge="1">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="logNoChunks" value="チャンク無しを警告" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="420" y="80" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="2K6h1u6sEIO9l94qQxp_-3" value="dry_runが指定?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="142" width="120" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
