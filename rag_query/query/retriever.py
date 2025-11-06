@@ -75,7 +75,7 @@ class GraphRetriever(BaseRetriever):
             return results
 
         except Exception as e:
-            raise QueryError(f"グラフ検索エラー", str(e))
+            raise QueryError("グラフ検索エラー", str(e))
 
     def find_similar_methods(
         self, method_name: str, max_results: int = 5
@@ -195,7 +195,7 @@ class VectorRetriever(BaseRetriever):
             return results
 
         except Exception as e:
-            raise QueryError(f"ベクトル検索エラー", str(e))
+            raise QueryError("ベクトル検索エラー", str(e))
 
     def find_similar_content(
         self, content: str, max_results: int = 5

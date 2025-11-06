@@ -76,7 +76,7 @@ class QueryProcessor:
             return response
 
         except Exception as e:
-            raise QueryError(f"クエリ処理に失敗しました", str(e))
+            raise QueryError("クエリ処理に失敗しました", str(e))
 
     def get_similar_methods(
         self, method_name: str, max_results: int = 5
