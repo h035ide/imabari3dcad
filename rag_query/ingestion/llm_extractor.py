@@ -44,14 +44,15 @@ class LLMExtractor:
             from ..config import (
                 LLM_VERBOSITY,
                 LLM_REASONING_EFFORT,
-                LLM_RESPONSE_FORMAT,
                 LLM_OUTPUT_VERSION,
             )
+            # response_formatはLangChainで問題を起こす可能性があるため削除
+            # プロンプトでJSON形式を指定することで対応
             llm_config.update({
                 "reasoning_effort": LLM_REASONING_EFFORT,
                 "output_version": LLM_OUTPUT_VERSION,
                 "verbosity": LLM_VERBOSITY,
-                "response_format": LLM_RESPONSE_FORMAT,
+                # response_formatは削除（LangChainが関数定義として解釈するため）
             })
         else:
             # 標準モデル用パラメータ
