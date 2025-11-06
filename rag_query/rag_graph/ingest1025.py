@@ -1,42 +1,51 @@
 from tree_sitter import Language, Parser
 import tree_sitter_python as tspython
 
+from pathlib import Path
+import sys as _sys
 import re
 import json
 from typing import List, Dict, Any, Tuple
 import shutil
 
-import config
-from langchain_core.documents import Document
-from langchain_neo4j import Neo4jGraph
-from neo4j.exceptions import ServiceUnavailable
-from langchain_community.graphs.graph_document import GraphDocument, Node, Relationship
-from langchain_community.vectorstores import Chroma
-from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+# Ensure project root is on sys.path for direct execution
+_project_root = str(Path(__file__).resolve().parents[2])
+if _project_root not in _sys.path:
+    _sys.path.insert(0, _project_root)
+from rag_query.rag_graph import config  # noqa: E402
+from langchain_core.documents import Document  # noqa: E402
+from langchain_neo4j import Neo4jGraph  # noqa: E402
+from neo4j.exceptions import ServiceUnavailable  # noqa: E402
+from langchain_community.graphs.graph_document import GraphDocument, Node, Relationship  # noqa: E402
+from langchain_community.vectorstores import Chroma  # noqa: E402
+from langchain_openai import OpenAIEmbeddings, ChatOpenAI  # noqa: E402
 
-# 設定をconfigモジュールから取得
-DATA_DIR = config.DATA_DIR
+DATA_DIR = Path("data/src")
 NEO4J_URI = config.NEO4J_URI
 NEO4J_USER = config.NEO4J_USER
 NEO4J_PASSWORD = config.NEO4J_PASSWORD
-NEO4J_DATABASE = config.NEO4J_DATABASE
-API_ARG_TXT_CANDIDATES = config.API_ARG_TXT_CANDIDATES
-CHROMA_PERSIST_DIR = config.CHROMA_PERSIST_DIR
-OPENAI_API_KEY = config.OPENAI_API_KEY
+NEO4J_DATABASE = getattr(config, "NEO4J_DATABASE", "neo4j")
+
+# api.txt 関連の定義を削除 (API_TXT_CANDIDATES)
+
+API_ARG_TXT_CANDIDATES = [
+    Path("/mnt/data/api_arg.txt"),
+    Path("api_arg.txt"),
+    DATA_DIR / "api_arg.txt",
+]
 
 PY_LANGUAGE = Language(tspython.language())
 parser = Parser(PY_LANGUAGE)
 
-# LLM設定をconfigモジュールから取得
-llm_kwargs = {
-    "temperature": config.LLM_TEMPERATURE,
-    "model_name": config.LLM_MODEL_NAME,
-    "openai_api_key": OPENAI_API_KEY,
-}
-if config.LLM_REQUEST_TIMEOUT is not None:
-    llm_kwargs["request_timeout"] = config.LLM_REQUEST_TIMEOUT
+CHROMA_PERSIST_DIR = DATA_DIR / "chroma_db"
+OPENAI_API_KEY = config.OPENAI_API_KEY
 
-llm = ChatOpenAI(**llm_kwargs)
+llm = ChatOpenAI(
+    temperature=0,
+    model_name="gpt-5",
+    openai_api_key=OPENAI_API_KEY,
+    # request_timeout=600
+)
 
 
 def _read_api_arg_text() -> str:
@@ -519,11 +528,7 @@ def _build_and_load_neo4j() -> List[GraphDocument]:
     # --- ここからが修正箇所 ---
     # 4つのAPI仕様書ファイルを定義
     api_txt_files = [
-        DATA_DIR / "api1.txt",
-        DATA_DIR / "api2.txt",
-        DATA_DIR / "api3.txt",
-        DATA_DIR / "api4.txt",
-        DATA_DIR / "api5.txt",
+        DATA_DIR / "api.txt",
     ]
 
     all_nodes = []

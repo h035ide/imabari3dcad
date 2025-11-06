@@ -119,11 +119,16 @@ class IngestionOrchestrator:
             api_arg_candidates = self._get_api_arg_candidates(config)
             api_arg_paths = [p for p in api_arg_candidates if p.exists()]
             if api_arg_paths:
-                logger.info("グラフ抽出にapi_arg.txtを含めます: %s", [str(p) for p in api_arg_paths])
+                logger.info(
+                    "グラフ抽出にapi_arg.txtを含めます: %s",
+                    [str(p) for p in api_arg_paths],
+                )
             merged_api_files = list(api_files) + api_arg_paths
 
             # API仕様書を解析（api.txt + api_arg.txt）
-            spec_triples, spec_node_props = self.api_parser.parse_api_specs(merged_api_files)
+            spec_triples, spec_node_props = self.api_parser.parse_api_specs(
+                merged_api_files
+            )
 
             # データ型の説明を取得して統合（api_arg.txt専用）
             type_descriptions = self.api_parser.parse_datatype_descriptions(
@@ -283,7 +288,9 @@ class IngestionOrchestrator:
             if type_name:
                 existing_type_names.add(type_name)
                 if type_name in type_descriptions:
-                    node_data["properties"]["description"] = type_descriptions[type_name]
+                    node_data["properties"]["description"] = type_descriptions[
+                        type_name
+                    ]
                     added_count += 1
                     logger.debug(
                         "データ型説明を追加: %s -> %s",

@@ -1,0 +1,199 @@
+<mxfile host="app.diagrams.net" modified="2025-11-06T16:45:00.000Z" agent="AI Assistant" version="24.7.8" editor="diagramly">
+  <diagram id="query-activity-workflow" name="Query Activity Workflow">
+    <mxGraphModel dx="1384" dy="781" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Start -->
+        <mxCell id="start" value="Start" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="120" y="80" width="100" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Validate Input -->
+        <mxCell id="validate" value="Validate &amp; Normalize Input" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="80" width="220" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Decision: Is Valid? -->
+        <mxCell id="is_valid" value="Is Valid?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="540" y="85" width="120" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Error Handling -->
+        <mxCell id="error" value="Error Handling&#xa;(QueryError → Empty Response)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="520" y="200" width="220" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- End (error path) -->
+        <mxCell id="end_error" value="End" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="770" y="210" width="90" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Graph Search -->
+        <mxCell id="graph_search" value="Graph Search&#xa;(Neo4j: GraphRetriever.search)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="720" y="40" width="260" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Vector Search -->
+        <mxCell id="vector_search" value="Vector Search&#xa;(Chroma: VectorRetriever.search)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="720" y="130" width="260" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Integrate Results -->
+        <mxCell id="integrate" value="Integrate Results&#xa;(ResponseGenerator._integrate_results)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="85" width="280" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Rank Results -->
+        <mxCell id="rank" value="Rank Results&#xa;(ResponseGenerator._rank_results)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="85" width="260" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Generate Response -->
+        <mxCell id="generate" value="Generate Response&#xa;(ResponseGenerator.generate_response)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1640" y="85" width="300" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Log & Return -->
+        <mxCell id="log" value="Log &amp; Return&#xa;(QueryProcessor.process_query)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1960" y="85" width="260" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- End (success) -->
+        <mxCell id="end" value="End" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="2250" y="95" width="90" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Edges -->
+        <mxCell id="e1" edge="1" parent="1" source="start" target="validate">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="validate" target="is_valid">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" value="No" style="edgeStyle=elbowEdgeStyle;endArrow=block;html=1;" edge="1" parent="1" source="is_valid" target="error">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="600" y="160" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="error" target="end_error">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e5" value="Yes" style="endArrow=block;html=1;" edge="1" parent="1" source="is_valid" target="graph_search">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e6" style="endArrow=block;html=1;dashed=1;" edge="1" parent="1" source="is_valid" target="vector_search">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="160" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="e7" edge="1" parent="1" source="graph_search" target="integrate">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="vector_search" target="integrate">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e9" edge="1" parent="1" source="integrate" target="rank">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="rank" target="generate">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="generate" target="log">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="log" target="end">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Notes -->
+        <mxCell id="note1" value="Config: config.yaml (LLM, Embedding, Paths, Logging)&#xa;Env: .env for secrets" style="rounded=1;whiteSpace=wrap;html=1;strokeDasharray=1 3;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="120" y="10" width="420" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="note2" value="Classes: QueryProcessor, GraphRetriever, VectorRetriever, ResponseGenerator" style="rounded=1;whiteSpace=wrap;html=1;strokeDasharray=1 3;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="10" width="500" height="60" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="swimlane" name="Swimlane View">
+    <mxGraphModel dx="1384" dy="781" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Swimlane: QueryProcessor -->
+        <mxCell id="lane_qp" value="QueryProcessor" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;rounded=0;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="120" y="80" width="660" height="260" as="geometry"/>
+        </mxCell>
+        <mxCell id="qp_start" value="Start" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="lane_qp">
+          <mxGeometry x="20" y="40" width="80" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="qp_validate" value="Validate Input" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="lane_qp">
+          <mxGeometry x="120" y="40" width="160" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="qp_dispatch" value="Dispatch Searches" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="lane_qp">
+          <mxGeometry x="300" y="40" width="180" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="qp_integrate" value="Integrate &amp; Rank" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="lane_qp">
+          <mxGeometry x="500" y="40" width="140" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Swimlane: GraphRetriever -->
+        <mxCell id="lane_gr" value="GraphRetriever" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;rounded=0;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="120" y="360" width="660" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="gr_search" value="Neo4j Search" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane_gr">
+          <mxGeometry x="40" y="40" width="200" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Swimlane: VectorRetriever -->
+        <mxCell id="lane_vr" value="VectorRetriever" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;rounded=0;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="120" y="540" width="660" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="vr_search" value="Chroma Similarity Search" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="lane_vr">
+          <mxGeometry x="40" y="40" width="220" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Swimlane: ResponseGenerator -->
+        <mxCell id="lane_rg" value="ResponseGenerator" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;rounded=0;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="820" y="80" width="660" height="260" as="geometry"/>
+        </mxCell>
+        <mxCell id="rg_integrate" value="_integrate_results" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="lane_rg">
+          <mxGeometry x="40" y="40" width="200" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="rg_rank" value="_rank_results" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="lane_rg">
+          <mxGeometry x="260" y="40" width="180" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="rg_generate" value="generate_response" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="lane_rg">
+          <mxGeometry x="460" y="40" width="180" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Edges (Swimlane View) -->
+        <mxCell id="se1" edge="1" parent="1" source="qp_start" target="qp_validate">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="se2" edge="1" parent="1" source="qp_validate" target="qp_dispatch">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="se3" value="call" style="dashed=1;endArrow=block;" edge="1" parent="1" source="qp_dispatch" target="gr_search">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="se4" value="call" style="dashed=1;endArrow=block;" edge="1" parent="1" source="qp_dispatch" target="vr_search">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="se5" value="results" style="endArrow=block;" edge="1" parent="1" source="gr_search" target="qp_integrate">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="se6" value="results" style="endArrow=block;" edge="1" parent="1" source="vr_search" target="qp_integrate">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+

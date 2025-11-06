@@ -89,7 +89,9 @@ class LLMExtractor:
         """レスポンス保存用ディレクトリを設定"""
         self.response_dir = response_dir
 
-    def _save_response(self, kind: str, content: str, parsed: Any | None = None) -> None:
+    def _save_response(
+        self, kind: str, content: str, parsed: Any | None = None
+    ) -> None:
         """LLMレスポンスを保存する（rawとparsed）"""
         if not self.response_dir:
             return
@@ -460,7 +462,9 @@ class LLMExtractor:
                 # パターン: {'id': '...', 'summary': [], 'type': 'reasoning'} または {"id": "...", ...}
                 # メタデータ辞書は通常、短い辞書で、'id', 'summary', 'type'などのキーを含む
                 metadata_match = re.search(
-                    r"^\{['\"](?:id|summary|type)['\"]\s*:\s*[^}]+\}[^{]*\{", cleaned_content, re.MULTILINE
+                    r"^\{['\"](?:id|summary|type)['\"]\s*:\s*[^}]+\}[^{]*\{",
+                    cleaned_content,
+                    re.MULTILINE,
                 )
                 if metadata_match:
                     # メタデータ辞書の後の最初の`{`の位置を見つける
@@ -471,7 +475,10 @@ class LLMExtractor:
                         json_start = cleaned_content.find("{", metadata_end + 1)
                         if json_start != -1:
                             cleaned_content = cleaned_content[json_start:]
-                            logger.debug("メタデータ辞書をスキップしてJSON抽出を開始: %s", cleaned_content[:100])
+                            logger.debug(
+                                "メタデータ辞書をスキップしてJSON抽出を開始: %s",
+                                cleaned_content[:100],
+                            )
 
                 # すべての '{' の位置を探す
                 json_starts = []
@@ -486,7 +493,7 @@ class LLMExtractor:
 
                 for json_start in json_starts:
                     # この位置からJSONの構造を確認
-                    candidate_preview = cleaned_content[json_start:json_start + 200]
+                    candidate_preview = cleaned_content[json_start : json_start + 200]
                     if any(key in candidate_preview for key in expected_keys):
                         prioritized_starts.append(json_start)
                     else:
