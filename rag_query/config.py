@@ -24,48 +24,28 @@ _CONFIG_FILE = Path(__file__).parent / "config.yaml"
 
 def _load_yaml_config() -> dict:
     """config.yamlを読み込む"""
-    if not _CONFIG_FILE.exists():
-        # デフォルト値を返す
-        return {
-            "paths": {
-                "data_dir": "data",
-                "chroma_persist_dir": "data/chroma_db",
-                "api_arg_txt_candidates": [
-                    "/mnt/data/api_arg.txt",
-                    "api_arg.txt",
-                    "data/api_arg.txt"
-                ]
-            },
-            "neo4j": {
-                "database": "neo4j"
-            },
-            "llm": {
-                "model_name": "gpt-5",
-                "temperature": 0
-            }
-        }
-
-    with open(_CONFIG_FILE, "r", encoding="utf-8") as f:
-        return yaml.safe_load(f) or {}
+    if _CONFIG_FILE.exists():
+        with open(_CONFIG_FILE, "r", encoding="utf-8") as f:
+            return yaml.safe_load(f) or {}
+    else:
+        raise FileNotFoundError(f"config.yaml not found: {_CONFIG_FILE}")
 
 
 _yaml_config = _load_yaml_config()
 
 # パス設定
-DATA_DIR = Path(_yaml_config.get("paths", {}).get("data_dir", "data"))
-CHROMA_PERSIST_DIR = Path(_yaml_config.get("paths", {}).get("chroma_persist_dir", "data/chroma_db"))
-API_ARG_TXT_CANDIDATES = [
-    Path(p) for p in _yaml_config.get("paths", {}).get("api_arg_txt_candidates", [
-        "/mnt/data/api_arg.txt",
-        "api_arg.txt",
-        "data/api_arg.txt"
-    ])
-]
+paths_config = _yaml_config.get("paths", {})
+DATA_DIR = Path(paths_config.get("data_dir", "data"))
+CHROMA_PERSIST_DIR = Path(paths_config.get("chroma_persist_dir", "data/chroma_db"))
+
+# API引数テキストファイルの候補パス
+api_arg_candidates = paths_config.get("api_arg_txt", ["data/src/api_arg.txt"])
+API_ARG_TXT_CANDIDATES = [Path(p) for p in api_arg_candidates]
 
 # Neo4j設定
 NEO4J_DATABASE = _yaml_config.get("neo4j", {}).get("database", "neo4j")
 
 # LLM設定
-LLM_MODEL_NAME = _yaml_config.get("llm", {}).get("model_name", "gpt-5")
+LLM_MODEL_NAME = _yaml_config.get("llm", {}).get("model_name", "gpt-4")
 LLM_TEMPERATURE = _yaml_config.get("llm", {}).get("temperature", 0)
 LLM_REQUEST_TIMEOUT = _yaml_config.get("llm", {}).get("request_timeout", None)

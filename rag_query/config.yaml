@@ -5,10 +5,14 @@
 paths:
   data_dir: "data"
   chroma_persist_dir: "data/chroma_db"
-  api_arg_txt_candidates:
-    - "/mnt/data/api_arg.txt"
-    - "api_arg.txt"
-    - "data/api_arg.txt"
+  api_arg_txt:
+    - "data/src/api_arg.txt"
+  api_txt:
+    - "data/src/api1.txt"
+    - "data/src/api2.txt" 
+    - "data/src/api3.txt"
+    - "data/src/api4.txt"
+    - "data/src/api5.txt"
 
 # Neo4j設定
 neo4j:
@@ -16,7 +20,7 @@ neo4j:
 
 # LLM設定
 llm:
-  model_name: "gpt-5"
+  model_name: "gpt-4"
   temperature: 0
   # request_timeout: 600  # 必要に応じてコメントアウトを解除
 
