@@ -10,7 +10,6 @@ from typing import List, Dict, Any, Tuple
 
 from ..core.logger import get_logger
 from ..core.exceptions import DataProcessingError
-from ..core.models import IngestionResult
 from ..utils.file_utils import read_script_files
 from .api_parser import APISpecParser
 from .script_analyzer import ScriptAnalyzer
@@ -70,20 +69,20 @@ class IngestionOrchestrator:
 
             processing_time = time.time() - start_time
 
-            logger.info(f"=== データ取り込み処理完了 ===")
-            logger.info(f"処理時間: {processing_time:.2f}秒")
-            logger.info(f"総トリプル数: {len(all_triples)}")
-            logger.info(f"総ノード数: {len(all_node_props)}")
+            logger.info("=== データ取り込み処理完了 ===")
+            logger.info("処理時間: %.2f秒", processing_time)
+            logger.info("総トリプル数: %d", len(all_triples))
+            logger.info("総ノード数: %d", len(all_node_props))
 
             if errors:
-                logger.warning(f"エラー件数: {len(errors)}")
+                logger.warning("エラー件数: %d", len(errors))
                 for error in errors:
-                    logger.warning(f"  - {error}")
+                    logger.warning("  - %s", error)
 
             return all_triples, all_node_props
 
         except Exception as e:
-            raise DataProcessingError(f"データ取り込み処理に失敗しました", str(e))
+            raise DataProcessingError("データ取り込み処理に失敗しました", str(e))
 
     def _process_api_specs(
         self, config: Dict[str, Any], errors: List[str]
@@ -183,17 +182,10 @@ class IngestionOrchestrator:
         paths_config = config.get("paths", {})
         api_txt_paths = paths_config.get("api_txt", [])
 
-        # 従来の複数ファイル形式もサポート
-        data_dir = Path(paths_config.get("data_dir", "data"))
+        # 設定ファイルに明示されたパスのみを使用
         api_files = []
-
-        # 設定ファイルに明示されたパス
         for path_str in api_txt_paths:
             api_files.append(Path(path_str))
-
-        # 従来の命名規則ファイル（api1.txt, api2.txt, ...）
-        for i in range(1, 6):  # api1.txt から api5.txt まで
-            api_files.append(data_dir / f"api{i}.txt")
 
         return api_files
 
