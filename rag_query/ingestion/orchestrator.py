@@ -106,11 +106,17 @@ class IngestionOrchestrator:
                 logger.warning("API仕様書ファイルが設定されていません")
                 return [], {}
 
-            # API仕様書を解析
-            spec_triples, spec_node_props = self.api_parser.parse_api_specs(api_files)
-
-            # データ型の説明を取得して統合
+            # API仕様書に api_arg.txt も含めてグラフ抽出する
             api_arg_candidates = self._get_api_arg_candidates(config)
+            api_arg_paths = [p for p in api_arg_candidates if p.exists()]
+            if api_arg_paths:
+                logger.info("グラフ抽出にapi_arg.txtを含めます: %s", [str(p) for p in api_arg_paths])
+            merged_api_files = list(api_files) + api_arg_paths
+
+            # API仕様書を解析（api.txt + api_arg.txt）
+            spec_triples, spec_node_props = self.api_parser.parse_api_specs(merged_api_files)
+
+            # データ型の説明を取得して統合（api_arg.txt専用）
             type_descriptions = self.api_parser.parse_datatype_descriptions(
                 api_arg_candidates
             )
@@ -222,7 +228,7 @@ class IngestionOrchestrator:
 
         added_count = 0
         created_count = 0
-        
+
         # 既存のDataTypeノードを取得
         existing_type_names = set()
         data_type_nodes = [
