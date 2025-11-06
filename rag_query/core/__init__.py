@@ -19,7 +19,12 @@ from .exceptions import (
     StorageError,
     QueryError,
 )
-from .logger import get_logger
+from .logger import (
+    get_logger,
+    set_global_log_file,
+    get_global_log_file,
+    add_file_handler_to_existing_loggers,
+)
 
 __all__ = [
     # データモデル
@@ -37,4 +42,7 @@ __all__ = [
     "QueryError",
     # ログ
     "get_logger",
+    "set_global_log_file",
+    "get_global_log_file",
+    "add_file_handler_to_existing_loggers",
 ]

@@ -35,6 +35,42 @@ def get_global_log_file() -> Optional[Path]:
     return _global_log_file
 
 
+def add_file_handler_to_existing_loggers(log_file: Path) -> None:
+    """
+    既存のすべてのロガーにファイルハンドラーを追加する
+    
+    Args:
+        log_file: ログファイルパス
+    """
+    # ログファイル名に日付・時刻情報を追加
+    log_file_with_datetime = _add_datetime_to_log_file(log_file)
+    log_file_with_datetime.parent.mkdir(parents=True, exist_ok=True)
+    
+    # フォーマッター設定
+    formatter = logging.Formatter(
+        fmt="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    )
+    
+    # 既存のすべてのロガーにファイルハンドラーを追加
+    for logger_name in logging.Logger.manager.loggerDict:
+        logger = logging.getLogger(logger_name)
+        
+        # 既にファイルハンドラーがあるかチェック
+        has_file_handler = any(
+            isinstance(handler, logging.FileHandler) 
+            for handler in logger.handlers
+        )
+        
+        if not has_file_handler:
+            # ファイルハンドラーを追加
+            file_handler = logging.FileHandler(log_file_with_datetime, encoding="utf-8")
+            file_handler.setLevel(logging.DEBUG)
+            file_handler.setFormatter(formatter)
+            logger.addHandler(file_handler)
+            logger.setLevel(logging.DEBUG)  # ロガーのレベルもDEBUGに設定
+
+
 def get_logger(
     name: str, log_level: str = "INFO", log_file: Optional[Path] = None
 ) -> logging.Logger:

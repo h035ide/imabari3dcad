@@ -8,7 +8,12 @@ import time
 from pathlib import Path
 from typing import Optional
 
-from .core.logger import get_logger, setup_progress_logger, set_global_log_file
+from .core.logger import (
+    get_logger,
+    setup_progress_logger,
+    set_global_log_file,
+    add_file_handler_to_existing_loggers,
+)
 from .core.exceptions import RAGQueryError, ConfigurationError
 from .core.models import QueryRequest
 from .utils.validation import validate_config
@@ -169,6 +174,9 @@ class RAGQueryApp:
 
         # グローバルログファイルを設定（すべてのモジュールで共有）
         set_global_log_file(log_file_path)
+
+        # 既存のすべてのロガーにファイルハンドラーを追加
+        add_file_handler_to_existing_loggers(log_file_path)
 
         # ロガーを初期化
         logger = get_logger(__name__)
