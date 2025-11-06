@@ -23,7 +23,7 @@ llm:
   temperature: 0  # 推論モデルの場合はNone（自動設定）
   # 推論モデル用パラメータ（推論モデルの場合のみ使用）
   verbosity: "medium"  # "low" or "medium" or "high"
-  reasoning_effort: "medium"  # "minimal" or "low" or "medium" or "high"
+  reasoning_effort: "high"  # "minimal" or "low" or "medium" or "high"
   response_format: "json_object"  # "text" or "json_object"
   output_version: "responses/v1"  # 推論モデル用
   # その他
