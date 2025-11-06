@@ -1,0 +1,22 @@
+# アプリケーション設定ファイル
+# 機密情報（APIキー、パスワード）は .env ファイルに記載してください
+
+# データディレクトリ設定
+paths:
+  data_dir: "data"
+  chroma_persist_dir: "data/chroma_db"
+  api_arg_txt_candidates:
+    - "/mnt/data/api_arg.txt"
+    - "api_arg.txt"
+    - "data/api_arg.txt"
+
+# Neo4j設定
+neo4j:
+  database: "neo4j"
+
+# LLM設定
+llm:
+  model_name: "gpt-5"
+  temperature: 0
+  # request_timeout: 600  # 必要に応じてコメントアウトを解除
+
