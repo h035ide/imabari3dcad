@@ -30,7 +30,6 @@ from .config import (
     EMBEDDING_BATCH_SIZE,
     # APIキー
     OPENAI_API_KEY,
-    GEMINI_API_KEY,
     # 設定関数
     get_langchain_llm_config,
     get_llamaindex_llm_config,
@@ -65,7 +64,6 @@ __all__ = [
     "EMBEDDING_BATCH_SIZE",
     # APIキー
     "OPENAI_API_KEY",
-    "GEMINI_API_KEY",
     # 設定関数
     "get_langchain_llm_config",
     "get_llamaindex_llm_config",
