@@ -24,7 +24,7 @@ from .logger import get_logger
 __all__ = [
     # データモデル
     "GraphNode",
-    "GraphRelationship", 
+    "GraphRelationship",
     "GraphDocument",
     "IngestionResult",
     "QueryRequest",

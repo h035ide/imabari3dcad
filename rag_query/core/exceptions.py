@@ -7,7 +7,7 @@ RAG Query カスタム例外定義
 
 class RAGQueryError(Exception):
     """RAG Query アプリケーションの基底例外クラス"""
-    
+
     def __init__(self, message: str, details: str = None):
         super().__init__(message)
         self.message = message
