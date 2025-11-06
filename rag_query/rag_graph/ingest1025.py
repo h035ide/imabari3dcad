@@ -528,7 +528,11 @@ def _build_and_load_neo4j() -> List[GraphDocument]:
     # --- ここからが修正箇所 ---
     # 4つのAPI仕様書ファイルを定義
     api_txt_files = [
-        DATA_DIR / "api.txt",
+        DATA_DIR / "api1.txt",
+        DATA_DIR / "api2.txt",
+        DATA_DIR / "api3.txt",
+        DATA_DIR / "api4.txt",
+        DATA_DIR / "api5.txt",
     ]
 
     all_nodes = []

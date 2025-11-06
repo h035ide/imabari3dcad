@@ -1,0 +1,99 @@
+■関数の仕様(引数の型、書式はapi_argを参照)
+
+■Applicationオブジェクトのメソッド
+〇EvoShipを終了する
+　返り値:なし
+  Quit()
+
+〇EvoShipのメインウィンドウを表示する
+　返り値:なし
+  ShowMainWindow(
+　　　bShow )　// bool: 表示する時はTrue
+
+〇Partオブジェクトを読み込む
+　返り値:Partオブジェクト
+  LoadPart(
+　　　FileName, // 文字列：保存されているドキュメントのファイルパス名
+　　　bForceEvaluation　)　// bool: 強制的に全要素を再計算して開くときはTrue　(通常はFalse）
+
+〇Documentを開く
+　返り値:Documentオブジェクト
+  OpenDocument(
+　　　FileName, // 文字列：保存されているドキュメントのファイルパス名
+　　　bForceEvaluation　)　// bool: 強制的に全要素を再計算して開くときはTrue　(通常はFalse）
+
+〇3DのDocumentを新規に作成する
+　返り値:Documentオブジェクト
+　Create3DDocument()
+
+〇アクティブなDocumentオブジェクトを取得する
+　返り値:Documentオブジェクト
+　GetActiveDocument()
+
+〇開かれているDocumentオブジェクトを全て取得する
+　返り値:Documentオブジェクトの配列
+　GetDocuments()
+
+■Documentオブジェクトのメソッド
+〇ドキュメントを閉じる
+　返り値:なし
+  Close() 
+
+〇ドキュメントをファイルに保存する
+　返り値:なし
+　Save(
+    FileName, // 文字列：保存するファイルパス名
+　　bAsCompactFormat ) // bool: 最小サイズになる形式で保存する時はTrue（開くのに計算を必要とします）
+
+〇Partオブジェクトの取得
+　返り値:Partオブジェクト
+　GetPart()
+
+〇ドキュメントがアクティブ（カレント）かどうか
+　返り値:bool ドキュメントがActiveな時はTrue
+　IsActive()
+
+〇ドキュメントをアクティベイト（カレントに）する
+　返り値:なし
+　Activate()
+
+〇ドキュメントのビューを要素にフィットする
+　返り値:なし
+　FitAllViews()
+
+〇ドキュメントのビューを取得する
+　返り値:Viewオブジェクトの配列
+　GetViews()
+
+〇ドキュメントをSTLとして保存する際のパラメータオブジェクトの作成
+　返り値:STLパラメータオブジェクト
+　CreateSTLOption()
+
+〇STLパラメータオブジェクト
+  属性
+　ChordalTolerance　// 浮動小数点:メッシュ近似する際の弦の幅の許容トレランスを指定 (mm)
+　NormalTolerance　// 浮動小数点:メッシュ近似した場合のポリゴンの面と局面との法線方向のずれ角度の許容値（Degree)
+　SigDigits　// 整数:頂点座標値の有効桁数
+　MinMeshLength　// 浮動小数点:メッシュの辺の最小サイズを指定する場合は指定(mm)（指定しない場合は０）
+　MaxMeshLength　// 浮動小数点:メッシュの辺の最大サイズを指定する場合は指定(mm)（指定しない場合は０）
+  Elements　 // 要素(配列)：STL出力する要素を指定（指定しない場合は表示されている全ての要素を出力します）
+
+〇ドキュメントをSTLとして保存する
+　返り値:なし
+  ExporAsSTL(
+   FileName, // 文字列：保存するSTLファイルパス名
+   pOpt) //STLパラメータオブジェクト
+
+■Viewオブジェクトのメソッド
+〇ビューの表示方向を設定する
+　返り値:なし
+  SetDirection(
+　　outDir,　// 方向： 画面から外側に向く方向
+    upDir,　// 方向：　画面の上方向
+　　bFitToModel )　// bool：表示方向にあわせて表示範囲を要素にフィットさせる時はTrue
+
+〇ビューの表示内容をビットマップファイルとして出力する
+　返り値:なし
+　ExportToBitmap(
+　　FileName, // 文字列：ビットマップファイルのファイル名
+　　nBitapWidth ) // 整数:ビットマップファイルの横方向のピクセルサイズ（縦方向はビューの縦横比から取得）

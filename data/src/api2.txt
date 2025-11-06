@@ -1,0 +1,191 @@
+■関数の仕様(引数の型、書式はapi_argを参照)
+■Partオブジェクトのメソッド
+
+〇指定要素を移動コピーする
+  返り値:コピーされた要素ID配列
+  TranslationCopy(
+        SrcElements,// 要素(配列)：コピーする要素
+        nCopy,    // 整数: コピーする数
+        direction,      // 方向：コピーする方向
+        distance,       // 長さ：移動距離
+        ReferMethod);  // 関連設定: 要素の関連づけ方法の指定
+
+〇指定要素をミラーコピーする
+  返り値:コピーされた要素ID配列
+  MirrorCopy(
+        SrcElements,// 要素(配列)：コピーする要素
+        [in] BSTR plane,//
+        ReferMethod);  // 関連設定: 要素の関連づけ方法の指定
+
+〇空のソリッド要素を作成する
+  返り値:作成されたソリッドの要素ID
+  CreateSolid(
+        SolidName, // 文字列：作成するソリッド要素名称(空文字可)
+        ElementGroup, // 要素グループ：作成するソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)
+        MaterialName ) // 材料：作成するソリッド要素の材質名称(空文字可)
+
+
+〇指定したソリッド要素に指定要素厚みづけした形状を作成する
+  返り値:作成された厚みづけフィーチャーのID
+  CreateThicken(
+        ThickenFeatureName, // 文字列：作成する厚みづけフィーチャー要素名称(空文字可)
+        TargetSolidName,    // 要素：厚みづけフィーチャーを作成する対象のソリッドを指定
+        OperationType,      // オペレーションタイプ: ソリッドオペレーションのタイプを指定する
+　　　　Sheet,　　　　　　　// 要素(配列)：厚み付けをするシートやフェイス
+        ThickenType,　　　　// 厚み付けタイプ: 
+        Thickeness1,        // 長さ： 板厚
+        Thickeness2,　　　　// 長さ： 板厚２(厚み付けタイプが２方向のときに使用)
+        ThickenessOffset,   // 長さ： 厚みづけをするシート、フェイス要素のオフセット距離
+        ReferMethod,　　　　// 関連設定: 要素の関連づけ方法の指定
+        bUpdate);　// bool：更新フラグ(未実装、使用しない)
+
+〇指定したソリッド要素に別のソリッド要素形状を付加する
+  返り値:作成された別ソリッドフィーチャーのID
+  CreateOtherSolid(
+　　　　OtherSolidFeatureName, // 文字列：作成する別ソリッドフィーチャー要素名称(空文字可)
+        TargetSolidName,  // 要素：別ソリッドフィーチャーを作成する対象のソリッドを指定
+        OperationType,  // オペレーションタイプ: ソリッドオペレーションのタイプを指定する
+        SourceSolid,    // 要素：別ソリッドフィーチャーとするソリッド要素を指定する
+        ReferMethod, // 関連設定: 要素の関連づけ方法の指定
+        bUpdate　);　// bool：更新フラグ(未実装、使用しない)
+
+
+〇船殻のブラケット要素のパラメータオブジェクトの作成
+　返り値:ブラケット要素のパラメータオブジェクト
+　CreateBracketParam()
+　　
+〇ブラケット要素のパラメータオブジェクト
+   属性
+        DefinitionType //　整数: ブラケットの作成方法指定 (0: 面指定, 1: 基準要素指定 など)
+        BracketName // 文字列：作成するブラケットソリッド要素名称(空文字可)
+        ElementGroup // 要素グループ：作成するソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)
+        MaterialName // 材料：作成するソリッド要素の材質名称(空文字可)
+        BasePlane    //面指定の場合の基準平面
+        BasePlaneOffset // 長さ：基準平面のオフセット距離
+        BaseElement  // 基準要素指定の場合の基準要素
+        UseSideSheetForPlane // bool： 三面指定の場合はTrue
+        Thickness // 長さ： 板厚
+        Mold     // モールド位置: 
+        MoldOffset // 長さ： モールド位置のオフセット距離
+        BracketType // 形状タイプ: ブラケットの形状タイプ
+        BracketParams,　// 形状パラメータ: ブラケットの形状タイプのパラメータ
+        Scallop1Type,　// 形状タイプ: ブラケットのスカラップの形状タイプ
+        Scallop1Params,　// 形状パラメータ: ブラケットのスカラップの形状タイプのパラメータ
+        nScallop2Type,　// 形状タイプ: ３面ブラケットの場合のスカラップ２の形状タイプ
+        Scallop2Params,　// 形状パラメータ: ブラケットのスカラップ２の形状タイプのパラメータ
+        Surfaces1, // 要素(配列)：ブラケット作成する面１の要素(ソリッド、シート、フェイス)
+        RevSf1, // bool： 面１の反対側にブラケットを作成する場合はTrue
+        Surfaces2, // 要素(配列)：ブラケット作成する面2の要素(ソリッド、シート、フェイス)
+        RevSf2, // bool： 面2の反対側にブラケットを作成する場合はTrue
+        Surfaces3, // 要素(配列)：３面ブラケット作成する場合の面３の要素(ソリッド、シート、フェイス)
+        RevSf3, // bool： 面3の反対側にブラケットを作成する場合はTrue
+        FlangeType, // 形状タイプ: ブラケットのフランジの形状タイプ　(0の場合はフランジをつけない)
+        FlangeParams,// 形状パラメータ: ブラケットのフランジの形状タイプのパラメータ
+        RevFlange,　// bool： フランジの向きを反転する場合はTrue
+        FlangeAngle, // 角度： フランジの角度指定　０°は直角を意味し、そこからの増分を＋−で指定
+        Sf1DimensionType,　// 形状タイプ: 面１方向の寸法タイプ
+        Sf1DimensonParams,　// 形状パラメータ: 面１方向の寸法タイプのパラメータ
+        Sf1EndElements, // 要素(配列)：面１方向の端部要素(必要な形状タイプの場合)
+        Sf1BaseElements,　// 要素(配列)：面１方向の基準要素(必要な形状タイプの場合)
+        Sf2DimensionType,　// 形状タイプ: 面２方向の寸法タイプ
+        Sf2DimensonParams,　// 形状パラメータ: 面２方向の寸法タイプのパラメータ
+        Sf2EndElements,　// 要素(配列)：面２方向の端部要素(必要な形状タイプの場合)
+        Sf2BaseElements,　// 要素(配列)：面２方向の基準要素(必要な形状タイプの場合)
+        ScallopEnd1LowerType,　// 形状タイプ: 面１方向の下側端部のスカラップのタイプ
+        ScallopEnd1LowerParams,　// 形状パラメータ: 面１方向の下側端部のスカラップのタイプのパラメータ
+        ScallopEnd1UpperType,　// 形状タイプ: 面１方向の上側端部のスカラップのタイプ
+        ScallopEnd1UpperParams,　// 形状パラメータ: 面１方向の上側端部のスカラップのタイプのパラメータ
+        ScallopEnd2LowerType,　// 形状タイプ: 面２方向の下側端部のスカラップのタイプ
+        ScallopEnd2LowerParams,　// 形状パラメータ: 面２方向の下側端部のスカラップのタイプのパラメータ
+        ScallopEnd2UpperType,　// 形状タイプ: 面２方向の上側端部のスカラップのタイプ
+        ScallopEnd2UpperParams,// 形状パラメータ: 面２方向の上側端部のスカラップのタイプのパラメータ
+        WCS, // 要素： ブラケットが使用する座標系を指定。通常は指定しない
+        ReferMethod, // 関連設定: 要素の関連づけ方法の指定
+        
+〇船殻のブラケットソリッド要素を作成する
+  返り値:作成したソリッド要素のID
+  CreateBracket(
+　　    ParamObj, // ブラケットパラメータオブジェクト
+        bUpdate ); // bool：更新フラグ(未実装、使用しない)
+
+〇船殻のプレートソリッド要素を作成する
+  返り値:作成したソリッド要素のID
+  CreatePlate(
+        PlateName,     // 文字列：作成するプレートソリッド要素名称(空文字可)
+        ElementGroup,  // 要素グループ：作成するソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)
+        MaterialName, // 材料：作成するソリッド要素の材質名称(空文字可)
+        Plane,        // 平面： プレートのる平面位置
+        PlaneOffset,　// 長さ：　平面のオフセット距離を指定
+        Thickness,　　// 長さ： 板厚
+        nMold,　　　　// モールド位置: 
+        MoldOffset,  // 長さ： モールド位置のオフセット距離
+        BoundSolid,　// 要素：　プレートソリッドの境界となるソリッド要素。
+        Section1End1,　// 長さ： プレートソリッドの平面上の方向１の境界位置の座標値１
+        Section1End2,　// 長さ： プレートソリッドの平面上の方向１の境界位置の座標値２
+        Section2End1,　// 長さ： プレートソリッドの平面上の方向２の境界位置の座標値１
+        Section2End2,　// 長さ： プレートソリッドの平面上の方向２の境界位置の座標値２
+        bUpdate ); // bool：更新フラグ(未実装、使用しない)
+
+〇船殻の条材ソリッド要素のパラメータオブジェクトの作成
+  返り値:条材要素のパラメータオブジェクト
+  CreateProfileParam()
+
+〇条材要素のパラメータオブジェクト
+   属性
+        DefinitionType //　整数: の作成方法指定　0:取付線指定 　1:基準面指定  2:取付線＋指定方向線  3: 元要素指定　4:ホール指定  5:２点  6:ロンジ間  7:基準線指定  8:基準点と方向  9:基準要素
+        ProfileName // 文字列：作成する条材ソリッド要素名称(空文字可)
+        ElementGroup // 要素グループ：作成するソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)
+        MaterialName // 材料：作成するソリッド要素の材質名称(空文字可)
+        FlangeName // 文字列：ビルトアップを作成する場合のフランジソリッド要素名称(空文字可)
+        FlangeElementGroup// 要素グループ：フランジソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)
+        FlangeMaterialName// 材料：作成するフランジソリッド要素の材質名称(空文字可)
+        ProfileType    // 形状タイプ: 条材の形状タイプを指定
+        ProfileParam // 形状パラメータ: 条材の形状タイプのパラメータ
+        FaceAngle // 角度： ビルトアップを作成する場合のフランジの角度指定　０°は直角を意味し、そこからの増分を＋−で指定
+        ConnectionTol // 長さ： 取付線が複数の場合の連続性の判定トレランスを指定(通常は指定しない、空文字)
+        Mold      // モールド位置: 
+        MoldOffset // 長さ： モールド位置のオフセット距離
+        ReverseDir // bool：取付方向を反転する時True
+        ReverseAngle // bool：アングル方向を反転する時True
+        BaseOnAttachLines // bool： 取付線の境界を基準にする時True
+        CalcSnipOnlyAttachLines // bool：端部スニップ量を取付線のみで計算する時True
+        NotProfjectAttachLines // bool：取付線を取付面に投影しない時True
+        ProjectionDir // 方向：取付線を投影する場合に設定。通常は設定しない(空白文字)
+        AttachDirMethod // 整数:　条材取付方向設定　0: デフォルト　1:基準平面内　2:取付角度指定
+        AttachAngle // 角度： 取付角度指定
+        AttachDirection // 方向：条材取付方向 を指定する場合に設定する
+        DefAnglePositionAxisDir　// 方向：ねじれた条材を作成する場合のそのネジレ角度を定義する軸方向を指定。
+        DefAngleBaseDir　// 方向：ねじれた条材を作成する場合のそのネジレ角度の基準となる軸方向を指定。
+        CCWDefAngle,　// bool：　ねじれた条材を作成する場合のネジレ角度を反統計まわりに指定する場合はTrue
+        DefPossitionAngles // 位置と角度配列: ねじれた条材を作成する場合のネジレ角度を位置と角度で指定
+        DefPositionNormalAngles // 位置と角度配列:ねじれた条材を作成する場合のネジレ角度を位置と角度を取付面の法線位置からの差分で指定
+        End1Elements  // 要素(配列)： 端部１、端部となる要素を指定する
+        End1Type       // 形状タイプ: 端部１、条材の端部タイプを指定
+        End1TypeParams // 形状パラメータ: 端部１、条材の端部タイプのパラメータ
+        End2Elements   // 要素(配列)： 端部２、端部となる要素を指定する
+        End2Type       // 形状タイプ: 端部２、条材の端部タイプを指定
+        End2TypeParams // 形状パラメータ: 端部２、条材の端部タイプのパラメータ
+        End1ScallopType      // 形状タイプ: 端部１、条材の端部スカラップタイプを指定
+        End1ScallopTypeParams// 形状パラメータ: 端部１、条材の端部スカラップタイプのパラメータ
+        End2ScallopType      // 形状タイプ: 端部２、条材の端部スカラップタイプを指定
+        End2ScallopTypeParams// 形状パラメータ: 端部２、条材の端部スカラップタイプのパラメータ
+        AttachLines // 要素(配列)：条材の取付線 
+        AttachSurface　// 要素(配列)：条材を取り付ける面要素(フェイス、シートボディ)
+        BasePlane　// 要素：基準面要素(平面、シート、フェイス)を指定
+        BasePlaneOffset // 長さ： 基準面のオフセット距離を指定
+        BaseSolid　// 要素：基準要素(ソリッド)を指定
+        PathCurves // 要素(配列)：取付線(取付線＋指定方向線で作成する際に使用する)
+        DirLines　　// 要素(配列)：基準直線(取付線＋指定方向線で作成する際に使用する)
+        OrignalProfile // 要素： 作成元の条材(元要素指定で作成する際に使用する)
+        HoleFeature  // 要素： ホールフィーチャー(ホール指定で作成する際に使用する)
+        LocationAtHole //整数: 条材の位置　0:上 1:下 2:左 3:右　(ホール指定で作成する際に使用する)
+        BasePoint1 // 点: 基準点1 (２点もしくは基準点と方向で作成する際に使用する)
+        BasePoint2 // 点: 基準点2 (２点で作成する際に使用する)
+        BaseProfile1 // 要素： ロンジ１(ロンジ間で作成する際に使用する)
+        BaseProfile2 // 要素： ロンジ２(ロンジ間で作成する際に使用する)
+        BaseDirection1 // 方向： (基準点と方向で作成する際に使用する)
+        BaseDirection2 // 方向： 取付方向指定　(基準点と方向で作成する際に使用する)
+        BaseLocation //整数:  基準位置 0:左下 1:中下 2:右下 3:左中 4:中中 5:右中 6:左上 7:中上 8:右上 (基準点と方向で作成する際に使用する)
+        ReferMethod // 関連設定: 要素の関連づけ方法の指定
+
+        
