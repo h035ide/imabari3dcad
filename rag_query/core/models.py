@@ -11,6 +11,7 @@ from enum import Enum
 
 class NodeType(Enum):
     """ノードタイプの定義"""
+
     OBJECT = "Object"
     METHOD = "Method"
     PARAMETER = "Parameter"
@@ -23,6 +24,7 @@ class NodeType(Enum):
 
 class RelationshipType(Enum):
     """リレーションシップタイプの定義"""
+
     BELONGS_TO = "BELONGS_TO"
     HAS_PARAMETER = "HAS_PARAMETER"
     HAS_RETURNS = "HAS_RETURNS"
@@ -38,6 +40,7 @@ class RelationshipType(Enum):
 @dataclass
 class GraphNode:
     """グラフノードのデータモデル"""
+
     id: str
     type: NodeType
     properties: Dict[str, Any]
@@ -51,6 +54,7 @@ class GraphNode:
 @dataclass
 class GraphRelationship:
     """グラフリレーションシップのデータモデル"""
+
     source: str
     target: str
     type: RelationshipType
@@ -67,6 +71,7 @@ class GraphRelationship:
 @dataclass
 class GraphDocument:
     """グラフドキュメントのデータモデル"""
+
     nodes: List[GraphNode]
     relationships: List[GraphRelationship]
     metadata: Optional[Dict[str, Any]] = None
@@ -80,6 +85,7 @@ class GraphDocument:
 @dataclass
 class IngestionResult:
     """データ取り込み結果のデータモデル"""
+
     success: bool
     node_count: int
     relationship_count: int
@@ -96,6 +102,7 @@ class IngestionResult:
 @dataclass
 class QueryRequest:
     """クエリリクエストのデータモデル"""
+
     query: str
     max_results: int = 10
     filters: Optional[Dict[str, Any]] = None
@@ -112,6 +119,7 @@ class QueryRequest:
 @dataclass
 class QueryResponse:
     """クエリレスポンスのデータモデル"""
+
     results: List[Dict[str, Any]]
     total_count: int
     processing_time: float

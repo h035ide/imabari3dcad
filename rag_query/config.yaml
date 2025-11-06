@@ -8,11 +8,7 @@ paths:
   api_arg_txt:
     - "data/src/api_arg.txt"
   api_txt:
-    - "data/src/api1.txt"
-    - "data/src/api2.txt" 
-    - "data/src/api3.txt"
-    - "data/src/api4.txt"
-    - "data/src/api5.txt"
+    - "data/src/api.txt"
 
 # Neo4j設定
 neo4j:
@@ -20,7 +16,22 @@ neo4j:
 
 # LLM設定
 llm:
-  model_name: "gpt-4"
-  temperature: 0
+  # モデル名（環境変数 LLM_MODEL で上書き可能）
+  model_name: "gpt-4"  # デフォルト値（環境変数が未設定の場合）
+  # 標準モデル用パラメータ
+  temperature: 0  # 推論モデルの場合はNone（自動設定）
+  # 推論モデル用パラメータ（推論モデルの場合のみ使用）
+  verbosity: "high"  # "none" or "low" or "medium" or "high"
+  reasoning_effort: "high"  # "none" or "minimal" or "low" or "medium" or "high"
+  response_format: "text"  # "text" or "json_object"
+  output_version: "responses/v1"  # 推論モデル用
+  # その他
   # request_timeout: 600  # 必要に応じてコメントアウトを解除
+
+# 埋め込みモデル設定
+embedding:
+  # モデル名（環境変数 EMBEDDING_MODEL で上書き可能）
+  model_name: "text-embedding-3-small"  # デフォルト値（環境変数が未設定の場合）
+  # バッチサイズ（環境変数 EMBEDDING_BATCH_SIZE で上書き可能）
+  batch_size: 100  # LlamaIndex用
 

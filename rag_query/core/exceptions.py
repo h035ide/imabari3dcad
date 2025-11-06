@@ -21,29 +21,35 @@ class RAGQueryError(Exception):
 
 class ConfigurationError(RAGQueryError):
     """設定関連のエラー"""
+
     pass
 
 
 class DataProcessingError(RAGQueryError):
     """データ処理関連のエラー"""
+
     pass
 
 
 class StorageError(RAGQueryError):
     """ストレージ関連のエラー"""
+
     pass
 
 
 class QueryError(RAGQueryError):
     """クエリ処理関連のエラー"""
+
     pass
 
 
 class ValidationError(RAGQueryError):
     """バリデーション関連のエラー"""
+
     pass
 
 
 class LLMError(RAGQueryError):
     """LLM処理関連のエラー"""
+
     pass

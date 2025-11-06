@@ -17,11 +17,11 @@ logger = get_logger(__name__)
 
 class Neo4jManager:
     """Neo4jデータベース管理クラス"""
-    
+
     def __init__(self, uri: str, username: str, password: str, database: str = "neo4j"):
         """
         初期化
-        
+
         Args:
             uri: Neo4jデータベースURI
             username: ユーザー名
@@ -33,7 +33,7 @@ class Neo4jManager:
         self.password = password
         self.database = database
         self._graph = None
-    
+
     @property
     def graph(self) -> Neo4jGraph:
         """Neo4jGraphインスタンスを取得（遅延初期化）"""
@@ -50,13 +50,13 @@ class Neo4jManager:
                 raise StorageError(f"Neo4jへの接続に失敗しました: {self.uri}", str(e))
             except Exception as e:
                 raise StorageError(f"Neo4j接続エラー", str(e))
-        
+
         return self._graph
-    
+
     def clear_database(self) -> None:
         """
         データベースの全データを削除する
-        
+
         Raises:
             StorageError: 削除処理エラー時
         """
@@ -67,115 +67,116 @@ class Neo4jManager:
             logger.info("Neo4jデータベースのクリア完了")
         except Exception as e:
             raise StorageError(f"Neo4jデータベースのクリアに失敗しました", str(e))
-    
+
     def load_graph_documents(self, graph_docs: List[GraphDocument]) -> Tuple[int, int]:
         """
         GraphDocumentをNeo4jに投入する
-        
+
         Args:
             graph_docs: GraphDocumentのリスト
-            
+
         Returns:
             (ノード数, リレーションシップ数)
-            
+
         Raises:
             StorageError: データ投入エラー時
         """
         try:
             logger.info("Neo4jにグラフデータを投入中...")
-            
+
             # データを投入
             self.graph.add_graph_documents(graph_docs)
-            
+
             # 投入後の統計を取得
             node_count = self._get_node_count()
             rel_count = self._get_relationship_count()
-            
-            logger.info(f"Neo4jデータ投入完了: ノード={node_count}件, リレーション={rel_count}件")
+
+            logger.info(
+                f"Neo4jデータ投入完了: ノード={node_count}件, リレーション={rel_count}件"
+            )
             return node_count, rel_count
-            
+
         except Exception as e:
             raise StorageError(f"Neo4jデータ投入に失敗しました", str(e))
-    
+
     def rebuild_database(self, graph_docs: List[GraphDocument]) -> Tuple[int, int]:
         """
         データベースを再構築する（クリア + データ投入）
-        
+
         Args:
             graph_docs: GraphDocumentのリスト
-            
+
         Returns:
             (ノード数, リレーションシップ数)
-            
+
         Raises:
             StorageError: 再構築エラー時
         """
         try:
             # 既存データをクリア
             self.clear_database()
-            
+
             # 新しいデータを投入
             return self.load_graph_documents(graph_docs)
-            
+
         except Exception as e:
             raise StorageError(f"Neo4jデータベースの再構築に失敗しました", str(e))
-    
-    def execute_query(self, query: str, params: Dict[str, Any] = None) -> List[Dict[str, Any]]:
+
+    def execute_query(
+        self, query: str, params: Dict[str, Any] = None
+    ) -> List[Dict[str, Any]]:
         """
         Cypherクエリを実行する
-        
+
         Args:
             query: Cypherクエリ
             params: クエリパラメータ
-            
+
         Returns:
             クエリ結果
-            
+
         Raises:
             StorageError: クエリ実行エラー時
         """
         try:
             if params is None:
                 params = {}
-            
+
             result = self.graph.query(query, params)
             return result
-            
+
         except Exception as e:
             raise StorageError(f"Neo4jクエリ実行エラー", str(e))
-    
+
     def get_database_stats(self) -> Dict[str, int]:
         """
         データベースの統計情報を取得する
-        
+
         Returns:
             統計情報辞書
-            
+
         Raises:
             StorageError: 統計取得エラー時
         """
         try:
             node_count = self._get_node_count()
             rel_count = self._get_relationship_count()
-            
-            return {
-                "node_count": node_count,
-                "relationship_count": rel_count
-            }
-            
+
+            return {"node_count": node_count, "relationship_count": rel_count}
+
         except Exception as e:
             raise StorageError(f"Neo4j統計情報取得エラー", str(e))
-    
+
     def _get_node_count(self) -> int:
         """ノード数を取得する"""
         result = self.graph.query("MATCH (n) RETURN count(n) AS c")
         return int(result[0]["c"]) if result else 0
-    
+
     def _get_relationship_count(self) -> int:
         """リレーションシップ数を取得する"""
         result = self.graph.query("MATCH ()-[r]->() RETURN count(r) AS c")
         return int(result[0]["c"]) if result else 0
-    
+
     def close(self) -> None:
         """接続を閉じる"""
         if self._graph:
