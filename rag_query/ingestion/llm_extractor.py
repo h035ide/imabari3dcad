@@ -17,11 +17,13 @@ logger = get_logger(__name__)
 
 class LLMExtractor:
     """LLMを使用したグラフデータ抽出クラス"""
-    
-    def __init__(self, openai_api_key: str, model_name: str = "gpt-4", temperature: float = 0):
+
+    def __init__(
+        self, openai_api_key: str, model_name: str = "gpt-4", temperature: float = 0
+    ):
         """
         初期化
-        
+
         Args:
             openai_api_key: OpenAI APIキー
             model_name: 使用するモデル名
@@ -30,68 +32,72 @@ class LLMExtractor:
         self.llm = ChatOpenAI(
             openai_api_key=openai_api_key,
             model_name=model_name,
-            temperature=temperature
+            temperature=temperature,
         )
-        
-    def extract_graph_from_specs(self, raw_text: str) -> Dict[str, List[Dict[str, Any]]]:
+
+    def extract_graph_from_specs(
+        self, raw_text: str
+    ) -> Dict[str, List[Dict[str, Any]]]:
         """
         API仕様書テキストからノードとリレーションを抽出する
-        
+
         Args:
             raw_text: API仕様書の生テキスト
-            
+
         Returns:
             抽出されたグラフデータ（nodes, relationships）
-            
+
         Raises:
             LLMError: LLM処理エラー時
         """
         prompt = self._build_graph_extraction_prompt(raw_text)
-        
+
         try:
             logger.info("LLMによるAPI仕様書からのグラフ抽出を開始")
             response = self.llm.invoke(prompt)
-            
+
             # JSONの抽出とパース
             graph_data = self._extract_json_from_response(response.content)
-            
+
             nodes = graph_data.get("nodes", [])
             relationships = graph_data.get("relationships", [])
-            
-            logger.info(f"グラフ抽出完了: ノード={len(nodes)}件, リレーション={len(relationships)}件")
+
+            logger.info(
+                f"グラフ抽出完了: ノード={len(nodes)}件, リレーション={len(relationships)}件"
+            )
             return graph_data
-            
+
         except Exception as e:
             raise LLMError(f"LLMによるグラフ抽出に失敗しました", str(e))
-    
+
     def extract_datatype_descriptions(self, raw_text: str) -> Dict[str, str]:
         """
         api_arg.txtからデータ型の説明を抽出する
-        
+
         Args:
             raw_text: api_arg.txtの内容
-            
+
         Returns:
             データ型名と説明のマッピング
-            
+
         Raises:
             LLMError: LLM処理エラー時
         """
         prompt = self._build_datatype_extraction_prompt(raw_text)
-        
+
         try:
             logger.info("LLMによるデータ型説明の抽出を開始")
             response = self.llm.invoke(prompt)
-            
+
             # JSONの抽出とパース
             type_descriptions = self._extract_json_from_response(response.content)
-            
+
             logger.info(f"データ型説明抽出完了: {len(type_descriptions)}件")
             return type_descriptions
-            
+
         except Exception as e:
             raise LLMError(f"LLMによるデータ型説明抽出に失敗しました", str(e))
-    
+
     def _build_graph_extraction_prompt(self, raw_text: str) -> str:
         """グラフ抽出用のプロンプトを構築する"""
         return f"""
@@ -148,7 +154,7 @@ class LLMExtractor:
 
         抽出後のJSON:
         """
-    
+
     def _build_datatype_extraction_prompt(self, raw_text: str) -> str:
         """データ型説明抽出用のプロンプトを構築する"""
         return f"""
@@ -175,17 +181,17 @@ class LLMExtractor:
 
         抽出後のJSON:
         """
-    
+
     def _extract_json_from_response(self, response_content: str) -> Dict[str, Any]:
         """
         LLMレスポンスからJSONを抽出・パースする
-        
+
         Args:
             response_content: LLMのレスポンス内容
-            
+
         Returns:
             パースされたJSONデータ
-            
+
         Raises:
             DataProcessingError: JSON抽出・パースエラー時
         """

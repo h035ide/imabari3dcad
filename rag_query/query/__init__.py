@@ -11,6 +11,6 @@ from .response_generator import ResponseGenerator
 __all__ = [
     "QueryProcessor",
     "GraphRetriever",
-    "VectorRetriever", 
+    "VectorRetriever",
     "ResponseGenerator",
 ]
