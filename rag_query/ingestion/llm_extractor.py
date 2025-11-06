@@ -411,14 +411,45 @@ class LLMExtractor:
 
                 # 複数のJSONオブジェクト候補を試す
                 cleaned_content = response_content.strip()
+
+                # 推論モデルのメタデータ辞書パターンを検出してスキップ
+                # パターン: {'id': '...', 'summary': [], 'type': 'reasoning'} または {"id": "...", ...}
+                # メタデータ辞書は通常、短い辞書で、'id', 'summary', 'type'などのキーを含む
+                metadata_match = re.search(
+                    r"^\{['\"](?:id|summary|type)['\"]\s*:\s*[^}]+\}[^{]*\{", cleaned_content, re.MULTILINE
+                )
+                if metadata_match:
+                    # メタデータ辞書の後の最初の`{`の位置を見つける
+                    # メタデータ辞書の終わり（`}`）の位置を取得
+                    metadata_end = cleaned_content.find("}", metadata_match.start())
+                    if metadata_end != -1:
+                        # メタデータ辞書の後の最初の`{`を探す
+                        json_start = cleaned_content.find("{", metadata_end + 1)
+                        if json_start != -1:
+                            cleaned_content = cleaned_content[json_start:]
+                            logger.debug("メタデータ辞書をスキップしてJSON抽出を開始: %s", cleaned_content[:100])
+
                 # すべての '{' の位置を探す
                 json_starts = []
                 for i, char in enumerate(cleaned_content):
                     if char == "{":
                         json_starts.append(i)
 
-                # 各開始位置からJSONパースを試みる
+                # 期待されるキー（"nodes", "relationships"など）を含むJSONを優先的に試す
+                expected_keys = ["nodes", "relationships"]
+                prioritized_starts = []
+                other_starts = []
+
                 for json_start in json_starts:
+                    # この位置からJSONの構造を確認
+                    candidate_preview = cleaned_content[json_start:json_start + 200]
+                    if any(key in candidate_preview for key in expected_keys):
+                        prioritized_starts.append(json_start)
+                    else:
+                        other_starts.append(json_start)
+
+                # 優先度の高い候補から順に試行
+                for json_start in prioritized_starts + other_starts:
                     try:
                         # この位置から最後まで試す
                         candidate = cleaned_content[json_start:]
@@ -437,11 +468,18 @@ class LLMExtractor:
                         if end_pos > 0:
                             json_str = candidate[:end_pos]
                             logger.debug("JSON候補を抽出: %s", json_str[:200])
-                            return json.loads(json_str)
+                            parsed = json.loads(json_str)
+                            # 期待されるキーが含まれているか確認
+                            if isinstance(parsed, dict) and any(
+                                key in parsed for key in expected_keys
+                            ):
+                                return parsed
+                            # 期待されるキーがなくても、有効なJSONなら返す
+                            return parsed
                     except (json.JSONDecodeError, ValueError):
                         continue
 
-                # 最後の手段：最初の '{' から試す
+                # 最後の手段：最初の '{' から試す（メタデータ辞書を除く）
                 json_start = cleaned_content.find("{")
                 if json_start != -1:
                     cleaned_content = cleaned_content[json_start:]

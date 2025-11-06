@@ -210,11 +210,43 @@ class IngestionOrchestrator:
             node_props: ノードプロパティ辞書（更新対象）
             type_descriptions: データ型説明辞書
         """
-        for node_id, node_data in node_props.items():
-            if (
-                node_data.get("type") == "DataType"
-                and node_data.get("properties", {}).get("name") in type_descriptions
-            ):
+        if not type_descriptions:
+            logger.warning("データ型説明が空です")
+            return
 
-                type_name = node_data["properties"]["name"]
+        logger.info(
+            "データ型説明をノードプロパティに統合中: 説明数=%d件, ノード数=%d件",
+            len(type_descriptions),
+            len(node_props),
+        )
+
+        added_count = 0
+        data_type_nodes = [
+            (node_id, node_data)
+            for node_id, node_data in node_props.items()
+            if node_data.get("type") == "DataType"
+        ]
+        logger.debug("DataTypeノード数: %d件", len(data_type_nodes))
+
+        for node_id, node_data in data_type_nodes:
+            type_name = node_data.get("properties", {}).get("name")
+            if type_name and type_name in type_descriptions:
                 node_data["properties"]["description"] = type_descriptions[type_name]
+                added_count += 1
+                logger.debug(
+                    "データ型説明を追加: %s -> %s",
+                    type_name,
+                    (
+                        type_descriptions[type_name][:50]
+                        if type_descriptions[type_name]
+                        else ""
+                    ),
+                )
+            elif type_name:
+                logger.debug(
+                    "データ型説明が見つかりません: ノードID=%s, 型名=%s",
+                    node_id,
+                    type_name,
+                )
+
+        logger.info("データ型説明の統合完了: %d件のノードに説明を追加", added_count)

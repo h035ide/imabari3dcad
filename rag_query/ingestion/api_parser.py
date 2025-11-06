@@ -109,12 +109,19 @@ class APISpecParser:
             return {}
 
         try:
+            logger.info("api_arg.txtを読み込み中: %s", api_arg_file)
             content = api_arg_file.read_text(encoding="utf-8")
+            logger.info("api_arg.txt読み込み完了: %d文字", len(content))
             logger.info("LLMでデータ型説明を抽出中")
             type_descriptions = self.llm_extractor.extract_datatype_descriptions(
                 content
             )
-            logger.info(f"データ型説明抽出完了: {len(type_descriptions)}件")
+            logger.info("データ型説明抽出完了: %d件", len(type_descriptions))
+            if type_descriptions:
+                logger.debug(
+                    "抽出されたデータ型名（最初の10件）: %s",
+                    list(type_descriptions.keys())[:10],
+                )
             return type_descriptions
         except Exception as e:
             raise DataProcessingError(f"データ型説明抽出エラー", str(e))

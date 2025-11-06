@@ -1,9 +1,9 @@
 [
   {
-    "page_content": "ノードタイプ: Object\nID: Application\nプロパティ:\n- name: Application",
+    "page_content": "ノードタイプ: Object\nID: ApplicationObject\nプロパティ:\n- name: Application",
     "metadata": {
       "source": "graph_node",
-      "node_id": "Application",
+      "node_id": "ApplicationObject",
       "node_type": "Object"
     }
   },
@@ -64,10 +64,10 @@
     }
   },
   {
-    "page_content": "ノードタイプ: Object\nID: Document\nプロパティ:\n- name: Document",
+    "page_content": "ノードタイプ: Object\nID: DocumentObject\nプロパティ:\n- name: Document",
     "metadata": {
       "source": "graph_node",
-      "node_id": "Document",
+      "node_id": "DocumentObject",
       "node_type": "Object"
     }
   },
@@ -128,7 +128,7 @@
     }
   },
   {
-    "page_content": "APIメソッド\nメソッド名: CreateSTLOption\n説明: STLパラメータオブジェクトの作成",
+    "page_content": "APIメソッド\nメソッド名: CreateSTLOption\n説明: ドキュメントをSTLとして保存する際のパラメータオブジェクトの作成",
     "metadata": {
       "source": "graph_node",
       "node_id": "CreateSTLOption",
@@ -136,59 +136,35 @@
     }
   },
   {
-    "page_content": "ノードタイプ: DataType\nID: STLParameter\nプロパティ:\n- name: STLパラメータオブジェクト",
+    "page_content": "ノードタイプ: DataType\nID: STLOption\nプロパティ:\n- name: STLOption",
     "metadata": {
       "source": "graph_node",
-      "node_id": "STLParameter",
+      "node_id": "STLOption",
       "node_type": "DataType"
     }
   },
   {
-    "page_content": "ノードタイプ: Attribute\nID: STLParameter_ChordalTolerance\nプロパティ:\n- name: ChordalTolerance\n- description: 浮動小数点:メッシュ近似する際の弦の幅の許容トレランスを指定 (mm)",
+    "page_content": "ノードタイプ: Attribute\nID: STLParameterAttributes\nプロパティ:\n- name: Attributes\n- description: STLパラメータの属性",
     "metadata": {
       "source": "graph_node",
-      "node_id": "STLParameter_ChordalTolerance",
+      "node_id": "STLParameterAttributes",
       "node_type": "Attribute"
     }
   },
   {
-    "page_content": "ノードタイプ: Attribute\nID: STLParameter_NormalTolerance\nプロパティ:\n- name: NormalTolerance\n- description: 浮動小数点:メッシュ近似した場合のポリゴンの面と局面との法線方向のずれ角度の許容値（Degree)",
+    "page_content": "ノードタイプ: Object\nID: ViewObjectArray\nプロパティ:\n- name: View",
     "metadata": {
       "source": "graph_node",
-      "node_id": "STLParameter_NormalTolerance",
-      "node_type": "Attribute"
+      "node_id": "ViewObjectArray",
+      "node_type": "Object"
     }
   },
   {
-    "page_content": "ノードタイプ: Attribute\nID: STLParameter_SigDigits\nプロパティ:\n- name: SigDigits\n- description: 整数:頂点座標値の有効桁数",
+    "page_content": "ノードタイプ: DataType\nID: DocumentObjectArray\nプロパティ:\n- name: Documentオブジェクトの配列",
     "metadata": {
       "source": "graph_node",
-      "node_id": "STLParameter_SigDigits",
-      "node_type": "Attribute"
-    }
-  },
-  {
-    "page_content": "ノードタイプ: Attribute\nID: STLParameter_MinMeshLength\nプロパティ:\n- name: MinMeshLength\n- description: 浮動小数点:メッシュの辺の最小サイズを指定する場合は指定(mm)（指定しない場合は０）",
-    "metadata": {
-      "source": "graph_node",
-      "node_id": "STLParameter_MinMeshLength",
-      "node_type": "Attribute"
-    }
-  },
-  {
-    "page_content": "ノードタイプ: Attribute\nID: STLParameter_MaxMeshLength\nプロパティ:\n- name: MaxMeshLength\n- description: 浮動小数点:メッシュの辺の最大サイズを指定する場合は指定(mm)（指定しない場合は０）",
-    "metadata": {
-      "source": "graph_node",
-      "node_id": "STLParameter_MaxMeshLength",
-      "node_type": "Attribute"
-    }
-  },
-  {
-    "page_content": "ノードタイプ: Attribute\nID: STLParameter_Elements\nプロパティ:\n- name: Elements\n- description: STL出力する要素を指定（指定しない場合は表示されている全ての要素を出力します）",
-    "metadata": {
-      "source": "graph_node",
-      "node_id": "STLParameter_Elements",
-      "node_type": "Attribute"
+      "node_id": "DocumentObjectArray",
+      "node_type": "DataType"
     }
   },
   {
@@ -200,51 +176,11 @@
     }
   },
   {
-    "page_content": "ノードタイプ: Object\nID: View\nプロパティ:\n- name: View",
+    "page_content": "ノードタイプ: RelationshipPlaceholder\nID: SBELONGS_TO_Q\nプロパティ:",
     "metadata": {
       "source": "graph_node",
-      "node_id": "View",
-      "node_type": "Object"
-    }
-  },
-  {
-    "page_content": "APIメソッド\nメソッド名: SetDirection\n説明: ビューの表示方向を設定する",
-    "metadata": {
-      "source": "graph_node",
-      "node_id": "SetDirection",
-      "node_type": "Method"
-    }
-  },
-  {
-    "page_content": "APIメソッド\nメソッド名: ExportToBitmap\n説明: ビューの表示内容をビットマップファイルとして出力する",
-    "metadata": {
-      "source": "graph_node",
-      "node_id": "ExportToBitmap",
-      "node_type": "Method"
-    }
-  },
-  {
-    "page_content": "ノードタイプ: Object\nID: Part\nプロパティ:\n- name: Part",
-    "metadata": {
-      "source": "graph_node",
-      "node_id": "Part",
-      "node_type": "Object"
-    }
-  },
-  {
-    "page_content": "APIメソッド\nメソッド名: CreateVariable\n説明: 変数要素の作成",
-    "metadata": {
-      "source": "graph_node",
-      "node_id": "CreateVariable",
-      "node_type": "Method"
-    }
-  },
-  {
-    "page_content": "ノードタイプ: DataType\nID: VariableName\nプロパティ:\n- name: 文字列\n- description: 通常の文字列",
-    "metadata": {
-      "source": "graph_node",
-      "node_id": "VariableName",
-      "node_type": "DataType"
+      "node_id": "SBELONGS_TO_Q",
+      "node_type": "RelationshipPlaceholder"
     }
   }
 ]
