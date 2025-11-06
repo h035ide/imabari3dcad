@@ -8,7 +8,7 @@ import time
 from pathlib import Path
 from typing import Optional
 
-from .core.logger import get_logger, setup_progress_logger
+from .core.logger import get_logger, setup_progress_logger, set_global_log_file
 from .core.exceptions import RAGQueryError, ConfigurationError
 from .core.models import QueryRequest
 from .utils.validation import validate_config
@@ -28,8 +28,9 @@ from .query.query_processor import QueryProcessor
 from .query.retriever import GraphRetriever, VectorRetriever
 from .query.response_generator import ResponseGenerator
 
-logger = get_logger(__name__)
-progress_logger = setup_progress_logger(__name__)
+# ロガーは初期化時に設定される（デフォルトではログファイルなし）
+logger = None
+progress_logger = None
 
 
 class RAGQueryApp:
@@ -44,6 +45,9 @@ class RAGQueryApp:
         """
         self.config = self._load_config(config_path)
         self._validate_config()
+
+        # ロガーの初期化（ログファイルパスを設定）
+        self._init_logging()
 
         # コンポーネントの初期化
         self._init_components()
@@ -151,6 +155,24 @@ class RAGQueryApp:
 
         except Exception as e:
             raise ConfigurationError("設定検証エラー", str(e))
+
+    def _init_logging(self) -> None:
+        """ロガーの初期化（ログファイルパスを設定）"""
+        global logger, progress_logger
+
+        # ログファイルパスを取得
+        paths_config = self.config.get("paths", {})
+        logging_config = self.config.get("logging", {})
+        log_dir = Path(paths_config.get("log_dir", "log"))
+        log_file_name = logging_config.get("log_file", "rag_query.log")
+        log_file_path = log_dir / log_file_name
+
+        # グローバルログファイルを設定（すべてのモジュールで共有）
+        set_global_log_file(log_file_path)
+
+        # ロガーを初期化
+        logger = get_logger(__name__)
+        progress_logger = setup_progress_logger(__name__)
 
     def _init_components(self) -> None:
         """コンポーネントを初期化する"""

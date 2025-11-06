@@ -10,6 +10,30 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
+# グローバルなログファイルパス（全ロガーで共有）
+_global_log_file: Optional[Path] = None
+
+
+def set_global_log_file(log_file: Path) -> None:
+    """
+    グローバルなログファイルパスを設定する
+    
+    Args:
+        log_file: ログファイルパス
+    """
+    global _global_log_file
+    _global_log_file = log_file
+
+
+def get_global_log_file() -> Optional[Path]:
+    """
+    グローバルなログファイルパスを取得する
+    
+    Returns:
+        ログファイルパス（設定されていない場合はNone）
+    """
+    return _global_log_file
+
 
 def get_logger(
     name: str, log_level: str = "INFO", log_file: Optional[Path] = None
@@ -35,6 +59,10 @@ def get_logger(
     # 既に設定済みの場合はそのまま返す
     if logger.handlers:
         return logger
+
+    # ログファイルパスが指定されていない場合は、グローバル設定を使用
+    if log_file is None:
+        log_file = get_global_log_file()
 
     # ロガーのレベルはDEBUGに設定（ファイル出力でDEBUGを記録するため）
     logger.setLevel(logging.DEBUG)

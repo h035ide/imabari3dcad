@@ -27,13 +27,38 @@ class LLMExtractor:
         Args:
             openai_api_key: OpenAI APIキー
             model_name: 使用するモデル名
-            temperature: 生成温度
+            temperature: 生成温度（推論モデルの場合はNone）
         """
-        self.llm = ChatOpenAI(
-            openai_api_key=openai_api_key,
-            model_name=model_name,
-            temperature=temperature,
-        )
+        # 推論モデルかどうかを判定
+        inference_models = ["o4-mini", "o4", "gpt-5", "gpt-5-mini", "gpt-5-nano"]
+        is_inference_model = any(model in model_name.lower() for model in inference_models)
+
+        # LLM設定を構築
+        llm_config = {
+            "openai_api_key": openai_api_key,
+            "model_name": model_name,
+        }
+
+        if is_inference_model:
+            # 推論モデル用パラメータ（temperatureは使用しない）
+            from ..config import (
+                LLM_VERBOSITY,
+                LLM_REASONING_EFFORT,
+                LLM_RESPONSE_FORMAT,
+                LLM_OUTPUT_VERSION,
+            )
+            llm_config.update({
+                "reasoning_effort": LLM_REASONING_EFFORT,
+                "output_version": LLM_OUTPUT_VERSION,
+                "verbosity": LLM_VERBOSITY,
+                "response_format": LLM_RESPONSE_FORMAT,
+            })
+        else:
+            # 標準モデル用パラメータ
+            if temperature is not None:
+                llm_config["temperature"] = temperature
+
+        self.llm = ChatOpenAI(**llm_config)
 
     def extract_graph_from_specs(
         self, raw_text: str
@@ -56,19 +81,40 @@ class LLMExtractor:
             logger.info("LLMによるAPI仕様書からのグラフ抽出を開始")
             response = self.llm.invoke(prompt)
 
+            # レスポンス内容を取得（推論モデルと標準モデルで形式が異なる可能性がある）
+            if hasattr(response, 'content'):
+                response_content = response.content
+            elif hasattr(response, 'text'):
+                response_content = response.text
+            elif isinstance(response, str):
+                response_content = response
+            else:
+                # その他の形式の場合、文字列に変換を試みる
+                response_content = str(response)
+
+            logger.debug("LLMレスポンス受信（最初の500文字）: %s", response_content[:500] if response_content else "空")
+
+            # レスポンスが空でないか確認
+            if not response_content or not response_content.strip():
+                logger.error("LLMレスポンスが空です。レスポンスオブジェクト: %s", type(response))
+                raise LLMError("LLMレスポンスが空です")
+
             # JSONの抽出とパース
-            graph_data = self._extract_json_from_response(response.content)
+            graph_data = self._extract_json_from_response(response_content)
 
             nodes = graph_data.get("nodes", [])
             relationships = graph_data.get("relationships", [])
 
             logger.info(
-                f"グラフ抽出完了: ノード={len(nodes)}件, リレーション={len(relationships)}件"
+                "グラフ抽出完了: ノード=%d件, リレーション=%d件", len(nodes), len(relationships)
             )
             return graph_data
 
+        except LLMError:
+            raise
         except Exception as e:
-            raise LLMError(f"LLMによるグラフ抽出に失敗しました", str(e))
+            logger.error("LLM処理エラー: %s", e, exc_info=True)
+            raise LLMError("LLMによるグラフ抽出に失敗しました", str(e))
 
     def extract_datatype_descriptions(self, raw_text: str) -> Dict[str, str]:
         """
@@ -89,14 +135,35 @@ class LLMExtractor:
             logger.info("LLMによるデータ型説明の抽出を開始")
             response = self.llm.invoke(prompt)
 
-            # JSONの抽出とパース
-            type_descriptions = self._extract_json_from_response(response.content)
+            # レスポンス内容を取得（推論モデルと標準モデルで形式が異なる可能性がある）
+            if hasattr(response, 'content'):
+                response_content = response.content
+            elif hasattr(response, 'text'):
+                response_content = response.text
+            elif isinstance(response, str):
+                response_content = response
+            else:
+                # その他の形式の場合、文字列に変換を試みる
+                response_content = str(response)
 
-            logger.info(f"データ型説明抽出完了: {len(type_descriptions)}件")
+            logger.debug("LLMレスポンス受信（最初の500文字）: %s", response_content[:500] if response_content else "空")
+
+            # レスポンスが空でないか確認
+            if not response_content or not response_content.strip():
+                logger.error("LLMレスポンスが空です。レスポンスオブジェクト: %s", type(response))
+                raise LLMError("LLMレスポンスが空です")
+
+            # JSONの抽出とパース
+            type_descriptions = self._extract_json_from_response(response_content)
+
+            logger.info("データ型説明抽出完了: %d件", len(type_descriptions))
             return type_descriptions
 
+        except LLMError:
+            raise
         except Exception as e:
-            raise LLMError(f"LLMによるデータ型説明抽出に失敗しました", str(e))
+            logger.error("LLM処理エラー: %s", e, exc_info=True)
+            raise LLMError("LLMによるデータ型説明抽出に失敗しました", str(e))
 
     def _build_graph_extraction_prompt(self, raw_text: str) -> str:
         """グラフ抽出用のプロンプトを構築する"""
@@ -135,10 +202,15 @@ class LLMExtractor:
         --- 抽出ルール ---
         1.  `■オブジェクト名` は `Object` ノードとし、後続の `Method` は `BELONGS_TO` で接続してください。
         2.  `〇〇パラメータオブジェクト` というセクションは `DataType` ノードとしてください。
-        3.  上記 `DataType` に続く `属性` (例: `DefinitionType //s整数: ...`) は `Attribute` ノード (`id: DataType_Attr`) とし、`DataType` に `HAS_ATTRIBUTE` で接続してください。
-        4.  `Attribute` の `description` には型情報 (例: `整数:`, `文字列：`) を *除いた* 説明文 (例: "ブラケットの作成方法指定...") を格納してください。
-        5.  `//` の後の説明文に型情報 (例: `整数:`) が含まれる場合、(Attribute)から該当`DataType` (例: "整数") へ `HAS_TYPE` リレーションを張ってください。
-        6.  `Create[... ]Param` (例: `CreateBracketParam`) メソッドは、対応する `〇〇パラメータオブジェクト` (例: "ブラケット要素のパラメータオブジェクト") を `DataType` とする `ReturnValue` を持つ `Method` として抽出してください。
+        3.  上記 `DataType` に続く `属性` (例: `DefinitionType //s整数: ...`) は
+            `Attribute` ノード (`id: DataType_Attr`) とし、`DataType` に `HAS_ATTRIBUTE` で接続してください。
+        4.  `Attribute` の `description` には型情報 (例: `整数:`, `文字列：`) を *除いた*
+            説明文 (例: "ブラケットの作成方法指定...") を格納してください。
+        5.  `//` の後の説明文に型情報 (例: `整数:`) が含まれる場合、
+            (Attribute)から該当`DataType` (例: "整数") へ `HAS_TYPE` リレーションを張ってください。
+        6.  `Create[... ]Param` (例: `CreateBracketParam`) メソッドは、
+            対応する `〇〇パラメータオブジェクト` (例: "ブラケット要素のパラメータオブジェクト") を
+            `DataType` とする `ReturnValue` を持つ `Method` として抽出してください。
         7.  Parameterノードのdescriptionには、`：`の後の文章をそのまま指定してください。
 
         --- 出力形式 ---
@@ -196,15 +268,31 @@ class LLMExtractor:
             DataProcessingError: JSON抽出・パースエラー時
         """
         try:
+            # レスポンスが空でないか確認
+            if not response_content or not response_content.strip():
+                raise DataProcessingError("レスポンス内容が空です")
+
             # マークダウンのコードブロックからJSON部分を抽出
             match = re.search(r"```json\s*([\s\S]+?)\s*```", response_content)
             if match:
-                json_str = match.group(1)
+                json_str = match.group(1).strip()
+                logger.debug("JSONコードブロックを抽出: %s", json_str[:200])
                 return json.loads(json_str)
             else:
                 # コードブロックがない場合、直接パースを試みる
-                return json.loads(response_content)
+                # レスポンスの前後の不要な文字を削除
+                cleaned_content = response_content.strip()
+                # JSONオブジェクトの開始位置を探す
+                json_start = cleaned_content.find('{')
+                if json_start != -1:
+                    cleaned_content = cleaned_content[json_start:]
+                logger.debug("直接パースを試行: %s", cleaned_content[:200])
+                return json.loads(cleaned_content)
         except json.JSONDecodeError as e:
-            raise DataProcessingError(f"JSONパースエラー", str(e))
+            logger.error("JSONパースエラー: %s", e)
+            logger.error("レスポンス内容（最初の1000文字）: %s", response_content[:1000])
+            raise DataProcessingError("JSONパースエラー", f"{str(e)} - レスポンス内容をログに記録しました")
         except Exception as e:
-            raise DataProcessingError(f"JSON抽出エラー", str(e))
+            logger.error("JSON抽出エラー: %s", e)
+            logger.error("レスポンス内容（最初の1000文字）: %s", response_content[:1000])
+            raise DataProcessingError("JSON抽出エラー", str(e))

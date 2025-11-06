@@ -5,6 +5,7 @@
 paths:
   data_dir: "data"
   chroma_persist_dir: "data/chroma_db"
+  log_dir: "log"
   api_arg_txt:
     - "data/src/api_arg.txt"
   api_txt:
@@ -34,4 +35,9 @@ embedding:
   model_name: "text-embedding-3-small"  # デフォルト値（環境変数が未設定の場合）
   # バッチサイズ（環境変数 EMBEDDING_BATCH_SIZE で上書き可能）
   batch_size: 100  # LlamaIndex用
+
+# ログ設定
+logging:
+  # ログファイル名（日付・時刻情報が自動追加されます）
+  log_file: "rag_query.log"
 
