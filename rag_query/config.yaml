@@ -5,7 +5,7 @@
 paths:
   data_dir: "data"
   chroma_persist_dir: "data/chroma_db"
-  log_dir: "log"
+  log_dir: "rag_query/log"
   api_arg_txt:
     - "data/src/api_arg.txt"
   api_txt:
@@ -22,7 +22,7 @@ llm:
   # 標準モデル用パラメータ
   temperature: 0  # 推論モデルの場合はNone（自動設定）
   # 推論モデル用パラメータ（推論モデルの場合のみ使用）
-  verbosity: "none"  # "none" or "low" or "medium" or "high"
+  verbosity: "low"  # "low" or "medium" or "high" (APIは"none"をサポートしていません)
   reasoning_effort: "minimal"  # "minimal" or "low" or "medium" or "high"
   response_format: "text"  # "text" or "json_object"
   output_version: "responses/v1"  # 推論モデル用

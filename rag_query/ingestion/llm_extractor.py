@@ -31,7 +31,9 @@ class LLMExtractor:
         """
         # 推論モデルかどうかを判定
         inference_models = ["o4-mini", "o4", "gpt-5", "gpt-5-mini", "gpt-5-nano"]
-        is_inference_model = any(model in model_name.lower() for model in inference_models)
+        is_inference_model = any(
+            model in model_name.lower() for model in inference_models
+        )
 
         # LLM設定を構築
         llm_config = {
@@ -46,14 +48,17 @@ class LLMExtractor:
                 LLM_REASONING_EFFORT,
                 LLM_OUTPUT_VERSION,
             )
+
             # response_formatはLangChainで問題を起こす可能性があるため削除
             # プロンプトでJSON形式を指定することで対応
-            llm_config.update({
-                "reasoning_effort": LLM_REASONING_EFFORT,
-                "output_version": LLM_OUTPUT_VERSION,
-                "verbosity": LLM_VERBOSITY,
-                # response_formatは削除（LangChainが関数定義として解釈するため）
-            })
+            llm_config.update(
+                {
+                    "reasoning_effort": LLM_REASONING_EFFORT,
+                    "output_version": LLM_OUTPUT_VERSION,
+                    "verbosity": LLM_VERBOSITY,
+                    # response_formatは削除（LangChainが関数定義として解釈するため）
+                }
+            )
         else:
             # 標準モデル用パラメータ
             if temperature is not None:
@@ -83,21 +88,18 @@ class LLMExtractor:
             response = self.llm.invoke(prompt)
 
             # レスポンス内容を取得（推論モデルと標準モデルで形式が異なる可能性がある）
-            if hasattr(response, 'content'):
-                response_content = response.content
-            elif hasattr(response, 'text'):
-                response_content = response.text
-            elif isinstance(response, str):
-                response_content = response
-            else:
-                # その他の形式の場合、文字列に変換を試みる
-                response_content = str(response)
+            response_content = self._extract_response_content(response)
 
-            logger.debug("LLMレスポンス受信（最初の500文字）: %s", response_content[:500] if response_content else "空")
+            logger.debug(
+                "LLMレスポンス受信（最初の500文字）: %s",
+                response_content[:500] if response_content else "空",
+            )
 
             # レスポンスが空でないか確認
             if not response_content or not response_content.strip():
-                logger.error("LLMレスポンスが空です。レスポンスオブジェクト: %s", type(response))
+                logger.error(
+                    "LLMレスポンスが空です。レスポンスオブジェクト: %s", type(response)
+                )
                 raise LLMError("LLMレスポンスが空です")
 
             # JSONの抽出とパース
@@ -107,7 +109,9 @@ class LLMExtractor:
             relationships = graph_data.get("relationships", [])
 
             logger.info(
-                "グラフ抽出完了: ノード=%d件, リレーション=%d件", len(nodes), len(relationships)
+                "グラフ抽出完了: ノード=%d件, リレーション=%d件",
+                len(nodes),
+                len(relationships),
             )
             return graph_data
 
@@ -137,21 +141,18 @@ class LLMExtractor:
             response = self.llm.invoke(prompt)
 
             # レスポンス内容を取得（推論モデルと標準モデルで形式が異なる可能性がある）
-            if hasattr(response, 'content'):
-                response_content = response.content
-            elif hasattr(response, 'text'):
-                response_content = response.text
-            elif isinstance(response, str):
-                response_content = response
-            else:
-                # その他の形式の場合、文字列に変換を試みる
-                response_content = str(response)
+            response_content = self._extract_response_content(response)
 
-            logger.debug("LLMレスポンス受信（最初の500文字）: %s", response_content[:500] if response_content else "空")
+            logger.debug(
+                "LLMレスポンス受信（最初の500文字）: %s",
+                response_content[:500] if response_content else "空",
+            )
 
             # レスポンスが空でないか確認
             if not response_content or not response_content.strip():
-                logger.error("LLMレスポンスが空です。レスポンスオブジェクト: %s", type(response))
+                logger.error(
+                    "LLMレスポンスが空です。レスポンスオブジェクト: %s", type(response)
+                )
                 raise LLMError("LLMレスポンスが空です")
 
             # JSONの抽出とパース
@@ -165,6 +166,100 @@ class LLMExtractor:
         except Exception as e:
             logger.error("LLM処理エラー: %s", e, exc_info=True)
             raise LLMError("LLMによるデータ型説明抽出に失敗しました", str(e))
+
+    def _extract_response_content(self, response) -> str:
+        """
+        LLMレスポンスからコンテンツを文字列として抽出する
+
+        Args:
+            response: LLMレスポンスオブジェクト
+
+        Returns:
+            レスポンスコンテンツの文字列
+        """
+        # リスト形式のレスポンスの場合
+        if isinstance(response, list):
+            # リストの各要素を結合
+            content_parts = []
+            for item in response:
+                # 辞書形式の場合、'text'フィールドを優先的に取得
+                if isinstance(item, dict):
+                    if "text" in item:
+                        content_parts.append(str(item["text"]))
+                    elif "content" in item:
+                        content_parts.append(str(item["content"]))
+                    else:
+                        content_parts.append(str(item))
+                elif hasattr(item, "content"):
+                    content_parts.append(str(item.content))
+                elif hasattr(item, "text"):
+                    content_parts.append(str(item.text))
+                else:
+                    content_parts.append(str(item))
+            return "".join(content_parts)
+
+        # 通常のレスポンスオブジェクト
+        if hasattr(response, "content"):
+            content = response.content
+            # contentがリストの場合
+            if isinstance(content, list):
+                content_parts = []
+                for item in content:
+                    # 辞書形式の場合、'text'フィールドを優先的に取得
+                    if isinstance(item, dict):
+                        if "text" in item:
+                            content_parts.append(str(item["text"]))
+                        elif "content" in item:
+                            content_parts.append(str(item["content"]))
+                        else:
+                            content_parts.append(str(item))
+                    else:
+                        content_parts.append(str(item))
+                return "".join(content_parts)
+            # contentが辞書の場合
+            if isinstance(content, dict):
+                if "text" in content:
+                    return str(content["text"])
+                elif "content" in content:
+                    return str(content["content"])
+            return str(content)
+        elif hasattr(response, "text"):
+            text = response.text
+            # textがリストの場合
+            if isinstance(text, list):
+                content_parts = []
+                for item in text:
+                    # 辞書形式の場合、'text'フィールドを優先的に取得
+                    if isinstance(item, dict):
+                        if "text" in item:
+                            content_parts.append(str(item["text"]))
+                        elif "content" in item:
+                            content_parts.append(str(item["content"]))
+                        else:
+                            content_parts.append(str(item))
+                    else:
+                        content_parts.append(str(item))
+                return "".join(content_parts)
+            # textが辞書の場合
+            if isinstance(text, dict):
+                if "text" in text:
+                    return str(text["text"])
+                elif "content" in text:
+                    return str(text["content"])
+            return str(text)
+        elif isinstance(response, str):
+            return response
+        elif isinstance(response, dict):
+            # レスポンス自体が辞書の場合
+            if "text" in response:
+                return str(response["text"])
+            elif "content" in response:
+                return str(response["content"])
+            else:
+                return str(response)
+        else:
+            # その他の形式の場合、文字列に変換を試みる
+            return str(response)
 
     def _build_graph_extraction_prompt(self, raw_text: str) -> str:
         """グラフ抽出用のプロンプトを構築する"""
@@ -281,19 +376,88 @@ class LLMExtractor:
                 return json.loads(json_str)
             else:
                 # コードブロックがない場合、直接パースを試みる
-                # レスポンスの前後の不要な文字を削除
+                # 'text': '...' の形式からJSONを抽出
+                text_match = re.search(
+                    r"'text':\s*'([^']*(?:\\.[^']*)*)'", response_content
+                )
+                if text_match:
+                    # エスケープされた文字列を処理
+                    text_content = text_match.group(1)
+                    # エスケープシーケンスを処理
+                    text_content = text_content.replace("\\n", "\n").replace("\\'", "'")
+                    logger.debug("'text'フィールドから抽出: %s", text_content[:200])
+                    # 抽出したテキストから再度JSONを探す
+                    json_match = re.search(r"\{[\s\S]*\}", text_content)
+                    if json_match:
+                        return json.loads(json_match.group(0))
+                    # 直接パースを試みる
+                    return json.loads(text_content.strip())
+
+                # 'text': "..." の形式（ダブルクォート）からJSONを抽出
+                text_match_double = re.search(
+                    r"'text':\s*\"([^\"]*(?:\\.[^\"]*)*)\"", response_content
+                )
+                if text_match_double:
+                    text_content = text_match_double.group(1)
+                    text_content = text_content.replace("\\n", "\n").replace('\\"', '"')
+                    logger.debug(
+                        "'text'フィールドから抽出（ダブルクォート）: %s",
+                        text_content[:200],
+                    )
+                    json_match = re.search(r"\{[\s\S]*\}", text_content)
+                    if json_match:
+                        return json.loads(json_match.group(0))
+                    return json.loads(text_content.strip())
+
+                # 複数のJSONオブジェクト候補を試す
                 cleaned_content = response_content.strip()
-                # JSONオブジェクトの開始位置を探す
-                json_start = cleaned_content.find('{')
+                # すべての '{' の位置を探す
+                json_starts = []
+                for i, char in enumerate(cleaned_content):
+                    if char == "{":
+                        json_starts.append(i)
+
+                # 各開始位置からJSONパースを試みる
+                for json_start in json_starts:
+                    try:
+                        # この位置から最後まで試す
+                        candidate = cleaned_content[json_start:]
+                        # バランスの取れたJSONオブジェクトを探す
+                        brace_count = 0
+                        end_pos = -1
+                        for i, char in enumerate(candidate):
+                            if char == "{":
+                                brace_count += 1
+                            elif char == "}":
+                                brace_count -= 1
+                                if brace_count == 0:
+                                    end_pos = i + 1
+                                    break
+
+                        if end_pos > 0:
+                            json_str = candidate[:end_pos]
+                            logger.debug("JSON候補を抽出: %s", json_str[:200])
+                            return json.loads(json_str)
+                    except (json.JSONDecodeError, ValueError):
+                        continue
+
+                # 最後の手段：最初の '{' から試す
+                json_start = cleaned_content.find("{")
                 if json_start != -1:
                     cleaned_content = cleaned_content[json_start:]
                 logger.debug("直接パースを試行: %s", cleaned_content[:200])
                 return json.loads(cleaned_content)
         except json.JSONDecodeError as e:
             logger.error("JSONパースエラー: %s", e)
-            logger.error("レスポンス内容（最初の1000文字）: %s", response_content[:1000])
-            raise DataProcessingError("JSONパースエラー", f"{str(e)} - レスポンス内容をログに記録しました")
+            logger.error(
+                "レスポンス内容（最初の1000文字）: %s", response_content[:1000]
+            )
+            raise DataProcessingError(
+                "JSONパースエラー", f"{str(e)} - レスポンス内容をログに記録しました"
+            )
         except Exception as e:
             logger.error("JSON抽出エラー: %s", e)
-            logger.error("レスポンス内容（最初の1000文字）: %s", response_content[:1000])
+            logger.error(
+                "レスポンス内容（最初の1000文字）: %s", response_content[:1000]
+            )
             raise DataProcessingError("JSON抽出エラー", str(e))
