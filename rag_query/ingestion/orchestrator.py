@@ -204,7 +204,7 @@ class IngestionOrchestrator:
         self, node_props: Dict[str, Dict[str, Any]], type_descriptions: Dict[str, str]
     ) -> None:
         """
-        データ型ノードに説明を追加する
+        データ型ノードに説明を追加する（存在しない場合は新規作成）
 
         Args:
             node_props: ノードプロパティ辞書（更新対象）
@@ -221,6 +221,10 @@ class IngestionOrchestrator:
         )
 
         added_count = 0
+        created_count = 0
+        
+        # 既存のDataTypeノードを取得
+        existing_type_names = set()
         data_type_nodes = [
             (node_id, node_data)
             for node_id, node_data in node_props.items()
@@ -228,25 +232,51 @@ class IngestionOrchestrator:
         ]
         logger.debug("DataTypeノード数: %d件", len(data_type_nodes))
 
+        # 既存のDataTypeノードに説明を追加
         for node_id, node_data in data_type_nodes:
             type_name = node_data.get("properties", {}).get("name")
-            if type_name and type_name in type_descriptions:
-                node_data["properties"]["description"] = type_descriptions[type_name]
-                added_count += 1
+            if type_name:
+                existing_type_names.add(type_name)
+                if type_name in type_descriptions:
+                    node_data["properties"]["description"] = type_descriptions[type_name]
+                    added_count += 1
+                    logger.debug(
+                        "データ型説明を追加: %s -> %s",
+                        type_name,
+                        (
+                            type_descriptions[type_name][:50]
+                            if type_descriptions[type_name]
+                            else ""
+                        ),
+                    )
+                else:
+                    logger.debug(
+                        "データ型説明が見つかりません: ノードID=%s, 型名=%s",
+                        node_id,
+                        type_name,
+                    )
+
+        # 存在しない型については新しいDataTypeノードを作成
+        for type_name, description in type_descriptions.items():
+            if type_name not in existing_type_names:
+                # 新しいDataTypeノードを作成
+                node_id = type_name  # 型名をそのままノードIDとして使用
+                node_props[node_id] = {
+                    "type": "DataType",
+                    "properties": {
+                        "name": type_name,
+                        "description": description,
+                    },
+                }
+                created_count += 1
                 logger.debug(
-                    "データ型説明を追加: %s -> %s",
+                    "新しいDataTypeノードを作成: %s -> %s",
                     type_name,
-                    (
-                        type_descriptions[type_name][:50]
-                        if type_descriptions[type_name]
-                        else ""
-                    ),
-                )
-            elif type_name:
-                logger.debug(
-                    "データ型説明が見つかりません: ノードID=%s, 型名=%s",
-                    node_id,
-                    type_name,
+                    description[:50] if description else "",
                 )
 
-        logger.info("データ型説明の統合完了: %d件のノードに説明を追加", added_count)
+        logger.info(
+            "データ型説明の統合完了: %d件のノードに説明を追加, %d件のノードを新規作成",
+            added_count,
+            created_count,
+        )

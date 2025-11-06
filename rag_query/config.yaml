@@ -18,12 +18,12 @@ neo4j:
 # LLM設定
 llm:
   # モデル名（環境変数 LLM_MODEL で上書き可能）
-  model_name: "gpt-5-nano"  # デフォルト値（環境変数が未設定の場合）
+  model_name: "gpt-5"  # デフォルト値（環境変数が未設定の場合）
   # 標準モデル用パラメータ
   temperature: 0  # 推論モデルの場合はNone（自動設定）
   # 推論モデル用パラメータ（推論モデルの場合のみ使用）
-  verbosity: "low"  # "low" or "medium" or "high" (APIは"none"をサポートしていません)
-  reasoning_effort: "minimal"  # "minimal" or "low" or "medium" or "high"
+  verbosity: "medium"  # "low" or "medium" or "high"
+  reasoning_effort: "medium"  # "minimal" or "low" or "medium" or "high"
   response_format: "json_object"  # "text" or "json_object"
   output_version: "responses/v1"  # 推論モデル用
   # その他

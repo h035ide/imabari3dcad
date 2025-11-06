@@ -47,22 +47,36 @@ class LLMExtractor:
                 LLM_VERBOSITY,
                 LLM_REASONING_EFFORT,
                 LLM_OUTPUT_VERSION,
+                LLM_RESPONSE_FORMAT,
             )
 
             # response_formatはLangChainで問題を起こす可能性があるため削除
             # プロンプトでJSON形式を指定することで対応
+            # ただし、設定値は確認してログに出力
+            logger.debug(
+                "response_format設定値: %s (プロンプトでJSON形式を指定します)",
+                LLM_RESPONSE_FORMAT,
+            )
             llm_config.update(
                 {
                     "reasoning_effort": LLM_REASONING_EFFORT,
                     "output_version": LLM_OUTPUT_VERSION,
                     "verbosity": LLM_VERBOSITY,
                     # response_formatは削除（LangChainが関数定義として解釈するため）
+                    # プロンプトでJSON形式を指定することで対応
                 }
             )
         else:
             # 標準モデル用パラメータ
+            from ..config import LLM_RESPONSE_FORMAT
+
             if temperature is not None:
                 llm_config["temperature"] = temperature
+
+            # response_formatを設定（標準モデルの場合）
+            if LLM_RESPONSE_FORMAT == "json_object":
+                llm_config["response_format"] = {"type": "json_object"}
+                logger.debug("response_format設定: json_object")
 
         self.llm = ChatOpenAI(**llm_config)
 
