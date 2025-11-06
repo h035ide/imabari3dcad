@@ -63,6 +63,17 @@ class RAGQueryApp:
             progress_logger.info("🚀 === データ取り込み処理開始 ===")
             start_time = time.time()
 
+            # レスポンス保存用ディレクトリを作成（response/response_YYYY-MM-DD_HHMMSS）
+            from datetime import datetime
+            run_stamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
+            base_response_dir = Path(self.config.get("paths", {}).get("response_dir", "response"))
+            response_dir = base_response_dir / f"response_{run_stamp}"
+            response_dir.mkdir(parents=True, exist_ok=True)
+            logger.info("レスポンス保存先: %s", response_dir)
+            # オーケストレータとLLMへ保存先を伝播
+            if hasattr(self.ingestion_orchestrator, "set_response_dir"):
+                self.ingestion_orchestrator.set_response_dir(response_dir)
+
             # データ取り込み実行
             triples, node_props = self.ingestion_orchestrator.run_ingestion(self.config)
 

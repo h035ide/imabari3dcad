@@ -1,0 +1,230 @@
+{
+  "nodes": [
+    {
+      "id": "Application",
+      "type": "Object",
+      "properties": {
+        "name": "Application"
+      }
+    },
+    {
+      "id": "Quit",
+      "type": "Method",
+      "properties": {
+        "name": "Quit",
+        "description": "EvoShipを終了する"
+      }
+    },
+    {
+      "id": "ShowMainWindow",
+      "type": "Method",
+      "properties": {
+        "name": "ShowMainWindow",
+        "description": "EvoShipのメインウィンドウを表示する"
+      }
+    },
+    {
+      "id": "LoadPart",
+      "type": "Method",
+      "properties": {
+        "name": "LoadPart",
+        "description": "Partオブジェクトを読み込む"
+      }
+    },
+    {
+      "id": "OpenDocument",
+      "type": "Method",
+      "properties": {
+        "name": "OpenDocument",
+        "description": "Documentを開く"
+      }
+    },
+    {
+      "id": "Create3DDocument",
+      "type": "Method",
+      "properties": {
+        "name": "Create3DDocument",
+        "description": "3DのDocumentを新規に作成する"
+      }
+    },
+    {
+      "id": "GetActiveDocument",
+      "type": "Method",
+      "properties": {
+        "name": "GetActiveDocument",
+        "description": "アクティブなDocumentオブジェクトを取得する"
+      }
+    },
+    {
+      "id": "GetDocuments",
+      "type": "Method",
+      "properties": {
+        "name": "GetDocuments",
+        "description": "開かれているDocumentオブジェクトを全て取得する"
+      }
+    },
+    {
+      "id": "Document",
+      "type": "Object",
+      "properties": {
+        "name": "Document"
+      }
+    },
+    {
+      "id": "Close",
+      "type": "Method",
+      "properties": {
+        "name": "Close",
+        "description": "ドキュメントを閉じる"
+      }
+    },
+    {
+      "id": "Save",
+      "type": "Method",
+      "properties": {
+        "name": "Save",
+        "description": "ドキュメントをファイルに保存する"
+      }
+    },
+    {
+      "id": "GetPart",
+      "type": "Method",
+      "properties": {
+        "name": "GetPart",
+        "description": "Partオブジェクトの取得"
+      }
+    },
+    {
+      "id": "IsActive",
+      "type": "Method",
+      "properties": {
+        "name": "IsActive",
+        "description": "ドキュメントがアクティブ（カレント）かどうか"
+      }
+    },
+    {
+      "id": "Activate",
+      "type": "Method",
+      "properties": {
+        "name": "Activate",
+        "description": "ドキュメントをアクティベイト（カレントに）する"
+      }
+    },
+    {
+      "id": "FitAllViews",
+      "type": "Method",
+      "properties": {
+        "name": "FitAllViews",
+        "description": "ドキュメントのビューを要素にフィットする"
+      }
+    },
+    {
+      "id": "GetViews",
+      "type": "Method",
+      "properties": {
+        "name": "GetViews",
+        "description": "ドキュメントのビューを取得する"
+      }
+    },
+    {
+      "id": "CreateSTLOption",
+      "type": "Method",
+      "properties": {
+        "name": "CreateSTLOption",
+        "description": "STLパラメータオブジェクトの作成"
+      }
+    },
+    {
+      "id": "STLParameter",
+      "type": "DataType",
+      "properties": {
+        "name": "STLパラメータオブジェクト"
+      }
+    },
+    {
+      "id": "STLOption",
+      "type": "Attribute",
+      "properties": {
+        "name": "ChordalTolerance",
+        "description": "浮動小数点:メッシュ近似する際の弦の幅の許容トレランスを指定 (mm)"
+      }
+    },
+    {
+      "id": "STLParameter_NormalTolerance",
+      "type": "Attribute",
+      "properties": {
+        "name": "NormalTolerance",
+        "description": "浮動小数点:メッシュ近似した場合のポリゴンの面と局面との法線方向のずれ角度の許容値（Degree)"
+      }
+    },
+    {
+      "id": "STLParameter_SigDigits",
+      "type": "Attribute",
+      "properties": {
+        "name": "SigDigits",
+        "description": "整数:頂点座標値の有効桁数"
+      }
+    },
+    {
+      "id": "STLParameter_MinMeshLength",
+      "type": "Attribute",
+      "properties": {
+        "name": "MinMeshLength",
+        "description": "浮動小数点:メッシュの辺の最小サイズを指定する場合は指定(mm)（指定しない場合は０）"
+      }
+    },
+    {
+      "id": "STLParameter_MaxMeshLength",
+      "type": "Attribute",
+      "properties": {
+        "name": "MaxMeshLength",
+        "description": "浮動小数点:メッシュの辺の最大サイズを指定する場合は指定(mm)（指定しない場合は０）"
+      }
+    },
+    {
+      "id": "STLParameter_Elements",
+      "type": "Attribute",
+      "properties": {
+        "name": "Elements",
+        "description": "要素(配列)：STL出力する要素を指定（指定しない場合は表示されている全ての要素を出力します）"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "source": "Application",
+      "target": "Quit",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "Application",
+      "target": "ShowMainWindow",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "Application",
+      "target": "LoadPart",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "Application",
+      "target": "OpenDocument",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "Application",
+      "target": "Create3DDocument",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "Application",
+      "target": "GetActiveDocument",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "Application",
+      "target": "GetDocuments",
+      "type": "BELONGS_TO"
+    }
+  ]
+}

@@ -6,6 +6,7 @@ API仕様書とスクリプト例の解析を統合管理し、グラフデー�
 
 import time
 from pathlib import Path
+import json
 from typing import List, Dict, Any, Tuple
 
 from ..core.logger import get_logger
@@ -32,9 +33,17 @@ class IngestionOrchestrator:
             model_name: 使用するLLMモデル名
             temperature: LLM生成温度
         """
+        self.response_dir: Path | None = None
         self.llm_extractor = LLMExtractor(openai_api_key, model_name, temperature)
         self.api_parser = APISpecParser(self.llm_extractor)
         self.script_analyzer = ScriptAnalyzer()
+
+    def set_response_dir(self, response_dir: Path) -> None:
+        """レスポンス保存先ディレクトリを設定する"""
+        self.response_dir = response_dir
+        # LLM抽出側にも伝播
+        if hasattr(self.llm_extractor, "set_response_dir"):
+            self.llm_extractor.set_response_dir(response_dir)
 
     def run_ingestion(
         self, config: Dict[str, Any]
@@ -123,6 +132,36 @@ class IngestionOrchestrator:
 
             # データ型の説明をノードプロパティに追加
             self._add_datatype_descriptions(spec_node_props, type_descriptions)
+
+            # 完成したグラフデータを保存（nodes/relationshipsのスナップショット）
+            try:
+                if self.response_dir:
+                    graph_snapshot = {
+                        "nodes": [
+                            {
+                                "id": node_id,
+                                "type": meta.get("type"),
+                                "properties": meta.get("properties", {}),
+                            }
+                            for node_id, meta in spec_node_props.items()
+                        ],
+                        "relationships": [
+                            {
+                                "source": t.get("source"),
+                                "target": t.get("target"),
+                                "type": t.get("label"),
+                            }
+                            for t in spec_triples
+                        ],
+                    }
+                    out_path = self.response_dir / "final_graph.json"
+                    out_path.write_text(
+                        json.dumps(graph_snapshot, ensure_ascii=False, indent=2),
+                        encoding="utf-8",
+                    )
+                    logger.info("完成グラフを保存しました: %s", out_path)
+            except Exception as e:
+                logger.warning("完成グラフの保存に失敗: %s", e)
 
             logger.info(f"✅ API仕様書解析完了: トリプル={len(spec_triples)}件")
             return spec_triples, spec_node_props

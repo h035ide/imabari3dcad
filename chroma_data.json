@@ -1,6 +1,246 @@
 [
   {
-    "page_content": "ノードタイプ: DataType\nID: 文字列\nプロパティ:\n- name: 文字列\n- description: 通常の文字列",
+    "page_content": "ノードタイプ: Object\nID: Application\nプロパティ:\n- name: Application",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Application",
+      "node_type": "Object"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: Quit\n説明: EvoShipを終了する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Quit",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: ShowMainWindow\n説明: EvoShipのメインウィンドウを表示する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ShowMainWindow",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: LoadPart\n説明: Partオブジェクトを読み込む",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "LoadPart",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: OpenDocument\n説明: Documentを開く",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "OpenDocument",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: Create3DDocument\n説明: 3DのDocumentを新規に作成する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Create3DDocument",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: GetActiveDocument\n説明: アクティブなDocumentオブジェクトを取得する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "GetActiveDocument",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: GetDocuments\n説明: 開かれているDocumentオブジェクトを全て取得する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "GetDocuments",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Object\nID: Document\nプロパティ:\n- name: Document",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Document",
+      "node_type": "Object"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: Close\n説明: ドキュメントを閉じる",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Close",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: Save\n説明: ドキュメントをファイルに保存する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Save",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: GetPart\n説明: Partオブジェクトの取得",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "GetPart",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: IsActive\n説明: ドキュメントがアクティブ（カレント）かどうか",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "IsActive",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: Activate\n説明: ドキュメントをアクティベイト（カレントに）する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Activate",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: FitAllViews\n説明: ドキュメントのビューを要素にフィットする",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "FitAllViews",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: GetViews\n説明: ドキュメントのビューを取得する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "GetViews",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateSTLOption\n説明: STLパラメータオブジェクトの作成",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSTLOption",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: STLParameter\nプロパティ:\n- name: STLパラメータオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "STLParameter",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: STLOption\nプロパティ:\n- name: ChordalTolerance\n- description: 浮動小数点:メッシュ近似する際の弦の幅の許容トレランスを指定 (mm)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "STLOption",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: STLParameter_NormalTolerance\nプロパティ:\n- name: NormalTolerance\n- description: 浮動小数点:メッシュ近似した場合のポリゴンの面と局面との法線方向のずれ角度の許容値（Degree)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "STLParameter_NormalTolerance",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: STLParameter_SigDigits\nプロパティ:\n- name: SigDigits\n- description: 整数:頂点座標値の有効桁数",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "STLParameter_SigDigits",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: STLParameter_MinMeshLength\nプロパティ:\n- name: MinMeshLength\n- description: 浮動小数点:メッシュの辺の最小サイズを指定する場合は指定(mm)（指定しない場合は０）",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "STLParameter_MinMeshLength",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: STLParameter_MaxMeshLength\nプロパティ:\n- name: MaxMeshLength\n- description: 浮動小数点:メッシュの辺の最大サイズを指定する場合は指定(mm)（指定しない場合は０）",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "STLParameter_MaxMeshLength",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: STLParameter_Elements\nプロパティ:\n- name: Elements\n- description: 要素(配列)：STL出力する要素を指定（指定しない場合は表示されている全ての要素を出力します）",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "STLParameter_Elements",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Object\nID: Object_Part\nプロパティ:\n- name: Part",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Object_Part",
+      "node_type": "Object"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateVariable\n説明: 説明未提供",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Part_CreateVariable",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: UpdateVariable\n説明: 説明未提供",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Part_UpdateVariable",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateVariable_VariableName\nプロパティ:\n- name: VariableName\n- description: VariableNameを指定します\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateVariable_VariableName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateVariable_VariableValue\nプロパティ:\n- name: VariableValue\n- description: VariableValueを指定します\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateVariable_VariableValue",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateVariable_ReturnValue\nプロパティ:\n- description: 戻り値の説明",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateVariable_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 文字列\nプロパティ:\n- name: 文字列\n- description: APIの引数の型タイプ、および書式の仕様",
     "metadata": {
       "source": "graph_node",
       "node_id": "文字列",
@@ -8,31 +248,7 @@
     }
   },
   {
-    "page_content": "ノードタイプ: DataType\nID: 浮動小数点\nプロパティ:\n- name: 浮動小数点\n- description: 通常の数値",
-    "metadata": {
-      "source": "graph_node",
-      "node_id": "浮動小数点",
-      "node_type": "DataType"
-    }
-  },
-  {
-    "page_content": "ノードタイプ: DataType\nID: 整数\nプロパティ:\n- name: 整数\n- description: 通常の数値",
-    "metadata": {
-      "source": "graph_node",
-      "node_id": "整数",
-      "node_type": "DataType"
-    }
-  },
-  {
-    "page_content": "ノードタイプ: DataType\nID: bool\nプロパティ:\n- name: bool\n- description: 通常の真偽値 True False",
-    "metadata": {
-      "source": "graph_node",
-      "node_id": "bool",
-      "node_type": "DataType"
-    }
-  },
-  {
-    "page_content": "ノードタイプ: DataType\nID: 長さ\nプロパティ:\n- name: 長さ\n- description: mm単位の数値、変数要素名, 式文字列、例: 100.0, L1, L1 / 2.0",
+    "page_content": "ノードタイプ: DataType\nID: 長さ\nプロパティ:\n- name: 長さ\n- description: mm単位の数値、変数要素名,式文字列、\n　例) \"100.0\" , \"L1\", \"L1 / 2.0\"",
     "metadata": {
       "source": "graph_node",
       "node_id": "長さ",
@@ -40,7 +256,47 @@
     }
   },
   {
-    "page_content": "ノードタイプ: DataType\nID: 角度\nプロパティ:\n- name: 角度\n- description: 度(°)単位の数値、変数要素名, 式文字列、例: 30.0, Angle1, Angle1 * 0.2",
+    "page_content": "ノードタイプ: DataType\nID: 整数\nプロパティ:\n- name: 整数\n- description: APIの引数の型タイプ、および書式の仕様",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "整数",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: bool\nプロパティ:\n- name: bool\n- description: APIの引数の型タイプ、および書式の仕様",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "bool",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: ブラケット要素のパラメータオブジェクト\nプロパティ:\n- name: ブラケット要素のパラメータオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_DefinitionType\nプロパティ:\n- name: DefinitionType\n- description: ブラケットの作成方法指定等の型情報を除いた説明",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_DefinitionType",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 浮動小数点\nプロパティ:\n- name: 浮動小数点\n- description: APIの引数の型タイプ、および書式の仕様",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "浮動小数点",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 角度\nプロパティ:\n- name: 角度\n- description: 度(°)単位の数値、変数要素名,式文字列、\n　例) \"30.0\" , \"Angle1\" , \"Angle1 * 0.2\"",
     "metadata": {
       "source": "graph_node",
       "node_id": "角度",
@@ -48,7 +304,7 @@
     }
   },
   {
-    "page_content": "ノードタイプ: DataType\nID: 数値\nプロパティ:\n- name: 数値\n- description: 数値、変数要素名, 式文字列、例: 3, N1, N1*5",
+    "page_content": "ノードタイプ: DataType\nID: 数値\nプロパティ:\n- name: 数値\n- description: 数値、変数要素名,式文字列、\n 例)  \"3\", \"N1\", \"N1*5\"",
     "metadata": {
       "source": "graph_node",
       "node_id": "数値",
@@ -56,7 +312,7 @@
     }
   },
   {
-    "page_content": "ノードタイプ: DataType\nID: 範囲\nプロパティ:\n- name: 範囲\n- description: 上限、下限の数値をコンマで区切って指定、例: 0.0,1.0; L1,L2; -1.0,1.0",
+    "page_content": "ノードタイプ: DataType\nID: 範囲\nプロパティ:\n- name: 範囲\n- description: 上限、下限の数値をコンマで区切って指定\n 例)  \"0.0,1.0\" ,  \"L1,L2\", \"-1.0,1.0\"",
     "metadata": {
       "source": "graph_node",
       "node_id": "範囲",
@@ -64,7 +320,7 @@
     }
   },
   {
-    "page_content": "ノードタイプ: DataType\nID: 点\nプロパティ:\n- name: 点\n- description: コンマで区切って各コンポーネントを X, Y, Z の長さで指定。例: 100.0,50,0,0.0; FRM1,0.0,1000.0",
+    "page_content": "ノードタイプ: DataType\nID: 点\nプロパティ:\n- name: 点\n- description: \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定\n　 例) \"100.0,50,0,0.0\" , \"FRM1,0.0,1000.0\"",
     "metadata": {
       "source": "graph_node",
       "node_id": "点",
@@ -72,7 +328,7 @@
     }
   },
   {
-    "page_content": "ノードタイプ: DataType\nID: 方向\nプロパティ:\n- name: 方向\n- description: 各軸方向は +X, -X, +Y, -Y, +Z, -Z で指定。先頭のカンマ区切りで X, Y, Z を数値で指定",
+    "page_content": "ノードタイプ: DataType\nID: 方向\nプロパティ:\n- name: 方向\n- description: 〇　各軸方向は\"+X\",\"-X\",\"+Y\",\"-X\",\"+Z\",\"-Z\" で指定\n〇　\",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を数値（変数も可）で指定",
     "metadata": {
       "source": "graph_node",
       "node_id": "方向",
@@ -80,7 +336,7 @@
     }
   },
   {
-    "page_content": "ノードタイプ: DataType\nID: 平面\nプロパティ:\n- name: 平面\n- description: 平面の指定は最初のカラムが PL。オフセット距離や X/Y/Z 平面の組み合わせなどの説明",
+    "page_content": "ノードタイプ: DataType\nID: 平面\nプロパティ:\n- name: 平面\n- description: \",\" コンマで区切られた文字列で指定。最初のカラムは必ず\"PL\"\n  次のカラムが\"O\"の場合はその次のカラムにオフセット距離（長さ）を指定\n  以降は\n　〇　\"X\" グローバルＹＺ平面　, \"Y\" グローバルＺＸ平面　, \"Z\" グローバルＸＹ平面\n　〇　\"F\"　の場合はボディのフェイスを指定　（要素の項参照）\n\n　例）\"PL,Z\"　グローバルＸＹ平面　\n  　　\"PL,O,500.0,X\" グローバルＹＺ平面をＸ方向に500移動させた平面",
     "metadata": {
       "source": "graph_node",
       "node_id": "平面",
@@ -88,7 +344,7 @@
     }
   },
   {
-    "page_content": "ノードタイプ: DataType\nID: 変数単位\nプロパティ:\n- name: 変数単位\n- description: 長さは mm, cm, m, in, ft, pt のいずれか / 角度は deg, rad のいずれか / 数値は 空白 または num",
+    "page_content": "ノードタイプ: DataType\nID: 変数単位\nプロパティ:\n- name: 変数単位\n- description: 長さ \"mm\",\"cm\",\"m\",\"in\",\"ft\",\"pt\"のいずれか\n　角度 \"deg\",\"rad\"のいずれか\n　数値 \"\"(空白),\"num\"のいずれか",
     "metadata": {
       "source": "graph_node",
       "node_id": "変数単位",
@@ -96,7 +352,7 @@
     }
   },
   {
-    "page_content": "ノードタイプ: DataType\nID: 要素グループ\nプロパティ:\n- name: 要素グループ\n- description: EVO.SHIPの要素グループ名。階層は / で区切る",
+    "page_content": "ノードタイプ: DataType\nID: 要素グループ\nプロパティ:\n- name: 要素グループ\n- description: EVO.SHIPの要素グループ名\n　要素グループの階層は\"/\"で区切る",
     "metadata": {
       "source": "graph_node",
       "node_id": "要素グループ",
@@ -104,7 +360,7 @@
     }
   },
   {
-    "page_content": "ノードタイプ: DataType\nID: 注記スタイル\nプロパティ:\n- name: 注記スタイル\n- description: 注記スタイルの名称",
+    "page_content": "ノードタイプ: DataType\nID: 注記スタイル\nプロパティ:\n- name: 注記スタイル\n- description: EVO.SHIPに設定している注記スタイルの名称",
     "metadata": {
       "source": "graph_node",
       "node_id": "注記スタイル",
@@ -112,7 +368,7 @@
     }
   },
   {
-    "page_content": "ノードタイプ: DataType\nID: 材料\nプロパティ:\n- name: 材料\n- description: 材料の名称",
+    "page_content": "ノードタイプ: DataType\nID: 材料\nプロパティ:\n- name: 材料\n- description: EVO.SHIPに設定している材料の名称",
     "metadata": {
       "source": "graph_node",
       "node_id": "材料",
@@ -120,7 +376,7 @@
     }
   },
   {
-    "page_content": "ノードタイプ: DataType\nID: スイープ方向\nプロパティ:\n- name: スイープ方向\n- description: N: 順方向, R: 反対方向, B: 両方向, 2: 2方向, T: 貫通",
+    "page_content": "ノードタイプ: DataType\nID: スイープ方向\nプロパティ:\n- name: スイープ方向\n- description: \"N\"  順方向\n  \"R\"　反対方向\n  \"B\"　両方向\n  \"2\"  ２方向\n  \"T\"   貫通",
     "metadata": {
       "source": "graph_node",
       "node_id": "スイープ方向",
@@ -128,7 +384,7 @@
     }
   },
   {
-    "page_content": "ノードタイプ: DataType\nID: 厚み付けタイプ\nプロパティ:\n- name: 厚み付けタイプ\n- description: + 内側, - 外側, B 両方向, 2 2方向, 空文字: 厚み付けしない",
+    "page_content": "ノードタイプ: DataType\nID: 厚み付けタイプ\nプロパティ:\n- name: 厚み付けタイプ\n- description: \"+\"　内側\n　\"-\"　外側\n  \"B\"　両方向\n  \"2\"  ２方向\n  \"\" （空文字）厚み付けしない",
     "metadata": {
       "source": "graph_node",
       "node_id": "厚み付けタイプ",
@@ -136,7 +392,7 @@
     }
   },
   {
-    "page_content": "ノードタイプ: DataType\nID: モールド位置\nプロパティ:\n- name: モールド位置\n- description: + 側, - 側, 空文字: センター",
+    "page_content": "ノードタイプ: DataType\nID: モールド位置\nプロパティ:\n- name: モールド位置\n- description: \"+\"　＋側\n　\"-\"　ー側\n  \"\" （空文字）センター",
     "metadata": {
       "source": "graph_node",
       "node_id": "モールド位置",
@@ -144,7 +400,7 @@
     }
   },
   {
-    "page_content": "ノードタイプ: DataType\nID: オペレーションタイプ　（ボディ）\nプロパティ:\n- name: オペレーションタイプ　（ボディ）\n- description: + 和, - 削除, * 積",
+    "page_content": "ノードタイプ: DataType\nID: オペレーションタイプ　（ボディ）\nプロパティ:\n- name: オペレーションタイプ　（ボディ）\n- description: \"+\"　和\n　\"-\"　削除\n　\"*\"  積",
     "metadata": {
       "source": "graph_node",
       "node_id": "オペレーションタイプ　（ボディ）",
@@ -152,7 +408,7 @@
     }
   },
   {
-    "page_content": "ノードタイプ: DataType\nID: 関連設定\nプロパティ:\n- name: 関連設定\n- description: ボディ関連は B、それ以外はフィーチャー関連",
+    "page_content": "ノードタイプ: DataType\nID: 関連設定\nプロパティ:\n- name: 関連設定\n- description: ボディ関連とする場合は\"B\"\n  それ以外（空白含む）はフィーチャー関連",
     "metadata": {
       "source": "graph_node",
       "node_id": "関連設定",
@@ -160,7 +416,7 @@
     }
   },
   {
-    "page_content": "ノードタイプ: DataType\nID: 形状タイプ\nプロパティ:\n- name: 形状タイプ\n- description: 部材の形状番号の設定（例: 1007, 1003, 1101, 1120, 1503）",
+    "page_content": "ノードタイプ: DataType\nID: 形状タイプ\nプロパティ:\n- name: 形状タイプ\n- description: EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号 (ヘルプのEVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイルの項を\n　参照)\n　例）\"1007\" 平鋼、\"1003\" 不等辺不等厚山形鋼 \n      \"1101\" 条材端部Sタイプ　、\"1120\" 条材端部スカラップA1タイプ\n　　　\"1503\"  ブラケット2-Bタイプ",
     "metadata": {
       "source": "graph_node",
       "node_id": "形状タイプ",
@@ -168,7 +424,7 @@
     }
   },
   {
-    "page_content": "ノードタイプ: DataType\nID: 形状パラメータ\nプロパティ:\n- name: 形状パラメータ\n- description: 形状タイプの寸法値を文字列配列で設定。例: [\"150.\",\"90.\",\"9.0\",\"12.\",\"6.\"]",
+    "page_content": "ノードタイプ: DataType\nID: 形状パラメータ\nプロパティ:\n- name: 形状パラメータ\n- description: 　　各形状タイプの寸法値を文字列配列で設定\n　　例) 不当辺山形鋼(1002)の形状タイプの場合　[\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]",
     "metadata": {
       "source": "graph_node",
       "node_id": "形状パラメータ",
@@ -176,7 +432,7 @@
     }
   },
   {
-    "page_content": "ノードタイプ: DataType\nID: 要素\nプロパティ:\n- name: 要素\n- description: EVO.SHIPの要素を指定する方法。ID 指定、要素名指定、板厚面の指定、フェイスの指定 など複数形式がある",
+    "page_content": "ノードタイプ: DataType\nID: 要素\nプロパティ:\n- name: 要素\n- description: 　(複数要素の場合は文字列の配列とする)\n  EVO.SHIPの各要素を指定する\n\n　〇IDで指定\n    EVO.SHIPの要素はユニークなIDを必ずもつのでそのID文字列を\"ID@\"をプレフィックスとして指定\n　　例）\"ID@d8baafc30be94411a6ab9d6173c1d1dd\" (d8baafc30be94411a6ab9d6173c1d1ddというIDをもつ要素)\n        \n　〇要素名で指定\n　　EVO.SHIPの要素名称は重複を許すので、複数見つかった際にどれになるかは不定\n　　要素名称はEVO.SHIPの要素グループを指定するのこともできる\n　　例）G1という要素グループ配下のG2という要素グループ配下のAという名前の要素の指定\n　　　　G1/G2/A\n\n 〇板ソリッド要素の板厚面を指定（条材ソリッドの場合はウェブ部分）\n　　必ず文字列配列で指定\n　　配列の最初の要素は\"PLS\"という固定文字列\n　　次の配列要素（２番目）は\"True\"か\"False\"で,\"True\"の場合はFace内部穴を削除する\n    次の配列要素（３番目）は常に\"False\" (システムで利用します）\n　　その次から３っつの要素（４番目、５番目、６番目）で板 thickness 面のどちら側かを\n　　指定するために外側方向（おおよそ）をベクトル指定する\n　　最後の要素でソリッド要素を指定する\n   　例）[\"PLS\",\"False\",\"False\",\"0.0\",\"0.0\",\"-1.0\",\"ID@d8baafc30be94411a6ab9d6173c1d1dd\"]\n        d8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつソリッド要素（板材)の(0,0,-1)方向を向いている側の面の指定\n\n  〇ソリッドやシート要素のフェイスを指定\n　　\",\" コンマで区切られた文字列で指定\n　　最初のカラムでソリッドやシート要素のＩＤを指定、次のカラムは固定文字\"F\"、その次のカラムからフェイス上の点の座標値を指定（複数フェイス指定可能）\n　　例 \"ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8\"\n      d8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつ要素でそのFace上の座標値が(-10,0.5,2.3)と(-11.0,0.0,4.8)",
     "metadata": {
       "source": "graph_node",
       "node_id": "要素",

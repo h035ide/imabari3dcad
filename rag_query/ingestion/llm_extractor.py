@@ -6,7 +6,9 @@ OpenAI APIを使用してAPI仕様書からグラフデータを抽出します�
 
 import re
 import json
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Optional
+from pathlib import Path
+import json
 from langchain_openai import ChatOpenAI
 
 from ..core.exceptions import LLMError, DataProcessingError
@@ -79,6 +81,30 @@ class LLMExtractor:
                 logger.debug("response_format設定: json_object")
 
         self.llm = ChatOpenAI(**llm_config)
+        # 保存関連
+        self.response_dir: Optional[Path] = None
+        self._resp_index: int = 0
+
+    def set_response_dir(self, response_dir: Path) -> None:
+        """レスポンス保存用ディレクトリを設定"""
+        self.response_dir = response_dir
+
+    def _save_response(self, kind: str, content: str, parsed: Any | None = None) -> None:
+        """LLMレスポンスを保存する（rawとparsed）"""
+        if not self.response_dir:
+            return
+        try:
+            self._resp_index += 1
+            base = f"{self._resp_index:03d}_{kind}"
+            raw_path = self.response_dir / f"{base}_raw.txt"
+            raw_path.write_text(content, encoding="utf-8")
+            if parsed is not None:
+                parsed_path = self.response_dir / f"{base}_parsed.json"
+                parsed_path.write_text(
+                    json.dumps(parsed, ensure_ascii=False, indent=2), encoding="utf-8"
+                )
+        except Exception as e:
+            logger.warning("レスポンス保存に失敗: %s", e)
 
     def extract_graph_from_specs(
         self, raw_text: str
@@ -118,6 +144,8 @@ class LLMExtractor:
 
             # JSONの抽出とパース
             graph_data = self._extract_json_from_response(response_content)
+            # 保存
+            self._save_response("graph", response_content, graph_data)
 
             nodes = graph_data.get("nodes", [])
             relationships = graph_data.get("relationships", [])
@@ -171,6 +199,8 @@ class LLMExtractor:
 
             # JSONの抽出とパース
             type_descriptions = self._extract_json_from_response(response_content)
+            # 保存
+            self._save_response("types", response_content, type_descriptions)
 
             logger.info("データ型説明抽出完了: %d件", len(type_descriptions))
             return type_descriptions
