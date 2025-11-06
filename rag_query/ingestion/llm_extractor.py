@@ -198,7 +198,7 @@ class LLMExtractor:
             - `HAS_RETURNS`: (Method) -> (ReturnValue)
             - `HAS_TYPE`: (Parameter) -> (DataType), (ReturnValue) -> (DataType), (Attribute) -> (DataType)
             - `HAS_ATTRIBUTE`: (DataType) -> (Attribute)
-        
+
         --- 抽出ルール ---
         1.  `■オブジェクト名` は `Object` ノードとし、後続の `Method` は `BELONGS_TO` で接続してください。
         2.  `〇〇パラメータオブジェクト` というセクションは `DataType` ノードとしてください。
