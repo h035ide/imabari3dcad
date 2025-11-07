@@ -1,0 +1,1025 @@
+{
+  "nodes": [
+    {
+      "id": "Application",
+      "type": "Object",
+      "properties": {
+        "name": "Application"
+      }
+    },
+    {
+      "id": "Document",
+      "type": "Object",
+      "properties": {
+        "name": "Document"
+      }
+    },
+    {
+      "id": "View",
+      "type": "Object",
+      "properties": {
+        "name": "View"
+      }
+    },
+    {
+      "id": "Quit",
+      "type": "Method",
+      "properties": {
+        "name": "Quit",
+        "description": "EvoShipを終了する"
+      }
+    },
+    {
+      "id": "ShowMainWindow",
+      "type": "Method",
+      "properties": {
+        "name": "ShowMainWindow",
+        "description": "EvoShipのメインウィンドウを表示する"
+      }
+    },
+    {
+      "id": "LoadPart",
+      "type": "Method",
+      "properties": {
+        "name": "LoadPart",
+        "description": "Partオブジェクトを読み込む"
+      }
+    },
+    {
+      "id": "OpenDocument",
+      "type": "Method",
+      "properties": {
+        "name": "OpenDocument",
+        "description": "Documentを開く"
+      }
+    },
+    {
+      "id": "Create3DDocument",
+      "type": "Method",
+      "properties": {
+        "name": "Create3DDocument",
+        "description": "3DのDocumentを新規に作成する"
+      }
+    },
+    {
+      "id": "GetActiveDocument",
+      "type": "Method",
+      "properties": {
+        "name": "GetActiveDocument",
+        "description": "アクティブなDocumentオブジェクトを取得する"
+      }
+    },
+    {
+      "id": "GetDocuments",
+      "type": "Method",
+      "properties": {
+        "name": "GetDocuments",
+        "description": "開かれているDocumentオブジェクトを全て取得する"
+      }
+    },
+    {
+      "id": "Close",
+      "type": "Method",
+      "properties": {
+        "name": "Close",
+        "description": "ドキュメントを閉じる"
+      }
+    },
+    {
+      "id": "Save",
+      "type": "Method",
+      "properties": {
+        "name": "Save",
+        "description": "ドキュメントをファイルに保存する"
+      }
+    },
+    {
+      "id": "GetPart",
+      "type": "Method",
+      "properties": {
+        "name": "GetPart",
+        "description": "Partオブジェクトの取得"
+      }
+    },
+    {
+      "id": "IsActive",
+      "type": "Method",
+      "properties": {
+        "name": "IsActive",
+        "description": "ドキュメントがアクティブ（カレント）かどうか"
+      }
+    },
+    {
+      "id": "Activate",
+      "type": "Method",
+      "properties": {
+        "name": "Activate",
+        "description": "ドキュメントをアクティベイト（カレントに）する"
+      }
+    },
+    {
+      "id": "FitAllViews",
+      "type": "Method",
+      "properties": {
+        "name": "FitAllViews",
+        "description": "ドキュメントのビューを要素にフィットする"
+      }
+    },
+    {
+      "id": "GetViews",
+      "type": "Method",
+      "properties": {
+        "name": "GetViews",
+        "description": "ドキュメントのビューを取得する"
+      }
+    },
+    {
+      "id": "CreateSTLOption",
+      "type": "Method",
+      "properties": {
+        "name": "CreateSTLOption",
+        "description": "ドキュメントをSTLとして保存する際のパラメータオブジェクトの作成"
+      }
+    },
+    {
+      "id": "ExporAsSTL",
+      "type": "Method",
+      "properties": {
+        "name": "ExporAsSTL",
+        "description": "ドキュメントをSTLとして保存する"
+      }
+    },
+    {
+      "id": "SetDirection",
+      "type": "Method",
+      "properties": {
+        "name": "SetDirection",
+        "description": "ビューの表示方向を設定する"
+      }
+    },
+    {
+      "id": "ExportToBitmap",
+      "type": "Method",
+      "properties": {
+        "name": "ExportToBitmap",
+        "description": "ビューの表示内容をビットマップファイルとして出力する"
+      }
+    },
+    {
+      "id": "ShowMainWindow_bShow",
+      "type": "Parameter",
+      "properties": {
+        "name": "bShow",
+        "description": "表示する時はTrue",
+        "order": 0
+      }
+    },
+    {
+      "id": "LoadPart_FileName",
+      "type": "Parameter",
+      "properties": {
+        "name": "FileName",
+        "description": "保存されているドキュメントのファイルパス名",
+        "order": 0
+      }
+    },
+    {
+      "id": "LoadPart_bForceEvaluation",
+      "type": "Parameter",
+      "properties": {
+        "name": "bForceEvaluation",
+        "description": "強制的に全要素を再計算して開くときはTrue　(通常はFalse）",
+        "order": 1
+      }
+    },
+    {
+      "id": "OpenDocument_FileName",
+      "type": "Parameter",
+      "properties": {
+        "name": "FileName",
+        "description": "保存されているドキュメントのファイルパス名",
+        "order": 0
+      }
+    },
+    {
+      "id": "OpenDocument_bForceEvaluation",
+      "type": "Parameter",
+      "properties": {
+        "name": "bForceEvaluation",
+        "description": "強制的に全要素を再計算して開くときはTrue　(通常はFalse）",
+        "order": 1
+      }
+    },
+    {
+      "id": "Save_FileName",
+      "type": "Parameter",
+      "properties": {
+        "name": "FileName",
+        "description": "保存するファイルパス名",
+        "order": 0
+      }
+    },
+    {
+      "id": "Save_bAsCompactFormat",
+      "type": "Parameter",
+      "properties": {
+        "name": "bAsCompactFormat",
+        "description": "最小サイズになる形式で保存する時はTrue（開くのに計算を必要とします）",
+        "order": 1
+      }
+    },
+    {
+      "id": "ExporAsSTL_FileName",
+      "type": "Parameter",
+      "properties": {
+        "name": "FileName",
+        "description": "保存するSTLファイルパス名",
+        "order": 0
+      }
+    },
+    {
+      "id": "ExporAsSTL_pOpt",
+      "type": "Parameter",
+      "properties": {
+        "name": "pOpt",
+        "description": "",
+        "order": 1
+      }
+    },
+    {
+      "id": "SetDirection_outDir",
+      "type": "Parameter",
+      "properties": {
+        "name": "outDir",
+        "description": " 画面から外側に向く方向",
+        "order": 0
+      }
+    },
+    {
+      "id": "SetDirection_upDir",
+      "type": "Parameter",
+      "properties": {
+        "name": "upDir",
+        "description": "　画面の上方向",
+        "order": 1
+      }
+    },
+    {
+      "id": "SetDirection_bFitToModel",
+      "type": "Parameter",
+      "properties": {
+        "name": "bFitToModel",
+        "description": "表示方向にあわせて表示範囲を要素にフィットさせる時はTrue",
+        "order": 2
+      }
+    },
+    {
+      "id": "ExportToBitmap_FileName",
+      "type": "Parameter",
+      "properties": {
+        "name": "FileName",
+        "description": "ビットマップファイルのファイル名",
+        "order": 0
+      }
+    },
+    {
+      "id": "ExportToBitmap_nBitapWidth",
+      "type": "Parameter",
+      "properties": {
+        "name": "nBitapWidth",
+        "description": "ビットマップファイルの横方向のピクセルサイズ（縦方向はビューの縦横比から取得）",
+        "order": 1
+      }
+    },
+    {
+      "id": "Quit_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "なし"
+      }
+    },
+    {
+      "id": "ShowMainWindow_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "なし"
+      }
+    },
+    {
+      "id": "LoadPart_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "OpenDocument_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "Documentオブジェクト"
+      }
+    },
+    {
+      "id": "Create3DDocument_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "Documentオブジェクト"
+      }
+    },
+    {
+      "id": "GetActiveDocument_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "Documentオブジェクト"
+      }
+    },
+    {
+      "id": "GetDocuments_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "Documentオブジェクトの配列"
+      }
+    },
+    {
+      "id": "Close_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "なし"
+      }
+    },
+    {
+      "id": "Save_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "なし"
+      }
+    },
+    {
+      "id": "GetPart_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "IsActive_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "bool ドキュメントがActiveな時はTrue"
+      }
+    },
+    {
+      "id": "Activate_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "なし"
+      }
+    },
+    {
+      "id": "FitAllViews_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "なし"
+      }
+    },
+    {
+      "id": "GetViews_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "Viewオブジェクトの配列"
+      }
+    },
+    {
+      "id": "CreateSTLOption_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "STLパラメータオブジェクト"
+      }
+    },
+    {
+      "id": "ExporAsSTL_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "なし"
+      }
+    },
+    {
+      "id": "SetDirection_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "なし"
+      }
+    },
+    {
+      "id": "ExportToBitmap_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "なし"
+      }
+    },
+    {
+      "id": "なし",
+      "type": "DataType",
+      "properties": {
+        "name": "なし"
+      }
+    },
+    {
+      "id": "bool",
+      "type": "DataType",
+      "properties": {
+        "name": "bool"
+      }
+    },
+    {
+      "id": "文字列",
+      "type": "DataType",
+      "properties": {
+        "name": "文字列"
+      }
+    },
+    {
+      "id": "Partオブジェクト",
+      "type": "DataType",
+      "properties": {
+        "name": "Partオブジェクト"
+      }
+    },
+    {
+      "id": "Documentオブジェクト",
+      "type": "DataType",
+      "properties": {
+        "name": "Documentオブジェクト"
+      }
+    },
+    {
+      "id": "Documentオブジェクトの配列",
+      "type": "DataType",
+      "properties": {
+        "name": "Documentオブジェクトの配列"
+      }
+    },
+    {
+      "id": "Viewオブジェクトの配列",
+      "type": "DataType",
+      "properties": {
+        "name": "Viewオブジェクトの配列"
+      }
+    },
+    {
+      "id": "STLパラメータオブジェクト",
+      "type": "DataType",
+      "properties": {
+        "name": "STLパラメータオブジェクト"
+      }
+    },
+    {
+      "id": "浮動小数点",
+      "type": "DataType",
+      "properties": {
+        "name": "浮動小数点"
+      }
+    },
+    {
+      "id": "整数",
+      "type": "DataType",
+      "properties": {
+        "name": "整数"
+      }
+    },
+    {
+      "id": "要素(配列)",
+      "type": "DataType",
+      "properties": {
+        "name": "要素(配列)"
+      }
+    },
+    {
+      "id": "方向",
+      "type": "DataType",
+      "properties": {
+        "name": "方向"
+      }
+    },
+    {
+      "id": "STLパラメータオブジェクト_ChordalTolerance",
+      "type": "Attribute",
+      "properties": {
+        "name": "ChordalTolerance",
+        "description": "メッシュ近似する際の弦の幅の許容トレランスを指定 (mm)"
+      }
+    },
+    {
+      "id": "STLパラメータオブジェクト_NormalTolerance",
+      "type": "Attribute",
+      "properties": {
+        "name": "NormalTolerance",
+        "description": "メッシュ近似した場合のポリゴンの面と局面との法線方向のずれ角度の許容値（Degree)"
+      }
+    },
+    {
+      "id": "STLパラメータオブジェクト_SigDigits",
+      "type": "Attribute",
+      "properties": {
+        "name": "SigDigits",
+        "description": "頂点座標値の有効桁数"
+      }
+    },
+    {
+      "id": "STLパラメータオブジェクト_MinMeshLength",
+      "type": "Attribute",
+      "properties": {
+        "name": "MinMeshLength",
+        "description": "メッシュの辺の最小サイズを指定する場合は指定(mm)（指定しない場合は０）"
+      }
+    },
+    {
+      "id": "STLパラメータオブジェクト_MaxMeshLength",
+      "type": "Attribute",
+      "properties": {
+        "name": "MaxMeshLength",
+        "description": "メッシュの辺の最大サイズを指定する場合は指定(mm)（指定しない場合は０）"
+      }
+    },
+    {
+      "id": "STLパラメータオブジェクト_Elements",
+      "type": "Attribute",
+      "properties": {
+        "name": "Elements",
+        "description": "STL出力する要素を指定（指定しない場合は表示されている全ての要素を出力します）"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "source": "Quit",
+      "target": "Application",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "ShowMainWindow",
+      "target": "Application",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "LoadPart",
+      "target": "Application",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "OpenDocument",
+      "target": "Application",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "Create3DDocument",
+      "target": "Application",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "GetActiveDocument",
+      "target": "Application",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "GetDocuments",
+      "target": "Application",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "Close",
+      "target": "Document",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "Save",
+      "target": "Document",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "GetPart",
+      "target": "Document",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "IsActive",
+      "target": "Document",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "Activate",
+      "target": "Document",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "FitAllViews",
+      "target": "Document",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "GetViews",
+      "target": "Document",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "CreateSTLOption",
+      "target": "Document",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "ExporAsSTL",
+      "target": "Document",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "SetDirection",
+      "target": "View",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "ExportToBitmap",
+      "target": "View",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "ShowMainWindow",
+      "target": "ShowMainWindow_bShow",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "LoadPart",
+      "target": "LoadPart_FileName",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "LoadPart",
+      "target": "LoadPart_bForceEvaluation",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "OpenDocument",
+      "target": "OpenDocument_FileName",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "OpenDocument",
+      "target": "OpenDocument_bForceEvaluation",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "Save",
+      "target": "Save_FileName",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "Save",
+      "target": "Save_bAsCompactFormat",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "ExporAsSTL",
+      "target": "ExporAsSTL_FileName",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "ExporAsSTL",
+      "target": "ExporAsSTL_pOpt",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "SetDirection",
+      "target": "SetDirection_outDir",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "SetDirection",
+      "target": "SetDirection_upDir",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "SetDirection",
+      "target": "SetDirection_bFitToModel",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "ExportToBitmap",
+      "target": "ExportToBitmap_FileName",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "ExportToBitmap",
+      "target": "ExportToBitmap_nBitapWidth",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "Quit",
+      "target": "Quit_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "ShowMainWindow",
+      "target": "ShowMainWindow_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "LoadPart",
+      "target": "LoadPart_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "OpenDocument",
+      "target": "OpenDocument_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "Create3DDocument",
+      "target": "Create3DDocument_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "GetActiveDocument",
+      "target": "GetActiveDocument_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "GetDocuments",
+      "target": "GetDocuments_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "Close",
+      "target": "Close_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "Save",
+      "target": "Save_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "GetPart",
+      "target": "GetPart_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "IsActive",
+      "target": "IsActive_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "Activate",
+      "target": "Activate_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "FitAllViews",
+      "target": "FitAllViews_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "GetViews",
+      "target": "GetViews_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "CreateSTLOption",
+      "target": "CreateSTLOption_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "ExporAsSTL",
+      "target": "ExporAsSTL_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "SetDirection",
+      "target": "SetDirection_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "ExportToBitmap",
+      "target": "ExportToBitmap_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "ShowMainWindow_bShow",
+      "target": "bool",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "LoadPart_FileName",
+      "target": "文字列",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "LoadPart_bForceEvaluation",
+      "target": "bool",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "OpenDocument_FileName",
+      "target": "文字列",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "OpenDocument_bForceEvaluation",
+      "target": "bool",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "Save_FileName",
+      "target": "文字列",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "Save_bAsCompactFormat",
+      "target": "bool",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "ExporAsSTL_FileName",
+      "target": "文字列",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "ExporAsSTL_pOpt",
+      "target": "STLパラメータオブジェクト",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "SetDirection_outDir",
+      "target": "方向",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "SetDirection_upDir",
+      "target": "方向",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "SetDirection_bFitToModel",
+      "target": "bool",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "ExportToBitmap_FileName",
+      "target": "文字列",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "ExportToBitmap_nBitapWidth",
+      "target": "整数",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "Quit_ReturnValue",
+      "target": "なし",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "ShowMainWindow_ReturnValue",
+      "target": "なし",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "LoadPart_ReturnValue",
+      "target": "Partオブジェクト",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "OpenDocument_ReturnValue",
+      "target": "Documentオブジェクト",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "Create3DDocument_ReturnValue",
+      "target": "Documentオブジェクト",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "GetActiveDocument_ReturnValue",
+      "target": "Documentオブジェクト",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "GetDocuments_ReturnValue",
+      "target": "Documentオブジェクトの配列",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "Close_ReturnValue",
+      "target": "なし",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "Save_ReturnValue",
+      "target": "なし",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "GetPart_ReturnValue",
+      "target": "Partオブジェクト",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "IsActive_ReturnValue",
+      "target": "bool",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "Activate_ReturnValue",
+      "target": "なし",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "FitAllViews_ReturnValue",
+      "target": "なし",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "GetViews_ReturnValue",
+      "target": "Viewオブジェクトの配列",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateSTLOption_ReturnValue",
+      "target": "STLパラメータオブジェクト",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "ExporAsSTL_ReturnValue",
+      "target": "なし",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "SetDirection_ReturnValue",
+      "target": "なし",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "ExportToBitmap_ReturnValue",
+      "target": "なし",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "STLパラメータオブジェクト",
+      "target": "STLパラメータオブジェクト_ChordalTolerance",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "STLパラメータオブジェクト",
+      "target": "STLパラメータオブジェクト_NormalTolerance",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "STLパラメータオブジェクト",
+      "target": "STLパラメータオブジェクト_SigDigits",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "STLパラメータオブジェクト",
+      "target": "STLパラメータオブジェクト_MinMeshLength",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "STLパラメータオブジェクト",
+      "target": "STLパラメータオブジェクト_MaxMeshLength",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "STLパラメータオブジェクト",
+      "target": "STLパラメータオブジェクト_Elements",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "STLパラメータオブジェクト_ChordalTolerance",
+      "target": "浮動小数点",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "STLパラメータオブジェクト_NormalTolerance",
+      "target": "浮動小数点",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "STLパラメータオブジェクト_SigDigits",
+      "target": "整数",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "STLパラメータオブジェクト_MinMeshLength",
+      "target": "浮動小数点",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "STLパラメータオブジェクト_MaxMeshLength",
+      "target": "浮動小数点",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "STLパラメータオブジェクト_Elements",
+      "target": "要素(配列)",
+      "type": "HAS_TYPE"
+    }
+  ]
+}

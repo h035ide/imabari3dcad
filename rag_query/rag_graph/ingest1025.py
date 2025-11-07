@@ -2,6 +2,7 @@ from tree_sitter import Language, Parser
 import tree_sitter_python as tspython
 
 from pathlib import Path
+from datetime import datetime
 import sys as _sys
 import re
 import json
@@ -16,11 +17,17 @@ from rag_query.rag_graph import config  # noqa: E402
 from langchain_core.documents import Document  # noqa: E402
 from langchain_neo4j import Neo4jGraph  # noqa: E402
 from neo4j.exceptions import ServiceUnavailable  # noqa: E402
-from langchain_community.graphs.graph_document import GraphDocument, Node, Relationship  # noqa: E402
+from langchain_community.graphs.graph_document import (
+    GraphDocument,
+    Node,
+    Relationship,
+)  # noqa: E402
 from langchain_community.vectorstores import Chroma  # noqa: E402
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI  # noqa: E402
 
 DATA_DIR = Path("data/src")
+# 成果物出力ディレクトリ（実行時に日時付きサブフォルダに更新される）
+RESPONSE_DIR = Path("rag_query/response")
 NEO4J_URI = config.NEO4J_URI
 NEO4J_USER = config.NEO4J_USER
 NEO4J_PASSWORD = config.NEO4J_PASSWORD
@@ -37,13 +44,15 @@ API_ARG_TXT_CANDIDATES = [
 PY_LANGUAGE = Language(tspython.language())
 parser = Parser(PY_LANGUAGE)
 
-CHROMA_PERSIST_DIR = DATA_DIR / "chroma_db"
+# CHROMA_PERSIST_DIRは実行時にRESPONSE_DIRに基づいて設定される
+CHROMA_PERSIST_DIR = None
 OPENAI_API_KEY = config.OPENAI_API_KEY
 
 llm = ChatOpenAI(
     temperature=0,
     model_name="gpt-5",
     openai_api_key=OPENAI_API_KEY,
+    reasoning_effort="high"
     # request_timeout=600
 )
 
@@ -186,7 +195,7 @@ def extract_triples_from_script(
 
 
 def _extract_graph_from_specs_with_llm(
-    raw_text: str,
+    raw_text: str, label: str = "specs"
 ) -> Dict[str, List[Dict[str, Any]]]:
     """LLMを使ってAPI仕様書の生テキストからノードとリレーションを抽出する"""
     prompt = f"""
@@ -244,21 +253,42 @@ def _extract_graph_from_specs_with_llm(
         抽出後のJSON:
     """
     try:
+        # LLM呼び出し
         response = llm.invoke(prompt)
+
+        # I/O ログを保存
+        RESPONSE_DIR.mkdir(parents=True, exist_ok=True)
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+        base = f"{ts}_{label}_graph"
+        (RESPONSE_DIR / f"{base}_prompt.txt").write_text(prompt, encoding="utf-8")
+        (RESPONSE_DIR / f"{base}_response.txt").write_text(
+            str(response.content), encoding="utf-8"
+        )
         # マークダウンのコードブロックからJSON部分を抽出
         match = re.search(r"```json\s*([\s\S]+?)\s*```", response.content)
         if match:
             json_str = match.group(1)
-            return json.loads(json_str)
+            data = json.loads(json_str)
+            # 整形済みJSONも保存
+            (RESPONSE_DIR / f"{base}_response.json").write_text(
+                json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
+            )
+            return data
         else:
             # コードブロックがない場合、直接パースを試みる
-            return json.loads(response.content)
+            data = json.loads(response.content)
+            (RESPONSE_DIR / f"{base}_response.json").write_text(
+                json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
+            )
+            return data
     except Exception as e:
         print(f"      ⚠ LLMによるグラフ抽出またはJSONパース中にエラー: {e}")
         return {"nodes": [], "relationships": []}
 
 
-def _extract_datatype_descriptions_with_llm(raw_text: str) -> Dict[str, str]:
+def _extract_datatype_descriptions_with_llm(
+    raw_text: str, label: str = "api_arg.txt"
+) -> Dict[str, str]:
     """LLMを使ってapi_arg.txtからデータ型の説明を抽出し、辞書形式で返す"""
     prompt = f"""
     あなたはAPI仕様書のデータ型定義を解析する専門家です。
@@ -286,14 +316,31 @@ def _extract_datatype_descriptions_with_llm(raw_text: str) -> Dict[str, str]:
     """
     try:
         response = llm.invoke(prompt)
+
+        # I/O ログを保存
+        RESPONSE_DIR.mkdir(parents=True, exist_ok=True)
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+        base = f"{ts}_{label}_types"
+        (RESPONSE_DIR / f"{base}_prompt.txt").write_text(prompt, encoding="utf-8")
+        (RESPONSE_DIR / f"{base}_response.txt").write_text(
+            str(response.content), encoding="utf-8"
+        )
         # マークダウンのコードブロックからJSON部分を抽出
         match = re.search(r"```json\s*([\s\S]+?)\s*```", response.content)
         if match:
             json_str = match.group(1)
-            return json.loads(json_str)
+            data = json.loads(json_str)
+            (RESPONSE_DIR / f"{base}_response.json").write_text(
+                json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
+            )
+            return data
         else:
             # コードブロックがない場合、直接パースを試みる
-            return json.loads(response.content)
+            data = json.loads(response.content)
+            (RESPONSE_DIR / f"{base}_response.json").write_text(
+                json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
+            )
+            return data
     except Exception as e:
         print(f"      ⚠ LLMによるデータ型説明の抽出またはJSONパース中にエラー: {e}")
         return {}
@@ -439,7 +486,7 @@ def _rebuild_graph_in_neo4j(graph_docs: List[GraphDocument]) -> Tuple[int, int]:
     delete_query = "MATCH (n) DETACH DELETE n"
     graph.query(delete_query)
 
-    print(f"\n🚀 Neo4jにデータを投入中...")
+    print("\n🚀 Neo4jにデータを投入中...")
 
     graph.add_graph_documents(graph_docs)
 
@@ -453,6 +500,9 @@ def _build_and_load_chroma(graph_docs: List[GraphDocument]) -> None:
     グラフドキュメントのノード情報からベクトルを生成し、ChromaDBに保存する
     """
     print("\n🚀 ChromaDBのベクトルデータを生成・保存中...")
+
+    # 成果物出力ディレクトリの作成
+    RESPONSE_DIR.mkdir(parents=True, exist_ok=True)
 
     if CHROMA_PERSIST_DIR.exists():
         shutil.rmtree(CHROMA_PERSIST_DIR)
@@ -499,13 +549,13 @@ def _build_and_load_chroma(graph_docs: List[GraphDocument]) -> None:
         {"page_content": doc.page_content, "metadata": doc.metadata}
         for doc in docs_for_vectorstore
     ]
-    with open("chroma_data.json", "w", encoding="utf-8") as f:
+    with open(RESPONSE_DIR / "chroma_data.json", "w", encoding="utf-8") as f:
         json.dump(chroma_data_to_save, f, indent=2, ensure_ascii=False)
-    print("💾 ChromaDB投入前のデータを 'chroma_data.json' に保存しました。")
+    print(f"💾 保存: {RESPONSE_DIR / 'chroma_data.json'}")
 
     try:
         embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
-        vectorstore = Chroma.from_documents(
+        Chroma.from_documents(
             documents=docs_for_vectorstore,
             embedding=embeddings,
             persist_directory=str(CHROMA_PERSIST_DIR),
@@ -550,7 +600,9 @@ def _build_and_load_neo4j() -> List[GraphDocument]:
         try:
             api_text = api_file_path.read_text(encoding="utf-8")
             # 各ファイルからグラフデータを抽出
-            partial_api_data = _extract_graph_from_specs_with_llm(api_text)
+            partial_api_data = _extract_graph_from_specs_with_llm(
+                api_text, label=api_file_path.name
+            )
 
             nodes = partial_api_data.get("nodes", [])
             rels = partial_api_data.get("relationships", [])
@@ -604,7 +656,9 @@ def _build_and_load_neo4j() -> List[GraphDocument]:
     # データ型の説明テキストを読み込む
     api_arg_text = _read_api_arg_text()
     print("🤖 LLMによるデータ型説明 (api_arg.txt) の抽出を実行中...")
-    type_descriptions = _extract_datatype_descriptions_with_llm(api_arg_text)
+    type_descriptions = _extract_datatype_descriptions_with_llm(
+        api_arg_text, label="api_arg.txt"
+    )
 
     # LLMが生成したデータにデータ型の説明を追加
     for node in api_data_from_llm.get("nodes", []):
@@ -625,16 +679,16 @@ def _build_and_load_neo4j() -> List[GraphDocument]:
 
     # Neo4jに投入する前のAPI仕様書由来のデータ(トリプルとノードプロパティ)をJSONファイルとして保存
     data_to_save = {"relationships": spec_triples, "nodes": spec_node_props}
-    with open("neo4j_data.json", "w", encoding="utf-8") as f:
+    # 成果物出力ディレクトリの作成（main()で既に作成済みだが念のため）
+    RESPONSE_DIR.mkdir(parents=True, exist_ok=True)
+    with open(RESPONSE_DIR / "neo4j_data.json", "w", encoding="utf-8") as f:
         json.dump(
             data_to_save,
             f,
             indent=2,
             ensure_ascii=False,
         )
-    print(
-        "💾 API仕様書解析後のデータ(トリプル/ノード)を 'neo4j_data.json' に保存しました。"
-    )
+    print(f"💾 保存: {RESPONSE_DIR / 'neo4j_data.json'}")
 
     # --- 2. スクリプト例 (data/*.py) の解析 ---
     print("\n🐍 スクリプト例 (data/*.py) を解析中...")
@@ -675,6 +729,17 @@ def _build_and_load_neo4j() -> List[GraphDocument]:
 
 
 def main() -> None:
+    global RESPONSE_DIR, CHROMA_PERSIST_DIR
+
+    # 日時付きサブフォルダを作成
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    base_response_dir = Path("rag_query/response")
+    RESPONSE_DIR = base_response_dir / timestamp
+    RESPONSE_DIR.mkdir(parents=True, exist_ok=True)
+    CHROMA_PERSIST_DIR = RESPONSE_DIR / "chroma_db"
+
+    print(f"📁 成果物出力ディレクトリ: {RESPONSE_DIR}")
+
     # --- Neo4j構築プロセス ---
     # Neo4jを構築し、その過程で生成されたグラフドキュメント(gdocs)を受け取る
     gdocs = _build_and_load_neo4j()

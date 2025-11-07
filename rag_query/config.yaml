@@ -6,6 +6,7 @@ paths:
   data_dir: "data"
   chroma_persist_dir: "data/chroma_db"
   log_dir: "rag_query/log"
+  response_dir: "rag_query/response"
   api_arg_txt:
     - "data/src/api_arg.txt"
   api_txt:
