@@ -1,0 +1,153 @@
+
+        あなたはAPI仕様書を解析し、知識グラフを構築する専門家です。
+        以下のAPI仕様書テキストから、指定されたスキーマに従ってノードとリレーションを抽出し、JSON形式で出力してください。
+
+        --- グラフのスキーマ定義 ---
+        1.  **ノードの種類とプロパティ:**
+            - `Object`: APIの操作対象となるオブジェクト。 (例: "Part")
+                - `id`: オブジェクト名 (例: "Part")
+                - `properties`: { "name": "オブジェクト名" }
+            - `Method`: オブジェクトに属するメソッド。
+                - `id`: メソッド名 (例: "CreateVariable")
+                - `properties`: { "name": "メソッド名", "description": "メソッドの日本語説明" }
+            - `Parameter`: メソッドが受け取る引数。
+                - `id`: `メソッド名_引数名` (例: "CreateVariable_VariableName")
+                - `properties`: { "name": "引数名", "description": "引数の説明", "order": 引数の順番(0から) }
+            - `ReturnValue`: メソッドの戻り値。
+                - `id`: `メソッド名_ReturnValue` (例: "CreateVariable_ReturnValue")
+                - `properties`: { "description": "戻り値の説明" }
+            - `DataType`: 引数や戻り値、属性の型。
+                - `id`: データ型名 (例: "文字列", "長さ", "bool", "ブラケット要素のパラメータオブジェクト", "整数")
+                - `properties`: { "name": "データ型名" } # 説明は後で別のプロンプトで付与します
+            - `Attribute`: パラメータオブジェクトが持つ属性。
+                - `id`: `データ型名_属性名` (例: "ブラケット要素のパラメータオブジェクト_DefinitionType")
+                - `properties`: { "name": "属性名", "description": "属性の日本語説明 (型情報を除いたもの)" }
+
+        2.  **リレーションの種類:**
+            - `BELONGS_TO`: (Method) -> (Object)
+            - `HAS_PARAMETER`: (Method) -> (Parameter)
+            - `HAS_RETURNS`: (Method) -> (ReturnValue)
+            - `HAS_TYPE`: (Parameter) -> (DataType), (ReturnValue) -> (DataType), (Attribute) -> (DataType)
+            - `HAS_ATTRIBUTE`: (DataType) -> (Attribute)
+        
+        --- 抽出ルール ---
+        1.  `■オブジェクト名` は `Object` ノードとし、後続の `Method` は `BELONGS_TO` で接続してください。
+        2.  `〇〇パラメータオブジェクト` というセクションは `DataType` ノードとしてください。
+        3.  上記 `DataType` に続く `属性` (例: `DefinitionType //s整数: ...`) は `Attribute` ノード (`id: DataType_Attr`) とし、`DataType` に `HAS_ATTRIBUTE` で接続してください。
+        4.  `Attribute` の `description` には型情報 (例: `整数:`, `文字列：`) を *除いた* 説明文 (例: "ブラケットの作成方法指定...") を格納してください。
+        5.  `//` の後の説明文に型情報 (例: `整数:`) が含まれる場合、(Attribute)から該当`DataType` (例: "整数") へ `HAS_TYPE` リレーションを張ってください。
+        6.  `Create[... ]Param` (例: `CreateBracketParam`) メソッドは、対応する `〇〇パラメータオブジェクト` (例: "ブラケット要素のパラメータオブジェクト") を `DataType` とする `ReturnValue` を持つ `Method` として抽出してください。
+        7.  Parameterノードのdescriptionには、`：`の後の文章をそのまま指定してください。
+
+        --- 出力形式 ---
+        - 全体を1つのJSONオブジェクトで出力してください。
+        - **`nodes`** の値は、以下の形式の**ノードオブジェクト**のリストです:
+        `{"id": "一意のID", "type": "ノードの種類", "properties": {...} }`
+        - **`relationships`** の値は、以下の形式の**リレーションオブジェクト**のリストです:
+        `{"source": "ソースノードID", "target": "ターゲットノードID", "type": "リレーションの種類"}`
+
+        --- API仕様書テキスト ---
+        ■関数の仕様(引数の型、書式はapi_argを参照)
+
+■Applicationオブジェクトのメソッド
+〇EvoShipを終了する
+　返り値:なし
+  Quit()
+
+〇EvoShipのメインウィンドウを表示する
+　返り値:なし
+  ShowMainWindow(
+　　　bShow )　// bool: 表示する時はTrue
+
+〇Partオブジェクトを読み込む
+　返り値:Partオブジェクト
+  LoadPart(
+　　　FileName, // 文字列：保存されているドキュメントのファイルパス名
+　　　bForceEvaluation　)　// bool: 強制的に全要素を再計算して開くときはTrue　(通常はFalse）
+
+〇Documentを開く
+　返り値:Documentオブジェクト
+  OpenDocument(
+　　　FileName, // 文字列：保存されているドキュメントのファイルパス名
+　　　bForceEvaluation　)　// bool: 強制的に全要素を再計算して開くときはTrue　(通常はFalse）
+
+〇3DのDocumentを新規に作成する
+　返り値:Documentオブジェクト
+　Create3DDocument()
+
+〇アクティブなDocumentオブジェクトを取得する
+　返り値:Documentオブジェクト
+　GetActiveDocument()
+
+〇開かれているDocumentオブジェクトを全て取得する
+　返り値:Documentオブジェクトの配列
+　GetDocuments()
+
+■Documentオブジェクトのメソッド
+〇ドキュメントを閉じる
+　返り値:なし
+  Close() 
+
+〇ドキュメントをファイルに保存する
+　返り値:なし
+　Save(
+    FileName, // 文字列：保存するファイルパス名
+　　bAsCompactFormat ) // bool: 最小サイズになる形式で保存する時はTrue（開くのに計算を必要とします）
+
+〇Partオブジェクトの取得
+　返り値:Partオブジェクト
+　GetPart()
+
+〇ドキュメントがアクティブ（カレント）かどうか
+　返り値:bool ドキュメントがActiveな時はTrue
+　IsActive()
+
+〇ドキュメントをアクティベイト（カレントに）する
+　返り値:なし
+　Activate()
+
+〇ドキュメントのビューを要素にフィットする
+　返り値:なし
+　FitAllViews()
+
+〇ドキュメントのビューを取得する
+　返り値:Viewオブジェクトの配列
+　GetViews()
+
+〇ドキュメントをSTLとして保存する際のパラメータオブジェクトの作成
+　返り値:STLパラメータオブジェクト
+　CreateSTLOption()
+
+〇STLパラメータオブジェクト
+  属性
+　ChordalTolerance　// 浮動小数点:メッシュ近似する際の弦の幅の許容トレランスを指定 (mm)
+　NormalTolerance　// 浮動小数点:メッシュ近似した場合のポリゴンの面と局面との法線方向のずれ角度の許容値（Degree)
+　SigDigits　// 整数:頂点座標値の有効桁数
+　MinMeshLength　// 浮動小数点:メッシュの辺の最小サイズを指定する場合は指定(mm)（指定しない場合は０）
+　MaxMeshLength　// 浮動小数点:メッシュの辺の最大サイズを指定する場合は指定(mm)（指定しない場合は０）
+  Elements　 // 要素(配列)：STL出力する要素を指定（指定しない場合は表示されている全ての要素を出力します）
+
+〇ドキュメントをSTLとして保存する
+　返り値:なし
+  ExporAsSTL(
+   FileName, // 文字列：保存するSTLファイルパス名
+   pOpt) //STLパラメータオブジェクト
+
+■Viewオブジェクトのメソッド
+〇ビューの表示方向を設定する
+　返り値:なし
+  SetDirection(
+　　outDir,　// 方向： 画面から外側に向く方向
+    upDir,　// 方向：　画面の上方向
+　　bFitToModel )　// bool：表示方向にあわせて表示範囲を要素にフィットさせる時はTrue
+
+〇ビューの表示内容をビットマップファイルとして出力する
+　返り値:なし
+　ExportToBitmap(
+　　FileName, // 文字列：ビットマップファイルのファイル名
+　　nBitapWidth ) // 整数:ビットマップファイルの横方向のピクセルサイズ（縦方向はビューの縦横比から取得）
+
+        --- ここまで ---
+
+        抽出後のJSON:
+    

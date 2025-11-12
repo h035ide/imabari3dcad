@@ -1,0 +1,147 @@
+{'id': 'rs_0af3826c4466d82800690c5254f95c819db19f2b4408802dfe', 'summary': [], 'type': 'reasoning'}{
+  "nodes": [
+    {
+      "id": "Object_Part",
+      "type": "Object",
+      "properties": {
+        "name": "Part"
+      }
+    },
+    {
+      "id": "Part_CreateVariable",
+      "type": "Method",
+      "properties": {
+        "name": "CreateVariable",
+        "description": "説明未提供"
+      }
+    },
+    {
+      "id": "Part_UpdateVariable",
+      "type": "Method",
+      "properties": {
+        "name": "UpdateVariable",
+        "description": "説明未提供"
+      }
+    },
+    {
+      "id": "CreateVariable_VariableName",
+      "type": "Parameter",
+      "properties": {
+        "name": "VariableName",
+        "description": "VariableNameを指定します",
+        "order": 0
+      }
+    },
+    {
+      "id": "CreateVariable_VariableValue",
+      "type": "Parameter",
+      "properties": {
+        "name": "VariableValue",
+        "description": "VariableValueを指定します",
+        "order": 1
+      }
+    },
+    {
+      "id": "CreateVariable_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "戻り値の説明"
+      }
+    },
+    {
+      "id": "文字列",
+      "type": "DataType",
+      "properties": {
+        "name": "文字列"
+      }
+    },
+    {
+      "id": "長さ",
+      "type": "DataType",
+      "properties": {
+        "name": "長さ"
+      }
+    },
+    {
+      "id": "整数",
+      "type": "DataType",
+      "properties": {
+        "name": "整数"
+      }
+    },
+    {
+      "id": "bool",
+      "type": "DataType",
+      "properties": {
+        "name": "bool"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト",
+      "type": "DataType",
+      "properties": {
+        "name": "ブラケット要素のパラメータオブジェクト"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_DefinitionType",
+      "type": "Attribute",
+      "properties": {
+        "name": "DefinitionType",
+        "description": "ブラケットの作成方法指定等の型情報を除いた説明"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "source": "Object_Part",
+      "target": "Part_CreateVariable",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "Object_Part",
+      "target": "Part_UpdateVariable",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "Part_CreateVariable",
+      "target": "CreateVariable_VariableName",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "Part_CreateVariable",
+      "target": "CreateVariable_VariableValue",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "Part_CreateVariable",
+      "target": "CreateVariable_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "CreateVariable_VariableName",
+      "target": "文字列",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateVariable_VariableValue",
+      "target": "文字列",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateVariable_ReturnValue",
+      "target": "文字列",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_DefinitionType",
+      "target": "整数",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_DefinitionType",
+      "target": "ブラケット要素のパラメータオブジェクト",
+      "type": "HAS_ATTRIBUTE"
+    }
+  ]
+}

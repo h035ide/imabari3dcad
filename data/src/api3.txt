@@ -1,0 +1,174 @@
+■関数の仕様(引数の型、書式はapi_argを参照)
+■Partオブジェクトのメソッド
+
+〇船殻の条材ソリッド要素を取付線指定で作成する
+  返り値:作成した条材ソリッド要素のID(配列　配列[0]Web要素 配列[1]フランジ要素
+  CreateProfile(
+　　    ParamObj, // 条材要素のパラメータオブジェクト
+        bUpdate );  // bool：更新フラグ(未実装、使用しない)
+
+〇ボディを指定した要素で分割する
+  返り値:分割で作成されたボディ要素のID配列
+BodyDivideByElements(
+    pDriveFeatureName, // 文字列：作成する分割フィーチャー要素名称(空文字可)
+    pTargetBody,// 要素: 分割対象のボディ
+    pDivideElements,  // 要素(配列): 分割をする要素(シートボディ、フェイス、平面要素)
+    pAlignmentDirection,　// 方向： 分割されたボディ要素の順番を整列させるのに使用する方向
+    pWCS, // 要素： 方向を定義する座標系(通常は指定しない)
+    ReferMethod, // 関連設定: 要素の関連づけ方法の指定
+     bUpdate);　// bool：更新フラグ(未実装、使用しない)
+
+〇ボディを指定したソリッドで削除することで分割する(ボディの区分けコマンド)
+  返り値:分割で作成されたボディ要素のID配列
+　BodySeparateBySubSolids(
+    pSeparateFeatureName, // 文字列：作成する分割フィーチャー要素名称(空文字可)
+    pTargetBody, // 要素: 分割対象のボディ
+    pSubSolids, // 要素(配列): 分割をするソリッド要素
+    pAlignmentDirection,　// 方向： 分割されたボディ要素の順番を整列させるのに使用する方向
+    ReferMethod, // 関連設定: 要素の関連づけ方法の指定
+    bUpdate);　// bool：更新フラグ(未実装、使用しない)
+
+
+〇ボディを指定した線で分割する
+  返り値:分割で作成されたボディ要素のID配列
+BodyDivideByCurves(
+        pDriveFeatureName,// 文字列：作成する分割フィーチャー要素名称(空文字可)
+        pTargetBody,　// 要素: 分割対象のボディ
+        pDivideCurves, // 要素(配列): 分割をするスケッチ等の線要素
+        bNorProjection, // bool： 線要素を要素に投影するかどうかのフラグ
+        CorrectEndPointsTolerance, // 長さ： 分割線が複数の場合の分割線同士のの判定トレランスを指定(通常は指定しない、空文字)
+        AlignmentDirection, // 方向： 分割されたボディ要素の順番を整列させるのに使用する方向
+        ReferMethod, // 関連設定: 要素の関連づけ方法の指定
+        bUpdate ) // bool：更新フラグ(未実装、使用しない)
+
+〇ボディを指定した平面で分割する
+  返り値:分割で作成されたボディ要素のID配列
+BodyDivideByPlanes(
+    pDriveFeatureName, // 文字列：作成する分割フィーチャー要素名称(空文字可)
+    TargetBody, // 要素: 分割対象のボディ
+    plane, // 要素: 分割をする平面
+    PlaneDeltaCopy, //分割をする平面をコピーする際のオフセット距離
+    nPlaneCopy, // 整数: 分割をする平面を複数コピーして分割をする(通常は1)
+    pAlignmentDirection, // 方向： 分割されたボディ要素の順番を整列させるのに使用する方向
+    WCS, // 要素： 要素分割に使用する座標系を指定。通常は指定しない
+    ReferMethod, // 関連設定: 要素の関連づけ方法の指定
+    bUpdate )　// bool：更新フラグ(未実装、使用しない)
+
+〇ボディを指定した要素でカットする
+  返り値:作成されたカットフィーチャーのID
+  CutBody(
+  　FeatureName, // 文字列：作成するカットフィーチャー要素名称(空文字可)
+  　TargetBody, // 要素：カット対象のソリッド、シート
+  　CutElement, // 要素：カットする要素(平面、シート)
+  　ElementOffset, // 長さ： カットする要素のオフセット距離を指定
+  　bCutForward, // 関連設定: 要素の関連づけ方法の指定
+  　ReferMethod　)
+
+
+〇指定したソリッド要素に境界要素を指定した板形状を作成する
+  返り値:作成された境界要素指定フィーチャーのID
+　CreateBoundedPlate(
+    FeatureName, // 文字列：作成する境界要素指定フィーチャー要素名称(空文字可)
+    TargetSolid, // 要素：境界要素指定フィーチャーを作成する対象のソリッドを指定
+    OperationType,　// オペレーションタイプ: ソリッドオペレーションのタイプを指定する
+    Plane,        // 平面： 板の定義平面位置
+    PlaneOffset,  // 長さ：　平面のオフセット距離を指定
+    BoundObjects,// 要素(配列)：境界要素(シート、フェイス、スケッチ、平面、ソリッド)
+    ThickenType,// 厚み付けタイプ: 
+    Thickness1,// 長さ： 板厚
+    Thickness2,// 長さ： 板厚２(厚み付けタイプが２方向のときに使用)
+    ThicknessOffset,// 長さ： 厚みづけをする板のオフセット距離
+    RefByGeometricMethod, // bool：Trueの時は幾何位置にもとづいて関連を設定する
+    ReferMethod,// 関連設定: 要素の関連づけ方法の指定
+    bUpdate )// bool：更新フラグ(未実装、使用しない)
+
+
+〇指定したソリッド要素に境界ボックス形状を作成する
+  返り値:作成された境界ボックス形状フィーチャーのID
+CreateBoundingBox(
+    FeatureName,　// 文字列：作成する境界ボックスフィーチャー要素名称(空文字可)
+    TargetSolid,　// 要素：境界ボックスフィーチャーを作成する対象のソリッドを指定
+    OperationType,　// オペレーションタイプ: ソリッドオペレーションのタイプを指定する
+    Bodies,　// 要素(配列)：境界ボックスを計算するソリッド、シート要素
+    bOptimalBox,// bool：Trueを指定するとボックスを計算する座標系を最適なものにする。(そうでない場合は絶対座標系で計算する)
+    ReferMethod, // 関連設定: 要素の関連づけ方法の指定
+    bUpdate ) // bool：更新フラグ(未実装、使用しない)
+
+
+〇指定要素の色を設定する
+  SetElementColor(
+     Element  // 要素：色を設定する要素
+     RValue,  // 整数: 赤色の値(0-255)
+     GValue,  // 整数: 緑色の値(0-255)
+     BValue,  // 整数: 青色の値(0-255)
+     Transparency ) // 浮動小数点: 透明度の指定(0.0不透明-1.0透明)
+
+
+〇スイープパラメータオブジェクトの作成
+　返り値:スイープパラメータオブジェクト
+CreateSweepParam()
+    
+〇スイープパラメータオブジェクト
+   属性
+   NAME   // 文字列：要素名(空文字可)
+   ElementGroup, // 要素グループ：作成するシート要素を要素グループに入れる場合は要素グループを指定(空文字可)
+   MaterialName // 材料：作成するシード要素の材質名称(空文字可)
+   ReferMethod // 関連設定: 要素の関連づけ方法の指定
+   bRefByGeometricMethod // bool：Trueの時は幾何位置にもとづいて関連を設定する
+   ThickenType　// 厚み付けタイプ: 
+   Thickeness1  // 長さ： 板厚
+   Thickeness2  // 長さ： 板厚２(厚み付けタイプが２方向のときに使用)
+   ThickenessOffset // 長さ： 厚みづけのオフセット距離
+   Profile // 要素(配列)：スイープのプロファイル要素(スケッチ、線)
+   Path // 要素(配列)：スイープのパス要素(スケッチ、線)
+   ProfileNormal // 方向：プロファイルの平面法線方向。(プロファイルが３Dの直線の場合にその平面法線として指定。) 
+   LockDirection　// 方向：　プロファイルをパスに沿って回転させずに固定してスイープさせる際に使用する固定方向
+   TwistLine　// 要素(配列)：ねじれを定義する直線
+   TwistPosition　// 要素(配列)：ねじれを定義する位置(点)
+   TwistAngle　// 角度(配列)：ねじれの定義点でのねじれ角度
+   ParallelSweep　　// bool：プロファイルをパスにたいして平行になるようにスイープさせるときTrue
+   MinimizeFace　　// bool：スイープされた要素を構成するフェイスの数を最小化させるときTrue
+
+〇指定したソリッド要素にスイープ形状を付加する
+  返り値:作成されたスイープフィーチャーのID
+CreateSweep(
+        TargetSolidName, // 要素：スイープフィーチャーを作成する対象のソリッドを指定
+        OperationType,   // オペレーションタイプ: ソリッドオペレーションのタイプを指定する
+        pParam, // スイープパラメータオブジェクト
+        bUpdate 　);　// bool：更新フラグ(未実装、使用しない)
+
+〇プロファイル要素をスイープしてシート要素を作成
+  返り値:作成されたシート要素の要素ID
+  CreateSweepSheet(
+        ParamObj, // スイープパラメータオブジェクト
+        bUpdate);　// bool：更新フラグ(未実装、使用しない)
+
+〇回転パラメータオブジェクトの作成
+　返り値:回転パラメータオブジェクト
+CreateRotationalSweepParam()
+
+〇回転パラメータオブジェクト
+   属性
+   NAME   // 文字列：要素名(空文字可)
+   ElementGroup, // 要素グループ：作成するシート要素を要素グループに入れる場合は要素グループを指定(空文字可)
+   MaterialName // 材料：作成するシード要素の材質名称(空文字可)
+   ReferMethod // 関連設定: 要素の関連づけ方法の指定
+   bRefByGeometricMethod // bool：Trueの時は幾何位置にもとづいて関連を設定する
+   ThickenType　// 厚み付けタイプ: 
+   Thickeness1  // 長さ： 板厚
+   Thickeness2  // 長さ： 板厚２(厚み付けタイプが２方向のときに使用)
+   ThickenessOffset // 長さ： 厚みづけのオフセット距離
+   Profile // 要素(配列)：回転のプロファイル要素(スケッチ、線)
+   Axis // 要素：回転の回転軸要素(線)
+   DirectionType //スイープ方向：
+   Angle // 角度：回転角度
+   Angle2 // 角度：スイープ方向が２方向だった場合の２方向側の回転角度
+
+    
+〇指定したソリッド要素に回転形状を付加する
+  返り値:作成された回転フィーチャーのID
+CreateRotationalSweep(
+        TargetSolidName, // 要素：回転フィーチャーを作成する対象のソリッドを指定
+        OperationType,   // オペレーションタイプ: ソリッドオペレーションのタイプを指定する
+        pParam, // 回転パラメータオブジェクト：
+        bUpdate 　);　// bool：更新フラグ(未実装、使用しない)

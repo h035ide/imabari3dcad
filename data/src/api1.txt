@@ -1,0 +1,189 @@
+■関数の仕様(引数の型、書式はapi_argを参照)
+■Partオブジェクトのメソッド
+
+〇変数要素の作成
+　返り値:作成された変数要素の要素ID
+　CreateVariable(
+        VariableName, // 文字列：作成する変数名称(空文字不可)
+        VariableValue,// 浮動小数点: 変数の値
+        VariableUnit  // 変数単位：作成する変数の単位を指定
+        VariableElementGroup );// 要素グループ：作成する変数要素を要素グループに入れる場合は要素グループを指定(空文字可)
+
+〇スケッチ平面の作成
+  返り値:作成されたスケッチ平面要素の要素ID
+  CreateSketchPlane(
+        ElementName,  // 文字列：作成するスケッチ平面名称(空文字可)
+        ElementGroup, // 要素グループ：作成するスケッチ平面を要素グループに入れる場合は要素グループを指定(空文字可)
+        PlaneDef, 　　// 平面：スケッチ平面を作成する平面を指定する
+        PlaneOffset,  // 長さ：平面からのオフセット距離を指定
+        bRevPlane,    // bool:スケッチ平面を反転するかどうかのフラグ(bool)
+        bRevUV,       // bool:スケッチ平面のX,Y軸を交換するかどうかのフラグ(bool)
+        bRevUDir,     // bool:スケッチ平面のX軸となる方向を反転するかどうかのフラグ(bool)
+        StyleName,    // 注記スタイル:　スケッチ平面に適用する注記スタイル名称(空文字可)
+        OriginPoint,  // 点：スケッチ平面の原点を指定(空文字可)
+        AxisDirection,// 方向：スケッチ平面の軸方向を指定(空文字可)
+        bDefAxisIsX,  // bool：スケッチ平面のX実を指定する場合はTrue(bool)
+        bUpdate );    // bool：更新フラグ(未実装、使用しない)
+
+
+〇スケッチレイヤーの作成
+  返り値:作成されたスケッチレイヤー要素の要素ID
+  CreateSketchLayer(
+        SketchLayerName,  // 文字列：作成するスケッチレイヤー名称(空文字可)
+        SketchPlane );　　// 要素：レイヤーを作成するスケッチ要素
+
+〇スケッチ直線作成
+  返り値:作成されたスケッチ直線要素の要素ID
+  CreateSketchLine(
+        SketchPlane,   // 要素：直線を作成するスケッチ要素
+        SketchLineName,// 文字列：作成するスケッチ直線名称(空文字可)
+        SketchLayer,   // 要素：直線を作成するスケッチレイヤー(空文字可)
+        StartPoint,    // 点(2D)：始点
+        EndPoint,      // 点(2D)：終点
+        bUpdate );     // bool：更新フラグ(未実装、使用しない)
+
+〇スケッチ円弧を中心点と始終点を指定して作成
+  返り値:作成されたスケッチ円弧要素の要素ID
+  CreateSketchArc(
+        SketchPlane,   // 要素：円弧を作成するスケッチ要素
+        SketchArcName, // 文字列：作成するスケッチ円弧名称(空文字可)
+        SketchLayer,   // 要素：円弧を作成するスケッチレイヤー(空文字可)
+        CenterPoint,   // 点(2D)：中心点
+        StartPoint,    // 点(2D)：始点
+        EndPoint,      // 点(2D)：終点
+        bCCW,          // bool： 円弧の回転方向Trueの場合は反時計周り
+        bUpdate );     // bool：更新フラグ(未実装、使用しない)
+統一性を保つため、コメント内の括弧も半角括弧に統一統一性を保つため、コメント内の括弧も半角括弧に統一
+〇スケッチ円弧を周上の３点を指定して作成
+  返り値:作成されたスケッチ円弧要素の要素ID
+  CreateSketchArc3Pts(
+        SketchPlane,   // 要素：円弧を作成するスケッチ要素
+        SketchArcName, // 文字列：作成するスケッチ円弧名称(空文字可)
+        SketchLayer,   // 要素：円弧を作成するスケッチレイヤー(空文字可)
+        StartPoint,    // 点(2D)：始点
+        MidPoint,      // 点(2D)：通過点
+        EndPoint,      // 点(2D)：終点
+        bUpdate );     // bool：更新フラグ(未実装、使用しない)
+ 
+〇スケッチ円を中心点を指定して作成
+  返り値:作成されたスケッチ円要素の要素ID
+  CreateSketchCircle(
+        SketchPlane,   // 要素：円を作成するスケッチ要素
+        SketchArcName, // 文字列：作成するスケッチ円名称(空文字可)
+        SketchLayer,   // 要素：円を作成するスケッチレイヤー(空文字可)
+        Centeroint,    // 点(2D)：中心点
+        RadiusOrDiameter, // 長さ：半径または直径
+        bDiameter,     // bool：直径を指定する場合はTrue
+        bCCW,          // bool：円の回転方向Trueの場合は反時計周り
+        bUpdate );     // bool：更新フラグ(未実装、使用しない)
+
+〇スケッチ楕円を中心点を指定して作成
+  返り値:作成されたスケッチ楕円要素の要素ID
+  CreateSketchEllipse(
+        SketchPlane,   // 要素：楕円を作成するスケッチ要素
+        SketchArcName, // 文字列：作成するスケッチ楕円名称(空文字可)
+        SketchLayer,   // 要素：楕円を作成するスケッチレイヤー(空文字可)
+        Centeroint,    // 点(2D)：中心点
+        bCCW,          // bool：楕円の回転方向Trueの場合は反時計周り
+        MajorDir,　　　// 方向(2D)：主軸方向を指定
+        MajorRadius,   // 長さ：主軸半径
+        MinorRadius,   // 長さ：副軸半径
+        Range,         // 範囲: (0-2pi)
+        bUpdate );     // bool：更新フラグ(未実装、使用しない)
+
+〇スケッチＮＵＲＢＳ線を中心点を指定して作成
+  返り値:作成されたスケッチＮＵＲＢＳ線要素の要素ID
+  CreateSketchNURBSCurve(
+        SketchPlane,   // 要素：ＮＵＲＢＳ線を作成するスケッチ要素
+        SketchArcName, // 文字列：作成するスケッチＮＵＲＢＳ線名称(空文字可)
+        SketchLayer,   // 要素：ＮＵＲＢＳ線を作成するスケッチレイヤー(空文字可)
+        nDegree,       // 整数：ＮＵＲＢＳ線の次数
+        bClose,        // bool：閉じたＮＵＲＢＳ線の場合True
+        bPeriodic,     // bool：周期ＮＵＲＢＳ線の場合True
+        CtrlPoints,    // 点(配列): 制御点
+        Weights,       // 浮動小数点(配列): 重み
+        Knots,         // 浮動小数点(配列): ノットベクトル
+        Range,         // 範囲: トリム範囲
+        bUpdate );     // bool：更新フラグ(未実装、使用しない)
+
+
+〇ファイルをインポートして要素を作成
+  返り値:作成された要素の要素IDの配列
+  CreateElementsFromFile(
+        FileName,      // 文字列:ファイルパス(現状、Parasolid形式のみ)
+       );
+
+〇オフセットシートを作成
+  返り値:作成されたオフセットシート要素の要素ID
+  CreateOffsetSheet(
+        SheetName,    // 文字列：作成するシート要素名称(空文字可)
+        ElementGroup, // 要素グループ：作成するシート要素を要素グループに入れる場合は要素グループを指定(空文字可)
+        MaterialName, // 材料：作成するシート要素の材質名称(空文字可)
+        SrcSurfaces,  // 要素(配列):オフセットする元シート要素、フェイス要素の指定文字列配列
+        OffsetLength, // 長さ：オフセット距離
+        bOffsetBackwards, // bool： オフセット方向を反転
+        bUpdate,　//bool：更新フラグ(未実装、使用しない)
+    ); 
+
+〇押し出しパラメータオブジェクトの作成
+　返り値:押し出しパラメータオブジェクト
+　CreateLinearSweepParam()　
+
+〇押し出しパラメータオブジェクト
+   属性
+   NAME   // 文字列：要素名(空文字可)
+   ElementGroup // 要素グループ：作成するシート要素を要素グループに入れる場合は要素グループを指定(空文字可)
+   MaterialName // 材料：作成するシード要素の材質名称(空文字可)
+   Target1  // 要素(配列)：スイープするターゲット要素１　(点、線、シート、ソリッド、あるいはソリッドフェイス)
+   Target2  // 要素(配列)：スイープ方向が２方向の場合に使用。スイープするターゲット要素２
+   Profile // 要素(配列)：押し出しのプロファイル要素(スケッチ、線、シート)
+   ProfileNormal // 方向：プロファイルの平面法線方向。(プロファイルが3Dの直線の場合にその平面法線として指定。) 
+   ProfileOffset // 長さ：プロファイル位置のオフセット距離
+   DirectionType // スイープ方向：
+   DirectionParameter1 // 長さ： スイープする距離１(SweepTarget1を指定している場合は使用しない)
+   DirectionParameter2 // 長さ： スイープ方向が２方向の場合に使用。スイープする距離２(SweepTarget２を指定している場合は使用しない)
+   SweepDirection // 方向：スイープする方向を設定する場合に使用。指定しない場合はプロファイルの法線方向
+   DraftAngle   // 角度: 押し出し方向の勾配角度
+   DraftAngle2Type　// 勾配２のタイプ: ２方向に押し出す際の勾配の取り方指定
+   DraftAngle2　// 角度: ２方向目の押し出し方向の勾配角度
+   ThickenType　// 厚み付けタイプ: 
+   Thickeness1  // 長さ： 板厚
+   Thickeness2  // 長さ： 板厚２(厚み付けタイプが２方向のときに使用)
+   ThickenessOffset // 長さ： 厚みづけのオフセット距離
+   bRefByGeometricMethod // bool：Trueの時は幾何位置にもとづいて関連を設定する
+   bIntervalSwep // bool：区間内だけをスイープする
+   ReferMethod // 関連設定: 要素の関連づけ方法の指定
+
+〇指定したソリッド要素に押し出し形状を付加する
+  返り値:作成された押し出しフィーチャーのID
+  CreateLinearSweep(
+        TargetSolidName,         // 要素：押し出しフィーチャーを作成する対象のソリッドを指定
+        OperationType,   // オペレーションタイプ: ソリッドオペレーションのタイプを指定する
+        pParam, // 押し出しパラメータオブジェクト
+        bUpdate 　);　// bool：更新フラグ(未実装、使用しない)
+
+〇プロファイル要素を押し出してシート要素を作成
+  返り値:作成されたシート要素の要素ID
+  CreateLinearSweepSheet(
+        ParamObj, // 押し出しパラメータオブジェクト
+        bUpdate);　// bool：更新フラグ(未実装、使用しない)
+
+
+〇シート要素の向き(表側、法線方向)を指定した方向に揃える
+  返り値:なし
+  SheetAlignNormal(
+        SheetElement,// 要素：方向を揃えるシート要素
+        dirX,   // 浮動小数点: 方向ベクトルのX成分
+        dirY,   // 浮動小数点: 方向ベクトルのY成分
+        dirZ ); // 浮動小数点: 方向ベクトルのZ成分
+
+〇シート要素の向きを反転する
+  返り値:シート反転フィーチャーの要素ID
+  ReverseSheet(
+        SheetElement ); // 要素：反転するシート要素
+
+〇指定要素を表示状態を設定する
+  返り値:なし
+  BlankElement(
+        Element,  // 要素：表示状態を指定する要素
+        bBlank ); // bool： Trueの時は非表示にする。Falseの時は表示する。

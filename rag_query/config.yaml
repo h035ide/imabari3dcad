@@ -1,0 +1,44 @@
+# アプリケーション設定ファイル
+# 機密情報（APIキー、パスワード）は .env ファイルに記載してください
+
+# データディレクトリ設定
+paths:
+  data_dir: "data"
+  chroma_persist_dir: "data/chroma_db"
+  log_dir: "rag_query/log"
+  response_dir: "rag_query/response"
+  api_arg_txt:
+    - "data/src/api_arg.txt"
+  api_txt:
+    - "data/src/api.txt"
+
+# Neo4j設定
+neo4j:
+  database: "neo4j"
+
+# LLM設定
+llm:
+  # モデル名（環境変数 LLM_MODEL で上書き可能）
+  model_name: "gpt-5"  # "gpt-5-nano" or "gpt-5-mini" or "gpt-5"
+  # 標準モデル用パラメータ
+  temperature: 0  # 推論モデルの場合はNone（自動設定）
+  # 推論モデル用パラメータ（推論モデルの場合のみ使用）
+  verbosity: "low"  # "low" or "medium" or "high"
+  reasoning_effort: "high"  # "minimal" or "low" or "medium" or "high"
+  response_format: "json_object"  # "text" or "json_object"
+  output_version: "responses/v1"  # 推論モデル用
+  # その他
+  # request_timeout: 600  # 必要に応じてコメントアウトを解除
+
+# 埋め込みモデル設定
+embedding:
+  # モデル名（環境変数 EMBEDDING_MODEL で上書き可能）
+  model_name: "text-embedding-3-small"  # デフォルト値（環境変数が未設定の場合）
+  # バッチサイズ（環境変数 EMBEDDING_BATCH_SIZE で上書き可能）
+  batch_size: 100  # LlamaIndex用
+
+# ログ設定
+logging:
+  # ログファイル名（日付・時刻情報が自動追加されます）
+  log_file: "rag_query.log"
+

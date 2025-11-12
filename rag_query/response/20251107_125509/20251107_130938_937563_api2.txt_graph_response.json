@@ -1,0 +1,3053 @@
+{
+  "nodes": [
+    {
+      "id": "Part",
+      "type": "Object",
+      "properties": {
+        "name": "Part"
+      }
+    },
+    {
+      "id": "TranslationCopy",
+      "type": "Method",
+      "properties": {
+        "name": "TranslationCopy",
+        "description": "指定要素を移動コピーする"
+      }
+    },
+    {
+      "id": "MirrorCopy",
+      "type": "Method",
+      "properties": {
+        "name": "MirrorCopy",
+        "description": "指定要素をミラーコピーする"
+      }
+    },
+    {
+      "id": "CreateSolid",
+      "type": "Method",
+      "properties": {
+        "name": "CreateSolid",
+        "description": "空のソリッド要素を作成する"
+      }
+    },
+    {
+      "id": "CreateThicken",
+      "type": "Method",
+      "properties": {
+        "name": "CreateThicken",
+        "description": "指定したソリッド要素に指定要素厚みづけした形状を作成する"
+      }
+    },
+    {
+      "id": "CreateOtherSolid",
+      "type": "Method",
+      "properties": {
+        "name": "CreateOtherSolid",
+        "description": "指定したソリッド要素に別のソリッド要素形状を付加する"
+      }
+    },
+    {
+      "id": "CreateBracketParam",
+      "type": "Method",
+      "properties": {
+        "name": "CreateBracketParam",
+        "description": "船殻のブラケット要素のパラメータオブジェクトの作成"
+      }
+    },
+    {
+      "id": "CreateBracket",
+      "type": "Method",
+      "properties": {
+        "name": "CreateBracket",
+        "description": "船殻のブラケットソリッド要素を作成する"
+      }
+    },
+    {
+      "id": "CreatePlate",
+      "type": "Method",
+      "properties": {
+        "name": "CreatePlate",
+        "description": "船殻のプレートソリッド要素を作成する"
+      }
+    },
+    {
+      "id": "CreateProfileParam",
+      "type": "Method",
+      "properties": {
+        "name": "CreateProfileParam",
+        "description": "船殻の条材ソリッド要素のパラメータオブジェクトの作成"
+      }
+    },
+    {
+      "id": "TranslationCopy_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "コピーされた要素ID配列"
+      }
+    },
+    {
+      "id": "MirrorCopy_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "コピーされた要素ID配列"
+      }
+    },
+    {
+      "id": "CreateSolid_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "作成されたソリッドの要素ID"
+      }
+    },
+    {
+      "id": "CreateThicken_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "作成された厚みづけフィーチャーのID"
+      }
+    },
+    {
+      "id": "CreateOtherSolid_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "作成された別ソリッドフィーチャーのID"
+      }
+    },
+    {
+      "id": "CreateBracketParam_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "ブラケット要素のパラメータオブジェクト"
+      }
+    },
+    {
+      "id": "CreateBracket_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "作成したソリッド要素のID"
+      }
+    },
+    {
+      "id": "CreatePlate_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "作成したソリッド要素のID"
+      }
+    },
+    {
+      "id": "CreateProfileParam_ReturnValue",
+      "type": "ReturnValue",
+      "properties": {
+        "description": "条材要素のパラメータオブジェクト"
+      }
+    },
+    {
+      "id": "TranslationCopy_SrcElements",
+      "type": "Parameter",
+      "properties": {
+        "name": "SrcElements",
+        "description": "コピーする要素",
+        "order": 0
+      }
+    },
+    {
+      "id": "TranslationCopy_nCopy",
+      "type": "Parameter",
+      "properties": {
+        "name": "nCopy",
+        "description": "コピーする数",
+        "order": 1
+      }
+    },
+    {
+      "id": "TranslationCopy_direction",
+      "type": "Parameter",
+      "properties": {
+        "name": "direction",
+        "description": "コピーする方向",
+        "order": 2
+      }
+    },
+    {
+      "id": "TranslationCopy_distance",
+      "type": "Parameter",
+      "properties": {
+        "name": "distance",
+        "description": "移動距離",
+        "order": 3
+      }
+    },
+    {
+      "id": "TranslationCopy_ReferMethod",
+      "type": "Parameter",
+      "properties": {
+        "name": "ReferMethod",
+        "description": "要素の関連づけ方法の指定",
+        "order": 4
+      }
+    },
+    {
+      "id": "MirrorCopy_SrcElements",
+      "type": "Parameter",
+      "properties": {
+        "name": "SrcElements",
+        "description": "コピーする要素",
+        "order": 0
+      }
+    },
+    {
+      "id": "MirrorCopy_plane",
+      "type": "Parameter",
+      "properties": {
+        "name": "plane",
+        "description": "",
+        "order": 1
+      }
+    },
+    {
+      "id": "MirrorCopy_ReferMethod",
+      "type": "Parameter",
+      "properties": {
+        "name": "ReferMethod",
+        "description": "要素の関連づけ方法の指定",
+        "order": 2
+      }
+    },
+    {
+      "id": "CreateSolid_SolidName",
+      "type": "Parameter",
+      "properties": {
+        "name": "SolidName",
+        "description": "作成するソリッド要素名称(空文字可)",
+        "order": 0
+      }
+    },
+    {
+      "id": "CreateSolid_ElementGroup",
+      "type": "Parameter",
+      "properties": {
+        "name": "ElementGroup",
+        "description": "作成するソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)",
+        "order": 1
+      }
+    },
+    {
+      "id": "CreateSolid_MaterialName",
+      "type": "Parameter",
+      "properties": {
+        "name": "MaterialName",
+        "description": "作成するソリッド要素の材質名称(空文字可)",
+        "order": 2
+      }
+    },
+    {
+      "id": "CreateThicken_ThickenFeatureName",
+      "type": "Parameter",
+      "properties": {
+        "name": "ThickenFeatureName",
+        "description": "作成する厚みづけフィーチャー要素名称(空文字可)",
+        "order": 0
+      }
+    },
+    {
+      "id": "CreateThicken_TargetSolidName",
+      "type": "Parameter",
+      "properties": {
+        "name": "TargetSolidName",
+        "description": "厚みづけフィーチャーを作成する対象のソリッドを指定",
+        "order": 1
+      }
+    },
+    {
+      "id": "CreateThicken_OperationType",
+      "type": "Parameter",
+      "properties": {
+        "name": "OperationType",
+        "description": "ソリッドオペレーションのタイプを指定する",
+        "order": 2
+      }
+    },
+    {
+      "id": "CreateThicken_Sheet",
+      "type": "Parameter",
+      "properties": {
+        "name": "Sheet",
+        "description": "厚み付けをするシートやフェイス",
+        "order": 3
+      }
+    },
+    {
+      "id": "CreateThicken_ThickenType",
+      "type": "Parameter",
+      "properties": {
+        "name": "ThickenType",
+        "description": "",
+        "order": 4
+      }
+    },
+    {
+      "id": "CreateThicken_Thickeness1",
+      "type": "Parameter",
+      "properties": {
+        "name": "Thickeness1",
+        "description": " 板厚",
+        "order": 5
+      }
+    },
+    {
+      "id": "CreateThicken_Thickeness2",
+      "type": "Parameter",
+      "properties": {
+        "name": "Thickeness2",
+        "description": " 板厚２(厚み付けタイプが２方向のときに使用)",
+        "order": 6
+      }
+    },
+    {
+      "id": "CreateThicken_ThickenessOffset",
+      "type": "Parameter",
+      "properties": {
+        "name": "ThickenessOffset",
+        "description": " 厚みづけをするシート、フェイス要素のオフセット距離",
+        "order": 7
+      }
+    },
+    {
+      "id": "CreateThicken_ReferMethod",
+      "type": "Parameter",
+      "properties": {
+        "name": "ReferMethod",
+        "description": "要素の関連づけ方法の指定",
+        "order": 8
+      }
+    },
+    {
+      "id": "CreateThicken_bUpdate",
+      "type": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ(未実装、使用しない)",
+        "order": 9
+      }
+    },
+    {
+      "id": "CreateOtherSolid_OtherSolidFeatureName",
+      "type": "Parameter",
+      "properties": {
+        "name": "OtherSolidFeatureName",
+        "description": "作成する別ソリッドフィーチャー要素名称(空文字可)",
+        "order": 0
+      }
+    },
+    {
+      "id": "CreateOtherSolid_TargetSolidName",
+      "type": "Parameter",
+      "properties": {
+        "name": "TargetSolidName",
+        "description": "別ソリッドフィーチャーを作成する対象のソリッドを指定",
+        "order": 1
+      }
+    },
+    {
+      "id": "CreateOtherSolid_OperationType",
+      "type": "Parameter",
+      "properties": {
+        "name": "OperationType",
+        "description": "ソリッドオペレーションのタイプを指定する",
+        "order": 2
+      }
+    },
+    {
+      "id": "CreateOtherSolid_SourceSolid",
+      "type": "Parameter",
+      "properties": {
+        "name": "SourceSolid",
+        "description": "別ソリッドフィーチャーとするソリッド要素を指定する",
+        "order": 3
+      }
+    },
+    {
+      "id": "CreateOtherSolid_ReferMethod",
+      "type": "Parameter",
+      "properties": {
+        "name": "ReferMethod",
+        "description": "要素の関連づけ方法の指定",
+        "order": 4
+      }
+    },
+    {
+      "id": "CreateOtherSolid_bUpdate",
+      "type": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ(未実装、使用しない)",
+        "order": 5
+      }
+    },
+    {
+      "id": "CreateBracket_ParamObj",
+      "type": "Parameter",
+      "properties": {
+        "name": "ParamObj",
+        "description": "",
+        "order": 0
+      }
+    },
+    {
+      "id": "CreateBracket_bUpdate",
+      "type": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ(未実装、使用しない)",
+        "order": 1
+      }
+    },
+    {
+      "id": "CreatePlate_PlateName",
+      "type": "Parameter",
+      "properties": {
+        "name": "PlateName",
+        "description": "作成するプレートソリッド要素名称(空文字可)",
+        "order": 0
+      }
+    },
+    {
+      "id": "CreatePlate_ElementGroup",
+      "type": "Parameter",
+      "properties": {
+        "name": "ElementGroup",
+        "description": "作成するソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)",
+        "order": 1
+      }
+    },
+    {
+      "id": "CreatePlate_MaterialName",
+      "type": "Parameter",
+      "properties": {
+        "name": "MaterialName",
+        "description": "作成するソリッド要素の材質名称(空文字可)",
+        "order": 2
+      }
+    },
+    {
+      "id": "CreatePlate_Plane",
+      "type": "Parameter",
+      "properties": {
+        "name": "Plane",
+        "description": " プレートのる平面位置",
+        "order": 3
+      }
+    },
+    {
+      "id": "CreatePlate_PlaneOffset",
+      "type": "Parameter",
+      "properties": {
+        "name": "PlaneOffset",
+        "description": "　平面のオフセット距離を指定",
+        "order": 4
+      }
+    },
+    {
+      "id": "CreatePlate_Thickness",
+      "type": "Parameter",
+      "properties": {
+        "name": "Thickness",
+        "description": " 板厚",
+        "order": 5
+      }
+    },
+    {
+      "id": "CreatePlate_nMold",
+      "type": "Parameter",
+      "properties": {
+        "name": "nMold",
+        "description": "",
+        "order": 6
+      }
+    },
+    {
+      "id": "CreatePlate_MoldOffset",
+      "type": "Parameter",
+      "properties": {
+        "name": "MoldOffset",
+        "description": " モールド位置のオフセット距離",
+        "order": 7
+      }
+    },
+    {
+      "id": "CreatePlate_BoundSolid",
+      "type": "Parameter",
+      "properties": {
+        "name": "BoundSolid",
+        "description": "　プレートソリッドの境界となるソリッド要素。",
+        "order": 8
+      }
+    },
+    {
+      "id": "CreatePlate_Section1End1",
+      "type": "Parameter",
+      "properties": {
+        "name": "Section1End1",
+        "description": " プレートソリッドの平面上の方向１の境界位置の座標値１",
+        "order": 9
+      }
+    },
+    {
+      "id": "CreatePlate_Section1End2",
+      "type": "Parameter",
+      "properties": {
+        "name": "Section1End2",
+        "description": " プレートソリッドの平面上の方向１の境界位置の座標値２",
+        "order": 10
+      }
+    },
+    {
+      "id": "CreatePlate_Section2End1",
+      "type": "Parameter",
+      "properties": {
+        "name": "Section2End1",
+        "description": " プレートソリッドの平面上の方向２の境界位置の座標値１",
+        "order": 11
+      }
+    },
+    {
+      "id": "CreatePlate_Section2End2",
+      "type": "Parameter",
+      "properties": {
+        "name": "Section2End2",
+        "description": " プレートソリッドの平面上の方向２の境界位置の座標値２",
+        "order": 12
+      }
+    },
+    {
+      "id": "CreatePlate_bUpdate",
+      "type": "Parameter",
+      "properties": {
+        "name": "bUpdate",
+        "description": "更新フラグ(未実装、使用しない)",
+        "order": 13
+      }
+    },
+    {
+      "id": "要素(配列)",
+      "type": "DataType",
+      "properties": {
+        "name": "要素(配列)"
+      }
+    },
+    {
+      "id": "整数",
+      "type": "DataType",
+      "properties": {
+        "name": "整数"
+      }
+    },
+    {
+      "id": "方向",
+      "type": "DataType",
+      "properties": {
+        "name": "方向"
+      }
+    },
+    {
+      "id": "長さ",
+      "type": "DataType",
+      "properties": {
+        "name": "長さ"
+      }
+    },
+    {
+      "id": "関連設定",
+      "type": "DataType",
+      "properties": {
+        "name": "関連設定"
+      }
+    },
+    {
+      "id": "BSTR",
+      "type": "DataType",
+      "properties": {
+        "name": "BSTR"
+      }
+    },
+    {
+      "id": "文字列",
+      "type": "DataType",
+      "properties": {
+        "name": "文字列"
+      }
+    },
+    {
+      "id": "要素グループ",
+      "type": "DataType",
+      "properties": {
+        "name": "要素グループ"
+      }
+    },
+    {
+      "id": "材料",
+      "type": "DataType",
+      "properties": {
+        "name": "材料"
+      }
+    },
+    {
+      "id": "要素",
+      "type": "DataType",
+      "properties": {
+        "name": "要素"
+      }
+    },
+    {
+      "id": "オペレーションタイプ",
+      "type": "DataType",
+      "properties": {
+        "name": "オペレーションタイプ"
+      }
+    },
+    {
+      "id": "厚み付けタイプ",
+      "type": "DataType",
+      "properties": {
+        "name": "厚み付けタイプ"
+      }
+    },
+    {
+      "id": "bool",
+      "type": "DataType",
+      "properties": {
+        "name": "bool"
+      }
+    },
+    {
+      "id": "平面",
+      "type": "DataType",
+      "properties": {
+        "name": "平面"
+      }
+    },
+    {
+      "id": "角度",
+      "type": "DataType",
+      "properties": {
+        "name": "角度"
+      }
+    },
+    {
+      "id": "モールド位置",
+      "type": "DataType",
+      "properties": {
+        "name": "モールド位置"
+      }
+    },
+    {
+      "id": "形状タイプ",
+      "type": "DataType",
+      "properties": {
+        "name": "形状タイプ"
+      }
+    },
+    {
+      "id": "形状パラメータ",
+      "type": "DataType",
+      "properties": {
+        "name": "形状パラメータ"
+      }
+    },
+    {
+      "id": "位置と角度配列",
+      "type": "DataType",
+      "properties": {
+        "name": "位置と角度配列"
+      }
+    },
+    {
+      "id": "点",
+      "type": "DataType",
+      "properties": {
+        "name": "点"
+      }
+    },
+    {
+      "id": "要素ID配列",
+      "type": "DataType",
+      "properties": {
+        "name": "要素ID配列"
+      }
+    },
+    {
+      "id": "要素ID",
+      "type": "DataType",
+      "properties": {
+        "name": "要素ID"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト",
+      "type": "DataType",
+      "properties": {
+        "name": "ブラケット要素のパラメータオブジェクト"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト",
+      "type": "DataType",
+      "properties": {
+        "name": "条材要素のパラメータオブジェクト"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_DefinitionType",
+      "type": "Attribute",
+      "properties": {
+        "name": "DefinitionType",
+        "description": "ブラケットの作成方法指定 (0: 面指定, 1: 基準要素指定 など)"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_BracketName",
+      "type": "Attribute",
+      "properties": {
+        "name": "BracketName",
+        "description": "作成するブラケットソリッド要素名称(空文字可)"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_ElementGroup",
+      "type": "Attribute",
+      "properties": {
+        "name": "ElementGroup",
+        "description": "作成するソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_MaterialName",
+      "type": "Attribute",
+      "properties": {
+        "name": "MaterialName",
+        "description": "作成するソリッド要素の材質名称(空文字可)"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_BasePlane",
+      "type": "Attribute",
+      "properties": {
+        "name": "BasePlane",
+        "description": "面指定の場合の基準平面"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_BasePlaneOffset",
+      "type": "Attribute",
+      "properties": {
+        "name": "BasePlaneOffset",
+        "description": "基準平面のオフセット距離"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_BaseElement",
+      "type": "Attribute",
+      "properties": {
+        "name": "BaseElement",
+        "description": "基準要素指定の場合の基準要素"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_UseSideSheetForPlane",
+      "type": "Attribute",
+      "properties": {
+        "name": "UseSideSheetForPlane",
+        "description": " 三面指定の場合はTrue"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_Thickness",
+      "type": "Attribute",
+      "properties": {
+        "name": "Thickness",
+        "description": " 板厚"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_Mold",
+      "type": "Attribute",
+      "properties": {
+        "name": "Mold",
+        "description": ""
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_MoldOffset",
+      "type": "Attribute",
+      "properties": {
+        "name": "MoldOffset",
+        "description": " モールド位置のオフセット距離"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_BracketType",
+      "type": "Attribute",
+      "properties": {
+        "name": "BracketType",
+        "description": " ブラケットの形状タイプ"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_BracketParams",
+      "type": "Attribute",
+      "properties": {
+        "name": "BracketParams",
+        "description": " ブラケットの形状タイプのパラメータ"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_Scallop1Type",
+      "type": "Attribute",
+      "properties": {
+        "name": "Scallop1Type",
+        "description": " ブラケットのスカラップの形状タイプ"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_Scallop1Params",
+      "type": "Attribute",
+      "properties": {
+        "name": "Scallop1Params",
+        "description": " ブラケットのスカラップの形状タイプのパラメータ"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_nScallop2Type",
+      "type": "Attribute",
+      "properties": {
+        "name": "nScallop2Type",
+        "description": " ３面ブラケットの場合のスカラップ２の形状タイプ"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_Scallop2Params",
+      "type": "Attribute",
+      "properties": {
+        "name": "Scallop2Params",
+        "description": " ブラケットのスカラップ２の形状タイプのパラメータ"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_Surfaces1",
+      "type": "Attribute",
+      "properties": {
+        "name": "Surfaces1",
+        "description": "ブラケット作成する面１の要素(ソリッド、シート、フェイス)"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_RevSf1",
+      "type": "Attribute",
+      "properties": {
+        "name": "RevSf1",
+        "description": " 面１の反対側にブラケットを作成する場合はTrue"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_Surfaces2",
+      "type": "Attribute",
+      "properties": {
+        "name": "Surfaces2",
+        "description": "ブラケット作成する面2の要素(ソリッド、シート、フェイス)"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_RevSf2",
+      "type": "Attribute",
+      "properties": {
+        "name": "RevSf2",
+        "description": " 面2の反対側にブラケットを作成する場合はTrue"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_Surfaces3",
+      "type": "Attribute",
+      "properties": {
+        "name": "Surfaces3",
+        "description": "３面ブラケット作成する場合の面３の要素(ソリッド、シート、フェイス)"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_RevSf3",
+      "type": "Attribute",
+      "properties": {
+        "name": "RevSf3",
+        "description": " 面3の反対側にブラケットを作成する場合はTrue"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_FlangeType",
+      "type": "Attribute",
+      "properties": {
+        "name": "FlangeType",
+        "description": " ブラケットのフランジの形状タイプ　(0の場合はフランジをつけない)"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_FlangeParams",
+      "type": "Attribute",
+      "properties": {
+        "name": "FlangeParams",
+        "description": " ブラケットのフランジの形状タイプのパラメータ"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_RevFlange",
+      "type": "Attribute",
+      "properties": {
+        "name": "RevFlange",
+        "description": " フランジの向きを反転する場合はTrue"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_FlangeAngle",
+      "type": "Attribute",
+      "properties": {
+        "name": "FlangeAngle",
+        "description": " フランジの角度指定　０°は直角を意味し、そこからの増分を＋−で指定"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_Sf1DimensionType",
+      "type": "Attribute",
+      "properties": {
+        "name": "Sf1DimensionType",
+        "description": " 面１方向の寸法タイプ"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_Sf1DimensonParams",
+      "type": "Attribute",
+      "properties": {
+        "name": "Sf1DimensonParams",
+        "description": " 面１方向の寸法タイプのパラメータ"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_Sf1EndElements",
+      "type": "Attribute",
+      "properties": {
+        "name": "Sf1EndElements",
+        "description": "面１方向の端部要素(必要な形状タイプの場合)"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_Sf1BaseElements",
+      "type": "Attribute",
+      "properties": {
+        "name": "Sf1BaseElements",
+        "description": "面１方向の基準要素(必要な形状タイプの場合)"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_Sf2DimensionType",
+      "type": "Attribute",
+      "properties": {
+        "name": "Sf2DimensionType",
+        "description": " 面２方向の寸法タイプ"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_Sf2DimensonParams",
+      "type": "Attribute",
+      "properties": {
+        "name": "Sf2DimensonParams",
+        "description": " 面２方向の寸法タイプのパラメータ"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_Sf2EndElements",
+      "type": "Attribute",
+      "properties": {
+        "name": "Sf2EndElements",
+        "description": "面２方向の端部要素(必要な形状タイプの場合)"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_Sf2BaseElements",
+      "type": "Attribute",
+      "properties": {
+        "name": "Sf2BaseElements",
+        "description": "面２方向の基準要素(必要な形状タイプの場合)"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_ScallopEnd1LowerType",
+      "type": "Attribute",
+      "properties": {
+        "name": "ScallopEnd1LowerType",
+        "description": " 面１方向の下側端部のスカラップのタイプ"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_ScallopEnd1LowerParams",
+      "type": "Attribute",
+      "properties": {
+        "name": "ScallopEnd1LowerParams",
+        "description": " 面１方向の下側端部のスカラップのタイプのパラメータ"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_ScallopEnd1UpperType",
+      "type": "Attribute",
+      "properties": {
+        "name": "ScallopEnd1UpperType",
+        "description": " 面１方向の上側端部のスカラップのタイプ"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_ScallopEnd1UpperParams",
+      "type": "Attribute",
+      "properties": {
+        "name": "ScallopEnd1UpperParams",
+        "description": " 面１方向の上側端部のスカラップのタイプのパラメータ"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_ScallopEnd2LowerType",
+      "type": "Attribute",
+      "properties": {
+        "name": "ScallopEnd2LowerType",
+        "description": " 面２方向の下側端部のスカラップのタイプ"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_ScallopEnd2LowerParams",
+      "type": "Attribute",
+      "properties": {
+        "name": "ScallopEnd2LowerParams",
+        "description": " 面２方向の下側端部のスカラップのタイプのパラメータ"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_ScallopEnd2UpperType",
+      "type": "Attribute",
+      "properties": {
+        "name": "ScallopEnd2UpperType",
+        "description": " 面２方向の上側端部のスカラップのタイプ"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_ScallopEnd2UpperParams",
+      "type": "Attribute",
+      "properties": {
+        "name": "ScallopEnd2UpperParams",
+        "description": " 面２方向の上側端部のスカラップのタイプのパラメータ"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_WCS",
+      "type": "Attribute",
+      "properties": {
+        "name": "WCS",
+        "description": " ブラケットが使用する座標系を指定。通常は指定しない"
+      }
+    },
+    {
+      "id": "ブラケット要素のパラメータオブジェクト_ReferMethod",
+      "type": "Attribute",
+      "properties": {
+        "name": "ReferMethod",
+        "description": " 要素の関連づけ方法の指定"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_DefinitionType",
+      "type": "Attribute",
+      "properties": {
+        "name": "DefinitionType",
+        "description": "の作成方法指定　0:取付線指定 　1:基準面指定  2:取付線＋指定方向線  3: 元要素指定　4:ホール指定  5:２点  6:ロンジ間  7:基準線指定  8:基準点と方向  9:基準要素"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_ProfileName",
+      "type": "Attribute",
+      "properties": {
+        "name": "ProfileName",
+        "description": "作成する条材ソリッド要素名称(空文字可)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_ElementGroup",
+      "type": "Attribute",
+      "properties": {
+        "name": "ElementGroup",
+        "description": "作成するソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_MaterialName",
+      "type": "Attribute",
+      "properties": {
+        "name": "MaterialName",
+        "description": "作成するソリッド要素の材質名称(空文字可)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_FlangeName",
+      "type": "Attribute",
+      "properties": {
+        "name": "FlangeName",
+        "description": "ビルトアップを作成する場合のフランジソリッド要素名称(空文字可)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_FlangeElementGroup",
+      "type": "Attribute",
+      "properties": {
+        "name": "FlangeElementGroup",
+        "description": "フランジソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_FlangeMaterialName",
+      "type": "Attribute",
+      "properties": {
+        "name": "FlangeMaterialName",
+        "description": "作成するフランジソリッド要素の材質名称(空文字可)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_ProfileType",
+      "type": "Attribute",
+      "properties": {
+        "name": "ProfileType",
+        "description": " 条材の形状タイプを指定"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_ProfileParam",
+      "type": "Attribute",
+      "properties": {
+        "name": "ProfileParam",
+        "description": " 条材の形状タイプのパラメータ"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_FaceAngle",
+      "type": "Attribute",
+      "properties": {
+        "name": "FaceAngle",
+        "description": " ビルトアップを作成する場合のフランジの角度指定　０°は直角を意味し、そこからの増分を＋−で指定"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_ConnectionTol",
+      "type": "Attribute",
+      "properties": {
+        "name": "ConnectionTol",
+        "description": " 取付線が複数の場合の連続性の判定トレランスを指定(通常は指定しない、空文字)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_Mold",
+      "type": "Attribute",
+      "properties": {
+        "name": "Mold",
+        "description": ""
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_MoldOffset",
+      "type": "Attribute",
+      "properties": {
+        "name": "MoldOffset",
+        "description": " モールド位置のオフセット距離"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_ReverseDir",
+      "type": "Attribute",
+      "properties": {
+        "name": "ReverseDir",
+        "description": "取付方向を反転する時True"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_ReverseAngle",
+      "type": "Attribute",
+      "properties": {
+        "name": "ReverseAngle",
+        "description": "アングル方向を反転する時True"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_BaseOnAttachLines",
+      "type": "Attribute",
+      "properties": {
+        "name": "BaseOnAttachLines",
+        "description": " 取付線の境界を基準にする時True"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_CalcSnipOnlyAttachLines",
+      "type": "Attribute",
+      "properties": {
+        "name": "CalcSnipOnlyAttachLines",
+        "description": "端部スニップ量を取付線のみで計算する時True"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_NotProfjectAttachLines",
+      "type": "Attribute",
+      "properties": {
+        "name": "NotProfjectAttachLines",
+        "description": "取付線を取付面に投影しない時True"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_ProjectionDir",
+      "type": "Attribute",
+      "properties": {
+        "name": "ProjectionDir",
+        "description": "取付線を投影する場合に設定。通常は設定しない(空白文字)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_AttachDirMethod",
+      "type": "Attribute",
+      "properties": {
+        "name": "AttachDirMethod",
+        "description": "　条材取付方向設定　0: デフォルト　1:基準平面内　2:取付角度指定"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_AttachAngle",
+      "type": "Attribute",
+      "properties": {
+        "name": "AttachAngle",
+        "description": " 取付角度指定"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_AttachDirection",
+      "type": "Attribute",
+      "properties": {
+        "name": "AttachDirection",
+        "description": "条材取付方向 を指定する場合に設定する"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_DefAnglePositionAxisDir",
+      "type": "Attribute",
+      "properties": {
+        "name": "DefAnglePositionAxisDir",
+        "description": "ねじれた条材を作成する場合のそのネジレ角度を定義する軸方向を指定。"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_DefAngleBaseDir",
+      "type": "Attribute",
+      "properties": {
+        "name": "DefAngleBaseDir",
+        "description": "ねじれた条材を作成する場合のそのネジレ角度の基準となる軸方向を指定。"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_CCWDefAngle",
+      "type": "Attribute",
+      "properties": {
+        "name": "CCWDefAngle",
+        "description": "　ねじれた条材を作成する場合のネジレ角度を反統計まわりに指定する場合はTrue"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_DefPossitionAngles",
+      "type": "Attribute",
+      "properties": {
+        "name": "DefPossitionAngles",
+        "description": " ねじれた条材を作成する場合のネジレ角度を位置と角度で指定"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_DefPositionNormalAngles",
+      "type": "Attribute",
+      "properties": {
+        "name": "DefPositionNormalAngles",
+        "description": "ねじれた条材を作成する場合のネジレ角度を位置と角度を取付面の法線位置からの差分で指定"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_End1Elements",
+      "type": "Attribute",
+      "properties": {
+        "name": "End1Elements",
+        "description": " 端部１、端部となる要素を指定する"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_End1Type",
+      "type": "Attribute",
+      "properties": {
+        "name": "End1Type",
+        "description": " 端部１、条材の端部タイプを指定"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_End1TypeParams",
+      "type": "Attribute",
+      "properties": {
+        "name": "End1TypeParams",
+        "description": " 端部１、条材の端部タイプのパラメータ"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_End2Elements",
+      "type": "Attribute",
+      "properties": {
+        "name": "End2Elements",
+        "description": " 端部２、端部となる要素を指定"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_End2Type",
+      "type": "Attribute",
+      "properties": {
+        "name": "End2Type",
+        "description": " 端部２、条材の端部タイプを指定"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_End2TypeParams",
+      "type": "Attribute",
+      "properties": {
+        "name": "End2TypeParams",
+        "description": " 端部２、条材の端部タイプのパラメータ"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_End1ScallopType",
+      "type": "Attribute",
+      "properties": {
+        "name": "End1ScallopType",
+        "description": " 端部１、条材の端部スカラップタイプを指定"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_End1ScallopTypeParams",
+      "type": "Attribute",
+      "properties": {
+        "name": "End1ScallopTypeParams",
+        "description": " 端部１、条材の端部スカラップタイプのパラメータ"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_End2ScallopType",
+      "type": "Attribute",
+      "properties": {
+        "name": "End2ScallopType",
+        "description": " 端部２、条材の端部スカラップタイプを指定"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_End2ScallopTypeParams",
+      "type": "Attribute",
+      "properties": {
+        "name": "End2ScallopTypeParams",
+        "description": " 端部２、条材の端部スカラップタイプのパラメータ"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_AttachLines",
+      "type": "Attribute",
+      "properties": {
+        "name": "AttachLines",
+        "description": "条材の取付線 "
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_AttachSurface",
+      "type": "Attribute",
+      "properties": {
+        "name": "AttachSurface",
+        "description": "条材を取り付ける面要素(フェイス、シートボディ)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_BasePlane",
+      "type": "Attribute",
+      "properties": {
+        "name": "BasePlane",
+        "description": "基準面要素(平面、シート、フェイス)を指定"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_BasePlaneOffset",
+      "type": "Attribute",
+      "properties": {
+        "name": "BasePlaneOffset",
+        "description": " 基準面のオフセット距離を指定"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_BaseSolid",
+      "type": "Attribute",
+      "properties": {
+        "name": "BaseSolid",
+        "description": "基準要素(ソリッド)を指定"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_PathCurves",
+      "type": "Attribute",
+      "properties": {
+        "name": "PathCurves",
+        "description": "取付線(取付線＋指定方向線で作成する際に使用する)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_DirLines",
+      "type": "Attribute",
+      "properties": {
+        "name": "DirLines",
+        "description": "基準直線(取付線＋指定方向線で作成する際に使用する)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_OrignalProfile",
+      "type": "Attribute",
+      "properties": {
+        "name": "OrignalProfile",
+        "description": " 作成元の条材(元要素指定で作成する際に使用する)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_HoleFeature",
+      "type": "Attribute",
+      "properties": {
+        "name": "HoleFeature",
+        "description": " ホールフィーチャー(ホール指定で作成する際に使用する)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_LocationAtHole",
+      "type": "Attribute",
+      "properties": {
+        "name": "LocationAtHole",
+        "description": " 条材の位置　0:上 1:下 2:左 3:右　(ホール指定で作成する際に使用する)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_BasePoint1",
+      "type": "Attribute",
+      "properties": {
+        "name": "BasePoint1",
+        "description": " 基準点1 (２点もしくは基準点と方向で作成する際に使用する)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_BasePoint2",
+      "type": "Attribute",
+      "properties": {
+        "name": "BasePoint2",
+        "description": " 基準点2 (２点で作成する際に使用する)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_BaseProfile1",
+      "type": "Attribute",
+      "properties": {
+        "name": "BaseProfile1",
+        "description": " ロンジ１(ロンジ間で作成する際に使用する)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_BaseProfile2",
+      "type": "Attribute",
+      "properties": {
+        "name": "BaseProfile2",
+        "description": " ロンジ２(ロンジ間で作成する際に使用する)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_BaseDirection1",
+      "type": "Attribute",
+      "properties": {
+        "name": "BaseDirection1",
+        "description": " (基準点と方向で作成する際に使用する)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_BaseDirection2",
+      "type": "Attribute",
+      "properties": {
+        "name": "BaseDirection2",
+        "description": " 取付方向指定　(基準点と方向で作成する際に使用する)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_BaseLocation",
+      "type": "Attribute",
+      "properties": {
+        "name": "BaseLocation",
+        "description": "  基準位置 0:左下 1:中下 2:右下 3:左中 4:中中 5:右中 6:左上 7:中上 8:右上 (基準点と方向で作成する際に使用する)"
+      }
+    },
+    {
+      "id": "条材要素のパラメータオブジェクト_ReferMethod",
+      "type": "Attribute",
+      "properties": {
+        "name": "ReferMethod",
+        "description": " 要素の関連づけ方法の指定"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "source": "TranslationCopy",
+      "target": "Part",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "MirrorCopy",
+      "target": "Part",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "CreateSolid",
+      "target": "Part",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "CreateThicken",
+      "target": "Part",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "CreateOtherSolid",
+      "target": "Part",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "CreateBracketParam",
+      "target": "Part",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "CreateBracket",
+      "target": "Part",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "CreatePlate",
+      "target": "Part",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "CreateProfileParam",
+      "target": "Part",
+      "type": "BELONGS_TO"
+    },
+    {
+      "source": "TranslationCopy",
+      "target": "TranslationCopy_SrcElements",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "TranslationCopy",
+      "target": "TranslationCopy_nCopy",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "TranslationCopy",
+      "target": "TranslationCopy_direction",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "TranslationCopy",
+      "target": "TranslationCopy_distance",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "TranslationCopy",
+      "target": "TranslationCopy_ReferMethod",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "MirrorCopy",
+      "target": "MirrorCopy_SrcElements",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "MirrorCopy",
+      "target": "MirrorCopy_plane",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "MirrorCopy",
+      "target": "MirrorCopy_ReferMethod",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateSolid",
+      "target": "CreateSolid_SolidName",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateSolid",
+      "target": "CreateSolid_ElementGroup",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateSolid",
+      "target": "CreateSolid_MaterialName",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateThicken",
+      "target": "CreateThicken_ThickenFeatureName",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateThicken",
+      "target": "CreateThicken_TargetSolidName",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateThicken",
+      "target": "CreateThicken_OperationType",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateThicken",
+      "target": "CreateThicken_Sheet",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateThicken",
+      "target": "CreateThicken_ThickenType",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateThicken",
+      "target": "CreateThicken_Thickeness1",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateThicken",
+      "target": "CreateThicken_Thickeness2",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateThicken",
+      "target": "CreateThicken_ThickenessOffset",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateThicken",
+      "target": "CreateThicken_ReferMethod",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateThicken",
+      "target": "CreateThicken_bUpdate",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateOtherSolid",
+      "target": "CreateOtherSolid_OtherSolidFeatureName",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateOtherSolid",
+      "target": "CreateOtherSolid_TargetSolidName",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateOtherSolid",
+      "target": "CreateOtherSolid_OperationType",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateOtherSolid",
+      "target": "CreateOtherSolid_SourceSolid",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateOtherSolid",
+      "target": "CreateOtherSolid_ReferMethod",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateOtherSolid",
+      "target": "CreateOtherSolid_bUpdate",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateBracket",
+      "target": "CreateBracket_ParamObj",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreateBracket",
+      "target": "CreateBracket_bUpdate",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreatePlate",
+      "target": "CreatePlate_PlateName",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreatePlate",
+      "target": "CreatePlate_ElementGroup",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreatePlate",
+      "target": "CreatePlate_MaterialName",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreatePlate",
+      "target": "CreatePlate_Plane",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreatePlate",
+      "target": "CreatePlate_PlaneOffset",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreatePlate",
+      "target": "CreatePlate_Thickness",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreatePlate",
+      "target": "CreatePlate_nMold",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreatePlate",
+      "target": "CreatePlate_MoldOffset",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreatePlate",
+      "target": "CreatePlate_BoundSolid",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreatePlate",
+      "target": "CreatePlate_Section1End1",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreatePlate",
+      "target": "CreatePlate_Section1End2",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreatePlate",
+      "target": "CreatePlate_Section2End1",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreatePlate",
+      "target": "CreatePlate_Section2End2",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "CreatePlate",
+      "target": "CreatePlate_bUpdate",
+      "type": "HAS_PARAMETER"
+    },
+    {
+      "source": "TranslationCopy",
+      "target": "TranslationCopy_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "MirrorCopy",
+      "target": "MirrorCopy_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "CreateSolid",
+      "target": "CreateSolid_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "CreateThicken",
+      "target": "CreateThicken_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "CreateOtherSolid",
+      "target": "CreateOtherSolid_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "CreateBracketParam",
+      "target": "CreateBracketParam_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "CreateBracket",
+      "target": "CreateBracket_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "CreatePlate",
+      "target": "CreatePlate_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "CreateProfileParam",
+      "target": "CreateProfileParam_ReturnValue",
+      "type": "HAS_RETURNS"
+    },
+    {
+      "source": "TranslationCopy_SrcElements",
+      "target": "要素(配列)",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "TranslationCopy_nCopy",
+      "target": "整数",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "TranslationCopy_direction",
+      "target": "方向",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "TranslationCopy_distance",
+      "target": "長さ",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "TranslationCopy_ReferMethod",
+      "target": "関連設定",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "MirrorCopy_SrcElements",
+      "target": "要素(配列)",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "MirrorCopy_plane",
+      "target": "BSTR",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "MirrorCopy_ReferMethod",
+      "target": "関連設定",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateSolid_SolidName",
+      "target": "文字列",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateSolid_ElementGroup",
+      "target": "要素グループ",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateSolid_MaterialName",
+      "target": "材料",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateThicken_ThickenFeatureName",
+      "target": "文字列",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateThicken_TargetSolidName",
+      "target": "要素",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateThicken_OperationType",
+      "target": "オペレーションタイプ",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateThicken_Sheet",
+      "target": "要素(配列)",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateThicken_ThickenType",
+      "target": "厚み付けタイプ",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateThicken_Thickeness1",
+      "target": "長さ",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateThicken_Thickeness2",
+      "target": "長さ",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateThicken_ThickenessOffset",
+      "target": "長さ",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateThicken_ReferMethod",
+      "target": "関連設定",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateThicken_bUpdate",
+      "target": "bool",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateOtherSolid_OtherSolidFeatureName",
+      "target": "文字列",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateOtherSolid_TargetSolidName",
+      "target": "要素",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateOtherSolid_OperationType",
+      "target": "オペレーションタイプ",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateOtherSolid_SourceSolid",
+      "target": "要素",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateOtherSolid_ReferMethod",
+      "target": "関連設定",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateOtherSolid_bUpdate",
+      "target": "bool",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateBracket_ParamObj",
+      "target": "ブラケット要素のパラメータオブジェクト",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateBracket_bUpdate",
+      "target": "bool",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreatePlate_PlateName",
+      "target": "文字列",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreatePlate_ElementGroup",
+      "target": "要素グループ",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreatePlate_MaterialName",
+      "target": "材料",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreatePlate_Plane",
+      "target": "平面",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreatePlate_PlaneOffset",
+      "target": "長さ",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreatePlate_Thickness",
+      "target": "長さ",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreatePlate_nMold",
+      "target": "モールド位置",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreatePlate_MoldOffset",
+      "target": "長さ",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreatePlate_BoundSolid",
+      "target": "要素",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreatePlate_Section1End1",
+      "target": "長さ",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreatePlate_Section1End2",
+      "target": "長さ",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreatePlate_Section2End1",
+      "target": "長さ",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreatePlate_Section2End2",
+      "target": "長さ",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreatePlate_bUpdate",
+      "target": "bool",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "TranslationCopy_ReturnValue",
+      "target": "要素ID配列",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "MirrorCopy_ReturnValue",
+      "target": "要素ID配列",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateSolid_ReturnValue",
+      "target": "要素ID",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateThicken_ReturnValue",
+      "target": "要素ID",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateOtherSolid_ReturnValue",
+      "target": "要素ID",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateBracketParam_ReturnValue",
+      "target": "ブラケット要素のパラメータオブジェクト",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateBracket_ReturnValue",
+      "target": "要素ID",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreatePlate_ReturnValue",
+      "target": "要素ID",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "CreateProfileParam_ReturnValue",
+      "target": "条材要素のパラメータオブジェクト",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_DefinitionType",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_BracketName",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_ElementGroup",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_MaterialName",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_BasePlane",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_BasePlaneOffset",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_BaseElement",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_UseSideSheetForPlane",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_Thickness",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_Mold",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_MoldOffset",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_BracketType",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_BracketParams",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_Scallop1Type",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_Scallop1Params",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_nScallop2Type",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_Scallop2Params",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_Surfaces1",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_RevSf1",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_Surfaces2",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_RevSf2",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_Surfaces3",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_RevSf3",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_FlangeType",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_FlangeParams",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_RevFlange",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_FlangeAngle",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_Sf1DimensionType",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_Sf1DimensonParams",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_Sf1EndElements",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_Sf1BaseElements",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_Sf2DimensionType",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_Sf2DimensonParams",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_Sf2EndElements",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_Sf2BaseElements",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_ScallopEnd1LowerType",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_ScallopEnd1LowerParams",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_ScallopEnd1UpperType",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_ScallopEnd1UpperParams",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_ScallopEnd2LowerType",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_ScallopEnd2LowerParams",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_ScallopEnd2UpperType",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_ScallopEnd2UpperParams",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_WCS",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト",
+      "target": "ブラケット要素のパラメータオブジェクト_ReferMethod",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_DefinitionType",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_ProfileName",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_ElementGroup",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_MaterialName",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_FlangeName",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_FlangeElementGroup",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_FlangeMaterialName",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_ProfileType",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_ProfileParam",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_FaceAngle",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_ConnectionTol",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_Mold",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_MoldOffset",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_ReverseDir",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_ReverseAngle",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_BaseOnAttachLines",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_CalcSnipOnlyAttachLines",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_NotProfjectAttachLines",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_ProjectionDir",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_AttachDirMethod",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_AttachAngle",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_AttachDirection",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_DefAnglePositionAxisDir",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_DefAngleBaseDir",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_CCWDefAngle",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_DefPossitionAngles",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_DefPositionNormalAngles",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_End1Elements",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_End1Type",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_End1TypeParams",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_End2Elements",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_End2Type",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_End2TypeParams",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_End1ScallopType",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_End1ScallopTypeParams",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_End2ScallopType",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_End2ScallopTypeParams",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_AttachLines",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_AttachSurface",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_BasePlane",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_BasePlaneOffset",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_BaseSolid",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_PathCurves",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_DirLines",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_OrignalProfile",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_HoleFeature",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_LocationAtHole",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_BasePoint1",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_BasePoint2",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_BaseProfile1",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_BaseProfile2",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_BaseDirection1",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_BaseDirection2",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_BaseLocation",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト",
+      "target": "条材要素のパラメータオブジェクト_ReferMethod",
+      "type": "HAS_ATTRIBUTE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_DefinitionType",
+      "target": "整数",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_BracketName",
+      "target": "文字列",
+      "type": "HAS_TYPE"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_ElementGroup",
+      "type": "HAS_TYPE",
+      "target": "要素グループ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_MaterialName",
+      "type": "HAS_TYPE",
+      "target": "材料"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_BasePlaneOffset",
+      "type": "HAS_TYPE",
+      "target": "長さ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_UseSideSheetForPlane",
+      "type": "HAS_TYPE",
+      "target": "bool"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_Thickness",
+      "type": "HAS_TYPE",
+      "target": "長さ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_Mold",
+      "type": "HAS_TYPE",
+      "target": "モールド位置"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_MoldOffset",
+      "type": "HAS_TYPE",
+      "target": "長さ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_BracketType",
+      "type": "HAS_TYPE",
+      "target": "形状タイプ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_BracketParams",
+      "type": "HAS_TYPE",
+      "target": "形状パラメータ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_Scallop1Type",
+      "type": "HAS_TYPE",
+      "target": "形状タイプ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_Scallop1Params",
+      "type": "HAS_TYPE",
+      "target": "形状パラメータ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_nScallop2Type",
+      "type": "HAS_TYPE",
+      "target": "形状タイプ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_Scallop2Params",
+      "type": "HAS_TYPE",
+      "target": "形状パラメータ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_Surfaces1",
+      "type": "HAS_TYPE",
+      "target": "要素(配列)"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_RevSf1",
+      "type": "HAS_TYPE",
+      "target": "bool"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_Surfaces2",
+      "type": "HAS_TYPE",
+      "target": "要素(配列)"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_RevSf2",
+      "type": "HAS_TYPE",
+      "target": "bool"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_Surfaces3",
+      "type": "HAS_TYPE",
+      "target": "要素(配列)"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_RevSf3",
+      "type": "HAS_TYPE",
+      "target": "bool"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_FlangeType",
+      "type": "HAS_TYPE",
+      "target": "形状タイプ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_FlangeParams",
+      "type": "HAS_TYPE",
+      "target": "形状パラメータ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_RevFlange",
+      "type": "HAS_TYPE",
+      "target": "bool"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_FlangeAngle",
+      "type": "HAS_TYPE",
+      "target": "角度"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_Sf1DimensionType",
+      "type": "HAS_TYPE",
+      "target": "形状タイプ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_Sf1DimensonParams",
+      "type": "HAS_TYPE",
+      "target": "形状パラメータ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_Sf1EndElements",
+      "type": "HAS_TYPE",
+      "target": "要素(配列)"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_Sf1BaseElements",
+      "type": "HAS_TYPE",
+      "target": "要素(配列)"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_Sf2DimensionType",
+      "type": "HAS_TYPE",
+      "target": "形状タイプ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_Sf2DimensonParams",
+      "type": "HAS_TYPE",
+      "target": "形状パラメータ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_Sf2EndElements",
+      "type": "HAS_TYPE",
+      "target": "要素(配列)"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_Sf2BaseElements",
+      "type": "HAS_TYPE",
+      "target": "要素(配列)"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_ScallopEnd1LowerType",
+      "type": "HAS_TYPE",
+      "target": "形状タイプ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_ScallopEnd1LowerParams",
+      "type": "HAS_TYPE",
+      "target": "形状パラメータ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_ScallopEnd1UpperType",
+      "type": "HAS_TYPE",
+      "target": "形状タイプ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_ScallopEnd1UpperParams",
+      "type": "HAS_TYPE",
+      "target": "形状パラメータ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_ScallopEnd2LowerType",
+      "type": "HAS_TYPE",
+      "target": "形状タイプ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_ScallopEnd2LowerParams",
+      "type": "HAS_TYPE",
+      "target": "形状パラメータ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_ScallopEnd2UpperType",
+      "type": "HAS_TYPE",
+      "target": "形状タイプ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_ScallopEnd2UpperParams",
+      "type": "HAS_TYPE",
+      "target": "形状パラメータ"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_WCS",
+      "type": "HAS_TYPE",
+      "target": "要素"
+    },
+    {
+      "source": "ブラケット要素のパラメータオブジェクト_ReferMethod",
+      "type": "HAS_TYPE",
+      "target": "関連設定"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_DefinitionType",
+      "type": "HAS_TYPE",
+      "target": "整数"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_ProfileName",
+      "type": "HAS_TYPE",
+      "target": "文字列"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_ElementGroup",
+      "type": "HAS_TYPE",
+      "target": "要素グループ"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_MaterialName",
+      "type": "HAS_TYPE",
+      "target": "材料"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_FlangeName",
+      "type": "HAS_TYPE",
+      "target": "文字列"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_FlangeElementGroup",
+      "type": "HAS_TYPE",
+      "target": "要素グループ"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_FlangeMaterialName",
+      "type": "HAS_TYPE",
+      "target": "材料"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_ProfileType",
+      "type": "HAS_TYPE",
+      "target": "形状タイプ"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_ProfileParam",
+      "type": "HAS_TYPE",
+      "target": "形状パラメータ"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_FaceAngle",
+      "type": "HAS_TYPE",
+      "target": "角度"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_ConnectionTol",
+      "type": "HAS_TYPE",
+      "target": "長さ"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_Mold",
+      "type": "HAS_TYPE",
+      "target": "モールド位置"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_MoldOffset",
+      "type": "HAS_TYPE",
+      "target": "長さ"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_ReverseDir",
+      "type": "HAS_TYPE",
+      "target": "bool"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_ReverseAngle",
+      "type": "HAS_TYPE",
+      "target": "bool"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_BaseOnAttachLines",
+      "type": "HAS_TYPE",
+      "target": "bool"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_CalcSnipOnlyAttachLines",
+      "type": "HAS_TYPE",
+      "target": "bool"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_NotProfjectAttachLines",
+      "type": "HAS_TYPE",
+      "target": "bool"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_ProjectionDir",
+      "type": "HAS_TYPE",
+      "target": "方向"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_AttachDirMethod",
+      "type": "HAS_TYPE",
+      "target": "整数"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_AttachAngle",
+      "type": "HAS_TYPE",
+      "target": "角度"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_AttachDirection",
+      "type": "HAS_TYPE",
+      "target": "方向"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_DefAnglePositionAxisDir",
+      "type": "HAS_TYPE",
+      "target": "方向"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_DefAngleBaseDir",
+      "type": "HAS_TYPE",
+      "target": "方向"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_CCWDefAngle",
+      "type": "HAS_TYPE",
+      "target": "bool"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_DefPossitionAngles",
+      "type": "HAS_TYPE",
+      "target": "位置と角度配列"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_DefPositionNormalAngles",
+      "type": "HAS_TYPE",
+      "target": "位置と角度配列"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_End1Elements",
+      "type": "HAS_TYPE",
+      "target": "要素(配列)"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_End1Type",
+      "type": "HAS_TYPE",
+      "target": "形状タイプ"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_End1TypeParams",
+      "type": "HAS_TYPE",
+      "target": "形状パラメータ"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_End2Elements",
+      "type": "HAS_TYPE",
+      "target": "要素(配列)"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_End2Type",
+      "type": "HAS_TYPE",
+      "target": "形状タイプ"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_End2TypeParams",
+      "type": "HAS_TYPE",
+      "target": "形状パラメータ"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_End1ScallopType",
+      "type": "HAS_TYPE",
+      "target": "形状タイプ"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_End1ScallopTypeParams",
+      "type": "HAS_TYPE",
+      "target": "形状パラメータ"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_End2ScallopType",
+      "type": "HAS_TYPE",
+      "target": "形状タイプ"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_End2ScallopTypeParams",
+      "type": "HAS_TYPE",
+      "target": "形状パラメータ"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_AttachLines",
+      "type": "HAS_TYPE",
+      "target": "要素(配列)"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_AttachSurface",
+      "type": "HAS_TYPE",
+      "target": "要素(配列)"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_BasePlane",
+      "type": "HAS_TYPE",
+      "target": "要素"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_BasePlaneOffset",
+      "type": "HAS_TYPE",
+      "target": "長さ"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_BaseSolid",
+      "type": "HAS_TYPE",
+      "target": "要素"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_PathCurves",
+      "type": "HAS_TYPE",
+      "target": "要素(配列)"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_DirLines",
+      "type": "HAS_TYPE",
+      "target": "要素(配列)"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_OrignalProfile",
+      "type": "HAS_TYPE",
+      "target": "要素"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_HoleFeature",
+      "type": "HAS_TYPE",
+      "target": "要素"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_LocationAtHole",
+      "type": "HAS_TYPE",
+      "target": "整数"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_BasePoint1",
+      "type": "HAS_TYPE",
+      "target": "点"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_BasePoint2",
+      "type": "HAS_TYPE",
+      "target": "点"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_BaseProfile1",
+      "type": "HAS_TYPE",
+      "target": "要素"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_BaseProfile2",
+      "type": "HAS_TYPE",
+      "target": "要素"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_BaseDirection1",
+      "type": "HAS_TYPE",
+      "target": "方向"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_BaseDirection2",
+      "type": "HAS_TYPE",
+      "target": "方向"
+    },
+    {
+      "source": "条材要素のパラメータオブジェクト_BaseLocation",
+      "type": "HAS_TYPE",
+      "target": "整数"
+    }
+  ]
+}

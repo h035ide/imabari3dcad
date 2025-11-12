@@ -1,0 +1,4338 @@
+[
+  {
+    "page_content": "ノードタイプ: Object\nID: Part\nプロパティ:\n- name: Part",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Part",
+      "node_type": "Object"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateVariable\n説明: 変数要素の作成",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateVariable",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateVariable_VariableName\nプロパティ:\n- name: VariableName\n- description: 作成する変数名称(空文字不可)\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateVariable_VariableName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateVariable_VariableValue\nプロパティ:\n- name: VariableValue\n- description: 変数の値\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateVariable_VariableValue",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateVariable_VariableUnit\nプロパティ:\n- name: VariableUnit\n- description: 作成する変数の単位を指定\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateVariable_VariableUnit",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateVariable_VariableElementGroup\nプロパティ:\n- name: VariableElementGroup\n- description: 作成する変数要素を要素グループに入れる場合は要素グループを指定(空文字可)\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateVariable_VariableElementGroup",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateVariable_ReturnValue\nプロパティ:\n- description: 作成された変数要素の要素ID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateVariable_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateSketchPlane\n説明: スケッチ平面の作成",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchPlane",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchPlane_ElementName\nプロパティ:\n- name: ElementName\n- description: 作成するスケッチ平面名称(空文字可)\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchPlane_ElementName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchPlane_ElementGroup\nプロパティ:\n- name: ElementGroup\n- description: 作成するスケッチ平面を要素グループに入れる場合は要素グループを指定(空文字可)\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchPlane_ElementGroup",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchPlane_PlaneDef\nプロパティ:\n- name: PlaneDef\n- description: スケッチ平面を作成する平面を指定する\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchPlane_PlaneDef",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchPlane_PlaneOffset\nプロパティ:\n- name: PlaneOffset\n- description: 平面からのオフセット距離を指定\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchPlane_PlaneOffset",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchPlane_bRevPlane\nプロパティ:\n- name: bRevPlane\n- description: スケッチ平面を反転するかどうかのフラグ(bool)\n- order: 4",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchPlane_bRevPlane",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchPlane_bRevUV\nプロパティ:\n- name: bRevUV\n- description: スケッチ平面のX,Y軸を交換するかどうかのフラグ(bool)\n- order: 5",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchPlane_bRevUV",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchPlane_bRevUDir\nプロパティ:\n- name: bRevUDir\n- description: スケッチ平面のX軸となる方向を反転するかどうかのフラグ(bool)\n- order: 6",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchPlane_bRevUDir",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchPlane_StyleName\nプロパティ:\n- name: StyleName\n- description: スケッチ平面に適用する注記スタイル名称(空文字可)\n- order: 7",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchPlane_StyleName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchPlane_OriginPoint\nプロパティ:\n- name: OriginPoint\n- description: スケッチ平面の原点を指定(空文字可)\n- order: 8",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchPlane_OriginPoint",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchPlane_AxisDirection\nプロパティ:\n- name: AxisDirection\n- description: スケッチ平面の軸方向を指定(空文字可)\n- order: 9",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchPlane_AxisDirection",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchPlane_bDefAxisIsX\nプロパティ:\n- name: bDefAxisIsX\n- description: スケッチ平面のX実を指定する場合はTrue(bool)\n- order: 10",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchPlane_bDefAxisIsX",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchPlane_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 11",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchPlane_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateSketchPlane_ReturnValue\nプロパティ:\n- description: 作成されたスケッチ平面要素の要素ID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchPlane_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateSketchLayer\n説明: スケッチレイヤーの作成",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchLayer",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchLayer_SketchLayerName\nプロパティ:\n- name: SketchLayerName\n- description: 作成するスケッチレイヤー名称(空文字可)\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchLayer_SketchLayerName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchLayer_SketchPlane\nプロパティ:\n- name: SketchPlane\n- description: レイヤーを作成するスケッチ要素\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchLayer_SketchPlane",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateSketchLayer_ReturnValue\nプロパティ:\n- description: 作成されたスケッチレイヤー要素の要素ID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchLayer_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateSketchLine\n説明: スケッチ直線作成",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchLine",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchLine_SketchPlane\nプロパティ:\n- name: SketchPlane\n- description: 直線を作成するスケッチ要素\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchLine_SketchPlane",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchLine_SketchLineName\nプロパティ:\n- name: SketchLineName\n- description: 作成するスケッチ直線名称(空文字可)\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchLine_SketchLineName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchLine_SketchLayer\nプロパティ:\n- name: SketchLayer\n- description: 直線を作成するスケッチレイヤー(空文字可)\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchLine_SketchLayer",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchLine_StartPoint\nプロパティ:\n- name: StartPoint\n- description: 始点\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchLine_StartPoint",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchLine_EndPoint\nプロパティ:\n- name: EndPoint\n- description: 終点\n- order: 4",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchLine_EndPoint",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchLine_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 5",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchLine_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateSketchLine_ReturnValue\nプロパティ:\n- description: 作成されたスケッチ直線要素の要素ID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchLine_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateSketchArc\n説明: スケッチ円弧を中心点と始終点を指定して作成",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchArc",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchArc_SketchPlane\nプロパティ:\n- name: SketchPlane\n- description: 円弧を作成するスケッチ要素\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchArc_SketchPlane",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchArc_SketchArcName\nプロパティ:\n- name: SketchArcName\n- description: 作成するスケッチ円弧名称(空文字可)\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchArc_SketchArcName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchArc_SketchLayer\nプロパティ:\n- name: SketchLayer\n- description: 円弧を作成するスケッチレイヤー(空文字可)\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchArc_SketchLayer",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchArc_CenterPoint\nプロパティ:\n- name: CenterPoint\n- description: 中心点\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchArc_CenterPoint",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchArc_StartPoint\nプロパティ:\n- name: StartPoint\n- description: 始点\n- order: 4",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchArc_StartPoint",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchArc_EndPoint\nプロパティ:\n- name: EndPoint\n- description: 終点\n- order: 5",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchArc_EndPoint",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchArc_bCCW\nプロパティ:\n- name: bCCW\n- description: 円弧の回転方向Trueの場合は反時計周り\n- order: 6",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchArc_bCCW",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchArc_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 7",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchArc_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateSketchArc_ReturnValue\nプロパティ:\n- description: 作成されたスケッチ円弧要素の要素ID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchArc_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateSketchArc3Pts\n説明: スケッチ円弧を周上の３点を指定して作成",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchArc3Pts",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchArc3Pts_SketchPlane\nプロパティ:\n- name: SketchPlane\n- description: 円弧を作成するスケッチ要素\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchArc3Pts_SketchPlane",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchArc3Pts_SketchArcName\nプロパティ:\n- name: SketchArcName\n- description: 作成するスケッチ円弧名称(空文字可)\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchArc3Pts_SketchArcName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchArc3Pts_SketchLayer\nプロパティ:\n- name: SketchLayer\n- description: 円弧を作成するスケッチレイヤー(空文字可)\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchArc3Pts_SketchLayer",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchArc3Pts_StartPoint\nプロパティ:\n- name: StartPoint\n- description: 始点\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchArc3Pts_StartPoint",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchArc3Pts_MidPoint\nプロパティ:\n- name: MidPoint\n- description: 通過点\n- order: 4",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchArc3Pts_MidPoint",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchArc3Pts_EndPoint\nプロパティ:\n- name: EndPoint\n- description: 終点\n- order: 5",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchArc3Pts_EndPoint",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchArc3Pts_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 6",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchArc3Pts_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateSketchArc3Pts_ReturnValue\nプロパティ:\n- description: 作成されたスケッチ円弧要素の要素ID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchArc3Pts_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateSketchCircle\n説明: スケッチ円を中心点を指定して作成",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchCircle",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchCircle_SketchPlane\nプロパティ:\n- name: SketchPlane\n- description: 円を作成するスケッチ要素\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchCircle_SketchPlane",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchCircle_SketchArcName\nプロパティ:\n- name: SketchArcName\n- description: 作成するスケッチ円名称(空文字可)\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchCircle_SketchArcName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchCircle_SketchLayer\nプロパティ:\n- name: SketchLayer\n- description: 円を作成するスケッチレイヤー(空文字可)\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchCircle_SketchLayer",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchCircle_Centeroint\nプロパティ:\n- name: Centeroint\n- description: 中心点\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchCircle_Centeroint",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchCircle_RadiusOrDiameter\nプロパティ:\n- name: RadiusOrDiameter\n- description: 半径または直径\n- order: 4",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchCircle_RadiusOrDiameter",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchCircle_bDiameter\nプロパティ:\n- name: bDiameter\n- description: 直径を指定する場合はTrue\n- order: 5",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchCircle_bDiameter",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchCircle_bCCW\nプロパティ:\n- name: bCCW\n- description: 円の回転方向Trueの場合は反時計周り\n- order: 6",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchCircle_bCCW",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchCircle_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 7",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchCircle_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateSketchCircle_ReturnValue\nプロパティ:\n- description: 作成されたスケッチ円要素の要素ID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchCircle_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateSketchEllipse\n説明: スケッチ楕円を中心点を指定して作成",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchEllipse",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchEllipse_SketchPlane\nプロパティ:\n- name: SketchPlane\n- description: 楕円を作成するスケッチ要素\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchEllipse_SketchPlane",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchEllipse_SketchArcName\nプロパティ:\n- name: SketchArcName\n- description: 作成するスケッチ楕円名称(空文字可)\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchEllipse_SketchArcName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchEllipse_SketchLayer\nプロパティ:\n- name: SketchLayer\n- description: 楕円を作成するスケッチレイヤー(空文字可)\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchEllipse_SketchLayer",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchEllipse_Centeroint\nプロパティ:\n- name: Centeroint\n- description: 中心点\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchEllipse_Centeroint",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchEllipse_bCCW\nプロパティ:\n- name: bCCW\n- description: 楕円の回転方向Trueの場合は反時計周り\n- order: 4",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchEllipse_bCCW",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchEllipse_MajorDir\nプロパティ:\n- name: MajorDir\n- description: 主軸方向を指定\n- order: 5",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchEllipse_MajorDir",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchEllipse_MajorRadius\nプロパティ:\n- name: MajorRadius\n- description: 主軸半径\n- order: 6",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchEllipse_MajorRadius",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchEllipse_MinorRadius\nプロパティ:\n- name: MinorRadius\n- description: 副軸半径\n- order: 7",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchEllipse_MinorRadius",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchEllipse_Range\nプロパティ:\n- name: Range\n- description: (0-2pi)\n- order: 8",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchEllipse_Range",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchEllipse_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 9",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchEllipse_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateSketchEllipse_ReturnValue\nプロパティ:\n- description: 作成されたスケッチ楕円要素の要素ID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchEllipse_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateSketchNURBSCurve\n説明: スケッチＮＵＲＢＳ線を中心点を指定して作成",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchNURBSCurve",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchNURBSCurve_SketchPlane\nプロパティ:\n- name: SketchPlane\n- description: ＮＵＲＢＳ線を作成するスケッチ要素\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchNURBSCurve_SketchPlane",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchNURBSCurve_SketchArcName\nプロパティ:\n- name: SketchArcName\n- description: 作成するスケッチＮＵＲＢＳ線名称(空文字可)\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchNURBSCurve_SketchArcName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchNURBSCurve_SketchLayer\nプロパティ:\n- name: SketchLayer\n- description: ＮＵＲＢＳ線を作成するスケッチレイヤー(空文字可)\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchNURBSCurve_SketchLayer",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchNURBSCurve_nDegree\nプロパティ:\n- name: nDegree\n- description: ＮＵＲＢＳ線の次数\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchNURBSCurve_nDegree",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchNURBSCurve_bClose\nプロパティ:\n- name: bClose\n- description: 閉じたＮＵＲＢＳ線の場合True\n- order: 4",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchNURBSCurve_bClose",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchNURBSCurve_bPeriodic\nプロパティ:\n- name: bPeriodic\n- description: 周期ＮＵＲＢＳ線の場合True\n- order: 5",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchNURBSCurve_bPeriodic",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchNURBSCurve_CtrlPoints\nプロパティ:\n- name: CtrlPoints\n- description: 制御点\n- order: 6",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchNURBSCurve_CtrlPoints",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchNURBSCurve_Weights\nプロパティ:\n- name: Weights\n- description: 重み\n- order: 7",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchNURBSCurve_Weights",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchNURBSCurve_Knots\nプロパティ:\n- name: Knots\n- description: ノットベクトル\n- order: 8",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchNURBSCurve_Knots",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchNURBSCurve_Range\nプロパティ:\n- name: Range\n- description: トリム範囲\n- order: 9",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchNURBSCurve_Range",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSketchNURBSCurve_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 10",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchNURBSCurve_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateSketchNURBSCurve_ReturnValue\nプロパティ:\n- description: 作成されたスケッチＮＵＲＢＳ線要素の要素ID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSketchNURBSCurve_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateElementsFromFile\n説明: ファイルをインポートして要素を作成",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateElementsFromFile",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateElementsFromFile_FileName\nプロパティ:\n- name: FileName\n- description: ファイルパス(現状、Parasolid形式のみ)\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateElementsFromFile_FileName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateElementsFromFile_ReturnValue\nプロパティ:\n- description: 作成された要素の要素IDの配列",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateElementsFromFile_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateOffsetSheet\n説明: オフセットシートを作成",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateOffsetSheet",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateOffsetSheet_SheetName\nプロパティ:\n- name: SheetName\n- description: 作成するシート要素名称(空文字可)\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateOffsetSheet_SheetName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateOffsetSheet_ElementGroup\nプロパティ:\n- name: ElementGroup\n- description: 作成するシート要素を要素グループに入れる場合は要素グループを指定(空文字可)\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateOffsetSheet_ElementGroup",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateOffsetSheet_MaterialName\nプロパティ:\n- name: MaterialName\n- description: 作成するシート要素の材質名称(空文字可)\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateOffsetSheet_MaterialName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateOffsetSheet_SrcSurfaces\nプロパティ:\n- name: SrcSurfaces\n- description: オフセットする元シート要素、フェイス要素の指定文字列配列\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateOffsetSheet_SrcSurfaces",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateOffsetSheet_OffsetLength\nプロパティ:\n- name: OffsetLength\n- description: オフセット距離\n- order: 4",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateOffsetSheet_OffsetLength",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateOffsetSheet_bOffsetBackwards\nプロパティ:\n- name: bOffsetBackwards\n- description: オフセット方向を反転\n- order: 5",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateOffsetSheet_bOffsetBackwards",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateOffsetSheet_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 6",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateOffsetSheet_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateOffsetSheet_ReturnValue\nプロパティ:\n- description: 作成されたオフセットシート要素の要素ID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateOffsetSheet_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateLinearSweepParam\n説明: 押し出しパラメータオブジェクトの作成",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateLinearSweepParam",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateLinearSweepParam_ReturnValue\nプロパティ:\n- description: 押し出しパラメータオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateLinearSweepParam_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateLinearSweep\n説明: 指定したソリッド要素に押し出し形状を付加する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateLinearSweep",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateLinearSweep_TargetSolidName\nプロパティ:\n- name: TargetSolidName\n- description: 押し出しフィーチャーを作成する対象のソリッドを指定\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateLinearSweep_TargetSolidName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateLinearSweep_OperationType\nプロパティ:\n- name: OperationType\n- description: ソリッドオペレーションのタイプを指定する\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateLinearSweep_OperationType",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateLinearSweep_pParam\nプロパティ:\n- name: pParam\n- description: \n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateLinearSweep_pParam",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateLinearSweep_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateLinearSweep_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateLinearSweep_ReturnValue\nプロパティ:\n- description: 作成された押し出しフィーチャーのID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateLinearSweep_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateLinearSweepSheet\n説明: プロファイル要素を押し出してシート要素を作成",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateLinearSweepSheet",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateLinearSweepSheet_ParamObj\nプロパティ:\n- name: ParamObj\n- description: \n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateLinearSweepSheet_ParamObj",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateLinearSweepSheet_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateLinearSweepSheet_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateLinearSweepSheet_ReturnValue\nプロパティ:\n- description: 作成されたシート要素の要素ID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateLinearSweepSheet_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: SheetAlignNormal\n説明: シート要素の向き(表側、法線方向)を指定した方向に揃える",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "SheetAlignNormal",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: SheetAlignNormal_SheetElement\nプロパティ:\n- name: SheetElement\n- description: 方向を揃えるシート要素\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "SheetAlignNormal_SheetElement",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: SheetAlignNormal_dirX\nプロパティ:\n- name: dirX\n- description: 方向ベクトルのX成分\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "SheetAlignNormal_dirX",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: SheetAlignNormal_dirY\nプロパティ:\n- name: dirY\n- description: 方向ベクトルのY成分\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "SheetAlignNormal_dirY",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: SheetAlignNormal_dirZ\nプロパティ:\n- name: dirZ\n- description: 方向ベクトルのZ成分\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "SheetAlignNormal_dirZ",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: SheetAlignNormal_ReturnValue\nプロパティ:\n- description: なし",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "SheetAlignNormal_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: ReverseSheet\n説明: シート要素の向きを反転する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ReverseSheet",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: ReverseSheet_SheetElement\nプロパティ:\n- name: SheetElement\n- description: 反転するシート要素\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ReverseSheet_SheetElement",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: ReverseSheet_ReturnValue\nプロパティ:\n- description: シート反転フィーチャーの要素ID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ReverseSheet_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: BlankElement\n説明: 指定要素を表示状態を設定する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BlankElement",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BlankElement_Element\nプロパティ:\n- name: Element\n- description: 表示状態を指定する要素\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BlankElement_Element",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BlankElement_bBlank\nプロパティ:\n- name: bBlank\n- description: Trueの時は非表示にする。Falseの時は表示する。\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BlankElement_bBlank",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: BlankElement_ReturnValue\nプロパティ:\n- description: なし",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BlankElement_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 押し出しパラメータオブジェクト\nプロパティ:\n- name: 押し出しパラメータオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_NAME\nプロパティ:\n- name: NAME\n- description: 要素名(空文字可)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_NAME",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_ElementGroup\nプロパティ:\n- name: ElementGroup\n- description: 作成するシート要素を要素グループに入れる場合は要素グループを指定(空文字可)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_ElementGroup",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_MaterialName\nプロパティ:\n- name: MaterialName\n- description: 作成するシード要素の材質名称(空文字可)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_MaterialName",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_Target1\nプロパティ:\n- name: Target1\n- description: スイープするターゲット要素１　(点、線、シート、ソリッド、あるいはソリッドフェイス)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_Target1",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_Target2\nプロパティ:\n- name: Target2\n- description: スイープ方向が２方向の場合に使用。スイープするターゲット要素２",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_Target2",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_Profile\nプロパティ:\n- name: Profile\n- description: 押し出しのプロファイル要素(スケッチ、線、シート)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_Profile",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_ProfileNormal\nプロパティ:\n- name: ProfileNormal\n- description: プロファイルの平面法線方向。(プロファイルが3Dの直線の場合にその平面法線として指定。)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_ProfileNormal",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_ProfileOffset\nプロパティ:\n- name: ProfileOffset\n- description: プロファイル位置のオフセット距離",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_ProfileOffset",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_DirectionType\nプロパティ:\n- name: DirectionType\n- description:",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_DirectionType",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_DirectionParameter1\nプロパティ:\n- name: DirectionParameter1\n- description: スイープする距離１(SweepTarget1を指定している場合は使用しない)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_DirectionParameter1",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_DirectionParameter2\nプロパティ:\n- name: DirectionParameter2\n- description: スイープ方向が２方向の場合に使用。スイープする距離２(SweepTarget２を指定している場合は使用しない)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_DirectionParameter2",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_SweepDirection\nプロパティ:\n- name: SweepDirection\n- description: スイープする方向を設定する場合に使用。指定しない場合はプロファイルの法線方向",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_SweepDirection",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_DraftAngle\nプロパティ:\n- name: DraftAngle\n- description: 押し出し方向の勾配角度",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_DraftAngle",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_DraftAngle2Type\nプロパティ:\n- name: DraftAngle2Type\n- description: ２方向に押し出す際の勾配の取り方指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_DraftAngle2Type",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_DraftAngle2\nプロパティ:\n- name: DraftAngle2\n- description: ２方向目の押し出し方向の勾配角度",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_DraftAngle2",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_ThickenType\nプロパティ:\n- name: ThickenType\n- description:",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_ThickenType",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_Thickeness1\nプロパティ:\n- name: Thickeness1\n- description: 板厚",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_Thickeness1",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_Thickeness2\nプロパティ:\n- name: Thickeness2\n- description: 板厚２(厚み付けタイプが２方向のときに使用)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_Thickeness2",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_ThickenessOffset\nプロパティ:\n- name: ThickenessOffset\n- description: 厚みづけのオフセット距離",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_ThickenessOffset",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_bRefByGeometricMethod\nプロパティ:\n- name: bRefByGeometricMethod\n- description: Trueの時は幾何位置にもとづいて関連を設定する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_bRefByGeometricMethod",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_bIntervalSwep\nプロパティ:\n- name: bIntervalSwep\n- description: 区間内だけをスイープする",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_bIntervalSwep",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 押し出しパラメータオブジェクト_ReferMethod\nプロパティ:\n- name: ReferMethod\n- description: 要素の関連づけ方法の指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "押し出しパラメータオブジェクト_ReferMethod",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 文字列\nプロパティ:\n- name: 文字列\n- description:     通常の文字列",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "文字列",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 浮動小数点\nプロパティ:\n- name: 浮動小数点\n- description: 　　通常の数値",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "浮動小数点",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 変数単位\nプロパティ:\n- name: 変数単位\n- description: 　長さ \"mm\",\"cm\",\"m\",\"in\",\"ft\",\"pt\"のいずれか\n　角度 \"deg\",\"rad\"のいずれか\n　数値 \"\"(空白),\"num\"のいずれか",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "変数単位",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 要素グループ\nプロパティ:\n- name: 要素グループ\n- description:   EVO.SHIPの要素グループ名\n　要素グループの階層は\"/\"で区切る",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "要素グループ",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 平面\nプロパティ:\n- name: 平面\n- description:   \",\" コンマで区切られた文字列で指定。最初のカラムは必ず\"PL\"\n  次のカラムが\"O\"の場合はその次のカラムにオフセット距離（長さ）を指定\n  以降は\n　〇　\"X\" グローバルＹＺ平面　, \"Y\" グローバルＺＸ平面　, \"Z\" グローバルＸＹ平面　\n　〇　\"F\"　の場合はボディのフェイスを指定　（要素の項参照）\n\n　例）\"PL,Z\"　グローバルＸＹ平面　\n  　　\"PL,O,500.0,X\" グローバルＹＺ平面をＸ方向に500移動させた平面",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "平面",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 長さ\nプロパティ:\n- name: 長さ\n- description:   mm単位の数値、変数要素名,式文字列、\n　例) \"100.0\" , \"L1\", \"L1 / 2.0\"",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "長さ",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: bool\nプロパティ:\n- name: bool\n- description: 　　通常の真偽値　True False \n\n以下のタイプは全てPythonの型としては文字列。文字列の書式の仕様",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "bool",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 注記スタイル\nプロパティ:\n- name: 注記スタイル\n- description: 　EVO.SHIPに設定している注記スタイルの名称",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "注記スタイル",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 点\nプロパティ:\n- name: 点\n- description:    \",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を長さ（変数も可）で指定\n　 例) \"100.0,50,0,0.0\" , \"FRM1,0.0,1000.0\"",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "点",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 方向\nプロパティ:\n- name: 方向\n- description:    〇　各軸方向は\"+X\",\"-X\",\"+Y\",\"-X\",\"+Z\",\"-Z\" で指定\n   〇　\",\" コンマで区切って各コンポーネントをＸ，Ｙ，Ｚ（３Ｄの場合）を数値（変数も可）で指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "方向",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 要素\nプロパティ:\n- name: 要素\n- description: 　(複数要素の場合は文字列の配列とする)\n  EVO.SHIPの各要素を指定する\n\n　〇IDで指定\n    EVO.SHIPの要素はユニークなIDを必ずもつのでそのID文字列を\"ID@\"をプレフィックスとして指定\n　　例）\"ID@d8baafc30be94411a6ab9d6173c1d1dd\" (d8baafc30be94411a6ab9d6173c1d1ddというIDをもつ要素)\n        \n　〇要素名で指定\n　　EVO.SHIPの要素名称は重複を許すので、複数見つかった際にどれになるかは不定\n　　要素名称はEVO.SHIPの要素グループを指定するのこともできる\n　　例）G1という要素グループ配下のG2という要素グループ配下のAという名前の要素の指定\n　　　　G1/G2/A\n\n  〇板ソリッド要素の板厚面を指定（条材ソリッドの場合はウェブ部分）\n　　必ず文字列配列で指定\n　　配列の最初の要素は\"PLS\"という固定文字列\n　　次の配列要素（２番目）は\"True\"か\"False\"で,\"True\"の場合はFace内部穴を削除する\n    次の配列要素（３番目）は常に\"False\" (システムで利用します）\n　　その次から３っつの要素（４番目、５番目、６番目）で板厚面のどちら側かを\n　　指定するために外側方向（おおよそ）をベクトル指定する\n　　最後の要素でソリッド要素を指定する\n   　例）[\"PLS\",\"False\",\"False\",\"0.0\",\"0.0\",\"-1.0\",\"ID@d8baafc30be94411a6ab9d6173c1d1dd\"]\n        d8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつソリッド要素（板材)の(0,0,-1)方向を向いている側の面の指定\n\n  〇ソリッドやシート要素のフェイスを指定\n　　\",\" コンマで区切られた文字列で指定\n　　最初のカラムでソリッドやシート要素のＩＤを指定、次のカラムは固定文字\"F\"、その次のカラムからフェイス上の点の座標値を指定（複数フェイス指定可能）\n　　例 \"ID@d8baafc30be94411a6ab9d6173c1d1dd,F,-10,0.5,2.3,-11.0,0.0,4.8\"\n      d8baafc30be94411a6ab9d6173c1d1ddというＩＤをもつ要素でそのFace上の座標値が(-10,0.5,2.3)と(-11.0,0.0,4.8)\n　　　である２つのフェイスを指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "要素",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 点(2D)\nプロパティ:\n- name: 点(2D)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "点(2D)",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 方向(2D)\nプロパティ:\n- name: 方向(2D)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "方向(2D)",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 整数\nプロパティ:\n- name: 整数\n- description: 　　通常の数値",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "整数",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 点(配列)\nプロパティ:\n- name: 点(配列)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "点(配列)",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 浮動小数点(配列)\nプロパティ:\n- name: 浮動小数点(配列)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "浮動小数点(配列)",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 範囲\nプロパティ:\n- name: 範囲\n- description:   上限、下限の数値をコンマで区切って指定\n 例)  \"0.0,1.0\" ,  \"L1,L2\", \"-1.0,1.0\"",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "範囲",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 要素ID\nプロパティ:\n- name: 要素ID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "要素ID",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 要素IDの配列\nプロパティ:\n- name: 要素IDの配列",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "要素IDの配列",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 材料\nプロパティ:\n- name: 材料\n- description:    EVO.SHIPに設定している材料の名称",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "材料",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: スイープ方向\nプロパティ:\n- name: スイープ方向\n- description: 　\"N\"  順方向\n  \"R\"　反対方向\n  \"B\"　両方向\n  \"2\"  ２方向\n  \"T\"   貫通",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "スイープ方向",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 角度\nプロパティ:\n- name: 角度\n- description:   度(°)単位の数値、変数要素名,式文字列、\n　例) \"30.0\" , \"Angle1\" , \"Angle1 * 0.2\"",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "角度",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 勾配２のタイプ\nプロパティ:\n- name: 勾配２のタイプ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "勾配２のタイプ",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 厚み付けタイプ\nプロパティ:\n- name: 厚み付けタイプ\n- description: 　\"+\"　内側\n　\"-\"　外側\n  \"B\"　両方向\n  \"2\"  ２方向\n  \"\" （空文字）厚み付けしない",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "厚み付けタイプ",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 関連設定\nプロパティ:\n- name: 関連設定\n- description: 　ボディ関連とする場合は\"B\"\n  それ以外（空白含む）はフィーチャー関連",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "関連設定",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: オペレーションタイプ\nプロパティ:\n- name: オペレーションタイプ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "オペレーションタイプ",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 要素(配列)\nプロパティ:\n- name: 要素(配列)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "要素(配列)",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: なし\nプロパティ:\n- name: なし",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "なし",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: TranslationCopy\n説明: 指定要素を移動コピーする",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "TranslationCopy",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: MirrorCopy\n説明: 指定要素をミラーコピーする",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "MirrorCopy",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateSolid\n説明: 空のソリッド要素を作成する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSolid",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateThicken\n説明: 指定したソリッド要素に指定要素厚みづけした形状を作成する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateThicken",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateOtherSolid\n説明: 指定したソリッド要素に別のソリッド要素形状を付加する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateOtherSolid",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateBracketParam\n説明: 船殻のブラケット要素のパラメータオブジェクトの作成",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBracketParam",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateBracket\n説明: 船殻のブラケットソリッド要素を作成する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBracket",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreatePlate\n説明: 船殻のプレートソリッド要素を作成する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreatePlate",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateProfileParam\n説明: 船殻の条材ソリッド要素のパラメータオブジェクトの作成",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateProfileParam",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: TranslationCopy_SrcElements\nプロパティ:\n- name: SrcElements\n- description: コピーする要素\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "TranslationCopy_SrcElements",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: TranslationCopy_nCopy\nプロパティ:\n- name: nCopy\n- description: コピーする数\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "TranslationCopy_nCopy",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: TranslationCopy_direction\nプロパティ:\n- name: direction\n- description: コピーする方向\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "TranslationCopy_direction",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: TranslationCopy_distance\nプロパティ:\n- name: distance\n- description: 移動距離\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "TranslationCopy_distance",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: TranslationCopy_ReferMethod\nプロパティ:\n- name: ReferMethod\n- description: 要素の関連づけ方法の指定\n- order: 4",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "TranslationCopy_ReferMethod",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: TranslationCopy_ReturnValue\nプロパティ:\n- description: コピーされた要素ID配列",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "TranslationCopy_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: MirrorCopy_SrcElements\nプロパティ:\n- name: SrcElements\n- description: コピーする要素\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "MirrorCopy_SrcElements",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: MirrorCopy_plane\nプロパティ:\n- name: plane\n- description: \n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "MirrorCopy_plane",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: MirrorCopy_ReferMethod\nプロパティ:\n- name: ReferMethod\n- description: 要素の関連づけ方法の指定\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "MirrorCopy_ReferMethod",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: MirrorCopy_ReturnValue\nプロパティ:\n- description: コピーされた要素ID配列",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "MirrorCopy_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSolid_SolidName\nプロパティ:\n- name: SolidName\n- description: 作成するソリッド要素名称(空文字可)\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSolid_SolidName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSolid_ElementGroup\nプロパティ:\n- name: ElementGroup\n- description: 作成するソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSolid_ElementGroup",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSolid_MaterialName\nプロパティ:\n- name: MaterialName\n- description: 作成するソリッド要素の材質名称(空文字可)\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSolid_MaterialName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateSolid_ReturnValue\nプロパティ:\n- description: 作成されたソリッドの要素ID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSolid_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateThicken_ThickenFeatureName\nプロパティ:\n- name: ThickenFeatureName\n- description: 作成する厚みづけフィーチャー要素名称(空文字可)\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateThicken_ThickenFeatureName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateThicken_TargetSolidName\nプロパティ:\n- name: TargetSolidName\n- description: 厚みづけフィーチャーを作成する対象のソリッドを指定\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateThicken_TargetSolidName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateThicken_OperationType\nプロパティ:\n- name: OperationType\n- description: ソリッドオペレーションのタイプを指定する\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateThicken_OperationType",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateThicken_Sheet\nプロパティ:\n- name: Sheet\n- description: 厚み付けをするシートやフェイス\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateThicken_Sheet",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateThicken_ThickenType\nプロパティ:\n- name: ThickenType\n- description: \n- order: 4",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateThicken_ThickenType",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateThicken_Thickeness1\nプロパティ:\n- name: Thickeness1\n- description: 板厚\n- order: 5",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateThicken_Thickeness1",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateThicken_Thickeness2\nプロパティ:\n- name: Thickeness2\n- description: 板厚２(厚み付けタイプが２方向のときに使用)\n- order: 6",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateThicken_Thickeness2",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateThicken_ThickenessOffset\nプロパティ:\n- name: ThickenessOffset\n- description: 厚みづけをするシート、フェイス要素のオフセット距離\n- order: 7",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateThicken_ThickenessOffset",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateThicken_ReferMethod\nプロパティ:\n- name: ReferMethod\n- description: 要素の関連づけ方法の指定\n- order: 8",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateThicken_ReferMethod",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateThicken_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 9",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateThicken_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateThicken_ReturnValue\nプロパティ:\n- description: 作成された厚みづけフィーチャーのID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateThicken_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateOtherSolid_OtherSolidFeatureName\nプロパティ:\n- name: OtherSolidFeatureName\n- description: 作成する別ソリッドフィーチャー要素名称(空文字可)\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateOtherSolid_OtherSolidFeatureName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateOtherSolid_TargetSolidName\nプロパティ:\n- name: TargetSolidName\n- description: 別ソリッドフィーチャーを作成する対象のソリッドを指定\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateOtherSolid_TargetSolidName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateOtherSolid_OperationType\nプロパティ:\n- name: OperationType\n- description: ソリッドオペレーションのタイプを指定する\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateOtherSolid_OperationType",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateOtherSolid_SourceSolid\nプロパティ:\n- name: SourceSolid\n- description: 別ソリッドフィーチャーとするソリッド要素を指定する\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateOtherSolid_SourceSolid",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateOtherSolid_ReferMethod\nプロパティ:\n- name: ReferMethod\n- description: 要素の関連づけ方法の指定\n- order: 4",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateOtherSolid_ReferMethod",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateOtherSolid_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 5",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateOtherSolid_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateOtherSolid_ReturnValue\nプロパティ:\n- description: 作成された別ソリッドフィーチャーのID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateOtherSolid_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateBracketParam_ReturnValue\nプロパティ:\n- description: ブラケット要素のパラメータオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBracketParam_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBracket_ParamObj\nプロパティ:\n- name: ParamObj\n- description: ブラケットパラメータオブジェクト\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBracket_ParamObj",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBracket_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBracket_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateBracket_ReturnValue\nプロパティ:\n- description: 作成したソリッド要素のID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBracket_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreatePlate_PlateName\nプロパティ:\n- name: PlateName\n- description: 作成するプレートソリッド要素名称(空文字可)\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreatePlate_PlateName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreatePlate_ElementGroup\nプロパティ:\n- name: ElementGroup\n- description: 作成するソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreatePlate_ElementGroup",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreatePlate_MaterialName\nプロパティ:\n- name: MaterialName\n- description: 作成するソリッド要素の材質名称(空文字可)\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreatePlate_MaterialName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreatePlate_Plane\nプロパティ:\n- name: Plane\n- description: プレートのる平面位置\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreatePlate_Plane",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreatePlate_PlaneOffset\nプロパティ:\n- name: PlaneOffset\n- description: 平面のオフセット距離を指定\n- order: 4",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreatePlate_PlaneOffset",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreatePlate_Thickness\nプロパティ:\n- name: Thickness\n- description: 板厚\n- order: 5",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreatePlate_Thickness",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreatePlate_nMold\nプロパティ:\n- name: nMold\n- description: \n- order: 6",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreatePlate_nMold",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreatePlate_MoldOffset\nプロパティ:\n- name: MoldOffset\n- description: モールド位置のオフセット距離\n- order: 7",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreatePlate_MoldOffset",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreatePlate_BoundSolid\nプロパティ:\n- name: BoundSolid\n- description: プレートソリッドの境界となるソリッド要素。\n- order: 8",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreatePlate_BoundSolid",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreatePlate_Section1End1\nプロパティ:\n- name: Section1End1\n- description: プレートソリッドの平面上の方向１の境界位置の座標値１\n- order: 9",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreatePlate_Section1End1",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreatePlate_Section1End2\nプロパティ:\n- name: Section1End2\n- description: プレートソリッドの平面上の方向１の境界位置の座標値２\n- order: 10",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreatePlate_Section1End2",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreatePlate_Section2End1\nプロパティ:\n- name: Section2End1\n- description: プレートソリッドの平面上の方向２の境界位置の座標値１\n- order: 11",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreatePlate_Section2End1",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreatePlate_Section2End2\nプロパティ:\n- name: Section2End2\n- description: プレートソリッドの平面上の方向２の境界位置の座標値２\n- order: 12",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreatePlate_Section2End2",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreatePlate_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 13",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreatePlate_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreatePlate_ReturnValue\nプロパティ:\n- description: 作成したソリッド要素のID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreatePlate_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateProfileParam_ReturnValue\nプロパティ:\n- description: 条材要素のパラメータオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateProfileParam_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: モールド位置\nプロパティ:\n- name: モールド位置\n- description: 　\"+\"　＋側\n　\"-\"　ー側\n  \"\" （空文字）センター",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "モールド位置",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 要素ID配列\nプロパティ:\n- name: 要素ID配列",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "要素ID配列",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 形状タイプ\nプロパティ:\n- name: 形状タイプ\n- description: 　EVO.SHIPの部材既定寸法設定ファイルで用いる形状番号 (ヘルプのEVO.SHIPの基礎→船殻設計機能→部材既定寸法設定ファイルの項を\n　参照)\n　例）\"1007\" 平鋼、\"1003\" 不等辺不等厚山形鋼 \n      \"1101\" 条材端部Sタイプ　、\"1120\" 条材端部スカラップA1タイプ\n　　　\"1503\"  ブラケット2-Bタイプ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "形状タイプ",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 形状パラメータ\nプロパティ:\n- name: 形状パラメータ\n- description: 　　各形状タイプの寸法値を文字列配列で設定\n　　例) 不当辺山形鋼(1002)の形状タイプの場合　[\"150.\",\"90.\",\"9.0000000000000018\",\"12.\",\"6.\"]",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "形状パラメータ",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 位置と角度配列\nプロパティ:\n- name: 位置と角度配列",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "位置と角度配列",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: ブラケット要素のパラメータオブジェクト\nプロパティ:\n- name: ブラケット要素のパラメータオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 条材要素のパラメータオブジェクト\nプロパティ:\n- name: 条材要素のパラメータオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_DefinitionType\nプロパティ:\n- name: DefinitionType\n- description: ブラケットの作成方法指定 (0: 面指定, 1: 基準要素指定 など)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_DefinitionType",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_BracketName\nプロパティ:\n- name: BracketName\n- description: 作成するブラケットソリッド要素名称(空文字可)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_BracketName",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_ElementGroup\nプロパティ:\n- name: ElementGroup\n- description: 作成するソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_ElementGroup",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_MaterialName\nプロパティ:\n- name: MaterialName\n- description: 作成するソリッド要素の材質名称(空文字可)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_MaterialName",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_BasePlane\nプロパティ:\n- name: BasePlane\n- description: 面指定の場合の基準平面",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_BasePlane",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_BasePlaneOffset\nプロパティ:\n- name: BasePlaneOffset\n- description: 基準平面のオフセット距離",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_BasePlaneOffset",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_BaseElement\nプロパティ:\n- name: BaseElement\n- description: 基準要素指定の場合の基準要素",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_BaseElement",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_UseSideSheetForPlane\nプロパティ:\n- name: UseSideSheetForPlane\n- description: 三面指定の場合はTrue",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_UseSideSheetForPlane",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_Thickness\nプロパティ:\n- name: Thickness\n- description: 板厚",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_Thickness",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_Mold\nプロパティ:\n- name: Mold\n- description:",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_Mold",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_MoldOffset\nプロパティ:\n- name: MoldOffset\n- description: モールド位置のオフセット距離",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_MoldOffset",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_BracketType\nプロパティ:\n- name: BracketType\n- description: ブラケットの形状タイプ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_BracketType",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_BracketParams\nプロパティ:\n- name: BracketParams\n- description: ブラケットの形状タイプのパラメータ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_BracketParams",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_Scallop1Type\nプロパティ:\n- name: Scallop1Type\n- description: ブラケットのスカラップの形状タイプ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_Scallop1Type",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_Scallop1Params\nプロパティ:\n- name: Scallop1Params\n- description: ブラケットのスカラップの形状タイプのパラメータ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_Scallop1Params",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_nScallop2Type\nプロパティ:\n- name: nScallop2Type\n- description: ３面ブラケットの場合のスカラップ２の形状タイプ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_nScallop2Type",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_Scallop2Params\nプロパティ:\n- name: Scallop2Params\n- description: ブラケットのスカラップ２の形状タイプのパラメータ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_Scallop2Params",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_Surfaces1\nプロパティ:\n- name: Surfaces1\n- description: ブラケット作成する面１の要素(ソリッド、シート、フェイス)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_Surfaces1",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_RevSf1\nプロパティ:\n- name: RevSf1\n- description: 面１の反対側にブラケットを作成する場合はTrue",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_RevSf1",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_Surfaces2\nプロパティ:\n- name: Surfaces2\n- description: ブラケット作成する面2の要素(ソリッド、シート、フェイス)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_Surfaces2",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_RevSf2\nプロパティ:\n- name: RevSf2\n- description: 面2の反対側にブラケットを作成する場合はTrue",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_RevSf2",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_Surfaces3\nプロパティ:\n- name: Surfaces3\n- description: ３面ブラケット作成する場合の面３の要素(ソリッド、シート、フェイス)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_Surfaces3",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_RevSf3\nプロパティ:\n- name: RevSf3\n- description: 面3の反対側にブラケットを作成する場合はTrue",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_RevSf3",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_FlangeType\nプロパティ:\n- name: FlangeType\n- description: ブラケットのフランジの形状タイプ　(0の場合はフランジをつけない)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_FlangeType",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_FlangeParams\nプロパティ:\n- name: FlangeParams\n- description: ブラケットのフランジの形状タイプのパラメータ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_FlangeParams",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_RevFlange\nプロパティ:\n- name: RevFlange\n- description: フランジの向きを反転する場合はTrue",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_RevFlange",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_FlangeAngle\nプロパティ:\n- name: FlangeAngle\n- description: フランジの角度指定　０°は直角を意味し、そこからの増分を＋−で指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_FlangeAngle",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_Sf1DimensionType\nプロパティ:\n- name: Sf1DimensionType\n- description: 面１方向の寸法タイプ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_Sf1DimensionType",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_Sf1DimensonParams\nプロパティ:\n- name: Sf1DimensonParams\n- description: 面１方向の寸法タイプのパラメータ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_Sf1DimensonParams",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_Sf1EndElements\nプロパティ:\n- name: Sf1EndElements\n- description: 面１方向の端部要素(必要な形状タイプの場合)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_Sf1EndElements",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_Sf1BaseElements\nプロパティ:\n- name: Sf1BaseElements\n- description: 面１方向の基準要素(必要な形状タイプの場合)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_Sf1BaseElements",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_Sf2DimensionType\nプロパティ:\n- name: Sf2DimensionType\n- description: 面２方向の寸法タイプ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_Sf2DimensionType",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_Sf2DimensonParams\nプロパティ:\n- name: Sf2DimensonParams\n- description: 面２方向の寸法タイプのパラメータ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_Sf2DimensonParams",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_Sf2EndElements\nプロパティ:\n- name: Sf2EndElements\n- description: 面２方向の端部要素(必要な形状タイプの場合)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_Sf2EndElements",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_Sf2BaseElements\nプロパティ:\n- name: Sf2BaseElements\n- description: 面２方向の基準要素(必要な形状タイプの場合)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_Sf2BaseElements",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_ScallopEnd1LowerType\nプロパティ:\n- name: ScallopEnd1LowerType\n- description: 面１方向の下側端部のスカラップのタイプ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_ScallopEnd1LowerType",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_ScallopEnd1LowerParams\nプロパティ:\n- name: ScallopEnd1LowerParams\n- description: 面１方向の下側端部のスカラップのタイプのパラメータ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_ScallopEnd1LowerParams",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_ScallopEnd1UpperType\nプロパティ:\n- name: ScallopEnd1UpperType\n- description: 面１方向の上側端部のスカラップのタイプ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_ScallopEnd1UpperType",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_ScallopEnd1UpperParams\nプロパティ:\n- name: ScallopEnd1UpperParams\n- description: 面１方向の上側端部のスカラップのタイプのパラメータ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_ScallopEnd1UpperParams",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_ScallopEnd2LowerType\nプロパティ:\n- name: ScallopEnd2LowerType\n- description: 面２方向の下側端部のスカラップのタイプ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_ScallopEnd2LowerType",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_ScallopEnd2LowerParams\nプロパティ:\n- name: ScallopEnd2LowerParams\n- description: 面２方向の下側端部のスカラップのタイプのパラメータ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_ScallopEnd2LowerParams",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_ScallopEnd2UpperType\nプロパティ:\n- name: ScallopEnd2UpperType\n- description: 面２方向の上側端部のスカラップのタイプ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_ScallopEnd2UpperType",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_ScallopEnd2UpperParams\nプロパティ:\n- name: ScallopEnd2UpperParams\n- description: 面２方向の上側端部のスカラップのタイプのパラメータ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_ScallopEnd2UpperParams",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_WCS\nプロパティ:\n- name: WCS\n- description: ブラケットが使用する座標系を指定。通常は指定しない",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_WCS",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: ブラケット要素のパラメータオブジェクト_ReferMethod\nプロパティ:\n- name: ReferMethod\n- description: 要素の関連づけ方法の指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ブラケット要素のパラメータオブジェクト_ReferMethod",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_DefinitionType\nプロパティ:\n- name: DefinitionType\n- description: の作成方法指定　0:取付線指定 　1:基準面指定  2:取付線＋指定方向線  3: 元要素指定　4:ホール指定  5:２点  6:ロンジ間  7:基準線指定  8:基準点と方向  9:基準要素",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_DefinitionType",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_ProfileName\nプロパティ:\n- name: ProfileName\n- description: 作成する条材ソリッド要素名称(空文字可)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_ProfileName",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_ElementGroup\nプロパティ:\n- name: ElementGroup\n- description: 作成するソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_ElementGroup",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_MaterialName\nプロパティ:\n- name: MaterialName\n- description: 作成するソリッド要素の材質名称(空文字可)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_MaterialName",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_FlangeName\nプロパティ:\n- name: FlangeName\n- description: ビルトアップを作成する場合のフランジソリッド要素名称(空文字可)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_FlangeName",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_FlangeElementGroup\nプロパティ:\n- name: FlangeElementGroup\n- description: フランジソリッド要素を要素グループに入れる場合は要素グループを指定(空文字可)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_FlangeElementGroup",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_FlangeMaterialName\nプロパティ:\n- name: FlangeMaterialName\n- description: 作成するフランジソリッド要素の材質名称(空文字可)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_FlangeMaterialName",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_ProfileType\nプロパティ:\n- name: ProfileType\n- description: 条材の形状タイプを指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_ProfileType",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_ProfileParam\nプロパティ:\n- name: ProfileParam\n- description: 条材の形状タイプのパラメータ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_ProfileParam",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_FaceAngle\nプロパティ:\n- name: FaceAngle\n- description: ビルトアップを作成する場合のフランジの角度指定　０°は直角を意味し、そこからの増分を＋−で指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_FaceAngle",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_ConnectionTol\nプロパティ:\n- name: ConnectionTol\n- description: 取付線が複数の場合の連続性の判定トレランスを指定(通常は指定しない、空文字)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_ConnectionTol",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_Mold\nプロパティ:\n- name: Mold\n- description:",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_Mold",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_MoldOffset\nプロパティ:\n- name: MoldOffset\n- description: モールド位置のオフセット距離",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_MoldOffset",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_ReverseDir\nプロパティ:\n- name: ReverseDir\n- description: 取付方向を反転する時True",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_ReverseDir",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_ReverseAngle\nプロパティ:\n- name: ReverseAngle\n- description: アングル方向を反転する時True",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_ReverseAngle",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_BaseOnAttachLines\nプロパティ:\n- name: BaseOnAttachLines\n- description: 取付線の境界を基準にする時True",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_BaseOnAttachLines",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_CalcSnipOnlyAttachLines\nプロパティ:\n- name: CalcSnipOnlyAttachLines\n- description: 端部スニップ量を取付線のみで計算する時True",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_CalcSnipOnlyAttachLines",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_NotProfjectAttachLines\nプロパティ:\n- name: NotProfjectAttachLines\n- description: 取付線を取付面に投影しない時True",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_NotProfjectAttachLines",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_ProjectionDir\nプロパティ:\n- name: ProjectionDir\n- description: 取付線を投影する場合に設定。通常は設定しない(空白文字)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_ProjectionDir",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_AttachDirMethod\nプロパティ:\n- name: AttachDirMethod\n- description: 条材取付方向設定　0: デフォルト　1:基準平面内　2:取付角度指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_AttachDirMethod",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_AttachAngle\nプロパティ:\n- name: AttachAngle\n- description: 取付角度指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_AttachAngle",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_AttachDirection\nプロパティ:\n- name: AttachDirection\n- description: 条材取付方向 を指定する場合に設定する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_AttachDirection",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_DefAnglePositionAxisDir\nプロパティ:\n- name: DefAnglePositionAxisDir\n- description: ねじれた条材を作成する場合のそのネジレ角度を定義する軸方向を指定。",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_DefAnglePositionAxisDir",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_DefAngleBaseDir\nプロパティ:\n- name: DefAngleBaseDir\n- description: ねじれた条材を作成する場合のそのネジレ角度の基準となる軸方向を指定。",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_DefAngleBaseDir",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_CCWDefAngle\nプロパティ:\n- name: CCWDefAngle\n- description: ねじれた条材を作成する場合のネジレ角度を反統計まわりに指定する場合はTrue",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_CCWDefAngle",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_DefPossitionAngles\nプロパティ:\n- name: DefPossitionAngles\n- description: ねじれた条材を作成する場合のネジレ角度を位置と角度で指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_DefPossitionAngles",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_DefPositionNormalAngles\nプロパティ:\n- name: DefPositionNormalAngles\n- description: ねじれた条材を作成する場合のネジレ角度を位置と角度を取付面の法線位置からの差分で指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_DefPositionNormalAngles",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_End1Elements\nプロパティ:\n- name: End1Elements\n- description: 端部１、端部となる要素を指定する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_End1Elements",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_End1Type\nプロパティ:\n- name: End1Type\n- description: 端部１、条材の端部タイプを指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_End1Type",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_End1TypeParams\nプロパティ:\n- name: End1TypeParams\n- description: 端部１、条材の端部タイプのパラメータ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_End1TypeParams",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_End2Elements\nプロパティ:\n- name: End2Elements\n- description: 端部２、端部となる要素を指定する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_End2Elements",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_End2Type\nプロパティ:\n- name: End2Type\n- description: 端部２、条材の端部タイプを指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_End2Type",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_End2TypeParams\nプロパティ:\n- name: End2TypeParams\n- description: 端部２、条材の端部タイプのパラメータ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_End2TypeParams",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_End1ScallopType\nプロパティ:\n- name: End1ScallopType\n- description: 端部１、条材の端部スカラップタイプを指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_End1ScallopType",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_End1ScallopTypeParams\nプロパティ:\n- name: End1ScallopTypeParams\n- description: 端部１、条材の端部スカラップタイプのパラメータ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_End1ScallopTypeParams",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_End2ScallopType\nプロパティ:\n- name: End2ScallopType\n- description: 端部２、条材の端部スカラップタイプを指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_End2ScallopType",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_End2ScallopTypeParams\nプロパティ:\n- name: End2ScallopTypeParams\n- description: 端部２、条材の端部スカラップタイプのパラメータ",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_End2ScallopTypeParams",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_AttachLines\nプロパティ:\n- name: AttachLines\n- description: 条材の取付線",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_AttachLines",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_AttachSurface\nプロパティ:\n- name: AttachSurface\n- description: 条材を取り付ける面要素(フェイス、シートボディ)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_AttachSurface",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_BasePlane\nプロパティ:\n- name: BasePlane\n- description: 基準面要素(平面、シート、フェイス)を指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_BasePlane",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_BasePlaneOffset\nプロパティ:\n- name: BasePlaneOffset\n- description: 基準面のオフセット距離を指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_BasePlaneOffset",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_BaseSolid\nプロパティ:\n- name: BaseSolid\n- description: 基準要素(ソリッド)を指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_BaseSolid",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_PathCurves\nプロパティ:\n- name: PathCurves\n- description: 取付線(取付線＋指定方向線で作成する際に使用する)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_PathCurves",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_DirLines\nプロパティ:\n- name: DirLines\n- description: 基準直線(取付線＋指定方向線で作成する際に使用する)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_DirLines",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_OrignalProfile\nプロパティ:\n- name: OrignalProfile\n- description: 作成元の条材(元要素指定で作成する際に使用する)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_OrignalProfile",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_HoleFeature\nプロパティ:\n- name: HoleFeature\n- description: ホールフィーチャー(ホール指定で作成する際に使用する)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_HoleFeature",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_LocationAtHole\nプロパティ:\n- name: LocationAtHole\n- description: 条材の位置　0:上 1:下 2:左 3:右　(ホール指定で作成する際に使用する)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_LocationAtHole",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_BasePoint1\nプロパティ:\n- name: BasePoint1\n- description: 基準点1 (２点もしくは基準点と方向で作成する際に使用する)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_BasePoint1",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_BasePoint2\nプロパティ:\n- name: BasePoint2\n- description: 基準点2 (２点で作成する際に使用する)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_BasePoint2",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_BaseProfile1\nプロパティ:\n- name: BaseProfile1\n- description: ロンジ１(ロンジ間で作成する際に使用する)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_BaseProfile1",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_BaseProfile2\nプロパティ:\n- name: BaseProfile2\n- description: ロンジ２(ロンジ間で作成する際に使用する)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_BaseProfile2",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_BaseDirection1\nプロパティ:\n- name: BaseDirection1\n- description: (基準点と方向で作成する際に使用する)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_BaseDirection1",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_BaseDirection2\nプロパティ:\n- name: BaseDirection2\n- description: 取付方向指定　(基準点と方向で作成する際に使用する)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_BaseDirection2",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_BaseLocation\nプロパティ:\n- name: BaseLocation\n- description: 基準位置 0:左下 1:中下 2:右下 3:左中 4:中中 5:右中 6:左上 7:中上 8:右上 (基準点と方向で作成する際に使用する)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_BaseLocation",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 条材要素のパラメータオブジェクト_ReferMethod\nプロパティ:\n- name: ReferMethod\n- description: 要素の関連づけ方法の指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "条材要素のパラメータオブジェクト_ReferMethod",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 角度(配列)\nプロパティ:\n- name: 角度(配列)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "角度(配列)",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: スイープパラメータオブジェクト\nプロパティ:\n- name: スイープパラメータオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "スイープパラメータオブジェクト",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: 回転パラメータオブジェクト\nプロパティ:\n- name: 回転パラメータオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "回転パラメータオブジェクト",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: スイープパラメータオブジェクト_NAME\nプロパティ:\n- name: NAME\n- description: 要素名(空文字可)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "スイープパラメータオブジェクト_NAME",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: スイープパラメータオブジェクト_ElementGroup\nプロパティ:\n- name: ElementGroup\n- description: 作成するシート要素を要素グループに入れる場合は要素グループを指定(空文字可)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "スイープパラメータオブジェクト_ElementGroup",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: スイープパラメータオブジェクト_MaterialName\nプロパティ:\n- name: MaterialName\n- description: 作成するシード要素の材質名称(空文字可)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "スイープパラメータオブジェクト_MaterialName",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: スイープパラメータオブジェクト_ReferMethod\nプロパティ:\n- name: ReferMethod\n- description: 要素の関連づけ方法の指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "スイープパラメータオブジェクト_ReferMethod",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: スイープパラメータオブジェクト_bRefByGeometricMethod\nプロパティ:\n- name: bRefByGeometricMethod\n- description: Trueの時は幾何位置にもとづいて関連を設定する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "スイープパラメータオブジェクト_bRefByGeometricMethod",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: スイープパラメータオブジェクト_ThickenType\nプロパティ:\n- name: ThickenType\n- description:",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "スイープパラメータオブジェクト_ThickenType",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: スイープパラメータオブジェクト_Thickeness1\nプロパティ:\n- name: Thickeness1\n- description: 板厚",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "スイープパラメータオブジェクト_Thickeness1",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: スイープパラメータオブジェクト_Thickeness2\nプロパティ:\n- name: Thickeness2\n- description: 板厚２(厚み付けタイプが２方向のときに使用)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "スイープパラメータオブジェクト_Thickeness2",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: スイープパラメータオブジェクト_ThickenessOffset\nプロパティ:\n- name: ThickenessOffset\n- description: 厚みづけのオフセット距離",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "スイープパラメータオブジェクト_ThickenessOffset",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: スイープパラメータオブジェクト_Profile\nプロパティ:\n- name: Profile\n- description: スイープのプロファイル要素(スケッチ、線)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "スイープパラメータオブジェクト_Profile",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: スイープパラメータオブジェクト_Path\nプロパティ:\n- name: Path\n- description: スイープのパス要素(スケッチ、線)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "スイープパラメータオブジェクト_Path",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: スイープパラメータオブジェクト_ProfileNormal\nプロパティ:\n- name: ProfileNormal\n- description: プロファイルの平面法線方向。(プロファイルが３Dの直線の場合にその平面法線として指定。)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "スイープパラメータオブジェクト_ProfileNormal",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: スイープパラメータオブジェクト_LockDirection\nプロパティ:\n- name: LockDirection\n- description: プロファイルをパスに沿って回転させずに固定してスイープさせる際に使用する固定方向",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "スイープパラメータオブジェクト_LockDirection",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: スイープパラメータオブジェクト_TwistLine\nプロパティ:\n- name: TwistLine\n- description: ねじれを定義する直線",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "スイープパラメータオブジェクト_TwistLine",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: スイープパラメータオブジェクト_TwistPosition\nプロパティ:\n- name: TwistPosition\n- description: ねじれを定義する位置(点)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "スイープパラメータオブジェクト_TwistPosition",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: スイープパラメータオブジェクト_TwistAngle\nプロパティ:\n- name: TwistAngle\n- description: ねじれの定義点でのねじれ角度",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "スイープパラメータオブジェクト_TwistAngle",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: スイープパラメータオブジェクト_ParallelSweep\nプロパティ:\n- name: ParallelSweep\n- description: プロファイルをパスにたいして平行になるようにスイープさせるときTrue",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "スイープパラメータオブジェクト_ParallelSweep",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: スイープパラメータオブジェクト_MinimizeFace\nプロパティ:\n- name: MinimizeFace\n- description: スイープされた要素を構成するフェイスの数を最小化させるときTrue",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "スイープパラメータオブジェクト_MinimizeFace",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 回転パラメータオブジェクト_NAME\nプロパティ:\n- name: NAME\n- description: 要素名(空文字可)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "回転パラメータオブジェクト_NAME",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 回転パラメータオブジェクト_ElementGroup\nプロパティ:\n- name: ElementGroup\n- description: 作成するシート要素を要素グループに入れる場合は要素グループを指定(空文字可)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "回転パラメータオブジェクト_ElementGroup",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 回転パラメータオブジェクト_MaterialName\nプロパティ:\n- name: MaterialName\n- description: 作成するシード要素の材質名称(空文字可)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "回転パラメータオブジェクト_MaterialName",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 回転パラメータオブジェクト_ReferMethod\nプロパティ:\n- name: ReferMethod\n- description: 要素の関連づけ方法の指定",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "回転パラメータオブジェクト_ReferMethod",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 回転パラメータオブジェクト_bRefByGeometricMethod\nプロパティ:\n- name: bRefByGeometricMethod\n- description: Trueの時は幾何位置にもとづいて関連を設定する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "回転パラメータオブジェクト_bRefByGeometricMethod",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 回転パラメータオブジェクト_ThickenType\nプロパティ:\n- name: ThickenType\n- description:",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "回転パラメータオブジェクト_ThickenType",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 回転パラメータオブジェクト_Thickeness1\nプロパティ:\n- name: Thickeness1\n- description: 板厚",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "回転パラメータオブジェクト_Thickeness1",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 回転パラメータオブジェクト_Thickeness2\nプロパティ:\n- name: Thickeness2\n- description: 板厚２(厚み付けタイプが２方向のときに使用)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "回転パラメータオブジェクト_Thickeness2",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 回転パラメータオブジェクト_ThickenessOffset\nプロパティ:\n- name: ThickenessOffset\n- description: 厚みづけのオフセット距離",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "回転パラメータオブジェクト_ThickenessOffset",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 回転パラメータオブジェクト_Profile\nプロパティ:\n- name: Profile\n- description: 回転のプロファイル要素(スケッチ、線)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "回転パラメータオブジェクト_Profile",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 回転パラメータオブジェクト_Axis\nプロパティ:\n- name: Axis\n- description: 回転の回転軸要素(線)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "回転パラメータオブジェクト_Axis",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 回転パラメータオブジェクト_DirectionType\nプロパティ:\n- name: DirectionType\n- description:",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "回転パラメータオブジェクト_DirectionType",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 回転パラメータオブジェクト_Angle\nプロパティ:\n- name: Angle\n- description: 回転角度",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "回転パラメータオブジェクト_Angle",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: 回転パラメータオブジェクト_Angle2\nプロパティ:\n- name: Angle2\n- description: スイープ方向が２方向だった場合の２方向側の回転角度",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "回転パラメータオブジェクト_Angle2",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateProfile\n説明: 船殻の条材ソリッド要素を取付線指定で作成する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateProfile",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateProfile_ReturnValue\nプロパティ:\n- description: 作成した条材ソリッド要素のID(配列　配列[0]Web要素 配列[1]フランジ要素",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateProfile_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateProfile_ParamObj\nプロパティ:\n- name: ParamObj\n- description: 条材要素のパラメータオブジェクト\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateProfile_ParamObj",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateProfile_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateProfile_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: BodyDivideByElements\n説明: ボディを指定した要素で分割する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByElements",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: BodyDivideByElements_ReturnValue\nプロパティ:\n- description: 分割で作成されたボディ要素のID配列",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByElements_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByElements_pDriveFeatureName\nプロパティ:\n- name: pDriveFeatureName\n- description: 作成する分割フィーチャー要素名称(空文字可)\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByElements_pDriveFeatureName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByElements_pTargetBody\nプロパティ:\n- name: pTargetBody\n- description: 分割対象のボディ\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByElements_pTargetBody",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByElements_pDivideElements\nプロパティ:\n- name: pDivideElements\n- description: 分割をする要素(シートボディ、フェイス、平面要素)\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByElements_pDivideElements",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByElements_pAlignmentDirection\nプロパティ:\n- name: pAlignmentDirection\n- description: 分割されたボディ要素の順番を整列させるのに使用する方向\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByElements_pAlignmentDirection",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByElements_pWCS\nプロパティ:\n- name: pWCS\n- description: 方向を定義する座標系(通常は指定しない)\n- order: 4",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByElements_pWCS",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByElements_ReferMethod\nプロパティ:\n- name: ReferMethod\n- description: 要素の関連づけ方法の指定\n- order: 5",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByElements_ReferMethod",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByElements_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 6",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByElements_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: BodySeparateBySubSolids\n説明: ボディを指定したソリッドで削除することで分割する(ボディの区分けコマンド)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodySeparateBySubSolids",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: BodySeparateBySubSolids_ReturnValue\nプロパティ:\n- description: 分割で作成されたボディ要素のID配列",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodySeparateBySubSolids_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodySeparateBySubSolids_pSeparateFeatureName\nプロパティ:\n- name: pSeparateFeatureName\n- description: 作成する分割フィーチャー要素名称(空文字可)\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodySeparateBySubSolids_pSeparateFeatureName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodySeparateBySubSolids_pTargetBody\nプロパティ:\n- name: pTargetBody\n- description: 分割対象のボディ\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodySeparateBySubSolids_pTargetBody",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodySeparateBySubSolids_pSubSolids\nプロパティ:\n- name: pSubSolids\n- description: 分割をするソリッド要素\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodySeparateBySubSolids_pSubSolids",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodySeparateBySubSolids_pAlignmentDirection\nプロパティ:\n- name: pAlignmentDirection\n- description: 分割されたボディ要素の順番を整列させるのに使用する方向\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodySeparateBySubSolids_pAlignmentDirection",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodySeparateBySubSolids_ReferMethod\nプロパティ:\n- name: ReferMethod\n- description: 要素の関連づけ方法の指定\n- order: 4",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodySeparateBySubSolids_ReferMethod",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodySeparateBySubSolids_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 5",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodySeparateBySubSolids_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: BodyDivideByCurves\n説明: ボディを指定した線で分割する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByCurves",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: BodyDivideByCurves_ReturnValue\nプロパティ:\n- description: 分割で作成されたボディ要素のID配列",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByCurves_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByCurves_pDriveFeatureName\nプロパティ:\n- name: pDriveFeatureName\n- description: 作成する分割フィーチャー要素名称(空文字可)\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByCurves_pDriveFeatureName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByCurves_pTargetBody\nプロパティ:\n- name: pTargetBody\n- description: 分割対象のボディ\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByCurves_pTargetBody",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByCurves_pDivideCurves\nプロパティ:\n- name: pDivideCurves\n- description: 分割をするスケッチ等の線要素\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByCurves_pDivideCurves",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByCurves_bNorProjection\nプロパティ:\n- name: bNorProjection\n- description: 線要素を要素に投影するかどうかのフラグ\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByCurves_bNorProjection",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByCurves_CorrectEndPointsTolerance\nプロパティ:\n- name: CorrectEndPointsTolerance\n- description: 分割線が複数の場合の分割線同士のの判定トレランスを指定(通常は指定しない、空文字)\n- order: 4",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByCurves_CorrectEndPointsTolerance",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByCurves_AlignmentDirection\nプロパティ:\n- name: AlignmentDirection\n- description: 分割されたボディ要素の順番を整列させるのに使用する方向\n- order: 5",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByCurves_AlignmentDirection",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByCurves_ReferMethod\nプロパティ:\n- name: ReferMethod\n- description: 要素の関連づけ方法の指定\n- order: 6",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByCurves_ReferMethod",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByCurves_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 7",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByCurves_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: BodyDivideByPlanes\n説明: ボディを指定した平面で分割する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByPlanes",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: BodyDivideByPlanes_ReturnValue\nプロパティ:\n- description: 分割で作成されたボディ要素のID配列",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByPlanes_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByPlanes_pDriveFeatureName\nプロパティ:\n- name: pDriveFeatureName\n- description: 作成する分割フィーチャー要素名称(空文字可)\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByPlanes_pDriveFeatureName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByPlanes_TargetBody\nプロパティ:\n- name: TargetBody\n- description: 分割対象のボディ\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByPlanes_TargetBody",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByPlanes_plane\nプロパティ:\n- name: plane\n- description: 分割をする平面\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByPlanes_plane",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByPlanes_PlaneDeltaCopy\nプロパティ:\n- name: PlaneDeltaCopy\n- description: 分割をする平面をコピーする際のオフセット距離\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByPlanes_PlaneDeltaCopy",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByPlanes_nPlaneCopy\nプロパティ:\n- name: nPlaneCopy\n- description: 分割をする平面を複数コピーして分割をする(通常は1)\n- order: 4",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByPlanes_nPlaneCopy",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByPlanes_pAlignmentDirection\nプロパティ:\n- name: pAlignmentDirection\n- description: 分割されたボディ要素の順番を整列させるのに使用する方向\n- order: 5",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByPlanes_pAlignmentDirection",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByPlanes_WCS\nプロパティ:\n- name: WCS\n- description: 要素分割に使用する座標系を指定。通常は指定しない\n- order: 6",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByPlanes_WCS",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByPlanes_ReferMethod\nプロパティ:\n- name: ReferMethod\n- description: 要素の関連づけ方法の指定\n- order: 7",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByPlanes_ReferMethod",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: BodyDivideByPlanes_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 8",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "BodyDivideByPlanes_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CutBody\n説明: ボディを指定した要素でカットする",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CutBody",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CutBody_ReturnValue\nプロパティ:\n- description: 作成されたカットフィーチャーのID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CutBody_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CutBody_FeatureName\nプロパティ:\n- name: FeatureName\n- description: 作成するカットフィーチャー要素名称(空文字可)\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CutBody_FeatureName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CutBody_TargetBody\nプロパティ:\n- name: TargetBody\n- description: カット対象のソリッド、シート\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CutBody_TargetBody",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CutBody_CutElement\nプロパティ:\n- name: CutElement\n- description: カットする要素(平面、シート)\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CutBody_CutElement",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CutBody_ElementOffset\nプロパティ:\n- name: ElementOffset\n- description: カットする要素のオフセット距離を指定\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CutBody_ElementOffset",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CutBody_bCutForward\nプロパティ:\n- name: bCutForward\n- description: 要素の関連づけ方法の指定\n- order: 4",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CutBody_bCutForward",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CutBody_ReferMethod\nプロパティ:\n- name: ReferMethod\n- description: \n- order: 5",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CutBody_ReferMethod",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateBoundedPlate\n説明: 指定したソリッド要素に境界要素を指定した板形状を作成する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundedPlate",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateBoundedPlate_ReturnValue\nプロパティ:\n- description: 作成された境界要素指定フィーチャーのID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundedPlate_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBoundedPlate_FeatureName\nプロパティ:\n- name: FeatureName\n- description: 作成する境界要素指定フィーチャー要素名称(空文字可)\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundedPlate_FeatureName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBoundedPlate_TargetSolid\nプロパティ:\n- name: TargetSolid\n- description: 境界要素指定フィーチャーを作成する対象のソリッドを指定\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundedPlate_TargetSolid",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBoundedPlate_OperationType\nプロパティ:\n- name: OperationType\n- description: ソリッドオペレーションのタイプを指定する\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundedPlate_OperationType",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBoundedPlate_Plane\nプロパティ:\n- name: Plane\n- description: 板の定義平面位置\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundedPlate_Plane",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBoundedPlate_PlaneOffset\nプロパティ:\n- name: PlaneOffset\n- description: 平面のオフセット距離を指定\n- order: 4",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundedPlate_PlaneOffset",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBoundedPlate_BoundObjects\nプロパティ:\n- name: BoundObjects\n- description: 境界要素(シート、フェイス、スケッチ、平面、ソリッド)\n- order: 5",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundedPlate_BoundObjects",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBoundedPlate_ThickenType\nプロパティ:\n- name: ThickenType\n- description: \n- order: 6",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundedPlate_ThickenType",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBoundedPlate_Thickness1\nプロパティ:\n- name: Thickness1\n- description: 板厚\n- order: 7",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundedPlate_Thickness1",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBoundedPlate_Thickness2\nプロパティ:\n- name: Thickness2\n- description: 板厚２(厚み付けタイプが２方向のときに使用)\n- order: 8",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundedPlate_Thickness2",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBoundedPlate_ThicknessOffset\nプロパティ:\n- name: ThicknessOffset\n- description: 厚みづけをする板のオフセット距離\n- order: 9",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundedPlate_ThicknessOffset",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBoundedPlate_RefByGeometricMethod\nプロパティ:\n- name: RefByGeometricMethod\n- description: Trueの時は幾何位置にもとづいて関連を設定する\n- order: 10",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundedPlate_RefByGeometricMethod",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBoundedPlate_ReferMethod\nプロパティ:\n- name: ReferMethod\n- description: 要素の関連づけ方法の指定\n- order: 11",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundedPlate_ReferMethod",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBoundedPlate_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 12",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundedPlate_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateBoundingBox\n説明: 指定したソリッド要素に境界ボックス形状を作成する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundingBox",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateBoundingBox_ReturnValue\nプロパティ:\n- description: 作成された境界ボックス形状フィーチャーのID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundingBox_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBoundingBox_FeatureName\nプロパティ:\n- name: FeatureName\n- description: 作成する境界ボックスフィーチャー要素名称(空文字可)\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundingBox_FeatureName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBoundingBox_TargetSolid\nプロパティ:\n- name: TargetSolid\n- description: 境界ボックスフィーチャーを作成する対象のソリッドを指定\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundingBox_TargetSolid",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBoundingBox_OperationType\nプロパティ:\n- name: OperationType\n- description: ソリッドオペレーションのタイプを指定する\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundingBox_OperationType",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBoundingBox_Bodies\nプロパティ:\n- name: Bodies\n- description: 境界ボックスを計算するソリッド、シート要素\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundingBox_Bodies",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBoundingBox_bOptimalBox\nプロパティ:\n- name: bOptimalBox\n- description: Trueを指定するとボックスを計算する座標系を最適なものにする。(そうでない場合は絶対座標系で計算する)\n- order: 4",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundingBox_bOptimalBox",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBoundingBox_ReferMethod\nプロパティ:\n- name: ReferMethod\n- description: 要素の関連づけ方法の指定\n- order: 5",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundingBox_ReferMethod",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateBoundingBox_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 6",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateBoundingBox_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: SetElementColor\n説明: 指定要素の色を設定する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "SetElementColor",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: SetElementColor_Element\nプロパティ:\n- name: Element\n- description: 色を設定する要素\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "SetElementColor_Element",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: SetElementColor_RValue\nプロパティ:\n- name: RValue\n- description: 赤色の値(0-255)\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "SetElementColor_RValue",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: SetElementColor_GValue\nプロパティ:\n- name: GValue\n- description: 緑色の値(0-255)\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "SetElementColor_GValue",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: SetElementColor_BValue\nプロパティ:\n- name: BValue\n- description: 青色の値(0-255)\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "SetElementColor_BValue",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: SetElementColor_Transparency\nプロパティ:\n- name: Transparency\n- description: 透明度の指定(0.0不透明-1.0透明)\n- order: 4",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "SetElementColor_Transparency",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateSweepParam\n説明: スイープパラメータオブジェクトの作成",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSweepParam",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateSweepParam_ReturnValue\nプロパティ:\n- description: スイープパラメータオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSweepParam_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateSweep\n説明: 指定したソリッド要素にスイープ形状を付加する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSweep",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateSweep_ReturnValue\nプロパティ:\n- description: 作成されたスイープフィーチャーのID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSweep_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSweep_TargetSolidName\nプロパティ:\n- name: TargetSolidName\n- description: スイープフィーチャーを作成する対象のソリッドを指定\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSweep_TargetSolidName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSweep_OperationType\nプロパティ:\n- name: OperationType\n- description: ソリッドオペレーションのタイプを指定する\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSweep_OperationType",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSweep_pParam\nプロパティ:\n- name: pParam\n- description: スイープパラメータオブジェクト\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSweep_pParam",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSweep_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSweep_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateSweepSheet\n説明: プロファイル要素をスイープしてシート要素を作成",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSweepSheet",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateSweepSheet_ReturnValue\nプロパティ:\n- description: 作成されたシート要素の要素ID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSweepSheet_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSweepSheet_ParamObj\nプロパティ:\n- name: ParamObj\n- description: スイープパラメータオブジェクト\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSweepSheet_ParamObj",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateSweepSheet_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSweepSheet_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateRotationalSweepParam\n説明: 回転パラメータオブジェクトの作成",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateRotationalSweepParam",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateRotationalSweepParam_ReturnValue\nプロパティ:\n- description: 回転パラメータオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateRotationalSweepParam_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateRotationalSweep\n説明: 指定したソリッド要素に回転形状を付加する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateRotationalSweep",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateRotationalSweep_ReturnValue\nプロパティ:\n- description: 作成された回転フィーチャーのID",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateRotationalSweep_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateRotationalSweep_TargetSolidName\nプロパティ:\n- name: TargetSolidName\n- description: 回転フィーチャーを作成する対象のソリッドを指定\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateRotationalSweep_TargetSolidName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateRotationalSweep_OperationType\nプロパティ:\n- name: OperationType\n- description: ソリッドオペレーションのタイプを指定する\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateRotationalSweep_OperationType",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateRotationalSweep_pParam\nプロパティ:\n- name: pParam\n- description: 回転パラメータオブジェクト\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateRotationalSweep_pParam",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: CreateRotationalSweep_bUpdate\nプロパティ:\n- name: bUpdate\n- description: 更新フラグ(未実装、使用しない)\n- order: 3",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateRotationalSweep_bUpdate",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Object\nID: Application\nプロパティ:\n- name: Application",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Application",
+      "node_type": "Object"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Object\nID: Document\nプロパティ:\n- name: Document",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Document",
+      "node_type": "Object"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Object\nID: View\nプロパティ:\n- name: View",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "View",
+      "node_type": "Object"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: Quit\n説明: EvoShipを終了する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Quit",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: ShowMainWindow\n説明: EvoShipのメインウィンドウを表示する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ShowMainWindow",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: LoadPart\n説明: Partオブジェクトを読み込む",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "LoadPart",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: OpenDocument\n説明: Documentを開く",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "OpenDocument",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: Create3DDocument\n説明: 3DのDocumentを新規に作成する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Create3DDocument",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: GetActiveDocument\n説明: アクティブなDocumentオブジェクトを取得する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "GetActiveDocument",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: GetDocuments\n説明: 開かれているDocumentオブジェクトを全て取得する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "GetDocuments",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: Close\n説明: ドキュメントを閉じる",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Close",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: Save\n説明: ドキュメントをファイルに保存する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Save",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: GetPart\n説明: Partオブジェクトの取得",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "GetPart",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: IsActive\n説明: ドキュメントがアクティブ（カレント）かどうか",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "IsActive",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: Activate\n説明: ドキュメントをアクティベイト（カレントに）する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Activate",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: FitAllViews\n説明: ドキュメントのビューを要素にフィットする",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "FitAllViews",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: GetViews\n説明: ドキュメントのビューを取得する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "GetViews",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: CreateSTLOption\n説明: ドキュメントをSTLとして保存する際のパラメータオブジェクトの作成",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSTLOption",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: ExporAsSTL\n説明: ドキュメントをSTLとして保存する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ExporAsSTL",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: SetDirection\n説明: ビューの表示方向を設定する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "SetDirection",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "APIメソッド\nメソッド名: ExportToBitmap\n説明: ビューの表示内容をビットマップファイルとして出力する",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ExportToBitmap",
+      "node_type": "Method"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: ShowMainWindow_bShow\nプロパティ:\n- name: bShow\n- description: 表示する時はTrue\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ShowMainWindow_bShow",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: LoadPart_FileName\nプロパティ:\n- name: FileName\n- description: 保存されているドキュメントのファイルパス名\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "LoadPart_FileName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: LoadPart_bForceEvaluation\nプロパティ:\n- name: bForceEvaluation\n- description: 強制的に全要素を再計算して開くときはTrue　(通常はFalse）\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "LoadPart_bForceEvaluation",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: OpenDocument_FileName\nプロパティ:\n- name: FileName\n- description: 保存されているドキュメントのファイルパス名\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "OpenDocument_FileName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: OpenDocument_bForceEvaluation\nプロパティ:\n- name: bForceEvaluation\n- description: 強制的に全要素を再計算して開くときはTrue　(通常はFalse）\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "OpenDocument_bForceEvaluation",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: Save_FileName\nプロパティ:\n- name: FileName\n- description: 保存するファイルパス名\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Save_FileName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: Save_bAsCompactFormat\nプロパティ:\n- name: bAsCompactFormat\n- description: 最小サイズになる形式で保存する時はTrue（開くのに計算を必要とします）\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Save_bAsCompactFormat",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: ExporAsSTL_FileName\nプロパティ:\n- name: FileName\n- description: 保存するSTLファイルパス名\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ExporAsSTL_FileName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: ExporAsSTL_pOpt\nプロパティ:\n- name: pOpt\n- description: \n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ExporAsSTL_pOpt",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: SetDirection_outDir\nプロパティ:\n- name: outDir\n- description:  画面から外側に向く方向\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "SetDirection_outDir",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: SetDirection_upDir\nプロパティ:\n- name: upDir\n- description: 　画面の上方向\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "SetDirection_upDir",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: SetDirection_bFitToModel\nプロパティ:\n- name: bFitToModel\n- description: 表示方向にあわせて表示範囲を要素にフィットさせる時はTrue\n- order: 2",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "SetDirection_bFitToModel",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: ExportToBitmap_FileName\nプロパティ:\n- name: FileName\n- description: ビットマップファイルのファイル名\n- order: 0",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ExportToBitmap_FileName",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Parameter\nID: ExportToBitmap_nBitapWidth\nプロパティ:\n- name: nBitapWidth\n- description: ビットマップファイルの横方向のピクセルサイズ（縦方向はビューの縦横比から取得）\n- order: 1",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ExportToBitmap_nBitapWidth",
+      "node_type": "Parameter"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: Quit_ReturnValue\nプロパティ:\n- description: なし",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Quit_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: ShowMainWindow_ReturnValue\nプロパティ:\n- description: なし",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ShowMainWindow_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: LoadPart_ReturnValue\nプロパティ:\n- description: Partオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "LoadPart_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: OpenDocument_ReturnValue\nプロパティ:\n- description: Documentオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "OpenDocument_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: Create3DDocument_ReturnValue\nプロパティ:\n- description: Documentオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Create3DDocument_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: GetActiveDocument_ReturnValue\nプロパティ:\n- description: Documentオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "GetActiveDocument_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: GetDocuments_ReturnValue\nプロパティ:\n- description: Documentオブジェクトの配列",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "GetDocuments_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: Close_ReturnValue\nプロパティ:\n- description: なし",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Close_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: Save_ReturnValue\nプロパティ:\n- description: なし",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Save_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: GetPart_ReturnValue\nプロパティ:\n- description: Partオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "GetPart_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: IsActive_ReturnValue\nプロパティ:\n- description: bool ドキュメントがActiveな時はTrue",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "IsActive_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: Activate_ReturnValue\nプロパティ:\n- description: なし",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Activate_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: FitAllViews_ReturnValue\nプロパティ:\n- description: なし",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "FitAllViews_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: GetViews_ReturnValue\nプロパティ:\n- description: Viewオブジェクトの配列",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "GetViews_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: CreateSTLOption_ReturnValue\nプロパティ:\n- description: STLパラメータオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "CreateSTLOption_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: ExporAsSTL_ReturnValue\nプロパティ:\n- description: なし",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ExporAsSTL_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: SetDirection_ReturnValue\nプロパティ:\n- description: なし",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "SetDirection_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: ReturnValue\nID: ExportToBitmap_ReturnValue\nプロパティ:\n- description: なし",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "ExportToBitmap_ReturnValue",
+      "node_type": "ReturnValue"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: Partオブジェクト\nプロパティ:\n- name: Partオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Partオブジェクト",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: Documentオブジェクト\nプロパティ:\n- name: Documentオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Documentオブジェクト",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: Documentオブジェクトの配列\nプロパティ:\n- name: Documentオブジェクトの配列",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Documentオブジェクトの配列",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: Viewオブジェクトの配列\nプロパティ:\n- name: Viewオブジェクトの配列",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "Viewオブジェクトの配列",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: DataType\nID: STLパラメータオブジェクト\nプロパティ:\n- name: STLパラメータオブジェクト",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "STLパラメータオブジェクト",
+      "node_type": "DataType"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: STLパラメータオブジェクト_ChordalTolerance\nプロパティ:\n- name: ChordalTolerance\n- description: メッシュ近似する際の弦の幅の許容トレランスを指定 (mm)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "STLパラメータオブジェクト_ChordalTolerance",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: STLパラメータオブジェクト_NormalTolerance\nプロパティ:\n- name: NormalTolerance\n- description: メッシュ近似した場合のポリゴンの面と局面との法線方向のずれ角度の許容値（Degree)",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "STLパラメータオブジェクト_NormalTolerance",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: STLパラメータオブジェクト_SigDigits\nプロパティ:\n- name: SigDigits\n- description: 頂点座標値の有効桁数",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "STLパラメータオブジェクト_SigDigits",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: STLパラメータオブジェクト_MinMeshLength\nプロパティ:\n- name: MinMeshLength\n- description: メッシュの辺の最小サイズを指定する場合は指定(mm)（指定しない場合は０）",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "STLパラメータオブジェクト_MinMeshLength",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: STLパラメータオブジェクト_MaxMeshLength\nプロパティ:\n- name: MaxMeshLength\n- description: メッシュの辺の最大サイズを指定する場合は指定(mm)（指定しない場合は０）",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "STLパラメータオブジェクト_MaxMeshLength",
+      "node_type": "Attribute"
+    }
+  },
+  {
+    "page_content": "ノードタイプ: Attribute\nID: STLパラメータオブジェクト_Elements\nプロパティ:\n- name: Elements\n- description: STL出力する要素を指定（指定しない場合は表示されている全ての要素を出力します）",
+    "metadata": {
+      "source": "graph_node",
+      "node_id": "STLパラメータオブジェクト_Elements",
+      "node_type": "Attribute"
+    }
+  }
+]
