@@ -1,0 +1,7 @@
+エラー発生時刻: 2025-11-13T17:09:50.858091
+エラー内容: object of type 'NoneType' has no len()
+トレースバック:
+Traceback (most recent call last):
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 1705, in main
+    "questions_count": len(args.questions),
+TypeError: object of type 'NoneType' has no len()

@@ -642,16 +642,41 @@ class LangChainChromaRAG(RAGImplementation):
             if Path(persist_directory).exists():
                 shutil.rmtree(persist_directory)
 
+        batch_size_env = os.getenv("CHROMA_INGEST_BATCH_SIZE")
+        try:
+            ingest_batch_size = int(batch_size_env) if batch_size_env else 64
+        except ValueError:
+            ingest_batch_size = 64
+        ingest_batch_size = max(1, ingest_batch_size)
+
+        embed_chunk_env = os.getenv("OPENAI_EMBEDDING_BATCH_SIZE")
+        try:
+            embed_chunk_size = int(embed_chunk_env) if embed_chunk_env else 90
+        except ValueError:
+            embed_chunk_size = 90
+        embed_chunk_size = max(1, embed_chunk_size)
+
         embeddings = OpenAIEmbeddings(
-            model=os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small")
+            model=os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small"),
+            chunk_size=embed_chunk_size,
         )
 
-        Chroma.from_documents(
-            documents=splits,
-            embedding=embeddings,
-            persist_directory=persist_directory,
-            collection_name=collection_name,
-        )
+        vector_store = None
+        for start in range(0, len(splits), ingest_batch_size):
+            batch = splits[start:start + ingest_batch_size]
+            if not batch:
+                continue
+            if vector_store is None:
+                vector_store = Chroma.from_documents(
+                    documents=batch,
+                    embedding=embeddings,
+                    persist_directory=persist_directory,
+                    collection_name=collection_name,
+                )
+            else:
+                vector_store.add_documents(batch)
+        if vector_store is not None:
+            vector_store.persist()
         logging.info("方式 '%s' のインデックス構築完了: %d チャンク", config.name, len(splits))
 
     def query(
@@ -957,16 +982,41 @@ class BeautifulSoupRAG(RAGImplementation):
             if Path(persist_directory).exists():
                 shutil.rmtree(persist_directory)
 
+        batch_size_env = os.getenv("CHROMA_INGEST_BATCH_SIZE")
+        try:
+            ingest_batch_size = int(batch_size_env) if batch_size_env else 64
+        except ValueError:
+            ingest_batch_size = 64
+        ingest_batch_size = max(1, ingest_batch_size)
+
+        embed_chunk_env = os.getenv("OPENAI_EMBEDDING_BATCH_SIZE")
+        try:
+            embed_chunk_size = int(embed_chunk_env) if embed_chunk_env else 90
+        except ValueError:
+            embed_chunk_size = 90
+        embed_chunk_size = max(1, embed_chunk_size)
+
         embeddings = OpenAIEmbeddings(
-            model=os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small")
+            model=os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small"),
+            chunk_size=embed_chunk_size,
         )
 
-        Chroma.from_documents(
-            documents=splits,
-            embedding=embeddings,
-            persist_directory=persist_directory,
-            collection_name=collection_name,
-        )
+        vector_store = None
+        for start in range(0, len(splits), ingest_batch_size):
+            batch = splits[start:start + ingest_batch_size]
+            if not batch:
+                continue
+            if vector_store is None:
+                vector_store = Chroma.from_documents(
+                    documents=batch,
+                    embedding=embeddings,
+                    persist_directory=persist_directory,
+                    collection_name=collection_name,
+                )
+            else:
+                vector_store.add_documents(batch)
+        if vector_store is not None:
+            vector_store.persist()
         logging.info("方式 '%s' のインデックス構築完了: %d チャンク（%d ファイル）", config.name, len(splits), len(html_files))
 
     def query(
@@ -1335,8 +1385,12 @@ def build_argument_parser() -> argparse.ArgumentParser:
     compare_parser.add_argument(
         "--questions",
         nargs="+",
-        required=True,
         help="質問文のリスト",
+    )
+    compare_parser.add_argument(
+        "--questions-file",
+        type=Path,
+        help="質問が列挙されたテキストファイル（1行1質問）",
     )
     compare_parser.add_argument(
         "--configs",
@@ -1609,14 +1663,37 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             return 0
 
         if args.command == "compare":
+            questions: List[str] = []
+            if getattr(args, "questions", None):
+                questions.extend(args.questions)
+            questions_file = getattr(args, "questions_file", None)
+            if questions_file:
+                if questions_file.exists():
+                    try:
+                        file_questions = [
+                            line.strip()
+                            for line in questions_file.read_text(encoding="utf-8").splitlines()
+                            if line.strip()
+                        ]
+                        questions.extend(file_questions)
+                    except Exception as exc:
+                        logging.error("質問ファイルの読み込みに失敗しました: %s", exc)
+                        return 1
+                else:
+                    logging.error("質問ファイルが見つかりません: %s", questions_file)
+                    return 1
+            if not questions:
+                logging.error("--questions または --questions-file で質問を指定してください。")
+                return 1
+
             # クエリを記録
             if session:
-                for question in args.questions:
+                for question in questions:
                     session.save_query(question)
 
             comparison_results = compare_rag_configs(
                 configs,
-                args.questions,
+                questions,
                 top_k=args.top_k,
             )
 
@@ -1625,8 +1702,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 session.save_results(comparison_results, format="both")
                 session.save_summary({
                     "command": "compare",
-                    "questions_count": len(args.questions),
-                    "questions": args.questions,
+                    "questions_count": len(questions),
+                    "questions": questions,
                     "configs_count": len(configs),
                     "top_k": args.top_k,
                     "results_count": len(comparison_results),

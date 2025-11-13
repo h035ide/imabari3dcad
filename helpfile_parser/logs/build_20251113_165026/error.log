@@ -1,0 +1,29 @@
+エラー発生時刻: 2025-11-13T16:50:53.190930
+エラー内容: Error code: 400 - {'error': {'message': 'Requested 322681 tokens, max 300000 tokens per request', 'type': 'max_tokens_per_request', 'param': None, 'code': 'max_tokens_per_request'}}
+トレースバック:
+Traceback (most recent call last):
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 1546, in main
+    build_all_indices(
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 1126, in build_all_indices
+    build_index_for_config(
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 1076, in build_index_for_config
+    implementation.build_index(
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 649, in build_index
+    Chroma.from_documents(
+  File "C:\Users\user\workfolders\imabari3dcad\.venv\lib\site-packages\langchain_community\vectorstores\chroma.py", line 887, in from_documents
+    return cls.from_texts(
+  File "C:\Users\user\workfolders\imabari3dcad\.venv\lib\site-packages\langchain_community\vectorstores\chroma.py", line 843, in from_texts
+    chroma_collection.add_texts(
+  File "C:\Users\user\workfolders\imabari3dcad\.venv\lib\site-packages\langchain_community\vectorstores\chroma.py", line 277, in add_texts
+    embeddings = self._embedding_function.embed_documents(texts)
+  File "C:\Users\user\workfolders\imabari3dcad\.venv\lib\site-packages\langchain_openai\embeddings\base.py", line 591, in embed_documents
+    return self._get_len_safe_embeddings(
+  File "C:\Users\user\workfolders\imabari3dcad\.venv\lib\site-packages\langchain_openai\embeddings\base.py", line 479, in _get_len_safe_embeddings
+    response = self.client.create(
+  File "C:\Users\user\workfolders\imabari3dcad\.venv\lib\site-packages\openai\resources\embeddings.py", line 132, in create
+    return self._post(
+  File "C:\Users\user\workfolders\imabari3dcad\.venv\lib\site-packages\openai\_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "C:\Users\user\workfolders\imabari3dcad\.venv\lib\site-packages\openai\_base_client.py", line 1047, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'message': 'Requested 322681 tokens, max 300000 tokens per request', 'type': 'max_tokens_per_request', 'param': None, 'code': 'max_tokens_per_request'}}
