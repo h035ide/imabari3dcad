@@ -1,0 +1,8 @@
+2025-11-13 16:29:30,520 INFO root: 設定を保存しました: C:\Users\user\workfolders\imabari3dcad\helpfile_parser\logs\query_20251113_162930\configs.json
+2025-11-13 16:29:30,521 INFO root: 質問を実行中: データムとは何ですか？
+2025-11-13 16:29:30,522 INFO root: 方式 'beautifulsoup_default' で質問を実行中...
+2025-11-13 16:29:32,567 INFO chromadb.telemetry.product.posthog: Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-11-13 16:29:34,226 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-13 16:29:37,844 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-13 16:29:39,199 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-13 16:29:39,228 INFO root: 結果を保存しました: C:\Users\user\workfolders\imabari3dcad\helpfile_parser\logs\query_20251113_162930\results

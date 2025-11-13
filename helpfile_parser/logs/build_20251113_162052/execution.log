@@ -1,0 +1,23 @@
+2025-11-13 16:20:52,159 INFO root: 設定を保存しました: C:\Users\user\workfolders\imabari3dcad\helpfile_parser\logs\build_20251113_162052\configs.json
+2025-11-13 16:20:52,159 INFO root: 方式 'beautifulsoup_default' でインデックスを構築中...
+2025-11-13 16:20:52,160 INFO root: 設定: BeautifulSoupベースのHTML解析 + LangChain + Chroma（chunk_size=800, overlap=120）
+2025-11-13 16:20:52,160 INFO root: RAG方式: beautifulsoup
+2025-11-13 16:20:52,160 INFO root: テストファイルを読み込み: ['evoship\\EVOSHIP_HELP_FILES\\about_datum.html']
+2025-11-13 16:20:52,160 INFO root: 方式 'beautifulsoup_default' でBeautifulSoup + LangChain + Chromaを構築中...
+2025-11-13 16:20:53,837 ERROR root: 処理中にエラーが発生しました: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable
+Traceback (most recent call last):
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 1531, in main
+    build_all_indices(
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 1111, in build_all_indices
+    build_index_for_config(
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 1061, in build_index_for_config
+    implementation.build_index(
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 946, in build_index
+    embeddings = OpenAIEmbeddings(
+  File "C:\Users\user\workfolders\imabari3dcad\.venv\lib\site-packages\pydantic\main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+  File "C:\Users\user\workfolders\imabari3dcad\.venv\lib\site-packages\langchain_openai\embeddings\base.py", line 328, in validate_environment
+    self.client = openai.OpenAI(**client_params, **sync_specific).embeddings  # type: ignore[arg-type]
+  File "C:\Users\user\workfolders\imabari3dcad\.venv\lib\site-packages\openai\_client.py", line 135, in __init__
+    raise OpenAIError(
+openai.OpenAIError: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable

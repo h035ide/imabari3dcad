@@ -1,0 +1,9 @@
+{
+  "command": "query",
+  "timestamp": "2025-11-13T16:29:30.518454",
+  "session_dir": "C:\\Users\\user\\workfolders\\imabari3dcad\\helpfile_parser\\logs\\query_20251113_162930",
+  "question": "データムとは何ですか？",
+  "configs_count": 1,
+  "top_k": 5,
+  "results_count": 1
+}

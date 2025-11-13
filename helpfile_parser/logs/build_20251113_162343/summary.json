@@ -1,0 +1,13 @@
+{
+  "command": "build",
+  "timestamp": "2025-11-13T16:23:43.973266",
+  "session_dir": "C:\\Users\\user\\workfolders\\imabari3dcad\\helpfile_parser\\logs\\build_20251113_162343",
+  "root_path": "evoship\\EVOSHIP_HELP_FILES",
+  "configs_count": 1,
+  "wipe": false,
+  "max_files": null,
+  "test_files": [
+    "evoship\\EVOSHIP_HELP_FILES\\about_datum.html"
+  ],
+  "file_pattern": null
+}

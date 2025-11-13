@@ -1,0 +1,15 @@
+[
+  {
+    "name": "beautifulsoup_default",
+    "description": "BeautifulSoupベースのHTML解析 + LangChain + Chroma（chunk_size=800, overlap=120）",
+    "rag_type": "beautifulsoup",
+    "chunk_size": 800,
+    "chunk_overlap": 120,
+    "use_llm_extract": false,
+    "llm_model": null,
+    "embed_kg_nodes": true,
+    "database": null,
+    "chroma_persist_dir": null,
+    "chroma_collection": null
+  }
+]

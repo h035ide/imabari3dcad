@@ -1,0 +1,4 @@
+2025-11-13 16:29:25,897 WARNING root: 方式 'beautifulsoup_default]' が見つかりません。スキップします。
+2025-11-13 16:29:25,898 INFO root: 設定を保存しました: C:\Users\user\workfolders\imabari3dcad\helpfile_parser\logs\query_20251113_162925\configs.json
+2025-11-13 16:29:25,918 INFO root: 質問を実行中: データムとは何ですか？
+2025-11-13 16:29:25,922 INFO root: 結果を保存しました: C:\Users\user\workfolders\imabari3dcad\helpfile_parser\logs\query_20251113_162925\results

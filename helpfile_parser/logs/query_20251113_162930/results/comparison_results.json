@@ -1,0 +1,17 @@
+[
+  {
+    "question": "データムとは何ですか？",
+    "timestamp": "2025-11-13T07:29:30.522455",
+    "results": [
+      {
+        "config_name": "beautifulsoup_default",
+        "question": "データムとは何ですか？",
+        "answer": "データムとは、各要素の位置や方向などの基準となる要素です。これは3Dモデルの要素であり、図面ドキュメントには存在しません。データムには、平面、座標系、軸、点などの要素があります。",
+        "retrieved_nodes_count": 3,
+        "execution_time_seconds": 7.262618064880371,
+        "error": null,
+        "timestamp": "2025-11-13T07:29:39.206161"
+      }
+    ]
+  }
+]

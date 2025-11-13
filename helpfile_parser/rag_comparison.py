@@ -64,6 +64,7 @@ RAG_TYPE_PROPERTY_GRAPH = "property_graph"  # LlamaIndex PropertyGraphIndex
 RAG_TYPE_VECTOR_STORE = "vector_store"  # LlamaIndex VectorStoreIndex (Chroma)
 RAG_TYPE_LANGCHAIN_CHROMA = "langchain_chroma"  # LangChain + Chroma
 RAG_TYPE_LANGCHAIN_NEO4J = "langchain_neo4j"  # LangChain + Neo4j Graph
+RAG_TYPE_BEAUTIFULSOUP = "beautifulsoup"  # BeautifulSoupベースのHTML解析 + LangChain + Chroma
 
 
 @dataclass(frozen=True, slots=True)
@@ -99,7 +100,7 @@ class QueryResult:
 
     config_name: str
     question: str
-    answer: str
+    answer: str = ""
     retrieved_nodes: List[Dict[str, Any]] = field(default_factory=list)
     execution_time_seconds: float = 0.0
     error: Optional[str] = None
@@ -204,6 +205,14 @@ DEFAULT_CONFIGS: List[RAGConfig] = [
         name="langchain_neo4j",
         description="LangChain + Neo4j Graph（既存のNeo4jデータを使用）",
         rag_type=RAG_TYPE_LANGCHAIN_NEO4J,
+    ),
+    # BeautifulSoupベースの方式
+    RAGConfig(
+        name="beautifulsoup_default",
+        description="BeautifulSoupベースのHTML解析 + LangChain + Chroma（chunk_size=800, overlap=120）",
+        rag_type=RAG_TYPE_BEAUTIFULSOUP,
+        chunk_size=800,
+        chunk_overlap=120,
     ),
 ]
 
@@ -375,6 +384,7 @@ class VectorStoreRAG(RAGImplementation):
     ) -> None:
         """VectorStoreIndexを構築"""
         logging.info("方式 '%s' でVectorStoreIndexを構築中...", config.name)
+        load_dotenv()
         from llama_index.core import VectorStoreIndex, Document, StorageContext, Settings
         from llama_index.core.node_parser import SimpleNodeParser
         from llama_index.vector_stores.chroma import ChromaVectorStore
@@ -476,6 +486,7 @@ class VectorStoreRAG(RAGImplementation):
     ) -> QueryResult:
         """VectorStoreIndexで質問を実行"""
         import time
+        load_dotenv()
         from llama_index.core import VectorStoreIndex, StorageContext, Settings
         from llama_index.vector_stores.chroma import ChromaVectorStore
         from llama_index.embeddings.openai import OpenAIEmbedding
@@ -543,6 +554,7 @@ class LangChainChromaRAG(RAGImplementation):
     ) -> None:
         """LangChain + Chromaでインデックスを構築"""
         logging.info("方式 '%s' でLangChain + Chromaを構築中...", config.name)
+        load_dotenv()
         from langchain_community.vectorstores import Chroma
         from langchain_openai import OpenAIEmbeddings
         from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -642,6 +654,7 @@ class LangChainChromaRAG(RAGImplementation):
     ) -> QueryResult:
         """LangChain + Chromaで質問を実行"""
         import time
+        load_dotenv()
         from langchain_community.vectorstores import Chroma
         from langchain_openai import OpenAIEmbeddings, ChatOpenAI
         from langchain.chains import RetrievalQA
@@ -780,6 +793,242 @@ class LangChainNeo4jRAG(RAGImplementation):
         return result
 
 
+class BeautifulSoupRAG(RAGImplementation):
+    """BeautifulSoupベースのHTML解析 + LangChain + Chroma実装"""
+
+    def build_index(
+        self,
+        root: Path,
+        config: RAGConfig,
+        *,
+        wipe: bool = False,
+        max_files: Optional[int] = None,
+        test_files: Optional[Sequence[Path]] = None,
+        file_pattern: Optional[str] = None,
+    ) -> None:
+        """BeautifulSoupでHTMLを直接解析してインデックスを構築"""
+        logging.info("方式 '%s' でBeautifulSoup + LangChain + Chromaを構築中...", config.name)
+        load_dotenv()
+        from bs4 import BeautifulSoup
+        from langchain_community.vectorstores import Chroma
+        from langchain_openai import OpenAIEmbeddings
+        from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+        # HTMLファイルを収集
+        html_files = []
+        if test_files:
+            # 特定のファイルのみを読み込む
+            for file_path in test_files:
+                if file_path.exists():
+                    html_files.append(file_path)
+                else:
+                    # 相対パスの場合、rootからの相対パスとして扱う
+                    full_path = root / file_path if not file_path.is_absolute() else file_path
+                    if full_path.exists():
+                        html_files.append(full_path)
+                    else:
+                        logging.warning("ファイルが見つかりません: %s", file_path)
+        elif file_pattern:
+            # ファイル名パターンでフィルタ
+            import fnmatch
+            for html_file in root.rglob("*.html"):
+                if fnmatch.fnmatch(html_file.name, file_pattern):
+                    html_files.append(html_file)
+                    if max_files and len(html_files) >= max_files:
+                        break
+        else:
+            # 通常の読み込み
+            html_files = list(root.rglob("*.html"))
+            if max_files is not None:
+                html_files = html_files[:max_files]
+
+        # BeautifulSoupでHTMLを解析してテキストを抽出
+        texts = []
+        metadatas = []
+        for html_file in html_files:
+            try:
+                # HTMLファイルを読み込み
+                with html_file.open("r", encoding="cp932", errors="ignore") as f:
+                    html_content = f.read()
+
+                # BeautifulSoupで解析
+                soup = BeautifulSoup(html_content, "html.parser")
+
+                # タイトルを取得
+                title = soup.title.string if soup.title else html_file.stem
+                title = title.strip() if title else html_file.stem
+
+                # スクリプトとスタイルタグを削除
+                for script in soup(["script", "style"]):
+                    script.decompose()
+
+                # 本文テキストを抽出
+                body = soup.find("body")
+                if body:
+                    # 見出しタグ（h1-h4）とその内容を抽出
+                    sections = []
+                    current_heading = None
+                    current_content = []
+
+                    for element in body.descendants:
+                        if isinstance(element, str):
+                            if current_heading:
+                                text = element.strip()
+                                if text:
+                                    current_content.append(text)
+                        elif hasattr(element, "name"):
+                            tag_name = element.name.lower()
+                            if tag_name in ["h1", "h2", "h3", "h4"]:
+                                # 前のセクションを保存
+                                if current_heading and current_content:
+                                    section_text = f"{current_heading}\n\n{' '.join(current_content)}"
+                                    sections.append(section_text)
+                                # 新しい見出し
+                                current_heading = element.get_text(strip=True)
+                                current_content = []
+                            elif tag_name in ["p", "div", "li", "td", "th"]:
+                                text = element.get_text(separator=" ", strip=True)
+                                if text:
+                                    current_content.append(text)
+
+                    # 最後のセクションを保存
+                    if current_heading and current_content:
+                        section_text = f"{current_heading}\n\n{' '.join(current_content)}"
+                        sections.append(section_text)
+
+                    # セクションがない場合は全体のテキストを使用
+                    if not sections:
+                        full_text = body.get_text(separator="\n", strip=True)
+                        if full_text:
+                            sections.append(full_text)
+
+                    # 各セクションをテキストとして追加
+                    for i, section_text in enumerate(sections):
+                        texts.append(section_text)
+                        metadatas.append({
+                            "source_path": str(html_file),
+                            "title": title,
+                            "section_index": i,
+                            "file_name": html_file.name,
+                        })
+                else:
+                    # bodyタグがない場合は全体のテキストを使用
+                    full_text = soup.get_text(separator="\n", strip=True)
+                    if full_text:
+                        texts.append(full_text)
+                        metadatas.append({
+                            "source_path": str(html_file),
+                            "title": title,
+                            "section_index": 0,
+                            "file_name": html_file.name,
+                        })
+
+            except Exception as exc:
+                logging.warning("ファイル '%s' の解析中にエラー: %s", html_file, exc)
+                continue
+
+        if not texts:
+            logging.warning("抽出されたテキストがありません")
+            return
+
+        # チャンク化
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=config.chunk_size,
+            chunk_overlap=config.chunk_overlap,
+        )
+        splits = text_splitter.create_documents(texts, metadatas=metadatas)
+
+        # Chromaに保存
+        persist_directory = config.chroma_persist_dir or f"data/chroma_beautifulsoup_{config.name}"
+        collection_name = config.chroma_collection or f"help_beautifulsoup_{config.name}"
+
+        if wipe:
+            # 既存のディレクトリを削除
+            import shutil
+            if Path(persist_directory).exists():
+                shutil.rmtree(persist_directory)
+
+        embeddings = OpenAIEmbeddings(
+            model=os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small")
+        )
+
+        Chroma.from_documents(
+            documents=splits,
+            embedding=embeddings,
+            persist_directory=persist_directory,
+            collection_name=collection_name,
+        )
+        logging.info("方式 '%s' のインデックス構築完了: %d チャンク（%d ファイル）", config.name, len(splits), len(html_files))
+
+    def query(
+        self,
+        config: RAGConfig,
+        question: str,
+        *,
+        top_k: int = 5,
+    ) -> QueryResult:
+        """BeautifulSoup + LangChain + Chromaで質問を実行"""
+        import time
+        load_dotenv()
+        from langchain_community.vectorstores import Chroma
+        from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+        from langchain.chains import RetrievalQA
+
+        start_time = time.time()
+        result = QueryResult(config_name=config.name, question=question)
+
+        try:
+            # Chromaを読み込み
+            persist_directory = config.chroma_persist_dir or f"data/chroma_beautifulsoup_{config.name}"
+            collection_name = config.chroma_collection or f"help_beautifulsoup_{config.name}"
+
+            embeddings = OpenAIEmbeddings(
+                model=os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small")
+            )
+
+            vectordb = Chroma(
+                persist_directory=persist_directory,
+                embedding_function=embeddings,
+                collection_name=collection_name,
+            )
+
+            # LLMを設定
+            llm = ChatOpenAI(
+                model=config.llm_model or os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
+                temperature=0.1,
+            )
+
+            # RetrievalQAチェーンを作成
+            qa_chain = RetrievalQA.from_llm(
+                llm=llm,
+                retriever=vectordb.as_retriever(search_kwargs={"k": top_k}),
+            )
+
+            # 質問を実行
+            answer = qa_chain.run(question)
+
+            result.answer = answer
+            # LangChainのRetrievalQAはsource_documentsを返さないため、手動で取得
+            retriever = vectordb.as_retriever(search_kwargs={"k": top_k})
+            docs = retriever.get_relevant_documents(question)
+            result.retrieved_nodes = [
+                {
+                    "content": doc.page_content[:200],
+                    "metadata": doc.metadata,
+                }
+                for doc in docs
+            ]
+
+            result.execution_time_seconds = time.time() - start_time
+
+        except Exception as exc:
+            result.error = str(exc)
+            result.execution_time_seconds = time.time() - start_time
+            logging.error("方式 '%s' での質問実行中にエラー: %s", config.name, exc)
+
+        return result
+
+
 def get_rag_implementation(config: RAGConfig) -> RAGImplementation:
     """RAG方式に応じた実装を取得"""
     if config.rag_type == RAG_TYPE_PROPERTY_GRAPH:
@@ -790,6 +1039,8 @@ def get_rag_implementation(config: RAGConfig) -> RAGImplementation:
         return LangChainChromaRAG()
     elif config.rag_type == RAG_TYPE_LANGCHAIN_NEO4J:
         return LangChainNeo4jRAG()
+    elif config.rag_type == RAG_TYPE_BEAUTIFULSOUP:
+        return BeautifulSoupRAG()
     else:
         raise ValueError(f"未知のRAG方式: {config.rag_type}")
 

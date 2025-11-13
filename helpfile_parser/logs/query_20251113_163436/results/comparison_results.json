@@ -1,0 +1,17 @@
+[
+  {
+    "question": "点とは何ですか？",
+    "timestamp": "2025-11-13T07:34:36.073752",
+    "results": [
+      {
+        "config_name": "beautifulsoup_default",
+        "question": "点とは何ですか？",
+        "answer": "点とは、3次元空間上の位置を示す要素であり、特定の座標を持つ無限に小さな位置を表します。点は、3Dモデルの要素の一つであり、点の作成や投影点の作成が可能です。",
+        "retrieved_nodes_count": 3,
+        "execution_time_seconds": 5.513868570327759,
+        "error": null,
+        "timestamp": "2025-11-13T07:34:42.616239"
+      }
+    ]
+  }
+]

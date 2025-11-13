@@ -1,0 +1,19 @@
+エラー発生時刻: 2025-11-13T16:20:53.839893
+エラー内容: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable
+トレースバック:
+Traceback (most recent call last):
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 1531, in main
+    build_all_indices(
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 1111, in build_all_indices
+    build_index_for_config(
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 1061, in build_index_for_config
+    implementation.build_index(
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 946, in build_index
+    embeddings = OpenAIEmbeddings(
+  File "C:\Users\user\workfolders\imabari3dcad\.venv\lib\site-packages\pydantic\main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+  File "C:\Users\user\workfolders\imabari3dcad\.venv\lib\site-packages\langchain_openai\embeddings\base.py", line 328, in validate_environment
+    self.client = openai.OpenAI(**client_params, **sync_specific).embeddings  # type: ignore[arg-type]
+  File "C:\Users\user\workfolders\imabari3dcad\.venv\lib\site-packages\openai\_client.py", line 135, in __init__
+    raise OpenAIError(
+openai.OpenAIError: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable

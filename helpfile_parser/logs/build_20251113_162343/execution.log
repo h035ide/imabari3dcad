@@ -1,0 +1,10 @@
+2025-11-13 16:23:43,975 INFO root: 設定を保存しました: C:\Users\user\workfolders\imabari3dcad\helpfile_parser\logs\build_20251113_162343\configs.json
+2025-11-13 16:23:43,975 INFO root: 方式 'beautifulsoup_default' でインデックスを構築中...
+2025-11-13 16:23:43,976 INFO root: 設定: BeautifulSoupベースのHTML解析 + LangChain + Chroma（chunk_size=800, overlap=120）
+2025-11-13 16:23:43,976 INFO root: RAG方式: beautifulsoup
+2025-11-13 16:23:43,976 INFO root: テストファイルを読み込み: ['evoship\\EVOSHIP_HELP_FILES\\about_datum.html']
+2025-11-13 16:23:43,976 INFO root: 方式 'beautifulsoup_default' でBeautifulSoup + LangChain + Chromaを構築中...
+2025-11-13 16:23:46,938 INFO chromadb.telemetry.product.posthog: Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-11-13 16:23:52,054 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-13 16:23:52,663 INFO root: 方式 'beautifulsoup_default' のインデックス構築完了: 3 チャンク（1 ファイル）
+2025-11-13 16:23:52,664 INFO root: 実行サマリーを保存しました: C:\Users\user\workfolders\imabari3dcad\helpfile_parser\logs\build_20251113_162343\summary.json

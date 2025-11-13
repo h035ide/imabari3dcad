@@ -1,0 +1,13 @@
+エラー発生時刻: 2025-11-13T16:28:15.959000
+エラー内容: QueryResult.__init__() missing 1 required positional argument: 'answer'
+トレースバック:
+Traceback (most recent call last):
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 1564, in main
+    comparison_results = compare_rag_configs(
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 1098, in compare_rag_configs
+    result = query_with_config(config, question, top_k=top_k)
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 1080, in query_with_config
+    return implementation.query(config, question, top_k=top_k)
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 978, in query
+    result = QueryResult(config_name=config.name, question=question)
+TypeError: QueryResult.__init__() missing 1 required positional argument: 'answer'

@@ -1,0 +1,82 @@
+{
+  "rag_configs": [
+    {
+      "name": "property_graph_default",
+      "description": "PropertyGraphIndex（chunk_size=800, overlap=120, embed有効）",
+      "rag_type": "property_graph",
+      "chunk_size": 800,
+      "chunk_overlap": 120,
+      "use_llm_extract": false,
+      "llm_model": null,
+      "embed_kg_nodes": true,
+      "database": null,
+      "chroma_persist_dir": null,
+      "chroma_collection": null
+    },
+    {
+      "name": "vector_store_default",
+      "description": "VectorStoreIndex (Chroma)（chunk_size=800, overlap=120）",
+      "rag_type": "vector_store",
+      "chunk_size": 800,
+      "chunk_overlap": 120,
+      "use_llm_extract": false,
+      "llm_model": null,
+      "embed_kg_nodes": true,
+      "database": null,
+      "chroma_persist_dir": null,
+      "chroma_collection": null
+    },
+    {
+      "name": "vector_store_small",
+      "description": "VectorStoreIndex (Chroma)（chunk_size=400, overlap=60）",
+      "rag_type": "vector_store",
+      "chunk_size": 400,
+      "chunk_overlap": 60,
+      "use_llm_extract": false,
+      "llm_model": null,
+      "embed_kg_nodes": true,
+      "database": null,
+      "chroma_persist_dir": null,
+      "chroma_collection": null
+    },
+    {
+      "name": "langchain_chroma_default",
+      "description": "LangChain + Chroma（chunk_size=800, overlap=120）",
+      "rag_type": "langchain_chroma",
+      "chunk_size": 800,
+      "chunk_overlap": 120,
+      "use_llm_extract": false,
+      "llm_model": null,
+      "embed_kg_nodes": true,
+      "database": null,
+      "chroma_persist_dir": null,
+      "chroma_collection": null
+    },
+    {
+      "name": "langchain_neo4j",
+      "description": "LangChain + Neo4j Graph（既存のNeo4jデータを使用）",
+      "rag_type": "langchain_neo4j",
+      "chunk_size": 800,
+      "chunk_overlap": 120,
+      "use_llm_extract": false,
+      "llm_model": null,
+      "embed_kg_nodes": true,
+      "database": null,
+      "chroma_persist_dir": null,
+      "chroma_collection": null
+    }
+  ],
+  "default_settings": {
+    "top_k": 5,
+    "log_level": "INFO",
+    "console_level": "WARNING",
+    "default_rag_type": "property_graph",
+    "default_chunk_size": 800,
+    "default_chunk_overlap": 120
+  },
+  "metadata": {
+    "version": "1.0",
+    "description": "RAG比較機能の設定ファイル",
+    "note": "機密情報（APIキー、パスワードなど）は.envファイルで管理してください"
+  }
+}
