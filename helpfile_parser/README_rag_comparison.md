@@ -63,12 +63,44 @@ logs/
 - **langchain_chroma**: LangChain + Chroma（ベクトル検索）
 - **langchain_neo4j**: LangChain + Neo4j Graph（Cypher QA）
 
+## 設定ファイル管理
+
+設定ファイルを使用して、RAG方式の定義やデフォルト設定を管理できます。詳細は[README_config.md](README_config.md)を参照してください。
+
+### 設定ファイルの作成
+
+```bash
+# デフォルト設定ファイルを作成
+uv run python -m helpfile_parser.rag_comparison init-config
+
+# カスタムパスに作成
+uv run python -m helpfile_parser.rag_comparison init-config --output my_config.json
+```
+
+### 設定ファイルの使用
+
+```bash
+# 設定ファイルを指定して実行
+uv run python -m helpfile_parser.rag_comparison build evoship/EVOSHIP_HELP_FILES \
+  --config-file rag_comparison_config.json
+
+# 設定ファイルの設定のみを使用
+uv run python -m helpfile_parser.rag_comparison query "質問文" \
+  --config-file rag_comparison_config.json \
+  --use-file-only
+```
+
+**注意**: 機密情報（APIキー、パスワードなど）は`.env`ファイルで管理してください。設定ファイルには機密情報を含めないでください。
+
 ## 使い方
 
 ### 1. 利用可能な方式を一覧表示
 
 ```bash
 uv run python -m helpfile_parser.rag_comparison list
+
+# 設定ファイルから読み込まれた方式を表示
+uv run python -m helpfile_parser.rag_comparison list --config-file rag_comparison_config.json
 ```
 
 ### 2. インデックスを構築

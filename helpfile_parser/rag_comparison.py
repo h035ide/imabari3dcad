@@ -24,6 +24,14 @@ try:
         ingest_help_files,
         _resolve_neo4j_config,
     )
+    from .rag_config import (
+        RAGComparisonConfig,
+        RAGComparisonSettings,
+        load_config_file,
+        save_config_file,
+        create_default_config_file,
+        merge_configs,
+    )
 except ImportError:
     CURRENT_DIR = Path(__file__).resolve().parent
     if str(CURRENT_DIR) not in sys.path:
@@ -32,6 +40,23 @@ except ImportError:
         ingest_help_files,
         _resolve_neo4j_config,
     )
+    try:
+        from rag_config import (
+            RAGComparisonConfig,
+            RAGComparisonSettings,
+            load_config_file,
+            save_config_file,
+            create_default_config_file,
+            merge_configs,
+        )
+    except ImportError:
+        # rag_configモジュールが存在しない場合のフォールバック
+        RAGComparisonConfig = None
+        RAGComparisonSettings = None
+        load_config_file = None
+        save_config_file = None
+        create_default_config_file = None
+        merge_configs = None
 
 
 # RAG方式のタイプ定義
@@ -194,6 +219,8 @@ class RAGImplementation(ABC):
         *,
         wipe: bool = False,
         max_files: Optional[int] = None,
+        test_files: Optional[Sequence[Path]] = None,
+        file_pattern: Optional[str] = None,
     ) -> None:
         """インデックスを構築"""
         pass
@@ -220,9 +247,19 @@ class PropertyGraphRAG(RAGImplementation):
         *,
         wipe: bool = False,
         max_files: Optional[int] = None,
+        test_files: Optional[Sequence[Path]] = None,
+        file_pattern: Optional[str] = None,
     ) -> None:
         """PropertyGraphIndexを構築"""
         logging.info("方式 '%s' でPropertyGraphIndexを構築中...", config.name)
+
+        # test_filesまたはfile_patternが指定されている場合は警告
+        if test_files or file_pattern:
+            logging.warning(
+                "PropertyGraphIndex方式では、test_files/file_patternオプションは現在サポートされていません。"
+                "すべてのファイルを読み込みます。"
+            )
+
         stats = ingest_help_files(
             root,
             chunk_size=config.chunk_size,
@@ -333,6 +370,8 @@ class VectorStoreRAG(RAGImplementation):
         *,
         wipe: bool = False,
         max_files: Optional[int] = None,
+        test_files: Optional[Sequence[Path]] = None,
+        file_pattern: Optional[str] = None,
     ) -> None:
         """VectorStoreIndexを構築"""
         logging.info("方式 '%s' でVectorStoreIndexを構築中...", config.name)
@@ -343,13 +382,39 @@ class VectorStoreRAG(RAGImplementation):
         import chromadb
 
         # ドキュメントを読み込み
-        from helpfile_parser import iter_help_documents
+        from helpfile_parser import extract_help_document
 
-        documents_iter = iter_help_documents(root)
-        if max_files is not None:
-            from itertools import islice
-            documents_iter = islice(documents_iter, max_files)
-        help_docs = list(documents_iter)
+        help_docs = []
+        if test_files:
+            # 特定のファイルのみを読み込む
+            for file_path in test_files:
+                if file_path.exists():
+                    help_docs.append(extract_help_document(file_path))
+                else:
+                    # 相対パスの場合、rootからの相対パスとして扱う
+                    full_path = root / file_path if not file_path.is_absolute() else file_path
+                    if full_path.exists():
+                        help_docs.append(extract_help_document(full_path))
+                    else:
+                        logging.warning("ファイルが見つかりません: %s", file_path)
+        elif file_pattern:
+            # ファイル名パターンでフィルタ
+            import fnmatch
+            from helpfile_parser import iter_help_documents
+            documents_iter = iter_help_documents(root)
+            for doc in documents_iter:
+                if fnmatch.fnmatch(doc.source_path.name, file_pattern):
+                    help_docs.append(doc)
+                    if max_files and len(help_docs) >= max_files:
+                        break
+        else:
+            # 通常の読み込み
+            from helpfile_parser import iter_help_documents
+            documents_iter = iter_help_documents(root)
+            if max_files is not None:
+                from itertools import islice
+                documents_iter = islice(documents_iter, max_files)
+            help_docs = list(documents_iter)
 
         # LlamaIndex Documentに変換
         llama_docs = []
@@ -473,6 +538,8 @@ class LangChainChromaRAG(RAGImplementation):
         *,
         wipe: bool = False,
         max_files: Optional[int] = None,
+        test_files: Optional[Sequence[Path]] = None,
+        file_pattern: Optional[str] = None,
     ) -> None:
         """LangChain + Chromaでインデックスを構築"""
         logging.info("方式 '%s' でLangChain + Chromaを構築中...", config.name)
@@ -480,16 +547,48 @@ class LangChainChromaRAG(RAGImplementation):
         from langchain_openai import OpenAIEmbeddings
         from langchain.text_splitter import RecursiveCharacterTextSplitter
         try:
-            from .helpfile_parser import iter_help_documents
+            from .helpfile_parser import extract_help_document
         except ImportError:
-            from helpfile_parser import iter_help_documents
+            from helpfile_parser import extract_help_document
 
         # ドキュメントを読み込み
-        documents_iter = iter_help_documents(root)
-        if max_files is not None:
-            from itertools import islice
-            documents_iter = islice(documents_iter, max_files)
-        help_docs = list(documents_iter)
+        help_docs = []
+        if test_files:
+            # 特定のファイルのみを読み込む
+            for file_path in test_files:
+                if file_path.exists():
+                    help_docs.append(extract_help_document(file_path))
+                else:
+                    # 相対パスの場合、rootからの相対パスとして扱う
+                    full_path = root / file_path if not file_path.is_absolute() else file_path
+                    if full_path.exists():
+                        help_docs.append(extract_help_document(full_path))
+                    else:
+                        logging.warning("ファイルが見つかりません: %s", file_path)
+        elif file_pattern:
+            # ファイル名パターンでフィルタ
+            import fnmatch
+            try:
+                from .helpfile_parser import iter_help_documents
+            except ImportError:
+                from helpfile_parser import iter_help_documents
+            documents_iter = iter_help_documents(root)
+            for doc in documents_iter:
+                if fnmatch.fnmatch(doc.source_path.name, file_pattern):
+                    help_docs.append(doc)
+                    if max_files and len(help_docs) >= max_files:
+                        break
+        else:
+            # 通常の読み込み
+            try:
+                from .helpfile_parser import iter_help_documents
+            except ImportError:
+                from helpfile_parser import iter_help_documents
+            documents_iter = iter_help_documents(root)
+            if max_files is not None:
+                from itertools import islice
+                documents_iter = islice(documents_iter, max_files)
+            help_docs = list(documents_iter)
 
         # テキストに変換
         texts = []
@@ -612,6 +711,8 @@ class LangChainNeo4jRAG(RAGImplementation):
         *,
         wipe: bool = False,
         max_files: Optional[int] = None,
+        test_files: Optional[Sequence[Path]] = None,
+        file_pattern: Optional[str] = None,
     ) -> None:
         """LangChain + Neo4j Graphは既存のNeo4jデータを使用（構築不要）"""
         logging.info("方式 '%s' は既存のNeo4jデータを使用します", config.name)
@@ -699,14 +800,22 @@ def build_index_for_config(
     *,
     wipe: bool = False,
     max_files: Optional[int] = None,
+    test_files: Optional[Sequence[Path]] = None,
+    file_pattern: Optional[str] = None,
 ) -> None:
     """指定された設定でインデックスを構築"""
     logging.info("方式 '%s' でインデックスを構築中...", config.name)
     logging.info("設定: %s", config.description)
     logging.info("RAG方式: %s", config.rag_type)
+    if test_files:
+        logging.info("テストファイルを読み込み: %s", [str(f) for f in test_files])
+    elif file_pattern:
+        logging.info("ファイルパターンでフィルタ: %s", file_pattern)
 
     implementation = get_rag_implementation(config)
-    implementation.build_index(root, config, wipe=wipe, max_files=max_files)
+    implementation.build_index(
+        root, config, wipe=wipe, max_files=max_files, test_files=test_files, file_pattern=file_pattern
+    )
 
 
 def query_with_config(
@@ -749,10 +858,14 @@ def build_all_indices(
     *,
     wipe: bool = False,
     max_files: Optional[int] = None,
+    test_files: Optional[Sequence[Path]] = None,
+    file_pattern: Optional[str] = None,
 ) -> None:
     """すべての設定でインデックスを構築"""
     for config in configs:
-        build_index_for_config(root, config, wipe=wipe, max_files=max_files)
+        build_index_for_config(
+            root, config, wipe=wipe, max_files=max_files, test_files=test_files, file_pattern=file_pattern
+        )
 
 
 class ExecutionSession:
@@ -916,6 +1029,17 @@ def build_argument_parser() -> argparse.ArgumentParser:
         type=int,
         help="読み込む最大ファイル数",
     )
+    build_parser.add_argument(
+        "--test-files",
+        nargs="+",
+        type=Path,
+        help="評価用に読み込む特定のファイル（複数指定可）。例: --test-files about_datum.html",
+    )
+    build_parser.add_argument(
+        "--file-pattern",
+        type=str,
+        help="読み込むファイル名のパターン（ワイルドカード使用可）。例: --file-pattern 'about_*.html'",
+    )
 
     # query コマンド: 質問を実行して比較
     query_parser = subparsers.add_parser("query", help="複数の方式で質問を実行して比較")
@@ -977,9 +1101,30 @@ def build_argument_parser() -> argparse.ArgumentParser:
     )
 
     # list コマンド: 利用可能な方式を一覧表示
-    subparsers.add_parser("list", help="利用可能な方式を一覧表示")
+    list_parser = subparsers.add_parser("list", help="利用可能な方式を一覧表示")
 
-    # 共通オプション
+    # init-config コマンド: デフォルト設定ファイルを作成
+    init_parser = subparsers.add_parser("init-config", help="デフォルト設定ファイルを作成")
+    init_parser.add_argument(
+        "--output",
+        type=Path,
+        default=Path("rag_comparison_config.json"),
+        help="出力先の設定ファイルパス（デフォルト: rag_comparison_config.json）",
+    )
+
+    # 共通オプション（設定ファイル関連）
+    for p in [build_parser, query_parser, compare_parser, list_parser]:
+        p.add_argument(
+            "--config-file",
+            type=Path,
+            help="設定ファイルのパス（未指定時はデフォルト設定を使用）",
+        )
+        p.add_argument(
+            "--use-file-only",
+            action="store_true",
+            help="設定ファイルの設定のみを使用（デフォルト設定を無視）",
+        )
+
     for p in [build_parser, query_parser, compare_parser]:
         p.add_argument(
             "--log-level",
@@ -1002,12 +1147,33 @@ def build_argument_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def get_configs_by_names(names: Optional[Sequence[str]]) -> List[RAGConfig]:
+def get_configs_by_names(
+    names: Optional[Sequence[str]],
+    config_file: Optional[Path] = None,
+    use_file_only: bool = False,
+) -> List[RAGConfig]:
     """方式名のリストからRAGConfigのリストを取得"""
-    if names is None:
-        return DEFAULT_CONFIGS.copy()
+    # 設定ファイルから読み込む
+    file_configs = []
+    if config_file and config_file.exists() and load_config_file:
+        try:
+            config_data = load_config_file(config_file)
+            file_configs = config_data.load_rag_configs()
+            logging.info("設定ファイルから %d 個のRAG方式を読み込みました: %s", len(file_configs), config_file)
+        except Exception as exc:
+            logging.warning("設定ファイルの読み込みに失敗しました: %s, エラー: %s", config_file, exc)
 
-    config_map = {config.name: config for config in DEFAULT_CONFIGS}
+    # 設定ファイルとデフォルト設定をマージ
+    if file_configs and merge_configs:
+        all_configs = merge_configs(file_configs, DEFAULT_CONFIGS, use_file_only=use_file_only)
+    else:
+        all_configs = DEFAULT_CONFIGS.copy()
+
+    # 名前でフィルタ
+    if names is None:
+        return all_configs
+
+    config_map = {config.name: config for config in all_configs}
     configs = []
     for name in names:
         if name in config_map:
@@ -1042,10 +1208,28 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         )
 
     try:
+        if args.command == "init-config":
+            if create_default_config_file:
+                create_default_config_file(args.output)
+                print(f"デフォルト設定ファイルを作成しました: {args.output}")
+                print("\n設定ファイルを編集して、RAG方式をカスタマイズできます。")
+                print("機密情報（APIキー、パスワードなど）は.envファイルで管理してください。")
+            else:
+                logging.error("設定ファイル機能が利用できません。")
+                return 1
+            return 0
+
         if args.command == "list":
+            # 設定ファイルから読み込む
+            config_file = getattr(args, "config_file", None)
+            use_file_only = getattr(args, "use_file_only", False)
+            configs = get_configs_by_names(None, config_file=config_file, use_file_only=use_file_only)
+
             print("利用可能なRAG方式:")
+            if config_file and config_file.exists():
+                print(f"（設定ファイル: {config_file}）")
             print()
-            for config in DEFAULT_CONFIGS:
+            for config in configs:
                 print(f"  {config.name}: {config.description}")
                 print(f"    - rag_type: {config.rag_type}")
                 print(f"    - chunk_size: {config.chunk_size}")
@@ -1056,7 +1240,30 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 print()
             return 0
 
-        configs = get_configs_by_names(getattr(args, "configs", None))
+        # 設定ファイルから読み込む
+        config_file = getattr(args, "config_file", None)
+        use_file_only = getattr(args, "use_file_only", False)
+        configs = get_configs_by_names(
+            getattr(args, "configs", None),
+            config_file=config_file,
+            use_file_only=use_file_only,
+        )
+
+        # 設定ファイルからデフォルト設定を読み込む
+        settings = None
+        if config_file and config_file.exists() and load_config_file:
+            try:
+                config_data = load_config_file(config_file)
+                settings = config_data.get_settings()
+                # コマンドライン引数で上書きされていない場合のみ設定ファイルの値を使用
+                if hasattr(args, "top_k") and args.top_k == 5:  # デフォルト値の場合
+                    args.top_k = settings.top_k
+                if hasattr(args, "log_level") and args.log_level == "INFO":
+                    args.log_level = settings.log_level
+                if hasattr(args, "console_level") and args.console_level == "WARNING":
+                    args.console_level = settings.console_level
+            except Exception as exc:
+                logging.warning("設定ファイルからデフォルト設定の読み込みに失敗しました: %s", exc)
 
         # 設定を保存
         if session:
@@ -1064,11 +1271,25 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             logging.info("設定を保存しました: %s", session.session_dir / "configs.json")
 
         if args.command == "build":
+            # test_filesを処理（相対パスの場合はrootからの相対パスとして扱う）
+            test_files = None
+            if hasattr(args, "test_files") and args.test_files:
+                test_files = []
+                for file_path in args.test_files:
+                    if file_path.is_absolute():
+                        test_files.append(file_path)
+                    else:
+                        # 相対パスの場合、rootからの相対パスとして扱う
+                        full_path = args.root / file_path
+                        test_files.append(full_path)
+
             build_all_indices(
                 args.root,
                 configs,
                 wipe=args.wipe,
                 max_files=getattr(args, "max_files", None),
+                test_files=test_files,
+                file_pattern=getattr(args, "file_pattern", None),
             )
             # サマリーを保存
             if session:
@@ -1078,6 +1299,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                     "configs_count": len(configs),
                     "wipe": args.wipe,
                     "max_files": getattr(args, "max_files", None),
+                    "test_files": [str(f) for f in test_files] if test_files else None,
+                    "file_pattern": getattr(args, "file_pattern", None),
                 })
                 logging.info("実行サマリーを保存しました: %s", session.session_dir / "summary.json")
             return 0
