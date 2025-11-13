@@ -1,0 +1,17 @@
+2025-11-13 16:44:39,533 INFO root: 設定ファイルから 5 個のRAG方式を読み込みました: rag_comparison_config.json
+2025-11-13 16:44:39,535 INFO root: 設定を保存しました: C:\Users\user\workfolders\imabari3dcad\helpfile_parser\logs\build_20251113_164439\configs.json
+2025-11-13 16:44:39,535 INFO root: 方式 'vector_store_default' でインデックスを構築中...
+2025-11-13 16:44:39,535 INFO root: 設定: VectorStoreIndex (Chroma)（chunk_size=800, overlap=120）
+2025-11-13 16:44:39,535 INFO root: RAG方式: vector_store
+2025-11-13 16:44:39,535 INFO root: 方式 'vector_store_default' でVectorStoreIndexを構築中...
+2025-11-13 16:44:40,468 ERROR root: 処理中にエラーが発生しました: cannot import name 'extract_help_document' from 'helpfile_parser' (unknown location)
+Traceback (most recent call last):
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 1537, in main
+    build_all_indices(
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 1117, in build_all_indices
+    build_index_for_config(
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 1067, in build_index_for_config
+    implementation.build_index(
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 395, in build_index
+    from helpfile_parser import extract_help_document
+ImportError: cannot import name 'extract_help_document' from 'helpfile_parser' (unknown location)

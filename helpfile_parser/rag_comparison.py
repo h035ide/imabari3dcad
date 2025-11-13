@@ -392,7 +392,10 @@ class VectorStoreRAG(RAGImplementation):
         import chromadb
 
         # ドキュメントを読み込み
-        from helpfile_parser import extract_help_document
+        try:
+            from .helpfile_parser import extract_help_document
+        except ImportError:
+            from helpfile_parser import extract_help_document
 
         help_docs = []
         if test_files:
@@ -410,7 +413,10 @@ class VectorStoreRAG(RAGImplementation):
         elif file_pattern:
             # ファイル名パターンでフィルタ
             import fnmatch
-            from helpfile_parser import iter_help_documents
+            try:
+                from .helpfile_parser import iter_help_documents
+            except ImportError:
+                from helpfile_parser import iter_help_documents
             documents_iter = iter_help_documents(root)
             for doc in documents_iter:
                 if fnmatch.fnmatch(doc.source_path.name, file_pattern):
@@ -419,7 +425,10 @@ class VectorStoreRAG(RAGImplementation):
                         break
         else:
             # 通常の読み込み
-            from helpfile_parser import iter_help_documents
+            try:
+                from .helpfile_parser import iter_help_documents
+            except ImportError:
+                from helpfile_parser import iter_help_documents
             documents_iter = iter_help_documents(root)
             if max_files is not None:
                 from itertools import islice

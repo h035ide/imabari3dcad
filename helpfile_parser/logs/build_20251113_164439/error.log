@@ -1,0 +1,13 @@
+エラー発生時刻: 2025-11-13T16:44:40.470930
+エラー内容: cannot import name 'extract_help_document' from 'helpfile_parser' (unknown location)
+トレースバック:
+Traceback (most recent call last):
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 1537, in main
+    build_all_indices(
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 1117, in build_all_indices
+    build_index_for_config(
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 1067, in build_index_for_config
+    implementation.build_index(
+  File "C:\Users\user\workfolders\imabari3dcad\helpfile_parser\rag_comparison.py", line 395, in build_index
+    from helpfile_parser import extract_help_document
+ImportError: cannot import name 'extract_help_document' from 'helpfile_parser' (unknown location)
