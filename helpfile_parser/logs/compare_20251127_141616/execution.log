@@ -1,0 +1,72 @@
+2025-11-27 14:16:16,068 INFO root: 設定を保存しました: C:\Users\akiro\workfolder\imabari3dcad\helpfile_parser\logs\compare_20251127_141616\configs.json
+2025-11-27 14:16:16,069 INFO root: 質問を実行中: データムとは何ですか？
+2025-11-27 14:16:16,070 INFO root: 方式 'property_graph_default' で質問を実行中...
+2025-11-27 14:16:18,117 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:19,313 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:22,027 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:22,035 INFO root: 方式 'vector_store_default' で質問を実行中...
+2025-11-27 14:16:22,326 INFO chromadb.telemetry.product.posthog: Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-11-27 14:16:22,758 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:23,926 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:23,933 INFO root: 方式 'vector_store_small' で質問を実行中...
+2025-11-27 14:16:23,935 INFO chromadb.telemetry.product.posthog: Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-11-27 14:16:24,300 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:25,904 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:25,909 INFO root: 方式 'langchain_chroma_default' で質問を実行中...
+2025-11-27 14:16:25,981 INFO chromadb.telemetry.product.posthog: Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-11-27 14:16:26,675 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:29,725 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:30,018 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:30,021 INFO root: 方式 'langchain_neo4j' で質問を実行中...
+2025-11-27 14:16:30,861 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:32,871 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:32,880 INFO root: 方式 'beautifulsoup_default' で質問を実行中...
+2025-11-27 14:16:32,895 INFO chromadb.telemetry.product.posthog: Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-11-27 14:16:33,181 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:35,055 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:35,350 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:35,354 INFO root: 質問を実行中: 座標系とは何か？
+2025-11-27 14:16:35,355 INFO root: 方式 'property_graph_default' で質問を実行中...
+2025-11-27 14:16:35,991 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:36,416 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:37,973 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:37,979 INFO root: 方式 'vector_store_default' で質問を実行中...
+2025-11-27 14:16:38,253 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:39,268 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:39,269 INFO root: 方式 'vector_store_small' で質問を実行中...
+2025-11-27 14:16:39,565 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:41,199 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:41,200 INFO root: 方式 'langchain_chroma_default' で質問を実行中...
+2025-11-27 14:16:41,596 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:44,046 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:44,424 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:44,427 INFO root: 方式 'langchain_neo4j' で質問を実行中...
+2025-11-27 14:16:45,185 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:46,488 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:46,494 INFO root: 方式 'beautifulsoup_default' で質問を実行中...
+2025-11-27 14:16:46,815 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:48,888 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:49,142 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:49,144 INFO root: 質問を実行中: 点とは何か？
+2025-11-27 14:16:49,144 INFO root: 方式 'property_graph_default' で質問を実行中...
+2025-11-27 14:16:49,544 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:49,821 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:50,677 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:50,685 INFO root: 方式 'vector_store_default' で質問を実行中...
+2025-11-27 14:16:51,035 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:51,638 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:51,642 INFO root: 方式 'vector_store_small' で質問を実行中...
+2025-11-27 14:16:52,098 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:52,833 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:52,838 INFO root: 方式 'langchain_chroma_default' で質問を実行中...
+2025-11-27 14:16:53,226 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:54,684 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:54,987 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:54,990 INFO root: 方式 'langchain_neo4j' で質問を実行中...
+2025-11-27 14:16:56,024 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:56,660 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:56,672 INFO root: 方式 'beautifulsoup_default' で質問を実行中...
+2025-11-27 14:16:57,060 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:58,824 INFO httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 14:16:59,096 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:16:59,100 INFO root: 結果を保存しました: C:\Users\akiro\workfolder\imabari3dcad\helpfile_parser\logs\compare_20251127_141616\results

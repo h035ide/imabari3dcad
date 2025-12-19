@@ -1,0 +1,14 @@
+{
+  "command": "compare",
+  "timestamp": "2025-11-27T14:16:16.067076",
+  "session_dir": "C:\\Users\\akiro\\workfolder\\imabari3dcad\\helpfile_parser\\logs\\compare_20251127_141616",
+  "questions_count": 3,
+  "questions": [
+    "データムとは何ですか？",
+    "座標系とは何か？",
+    "点とは何か？"
+  ],
+  "configs_count": 6,
+  "top_k": 5,
+  "results_count": 3
+}

@@ -1,0 +1,182 @@
+[
+  {
+    "question": "データムとは何ですか？",
+    "timestamp": "2025-11-27T05:23:45.243422",
+    "results": [
+      {
+        "config_name": "property_graph_default",
+        "question": "データムとは何ですか？",
+        "answer": "データムは、各要素の位置、方向などの基準となる要素であり、3次元モデルの要素である。図面ドキュメントには存在せず、平面、座標系、軸、点などがデータムとして含まれる。",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 32.125060081481934,
+        "error": null,
+        "timestamp": "2025-11-27T05:24:58.003403"
+      },
+      {
+        "config_name": "vector_store_default",
+        "question": "データムとは何ですか？",
+        "answer": "データムは、各要素の位置、方向などの基準となる要素であり、３Ｄモデルの要素であり、図面ドキュメントには存在しません。データムには平面、座標系、軸、点などが含まれます。",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 1.7009716033935547,
+        "error": null,
+        "timestamp": "2025-11-27T05:24:58.003403"
+      },
+      {
+        "config_name": "vector_store_small",
+        "question": "データムとは何ですか？",
+        "answer": "データムは、各要素の位置、方向などの基準となる要素であり、3次元空間上の無限平面や座標系、軸、点などが含まれます。",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 1.3496460914611816,
+        "error": null,
+        "timestamp": "2025-11-27T05:24:58.003403"
+      },
+      {
+        "config_name": "langchain_chroma_default",
+        "question": "データムとは何ですか？",
+        "answer": "データムとは、各要素の位置や方向などの基準となる要素です。3Dモデルの要素であり、図面ドキュメントには存在しません。データムには平面、座標系、軸、点などが含まれます。平面は3次元空間上の無限平面で、座標系は3次元の座標系、軸は3次元空間上の無限直線、点は3次元空間上の点を指します。",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 3.659919500350952,
+        "error": null,
+        "timestamp": "2025-11-27T05:24:58.003403"
+      },
+      {
+        "config_name": "langchain_neo4j",
+        "question": "データムとは何ですか？",
+        "answer": "データムとは、各要素の位置や方向などの基準となる要素です。これは3Dモデルの要素であり、図面ドキュメントには存在しません。データムには以下の要素があります：\n\n- **平面**: 3次元空間上の無限平面で、原点(0,0,0)上のXY、YZ、ZX平面が常に存在します。\n- **座標系**: 3次元の座標系で、絶対座標系が常に存在し、いずれか一つの座標系がワーク座標系になります。座標値を入力する際はワーク座標系の値になります。\n- **軸**: 3次元空間上の無限直線です。\n- **点**: 3次元空間上の点です。\n\nこれらの要素は、データムとしての役割を果たします。",
+        "retrieved_nodes_count": 0,
+        "execution_time_seconds": 6.910034656524658,
+        "error": null,
+        "timestamp": "2025-11-27T05:24:58.003403"
+      },
+      {
+        "config_name": "beautifulsoup_default",
+        "question": "データムとは何ですか？",
+        "answer": "データムとは、各要素の位置や方向などの基準となる要素です。これは3Dモデルの要素であり、図面ドキュメントには存在しません。データムには、平面、座標系、軸、点などの要素が含まれます。",
+        "retrieved_nodes_count": 3,
+        "execution_time_seconds": 3.2483134269714355,
+        "error": null,
+        "timestamp": "2025-11-27T05:24:58.003403"
+      }
+    ]
+  },
+  {
+    "question": "座標系とは何か？",
+    "timestamp": "2025-11-27T05:24:34.655821",
+    "results": [
+      {
+        "config_name": "property_graph_default",
+        "question": "座標系とは何か？",
+        "answer": "座標系は、3次元の座標系であり、絶対座標系が常に存在します。常にいずれか一つの座標系がワーク座標系になっており、座標値を入力する際はワーク座標系の値になります。",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 2.091895341873169,
+        "error": null,
+        "timestamp": "2025-11-27T05:24:58.003403"
+      },
+      {
+        "config_name": "vector_store_default",
+        "question": "座標系とは何か？",
+        "answer": "座標系は、3次元の座標系であり、絶対座標系が常に存在します。常にいずれか一つの座標系がワーク座標系になっており、座標値を入力する際はワーク座標系の値になります。",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 1.7715485095977783,
+        "error": null,
+        "timestamp": "2025-11-27T05:24:58.003403"
+      },
+      {
+        "config_name": "vector_store_small",
+        "question": "座標系とは何か？",
+        "answer": "座標系は3次元の座標系であり、絶対座標系が常に存在します。常にいずれか一つの座標系がワーク座標系になっており、座標値を入力する際はワーク座標系の値になります。",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 1.5145809650421143,
+        "error": null,
+        "timestamp": "2025-11-27T05:24:58.003403"
+      },
+      {
+        "config_name": "langchain_chroma_default",
+        "question": "座標系とは何か？",
+        "answer": "座標系とは、3次元の空間における位置を表すための基準となるシステムです。絶対座標系が常に存在し、いずれか一つの座標系がワーク座標系として使用されます。座標値を入力する際は、このワーク座標系の値が用いられます。",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 2.698667049407959,
+        "error": null,
+        "timestamp": "2025-11-27T05:24:58.003403"
+      },
+      {
+        "config_name": "langchain_neo4j",
+        "question": "座標系とは何か？",
+        "answer": "座標系とは、空間内の点を特定するための基準となるシステムです。通常、数値を用いて位置を表現し、2次元や3次元の空間での位置関係を明確にします。",
+        "retrieved_nodes_count": 0,
+        "execution_time_seconds": 2.597774028778076,
+        "error": null,
+        "timestamp": "2025-11-27T05:24:58.003403"
+      },
+      {
+        "config_name": "beautifulsoup_default",
+        "question": "座標系とは何か？",
+        "answer": "座標系とは、3次元の空間における位置を特定するための基準となるシステムです。絶対座標系が常に存在し、いずれか一つの座標系がワーク座標系として設定されます。座標値を入力する際は、このワーク座標系の値が使用されます。",
+        "retrieved_nodes_count": 3,
+        "execution_time_seconds": 2.585523843765259,
+        "error": null,
+        "timestamp": "2025-11-27T05:24:58.003403"
+      }
+    ]
+  },
+  {
+    "question": "点とは何か？",
+    "timestamp": "2025-11-27T05:24:47.925646",
+    "results": [
+      {
+        "config_name": "property_graph_default",
+        "question": "点とは何か？",
+        "answer": "点は3次元空間上の位置を表す要素であり、点は作成や投影点の作成などの操作が可能です。",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 1.365105390548706,
+        "error": null,
+        "timestamp": "2025-11-27T05:24:58.003403"
+      },
+      {
+        "config_name": "vector_store_default",
+        "question": "点とは何か？",
+        "answer": "点は3次元空間上の位置を表す要素です。",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 0.9648218154907227,
+        "error": null,
+        "timestamp": "2025-11-27T05:24:58.003403"
+      },
+      {
+        "config_name": "vector_store_small",
+        "question": "点とは何か？",
+        "answer": "点は3次元空間上の位置を表す要素であり、無限小の大きさを持ちます。",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 1.0972013473510742,
+        "error": null,
+        "timestamp": "2025-11-27T05:24:58.003403"
+      },
+      {
+        "config_name": "langchain_chroma_default",
+        "question": "点とは何か？",
+        "answer": "点とは、3次元空間上の位置を示す要素であり、特定の座標を持つ無限に小さな位置を表します。点は、形状やサイズを持たず、単に位置を示すためのものです。",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 2.4271628856658936,
+        "error": null,
+        "timestamp": "2025-11-27T05:24:58.003403"
+      },
+      {
+        "config_name": "langchain_neo4j",
+        "question": "点とは何か？",
+        "answer": "点とは、3次元空間上の位置を示す要素です。点は、データムの一部として作成され、投影点も作成することができます。",
+        "retrieved_nodes_count": 0,
+        "execution_time_seconds": 1.900799036026001,
+        "error": null,
+        "timestamp": "2025-11-27T05:24:58.003403"
+      },
+      {
+        "config_name": "beautifulsoup_default",
+        "question": "点とは何か？",
+        "answer": "点とは、3次元空間上の位置を示す要素であり、具体的には位置を持つが大きさや形状を持たないものです。点は、点の作成や投影点の作成によって定義されます。",
+        "retrieved_nodes_count": 3,
+        "execution_time_seconds": 2.3150360584259033,
+        "error": null,
+        "timestamp": "2025-11-27T05:24:58.003403"
+      }
+    ]
+  }
+]

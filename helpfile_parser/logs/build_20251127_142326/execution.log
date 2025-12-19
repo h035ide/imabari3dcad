@@ -1,0 +1,56 @@
+2025-11-27 14:23:26,682 INFO root: 設定を保存しました: C:\Users\akiro\workfolder\imabari3dcad\helpfile_parser\logs\build_20251127_142326\configs.json
+2025-11-27 14:23:26,683 INFO root: 方式 'property_graph_default' でインデックスを構築中...
+2025-11-27 14:23:26,683 INFO root: 設定: PropertyGraphIndex（chunk_size=800, overlap=120, embed有効）
+2025-11-27 14:23:26,683 INFO root: RAG方式: property_graph
+2025-11-27 14:23:26,683 INFO root: テストファイルを読み込み: ['evoship\\EVOSHIP_HELP_FILES\\about_datum.html']
+2025-11-27 14:23:26,683 INFO root: 方式 'property_graph_default' でPropertyGraphIndexを構築中...
+2025-11-27 14:23:26,803 INFO root: LlamaIndexでチャンク化完了: 1 documents, 1 sections, 1 chunks (chunk_size=800, overlap=120)
+2025-11-27 14:23:26,957 INFO root: 既存のヘルプグラフを削除します。
+2025-11-27 14:23:29,425 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:23:29,430 INFO openai._base_client: Retrying request to /embeddings in 0.453441 seconds
+2025-11-27 14:23:30,381 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:23:31,081 INFO root: 方式 'property_graph_default' のインデックス構築完了: 1 documents, 1 sections, 1 chunks
+2025-11-27 14:23:31,082 INFO root: 方式 'vector_store_default' でインデックスを構築中...
+2025-11-27 14:23:31,082 INFO root: 設定: VectorStoreIndex (Chroma)（chunk_size=800, overlap=120）
+2025-11-27 14:23:31,082 INFO root: RAG方式: vector_store
+2025-11-27 14:23:31,082 INFO root: テストファイルを読み込み: ['evoship\\EVOSHIP_HELP_FILES\\about_datum.html']
+2025-11-27 14:23:31,082 INFO root: 方式 'vector_store_default' でVectorStoreIndexを構築中...
+2025-11-27 14:23:31,446 INFO chromadb.telemetry.product.posthog: Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-11-27 14:23:32,201 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:23:32,327 INFO root: 方式 'vector_store_default' のインデックス構築完了: 1 ノード
+2025-11-27 14:23:32,327 INFO root: 方式 'vector_store_small' でインデックスを構築中...
+2025-11-27 14:23:32,327 INFO root: 設定: VectorStoreIndex (Chroma)（chunk_size=400, overlap=60）
+2025-11-27 14:23:32,327 INFO root: RAG方式: vector_store
+2025-11-27 14:23:32,327 INFO root: テストファイルを読み込み: ['evoship\\EVOSHIP_HELP_FILES\\about_datum.html']
+2025-11-27 14:23:32,328 INFO root: 方式 'vector_store_small' でVectorStoreIndexを構築中...
+2025-11-27 14:23:32,333 INFO chromadb.telemetry.product.posthog: Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-11-27 14:23:32,753 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:23:32,848 INFO root: 方式 'vector_store_small' のインデックス構築完了: 1 ノード
+2025-11-27 14:23:32,849 INFO root: 方式 'langchain_chroma_default' でインデックスを構築中...
+2025-11-27 14:23:32,849 INFO root: 設定: LangChain + Chroma（chunk_size=800, overlap=120）
+2025-11-27 14:23:32,849 INFO root: RAG方式: langchain_chroma
+2025-11-27 14:23:32,849 INFO root: テストファイルを読み込み: ['evoship\\EVOSHIP_HELP_FILES\\about_datum.html']
+2025-11-27 14:23:32,849 INFO root: 方式 'langchain_chroma_default' でLangChain + Chromaを構築中...
+2025-11-27 14:23:32,930 INFO chromadb.telemetry.product.posthog: Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-11-27 14:23:33,335 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:23:33,422 INFO root: 方式 'langchain_chroma_default' のインデックス構築完了: 1 チャンク
+2025-11-27 14:23:33,422 INFO root: 方式 'langchain_neo4j' でインデックスを構築中...
+2025-11-27 14:23:33,422 INFO root: 設定: LangChain + Neo4j Graph（既存のNeo4jデータを使用）
+2025-11-27 14:23:33,422 INFO root: RAG方式: langchain_neo4j
+2025-11-27 14:23:33,422 INFO root: テストファイルを読み込み: ['evoship\\EVOSHIP_HELP_FILES\\about_datum.html']
+2025-11-27 14:23:33,422 INFO root: 方式 'langchain_neo4j' でLangChain + Neo4j Graph用のデータを構築中...
+2025-11-27 14:23:33,425 INFO root: LlamaIndexでチャンク化完了: 1 documents, 1 sections, 1 chunks (chunk_size=800, overlap=120)
+2025-11-27 14:23:34,676 INFO root: 既存のヘルプグラフを削除します。
+2025-11-27 14:23:35,302 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:23:35,305 INFO openai._base_client: Retrying request to /embeddings in 0.411570 seconds
+2025-11-27 14:23:36,256 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:23:37,849 INFO root: 方式 'langchain_neo4j' のデータ構築完了: 1 documents, 1 sections, 1 chunks
+2025-11-27 14:23:37,849 INFO root: 方式 'beautifulsoup_default' でインデックスを構築中...
+2025-11-27 14:23:37,849 INFO root: 設定: BeautifulSoupベースのHTML解析 + LangChain + Chroma（chunk_size=800, overlap=120）
+2025-11-27 14:23:37,849 INFO root: RAG方式: beautifulsoup
+2025-11-27 14:23:37,849 INFO root: テストファイルを読み込み: ['evoship\\EVOSHIP_HELP_FILES\\about_datum.html']
+2025-11-27 14:23:37,849 INFO root: 方式 'beautifulsoup_default' でBeautifulSoup + LangChain + Chromaを構築中...
+2025-11-27 14:23:37,867 INFO chromadb.telemetry.product.posthog: Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-11-27 14:23:38,549 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:23:38,658 INFO root: 方式 'beautifulsoup_default' のインデックス構築完了: 3 チャンク（1 ファイル）
+2025-11-27 14:23:38,659 INFO root: 実行サマリーを保存しました: C:\Users\akiro\workfolder\imabari3dcad\helpfile_parser\logs\build_20251127_142326\summary.json

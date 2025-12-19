@@ -9,7 +9,7 @@
       "use_llm_extract": false,
       "llm_model": null,
       "embed_kg_nodes": true,
-      "database": null,
+      "database": "rag-property-graph-default",
       "chroma_persist_dir": null,
       "chroma_collection": null
     },
@@ -61,7 +61,7 @@
       "use_llm_extract": false,
       "llm_model": null,
       "embed_kg_nodes": true,
-      "database": null,
+      "database": "rag-langchain-neo4j",
       "chroma_persist_dir": null,
       "chroma_collection": null
     }

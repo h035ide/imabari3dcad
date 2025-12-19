@@ -1,0 +1,69 @@
+2025-11-27 14:05:26,316 INFO root: 設定を保存しました: C:\Users\akiro\workfolder\imabari3dcad\helpfile_parser\logs\build_20251127_140526\configs.json
+2025-11-27 14:05:26,316 INFO root: 方式 'property_graph_default' でインデックスを構築中...
+2025-11-27 14:05:26,316 INFO root: 設定: PropertyGraphIndex（chunk_size=800, overlap=120, embed有効）
+2025-11-27 14:05:26,316 INFO root: RAG方式: property_graph
+2025-11-27 14:05:26,316 INFO root: テストファイルを読み込み: ['evoship\\EVOSHIP_HELP_FILES\\about_datum.html']
+2025-11-27 14:05:26,316 INFO root: 方式 'property_graph_default' でPropertyGraphIndexを構築中...
+2025-11-27 14:05:26,316 WARNING root: PropertyGraphIndex方式では、test_files/file_patternオプションは現在サポートされていません。すべてのファイルを読み込みます。
+2025-11-27 14:05:29,108 INFO root: LlamaIndexでチャンク化完了: 299 documents, 815 sections, 1191 chunks (chunk_size=800, overlap=120)
+2025-11-27 14:05:30,388 INFO root: 既存のヘルプグラフを削除します。
+2025-11-27 14:05:34,332 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:34,337 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:34,396 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:34,519 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:34,630 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:34,806 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:34,844 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:34,986 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:35,120 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:35,203 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:35,831 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:36,381 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:37,107 INFO openai._base_client: Retrying request to /embeddings in 0.386441 seconds
+2025-11-27 14:05:37,108 INFO openai._base_client: Retrying request to /embeddings in 0.415144 seconds
+2025-11-27 14:05:37,110 INFO openai._base_client: Retrying request to /embeddings in 0.478683 seconds
+2025-11-27 14:05:37,111 INFO openai._base_client: Retrying request to /embeddings in 0.437821 seconds
+2025-11-27 14:05:37,113 INFO openai._base_client: Retrying request to /embeddings in 0.449138 seconds
+2025-11-27 14:05:37,113 INFO openai._base_client: Retrying request to /embeddings in 0.378415 seconds
+2025-11-27 14:05:37,114 INFO openai._base_client: Retrying request to /embeddings in 0.382783 seconds
+2025-11-27 14:05:37,115 INFO openai._base_client: Retrying request to /embeddings in 0.430434 seconds
+2025-11-27 14:05:37,116 INFO openai._base_client: Retrying request to /embeddings in 0.455047 seconds
+2025-11-27 14:05:37,117 INFO openai._base_client: Retrying request to /embeddings in 0.414937 seconds
+2025-11-27 14:05:37,118 INFO openai._base_client: Retrying request to /embeddings in 0.462457 seconds
+2025-11-27 14:05:37,126 INFO openai._base_client: Retrying request to /embeddings in 0.376455 seconds
+2025-11-27 14:05:37,685 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:37,692 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:37,705 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:37,786 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:37,791 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:37,834 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:37,861 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:37,924 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,073 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,088 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,126 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,145 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,147 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,173 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,201 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,213 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,236 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,257 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,266 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,292 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,312 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,380 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,422 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,423 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,466 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,472 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,595 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,602 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,653 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,741 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,871 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,911 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,932 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,946 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:38,955 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-27 14:05:39,232 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"

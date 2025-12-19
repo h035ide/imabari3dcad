@@ -1,0 +1,182 @@
+[
+  {
+    "question": "データムとは何ですか？",
+    "timestamp": "2025-11-27T05:10:57.065684",
+    "results": [
+      {
+        "config_name": "property_graph_default",
+        "question": "データムとは何ですか？",
+        "answer": "",
+        "retrieved_nodes_count": 0,
+        "execution_time_seconds": 2.571932077407837,
+        "error": "One of nodes, objects, or index_struct must be provided.",
+        "timestamp": "2025-11-27T05:11:32.488286"
+      },
+      {
+        "config_name": "vector_store_default",
+        "question": "データムとは何ですか？",
+        "answer": "データムは、各要素の位置、方向などの基準となる要素であり、3次元空間上の無限平面や座標系、軸、点などが含まれます。",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 2.5784385204315186,
+        "error": null,
+        "timestamp": "2025-11-27T05:11:32.488286"
+      },
+      {
+        "config_name": "vector_store_small",
+        "question": "データムとは何ですか？",
+        "answer": "データムは、各要素の位置、方向などの基準となる要素であり、３Ｄモデルの要素であり、図面ドキュメントには存在しません。データムには平面、座標系、軸、点などが含まれます。",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 1.5963890552520752,
+        "error": null,
+        "timestamp": "2025-11-27T05:11:32.488286"
+      },
+      {
+        "config_name": "langchain_chroma_default",
+        "question": "データムとは何ですか？",
+        "answer": "データムとは、各要素の位置や方向などの基準となる要素です。3Dモデルの要素であり、図面ドキュメントには存在しません。データムには平面、座標系、軸、点などが含まれます。平面は3次元空間上の無限平面で、座標系は3次元の座標系、軸は3次元空間上の無限直線、点は3次元空間上の点を指します。",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 4.696112632751465,
+        "error": null,
+        "timestamp": "2025-11-27T05:11:32.488286"
+      },
+      {
+        "config_name": "langchain_neo4j",
+        "question": "データムとは何ですか？",
+        "answer": "データムとは、データの基準や参照点を指します。具体的には、データを整理・分析する際の基盤となる情報や数値のことを意味します。",
+        "retrieved_nodes_count": 0,
+        "execution_time_seconds": 4.124074697494507,
+        "error": null,
+        "timestamp": "2025-11-27T05:11:32.488286"
+      },
+      {
+        "config_name": "beautifulsoup_default",
+        "question": "データムとは何ですか？",
+        "answer": "データムとは、各要素の位置や方向などの基準となる要素です。これは3Dモデルの要素であり、図面ドキュメントには存在しません。データムには平面、座標系、軸、点などの要素が含まれます。",
+        "retrieved_nodes_count": 3,
+        "execution_time_seconds": 4.0782928466796875,
+        "error": null,
+        "timestamp": "2025-11-27T05:11:32.488286"
+      }
+    ]
+  },
+  {
+    "question": "座標系の作成方法は？",
+    "timestamp": "2025-11-27T05:11:17.215639",
+    "results": [
+      {
+        "config_name": "property_graph_default",
+        "question": "座標系の作成方法は？",
+        "answer": "",
+        "retrieved_nodes_count": 0,
+        "execution_time_seconds": 0.15937447547912598,
+        "error": "One of nodes, objects, or index_struct must be provided.",
+        "timestamp": "2025-11-27T05:11:32.488286"
+      },
+      {
+        "config_name": "vector_store_default",
+        "question": "座標系の作成方法は？",
+        "answer": "座標系の作成方法は、3次元の座標系を作成することによって行われます。",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 0.9804961681365967,
+        "error": null,
+        "timestamp": "2025-11-27T05:11:32.488286"
+      },
+      {
+        "config_name": "vector_store_small",
+        "question": "座標系の作成方法は？",
+        "answer": "座標系の作成方法は、3次元の座標系を作成することによって行われます。",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 1.7409179210662842,
+        "error": null,
+        "timestamp": "2025-11-27T05:11:32.488286"
+      },
+      {
+        "config_name": "langchain_chroma_default",
+        "question": "座標系の作成方法は？",
+        "answer": "申し訳ありませんが、座標系の作成方法についてはわかりません。",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 1.4950499534606934,
+        "error": null,
+        "timestamp": "2025-11-27T05:11:32.488286"
+      },
+      {
+        "config_name": "langchain_neo4j",
+        "question": "座標系の作成方法は？",
+        "answer": "わかりません。",
+        "retrieved_nodes_count": 0,
+        "execution_time_seconds": 2.0052289962768555,
+        "error": null,
+        "timestamp": "2025-11-27T05:11:32.488286"
+      },
+      {
+        "config_name": "beautifulsoup_default",
+        "question": "座標系の作成方法は？",
+        "answer": "申し訳ありませんが、座標系の作成方法についてはわかりません。",
+        "retrieved_nodes_count": 3,
+        "execution_time_seconds": 1.4861202239990234,
+        "error": null,
+        "timestamp": "2025-11-27T05:11:32.488286"
+      }
+    ]
+  },
+  {
+    "question": "測定データの取込み手順は？",
+    "timestamp": "2025-11-27T05:11:25.089725",
+    "results": [
+      {
+        "config_name": "property_graph_default",
+        "question": "測定データの取込み手順は？",
+        "answer": "",
+        "retrieved_nodes_count": 0,
+        "execution_time_seconds": 0.25342774391174316,
+        "error": "One of nodes, objects, or index_struct must be provided.",
+        "timestamp": "2025-11-27T05:11:32.488286"
+      },
+      {
+        "config_name": "vector_store_default",
+        "question": "測定データの取込み手順は？",
+        "answer": "The procedure for importing measurement data involves creating points or projection points in the 3D space.",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 0.7589023113250732,
+        "error": null,
+        "timestamp": "2025-11-27T05:11:32.488286"
+      },
+      {
+        "config_name": "vector_store_small",
+        "question": "測定データの取込み手順は？",
+        "answer": "The procedure for importing measurement data involves creating a datum, setting up a coordinate system, creating axes, and generating points in the 3D space.",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 1.239861011505127,
+        "error": null,
+        "timestamp": "2025-11-27T05:11:32.488286"
+      },
+      {
+        "config_name": "langchain_chroma_default",
+        "question": "測定データの取込み手順は？",
+        "answer": "申し訳ありませんが、測定データの取込み手順についてはわかりません。",
+        "retrieved_nodes_count": 1,
+        "execution_time_seconds": 2.017889976501465,
+        "error": null,
+        "timestamp": "2025-11-27T05:11:32.488286"
+      },
+      {
+        "config_name": "langchain_neo4j",
+        "question": "測定データの取込み手順は？",
+        "answer": "私はその答えを知りません。",
+        "retrieved_nodes_count": 0,
+        "execution_time_seconds": 1.4121181964874268,
+        "error": null,
+        "timestamp": "2025-11-27T05:11:32.488286"
+      },
+      {
+        "config_name": "beautifulsoup_default",
+        "question": "測定データの取込み手順は？",
+        "answer": "申し訳ありませんが、測定データの取込み手順についてはわかりません。",
+        "retrieved_nodes_count": 3,
+        "execution_time_seconds": 1.7098925113677979,
+        "error": null,
+        "timestamp": "2025-11-27T05:11:32.488286"
+      }
+    ]
+  }
+]

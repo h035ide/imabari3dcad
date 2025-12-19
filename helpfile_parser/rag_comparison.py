@@ -176,6 +176,7 @@ DEFAULT_CONFIGS: List[RAGConfig] = [
         chunk_size=800,
         chunk_overlap=120,
         embed_kg_nodes=True,
+        database="rag-property-graph-default",  # 明示的にデータベース名を指定
     ),
     # VectorStoreIndex方式
     RAGConfig(
@@ -205,6 +206,7 @@ DEFAULT_CONFIGS: List[RAGConfig] = [
         name="langchain_neo4j",
         description="LangChain + Neo4j Graph（既存のNeo4jデータを使用）",
         rag_type=RAG_TYPE_LANGCHAIN_NEO4J,
+        database="rag-langchain-neo4j",  # 明示的にデータベース名を指定
     ),
     # BeautifulSoupベースの方式
     RAGConfig(
@@ -262,12 +264,37 @@ class PropertyGraphRAG(RAGImplementation):
         """PropertyGraphIndexを構築"""
         logging.info("方式 '%s' でPropertyGraphIndexを構築中...", config.name)
 
-        # test_filesまたはfile_patternが指定されている場合は警告
-        if test_files or file_pattern:
-            logging.warning(
-                "PropertyGraphIndex方式では、test_files/file_patternオプションは現在サポートされていません。"
-                "すべてのファイルを読み込みます。"
-            )
+        # ドキュメントを読み込み
+        try:
+            from .helpfile_parser import extract_help_document, iter_help_documents
+        except ImportError:
+            from helpfile_parser import extract_help_document, iter_help_documents
+
+        help_docs = []
+        if test_files:
+            # 特定のファイルのみを読み込む
+            for file_path in test_files:
+                if file_path.exists():
+                    help_docs.append(extract_help_document(file_path))
+                else:
+                    # 相対パスの場合、rootからの相対パスとして扱う
+                    full_path = root / file_path if not file_path.is_absolute() else file_path
+                    if full_path.exists():
+                        help_docs.append(extract_help_document(full_path))
+                    else:
+                        logging.warning("ファイルが見つかりません: %s", file_path)
+        elif file_pattern:
+            # ファイル名パターンでフィルタ
+            import fnmatch
+            documents_iter = iter_help_documents(root)
+            for doc in documents_iter:
+                if fnmatch.fnmatch(doc.source_path.name, file_pattern):
+                    help_docs.append(doc)
+                    if max_files and len(help_docs) >= max_files:
+                        break
+        else:
+            # 通常の読み込み（help_docs=Noneを渡すことで、ingest_help_files内で読み込む）
+            help_docs = None
 
         stats = ingest_help_files(
             root,
@@ -279,6 +306,7 @@ class PropertyGraphRAG(RAGImplementation):
             llm_model=config.llm_model,
             embed_kg_nodes=config.embed_kg_nodes,
             max_files=max_files,
+            help_docs=help_docs,
         )
         logging.info("方式 '%s' のインデックス構築完了: %s", config.name, stats)
 
@@ -292,8 +320,6 @@ class PropertyGraphRAG(RAGImplementation):
         """PropertyGraphIndexで質問を実行"""
         import time
         from llama_index.core.indices.property_graph.base import PropertyGraphIndex
-        from llama_index.core.query_engine import RetrieverQueryEngine
-        from llama_index.core.retrievers import PropertyGraphRetriever
         from llama_index.core.settings import Settings
         from llama_index.graph_stores.neo4j import Neo4jPropertyGraphStore
 
@@ -327,21 +353,17 @@ class PropertyGraphRAG(RAGImplementation):
                     from llama_index.llms.openai import OpenAI
                     llm = OpenAI(model=config.llm_model or os.getenv("OPENAI_MODEL", "gpt-4o-mini"))
 
-                # PropertyGraphIndexを作成
+                # PropertyGraphIndexを作成（既存のグラフストアから読み込む）
+                # 既存のグラフストアから読み込む場合は、空のnodesリストを渡す
                 index = PropertyGraphIndex(
+                    nodes=[],
                     property_graph_store=graph_store,
                     llm=llm,
                     embed_kg_nodes=config.embed_kg_nodes,
                 )
 
-                # QueryEngineを作成
-                retriever = PropertyGraphRetriever(
-                    index=index,
-                    similarity_top_k=top_k,
-                )
-                query_engine = RetrieverQueryEngine.from_args(
-                    retriever=retriever,
-                )
+                # QueryEngineを作成（as_query_engineメソッドを使用）
+                query_engine = index.as_query_engine(similarity_top_k=top_k)
 
                 # 質問を実行
                 response = query_engine.query(question)
@@ -761,10 +783,55 @@ class LangChainNeo4jRAG(RAGImplementation):
         test_files: Optional[Sequence[Path]] = None,
         file_pattern: Optional[str] = None,
     ) -> None:
-        """LangChain + Neo4j Graphは既存のNeo4jデータを使用（構築不要）"""
-        logging.info("方式 '%s' は既存のNeo4jデータを使用します", config.name)
-        # LangChain Neo4jは既存のNeo4jグラフを使用するため、構築処理は不要
-        # 必要に応じて、既存のingest_neo4j.pyを使用してデータを構築
+        """LangChain + Neo4j Graph用にNeo4jデータを構築"""
+        logging.info("方式 '%s' でLangChain + Neo4j Graph用のデータを構築中...", config.name)
+
+        # ドキュメントを読み込み
+        try:
+            from .helpfile_parser import extract_help_document, iter_help_documents
+        except ImportError:
+            from helpfile_parser import extract_help_document, iter_help_documents
+
+        help_docs = []
+        if test_files:
+            # 特定のファイルのみを読み込む
+            for file_path in test_files:
+                if file_path.exists():
+                    help_docs.append(extract_help_document(file_path))
+                else:
+                    # 相対パスの場合、rootからの相対パスとして扱う
+                    full_path = root / file_path if not file_path.is_absolute() else file_path
+                    if full_path.exists():
+                        help_docs.append(extract_help_document(full_path))
+                    else:
+                        logging.warning("ファイルが見つかりません: %s", file_path)
+        elif file_pattern:
+            # ファイル名パターンでフィルタ
+            import fnmatch
+            documents_iter = iter_help_documents(root)
+            for doc in documents_iter:
+                if fnmatch.fnmatch(doc.source_path.name, file_pattern):
+                    help_docs.append(doc)
+                    if max_files and len(help_docs) >= max_files:
+                        break
+        else:
+            # 通常の読み込み（help_docs=Noneを渡すことで、ingest_help_files内で読み込む）
+            help_docs = None
+
+        # ingest_help_filesを使用してNeo4jにデータを構築
+        stats = ingest_help_files(
+            root,
+            chunk_size=config.chunk_size,
+            chunk_overlap=config.chunk_overlap,
+            database=config.database,
+            wipe=wipe,
+            use_llm_extract=config.use_llm_extract,
+            llm_model=config.llm_model,
+            embed_kg_nodes=config.embed_kg_nodes,
+            max_files=max_files,
+            help_docs=help_docs,
+        )
+        logging.info("方式 '%s' のデータ構築完了: %s", config.name, stats)
 
     def query(
         self,

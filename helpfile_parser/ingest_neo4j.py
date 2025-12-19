@@ -346,6 +346,7 @@ def ingest_help_files(
     llm_model: Optional[str] = None,
     export_dir: Optional[Path] = None,
     embed_kg_nodes: bool = True,
+    help_docs: Optional[Sequence[HelpDocument]] = None,
 ) -> IngestStats:
     if chunk_size <= 0:
         raise ValueError("chunk_size は正の整数で指定してください。")
@@ -356,10 +357,14 @@ def ingest_help_files(
     if not root.exists():
         raise FileNotFoundError(f"Directory not found: {root}")
 
-    documents_iter = iter_help_documents(root)
-    if max_files is not None:
-        documents_iter = islice(documents_iter, max_files)
-    help_docs = list(documents_iter)
+    # help_docsが指定されている場合はそれを使用、そうでない場合はrootから読み込む
+    if help_docs is not None:
+        help_docs = list(help_docs)
+    else:
+        documents_iter = iter_help_documents(root)
+        if max_files is not None:
+            documents_iter = islice(documents_iter, max_files)
+        help_docs = list(documents_iter)
     if not help_docs:
         logging.warning("指定ディレクトリにヘルプHTMLファイルが見つかりませんでした: %s", root)
         return IngestStats(0, 0, 0)

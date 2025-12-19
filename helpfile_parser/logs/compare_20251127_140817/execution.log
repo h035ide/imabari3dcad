@@ -1,0 +1,14 @@
+2025-11-27 14:08:17,913 INFO root: 設定を保存しました: C:\Users\akiro\workfolder\imabari3dcad\helpfile_parser\logs\compare_20251127_140817\configs.json
+2025-11-27 14:08:17,913 INFO root: 質問を実行中: データムとは何ですか？
+2025-11-27 14:08:17,913 INFO root: 方式 'property_graph_default' で質問を実行中...
+2025-11-27 14:08:17,931 ERROR root: 処理中にエラーが発生しました: cannot import name 'PropertyGraphRetriever' from 'llama_index.core.retrievers' (C:\Users\akiro\workfolder\imabari3dcad\.venv\lib\site-packages\llama_index\core\retrievers\__init__.py)
+Traceback (most recent call last):
+  File "C:\Users\akiro\workfolder\imabari3dcad\helpfile_parser\rag_comparison.py", line 1722, in main
+    comparison_results = compare_rag_configs(
+  File "C:\Users\akiro\workfolder\imabari3dcad\helpfile_parser\rag_comparison.py", line 1185, in compare_rag_configs
+    result = query_with_config(config, question, top_k=top_k)
+  File "C:\Users\akiro\workfolder\imabari3dcad\helpfile_parser\rag_comparison.py", line 1167, in query_with_config
+    return implementation.query(config, question, top_k=top_k)
+  File "C:\Users\akiro\workfolder\imabari3dcad\helpfile_parser\rag_comparison.py", line 324, in query
+    from llama_index.core.retrievers import PropertyGraphRetriever
+ImportError: cannot import name 'PropertyGraphRetriever' from 'llama_index.core.retrievers' (C:\Users\akiro\workfolder\imabari3dcad\.venv\lib\site-packages\llama_index\core\retrievers\__init__.py)
